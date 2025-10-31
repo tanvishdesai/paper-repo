@@ -1,0 +1,395 @@
+Question_Number,Question_Text,Question_Images,Option_A,Option_A_Images,Option_B,Option_B_Images,Option_C,Option_C_Images,Option_D,Option_D_Images,Correct_Answer,Question_Type,Explanation,Explanation_Images
+1,"Given the programming constructs i) assignment ii) for loops where the loop parameter cannot be changed within the loop iii) if-then-else iv) forward  go to v) arbitrary go to vi) non-recursive procedure call vii) recursive procedure/function call viii) repeat loop, which constructs will you not include in a programming language such that it should be possible to program the terminates (i.e. halting) function in the same programming language.",,"ii), iii), iv)",,"v), vii), viii)",,"vi), vii), viii)",,"iii), v), viii)",,B,MCQ,,
+2,Which of the following actions is/are typically not performed by the operating system when switching context from process A to process B?,,Saving current register values and restoring saved register values for process B.,,Changing address translation tables.,,Swapping out the memory image of process A to the disk.,,Invalidating the translation look-aside buffer.,,C,MCQ,"During context switch processes are not swapped out from memory to disk but processes are generally swapped out from memory to disk when they are suspended. Also, during context switch OS invalidates TLB so that the TLB coincides with the currently executing processes.
+
+So, option (C) is false.",
+3,"Consider the following C function definition. int Trial (int a, int b, int c)
+{
+    if ((a >= b) && (c < b) return b;
+    else if (a>=b) return Trial(a, c, b);
+    else return Trial(b, a, c);
+} The function Trial:",,"finds the maximum of a, b and c",,"finds the minimum of a, b and c",,"finds the middle number of a, b and c",,None of the above,,D,MCQ,"Trial (a,b,c) return the median element of the a, b and c,but not middle element of a , b and c. But if a = b = c, then infinite loop.
+So, Option (D) is correct.",
+4,"If T1 = O(1), give the correct matching for the following pairs: (M) Tn=Tn−1+n           (U) Tn=O(n)
+(N) Tn=Tn/2 +n          (V) Tn=O(nlogn)
+(O) Tn=Tn/2 +nlogn      (W) T=O(n^2)
+(P) Tn=Tn−1 +logn       (X) Tn=O(log^2n)",,M-W N-V O-U P-X,,M-W N-U O-X P-V,,M-V N-W O-X P-U,,M-W N-U O-V P-X,,,MCQ,"(M) T(n) = T(n-1) + n = 1 + 2 + 3 + … + n = O(n^2) — choice is (W)
+
+(N) T(n) = T(n/2) + n = O(n), using master theorem case -3, - choice is (U)
+
+(O) T(n) = T(n/2) + nlogn = O(nlogn), using master theorem case -3, - choice is (v)
+
+(P) T(n) = T(n-1) + logn = log 1 + log 2 + log 3 + … + log n 
+         = log(1*2*3…*n) = log(n!) = nlogn = O(nlogn) - choice is (v) Therefore, none option matches.",
+5,"The minimum number of record movements required to merge five files A (with 10 records), B (with 20 records), C (with 15 records), D (with 5 records) and E (with 25 records) is:",,165,,90,,75,,65,,A,MCQ,"Using optimal merge pattern algorithm arrange files in increasing order of records: D  A   C   B   E
+
+5  10  15  20  25 Now, minimum number of record movements required = sum of internal node's value = 15 + 30 + 45 + 75 = 165
+
+So, option (A) is correct.",https://cdn.geeksforgeeks.org/wp-content/uploads/3333-2.png
+6,A sorting technique is called stable if:,,It takes O(n*log(n)) time,,It maintains the relative order of occurrence of non-distinct elements,,It uses divide and conquer paradigm,,It takes O(n) space,,B,MCQ,The correct option is B it maintains the relative order of occurrence of non-distinct elements A sorting algorithm is called stable if it keeps elements with equal keys in the same relative order in the output as they were in the input.,
+7,Suppose we want to arrange the ii numbers stored in an array such that all negative values occur before all positive ones. Minimum number of exchanges required in the worst case is:,,n-1,,n,,n+1,,None of the above,,D,MCQ,"When we have 'i' numbers stored in an array, we have to swap all positive numbers with negative and in worst case positive numbers will be i/2.",
+8,"If one uses a straight two-way merge sort algorithm to sort the following elements in ascending order 20, 47, 15, 8, 9, 4, 40, 30, 12, 17 then the order of these elements after the second pass of the algorithm is:",,"8, 9, 15, 20, 47, 4, 12, 17, 30, 40",,"8, 15, 20, 47, 4, 9, 30, 40, 12, 17",,"15, 20, 47, 4, 8, 9, 12, 30, 40, 17",,"4, 8, 9, 15, 20, 47, 12, 17, 30, 40",,B,MCQ,In first pass the elements are sorted in n/4 (first 2 elements in each group) sub arrays but in second pass the elements are sorted in n/2 (first 4 elements in each group) sub arrays.,
+9,"Listed below are some operating system abstractions (in the left column) and the hardware components or mechanism (in the right column) that they are abstractions of. Which of the following matching of pairs is correct? A. Thread                      1. Interrupt
+B. Virtual address space       2. Memory
+C. File system                 3. CPU
+D. Signal                      4. Disk",,"A-2, B-4, C-3, D-1",,"A-1, B-2, C-3, D-4",,"A-3, B-2, C-4, D-1",,"A-4, B-1, C-2, D-3",,C,MCQ,Thread is handled by CPU. Virtual address space (it is a set of virtual memory addresses that a process can use) is associated with memory management. File System is used for disk management. Interrupt is a type of signal.,
+10,"Which of the following is/are advantages of virtual memory?
+
+a) Faster access to memory on an average.
+
+b) Processes can be given protected address spaces.
+
+c) Linker can assign addresses independent of where the program will be loaded in physical memory.
+
+d) Programs larger than the physical memory size can be run.",,a and b,,b and c,,b and d,,All of the above,,C,MCQ,"Virtual memory provides an interface through which processes access the physical memory. So, A. Swapping of pages increases time while virtual memory concept is there and it slower the execution as compared to Direct access from physical memory. So, it is false. B. Without virtual memory, it is difficult to give protected address space to processes as they will be accessing physical memory directly. So, it is true C. Some other method can be used to assign addresses independent of where the program. so it is false. D. Virtual memory allows a process to run using a virtual address space which is larger in size then the address of physical memory and pages are swapped in between physical memory and virtual memory when physical memory gets full. So, it is True.
+
+So, statement (b) and (d) are Correct.",
+11,"A multi-user, multi-processing operating system cannot be implemented on hardware that does not support:
+
+a) Address translation
+
+b) DMA for disk transfer
+
+c) At least two modes of CPU execution (privileged and non-privileged).
+
+d) Demand Paging",,Only A,,"Both A, B",,"A, B and C",,"A, B and D",,C,MCQ,"The correct answer would be (a) and (c) as address translation is required in the multi-programming so that no process can go into any other process’s memory. And atleast 2 modes should be present in the CPU execution so that the privileged mode could control the resource allocation of the unprivileged mode users. The DMA and Demand Paging improves the performance of the OS. Hence they are not necessary conditions in a multi-programming. But since (a) and (c) is not answers mentions in the options so the next best option will be (C) containing both (a) and (c) along with (b).
+So, option (C) is correct.",
+12,Consider the following program in a language that has dynamic seeping. var x : real ; procedure show : begin print ( x ); end ; procedure small ; var x : real ; begin x : = 0.125 ; show ; end ; begin x := 0.25 show ; small end . Then the output of the program is:,,0.125 0.125,,0.25 0.25,,0.25 0.125,,0.125 0.25,,C,MCQ,,
+13,System calls are usually invoked by using:,,A software interrupt,,Polling,,An indirect jump,,A privileged instruction,,A,MCQ,,
+14,RAID configurations of disks are used to provide,,Fault-tolerance,,High speed,,High data density,,None of the above,,A,MCQ,,
+15,The number of tokens in the Fortran statement DO 10  I= 1.25 is,,3,,4,,5,,None of above,,C,MCQ,,
+16,The relational algebra expression equivalent to the following tuple calculus expression { t | t ∈ r ∧ (t[A] = 10 ∧ t[B] = 20 } is,http://cdn.geeksforgeeks.org/wp-content/uploads/q5.png,a,,b,,c,,d,,C,MCQ,"In Given relational algebra, Tuple t should have two attributes A=10 and B=20
+In A, we select tuples having A=10 or B=20 so, it is wrong choice.
+In B, we select tuples having A=10 or we can select tuples having B=20, so it is also wrong choice.
+D is also wrong choice.
+In C, we select tuples having A=10 and tuples having B=20, it is same as above relational algebra. Hence, option (C) is Correct.",
+17,"Consider the join of a relation R with a relation S. If K has m tuples and S has n tuples , then the maximum and minimum sizes of the join respectively are:",,m+n and 0,,mn and 0,,m+n and m-n,,mn and m+n,,B,MCQ,When there is no foreign key constraint between two tables then the max and min number of tuples in their join is mn and 0 respectively.,
+18,"Let R = ( A, B, C, D, E, F ) be a relation scheme with the following dependencies:
+
+C→F, E→A, EC→D, A→B. Which of the following is a key of R?",,CD,,EC,,AE,,AC,,B,MCQ,"To check find the closure for all
+{CD} = {CDF}
+{EC} = {ECDAFB}   Only this is the key because it drives all attributes.
+{AE} = {AEB}
+{AC} = {ACBF}
+
+Hence, Option (B) is Correct.",
+19,"Consider the schema R= ( S, T, U, V ) and the dependencies S→T, T→U, U→V and V→S. Let R (R1 and R2) be a decomposition such that R1∩R2 ≠ Ø. The decomposition is:",,Not in 2NF,,In 2NF but not in 3NF,,In 3NF but not in 2NF,,In both 2NF and 3NF,,D,MCQ,"R1∩R2 ≠ Ø means there is common attribute in R1 and R2.
+
+Now if we choose a decomposition positively then we can choose something like R1(S, T, U) and R2(U, V) then we can say that decomposition is lossless because common attribute is U and LHS of every FDs are candidate key, therefore it is in 2NF as well as 3NF.
+
+Option (D) is correct.",
+20,Which of the following is/are correct?,,An SQL query automatically eliminates the duplicates,,An SQL query will not work if there are no indexes on the relations,,SQL permits attribute names to be repeated in the same relation,,None of the above,,D,MCQ,"An SQL does not remove duplicates like relational algebra projection, we have to remove it using distinct.
+An SQL will work slowly but surely if there are no indexes.
+An SQL does not permit 2 attributes of same name in a relation.
+
+So, none of the options (a), (b) and (c) are correct. Hence, option (d) is Answer.",
+21,"For the schedule given below, which of the following is Correct? 1   Read A
+2                               Read B
+3   Write A
+4                               Read A
+5                               Write A
+6                               Write B
+7   Read B
+8   Write B",,This schedule is serialisable and can occur in a scheme using 2PL protocol.,,This schedule is serialisable  but cannot occur in a scheme using 2PL protocol.,,This schedule is not serialisable but can occur in a scheme using 2PL protocol.,,This schedule is not serialisable and cannot occur in a scheme using 2PL protocol.,,D,MCQ,"Initial read  of data item A  is done by T1  whereas final write of data item B os done by T1. therefore W1( A) , R2( A) and W2(B) , R1(B ) are conflicting pairs. The schedule is neither T1 –> T2   nor  T2 –> T1 serializable. Since schedule is not serializable , it can not occur in scheme using 2PL protocol . 
+
+Option (D) is correct.",
+22,"Consider two events E1 and E2 such that probability of E1, Pr[E1]=1/2 , probability of E2, Pr[E2]=1/3 , and probability of E1 and E2, Pr[E1 and E2]=1/5 , Which of the following statement is/are True?",,Pr[E1 and E2] is 2/3,,Events E1 and E2 are independent.,,Events E1 and E2 are not independent.,,Pr[E1/E2]= 4/5,,C,MCQ,"Given-[Tex]P(E1) = \\frac{1}{2}[/Tex]
+[Tex]P(E2) = \\frac{1}{3}[/Tex]
+[Tex]P(E1 \\cap E2) = \\frac{1}{5}[/Tex]
+Therefore, [Tex]P(E1 \\cup E2) = \\frac{1}{2} + \\frac{1}{3} - \\frac{1}{5} = \\frac{19}{30}[/Tex]
+[Tex]P(E1|E2) = \\frac{1/5}{1/3} = \\frac{3}{5}[/Tex]
+A option is wrong, since it is given in the question.
+B option is wrong since [Tex]P(E1|E2)[/Tex] is not equal to [Tex]P(E1 \\cap E2)[/Tex]
+D option is wrong since [Tex]P(E1|E2) = \\frac{3}{5}[/Tex]
+Therefore C option is correct.",
+23,Suppose that the expectation of a random variable X is 5. Which of the following statement is True?,,There is a simple point at which X has  the value 5.,,There is a simple point at which X has value greater than 5.,,There is a simple point at which X has a value greater than or equal to 5.,,None of the above.,,C,MCQ,"[Tex]E(X)=\\int \\limits_{-\\infty}^{\\infty} xf(x)\\:dx[/Tex]
+The first option is wrong since the Expected value need not be present in the data.
+The second option is wrong since in the event where every value in the data is the same, the expected value is the same as every value. So, In this case, there is no value which is greater than the expected value.
+The third option is correct, Since there must be some value which is either equal to or greater than the expected value. This is because it is impossible to have all the values less than the expected value as it is analogous to the mean. And the mean value is never greater than all the values of the data.",
+24,"Let L be a set with relation R which is transitive, anti-symmetric and reflexive and for any two elements a,b ∈ L let the least upper bound lub(a,b) and greatest lower bound glb(a,b) exist. Which of the following is/are true?
+
+a.  L is a poset.
+
+b.  L is a boolean algebra.
+
+c.  L is a lattice.
+
+d.  None of the above.",,"a, b",,"a, c",,only c,,only b,,B,MCQ,"A is true since By definition, a Relation is said to be a POSET if it is reflexive, transitive and anti-symmetric.
+C is true since by definition, a POSET is a lattice if every pair of elements has a greatest lower bound and a least upper bound.",
+25,The number of binary relations on a set with n elements is:,,n²,,2 n,,2 n^2,,None of the above,,C,MCQ,,
+26,"[5 Marks question] Mr. X claims the following:
+If a relation R is both symmetric and transitive, then R is reflexive. For this, Mr. X offers the following proof-
+""From xRy, using symmetry we get yRy. Now because R is transitive, xRy and yRy together imply xRx. Therefore, R is reflexive.""
+Briefly point out the flaw in Mr. X's proof. Give an example of relation R which is symmetric and transitive but not reflexive.",,,,,,,,,,,MCQ,,
+27,"Zero has two representations in:
+
+a) Sign magnitude
+
+b) 1's complement
+
+c) 2's complement
+
+d) None of the above",,Only a,,a and b,,a and c,,"a, b and c",,B,MCQ,"Zero has two representation in sign's magnitude:
+1 - MSB is 0
+2 - MSB is 1 
+Both of these representation have equal value that is 0.
+Also zero have two representation in 1's compliments:
+1 - All bits are Zero.
+2 - All bits are 1
+So, option (B) is correct.",
+28,The number of fill and half-address required to add 16-bit number is:,,"8 half-adders, 8 full-adders",,"1 half-adder, 15 full-adders",,"16 half-adders, 0 full-adders",,"4 half-adders, 12 full-adders",,B,MCQ,,
+29,The maximum gate delay for any output to appear in an array multiplier for multiplying two n bit number is:,,O(n^2),,O(n),,O(log n),,O(1),,B,MCQ,,
+30,Booth's coding in 8-bits for the decimal number -57 is:,,0-100+1000,,0-100+100-1,,0-1+100-10+1,,00-10+100-1,,B,MCQ,,
+31,"Consider the circuit shown below . In a certain steady state, the line Y is at ' 1 '. What are the possible values of A, B and C in this state? a). A=0, B=0, C=1  b). A=0, B=1, C=1  c). A=1, B=0, C=1  d). A=1, B=1, C=1",http://cdn.geeksforgeeks.org/wp-content/uploads/q33-300x197.png,b only,,Both a and b,,Both a and c,,"a, c and d",,D,MCQ,"Since f = 1,  2nd level AND gate must give 1 as a result for which C has to be 1 along with the lower first level NAND gate.  Thus, C = 1 is compulsory  Now NAND is 1 when any of the inputs are zero.  Let G be the NAND gate with input A and H be the NAND with input B.  Since, C =1 and H = 1 is needed so clearly we have following possibilities : B = 0 , G = 1  ………(1) B = 0 , G = 0  ………(2) B = 1,  G = 0  ……….(3) Since G is also a NAND gate and f = 1 G = 1 means A = 0 and G = 0 means A = 1 using these in (1),(2) and (3) : A = 0 , B = 0 , C = 1 A = 1 , B = 0 , C = 1 A = 1,  B = 1 , C = 1 Option (D) is correct.",
+32,"Which of the following sets of component(s) is/are sufficient to implement any arbitrary boolean function?  a) XOR gates, NOT gates  b) 2 to 1 multiplexers  c)  AND gates, XOR gates  d) Three-input gates that output (A.B)+C for the inputs A, B and C.",,a and d,,b and c,,c only,,All of above,,B,MCQ,Refer: ISRO CS 2017 | Question 76 Option (B) is correct.,
+33,Which of the following expressions is not equivalent to X‾  ?,,x NAND x,,x NOR x,,x NAND 1,,x NOR 1,,D,MCQ,,
+34,Which of the following function implements the Karnaugh map shown below?,http://cdn.geeksforgeeks.org/wp-content/uploads/q3-1-258x300.png,a,,b,,c,,d,,B,MCQ,,
+35,Consider the regular expression (0+1)(0+1)... n times. The minimum state finite automaton that recognizes the language represented by this regular expression contains:,,n states,,n+1 states,,n+2 states,,None of the above,,B,MCQ,,
+36,"[5 Marks question]
+
+a.  Given that A is regular and A∪B is regular, does it follow that B is necessarily regular? Justify your answer.
+
+b.  Given two finite automata M1, M2, outline an algorithm to decide if L(M1)⊆L(M2).    (note: strict subset)",,,,,,,,,,,MCQ,,
+37,Let L D be the set of all languages accepted by a PDA by final state and L F the set of all languages accepted by empty stack. Which of the following is true?,http://cdn.geeksforgeeks.org/wp-content/uploads/q2-1.png,a,,b,,c,,d,,A,MCQ,,
+38,Context free languages are closed under-,,"Union, Intersection",,"Union, Kleene closure",,"Intersection, Complement",,"Complement, Kleene closure",,B,MCQ,"Context free language s are closed under: Union, Concatenation and Kleene closure but not in Intersection and Complement.
+
+
+Option (B) is correct.",
+39,"[5 Marks question]
+
+Show that the language L = { xcx | x∈ {0,1}* and c is a terminal symbol } is not context free, c is not 0 or 1.",,,,,,,,,,,MCQ,,
+40,"If L1 is a context free language and L2 as a regular language, which of the following is/are False?
+
+a.  L1-L2 is not context free
+
+b.  L1 ∩ L2 is context free
+
+c.  ~L1 is context free
+
+d.  ~L2 is regular",,Only b,,Only c,,Both a and c,,Both b and c,,C,MCQ,"Given L1 is a context free language and L2 as a regular language then L1-L2 is context free language and ~L1(complement of context free) is not context free because context free is not closed under complement. 
+
+Complement of regular language i.e. ~L2 is also regular ( so d is correct ) since statements a and c are false. 
+
+Option (C) is correct.",
+41,The Newton-Raphson method is to be used to find the root of the equation f(x)=0 where x 0 is the initial approximation and f ' is the derivative of f. The method converges:,,Always,,Only if  f is a polynomial,,Only if f(x0) <0,,None of the above,,D,MCQ,,
+42,The number of articulation point of the following graph is:,http://cdn.geeksforgeeks.org/wp-content/uploads/q4-300x139.jpg,0,,1,,2,,3,,D,MCQ,"An articulation point is a vertex whose removal makes the graph disconnected.
+There are three articulation points in the given graph, they are vertices- 2, 3, and 5
+If any one of the above nodes is removed from the graph then the graph becomes disconnected.",
+43,The number of binary strings of n zeros and k ones such that no two ones are adjacent is: a) n-1 C k b) n C k c) n C k+1 d) None of the above,,a,,b,,c,,d,,D,MCQ,"There are n zeros placed :  _0_0_0_....._0_  So, (n+1) gaps. Now we can place k 1's in those place n+1 C k ways.   Option (D) is correct.",
+44,"Two girls have picked 10 roses, 15 sunflowers and 14 daffodils. What is the number of ways they can divide the flowers amongst  themselves?",,1638,,2100,,2640,,None of the above,,C,MCQ,"Assume the two girls only have 10 roses. They can share these in (11 choose 1) = 11 C 1 = 11 ways.
+Similarly, they can share 15 sunflowers and 14 daffodils in 
+(15 choose 1) = 15 C 1 = 16 ways
+(14 choose 1) = 14 C 1 = 15 ways
+So, they can share all the flowers in 11 * 16 * 15 = 2640 ways 
+So, option (C) is correct.",
+45,"The main memory of a computer has 2 cm blocks while the cache has 2c blocks. If the cache uses the set associative mapping scheme with 2 blocks per set, then the block k of main memory maps to the set:",,(k mod m) of the cache,,(k mod c) of the cache,,(k mod 2c) of the cache,,(k mod 2cm) of the cache,,B,MCQ,"Given,Main memory = 2 C M blocksCache Size = 2 C blocksSet Associative Mapping is 2-way set associative. Therefore Number of lines per set = 2 {i.e., Set size}.Number of sets, = Cache size / Set size
+= 2 C / 2 Number of sets = C in the cache.
+
+kth  block of the main memory maps to (K mod C)th  set of the main memory . i = k modulo c
+where
+i = cache set number
+k = main memory block number
+c = number of sets in the cache This solution is contributed by VIVEK YEMUL .",
+46,"A certain processor supports only the immediate and the direct addressing modes. Which of the following programming language features cannot be implemented on this processor?
+a) Pointers
+b) Arrays
+c) Records
+d) Recursive procedures with local variables",,Only a,,a and b,,c and d,,"a, b, c and d",,D,MCQ,,
+47,"Arrange the following configurations for CPU in decreasing order of operating speeds; Hardwired Control, vertical microprogramming, horizontal microprogramming",,"Hardwired control, Vertical microprogramming, Horizontal microprogramming.",,"Hardwired control, Horizontal microprogramming, Vertical microprogramming.",,"Horizontal microprogramming, Vertical microprogramming, Hardwired control.",,"Vertical microprogramming, Horizontal microprogramming, Hardwired control.",,B,MCQ,"Hard wired control involves only hardware, whereas microprogramming is software approach. So, hardwire control should be faster than both microprogramming approaches. Between vertical and horizontal microprogramming. Horizontal is faster because in this control signals are not encoded whereas in vertical microprogramming to save memory signals are encoded. So, it takes less time in horizontal microprogramming because decoding of signals is not required. Therefore, final order is : hard wired control > horizontal microprogramming > vertical microprogramming",
+48,"The main difference(s) between a CISC and a RISC processor is/are that a USC processor typically:
+a) has fewer instructions
+b) has fewer addressing modes
+c) has more registers
+d) is easier to implement using hardwired control logic",,a and b,,b and c,,a and d,,"a, b, c and d",,D,MCQ,,
+49,Which of the following disk strategies is likely to give the best throughput?,,Farthest cylinder next,,Nearest cylinder next,,First come first served,,Elevator algorithm,,B,MCQ,"Nearest cylinder next is also known as shortest seek time first and in this algorithm many pages can be accessed in less amount of time. 
+
+So throughput will be high so this is optimal algorithm.
+
+Option (B) is correct.",
+50,"[5 Marks question]
+a.  In a binary tree, a nil node is defined to be a node with 2 children. Use induction on the height of the binary tree to prove that the number of full nodes plus one is equal to the number of leaves.
+
+b.  Draw a min-heap that results from insertion of the following elements in order into an initially empty min-heap: 7, 6, 5, 4, 2, 3, 1. Show the result after the deletion of the root of  this heap.",,,,,,,,,,,MCQ,,
+51,"[5 Marks question]
+
+Consider the set of relations EMP(Employee-no, Dept-no, Employee-name, Salary)
+DEPT(Dept-no, Dept-name, Location) Write an SQL query to:
+a. Find all employee names who work in departments located at ""Calcutta"" and whose salary is greater than Rs. 50,000.
+b. Calculate, for each department number, the number of employees with a salary greater than Rs. 100,000.",,,,,,,,,,,MCQ,,
+52,"[5 Marks question]
+
+Consider a B-tree with degree m, that is, the number of children, c, of any internal node (except the root) is such that m≤c≤2m-1 . Derive the maximum and minimum number of records in the leaf nodes for such a B-tree with height h, h≥1. (Assume that the root of a tree is at height 0.)",,,,,,,,,,,MCQ,,
+53,"[5 Marks question]
+
+a. A certain processor provides a 'test and set' instruction that is used as follows: TEST register, flag This instruction atomically copies flag to register and sets flag to 1. Give pseudo-code for implementing the entry and exit code to a critical region using this instruction.
+
+b. Consider the following solution to the producer-consumer problem using a buffer of size 1. Assume that the initial value of count is 0. Also assume that the testing of count and assignment to count are atomic operations. Producer:      
+   Repeat 
+       Produce an item;
+       if count = 1 then sleep;
+       place item in buffer.
+       count = 1;
+       Wakeup(Consumer);
+  Forever 
+
+Consumer:
+  Repeat
+      if count = 0 then sleep;
+      Remove item from buffer;
+      count = 0;
+      Wakeup(Producer);
+      Consume item;
+  Forever; Show that in this solution it is possible that both the processes are sleeping at the same time.",,,,,,,,,,,MCQ,,
+54,"[5 Marks question]
+
+A certain computer system has the segmented paging architecture for virtual memory. The memory is byte addressable. Both virtual and physical address spaces contain 216 bytes each. The virtual address space is divided into 8 non-overlapping equal size segments. The memory management unit (MMU) has a hardware segment table, each entry of which contains the physical address of the page table for the segments. Page tables are stored in the main memory and consists of 2 byte page table entries.
+
+a. What is the minimum page size in bytes so that the page table for a segment requires at most one page to store it? Assume that the page size can only be a power of 2.
+
+b. Now suppose that the pages size is 512 bytes. It is proposed to provide a TLB (Transaction look-aside buffer) for speeding up address translation. The proposed TLB will be capable of storing page table entries for 16 recently referenced virtual pages, in a fast cache that will use the direct mapping scheme. What is the number of tag bits that will need to be associated with each cache entry?
+
+c. Assume that each page table entry contains (besides other information) 1 valid bit, 3 bits for page protection and 1 dirty bit. How many bits are available in page table entry for storing the aging information for the page? Assume that the page size is 512 bytes.",,,,,,,,,,,MCQ,,
+55,"[5 Marks question]
+
+Design a 2K x 8 (2048 locations, each 8 bit wide) memory system mapped at addresses (1000) 16 to (17FF) 16 for the 8085 processor using four 1K x 4 memory chips. Each of these chips has the following signal pins:",http://cdn.geeksforgeeks.org/wp-content/uploads/q20.png,,,,,,,,,,MCQ,,
+56,"[5 Marks question]
+Consider the following program fragment in the assembly language of a certain hypothetical processor. The processor has three general purpose registers R1, R2 and R3. The meanings of the instructions are shown by comments (starting with ; ) after the instructions. X:  CMP R1, 0   ;Compare R1 and 0, set flags appropriately in status register
+    JZ  Z       ;Jump if zero to target Z
+    MOV R2, R1  ;Copy contents of R1 to R2
+    SHR R1      ;Shift right R1 by 1 bit
+    SHL R1      ;Shift left R1 by 1 bit
+    CMP R2, R1  ;Compare R2 and R1 and set flag in status register
+    JZ  Y       ;Jump if zero to target Y
+    INC R3      ;Increment R3 by 1;
+Y:  SHR R1      ;Shift right R1 by 1 bit
+    JMP X       ;Jump to target X
+Z:... a. Initially R1, R2 and R3 contain the value 5, 0 and 0 respectively. What are the final values of R1 and R3 when control reaches Z?
+b. In general, if R1, R2 and R3 initially contain the values n, 0 and 0 respectively. What is the final value of R3 when control reaches Z?",,,,,,,,,,,MCQ,,
+57,"[5 Marks question]
+Consider the following pascal program skeleton: program sort(...);
+      var a,x,...;
+      procedure readarray;
+       var i,....;
+       begin
+                        ...:=a...
+       end;
+     procedure exchange(...);
+       begin
+                         ...:=a...
+                         ...:=x...
+       end;http://cdn.geeksforgeeks.org/wp-admin/profile.php
+     procedure qsort(...);
+       var k,v,...;
+       function partition (...)...;
+                var i,j,...;
+                begin
+                         ...:=a...
+                         ...:=v...
+                end;
+        begin
+            .
+            .
+        end;
+   begin
+        .
+        .
+   end; Assume that at a given point in time during program execution, following procedures are active: sort, qsort(1,9), qsort(1.3), partition(1,3), exchange(1,3). 
+Show snapshots of the runtime stack with access links after each of the activations.",,,,,,,,,,,MCQ,,
+58,"[5 Marks question]
+
+What will be the output of the following program assuming that parameter passing is
+
+(i) call by value
+
+(ii) call by reference
+
+(iii) call by copy restore procedure P{x, y, z};
+    begin y:y+1; z: x+x end; 
+begin
+    a:= b:= 3;
+    P(a+b, a, a);
+    Print(a) 
+end.",,,,,,,,,,,MCQ,,
+59,"[5 Marks question]
+
+a.  Show that the formula [(~p ∨ q) ⇒ (q⇒ p)] is not a tautology.
+
+b.  Let A be a tautology and B be any other formula. Prove that (A ∨ B) is a tautology.",,,,,,,,,,,MCQ,,
+60,"[5 Marks question]
+
+An instruction pipeline consists of 4 stages: Fetch(F), Decode operand field (D), Execute (E), and Result-Write (W). The five instructions in a certain instruction sequence need these stages for the different number of clock cycles as shown by the table below.
+
+No. of cycles needed for Find the number of clock cycles needed to perform the 5 instructions.",http://cdn.geeksforgeeks.org/wp-content/uploads/Untitled-1-300x98.png,,,,,,,,,,MCQ,,
+61,"[5 Marks question]
+
+a.  Consider the following algorithm. Assume procedure A and procedure B take O(1) and O(1/n) unit of time respectively. Derive the time complexity of the algorithm in O-notation. algorithm what (n)      
+begin 
+    if n = 1 then call A 
+    else 
+        begin
+            what (n-1);
+            call B(n)
+        end
+end. b.  Write a constant time algorithm to insert a node with data D just before the node with address p of a singly linked list.",,,,,,,,,,,MCQ,,
+62,"[5 Marks question]
+
+Suppose we have a function HALTS which when applied to any arbitrary function f and its arguments will say TRUE if function f terminates for those arguments  and FALSE otherwise. Example, Given the following function definition. FACTORIAL (N) = IF(N=0) THEN 1 ELSE N*FACTORIAL (N-1)
+Then HALTS(FACTORIAL 4)= TRUE and HATS(FACTORIAL -5)=FLASE
+
+Let us define the function FUNNY( f ) = IF HALTS( ff ) THEN not( ff ) ELSE TRUE a.  Show that FUNNY terminates for all functions f b.  Use (a) to prove (by contradiction) that it is not possible to have a function like HALTS which for arbitrary functions and inputs says whether it will         terminate on that input or not.",,,,,,,,,,,MCQ,,
+63,"[5 Marks question]
+
+Let A be an n*n matrix such that the elements in each row and each column are arranged in ascending order. Draw a decision tree which finds 1st, 2nd and 3rd smallest elements in minimum number of comparisons.",,,,,,,,,,,MCQ,,
+64,"If n is a power of 2, then the minimum number of multiplications needed to compute a n is:",,log2n,,√n,,n-1,,n,,A,MCQ,,
+65,"[5 Marks question]
+
+Let G be a connected, undirected graph. A cut in G is a set of edges whose removal results in 0 being broken into two or more components which are not connected with each other. The size of a cut is called its cardinality. A men-cut of G is a cut in G of minimum cardinality. Consider the following graph. a.  Which of the following sets of edges is a cut?
+
+(i) {(A,B), (E,F), (B,D), (A,E), (A,D)}
+
+(ii)  {(B,D), (C,F), (A,B)}
+
+b.  What is the cardinality of a min-cut in the graph?
+
+c.  Prove that if a connected undirected graph G with n vertices has a min-cut of cardinality K, then G has atleast  (nk/2) edges.",http://cdn.geeksforgeeks.org/wp-content/uploads/q55-300x185.jpg,,,,,,,,,,MCQ,,
+66,"[5 Marks question]
+
+Let G be a finite group and H be a subgroup of G . For a∈G , define  aH= { ah | h∈H }
+
+a.  Show that |aH| - |H|
+
+b.  Show that for every pair of elements a, b ∈ G, either aH=bH or aH and bH are disjoint.
+
+c.  Use the above to argue that the order of H must divide the order of G.",,,,,,,,,,,MCQ,,
+67,Which of the following is the most powerful parsing method?,,LL(1),,Canonical LR,,SLR,,LALR,,B,MCQ,"Canonical LR is the most powerful parser as compared to other LR parsers. 
+
+Order: LR(0) < SLR < LALR < CLR .
+
+SLR parser is a type of LR parser with small parse tables and a relatively simple parser generator algorithm.
+Canonical LR parser or LR(1) parser is an LR(k) parser for k=1, i.e., with a single lookahead terminal. It can handle all deterministic context-free languages.
+
+LALR parser or Look-Ahead LR parser is a simplified version of a canonical LR parser.
+
+
+Option (B) is correct.",
+68,Which of the following is correct?,,B-trees are for storing data on disk and B+ trees are for main memory.,,Range queries are faster on B+ trees.,,B-trees are for primary indexes and B+ trees are for secondary indexes.,,The height of a B+ tree is independent of the number of records.,,B,MCQ,"Option (A) is False because  both  B-trees  and B+ trees are for storing data on disk
+
+Option (B) is True because  By searching leaf level linearly in B+ tree, we can say a node is present or not in B+ tree. But for B tree we have to traverse the whole tree and Most of the database system use indexes built on some form of a B+ tree  due to its many advantages, in particular its support for range queries. Leaf nodes are linked together in B+ tree. Hence range queries are faster.
+
+Option (C) is False because B tree and B+ tree uses for dynamic multilevel indexes not for primary or secondary index.
+
+Option (D) is False because Height depends on number of record as well as max no of keys in each node (i.e. order of tree) .",
+69,The least number of temporary variables required to create a three-address code in static single assignment form for the expression a=b * d - c + b * e - c is ______,,3,,4,,5,,6,,B,MCQ,"a=b * d - c + b * e - c
+t1 = b * d
+t2 = b * e
+t3 = t1 + t2
+t4 = t3 -c
+a= t4 -c Total temp variables = 4 So, option (B) is correct. Refer - Static Single Assignment",
+70,A grammar that is both left and right recursive for a non-terminal is,,Ambiguous,,Unambiguous,,Information is not sufficient to decide whether it is ambiguous or Unambiguous.,,None of the above,,C,MCQ,"Suppose we have  grammar like this : S → n
+B → BbB Here we see that  grammar is left as well as right recursive but still it is unambiguous grammar because A is useless production but it is still part of grammar.
+So we can say that  a grammar having both left as well as right recursion may or may not be ambiguous .
+
+Lets understand with another example as we have grammar like this  A→AA  using this grammar we can not produce any string in finite steps as language of this grammar is empty set {}.
+Hence, we finally get conclusion as if  grammar is having both left as well as  right recursion, then grammar may or may not be ambiguous.
+
+Option (C) is correct.",

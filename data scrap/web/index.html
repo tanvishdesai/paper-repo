@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GATE Questions Viewer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- PapaParse for robust CSV parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>GATE Questions Viewer</h1>
+      <div class="controls">
+        <label for="yearSelect">Year:</label>
+        <select id="yearSelect" aria-label="Select year"></select>
+        <button id="loadBtn" type="button">Load</button>
+        <span id="status" class="status" role="status" aria-live="polite"></span>
+      </div>
+    </header>
+
+    <main id="content" class="content"></main>
+
+    <template id="question-template">
+      <article class="question">
+        <div class="q-header">
+          <div class="q-num"></div>
+          <div class="q-type"></div>
+        </div>
+        <div class="q-text"></div>
+        <div class="q-images"></div>
+        <ul class="options"></ul>
+        <div class="explain">
+          <button class="toggle-exp" type="button" aria-expanded="false">Show explanation</button>
+          <div class="exp-body" hidden>
+            <div class="exp-text"></div>
+            <div class="exp-images"></div>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
+
+

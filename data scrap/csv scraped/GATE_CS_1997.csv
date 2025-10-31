@@ -1,0 +1,342 @@
+Question_Number,Question_Text,Question_Images,Option_A,Option_A_Images,Option_B,Option_B_Images,Option_C,Option_C_Images,Option_D,Option_D_Images,Correct_Answer,Question_Type,Explanation,Explanation_Images
+1,"A concurrent system consists of 3 processes using a shared resource R in a non-preemptible and mutually exclusive manner. The processes have unique priorities in the range 1.....3, 3 being the highest priority. It is required to synchronize the processes such that the resource is always allocated to the highest priority requester. The pseudo code for the system is as follows. Shared Data mutex:semaphore = 1:/* initialized to 1*/
+process[3]:semaphore = 0; /*all initialized to 0 */
+R_requested [3]:boolean = false; /*all initialized to false */
+busy: boolean = false; /*initialized to false */ Code for processes begin process
+my-priority:integer;
+my-priority:=____; /*in the range 1...3*/
+repeat
+    request_R(my-priority);
+    P (proceed [my-priority]);
+    {use shared resource R}
+    release_R (my-priority);
+forever
+end process; Procedures procedure request_R(priority);
+P(mutex);
+if busy = true then
+    R_requested [priority]:=true;
+else
+ begin
+    V(proceed [priority]);
+    busy:=true;
+ end
+V(mutex); Give the pseudo code for the procedure release_R .",,,,,,,,,,,MCQ,,
+2,"A priority queue Q is used to implement a stack S that stores characters. PUSH(C) is implemented as INSERT(Q, C, K) where K is an appropriate integer key chosen by the implementation. POP is implemented as DELETEMIN(Q). For a sequence of operations, the keys chosen are in",,Non-increasing order,,Non-decreasing order,,strictly increasing order,,strictly decreasing order,,D,MCQ,"We are implementing a STACK using Priority Queue. Note that Stack implementation is always last in first out (LIFO) order. As given ""POP is implemented as DELETEMIN(Q)"" that means Stack returns minimum element always. So, we need to implement PUSH(C) using INSERT(Q, C, K) where K is key chosen from strictly-decreasing order (only this order will ensure stack will return minimum element when we POP an element). That will satisfy Last In First Out (LIFO) property of stack. That is answer, option (D) is true. Option (A) non-increasing order can not be true because two same (identical) numbers can not have same priority as priority should be distinguishable for each number.",
+3,"[5-Marks question]
+
+Consider a graph whose vertices are points in the plane with integer co-ordinates (x,y) such that 1≤x≤n and 1≤y≤n , where n≥2 is an integer. Two vertices (x1,y1) and (x2,y2) are adjacent iff ∣ x1−x2 ∣ ≤ 1 and ∣ y1–y2 ∣ ≤1. The weight of an edge {(x1,y1),(x2,y2)} is √ (x1–x2) 2 +(y1–y2) 2 a.  What is the weight of a minimum weight-spanning tree in this graph? Write only the answer without any explanations.
+b.  What is the weight of a maximum weight-spanning tree in this graph? Write only the answer without any explanations.",,,,,,,,,,,MCQ,,
+4,"The correct matching for the following pairs is (A) All pairs shortest path          (1) Greedy
+(B) Quick Sort                       (2) Depth-First search
+(C) Minimum weight spanning tree     (3) Dynamic Programming
+(D) Connected Components             (4) Divide and and Conquer Codes: A    B    C    D a 2    4    1    3 b 3    4    1    2 c 3    4    2    1 d 4    1    2    3",,a,,b,,c,,d,,B,MCQ,,
+5,"An array A contains n≥1 positive integers in the locations A[1], A[2],... A[n]. The following program fragment prints the length of a shortest sequence of consecutive elements of A, A[i], A[i+1],...A[j] such that the sum of their values is ≥M , a given positive number. It prints ‘ n+1 ’ if no such sequence exists. Complete the program by filling in the boxes. In each case use the simplest possible expression. Write only the line number and the contents of the box.",http://cdn.geeksforgeeks.org/wp-content/uploads/ccc.png,,,,,,,,,,MCQ,,
+6,Locality of reference implies that the page reference being made by a process,,will always be to the page used in the previous page reference,,is likely to be to one of the pages used in the last few page references,,will always be to one of the pages existing in memory,,will always lead to a page fault,,B,MCQ,,
+7,Thrashing,,reduces page I/O,,decreases the degree of multiprogramming,,implies excessive page I/O,,improves the system performance,,C,MCQ,Please see https://www.geeksforgeeks.org/operating-system-techniques-handle-thrashing/,
+8,Dirty bit for a page in a page table,,helps avoid unnecessary writes on a paging device,,helps maintain LRU information,,allows only read on a page,,none of the above,,A,MCQ,"Dirty bit is used whenever a page has been modifying and we are trying to replace it and then this has to be written back so whether to do write-back or leave it dirty bit is required so dirty bit used for write-back. Hence, Dirty bit for a page in a page table helps avoid unnecessary writes on a paging device",
+9,"[5-Marks question]
+
+Let L = {a 1 ,  a 2 , .........., a n } n ≥ 0 be a list whose Pascal representation is type list = record
+next:↑ list; val: integer   end The following function returns a list in which a 2i and a 2i-1 , 1 ≤ i ≤ [n/2] are interchanged. Complete the function by filling the boxes. Write the line number and the content of the box in your answer sheet.",http://cdn.geeksforgeeks.org/wp-content/uploads/aa.png,,,,,,,,,,MCQ,,
+10,"[5-Marks question]
+
+Consider the following program in Pseudo-Pascal syntax. program what:
+    var z: integer
+    procedure recur(x):
+    begin if x <= 40 then
+        begin x:x+z
+            recur(x);
+            z:=x+10
+        end
+    end(*recur*)
+begin(*what*)
+    z=10;
+    recur(z);
+    writeln(z)
+end a. Suppose the parameter to the procedure ‘recur’ is passed by value.
+i. What value is printed by program?
+ii. How many times is ‘recur’ called?
+b. What value is printed by the program if the parameter is passed by reference?",,,,,,,,,,,MCQ,,
+11,Heap allocation is required for languages,,that support recursion,,that support dynamic data structures,,that use dynamic scope rules,,none of the above,,B,MCQ,"Heap allocation is required for languages that need to dynamically allocate memory at runtime. This is often necessary for managing data structures whose size cannot be determined at compile time, or for objects that need to persist beyond the lifetime of a function call. Here are a few scenarios and reasons why heap allocation is necessary: Dynamic Data Structures: Languages that support dynamic data structures such as linked lists, trees, and graphs often require heap allocation. These structures need to grow and shrink during the program's execution, and their sizes are not known beforehand.",
+12,"A program P reads and processes 1000 consecutive records from a sequential file F stored on device D without using any file system facilities. Given the following Size of each record = 3200 bytes
+Access time of D = 10 msecs
+Data transfer rate of D = 800 × 10 3 bytes/second
+CPU time to process each record = 3 msecs What is the elapsed time of P if
+a). F contains unblocked records and P does not use buffering?
+b). F contains unblocked records and P uses one buffer (i.e., it always reads ahead into the buffer)?
+c). records of F are organized using a blocking factor of 2 (i.e., each block on D contains two records of F) and P uses one buffer?
+
+You may assume that the CPU time needed to transfer a record from a buffer to a local variable of P is negligible.",,,,,,,,,,,MCQ,,
+13,I/O redirection,,implies changing the name of a file,,can be employed to use an existing file as input file for a program,,implies connecting two programs through a pipe,,none of the above,,B,MCQ,I/O redirection can be employed to use an existing file as input file for a program.,
+14,"Consider the following program fragment in Pascal: Program Main;
+    var X : integer;
+    procedure A:
+       var Y : integer;
+    procedure B:
+       var Z : integer;
+    procedure C:
+       var Z : integer;
+    begin(*Procedure C*)
+    .
+    .
+    end(*Procedure C*)
+ begin(*Procedure B*)
+    .
+    .
+ C; (*call to C*)
+ A; (*call to A*)
+        .
+        .
+
+ end(*Procedure B*)
+ begin(*Procedure A*)
+        .
+        .
+        B; (*call to B*)
+        .
+        .
+  end(*Procedure A*)
+begin (*Main*) Assume that there are no calls to any procedures other than the ones indicated above. It is known that at some point of time during the execution of this program five activation records exist on the run-time stack. Describe the run-time stack at this point of time by clearly indicating the following: the top of the stack, the contents of the static link and dynamic link, and allocation of the local variables in each record.",,,,,,,,,,,MCQ,,
+15,"A language L is a subset of Pascal with the following constructs:
+
+a). Expressions involving the operators '+' and '<' only
+b). Assignment statements
+c). 'while' statements and
+d). Compound statements with the syntax 'begin..............end'
+
+Give an unambiguous grammar for L.",,,,,,,,,,,MCQ,,
+16,"Consider the following function Function F (n, m: integer): integer;
+begin
+    If (n<=0) or (m<=0) then F:=1
+    else
+      F:= F(n-1,m) + F(n, m-1);
+    end; Use the recurrence relation to answer the following question. Assume that n, m are positive integers. Write only the answers without any explanation.
+a. What is the value of F(n,2)?
+b. What is the value of (n,m)?
+c. How many recursive calls are made to the function F, including the original call, when evaluating F(n,m).",http://cdn.geeksforgeeks.org/wp-content/uploads/asdf.png,,,,,,,,,,MCQ,,
+17,"Let T(n) be the function defined by T(1)= 1, T(n)= 2T (⌊n/2⌋) + √n for n≥2 . Which of the following statement(s) is true?
+
+a.  T(n) = O(√n)
+b.  T(n) = O(n)
+c.  T(n) = O(log n)
+d. None of the above",,a,,b,,c,,d,,B,MCQ,,
+18,"For a database relation R(a,b,c,d), where the domains a, b, c, d include only atomic values, only the following functional dependencies and those that can be inferred from them hold: { a → c, b → d } This relation is",,in first normal form but not in second normal form,,in second normal form but not in first normal form,,in third normal form,,None of the above,,A,MCQ,"Candidate Key of above relation is :- ab only.
+
+a and b is partial attribute (part of the CK) that’s why the given FD is partially dependents . 
+
+In 2NF there must not be partially dependents FD and we know that every table is already in 1NF. 
+Hence, this relation is in first normal form but not in second normal form.
+
+Option (A) is correct.",
+19,"Consider the following relational database schema: EMP ( eno name, age)
+PROJ ( pno name)
+INVOLVED ( eno, pno ) EMP contains information about employees. PROJ about projects and INVOLVED about which employees involved in which projects. The underlined attributes are the primary keys for the respective relations.
+a). What is the relational algebra expression containing one or more of {σ,π,x,u,−} which is equivalent to SQL query. select eno
+from EMP, INVOLVED 
+where EMP.eno=INVOLVED.eno  
+and INVOLVED.pno=3 b). State in English (in not more than 15 words).
+What the following relational algebra expressions are designed to determine (i) π eno (INVOLVED) − π eno ((π eno (INVOLVED) X π pno (PROJ))−INVOLVED)
+(ii) π age (EMP) − π Eage<EMP.age (ρE(EMP) x EMP)) ( Note: ρ E (EMP) conceptually makes a copy of EMP and names it K (ρ is called the rename operator))",,,,,,,,,,,MCQ,,
+20,"Let R(a,b,c) and S(d,e,f) be two relations in which d is the foreign key of S that refers to the primary key of R . Consider the following four operations R and S 1. Insert into R
+2. Insert into S
+3. Delete from R
+4. Delete from S
+
+Which of the following can cause violation of the referential integrity constraint above?",,"None of (1), (2), (3) or (4) can cause its violation",,"All of (1), (2), (3) and (4) can cause its violation",,Both (1) and (4) can cause its violation,,Both (2) and (3) can cause its violation,,D,MCQ,"Here table R contains a primary key which is referred by the foreign key in table S.
+Let’s take an example to make it more clear:
+There are two tables containing information about the customers and their orders. Here Customers table contains Cust_ID as a primary key which is referred by Orders table as a foreign key. Statement 1 suggests that you can enter customer details in the Customers table. Yes, it is possible to have customers details even if they don’t have any orders yet. Hence doesn’t cause any violation. Statement 2 suggests that you can enter customer orders in the Orders table. But without having a unique Cust_ID or without having customer details, how you can enter their order details. Hence this statement causes the violation. Statement 3 suggests that you can delete customer details from the Customer table. If you do so, then how the Orders table will get the unique customer details if that customer doesn’t exist anymore? Hence this statement causes the violation. Statement 4 suggests that you can delete customer orders from the Orders table. Yes, this is possible for a unique Cust_ID to delete some or all information from Orders table if you don’t require that information anymore. Hence this statement doesn’t cause any violation. Therefore option (D) is correct.
+
+This explanation is contributed by Anchal Kulwal .",
+21,A B+ tree of order d is a tree in which each internal node has between d and 2d key values. An internal node with M key values has M+1 children. The root (if it is an internal node) has between 1 and 2d key values. The distance of a node from the root is the length of the path from the root to the node. All leaves are at the same distance from the root. The height of the tree is the distance of a leaf from the root. a). What is the total number of key values in the internal nodes of a B+ tree with l leaves (l≥2) ? b). What is the maximum number of internal nodes in a B+ tree of order 4 with 52 leaves? c). What is the minimum number of leaves in a B+ tree of order d and height h(h≥1) ?,,a) L+1 b) 8 c) 2(d+1) h−1,,a) L-1 b) 13 c) 2(d+1) h−1,,a) L-1 b) 17 c) 2(d-1) h−1,,a) L-1 b)9 c) 2(d-1) h+1,,B,MCQ,,
+22,The probability that it will rain today is 0.5. The probability that it will rain tomorrow is 0.6. The probability that it will rain either today or tomorrow is 0.7. What is the probability that it will rain today and tomorrow?,,0.3,,0.25,,0.35,,0.4,,D,MCQ,"Let A is the event that it will rain today and B is the event that it will rain tomorrow. probability (A intersection B) = probability ( A ) + probability (B) - probability (A union B).
+probability (A intersection B) = 0.5 + 0.6 - 0.7 = 0.4",
+23,"A polynomial p(x) is such that p(0) =5, p(1) =4, p(2) =9 and p(3) =20. The minimum degree it can have is",,1,,2,,3,,4,,B,MCQ,,
+24,"The number of equivalence relations of the set {1,2,3,4} is",,15,,16,,24,,4,,A,MCQ,Equivalence Relations are given by BELL number .,
+25,"A partial order ≤ is defined on the set S= {x, a 1 , a 2 ,.....a n , y} as x < a i for all i and a i ≤ y for all i , where n≥1. The number of total orders on the set S which contain the partial order ≤ is",,n!,,n+2,,n,,1,,A,MCQ,the number of total orders for a partial order on a set with n elements is n! (the number of permutations of n elements).,
+26,"In a lattice defined by the Hasse diagram given in figure 3.3, how many complements does the element 'e' have?",https://media.geeksforgeeks.org/wp-content/uploads/20250421102830920420/GATE-CS-1997-Q3-300.png,2,,3,,0,,1,,B,MCQ,"The element e has 3 complements - g,c and d- [Tex]e\vee g=a \text{ and } e\wedge g=f\\e\vee c=a \text{ and } e\wedge c=f\\e\vee d=a \text{ and } e\wedge d=f[/Tex] So option B is correct.",
+27,"Let F be the set of one-to-one functions from the set {1,2,…,n} to the set {1,2,…,m}, where m ≥n ≥ 1 .
+
+a. How many functions are members of F?
+b. How many functions f in F satisfy the property f(i)=1 for some i, 1 ≤ i ≤ n ?
+c. How many functions f in F satisfy the property f(i) < f(j) for all 1 ≤ i ≤ j ≤ n ?",,,,,,,,,,,MCQ,,
+28,"Let (Z, *) be an algebraic structure where Z is the set of integers and the operation ∗ is defined by n ∗ m = max(n . m) . Which of the following statements is true for (Z, *) ?",,"(Z, *) is a monoid",,"(Z, *) is an Abelian group",,"(Z, *) is a group",,None of the above,,D,MCQ,"The given algebraic structure does not have an identity element since it is defined on the set of Integers and there is no minimum element in the set of integers.
+Since it does not have an identity element, it is not a Monoid and consequently not a Group or Abelian Group.
+Option D is therefore correct.",
+29,"Let R be a reflexive and transitive relation on a set A . Define a new relation E on A as E= {(a,b) ∣ (a,b)∈R and (b,a)∈R } a . Prove that E is an equivalence relation on A . b . Define a reason ≤ on the equivalence classes of E as E1≤E2 if  ∃ a,b such that a∈E1, b∈E2 and (a,b)∈R. Prove that ≤ is a partial order.",,,,,,,,,,,MCQ,,
+30,Let A= (a ij ) be an n-rowed square matrix and I 12 be the matrix obtained by interchanging the first and second rows of the n-rowed Identify matrix. Then AI 12 is such that its first,,row is the same as its second row,,row is the same as the second row of A,,column is the same as the second column of A,,row is all zero,,C,MCQ,"[Tex]
+A = 
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} & \dots & a_{1n} \\ 
+a_{21} & a_{22} & a_{23} & \dots & a_{2n} \\ 
+\hdotsfor{5} \\
+a_{n1} & a_{n2} & a_{n3} & \dots & a_{nn} \\
+\end{bmatrix}
+I_{12} = 
+\begin{bmatrix}
+0 & 1 & 0 & \dots & 0 \\ 
+1 & 0 & 0 & \dots & 0 \\ 
+\hdotsfor{5} \\
+0 & 0 & 0 & \dots & 1 \\ 
+\end{bmatrix}
+\\\\
+[/Tex]
+When the above matrices are multiplied, the result is [Tex]A_{12}[/Tex], which is the matrix A with it's first and second row interchanged.
+This is because the first row of [Tex]I_{12}[/Tex] has a 1 in the second column and it's second row has a 1 in the first column. So when the matrices are multiplied, the first and second rows get exchanged. 
+
+This explanation is provided by Chirag Manwani .",
+31,"The determinant of the matrix [Tex]\begin{bmatrix}
+6 & -8 & 1 & 1 \\
+0 & 2 & 4 & 6 \\
+0 & 0 & 4 & 8 \\
+0 & 0 & 0 & -1
+\end{bmatrix}[/Tex] is:",,11,,-48,,0,,-24,,B,MCQ,The determinant value of an upper or lower triangular matrix is the product of the elements in the principal diagonal. This can be easily proved by expanding along the first row or the first column depending on whether the matrix is lower triangular or upper triangular. Determinant value = 6 × 2 × 4 × -1 = -48 Therefore option (B) is correct. This explanation is provided by Chirag Manwani .,
+32,"Let f = (w'+y)(x'+y)(w+x'+z)(w'+z)(x'+z) a). Express f as the minimal sum of products. Write only the answer.
+b). If the output line is stuck at 0, for how many input combinations will the value of f be incorrect?",,,,,,,,,,,MCQ,,
+33,"Following floating point number format is given f is a fraction represented by a 6-bit mantissa (includes sign bit) in sign magnitude form e is a 4-bit exponent (includes sign hit) in sign magnitude form n= (f, e) = f, 2 e is a floating point number.
+Let A= 54.75 in decimal and B= 9.75 in decimal.
+
+a). Represent A and B as floating point numbers in the above format.
+b). Show the steps involved in floating point addition of A and B.
+c). What is the percentage error (upto one position beyond decimal point) in the addition operation in (b)?",,,,,,,,,,,MCQ,,
+34,"A D flip-flop is to be connected to an 8085 microprocessor chip as a 1-bit output port with a port address of FF hex. Data bit D3 should be involved in the data transfer from CPU to the flip-flop. The flip-flop should be cleared on power ON. a.  Using only one NAND gate (fan in of 10), one NOT gate and one D flip-flop. Draw the required interface logic circuit (only the relevant signals should be shown). b.  Write a program to generate a square wave on the output of the flip-flop. ON and OFF periods of the square wave should be 7 bus cycles each.",,,,,,,,,,,MCQ,,
+35,"Consider a logic circuit shown in figure below. The functions f1 , f2 and f (in canonical sum of products form in decimal notation) are : f1(w,x,y,z) = ∑ 8,9,10 f2(w,x,y,z) = ∑ 7,8,12,13,14,15 f(w,x,y,z) = ∑ 8,9  The Function f3 is a. ∑9,10 b. ∑9 c. ∑1,8,9 d. ∑8,10,15",http://cdn.geeksforgeeks.org/wp-content/uploads/gat.png,a,,b,,c,,d,,B,MCQ,,
+36,Given √(224) r = (13) r The value of the radix r is:,,10,,8,,5,,6,,C,MCQ,,
+37,"Let f(x, y, z) = x' + y'x + xz be a switching function. Which one of the following is valid?",,y'z is a prime implicant of f,,xz is a minterm of f,,xz is an implicant of f,,y is a prime implicant of f,,C,MCQ,,
+38,Let * be defined as x * y = x' + y. Let z = x * y. Value of z * x is,,x'+y,,x,,0,,1,,B,MCQ,,
+39,"An N-bit carry look ahead adder, where N is a multiple of 4, employs ICs 74181 (4 bit ALU) and 74182 (4 bit carry look ahead generator).
+The minimum addition time using the best architecture for this adder is",,proportional to N,,proportional to logN,,a constant,,none of the above,,B,MCQ,,
+40,"Following is a state table for some finite state machine. A). Find the equivalence partition on the states of the machine.
+B). Give the state table for the minimal machine. (Use appropriate names for the equivalent states. For example if states X and Y are equivalent then use XY as the name for the equivalent state in the minimal machine.)",http://cdn.geeksforgeeks.org/wp-content/uploads/TTT.png,,,,,,,,,,MCQ,,
+41,"Given that L is a language accepted by a finite state machine, show that L P and L R are also accepted by some finite state machines, where L P = {s | ss' ∈ L, for some string s' }
+L R = {s | s obtainable by reversing some string in L }",,,,,,,,,,,MCQ,,
+42,"Construct a finite state machine with minimum number of states, accepting all strings over {a, b} such that the number of a 's is divisible by two and the number of b 's is divisible by three.",,,,,,,,,,,MCQ,,
+43,"Which one of the following regular expressions over {0,1} denotes the set of all strings not containing 100 as a substring?",,0* (1+0)*,,0*1010*,,0*1*01*,,0*(10+1)*,,D,MCQ,"According to given question, it should generate all other string / substring, but in given options : (A) generates 100 (B) doesn't generate 0 (C) doesn't generate 1 Only option (D) is correct.",
+44,"Which of the following languages over {a,b,c} is accepted by a deterministic pushdown automata? a. {wcw R ∣ w∈ {a,b}* } b. {ww R ∣ w∈ {a,b,c}* } c. {a n b n c n ∣ n ≥ 0 } d. {w ∣ w is a palindrome over {a,b,c} } Note : w R is the string obtained by reversing ' w '",,a,,b,,c,,d,,A,MCQ,"To determine which of the given languages over ({a, b, c}) can be accepted by a deterministic pushdown automaton (DPDA), we need to analyze each language based on the capabilities and limitations of DPDAs. ### Language Analysis: [Tex]a. ( { wcw^R \mid w \in {a, b}^* } )
+[/Tex] This language consists of strings where ( w ) is a string over ({a, b}), followed by ( c ), and then the reverse of ( w ). A DPDA can handle this by: 1. Pushing symbols of ( w ) onto the stack. 2. Encountering ( c ), and then switching to popping mode. 3. Popping symbols from the stack while matching them with the input string in reverse. Since this process can be deterministically managed by pushing and popping in a single pass through the input, **this language can be accepted by a DPDA**. [Tex]b. ( { ww^R \mid w \in {a, b, c}^* } )
+[/Tex] This language consists of strings that are the concatenation of ( w ) with its reverse, ( w^R ), without any delimiter. A DPDA cannot determine the midpoint of the string ( w ) to switch from pushing to popping deterministically because it cannot count the number of symbols deterministically in a single pass. Thus, **this language cannot be accepted by a DPDA**. [Tex]c. ( { a^n b^n c^n \mid n \ge 0 } )
+[/Tex] This language consists of strings with equal numbers of ( a )'s, ( b )'s, and ( c )'s in that order. A DPDA cannot handle this language because it requires two stacks (or more complex mechanisms) to keep track of the counts of ( a ), ( b ), and ( c ) separately. A single stack cannot manage the nested dependencies required. Hence, **this language cannot be accepted by a DPDA**. [Tex]d. ( { w \mid w \text{ is a palindrome over } {a, b, c} } )
+[/Tex] This language consists of palindromes over ({a, b, c}). To verify that a string is a palindrome, a DPDA would need to push the first half of the string onto the stack and then match it with the second half in reverse. Without a clear midpoint or delimiter, this process is not deterministic. Therefore, **this language cannot be accepted by a DPDA**. ### Conclusion: Among the given languages, the only language that can be accepted by a deterministic pushdown automaton is: [Tex]a. ( { wcw^R \mid w \in {a, b}^* } )[/Tex]",
+45,Which one of the following is not decidable?,,"Given a Turing machine M, a string s and an integer k, M accepts s within k steps",,Equivalence of two given Turing machines,,Language accepted by a given finite state machine is not empty,,Language generated by a context free grammar is non-empty,,B,MCQ,"(A) This is decidable because given a Turing machine M, a string s and an integer k, M accepts s within k steps is either halt or not but it will decide within k steps. (B) Equivalence of two Turing machines are undecidable because Recursive Enumerable languages are not closed under complement. (C) Language accepted by a given finite state machine is not empty is definitely decidable, since we can always minimize the DFA and see whether it’s a single state with no accepting state (D) Language generated by a context free grammar is non-empty is also decidable for this we have algorithm. Option (B) is correct.",
+46,"Given ∑ = {a, b}, which of the following sets is not countable ?",,Set of all strings over ∑,,Set of all languages over ∑,,Set of all regular languages over ∑,,Set of all languages over ∑ accepted by Turing machines,,B,MCQ,"(A) The set ∑ ={a, b} is countable because each element of this set can be mapped with natural number and also generated in the following order:
+Given ∑ ={a, b}. So, order will be a,b,aa,ab,ba,bb,aaa,aab ... Therefore it will mapped with natural number. Hence it is countable . (B) Here, we see that set of languages over z is the power set of strings over ∑ which is an infinite set and As we know that power set of an infinite set is uncountable. Hence the set of languages becomes an uncountable set a, so we can prove this using Cantor’s diagonalisation method. (C) The set of all regular languages is a subset of the set of all recursively enumerable languages. And we know that a subset of a countable set is always countable. (D) Set of all language over ∑ accepted by Turing machine is countable. Option (B) is correct.",
+47,"The trapezoidal method to numerically obtain b ∫ a f(x) dx has an error E bounded by ((b-a)/12)h 2 max f ''(x) , x ∈ [a,b] where h is the width of the trapezoids. The minimum number of trapezoids guaranteed to ensure E ≤ 10 -4 in computing ln 7 using f= 1/x is",,60,,100,,600,,"10,000",,C,MCQ,,
+48,"The Newton-Raphson method is used to find the root of the equation x 2 - 2 = 0 . If the iterations are started from -1, the iterations will
+
+a. converge to -1
+b. converge to √2
+c. converge to -√2
+d. not converge",,a,,b,,c,,d,,C,MCQ,,
+49,"Using the forward Eular method to solve y''(t) = f(t) , y'(0) = 0 with a step size of h , we obtain the following values of y in the first four iterations:
+
+a. 0 , h f(0) , h (f(0) + f(h)) and h (f(0) - f(h) + f(2h)) b. 0 , 0 , h 2 f(0) and 2h 2 f(0) + f(h) c. 0 , 0 , h 2 f(0) and 3h 2 f(0) d. 0 , 0 , h f(0) + h 2 f(0) and h f(0) + h 2 f(0) + hf(h)",,a,,b,,c,,d,,D,MCQ,,
+50,"What is the maximum value of the function f(x) = 2x 2 - 2x + 6 in the interval [0, 2]?",,6,,10,,12,,5.5,,B,MCQ,"Differentiating with respect to x, f'(x) = 4x - 2. Equating with zero to find extremum point: x = 1/2. Finding the value of the function on points - 0, 1/2, 2 f(0) = 6, f(1/2) = 5.5, and f(2) = 10 So the maximum value of the function is 10. Therefore the correct option is B .",
+51,"Contents of A register after the execution of the following 8085 microprocessor program is MVI  A, 55 H
+MVI  C, 25 H
+ADD  C
+DAA",,7AH,,80H,,50H,,22H,,B,MCQ,After ADD C accumulator becomes 01111010=7AH Then DAA instruction causes the value of Acc to be formatted as BCD. So it becomes 80AH,
+52,RST 7.5 interrupt in 8085 microprocessor executes the interrupt service routine from interrupt vector location,,0000H,,0075H,,003CH,,0034H,,C,MCQ,,
+53,"The correct matching for the following pairs is (A) DMA I/O                    (1) High speed RAM
+(B) Cache                      (2) Disk
+(C) Interrupt I/O              (3) Printer
+(D) Condition Code Register    (4) ALU Codes: A   B   C   D a 4   3   1   2 b 2   1   3   4 c 4   3   2   1 d 2   3   4   1",,a,,b,,c,,d,,B,MCQ,,
+54,A micro instruction into be designed to specify a .  none or one of the three micro operations of one kind and b .  none or upto six micro operations of another kind The minimum number of bits in the micro-instruction is,,9,,5,,8,,None of the above,,C,MCQ,A) none or one of the three : vertical micro programming = log (n+1)= log (3+1) =2 bits B) none or upto 6: horizontal micro programming = n bits = 6 bits minimum no. of bits 6+2= 8 bits,
+55,Purpose of a start bit in R8232 serial communication protocol is,,to synchronize receiver for receiving every byte,,to synchronize receiver for receiving a sequence of bytes,,a parity bit,,to synchronize receiver for receiving the last byte,,A,MCQ,"In RS-232 serial communication protocol, the start bit serves a crucial function in the transmission of data. Here are the key purposes of the start bit: 1. **Synchronization**: The start bit signals the beginning of a new data frame. It alerts the receiving device that data is about to be transmitted, allowing it to synchronize its clock with the sender's clock. This synchronization is vital for correctly interpreting the incoming data bits. 2. **Framing**: In RS-232 communication, data is sent in frames that typically consist of a start bit, a series of data bits (usually 5 to 8 bits), an optional parity bit, and one or more stop bits. The start bit marks the start of this frame, clearly delineating where the data segment begins. 3. **Idle Line Detection**: When the communication line is idle, it remains in a high state (logic level 1). The start bit transitions the line from a high state to a low state (logic level 0), signaling the start of data transmission. This transition is easily detectable by the receiving device. In summary, the start bit in RS-232 serial communication ensures that the receiving device correctly identifies the beginning of each data frame, thereby maintaining proper timing and framing of the transmitted data.",
+56,Which of the following propositions is a tautology?,,(p ∨ q) → p,,p ∨ (q → p),,p ∨ (p → q),,p → (p → q),,C,MCQ,,
+57,The correct matching for the following pairs is (A) Disk Scheduling        (1) Round robin (B) Batch Processing       (2) SCAN (C) Time sharing           (3) LIFO (D) Interrupt processing   (4) FIFO Codes: A   B   C   D a 3   4   2   1 b 4   3   2   1 c 2   4   1   3 d 3   4   3   2,,a,,b,,c,,d,,C,MCQ,"Disk Scheduling uses algorithms like SCAN to manage disk head movement and efficiently service requests. Batch Processing handles jobs in the order they arrive, which is a FIFO (First-In, First-Out) approach. Time Sharing allows multiple users to share a CPU by switching between them quickly, often using the Round Robin algorithm. Interrupt Processing uses a stack to handle interrupts in a LIFO (Last-In, First-Out) manner, as the most recent interrupt is handled first.",
+58,"When an interrupt occurs, an operating system",,ignores the interrupt,,always changes state of interrupted process to \'blocked\' and schedules another process,,always resumes execution of interrupted process after processing the interrupt,,may change the state of  interrupted process to \'blocked\'and schedule another process,,D,MCQ,"Scheduler decides that the interrupted process will complete execution or some other process will be executed.
+If the interrupt signaled an I/O completion event, and at the same time a high priority process came into Ready state then the scheduler block the interrupted process and dispatch the high priority process in the running state. If low priority process comes into Ready state then scheduler dispatch the interrupted process.
+
+Hence, D is correct .",
+59,An operating system contains 3 user processes each requiring 2 units of resource R . The minimum number of units of R such that no deadlocks will ever arise is,,3,,5,,4,,6,,C,MCQ,"Total process = 3 and each require 2 units of resource. 
+
+If we give 1 resource to 1 process then total resource = 1 + 1 + 1 = 3 but in this case deadlock will definitely occur because each process hold 1 unit resource and waiting for another resource so if we increase 1 more resource (3+1=4) then deadlocks will ever arise (i.e., when process 1 complete their execution then it free 2 resource and this 2 resource will used by another process.). 
+
+Option (B) is correct.",
+60,"Each Process P i , i= 1.......9 is coded as follows repeat 
+    P(mutex)
+    {Critical section}
+    V(mutex)
+ forever The code for P 10 is identical except it uses V(mutex) in place of P(mutex). What is the largest number of processes that can be inside the critical section at any moment?",,1,,2,,3,,None of above,,D,MCQ,"Consider code for i= 1 to 9
+Initially mutex value set to 1, so it can allow only 1 process at a time. Now p1 enter into critical section and by this time remaining all are in block state. (i.e blocked processes= 2,3,4,5,6,7,8,9). But consider code for 10th process, it tells that unblock any process because it contain operation. Because of this it can unblock the processes and send it to the critical section. By doing this all processes can enter into critical section. So, finally there are 10 processes at maximum can enter into critical section. Alternative Way- There is loop which runs forever So P10 runs forever. And it has capability to put all other processes to Critical Section. Moreover they Asked Maximum Number of process that can be Present at critical Section So Answer is 10. 
+
+Option (D) is correct.
+
+ 
+This explanation is contributed by Ajay Puri . Quiz of this Question",
+61,"An operating system handles requests to resources as follows.
+A process (which asks for some resources, uses them for some time and then exits the system) is assigned a unique timestamp are when it starts. The timestamps are monotonically increasing with time. Let us denote the timestamp of a process P by TS(P).
+
+When a process P requests for a resource the OS does the following: (i) If no other process is currently holding the resource, the OS awards the resource to P. (ii) If some process Q with TS(Q)<TS(P) is holding the resource, the OS makes P wait for 
+     the resources. (iii) If some process Q with TS(Q)>TS(P) is holding the resource, the OS restarts Q 
+      and awards the resources to P. (Restarting means taking back the resources held by a process, killing it and starting it 
+again with the same timestamp) When a process releases a resource, the process with the smallest timestamp (if any) amongst those waiting for the resource is awarded the resource. a) . Can a deadlock ever arise? If yes, show how. If not, prove it. b) . Can a process P ever starve? If yes, show how. If not, prove it.",,,,,,,,,,,MCQ,,
+62,"Given the following Pascal-like program segment Procedure A;
+  x,y:integer;
+   Procedure B;
+    x,z:real
+    S1
+   end B;
+   Procedure C;
+      i:integer;
+       S2
+   end C;
+end A; The variables accessible in S1 and S2 are",,"x of A, y, x of B and z in S1 and x of B, y and i in S2",,"x of B, y and z in S1 and x of B, i and z in S2",,"x of B, z and y in S1 and x of A, i and y in S2",,None of the above,,C,MCQ,,
+63,"Consider the following piece of 'C' code fragment that removes duplicates from an ordered list of integers. C++ #include <stdio.h> Node * remove_duplicates ( Node * head , int * j ) { Node * t1 , * t2 ; * j = 0 ; t1 = head ; if ( t1 != NULL ) t2 = t1 -> next ; else return head ; * j = 1 ; if ( t2 == NULL ) return head ; while ( t2 != NULL ) { if ( t1 -> val != t2 -> val ) { // S1 ( * j ) ++ ; t1 -> next = t2 ; t1 = t2 ; // S2 } t2 = t2 -> next ; } t1 -> next = NULL ; return head ; } C #include <stdio.h> Node * remove - duplicates ( Node * head , int * j ) { Node * t1 , * t2 ; * j = 0 ; t1 = head ; if ( t1 ! = NULL ) t2 = t1 → next ; else return head ; * j = 1 ; if ( t2 == NULL ) return head ; while t2 != NULL ) { if ( t1 . val != t2 . val ) -------------------------- → ( S1 ) { ( * j ) ++ ; t1 -> next = t2 ; t1 = t2 : ---------- → ( S2 ) } t2 = t2 → next ; } t1 → next = NULL ; return head ; } Java public Node removeDuplicates ( Node head , int [] j ) { Node t1 , t2 ; j [ 0 ] = 0 ; t1 = head ; if ( t1 != null ) t2 = t1 . next ; else return head ; j [ 0 ] = 1 ; if ( t2 == null ) return head ; while ( t2 != null ) { if ( t1 . val != t2 . val ) { // S1 j [ 0 ]++ ; t1 . next = t2 ; t1 = t2 ; // S2 } t2 = t2 . next ; } t1 . next = null ; return head ; } Python def remove_duplicates ( head , j ): t1 = head j [ 0 ] = 0 if t1 is not None : t2 = t1 . next else : return head j [ 0 ] = 1 if t2 is None : return head while t2 is not None : if t1 . val != t2 . val : # S1 j [ 0 ] += 1 # S2 t1 . next = t2 # S2 t1 = t2 # S2 t2 = t2 . next t1 . next = None return head JavaScript function removeDuplicates ( head , j ) { let t1 = head ; j [ 0 ] = 0 ; if ( t1 !== null ) t2 = t1 . next ; else return head ; j [ 0 ] = 1 ; if ( t2 === null ) return head ; while ( t2 !== null ) { if ( t1 . val !== t2 . val ) { // S1 j [ 0 ] ++ ; t1 . next = t2 ; t1 = t2 ; // S2 } t2 = t2 . next ; } t1 . next = null ; return head ; } Assume the list contains n elements (n≥2) in the following questions. a). How many times is the comparison in statement S1 made? b). What is the minimum and the maximum number of times statements marked S2 get executed? c). What is the significance of the value in the integer pointed to by j when the function completes?",,"(a). n-1 times, since comparison is pairwise for n elements. (b). maximum : n-1 for all distinct elements, minimum: 0 for all same elements. (C). j keeps count of distinct nodes in the list.",,"(a). n times, since comparison is pairwise for n elements. (b). maximum : n-1 for all distinct elements, minimum: 0 for all same elements. (C). j keeps count of distinct nodes in the list.",,"(a). n-1 times, since comparison is pairwise for n elements. (b). maximum : n-1 for all distinct elements, minimum: 1 for all same elements. (C). j keeps count of distinct nodes in the list.",,None of the above,,A,MCQ,"(a). n-1 times, since comparison is pairwise for n elements. (b). maximum : n-1 for all distinct elements, minimum: 0 for all same elements. (C). j keeps count of distinct nodes in the list.",
+64,The concatenation of two lists is to be performed in O(1) time. Which of the following implementations of a list should be used?,,singly linked list,,doubly linked list,,circular doubly linked list,,array implementation of lists,,C,MCQ,As list concatenation requires traversing at least one list to the end. So singly linked list and doubly linked list requires O(n) time complexity whereas circular doubly linked list required O(1) time.,
+65,"A binary search tree contains the values 1, 2, 3, 4, 5, 6, 7, 8. The tree is traversed in pre-order and the values are printed out. Which of the following sequences is a valid output?",,53124786,,53126487,,53241678,,53124768,,D,MCQ,,
+66,"A size-balanced binary tree is a binary tree in which for every node, the difference between the number of nodes in the left and right subtree is at most 1. The distance of a node from the root is the length of the path from the root to the node. The height of a binary tree is the maximum distance of a leaf node from the root. a . Prove, by using induction on h , that a size-balance binary tree of height h contains at least 2 h nodes. b . In a size-balanced binary tree of height h≤1 , how many nodes are at distance h−1 from the root? Write only the answer without any explanations.",,,,,,,,,,,MCQ,,
+67,"What is the probability of a collision when hashing n keys into a hash table of size m, assuming that the hash function produces a uniform random distribution?",,O(1/n),,O(n/m),,O(logn),,O(m/n),,B,MCQ,"The probability of a collision occurring is dependent on the number of items hashed (n) and the size of the hash table (m). As the number of items increases, the probability of a collision also increases. However, as the size of the hash table increases, the probability decreases. Therefore, the probability of a collision can be estimated as O(n/m).",
+68,Let G be the graph with 100 vertices numbered 1 to 100. Two vertices i and j are adjacent if |i−j|=8 or |i−j|=12 . The number of connected components in G is,,8,,4,,12,,25,,B,MCQ,"When vertices are arranged with difference of 12 the number of components is reduced to 4 as first column will be connected with fifth column, second column will be connected with sixth column, third column will be connected with seventh column and fourth column will be connected with eighth column. No other form of connection exists so total 4 connected components are there. So, option (B) is correct.",
+69,Which of the following is essential for converting an infix expression to the postfix from efficiently ?,,An operator stack,,An operand stack,,An operand stack and an operator stack,,A parse tree,,A,MCQ,"Operator stack is used for converting infix to postfix expression such that operators like as +, *, (, ), /  are pushed in stack where as  operand stack is used  for converting Postfix to Prefix evaluation such that operands are 7,2,1,2 etc.
+
+Hence, option (A) is correct.",
+70,"In the following grammar X :: = X ⊕ Y / Y
+Y :: = Z * Y / Z
+Z :: = id Which of the following is true?
+a. '⊕' is left associative while '*' is right associative
+b. Both '⊕' and '*' are left associative
+c. '⊕' is right associative while '*' is left associative
+d. None of the above",,a,,b,,c,,d,,A,MCQ,"X :: = X ⊕ Y is left recursive grammar, so ‘⊕’ is left associative and Z * Y is right recursive grammar, so ‘*’ is right associative.",
+71,"The language L , defined by the following grammar allows use of real or integer data in expressions and assignment statements. (assign-stmt):: = (LHS):= (E)
+(E)          :: = (E) + (T) | (T)
+(T)          :: = (T) * (V) | (V)
+(V)          :: = id | ( (E) ) (LHS)        :: = id It is required to convert expression and assignment strings of L into postfix strings that use the type-specific operators (+, i), (+, r), (*, i), (*, r), (:=, i) and (:=, r).
+Write a syntax directed translation scheme to convert expression and assignment strings into the post-fix form. You may assume that the name and type of a variable can be obtained by making the function calls 'give-type (id)' and 'give-name (id)' respectively.",,,,,,,,,,,MCQ,,
+72,A language L allows declaration of arrays whose sizes are not known during compilation. It is required to make efficient use of memory. Which of the following is true?,,A compiler using static memory allocation can be written for L,,"A compiler cannot be written for L, an interpreter must be used",,A compiler using dynamic memory allocation can be written for L,,None of the above,,C,MCQ,"If a language L allows declaration of arrays whose sizes are not known during compilation time. It is required to use efficient use of memory.
+So a compiler using dynamic memory allocation can be written for L.
+
+An array is a collection of data items, all of the same type, accessed using a common name.
+
+C dynamic memory allocation refers to performing manual memory management for dynamic memory allocation in the C programming language via a group of functions in the C standard library, namely malloc, realloc, calloc and free.",
+73,"The expression (a*b)* c op........  where 'op' is one of ' + ', ' * ' and ' ↑ ' (exponentiation) can be evaluated on a CPU with a single register without storing the value of (a * b) if",,‘op’ is ‘+’ or ‘*’,,'op’ is ‘↑’ or ‘*’,,'op’ is ‘↑’ or ‘+’,,not possible to evaluate without storing,,A,MCQ,"Given expression is :- (a*b)* c op Here op is one of the  ‘+’, ‘*’ and ‘↑’ (exponentiation).  (a* b)* having high precedence so it will evaluate first in CPU register. But we have given one single register as we cannot store any value from reg to memory.  Now ( a * b ) is evaluated in register R and precedence order is ( ↑ , * or / , + or – ).  If we put op as (a*b)* c op  ‘ ↑ ‘ then expression becomes as  (a*b)* c ↑ d here c ↑ d will evaluate first. But we have not extra register to evaluate ( a * b ).  Therefore we cannot put any operator having precedence greater than ” * ”.  Hence, Operator is either ” + ” or “- ” .",
+74,The condition expansion facility of macro processors is provided to,,test a condition during the execution of the expanded program,,to expand certain model statements depending upon the value of a condition during the execution of the expanded program,,to implement recursion,,to expand certain model statements depending upon the value of a condition during the process of macros expansion,,D,MCQ,"Macro processors provided a condition expansion facility to expand the certain module statements depending upon the value of a condition during the process of macros expansion.
+
+Hence, option (D) is correct.",
+75,"Consider the grammar S→ bSe
+S→ PQR
+P→ bPc
+P→ ε
+Q→ cQd
+Q→ ε
+R→ dRe
+R→ ε where S,P,Q,R are non-terminal symbols with S being the start symbol; b,c,d,e are terminal symbols and ‘ε’ is the empty string. This grammar generates strings of the form b i , c j , d k , e m for some i, j, k, m ≥ 0. (a). What is the condition on the values of i, j, k, m ? (b). Find the smallest string that has two parse trees.",,,,,,,,,,,MCQ,"(a). Condition on the values of i, j, k, m i+k = j+m where i, j, k, m >= 0 (b). Smallest string that has two parse trees = bcde
+Production used to generate the smallest string is :- S- > bSe
+S- > bSe
+S- > bSe
+S -> PQR
+P-> null
+Q ->cQd
+Q -> null
+R- > null Finally you will get the string like ” bbbcdeee”
+which means that  i=3, j=1, k=1, m=3 and hence the answer i+k=j+m .
+
+Now production used to generate the smallest string is :- S-> bSe 
+S ->  bPQRe
+S ->  bεQRe
+S ->  bcQdRe
+S ->  bcεdRe
+S ->  bcdεe
+S -> bcde Hence  smallest string is bcde.
+Therefore  we can see same number of b, c, d, e is generated.  
+Power of b, c, d, e are respectively i, j, k, m.
+Hence relation between i, j, k, m is :- i+k = j+m",
