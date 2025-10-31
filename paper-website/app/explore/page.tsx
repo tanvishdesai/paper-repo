@@ -9,21 +9,15 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { ArrowLeft, Database, Network, Loader2, Info, Zap, TrendingUp, Filter, Search, ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import * as d3 from "d3";
 
-interface GraphNode {
+interface GraphNode extends d3.SimulationNodeDatum {
   id: string;
   label: string;
   type: string;
-  x?: number;
-  y?: number;
-  vx?: number;
-  vy?: number;
-  fx?: number | null;
-  fy?: number | null;
   degree?: number;
   cluster?: number;
 }
 
-interface GraphLink {
+interface GraphLink extends d3.SimulationLinkDatum<GraphNode> {
   source: string | GraphNode;
   target: string | GraphNode;
   type: string;
@@ -200,15 +194,15 @@ export default function ExplorePage() {
 
     // Create force simulation
     const simulation = d3.forceSimulation(filteredData.nodes)
-      .force("link", d3.forceLink(filteredData.links)
-        .id((d: any) => d.id)
+      .force("link", d3.forceLink<GraphNode, GraphLink>(filteredData.links)
+        .id((d: GraphNode) => d.id)
         .distance(80)
         .strength(0.3))
       .force("charge", d3.forceManyBody()
         .strength(-300)
         .distanceMax(300))
       .force("center", d3.forceCenter(width / 2, height / 2))
-      .force("collision", d3.forceCollide()
+      .force("collision", d3.forceCollide<GraphNode>()
         .radius(d => sizeScale(d.degree || 0) + 2));
 
     simulationRef.current = simulation;
@@ -259,7 +253,7 @@ export default function ExplorePage() {
       .on("mouseover", (event, d) => {
         setHoveredNode(d);
         // Highlight connected nodes and links
-        const connectedNodeIds = new Set();
+        const connectedNodeIds = new Set<string>();
         filteredData.links.forEach(link => {
           const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
           const targetId = typeof link.target === 'object' ? link.target.id : link.target;
@@ -303,22 +297,22 @@ export default function ExplorePage() {
     // Update positions on simulation tick
     simulation.on("tick", () => {
       link
-        .attr("x1", (d: any) => d.source.x)
-        .attr("y1", (d: any) => d.source.y)
-        .attr("x2", (d: any) => d.target.x)
-        .attr("y2", (d: any) => d.target.y);
+        .attr("x1", (d: GraphLink) => (d.source as GraphNode).x || 0)
+        .attr("y1", (d: GraphLink) => (d.source as GraphNode).y || 0)
+        .attr("x2", (d: GraphLink) => (d.target as GraphNode).x || 0)
+        .attr("y2", (d: GraphLink) => (d.target as GraphNode).y || 0);
 
       linkLabel
-        .attr("x", (d: any) => (d.source.x + d.target.x) / 2)
-        .attr("y", (d: any) => (d.source.y + d.target.y) / 2);
+        .attr("x", (d: GraphLink) => ((d.source as GraphNode).x! + (d.target as GraphNode).x!) / 2)
+        .attr("y", (d: GraphLink) => ((d.source as GraphNode).y! + (d.target as GraphNode).y!) / 2);
 
       node
-        .attr("cx", (d: any) => d.x)
-        .attr("cy", (d: any) => d.y);
+        .attr("cx", (d: GraphNode) => d.x || 0)
+        .attr("cy", (d: GraphNode) => d.y || 0);
 
       nodeLabel
-        .attr("x", (d: any) => d.x)
-        .attr("y", (d: any) => d.y);
+        .attr("x", (d: GraphNode) => d.x || 0)
+        .attr("y", (d: GraphNode) => d.y || 0);
     });
 
     // Handle background click to deselect
@@ -681,4 +675,3 @@ export default function ExplorePage() {
     </div>
   );
 }
-

@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Question } from "@/types/question";
 import { subjects } from "@/lib/subjects";
-import { normalizeSubtopic, getUniqueSubtopics } from "@/lib/subtopicNormalization";
+import { getUniqueSubtopics } from "@/lib/subtopicNormalization";
 
 export interface UseQuestionsOptions {
   subjectParam: string;
