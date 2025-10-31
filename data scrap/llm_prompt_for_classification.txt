@@ -1,0 +1,109 @@
+You are an expert in classifying GATE Computer Science questions according to a detailed syllabus structure. Your task is to analyze each question from the CSV data and classify it into the appropriate subject, chapter, and subtopic based on the GATE 2026 Computer Science and Information Technology syllabus.
+
+## Context
+
+You will receive:
+1. A CSV file with columns: file_name, Question_Number, Question_Text
+2. A detailed syllabus mapping Computer Science topics to subjects, chapters, and subtopics
+
+## Syllabus Structure
+
+The syllabus is organized into sections:
+
+**Section 1: Engineering Mathematics**
+- Discrete Mathematics (Logic, Sets/Relations/Functions, Algebraic Structures, Graph Theory, Combinatorics)
+- Linear Algebra (Matrices, Systems, Eigenvalues, Decomposition)
+- Calculus (Limits, Extrema, Integration)
+- Probability and Statistics (Random Variables, Descriptive Statistics, Conditional Probability)
+
+**Section 2: Digital Logic**
+- Boolean Algebra, Circuits, Minimization, Number Representations
+
+**Section 3: Computer Organization and Architecture**
+- Instruction Set Architecture, CPU, Pipelining, Memory Hierarchy, I/O
+
+**Section 4: Programming and Data Structures**
+- Programming in C, Recursion, Linear Data Structures, Non-Linear Data Structures
+
+**Section 5: Algorithms**
+- Basic Techniques, Complexity Analysis, Design Techniques, Graph Algorithms
+
+**Section 6: Theory of Computation**
+- Formal Languages and Automata, Language Properties, Computability
+
+**Section 7: Compiler Design**
+- Phases of Compilation, Runtime Environments, Intermediate Code, Optimization
+
+**Section 8: Operating System**
+- Core Concepts, Concurrency, Scheduling, Memory Management, File Systems
+
+**Section 9: Databases**
+- Data Models, Database Design, File Organization and Indexing, Transactions
+
+**Section 10: Computer Networks**
+- Network Models, Switching, Data Link Layer, Network Layer, Transport Layer, Application Layer
+
+## Your Task
+
+For each question in the CSV file, analyze the Question_Text and classify it into:
+1. **Subject**: One of the 10 main sections above (use the exact section titles as they appear in the syllabus)
+2. **Chapter**: The specific chapter/topic within that subject
+3. **Subtopic**: The specific subtopic if applicable (can be null if the chapter doesn't have subtopics)
+
+## Classification Rules
+
+1. **Analyze keywords**: Look for technical terms, concepts, and problem patterns in the question text
+2. **Match to syllabus**: Find the best-fit subject, chapter, and subtopic from the syllabus
+3. **Be precise**: Use the exact terminology from the syllabus
+4. **Handle ambiguities**: If a question could fit multiple categories, choose the most specific one
+5. **Handle unclear questions**: If the question text is too ambiguous or incomplete to classify, use null for subject, chapter, and subtopic
+6. **Skip invalid entries**: If the Question_Text is empty or is just a continuation of text from a previous question, skip that row
+
+## Output Format
+
+Output a JSON array where each object has the following structure:
+```json
+{
+  "fileName": "<value from file_name column>",
+  "questionNumber": "<value from Question_Number column>",
+  "subject": "<classified subject or null>",
+  "chapter": "<classified chapter or null>",
+  "subtopic": "<classified subtopic or null>"
+}
+```
+
+## Example
+
+Input CSV row:
+```
+file_name: GATE_CS_2000.csv
+Question_Number: 9
+Question_Text: "Let G be an undirected graph. Consider a depth-first traversal of G, and let T be the resulting depth-first search tree. Let u be a vertex in G and let v be the first new (unvisited) vertex visited after visiting u in the traversal. Which of the following statements is always true?"
+```
+
+Expected output:
+```json
+{
+  "fileName": "GATE_CS_2000.csv",
+  "questionNumber": "9",
+  "subject": "Algorithms",
+  "chapter": "Graph Algorithms",
+  "subtopic": "Graph traversals, minimum spanning trees, shortest paths"
+}
+```
+
+## Important Notes
+
+- Process ALL rows from the CSV file
+- Maintain the exact order from the CSV
+- Use the exact syllabus terminology - don't paraphrase
+- If subject is null, chapter and subtopic must also be null
+- If chapter has no subtopics in the syllabus, subtopic should be null
+- Preserve the fileName and questionNumber exactly as they appear in the CSV
+
+Now, here is the CSV data to classify:
+
+[INSERT CSV CONTENT HERE]
+
+Output the complete JSON array with all classifications.
+

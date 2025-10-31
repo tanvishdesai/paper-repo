@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -11,10 +11,9 @@ import { X, HelpCircle, Check, ChevronRight, ArrowLeft } from "lucide-react";
 interface PracticeModeProps {
   questions: Question[];
   onExit: () => void;
-  onOpenChat: (question: Question) => void;
 }
 
-export function PracticeMode({ questions, onExit, onOpenChat }: PracticeModeProps) {
+export function PracticeMode({ questions, onExit }: PracticeModeProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Map<number, string>>(new Map());
   const [showResults, setShowResults] = useState(false);

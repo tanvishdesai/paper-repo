@@ -67,7 +67,6 @@ export default function QuestionsPage() {
       <PracticeMode
         questions={practiceQuestions}
         onExit={handleExitPractice}
-        onOpenChat={handleOpenChat}
       />
     );
   }
@@ -115,7 +114,6 @@ export default function QuestionsPage() {
               <QuestionCard
                 key={index}
                 question={question}
-                index={index}
                 onGetHelp={handleOpenChat}
               />
             ))}

@@ -8,12 +8,36 @@
   // Known CSVs found in the workspace root of this app (parent directory)
   // Add more years if you generate more CSVs.
   const yearToCsv = {
+    1996: '../csv migrated/GATE_CS_1996.csv',
+    1997: '../csv migrated/GATE_CS_1997.csv',
+    1998: '../csv migrated/GATE_CS_1998.csv',
+    1999: '../csv migrated/GATE_CS_1999.csv',
     2000: '../csv migrated/GATE_CS_2000.csv',
+    2001: '../csv migrated/GATE_CS_2001.csv',
+    2002: '../csv migrated/GATE_CS_2002.csv',
+    2003: '../csv migrated/GATE_CS_2003.csv',
+    2004: '../csv migrated/GATE_CS_2004.csv',
+    2005: '../csv migrated/GATE_CS_2005.csv',
+    2006: '../csv migrated/GATE_CS_2006.csv',
+    2007: '../csv migrated/GATE_CS_2007.csv',
+    2008: '../csv migrated/GATE_CS_2008.csv',
+    2009: '../csv migrated/GATE_CS_2009.csv',
+    2010: '../csv migrated/GATE_CS_2010.csv',
+    2011: '../csv migrated/GATE_CS_2011.csv',
+    2012: '../csv migrated/GATE_CS_2012.csv',
+    2013: '../csv migrated/GATE_CS_2013.csv',
+    2014: '../csv migrated/GATE_CS_2014.csv',
+    2015: '../csv migrated/GATE_CS_2015.csv',
+    2016: '../csv migrated/GATE_CS_2016.csv',
+    2017: '../csv migrated/GATE_CS_2017.csv',
+    2018: '../csv migrated/GATE_CS_2018.csv',
     2019: '../csv migrated/GATE_CS_2019.csv',
     2020: '../csv migrated/GATE_CS_2020.csv',
+    2021: '../csv migrated/GATE_CS_2021.csv',
     2022: '../csv migrated/GATE_CS_2022.csv',
     2023: '../csv migrated/GATE_CS_2023.csv',
-    
+    2024: '../csv migrated/GATE_CS_2024.csv',
+    2025: '../csv migrated/GATE_CS_2025.csv',
   };
 
   // Optional fallback location when CSVs are saved into GATE_Papers_CSV
@@ -54,6 +78,9 @@
     const node = tpl.content.cloneNode(true);
     const num = node.querySelector('.q-num');
     const type = node.querySelector('.q-type');
+    const subject = node.querySelector('.subject');
+    const chapter = node.querySelector('.chapter');
+    const subtopic = node.querySelector('.subtopic');
     const qText = node.querySelector('.q-text');
     const qImgs = node.querySelector('.q-images');
     const opts = node.querySelector('.options');
@@ -64,6 +91,9 @@
 
     num.textContent = `Q${row.Question_Number ?? ''}`;
     type.textContent = row.Question_Type ? `(${row.Question_Type})` : '';
+    subject.textContent = row.subject || 'Not classified';
+    chapter.textContent = row.chapter || 'Not classified';
+    subtopic.textContent = row.subtopic || 'Not classified';
     qText.textContent = row.Question_Text || '';
     renderImages(qImgs, splitUrls(row.Question_Images));
 

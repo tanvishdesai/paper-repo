@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
@@ -12,6 +14,7 @@ import DisplayCards from "@/components/ui/display-cards";
 import { CyberneticBentoGrid } from "@/components/ui/cybernetic-bento-grid";
 import { subjects } from "@/lib/subjects";
 import { BookOpen, Target,  Zap, Brain, Trophy, CheckCircle2, Users, Star, ArrowRight, BarChart3, Filter,  Cpu, Database, Network, Settings, Calculator, Layers,  Sparkles, ChevronDown } from "lucide-react";
+
 // Icon mapping for subjects
 const iconMap: Record<string, React.ElementType> = {
   "⚡": Zap,
@@ -38,33 +41,51 @@ const shortNameMap: Record<string, string> = {
   "Compiler Design": "CD",
   "Digital Logic": "DL",
   "Engineering Mathematics": "EM",
-
 };
 
+// Define stats type
+interface DetailedStats {
+  totalQuestions?: number;
+  subjects?: Record<string, number>;
+  subjectList?: string[];
+}
+
 // Transform subjects to timeline data
-const transformSubjectsToTimeline = () => {
-  return subjects.map((subject, index) => ({
-    id: index + 1,
-    title: shortNameMap[subject.name] || subject.name,
-    fullTitle: subject.name, // Keep full title for tooltips/cards
-    date: `Subject ${index + 1}`,
-    content: subject.description,
-    category: "Computer Science",
-    icon: iconMap[subject.icon] || BookOpen,
-    relatedIds: [], // Could add related subjects later
-    status: "completed" as const,
-    energy: Math.floor(60 + Math.random() * 40), // Random energy between 60-100
-    fileName: subject.fileName,
-  }));
+const transformSubjectsToTimeline = (stats: DetailedStats | undefined) => {
+  return subjects.map((subject, index) => {
+    const questionCount = stats?.subjects?.[subject.name] || 0;
+    return {
+      id: index + 1,
+      title: shortNameMap[subject.name] || subject.name,
+      fullTitle: subject.name,
+      date: `${questionCount} Questions`,
+      content: subject.description,
+      category: "Computer Science",
+      icon: iconMap[subject.icon] || BookOpen,
+      relatedIds: [],
+      status: "completed" as const,
+      energy: Math.floor(60 + Math.random() * 40),
+      fileName: subject.fileName,
+      questionCount: questionCount,
+    };
+  });
 };
 
 export default function Home() {
   const router = useRouter();
-  const timelineData = transformSubjectsToTimeline();
+  
+  // Fetch statistics from Convex
+  const stats = useQuery(api.questions.getDetailedStats);
+
+  const timelineData = stats ? transformSubjectsToTimeline(stats) : [];
 
   const handleNavigate = (subjectSlug: string) => {
     router.push(`/questions/${encodeURIComponent(subjectSlug)}`);
   };
+
+  // Calculate total questions for display cards
+  const totalQuestions = stats?.totalQuestions || 0;
+  const totalSubjects = stats?.subjectList?.length || 0;
 
   return (
     <div className="min-h-screen bg-background">
@@ -89,7 +110,7 @@ export default function Home() {
                 <div className="space-y-6">
                   <div>
                     <p className="text-lg md:text-2xl text-muted-foreground leading-relaxed font-light">
-                      Comprehensive question bank with <span className="text-foreground font-semibold">thousands of previous year questions</span> across all Computer Science subjects.
+                      Comprehensive question bank with <span className="text-foreground font-semibold">{totalQuestions.toLocaleString()}+ previous year questions</span> across <span className="text-foreground font-semibold">{totalSubjects} Computer Science subjects</span>.
                     </p>
                     <p className="text-lg md:text-xl text-primary font-semibold mt-3 flex items-center gap-2">
                       <CheckCircle2 className="h-5 w-5" />
@@ -122,7 +143,7 @@ export default function Home() {
                   cards={[
                     {
                       icon: <BookOpen className="size-4 text-red-300" />,
-                      title: "10+",
+                      title: `${totalSubjects}+`,
                       description: "CS Subjects",
                       date: "Comprehensive",
                       iconClassName: "text-red-500",
@@ -130,7 +151,7 @@ export default function Home() {
                     },
                     {
                       icon: <Target className="size-4 text-blue-300" />,
-                      title: "1000+",
+                      title: `${totalQuestions.toLocaleString()}+`,
                       description: "Questions",
                       date: "Practice ready",
                       iconClassName: "text-red-500",
@@ -253,7 +274,9 @@ export default function Home() {
             </p>
           </div>
           <div className="h-screen w-full">
-            <RadialOrbitalTimeline timelineData={timelineData} onNavigate={handleNavigate} />
+            {timelineData.length > 0 && (
+              <RadialOrbitalTimeline timelineData={timelineData} onNavigate={handleNavigate} />
+            )}
           </div>
         </div>
       </section>

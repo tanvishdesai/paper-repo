@@ -1,0 +1,930 @@
+file_name,Question_Number,Question_Text,subject,chapter,subtopic
+GATE_CS_1996.csv,1,The process state transition diagram in below figure is representative of,Operating System,Core Concepts,"System calls, processes, threads"
+GATE_CS_1996.csv,2,"Quicksort is run on two inputs shown below to sort in ascending order taking the first element as pivot, (i) 1, 2, 3,......., n
+(ii) n, n-1, n-2,......, 2, 1 Let C 1 and C 2 be the number of comparisons made for the inputs (i) and (ii) respectively. Then,",Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1996.csv,3,Which of the following is false?,,,
+GATE_CS_1996.csv,4,"A two dimensional array A[1...n][1...n] of integers is partially sorted if âˆ€ i , j âˆˆ [1...nâˆ’1], A[ i ][ j ] < A[ i ][ j+1 ] and A[ i ][ j ] < A[ i+1 ][ j ] Fill in the blanks:
+
+a) The smallest item in the array is at A[ i ][ j ] where i =..................and j =......................
+b) The smallest item is deleted. Complete the following O(n) procedure to insert item x (which is guaranteed to be smaller than any item in the last row or column) still keeping A partially sorted. procedure insert (x: integer);
+var i,j: integer;
+begin
+    i:=1; j:=1, A[i][j]:=x;
+    while (x > ...... or x > ......) do
+        if A[i+1][j] < A[i][j] ......... then begin
+            A[i][j]:=A[i+1][j]; i:=i+1;
+        end
+        else begin
+            ............
+        end
+    A[i][j]:= .............
+end
+.",Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1996.csv,5,"A complete, undirected, weighted graph G is given on the vertex {0, 1,...., nâˆ’1} for any fixed â€˜ n â€™. Draw the minimum spanning tree of G if
+
+a) the weight of the edge (u,v) is âˆ£ uâˆ’v âˆ£
+b) the weight of the edge (u,v) is u + v",Algorithms,Graph Algorithms,"Graph traversals, minimum spanning trees, shortest paths"
+GATE_CS_1996.csv,6,"Consider the following program that attempts to locate an element x in a sorted array a[ ] using binary search. Assume N>1 . The program is erroneous. Under what conditions does the program fail? C++ #include <iostream> #include <vector> using namespace std ; int find ( vector < int > a , int n ) { int i = 1 , j = n ; int x ; do { int k = ( i + j ) / 2 ; if ( a [ k ] < x ) i = k + 1 ; else j = k ; } while ( a [ k ] != x && i < j ); if ( a [ k ] == x ) cout << ""x is in the array"" << endl ; else cout << ""x is not in the array"" << endl ; return 0 ; } C #include <stdio.h> #include <stdbool.h> int find ( int a [], int n , int x ) { int i = 1 , j = n ; int k ; do { k = ( i + j ) / 2 ; if ( a [ k ] < x ) i = k + 1 ; else j = k ; } while ( a [ k ] != x && i < j ); if ( a [ k ] == x ) printf ( ""x is in the array \n "" ); else printf ( ""x is not in the array \n "" ); return 0 ; } Java import java.util.List ; public class Main { public static void find ( int arr [] , int n , int x ) { int i = 0 , j = n ; int k ; do { k = ( i + j ) / 2 ; if ( arr [ k ] < x ) i = k + 1 ; else j = k ; } while ( i < j && arr [ k ] != x ); if ( arr [ k ] == x ) System . out . println ( ""x is in the array"" ); else System . out . println ( ""x is not in the array"" ); } } Python def find ( a , n , x ): i = 0 j = n while i < j : k = ( i + j ) // 2 if a [ k ] < x : i = k + 1 else : j = k if i < len ( a ) and a [ i ] == x : print ( ""x is in the array"" ) else : print ( ""x is not in the array"" ) JavaScript function find ( a , n , x ) { let i = 0 , j = n ; let k ; do { k = Math . floor (( i + j ) / 2 ); if ( a [ k ] < x ) i = k + 1 ; else j = k ; } while ( a [ k ] !== x && i < j ); if ( a [ k ] === x ) console . log ( ""x is in the array"" ); else console . log ( ""x is not in the array"" ); }",Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1996.csv,7,"Let G be the directed, weighted graph shown in below figure We are interested in the shortest paths from A.
+
+(a) Output the sequence of vertices identified by the Dijkstraâ€™s algorithm for single source shortest path when the algorithm is started at node A.
+(b) Write down sequence of vertices in the shortest path from A to E.
+(c) What is the cost of the shortest path from A to E?",Algorithms,Graph Algorithms,"Graph traversals, minimum spanning trees, shortest paths"
+GATE_CS_1996.csv,8,"A demand paged virtual memory system uses 16 bit virtual address, page size of 256 bytes, and has 1 Kbyte of main memory. LRU page replacement is implemented using a list whose current status (page number in decimal) is .
+
+For each hexadecimal address in the address sequence given below 00FF, 010D, 10FF, 11B0 indicate
+i) the new status of the list
+ii) page faults, if any, and
+iii) page replacements, if any",Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1996.csv,9,A 1000 Kbyte memory is managed using variable partitions but no compaction. It currently has two partitions of sizes 200 Kbytes and 260 Kbytes respectively. The smallest allocation request in Kbytes that could be denied is for,Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1996.csv,10,"Consider the following program in pseudo-pascal syntax. What is printed by the program if parameter a in procedure test1 is passed as i) call-by-reference parameter ii) call-by-value-result parameter program Example (input, output)
+var b: integer;
+procedure test2:
+begin b:=10; end
+procedure test1 (a:integer):
+begin 	a:=5;
+        writeln ('point 1: ', a, b);
+        test2;
+        writeln ('point 2: ', a, b);
+end
+begin (*Example*)
+b:=3; test1(b);
+writeln('point3: ', b);
+end",Compiler Design,Runtime Environments,
+GATE_CS_1996.csv,11,"The concurrent programming constructs fork and join are as below:
+fork <label>Â  Â  Â  Â  Â which creates a new process executing from the specified label
+join <variable>Â  Â  which decrements the specified synchronization variable (by 1) and terminates the process if the new value is not 0.
+
+Show the precedence graph for S1, S2, S3, S4, and S5 of the concurrent program below. N = 2
+   M = 2
+   fork L3
+   fork L4
+   S1
+L1:join N
+   S3
+L2:join M
+   S5
+L3:S2
+   goto L1
+L4:S4
+   goto L2
+next:",Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1996.csv,12,Which of the following is an example of a spooled device?,Computer Organization and Architecture,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1996.csv,13,"A file system with a one-level directory structure is implemented on a disk with disk block size of 4K bytes. The disk is used as follows: a) What is the maximum possible number of files?
+b) What is the maximum possible file size in blocks?",Operating System,File Systems,
+GATE_CS_1996.csv,14,The correct matching for the following pairs is A. Activation record	  1. Linking loader B. Location counter	    2. Garbage collection C. Reference counts	    3. Subroutine call D. Address relocation	  4. Assembler,Compiler Design,Runtime Environments,
+GATE_CS_1996.csv,15,The average number of key comparisons done in a successful sequential search inÂ a list of length n is,Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1996.csv,16,"The recurrence relation T(1) = 2
+ T(n) = 3T(n/4)+n has the solution, T(n) equals to",Algorithms,Complexity Analysis,Asymptotic worst case time and space complexity
+GATE_CS_1996.csv,17,"A library relational database system uses the following schema USERS (User#, UserName, HomeTown)
+BOOKS (Book#, BookTitle, AuthorName)
+ISSUED (Book#, User#, Date) Explain in one English sentence, what each of the following relational algebra queries is designed to determine",Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1996.csv,18,Two dice are thrown simultaneously. The probabilityÂ  that at least one of them will have 6 facing up is,Engineering Mathematics,Probability and Statistics,Conditional probability and Bayes theorem
+GATE_CS_1996.csv,19,The probability that the top and bottom cards of a randomly shuffled deck are both aces is,Engineering Mathematics,Probability and Statistics,
+GATE_CS_1996.csv,20,"Let F be the collection of all functions f : {1, 2,3}Â â†’ {1, 2, 3}. If f and g âˆˆ F, define an equivalence relation ~Â  by f ~ g if and only if f (3) = g (3).
+
+a) Find the number of equivalence classes defined by ~ .
+b) Find the number of elements in each equivalence class.",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1996.csv,21,"The Fibonacci sequence {f 1 , f 2 , f 3 ,....., f n } is defined by the following recurrence: f n+2 = f n+1 + f n , nÂ â‰¥ 1; f 2 = 1 : f 1 = 1
+
+Prove by induction that every third element of the sequence is even.",Engineering Mathematics,Discrete Mathematics,"Counting, recurrence relations, generating functions"
+GATE_CS_1996.csv,22,Which one of the following is false?,,,
+GATE_CS_1996.csv,23,"Let R be a non-empty relation on a collection of sets defined by A R B if and only if A âˆ© B = Ï†. Then, (pick the true statement)",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1996.csv,24,"Let R denote the set of real numbers. Let f : R Ã— R â†’ R Ã— R be a bijective function defined by f(x, y) = (x + y, x âˆ’ y). The inverse function of f is given by",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1996.csv,25,"Let X= {2, 3, 6, 12, 24}, Let â‰¤ be the partial order defined by X â‰¤ Y if x divides y. Number of edges in the Hasse diagram of (X,â‰¤) is",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1996.csv,26,Suppose X and Y are sets and |X| and |Y| are their respective cardinalities. It is given that there are exactly 97 functions from X to Y. From this one can conclude that,Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1996.csv,27,Which of the following statement is false?,,,
+GATE_CS_1996.csv,28,Let A and B be sets and let A c and B c denote the complements of the sets A and B. The set (Aâˆ’B) âˆª (Bâˆ’A) âˆª (A âˆ© B) is equal to,Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1996.csv,29,The matrices commute under multiplication,Engineering Mathematics,Linear Algebra,Matrices and Determinants
+GATE_CS_1996.csv,30,Let Ax=b be a system of linear equations where A is an mÃ—n matrix and b is a mÃ—1 column vector and X is an nÃ—1 column vector of unknowns. Which of the following is false?,Engineering Mathematics,Linear Algebra,System of Linear Equations
+GATE_CS_1996.csv,31,Let be two matrices such that Express the elements of D in terms of the elements of B .,Engineering Mathematics,Linear Algebra,Matrices and Determinants
+GATE_CS_1996.csv,32,What is the equivalent Boolean expression in product-of-sums form for the Karnaugh map given below. .,Digital Logic,Boolean Algebra,Minimization
+GATE_CS_1996.csv,33,"Consider the synchronous sequential circuit in the below figure a) Draw a state diagram, which is implemented by the circuit. Use the following names for the states corresponding to the values of flip-flops as given below. b) Given that the initial state of the circuit is S4, identify the set of states, which are not reachable.",Digital Logic,Boolean Algebra,Circuits: Combinational and sequential circuits.
+GATE_CS_1996.csv,34,"A logic network has two data inputs A and B, and two control inputs C 0 and C 1 . It implements the function F according to the following table. .
+Implement the circuit using one 4 to 1 Multiplexer, one 2-input Exclusive OR gate, one 2-input AND gate, one 2-input OR gate and one Inverter.",Digital Logic,Boolean Algebra,Circuits: Combinational and sequential circuits.
+GATE_CS_1996.csv,35,Consider the following floating point number representation The exponent is in 2's complement representation and mantissa is in the sign magnitude representation. The range of the magnitude of the normalized numbers in this representation is a). 0 to 1 b). 0.5 to 1 c). 2 -23 to 0.5 d). 0.5 to (1-2 -23 ),Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1996.csv,36,Consider the circuit in below figure. f implements,Digital Logic,Boolean Algebra,Minimization
+GATE_CS_1996.csv,37,Consider the circuit given below which has a four bit binary number b 3 b 2 b 1 b 0 as input and a five bit binary number d 4 d 3 d 2 d 1 d 0 as output. The circuit implements: .,Digital Logic,Boolean Algebra,Circuits: Combinational and sequential circuits.
+GATE_CS_1996.csv,38,Booth's algorithm for integer multiplication gives worst performance when the multiplier pattern is,Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1996.csv,39,A ROM is used to store the table for multiplication of two 8-bit unsigned integers. The size of ROM required is,Digital Logic,Boolean Algebra,Circuits: Combinational and sequential circuits.
+GATE_CS_1996.csv,40,"Which two of the following four regular expressions are equivalent? ( Îµ is the empty string).
+(i). (00)*(Îµ+0)
+(ii). (00)*
+(iii). 0*
+(iv). 0(00)*",Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1996.csv,41,"Let LÂ âŠ†Â âˆ‘* whereÂ âˆ‘ = {a, b}. Which of the following is true ?",Theory of Computation,Language Properties,"Regular and context-free languages, pumping lemma"
+GATE_CS_1996.csv,42,"Given below are the transition diagrams for two finite state machine M 1 and M 2 recognizing languages L 1 and L 2 respectively. .
+
+a) Display the transition diagram for a machine that recognizes L 1 . L 2 , obtained from transition diagrams for M 1 and M 2 by adding only Îµ transitions and no new states.
+
+b) Modify the transition diagram obtained in part(a) obtain a transition diagram for a machine that recognizes (L 1 .L 2 ) âˆ— by adding only Îµ transitions and no new states.
+(Final states are enclosed in double circles).",Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1996.csv,43,Consider the given figure of state table for a sequential machine. The number of states in the minimized machine will be .,Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1996.csv,44,"Let Q = ( {q 1 ,q 2 }, {a,b}, {a,b,Z}, Î´, Z, Ï•) be a pushdown automaton accepting by empty stack for the language which is the set of all non empty even palindromes over the set {a,b} . Below is an incomplete specification of the transitions Î´ . Complete the specification. The top of the stack is assumed to be at the right end of the string representing stack contents. Î´(q 1 , a, Z)={(q 1 , Za)}
+Î´(q 1 , b, Z)={(q 1 , Zb)}
+Î´(q 1 , a, a)={(..... , .....)}
+Î´(q 1 , b, b)={(..... , .....)}
+Î´(q 2 , a, a)={(q 2 , Ïµ)}
+Î´(q 2 , b, b)={(q 2 , Ïµ)}
+Î´(q 2 , Ïµ, Z)={(q 2 , Ïµ)}",Theory of Computation,Formal Languages and Automata,Context-free grammars and push-down automata
+GATE_CS_1996.csv,45,"Define for a context free language LÂ âŠ† {0, 1}* ,Â  init(L)={ u âˆ£ uv âˆˆ L for some v in {0,1}âˆ—} ( in other words, init(L) is the set of prefixes of L)
+
+Let L = {w âˆ£ w is nonempty and has an equal number of 0 â€™s and 1 â€™s}
+Then init(L) is",Theory of Computation,Formal Languages and Automata,Context-free grammars and push-down automata
+GATE_CS_1996.csv,46,"Let G be a context-free grammar where G = ( { S, A, B, C}, { a,b, d}, P, S ) with the productions in P given below. S â†’ ABAC
+A â†’ aA âˆ£ Îµ
+B â†’ bB âˆ£ Îµ
+C â†’ d ( Îµ denotes null string). Transform the grammar G to an equivalent context-free grammar G' that has no Îµ productions and no unit productions. (A unit production is of the form x â†’ y, and x and y are non terminals.)",Theory of Computation,Formal Languages and Automata,Context-free grammars and push-down automata
+GATE_CS_1996.csv,47,"If L1 and L2 are context free languages and R a regular set, one of the languages below is not necessarily a context free language, which one?",Theory of Computation,Language Properties,"Regular and context-free languages, pumping lemma"
+GATE_CS_1996.csv,48,Which of the following statements is false?,,,
+GATE_CS_1996.csv,49,The formula used to compute an approximation for the second derivative of a function f at a point X 0 is,Engineering Mathematics,Calculus,
+GATE_CS_1996.csv,50,"Let f be a function defined by [Tex]f(x) =\begin{cases} x^2 & \text{for } x \leq 1 \\ax^2 + bx + c & \text{for } 1 < x \leq 2 \\x + d & \text{for } x > 2\end{cases}[/Tex] Find the values for the constants a, b, c and d so that f is continuous and differentiable everywhere on the real line.",Engineering Mathematics,Calculus,Limits and Continuity
+GATE_CS_1996.csv,51,"Newton-Raphson iteration formula for finding 3 âˆšc, where c > 0 is .",Engineering Mathematics,Calculus,
+GATE_CS_1996.csv,52,Number of machine cycles required for RET instruction in 8085 microprocessor is,Computer Organization and Architecture,Instruction Set Architecture,Machine instructions and addressing modes
+GATE_CS_1996.csv,53,"A computer system has a three level memory hierarchy, with access time and hit ratios as shown below: a) What should be the minimum sizes of level 1 and 2 memories to achieve an average access time of less than 100 nsec?
+b) What is the average access time achieved using the chosen sizes of level 1 and level 2 memories?",Computer Organization and Architecture,Memory Hierarchy,"Cache, main memory and secondary storage"
+GATE_CS_1996.csv,54,"For the daisy chain scheme of connecting I/O devices, which of the following statement is true?",Computer Organization and Architecture,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1996.csv,55,"A hard disk is connected to a 50 MHz processor through a DMA controller. Assume that the initial set-up of a DMA transfer takes 1000 clock cycles for the processor, and assume that the handling of the interrupt at DMA completion requires 500 clock cycles for the processor. The hard disk has a transfer rate of 2000 Kbytes/sec and average block transferred is 4 K bytes. What fraction of the processor time is consumed by the disk, if the disk is actively transferring 100% of the time? .",Computer Organization and Architecture,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1996.csv,56,"An 8052 based system has an output port with address 00H. Consider the following assembly language program. ORG    0100H
+MVI    A, 00H
+LXI    H, 0105H
+OUT    00H
+INR    A
+PCHL
+HLT a) What does the program do with respect to the output port 00H?
+b) Show the wave forms at the three least significant bits of the port 00H.",Computer Organization and Architecture,Instruction Set Architecture,Machine instructions and addressing modes
+GATE_CS_1996.csv,57,"A micro program control unit is required to generate a total of 25 control signals. Assume that during any microinstruction , at most two control signals are active. Minimum number of bits required in the control word to generate the required control signals will be",Computer Organization and Architecture,Central Processing Unit (CPU),"ALU, data-path and control unit"
+GATE_CS_1996.csv,58,Relative mode of addressing is most relevant to writing,Computer Organization and Architecture,Instruction Set Architecture,Machine instructions and addressing modes
+GATE_CS_1996.csv,59,"Which of the following is false? Read âˆ§ as AND, âˆ¨ as OR, âˆ¼ as NOT, â†’ as one way implication and â†” as two way implication.",Engineering Mathematics,Discrete Mathematics,Logic: Propositional and first order logic.
+GATE_CS_1996.csv,60,"Four jobs to be executed on a single processor system arrive at time 0 in the order A, B, C, D. Their burst CPU time requirements are 4, 1, 8, 1 time units respectively. The completion time of A under round robin scheduling with time slice of one time unit is",Operating System,Scheduling,CPU and I/O scheduling
+GATE_CS_1996.csv,61,A critical section is a program segment,Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1996.csv,62,A solution to the Dining Philosophers Problem which avoids deadlock is:,Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1996.csv,63,"A computer system uses the Bankerâ€™s Algorithm to deal with deadlocks. Its current state is shown in the table below, where P0, P1, P2 are processes, and R0, R1, R2 are resources types. a) Show that the system can be in this state. b) What will the system do on a request by process P0 for one unit of resource type R1?",Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1996.csv,64,Consider the following statements: i.   First-in-first out types of computations are efficiently supported by STACKS. ii.  Implementing LISTS on linked lists is more efficient than implementing LISTS on an array for almost all the basic LIST operations. iii. Implementing QUEUES on a circular array is more efficient than implementing QUEUES on a linear array with two indices. iv.  Last-in-first-out type of computations are efficiently supported by QUEUES. Which of the following is correct?,Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1996.csv,65,"In the balanced binary tree in the below figure, how many nodes will become unbalanced when a node is inserted as a child of the node â€œ g â€? a
+       /   \\
+      b     e
+     / \\   /
+    c  d  f
+   /
+  g",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1996.csv,66,"Which of the following sequences denotes the post order traversal sequence of the given tree? a
+       /   \\
+      b     e
+     / \\   /
+    c  d  f
+   /
+  g",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1996.csv,67,A binary search tree is used to locate the number 43. Which of the following probe sequences are possible and which are not? Explain,Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1996.csv,68,An advantage of chained hash table (external hashing) over the open addressing scheme is,Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1996.csv,69,"Insert the characters of the string K R P C S N Y T J M into a hash table of size 10. Use the hash function h(x) = ( ord(x) â€“ ord(""A"") + 1 ) mod10 If linear probing is used to resolve collisions, then the following insertion causes collision",Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1996.csv,70,"A binary search tree is generated by inserting in order the following integers: 50, 15, 62, 5, 20, 58, 91, 3, 8, 37, 60, 24 The number of nodes in the left subtree and right subtree of the root respectively is",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1996.csv,71,"Consider the syntax-directed translation schema (SDTS) shown below: E â†’ E + E         {print â€œ + â€}
+E â†’ E âˆ— E         {print â€œ . â€}
+E â†’ id            {print id.name }
+E â†’ ( E ) An LR-parser executes the actions associated with the productions immediately after a reduction by the corresponding production. Draw the parse tree and write the translation for the sentence (a+b) âˆ— (c+d) , using the SDTS given above.",Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1996.csv,72,"The minimum number of interchanges needed to convert the array 89, 19, 40, 17, 12, 10, 2, 5, 7, 11, 6, 9, 70Â into a heap with the maximum element at the root is",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1996.csv,73,"The grammar whose productions are <stmt> â†’ if id then <stmt>
+ <stmt> â†’ if id then  <stmt> else <stmt>
+ <stmt> â†’ id := id is ambiguous because
+a) the sentence if a then if b then c:= d has two parse trees
+b) the left most and right most derivations of the sentence if a then if b then c:= d give rise to different parse trees
+c) the sentence if a then if b then c:= d else c:= f has more than two parse trees
+d) the sentence if a then if b then c:= d else c:= f has two parse trees",Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1996.csv,74,The pass number for each of the following activities Object code generation Literals added to literal table Listing printed Address resolution of local symbols That occur in a two pass assembler respectively are,Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1996.csv,75,"Which of the following macros can put a micro assembler into an infinite loop?
+(i) .MACRO M1 X
+.IF EQ, X      ;if X=0 then
+M1 X + 1
+.ENDC
+.IF NE X       ;IF Xâ‰ 0 then
+.WORD X        ;address (X) is stored here
+.ENDC
+.ENDM (ii) .MACRO M2 X
+.IF EQ X
+M2 X
+.ENDC
+.IF NE, X
+.WORD X+1
+.ENDC
+.ENDM",Compiler Design,,
+GATE_CS_1997.csv,1,"A concurrent system consists of 3 processes using a shared resource R in a non-preemptible and mutually exclusive manner. The processes have unique priorities in the range 1.....3, 3 being the highest priority. It is required to synchronize the processes such that the resource is always allocated to the highest priority requester. The pseudo code for the system is as follows. Shared Data mutex:semaphore = 1:/* initialized to 1*/
+process[3]:semaphore = 0; /*all initialized to 0 */
+R_requested [3]:boolean = false; /*all initialized to false */
+busy: boolean = false; /*initialized to false */ Code for processes begin process
+my-priority:integer;
+my-priority:=____; /*in the range 1...3*/
+repeat
+    request_R(my-priority);
+    P (proceed [my-priority]);
+    {use shared resource R}
+    release_R (my-priority);
+forever
+end process; Procedures procedure request_R(priority);
+P(mutex);
+if busy = true then
+    R_requested [priority]:=true;
+else
+ begin
+    V(proceed [priority]);
+    busy:=true;
+ end
+V(mutex); Give the pseudo code for the procedure release_R .",Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1997.csv,2,"A priority queue Q is used to implement a stack S that stores characters. PUSH(C) is implemented as INSERT(Q, C, K) where K is an appropriate integer key chosen by the implementation. POP is implemented as DELETEMIN(Q). For a sequence of operations, the keys chosen are in",Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1997.csv,3,"[5-Marks question]
+
+Consider a graph whose vertices are points in the plane with integer co-ordinates (x,y) such that 1â‰¤xâ‰¤n and 1â‰¤yâ‰¤n , where nâ‰¥2 is an integer. Two vertices (x1,y1) and (x2,y2) are adjacent iff âˆ£ x1âˆ’x2 âˆ£ â‰¤ 1 and âˆ£ y1â€“y2 âˆ£ â‰¤1. The weight of an edge {(x1,y1),(x2,y2)} is âˆš (x1â€“x2) 2 +(y1â€“y2) 2 a.Â  What is the weight of a minimum weight-spanning tree in this graph? Write only the answer without any explanations.
+b.Â  What is the weight of a maximum weight-spanning tree in this graph? Write only the answer without any explanations.",Algorithms,Graph Algorithms,"Graph traversals, minimum spanning trees, shortest paths"
+GATE_CS_1997.csv,4,"The correct matching for the following pairs is (A) All pairs shortest path          (1) Greedy
+(B) Quick Sort                       (2) Depth-First search
+(C) Minimum weight spanning tree     (3) Dynamic Programming
+(D) Connected Components             (4) Divide and and Conquer Codes: A    B    C    D a 2    4    1    3 b 3    4    1    2 c 3    4    2    1 d 4    1    2    3",Algorithms,Algorithm Design Techniques,"Greedy, dynamic programming and divide-and-conquer"
+GATE_CS_1997.csv,5,"An array A contains nâ‰¥1 positive integers in the locations A[1], A[2],... A[n]. The following program fragment prints the length of a shortest sequence of consecutive elements of A, A[i], A[i+1],...A[j] such that the sum of their values is â‰¥M , a given positive number. It prints â€˜ n+1 â€™ if no such sequence exists. Complete the program by filling in the boxes. In each case use the simplest possible expression. Write only the line number and the contents of the box.",Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1997.csv,6,Locality of reference implies that the page reference being made by a process,Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1997.csv,7,Thrashing,Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1997.csv,8,Dirty bit for a page in a page table,Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1997.csv,9,"[5-Marks question]
+
+Let L = {a 1 ,Â  a 2 , .........., a n } n â‰¥ 0 be a list whose Pascal representation is type list = record
+next:â†‘ list; val: integerÂ  Â end The following function returns a list in which a 2i and a 2i-1 , 1 â‰¤ i â‰¤ [n/2] are interchanged. Complete the function by filling the boxes. Write the line number and the content of the box in your answer sheet.",Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1997.csv,10,"[5-Marks question]
+
+Consider the following program in Pseudo-Pascal syntax. program what:
+    var z: integer
+    procedure recur(x):
+    begin if x <= 40 then
+        begin x:x+z
+            recur(x);
+            z:=x+10
+        end
+    end(*recur*)
+begin(*what*)
+    z=10;
+    recur(z);
+    writeln(z)
+end a. Suppose the parameter to the procedure â€˜recurâ€™ is passed by value.
+i. What value is printed by program?
+ii. How many times is â€˜recurâ€™ called?
+b. What value is printed by the program if the parameter is passed by reference?",Compiler Design,Runtime Environments,
+GATE_CS_1997.csv,11,Heap allocation is required for languages,Compiler Design,Runtime Environments,
+GATE_CS_1997.csv,12,"A program P reads and processes 1000 consecutive records from a sequential file F stored on device D without using any file system facilities. Given the following Size of each record = 3200 bytes
+Access time of D = 10 msecs
+Data transfer rate of D = 800 Ã— 10 3 bytes/second
+CPU time to process each record = 3 msecs What is the elapsed time of P if
+a). F contains unblocked records and P does not use buffering?
+b). F contains unblocked records and P uses one buffer (i.e., it always reads ahead into the buffer)?
+c). records of F are organized using a blocking factor of 2 (i.e., each block on D contains two records of F) and P uses one buffer?
+
+You may assume that the CPU time needed to transfer a record from a buffer to a local variable of P is negligible.",Operating System,File Systems,
+GATE_CS_1997.csv,13,I/O redirection,Operating System,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1997.csv,14,"Consider the following program fragment in Pascal: Program Main;
+    var X : integer;
+    procedure A:
+       var Y : integer;
+    procedure B:
+       var Z : integer;
+    procedure C:
+       var Z : integer;
+    begin(*Procedure C*)
+    .
+    .
+    end(*Procedure C*)
+ begin(*Procedure B*)
+    .
+    .
+ C; (*call to C*)
+ A; (*call to A*)
+        .
+        .
+
+ end(*Procedure B*)
+ begin(*Procedure A*)
+        .
+        .
+        B; (*call to B*)
+        .
+        .
+  end(*Procedure A*)
+begin (*Main*) Assume that there are no calls to any procedures other than the ones indicated above. It is known that at some point of time during the execution of this program five activation records exist on the run-time stack. Describe the run-time stack at this point of time by clearly indicating the following: the top of the stack, the contents of the static link and dynamic link, and allocation of the local variables in each record.",Compiler Design,Runtime Environments,
+GATE_CS_1997.csv,15,"A language L is a subset of Pascal with the following constructs:
+
+a). Expressions involving the operators '+' and '<' only
+b). Assignment statements
+c). 'while' statements and
+d). Compound statements with the syntax 'begin..............end'
+
+Give an unambiguous grammar for L.",Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1997.csv,16,"Consider the following function Function F (n, m: integer): integer;
+begin
+    If (n<=0) or (m<=0) then F:=1
+    else
+      F:= F(n-1,m) + F(n, m-1);
+    end; Use the recurrence relationÂ to answer the following question. Assume that n, m are positive integers. Write only the answers without any explanation.
+a. What is the value of F(n,2)?
+b. What is the value of (n,m)?
+c. How many recursive calls are made to the function F, including the original call, when evaluating F(n,m).",Engineering Mathematics,Discrete Mathematics,"Counting, recurrence relations, generating functions"
+GATE_CS_1997.csv,17,"Let T(n) be the function defined by T(1)= 1, T(n)= 2T (âŒŠn/2âŒ‹) +Â âˆšn for nâ‰¥2 . Which of the following statement(s) is true?
+
+a.Â  T(n) = O(âˆšn)
+b.Â  T(n) = O(n)
+c.Â  T(n) = O(log n)
+d. None of the above",Algorithms,Complexity Analysis,Asymptotic worst case time and space complexity
+GATE_CS_1997.csv,18,"For a database relation R(a,b,c,d), where the domains a, b, c, d include only atomic values, only the following functional dependencies and those that can be inferred from them hold: { a â†’ c, b â†’ d } This relation is",Databases,Database Design,"Integrity constraints, normal forms"
+GATE_CS_1997.csv,19,"Consider the following relational database schema: EMP ( eno name, age)
+PROJ ( pno name)
+INVOLVED ( eno, pno ) EMP contains information about employees. PROJ about projects and INVOLVED about which employees involved in which projects. The underlined attributes are the primary keys for the respective relations.
+a). What is the relational algebra expression containing one or more of {Ïƒ,Ï€,x,u,âˆ’} which is equivalent to SQL query. select eno
+from EMP, INVOLVED 
+where EMP.eno=INVOLVED.eno  
+and INVOLVED.pno=3 b). State in English (in not more than 15 words).
+What the following relational algebra expressions are designed to determine (i) Ï€ eno (INVOLVED) âˆ’ Ï€ eno ((Ï€ eno (INVOLVED) X Ï€ pno (PROJ))âˆ’INVOLVED)
+(ii)Â Ï€ age (EMP) âˆ’ Ï€ Eage<EMP.age (ÏE(EMP) x EMP)) ( Note: Ï E (EMP)Â conceptually makes a copy of EMP and names it K (Ï is called the rename operator))",Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1997.csv,20,"Let R(a,b,c) and S(d,e,f) be two relations in which d is the foreign key of S that refers to the primary key of R . Consider the following four operations R and S 1. Insert into R
+2. Insert into S
+3. Delete from R
+4. Delete from S
+
+Which of the following can cause violation of the referential integrity constraint above?",Databases,Database Design,"Integrity constraints, normal forms"
+GATE_CS_1997.csv,21,A B+ tree of order d is a tree in which each internal node has between d and 2d key values. An internal node with M key values has M+1 children. The root (if it is an internal node) has between 1 and 2d key values. The distance of a node from the root is the length of the path from the root to the node. All leaves are at the same distance from the root. The height of the tree is the distance of a leaf from the root. a). What is the total number of key values in the internal nodes of a B+ tree with l leaves (lâ‰¥2) ? b). What is the maximum number of internal nodes in a B+ tree of order 4 with 52 leaves? c). What is the minimum number of leaves in a B+ tree of order d and height h(hâ‰¥1) ?,Databases,File Organization and Indexing,"File organization, indexing (e.g., B and B+ trees)"
+GATE_CS_1997.csv,22,The probability that it will rain today is 0.5. The probability that it will rain tomorrow is 0.6. The probability that it will rain either today or tomorrow is 0.7. What is the probability that it will rain today and tomorrow?,Engineering Mathematics,Probability and Statistics,Conditional probability and Bayes theorem
+GATE_CS_1997.csv,23,"A polynomial p(x) is such that p(0) =5, p(1) =4, p(2) =9 and p(3) =20. The minimum degree it can have is",Engineering Mathematics,Calculus,
+GATE_CS_1997.csv,24,"The number of equivalence relations of the set {1,2,3,4} is",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1997.csv,25,"A partial orderÂ â‰¤ is defined on the set S= {x, a 1 , a 2 ,.....a n , y} as x < a i for all i and a i â‰¤ y for all i , where nâ‰¥1. The number of total orders on the set S which contain the partial orderÂ â‰¤ is",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1997.csv,26,"In a lattice defined by the Hasse diagram given in figure 3.3, how many complements does the element 'e' have?",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1997.csv,27,"Let F be the set of one-to-one functions from the set {1,2,â€¦,n} to the set {1,2,â€¦,m}, where m â‰¥n â‰¥ 1 .
+
+a.Â How many functions are members of F?
+b.Â How many functions f in F satisfy the property f(i)=1 for some i, 1 â‰¤ i â‰¤ n ?
+c.Â How many functions f in F satisfy the property f(i) < f(j) for all 1 â‰¤ i â‰¤ j â‰¤ n ?",Engineering Mathematics,Discrete Mathematics,"Combinatorics: Counting, recurrence relations, generating functions."
+GATE_CS_1997.csv,28,"Let (Z, *) be an algebraic structure where Z is the set of integers and the operation âˆ— is defined by n âˆ— m = max(n . m) . Which of the following statements is true for (Z, *) ?",Engineering Mathematics,Discrete Mathematics,"Algebraic Structures: Monoids, Groups."
+GATE_CS_1997.csv,29,"Let R be a reflexive and transitive relation on a set A . Define a new relation E on A as E= {(a,b) âˆ£ (a,b)âˆˆR and (b,a)âˆˆR } a . Prove that E is an equivalence relation on A . b . Define a reason â‰¤ on the equivalence classes of E as E1â‰¤E2 ifÂ  âˆƒ a,b such that aâˆˆE1, bâˆˆE2 and (a,b)âˆˆR. Prove that â‰¤ is a partial order.",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1997.csv,30,Let A= (a ij ) be an n-rowed square matrix and I 12 be the matrix obtained by interchanging the first and second rows of the n-rowed Identify matrix. Then AI 12 is such that its first,Engineering Mathematics,Linear Algebra,Matrices and Determinants
+GATE_CS_1997.csv,31,"The determinant of the matrix [Tex]\begin{bmatrix}
+6 & -8 & 1 & 1 \\
+0 & 2 & 4 & 6 \\
+0 & 0 & 4 & 8 \\
+0 & 0 & 0 & -1
+\end{bmatrix}[/Tex] is:",Engineering Mathematics,Linear Algebra,Matrices and Determinants
+GATE_CS_1997.csv,32,"Let f = (w'+y)(x'+y)(w+x'+z)(w'+z)(x'+z) a). Express f as the minimal sum of products. Write only the answer.
+b). If the output line is stuck at 0, for how many input combinations will the value of f be incorrect?",Digital Logic,Boolean Algebra,Minimization
+GATE_CS_1997.csv,33,"Following floating point number format is given f is a fraction represented by a 6-bit mantissa (includes sign bit) in sign magnitude form e is a 4-bit exponent (includes sign hit) in sign magnitude form n= (f, e) = f, 2 e is a floating point number.
+Let A= 54.75 in decimal and B= 9.75 in decimal.
+
+a). Represent A and B as floating point numbers in the above format.
+b). Show the steps involved in floating point addition of A and B.
+c). What is the percentage error (upto one position beyond decimal point) in the addition operation in (b)?",Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1997.csv,34,"A D flip-flop is to be connected to an 8085 microprocessor chip as a 1-bit output port with a port address of FF hex. Data bit D3 should be involved in the data transfer from CPU to the flip-flop. The flip-flop should be cleared on power ON. a.  Using only one NAND gate (fan in of 10), one NOT gate and one D flip-flop. Draw the required interface logic circuit (only the relevant signals should be shown). b.  Write a program to generate a square wave on the output of the flip-flop. ON and OFF periods of the square wave should be 7 bus cycles each.",Computer Organization and Architecture,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1997.csv,35,"Consider a logic circuit shown in figure below. The functions f1 , f2 and f (in canonical sum of products form in decimal notation) are : f1(w,x,y,z) = âˆ‘ 8,9,10 f2(w,x,y,z) = âˆ‘ 7,8,12,13,14,15 f(w,x,y,z) = âˆ‘ 8,9  The Function f3 is a. âˆ‘9,10 b. âˆ‘9 c. âˆ‘1,8,9 d. âˆ‘8,10,15",Digital Logic,Boolean Algebra,Minimization
+GATE_CS_1997.csv,36,GivenÂ âˆš(224) r = (13) r The value of the radix r is:,Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1997.csv,37,"Let f(x, y, z) = x' + y'x + xz be a switching function. Which one of the following is valid?",Digital Logic,Boolean Algebra,Minimization
+GATE_CS_1997.csv,38,Let * be defined as x * y = x' + y. Let z = x * y. Value of z * x is,Digital Logic,Boolean Algebra,
+GATE_CS_1997.csv,39,"An N-bit carry look ahead adder, where N is a multiple of 4, employs ICs 74181 (4 bit ALU) and 74182 (4 bit carry look ahead generator).
+The minimum addition time using the best architecture for this adder is",Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1997.csv,40,"Following is a state table for some finite state machine. A). Find the equivalence partition on the states of the machine.
+B). Give the state table for the minimal machine. (Use appropriate names for the equivalent states. For example if states X and Y are equivalent then use XY as the name for the equivalent state in the minimal machine.)",Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1997.csv,41,"Given that L is a language accepted by a finite state machine, show that L P and L R are also accepted by some finite state machines, where L P = {s | ss' âˆˆ L, for some string s' }
+L R = {s | s obtainable by reversing some string in L }",Theory of Computation,Language Properties,"Regular and context-free languages, pumping lemma"
+GATE_CS_1997.csv,42,"Construct a finite state machine with minimum number of states, accepting all strings over {a, b} such that the number of a 's is divisible by two and the number of b 's is divisible by three.",Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1997.csv,43,"Which one of the following regular expressions over {0,1} denotes the set of all strings not containing 100 as a substring?",Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1997.csv,44,"Which of the following languages over {a,b,c} is accepted by a deterministic pushdown automata? a. {wcw R âˆ£ wâˆˆ {a,b}* } b. {ww R âˆ£ wâˆˆ {a,b,c}* } c. {a n b n c n âˆ£ n â‰¥ 0 } d. {w âˆ£ w is a palindrome over {a,b,c} } Note : w R is the string obtained by reversing ' w '",Theory of Computation,Formal Languages and Automata,Context-free grammars and push-down automata
+GATE_CS_1997.csv,45,Which one of the following is not decidable?,Theory of Computation,Computability,Turing machines and undecidability
+GATE_CS_1997.csv,46,"GivenÂ âˆ‘ = {a, b}, which of the following sets is not countable ?",Theory of Computation,Computability,Turing machines and undecidability
+GATE_CS_1997.csv,47,"The trapezoidal method to numerically obtain b âˆ« a f(x) dx has an error E bounded by ((b-a)/12)h 2 max f ''(x) , xÂ âˆˆ [a,b]Â where h is the width of the trapezoids. The minimum number of trapezoids guaranteed to ensure EÂ â‰¤ 10 -4 in computing ln 7 using f= 1/x is",Engineering Mathematics,Calculus,Integration
+GATE_CS_1997.csv,48,"The Newton-Raphson method is used to find the root of the equation x 2 - 2 = 0 . If the iterations are started from -1, the iterations will
+
+a. converge to -1
+b. converge toÂ âˆš2
+c. converge to -âˆš2
+d. not converge",Engineering Mathematics,Calculus,
+GATE_CS_1997.csv,49,"Using the forward Eular method to solve y''(t) = f(t) , y'(0) = 0 with a step size of h , we obtain the following values of y in the first four iterations:
+
+a. 0 , h f(0) , h (f(0) + f(h)) and h (f(0) - f(h) + f(2h)) b. 0 , 0 , h 2 f(0) and 2h 2 f(0) + f(h) c. 0 , 0 , h 2 f(0) and 3h 2 f(0) d. 0 , 0 , h f(0) + h 2 f(0) and h f(0) + h 2 f(0) + hf(h)",Engineering Mathematics,Calculus,
+GATE_CS_1997.csv,50,"What is the maximum value of the function f(x) = 2x 2 - 2x + 6 in the interval [0, 2]?",Engineering Mathematics,Calculus,Extrema: Maxima and minima.
+GATE_CS_1997.csv,51,"Contents of A register after the execution of the following 8085 microprocessor program is MVI  A, 55 H
+MVI  C, 25 H
+ADD  C
+DAA",Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1997.csv,52,RST 7.5 interrupt in 8085 microprocessor executes the interrupt service routine from interrupt vector location,Computer Organization and Architecture,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1997.csv,53,"The correct matching for the following pairs is (A) DMA I/O                    (1) High speed RAM
+(B) Cache                      (2) Disk
+(C) Interrupt I/O              (3) Printer
+(D) Condition Code Register    (4) ALU Codes: A   B   C   D a 4   3   1   2 b 2   1   3   4 c 4   3   2   1 d 2   3   4   1",Computer Organization and Architecture,,
+GATE_CS_1997.csv,54,A micro instruction into be designed to specify a .Â  none or one of the three micro operations of one kind and b .Â  none or upto six micro operations of another kind The minimum number of bits in the micro-instruction is,Computer Organization and Architecture,Central Processing Unit (CPU),"ALU, data-path and control unit"
+GATE_CS_1997.csv,55,Purpose of a start bit in R8232 serial communication protocol is,Computer Networks,Data Link Layer,"Framing, error detection, Medium Access Control, Ethernet bridging"
+GATE_CS_1997.csv,56,Which of the following propositions is a tautology?,Engineering Mathematics,Discrete Mathematics,Logic: Propositional and first order logic.
+GATE_CS_1997.csv,57,The correct matching for the following pairs is (A) Disk Scheduling        (1) Round robin (B) Batch Processing       (2) SCAN (C) Time sharing           (3) LIFO (D) Interrupt processing   (4) FIFO Codes: A   B   C   D a 3   4   2   1 b 4   3   2   1 c 2   4   1   3 d 3   4   3   2,Operating System,Scheduling,CPU and I/O scheduling
+GATE_CS_1997.csv,58,"When an interrupt occurs, an operating system",Operating System,Core Concepts,"System calls, processes, threads"
+GATE_CS_1997.csv,59,An operating system contains 3 user processes each requiring 2 units of resource R . The minimum number of units of R such that no deadlocks will ever arise is,Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1997.csv,60,"Each Process P i , i= 1.......9 is coded as follows repeat 
+    P(mutex)
+    {Critical section}
+    V(mutex)
+ forever The code for P 10 is identical except it uses V(mutex) in place of P(mutex). What is the largest number of processes that can be inside the critical section at any moment?",Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1997.csv,61,"An operating system handles requests to resources as follows.
+A process (which asks for some resources, uses them for some time and then exits the system) is assigned a unique timestamp are when it starts. The timestamps are monotonically increasing with time. Let us denote the timestamp of a process P by TS(P).
+
+When a process P requests for a resource the OS does the following: (i) If no other process is currently holding the resource, the OS awards the resource to P. (ii) If some process Q with TS(Q)<TS(P) is holding the resource, the OS makes P wait for 
+     the resources. (iii) If some process Q with TS(Q)>TS(P) is holding the resource, the OS restarts Q 
+      and awards the resources to P. (Restarting means taking back the resources held by a process, killing it and starting it 
+again with the same timestamp) When a process releases a resource, the process with the smallest timestamp (if any) amongst those waiting for the resource is awarded the resource. a) . Can a deadlock ever arise? If yes, show how. If not, prove it. b) . Can a process P ever starve? If yes, show how. If not, prove it.",Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1997.csv,62,"Given the following Pascal-like program segment Procedure A;
+  x,y:integer;
+   Procedure B;
+    x,z:real
+    S1
+   end B;
+   Procedure C;
+      i:integer;
+       S2
+   end C;
+end A; The variables accessible in S1 and S2 are",Compiler Design,Runtime Environments,
+GATE_CS_1997.csv,63,"Consider the following piece of 'C' code fragment that removes duplicates from an ordered list of integers. C++ #include <stdio.h> Node * remove_duplicates ( Node * head , int * j ) { Node * t1 , * t2 ; * j = 0 ; t1 = head ; if ( t1 != NULL ) t2 = t1 -> next ; else return head ; * j = 1 ; if ( t2 == NULL ) return head ; while ( t2 != NULL ) { if ( t1 -> val != t2 -> val ) { // S1 ( * j ) ++ ; t1 -> next = t2 ; t1 = t2 ; // S2 } t2 = t2 -> next ; } t1 -> next = NULL ; return head ; } C #include <stdio.h> Node * remove - duplicates ( Node * head , int * j ) { Node * t1 , * t2 ; * j = 0 ; t1 = head ; if ( t1 ! = NULL ) t2 = t1 â†’ next ; else return head ; * j = 1 ; if ( t2 == NULL ) return head ; while t2 != NULL ) { if ( t1 . val != t2 . val ) -------------------------- â†’ ( S1 ) { ( * j ) ++ ; t1 -> next = t2 ; t1 = t2 : ---------- â†’ ( S2 ) } t2 = t2 â†’ next ; } t1 â†’ next = NULL ; return head ; } Java public Node removeDuplicates ( Node head , int [] j ) { Node t1 , t2 ; j [ 0 ] = 0 ; t1 = head ; if ( t1 != null ) t2 = t1 . next ; else return head ; j [ 0 ] = 1 ; if ( t2 == null ) return head ; while ( t2 != null ) { if ( t1 . val != t2 . val ) { // S1 j [ 0 ]++ ; t1 . next = t2 ; t1 = t2 ; // S2 } t2 = t2 . next ; } t1 . next = null ; return head ; } Python def remove_duplicates ( head , j ): t1 = head j [ 0 ] = 0 if t1 is not None : t2 = t1 . next else : return head j [ 0 ] = 1 if t2 is None : return head while t2 is not None : if t1 . val != t2 . val : # S1 j [ 0 ] += 1 # S2 t1 . next = t2 # S2 t1 = t2 # S2 t2 = t2 . next t1 . next = None return head JavaScript function removeDuplicates ( head , j ) { let t1 = head ; j [ 0 ] = 0 ; if ( t1 !== null ) t2 = t1 . next ; else return head ; j [ 0 ] = 1 ; if ( t2 === null ) return head ; while ( t2 !== null ) { if ( t1 . val !== t2 . val ) { // S1 j [ 0 ] ++ ; t1 . next = t2 ; t1 = t2 ; // S2 } t2 = t2 . next ; } t1 . next = null ; return head ; } Assume the list contains n elements (nâ‰¥2) in the following questions. a). How many times is the comparison in statement S1 made? b). What is the minimum and the maximum number of times statements marked S2 get executed? c). What is the significance of the value in the integer pointed to by j when the function completes?",Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1997.csv,64,The concatenation of two lists is to be performed in O(1) time. Which of the following implementations of a list should be used?,Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1997.csv,65,"A binary search tree contains the values 1, 2, 3, 4, 5, 6, 7, 8. The tree is traversed in pre-order and the values are printed out. Which of the following sequences is a valid output?",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1997.csv,66,"A size-balanced binary tree is a binary tree in which for every node, the difference between the number of nodes in the left and right subtree is at most 1. The distance of a node from the root is the length of the path from the root to the node. The height of a binary tree is the maximum distance of a leaf node from the root. a . Prove, by using induction on h , that a size-balance binary tree of height h contains at least 2 h nodes. b . In a size-balanced binary tree of height hâ‰¤1 , how many nodes are at distance hâˆ’1 from the root? Write only the answer without any explanations.",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1997.csv,67,"What is the probability of a collision when hashing n keys into a hash table of size m, assuming that the hash function produces a uniform random distribution?",Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1997.csv,68,Let G be the graph with 100 vertices numbered 1 to 100. Two vertices i and j are adjacent if |iâˆ’j|=8 or |iâˆ’j|=12 . The number of connected components in G is,Engineering Mathematics,Discrete Mathematics,"Graph Theory: Connectivity, matching, colouring."
+GATE_CS_1997.csv,69,Which of the following is essential for converting an infix expression to the postfix from efficiently ?,Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1997.csv,70,"In the following grammar X :: = X âŠ• Y / Y
+Y :: = Z * Y / Z
+Z :: = id Which of the following is true?
+a. 'âŠ•' is left associative while '*' is right associative
+b. Both 'âŠ•' and '*' are left associative
+c. 'âŠ•' is right associative while '*' is left associative
+d. None of the above",Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1997.csv,71,"The language L , defined by the following grammar allows use of real or integer data in expressions and assignment statements. (assign-stmt):: = (LHS):= (E)
+(E)          :: = (E) + (T) | (T)
+(T)          :: = (T) * (V) | (V)
+(V)          :: = id | ( (E) ) (LHS)        :: = id It is required to convert expression and assignment strings of L into postfix strings that use the type-specific operators (+, i), (+, r), (*, i), (*, r), (:=, i) and (:=, r).
+Write a syntax directed translation scheme to convert expression and assignment strings into the post-fix form. You may assume that the name and type of a variable can be obtained by making the function calls 'give-type (id)' and 'give-name (id)' respectively.",Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1997.csv,72,A language L allows declaration of arrays whose sizes are not known during compilation. It is required to make efficient use of memory. Which of the following is true?,Compiler Design,Runtime Environments,
+GATE_CS_1997.csv,73,"The expression (a*b)* c op........  where 'op' is one of ' + ', ' * ' and ' â†‘ ' (exponentiation) can be evaluated on a CPU with a single register without storing the value of (a * b) if",Computer Organization and Architecture,Central Processing Unit (CPU),"ALU, data-path and control unit"
+GATE_CS_1997.csv,74,The condition expansion facility of macro processors is provided to,Compiler Design,,
+GATE_CS_1997.csv,75,"Consider the grammar Sâ†’ bSe
+Sâ†’ PQR
+Pâ†’ bPc
+Pâ†’ Îµ
+Qâ†’ cQd
+Qâ†’ Îµ
+Râ†’ dRe
+Râ†’ Îµ where S,P,Q,R are non-terminal symbols with S being the start symbol; b,c,d,e are terminal symbols and â€˜Îµâ€™ is the empty string. This grammar generates strings of the form b i , c j , d k , e m for some i, j, k, m â‰¥ 0. (a). What is the condition on the values of i, j, k, m ? (b). Find the smallest string that has two parse trees.",Theory of Computation,Formal Languages and Automata,Context-free grammars and push-down automata
+GATE_CS_1998.csv,1,"In a computer system where the 'best-fit' algorithm is used for allocating 'jobs' to 'memory partitions', the following situation was encountered: When will the 20K job complete? Note - This question was subjective type.",Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1998.csv,2,"Give the correct matching for the following pairs: A. O(log n)     1. Selection sort
+B. O(n)         2. Insertion sort
+C. O(nlog n)    3. Binary search
+D. O(n^2)       4. Merge sort codes: A   B   C   D
+a.   3   1   2   4
+b.   3   1   4   2
+c.   1   3   4   2
+d.   1   4   3   2",Algorithms,Complexity Analysis,Asymptotic worst case time and space complexity
+GATE_CS_1998.csv,3,Which of the following algorithm design technique is used in finding all pairs of shortest distances in a graph?,Algorithms,Algorithm Design Techniques,"Greedy, dynamic programming and divide-and-conquer"
+GATE_CS_1998.csv,4,"Solve the following recurrence relation: x n = 2x n-1 -1, n>1
+x 1 = 2",Engineering Mathematics,Discrete Mathematics,"Counting, recurrence relations, generating functions"
+GATE_CS_1998.csv,5,"What value would the following function return for the input x=95 ? function fun (x:integer):integer;
+Begin
+  If x >100 then fun = x-10
+  Else fun = fun(fun( x+11))
+End;",Programming and Data Structures,Recursion,
+GATE_CS_1998.csv,6,"Let A be a two dimensional array declared as follows: A: array [1 ... 10] [1 ... 15] of integer; Assuming that each integer takes one memory location, the array is stored in row-major order and the first element of the array is stored at location 100, what is the address of the element a[i][j] ?",Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1998.csv,7,"Faster access to non-local variables is achieved using an array of pointers to activation records, called a",Compiler Design,Runtime Environments,
+GATE_CS_1998.csv,8,"Free disk space can be kept track of using a free list or a bit map. Disk addresses require d bits. For a disk with 13 blocks, F of which is free, state the condition under which the free list uses less space than the bit map.",Operating System,File Systems,
+GATE_CS_1998.csv,9,The overlay tree for a program is as shown below: What will be the size of the partition (in physical memory) required to load (and run)Â  this program?,Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1998.csv,10,"When the result of a computation depends on the speed of the processes involved, there is said to be",Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1998.csv,11,"Consider a disk with C cylinders, t tracks per cylinder, s sectors per track and a sector length s l . A logical file d l with fixed record length r l is stored continuously on this disk starting at location ( c L ,t L ,s L ), where c L ,t L and S L are the cylinder, track and sector numbers, respectively. Derive the formula to calculate the disk address (i.e. cylinder, track and sector) of a logical record n assuming that r l =s l .",Operating System,File Systems,
+GATE_CS_1998.csv,12,Which of the following devices should get higher priority in assigning interrupts?,Computer Organization and Architecture,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1998.csv,13,Which of the following is an example of a spooled device?,Computer Organization and Architecture,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1998.csv,14,Formatting of a floppy disk refers to,Operating System,File Systems,
+GATE_CS_1998.csv,15,"[5 Marks question]
+
+Calculate the total time required to read 35 sectors on a 2-sided floppy disk. Assume that each track has 8 sectors and the track-to-track step time is 8 milliseconds. The first sector to be read is sector 3 on track 10. Assume that the diskette is soft stored and the controller has a 1-sector buffer. The diskette spins at 300 RPM and initially, the head is on track 10.",Computer Organization and Architecture,Memory Hierarchy,"Cache, main memory and secondary storage"
+GATE_CS_1998.csv,16,"What is the result of the following program? program side-effect (input, output);
+    var x, result: integer;
+    function f (var x:integer):integer;
+    begin
+        x:x+1;f:=x;
+    end;
+begin
+    x:=5;
+    result:=f(x)*f(x);
+    writeln(result);
+end;",Compiler Design,Runtime Environments,
+GATE_CS_1998.csv,17,"Which of the following query transformations (i.e., replacing the l.h.s. expression by the r.h.s. expression) is incorrect? R 1 and R 2 are relations. C 1 , C 2 are selection conditions and A 1 , A 2 are attributes of R 1 .
+
+a.Â  ÏƒC 1 (Â ÏƒC 2 R1)) â†’ ÏƒC 2 (ÏƒC 1 (R 1 ))
+
+b.Â  ÏƒC 1 (Â Ï€ A1 R1)) â†’ Ï€ A1 (ÏƒC 1 (R1))
+
+c.Â  ÏƒC 1 (Â R 1 âˆªÂ R 2 )Â â†’ ÏƒC 1 (R 1 )Â âˆªÂ ÏƒC 1 (R 2 )
+
+d.Â Â Ï€ A1 (ÏƒC 1 (R 1 ))Â â†’Â ÏƒC 1 (Ï€A 1 (R 1 ))",Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1998.csv,18,"Given two union compatible relations R 1 (A,B) and R 2 (C,D). What is the result of the operation
+R 1 â‹ˆ A=Câˆ§ B=D R 2 A. R 1 âˆª R 2 B. R 1 Î§ R 2 C. R 1 - R 2 D. R 1 âˆ© R 2",Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1998.csv,19,"Consider the following database relations containing the attributes Book_id
+Subject_Category_of_book
+Name_of_Author
+Nationality_of_Author
+
+with Book_id as the Primary Key. (a). What is the highest normal form satisfied by this relation ? (b). Suppose the attributes Book_title and Author_address are added to the relation, and the primary key is changed to (Name_of_Author, Book_Title), what will be the highest normal form satisfied by the relation?",Databases,Database Design,"Integrity constraints, normal forms"
+GATE_CS_1998.csv,20,Which normal form is considered adequate for normal relational database design?,Databases,Database Design,"Integrity constraints, normal forms"
+GATE_CS_1998.csv,21,"Consider the following relational database schemes: COURSES(Cno, name)
+PRE-REQ(Cno, pre_Cno)
+COMPLETED(student_no, Cno) COURSES give the number and the name of all the available courses.
+PRE-REQ gives the information about which course are pre-requisites for a given course.
+COMPLETED indicates what courses have been completed by students.
+
+Express the following using relational algebra: List all the courses for which a student with student_no 2310 has completed all the 
+pre-requisites.",Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1998.csv,22,"Suppose we have a database consisting of the following three relations. FREQUENTS(student, parlor) giving the parlors each student visits.
+SERVES(parlor, ice-cream) indicating what kind of ice-creams each parlor serves.
+LIKES(student, ice-cream) indicating what ice-creams each parlor serves.
+
+( Assuming that each student likes at least one ice-cream and frequents at least one parlor ) Express the following in SQL:
+Print the students that frequent at least one parlor that serves some ice-cream that they like.",Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1998.csv,23,"There are 5 records in a database. Name     Age    Occupation    Category Rama     27       CON            A
+Abdul    22       ENG            A
+Jeniffer 28       DOC            B
+Maya     32       SER            D
+Dev      24       MUS            C There is an index file associated with this and it contain the values 1, 3, 2, 5 and 4. Which one of the fields is the index built form?",Databases,File Organization and Indexing,"File organization, indexing (e.g., B and B+ trees)"
+GATE_CS_1998.csv,24,A die is rolled three times. The probability that exact one odd number turns up among the three outcomes is,Engineering Mathematics,Probability and Statistics,
+GATE_CS_1998.csv,25,"[Subjective type] 1Two friends agree to meet at a park with the following conditions. Each will reach the park between 4:00 p.m. and 5:00 p.m. and will see if the other has already arrived. If not, they will wait for 10 minutes or the end of the hour whichever is earlier and leave.Â  What is the probability that the two will not meet?",Engineering Mathematics,Probability and Statistics,
+GATE_CS_1998.csv,26,"In a room containing 28 people, there are 18 people who speak English, 15 people who speak Hindi and 22 people who speak Kannada. 9 persons speak both English and Hindi, 11 persons speak both Hindi and Kannada whereas 13 persons speak both Kannada and English. How many people speak all the three languages?",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1998.csv,27,"The binary relation R = { (1, 1), (2, 1), (2, 2), (2, 3), (2, 4), (3, 1), (3, 2), (3, 3), (3, 4) } on the set A (1, 2, 3, 4) is",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1998.csv,28,"Let (A, *) be a semi group. Furthermore, for every a and b in A, if aÂ â‰  b, then a*bÂ â‰  b*a .
+
+a. Show that for every a in A a*a = a b. Show that for every a, b in A a*b*a = a c. Show that for every a, b, c in A a*b*c = a*c",Engineering Mathematics,Discrete Mathematics,"Algebraic Structures: Monoids, Groups."
+GATE_CS_1998.csv,29,"Suppose A={ a, b, c, d } and Î  1 is the following partition of A
+Î  1 = { {a, b, c} {d} } a . List the ordered pairs of the equivalence relations induced by Î  1 . b . Draw the graph of the above equivalence relation. c . Let Î  2 = {{a},{b},{C},{d}}
+Î  3 = {{a,b,c,d}}
+and Î  4 = {{a,b},{c,d}}
+
+Draw a Poset diagram of the poset, ({Î  1 ,Î  2 ,Î  3 ,Î  4 }, refines âŸ©",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1998.csv,30,The number of functions from an m element set to an n element set is,Engineering Mathematics,Discrete Mathematics,"Combinatorics: Counting, recurrence relations, generating functions."
+GATE_CS_1998.csv,31,Let R 1 and R 2 be two equivalence relations on a set. Consider the following assertions: (i) R 1 âˆª R 2 is an equivalence relation (ii) R 1 âˆ© R 2 is an equivalence relation Which of the following is correct?,Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1998.csv,32,Suppose A is a finite set with n elements. The number of elements in the largest equivalence relation of A is,Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1998.csv,33,"a.Â  Prove by induction that the expression for the number of diagonals in a polygon of n sides is n(n-3) /2. b.Â  Let R be a binary relation on A = {a, b, c, d, e, f, g, h} represented by following two component digraph. Find the smallest integers m and n such that m<nÂ andÂ  R m = R n",Engineering Mathematics,Discrete Mathematics,"Combinatorics: Counting, recurrence relations, generating functions."
+GATE_CS_1998.csv,34,Derive the expression for the number of expressions required to solve a system of linear equations in n unknowns using the Gaussian Elimination Method. Assume that one operation refers to a multiplication followed by an addition.,Engineering Mathematics,Linear Algebra,System of Linear Equations
+GATE_CS_1998.csv,35,"Consider the following set of equations x+2y = 5
+4x+8y = 12
+3x+6y+3z = 15 This set-",Engineering Mathematics,Linear Algebra,System of Linear Equations
+GATE_CS_1998.csv,36,Consider the following determinant: [Tex]\Delta = \begin{vmatrix} 1 & a & bc \\ 1 & b & ca \\ 1 & c & ab \end{vmatrix}[/Tex] Which of the following is a factor ofÂ Î”?,Engineering Mathematics,Linear Algebra,Matrices and Determinants
+GATE_CS_1998.csv,37,The function represented by the Karnaugh map given below is:,Digital Logic,Boolean Algebra,Minimization
+GATE_CS_1998.csv,38,Which of the following operation is commutative but not associative,Digital Logic,Boolean Algebra,
+GATE_CS_1998.csv,39,"Design a synchronous counter to go through the following states:
+
+1, 4, 2, 3, 1, 4, 2, 3, 1, 4,...........",Digital Logic,Boolean Algebra,Circuits: Combinational and sequential circuits.
+GATE_CS_1998.csv,40,"a.Â  The implication gate shown below, has two inputs (x and y), the output is 1 except when x=1 and y=0 . Realize f=x'yÂ  + xy' using only four implication gates. b.Â  Show that the implication gate is functionally complete.",Digital Logic,Boolean Algebra,
+GATE_CS_1998.csv,41,"The octal representation of an integer is (342) 8 . If this were to be treated as an eight bit integer in an 8085 based computer, its decimal equivalent is",Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1998.csv,42,The threshold level for logic 1 in the TTL family is,Digital Logic,,
+GATE_CS_1998.csv,43,A multiplexer with a 4-bit data select input is a,Digital Logic,Boolean Algebra,Circuits: Combinational and sequential circuits.
+GATE_CS_1998.csv,44,What happens when a bit-string is XORed with itself n-times as shown:  [ BâŠ• (BâŠ• (BâŠ• (B........ n times) ],Digital Logic,Boolean Algebra,
+GATE_CS_1998.csv,45,Suppose the domain set of an attribute consists of signed four digit numbers. What is the percentage rate of reduction in storage space of this attribute if it is stored as an integer rather than in character form?,Digital Logic,Number Representations,
+GATE_CS_1998.csv,46,Let L be the set of all binary strings whose last two symbols are same. The number of states in the minimal state deterministic finite-state automaton accepting L is,Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1998.csv,47,"If the regular set 'A' is represented by A= (01+1)* and the regular set 'B' is represented by B= ((01)* 1*)* , which of the following is true ?",Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1998.csv,48,Which of the following sets can be recognized by a Deterministic Finite-state Automaton?,Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1998.csv,49,"[Subjective type]
+
+Design a deterministic finite state automaton (using minimum number of states) that recognizes the following language: L = { w âˆˆ {0,1}* | w interpreted as a binary number (ignoring the leading zeros) is divisible by 5 }",Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1998.csv,50,Given a regular expression for the set of binary strings where every 0 is immediately followed by exactly k 1's and preceded by atleast k 1's (k is a fixed integer).,Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1998.csv,51,The string 1101 does not belong to the set represented by,Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1998.csv,52,Which of the following statement is false?,,,
+GATE_CS_1998.csv,53,"Regarding the power of recognition of languages, which of the following statement is false?",Theory of Computation,,
+GATE_CS_1998.csv,54,"Let M = ({q 0 , q 1 }, {0, 1}, {z 0 , x},Â Î´, q 0 , z 0 ,Â âˆ…) be a pushdown automaton whereÂ Î´ is given by
+
+Î´(q 0 , 1, z 0 ) = {(q 0 , xz 0 )}
+Î´(q 0 , Îµ, z 0 ) = {(q 0 ,Â Îµ)}
+Î´(q 0 , 1, X) = {(q 0 , XX)}
+Î´(q 1 , 1, X) = {(q 1 ,Â Îµ)}
+Î´(q 0 , 0, X) = {(q 1 , X)}
+Î´(q 0 , 0, z 0 ) = {(q 0 , z 0 )} What is the language accepted by this PDA by empty stack? Describe informally the working of the PDA",Theory of Computation,Formal Languages and Automata,Context-free grammars and push-down automata
+GATE_CS_1998.csv,55,"Consider the function y = |x|Â in the interval [-1,1]. In this interval, the function is",Engineering Mathematics,Calculus,Limits and Continuity
+GATE_CS_1998.csv,56,Which of the following statements applies to the bisection method used for finding roots of functions:,Engineering Mathematics,Calculus,
+GATE_CS_1998.csv,57,"a. Find the points of local maxima and minima, if any, of the following function defined in 0â‰¤ xÂ â‰¤ 6. x 3 -6x+9x-15 b. Integrate",Engineering Mathematics,Calculus,Extrema: Maxima and minima.
+GATE_CS_1998.csv,58,How many substrings of different length (non-zero) can be formed from a character string of length n ?,Engineering Mathematics,Discrete Mathematics,"Combinatorics: Counting, recurrence relations, generating functions."
+GATE_CS_1998.csv,59,"[5 Marks question]
+For a set-associative Cache Organization, the parameters are as follows: t c - Cache access tine t m - Main memory access time l - number of sets b - block size k x b - set size Calculate the hit ratio for a loop executed 100 times where the size of the loop is n X b and n= k X m is a non-zero integer and 1 < mÂ â‰¤ l. Given the value of the hit ratio for l = 1.",Computer Organization and Architecture,Memory Hierarchy,"Cache, main memory and secondary storage"
+GATE_CS_1998.csv,60,Answer the following: a . Draw the schematic of an 8085 based system that can be used to measure the width of a pulse. Assume that the pulse is given as a TTL compatible signal by the source which generates it. b .Â  Write the 8085 Assembly Language program to measure the width of the pulse. State all your assumption clearly.,Computer Organization and Architecture,Input/Output (I/O),I/O interface (interrupt and DMA mode)
+GATE_CS_1998.csv,61,The address space of 8086 CPU is,Computer Organization and Architecture,Instruction Set Architecture,
+GATE_CS_1998.csv,62,"If an instruction takes i microseconds and a page fault takes an additional j microseconds, the effective instruction time if on the average aÂ  page fault occurs every k instructions is:",Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1998.csv,63,Which of the following is true?,,,
+GATE_CS_1998.csv,64,"In serial communications employing 8 data bits, a parity bit and 2 stop bits, the minimum band rate required to sustain a transfer rate of 300 characters per second is",Computer Networks,Data Link Layer,"Framing, error detection, Medium Access Control, Ethernet bridging"
+GATE_CS_1998.csv,65,What is the converse of the following assertion? I stay only if you go.,Engineering Mathematics,Discrete Mathematics,Logic: Propositional and first order logic.
+GATE_CS_1998.csv,66,"Consider n processes sharing the CPU in a round-robin fashion. Assuming that each process switch takes s seconds, what must be the quantum size q such that the overhead resulting from process switching is minimized but, at the same time, each process is guaranteed to get its turn at the CPU at least every t seconds ?",Operating System,Scheduling,CPU and I/O scheduling
+GATE_CS_1998.csv,67,"Answer the following: a. Four jobs are waiting to be run. Their expected run times are 6, 3, 5 and x. In what order should they be run to minimize the average response time? b. Write a concurrent program using par begin - par end to represent the precedence graph shown below. Precedence graph",Operating System,Scheduling,CPU and I/O scheduling
+GATE_CS_1998.csv,68,A counting semaphore was initialized to 10. Then 6 P (wait) operations and 4 V (signal) operations were completed on this semaphore. The resulting value of the semaphore is,Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1998.csv,69,"A computer has six tape drives, with n processes competing for them. Each process may need two drives. What is the maximum value of n for the system to be deadlock free?",Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1998.csv,70,Compute the Postfix equivalent of the following Infix expression 3* log(x+1) - a/2,Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1998.csv,71,"[5 Marks question]
+Answer the following:
+
+a. Derive a recurrence relation of the size of the smallest AVL tree with height h. b. What is the size of the smallest AVL tree with height 8.",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1998.csv,72,What are the application(s) of linked list?,Programming and Data Structures,Linear Data Structures,"Arrays, stacks, queues, linked lists"
+GATE_CS_1998.csv,73,"Draw the binary tree with node labels a, b, c, d, e, f and g for which the inorder and postorder traversals result in the following sequences: Inorder a f b c d g e Postorder a f c g e d b",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1998.csv,74,Type checking is normally done during,Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1998.csv,75,Which of the following statement is true?,,,
+GATE_CS_1998.csv,76,"[5 Marks question]
+
+Answer the following: a . An identifier in a programming language consists of upto six letters and digits of which the first character must be a letter. Derive a regular expression for the identifier. b . Build an LL(1) parsing table for the language defined by the LL(1) grammar with productions ProgramÂ â†’ begin d semi X end
+XÂ â†’ d semi X | s Y
+YÂ â†’ semi s Y |Â Îµ",Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1998.csv,77,"Let the attribute 'val' give the value of a binary number generated by S in the following grammar:
+
+SÂ â†’ L.L | L
+Lâ†’ LB | B
+BÂ â†’ 0 | 1
+
+For example, an input 101.101 gives S.val = 5.625
+Construct a syntax directed translation scheme using only synthesized attributes, to determine S.val.",Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1998.csv,78,Which of the following statement is false?,,,
+GATE_CS_1998.csv,79,"Answer the following:
+
+a.Â  Let G1 = (N, T, P, S1) be a CFG where, N= {S1A, B}, T= {a,b} and P is given by S 1 â†’ aS 1 b             S 1 â†’ aBb
+         S 1 â†’ aAb              B â†’ Bb
+         A â†’ aA                B â†’ b
+         A â†’ a What is L(G 1 )?
+
+b. Use the grammar in part(a) to give a CFG for L 2 = { a i b j a k b l | i, j, k, l â‰¥ 1, i= j or k=l } by adding not more than 5 production rule.
+
+c.Â  Is L 2 inherently ambiguous?",Theory of Computation,Formal Languages and Automata,Context-free grammars and push-down automata
+GATE_CS_1998.csv,80,"A complete n-ary tree is one in which every node has 0 or n sons. If x is the number of internal nodes of a complete n-ary tree, the number of leaves in it is given by",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1998.csv,81,"Consider the grammar SÂ â†’Â  Aa | b
+A â†’ Ac | Sd |Â Îµ Construct an equivalent grammar with no left recursion and with minimum number of production rules.",Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1998.csv,82,"A linker reads four modules whose lengths are 200, 800, 600 and 500 words respectively. If they are loaded in that order, what are the relocation constants?",Compiler Design,Runtime Environments,
+GATE_CS_1998.csv,83,"In a resident- OS computer, which of the following system software must reside in the main memory under all situations?",Operating System,,
+GATE_CS_1999.csv,1,"Given the programming constructs i) assignment ii) for loops where the loop parameter cannot be changed within the loop iii) if-then-else iv) forwardÂ  go to v) arbitrary go to vi) non-recursive procedure call vii) recursive procedure/function call viii) repeat loop, which constructs will you not include in a programming language such that it should be possible to program the terminates (i.e. halting) function in the same programming language.",Theory of Computation,Computability,Turing machines and undecidability
+GATE_CS_1999.csv,2,Which of the following actions is/are typically not performed by the operating system when switching context from process A to process B?,Operating System,Core Concepts,"System calls, processes, threads"
+GATE_CS_1999.csv,3,"Consider the following C function definition. int Trial (int a, int b, int c)
+{
+    if ((a >= b) && (c < b) return b;
+    else if (a>=b) return Trial(a, c, b);
+    else return Trial(b, a, c);
+} The function Trial:",Programming and Data Structures,Recursion,
+GATE_CS_1999.csv,4,"If T1 = O(1), give the correct matching for the following pairs: (M) Tn=Tnâˆ’1+n           (U) Tn=O(n)
+(N) Tn=Tn/2 +n          (V) Tn=O(nlogn)
+(O) Tn=Tn/2 +nlogn      (W) T=O(n^2)
+(P) Tn=Tnâˆ’1 +logn       (X) Tn=O(log^2n)",Algorithms,Complexity Analysis,Asymptotic worst case time and space complexity
+GATE_CS_1999.csv,5,"The minimum number of record movements required to merge five files A (with 10 records), B (with 20 records), C (with 15 records), D (with 5 records) and E (with 25 records) is:",Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1999.csv,6,A sorting technique is called stable if:,Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1999.csv,7,Suppose we want to arrange the ii numbers stored in an array such that all negative values occur before all positive ones. Minimum number of exchanges required in the worst case is:,Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1999.csv,8,"If one uses a straight two-way merge sort algorithm to sort the following elements in ascending order 20, 47, 15, 8, 9, 4, 40, 30, 12, 17 then the order of these elements after the second pass of the algorithm is:",Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1999.csv,9,"Listed below are some operating system abstractions (in the left column) and the hardware components or mechanism (in the right column) that they are abstractions of. Which of the following matching of pairs is correct? A. Thread Â Â Â Â           Â       1. Interrupt
+B. Virtual address space Â Â  Â Â  2. Memory
+C. File system Â Â            Â Â  3. CPU
+D. Signal Â                 Â Â Â  4. Disk",Operating System,,
+GATE_CS_1999.csv,10,"Which of the following is/are advantages of virtual memory?
+
+a) Faster access to memory on an average.
+
+b) Processes can be given protected address spaces.
+
+c) Linker can assign addresses independent of where the program will be loaded in physical memory.
+
+d) Programs larger than the physical memory size can be run.",Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1999.csv,11,"A multi-user, multi-processing operating system cannot be implemented on hardware that does not support:
+
+a)Â Address translation
+
+b)Â DMA for disk transfer
+
+c)Â At least two modes of CPU execution (privileged and non-privileged).
+
+d)Â Demand Paging",Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1999.csv,12,Consider the following program in a language that has dynamic seeping. var x : real ; procedure show : begin print ( x ); end ; procedure small ; var x : real ; begin x : = 0.125 ; show ; end ; begin x := 0.25 show ; small end . Then the output of the program is:,Compiler Design,Runtime Environments,
+GATE_CS_1999.csv,13,System calls are usually invoked by using:,Operating System,Core Concepts,"System calls, processes, threads"
+GATE_CS_1999.csv,14,RAID configurations of disks are used to provide,Computer Organization and Architecture,Memory Hierarchy,"Cache, main memory and secondary storage"
+GATE_CS_1999.csv,15,The number of tokens in the Fortran statement DO 10Â  I= 1.25 is,Compiler Design,Phases of Compilation,"Lexical analysis, parsing, syntax-directed translation"
+GATE_CS_1999.csv,16,The relational algebra expression equivalent to the following tuple calculus expression { t | t âˆˆ rÂ âˆ§ (t[A] = 10Â âˆ§ t[B] = 20 } is,Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1999.csv,17,"Consider the join of a relation R with a relation S. If K has m tuples and S has n tuples , then the maximum and minimum sizes of the join respectively are:",Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1999.csv,18,"Let R = ( A, B, C, D, E, F ) be a relation scheme with the following dependencies:
+
+Câ†’F, Eâ†’A, ECâ†’D, Aâ†’B. Which of the following is a key of R?",Databases,Database Design,"Integrity constraints, normal forms"
+GATE_CS_1999.csv,19,"Consider the schema R= ( S, T, U, V ) and the dependencies Sâ†’T, Tâ†’U, Uâ†’V and Vâ†’S. Let R (R1 and R2) be a decomposition such that R1âˆ©R2Â â‰ Â Ã˜. The decomposition is:",Databases,Database Design,"Integrity constraints, normal forms"
+GATE_CS_1999.csv,20,Which of the following is/are correct?,,,
+GATE_CS_1999.csv,21,"For the schedule given below, which of the following is Correct? 1Â  Â Read A
+2Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â Read B
+3Â  Â Write A
+4Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â Read A
+5Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â Write A
+6Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â  Â   Â  Write B
+7Â  Â Read B
+8Â  Â Write B",Databases,Transactions,Transactions and concurrency control
+GATE_CS_1999.csv,22,"Consider two events E1 and E2 such that probability of E1, Pr[E1]=1/2 , probability of E2, Pr[E2]=1/3 , and probability of E1 and E2, Pr[E1 and E2]=1/5 , Which of the following statement is/are True?",Engineering Mathematics,Probability and Statistics,Conditional probability and Bayes theorem
+GATE_CS_1999.csv,23,Suppose that the expectation of a random variable X is 5. Which of the following statement is True?,Engineering Mathematics,Probability and Statistics,Random Variables and Distributions
+GATE_CS_1999.csv,24,"Let L be a set with relation R which is transitive, anti-symmetric and reflexive and for any two elements a,bÂ âˆˆ L let the least upper bound lub(a,b) and greatest lower bound glb(a,b) exist. Which of the following is/are true?
+
+a.Â  L is a poset.
+
+b.Â Â L is a boolean algebra.
+
+c.Â Â L is a lattice.
+
+d.Â  None of the above.",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1999.csv,25,The number of binary relations on a set with n elements is:,Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1999.csv,26,"[5 Marks question] Mr. X claims the following:
+If a relation R is both symmetric and transitive, then R is reflexive. For this, Mr. X offers the following proof-
+""From xRy, using symmetry we get yRy. Now because R is transitive, xRy and yRy together imply xRx. Therefore, R is reflexive.""
+Briefly point out the flaw in Mr. X's proof. Give an example of relation R which is symmetric and transitive but not reflexive.",Engineering Mathematics,Discrete Mathematics,"Sets, Relations, and Functions"
+GATE_CS_1999.csv,27,"Zero has two representations in:
+
+a) Sign magnitude
+
+b) 1's complement
+
+c) 2's complement
+
+d) None of the above",Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1999.csv,28,The number of fill and half-address required to add 16-bit number is:,Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1999.csv,29,The maximum gate delay for any output to appear in an array multiplier for multiplying two n bit number is:,Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1999.csv,30,Booth's coding in 8-bits for the decimal number -57 is:,Digital Logic,Number Representations,Number representations and computer arithmetic (fixed and floating point).
+GATE_CS_1999.csv,31,"Consider the circuit shown below . In a certain steady state, the line Y is at ' 1 '. What are the possible values of A, B and C in this state? a).Â A=0, B=0, C=1  b).Â A=0, B=1, C=1  c).Â A=1, B=0, C=1  d).Â A=1, B=1, C=1",Digital Logic,Boolean Algebra,Circuits: Combinational and sequential circuits.
+GATE_CS_1999.csv,32,"Which of the following sets of component(s) is/are sufficient to implement any arbitrary boolean function?  a)Â XOR gates, NOT gates  b)Â 2 to 1 multiplexers  c)Â Â AND gates, XOR gates  d)Â Three-input gates that output (A.B)+C for the inputs A, B and C.",Digital Logic,Boolean Algebra,
+GATE_CS_1999.csv,33,Which of the following expressions is not equivalent to Xâ€¾Â  ?,Digital Logic,Boolean Algebra,
+GATE_CS_1999.csv,34,Which of the following function implements the Karnaugh map shown below?,Digital Logic,Boolean Algebra,Minimization
+GATE_CS_1999.csv,35,Consider the regular expression (0+1)(0+1)... n times. The minimum state finite automaton that recognizes the language represented by this regular expression contains:,Theory of Computation,Formal Languages and Automata,Regular expressions and finite automata
+GATE_CS_1999.csv,36,"[5 Marks question]
+
+a.Â  Given that A is regular and AâˆªB is regular, does it follow that B is necessarily regular? Justify your answer.
+
+b.Â  Given two finite automata M1, M2, outline an algorithm to decide if L(M1)âŠ†L(M2).Â  Â  (note: strict subset)",Theory of Computation,Language Properties,"Regular and context-free languages, pumping lemma"
+GATE_CS_1999.csv,37,Let L D be the set of all languages accepted by a PDA by final state and L F the set of all languages accepted by empty stack. Which of the following is true?,Theory of Computation,Formal Languages and Automata,Context-free grammars and push-down automata
+GATE_CS_1999.csv,38,Context free languages are closed under-,Theory of Computation,Language Properties,"Regular and context-free languages, pumping lemma"
+GATE_CS_1999.csv,39,"[5 Marks question]
+
+Show that the language L = { xcx | xâˆˆ {0,1}* and c is a terminal symbol } is not context free, c is not 0 or 1.",Theory of Computation,Language Properties,"Regular and context-free languages, pumping lemma"
+GATE_CS_1999.csv,40,"If L1 is a context free language and L2 as a regular language, which of the following is/are False?
+
+a.Â  L1-L2 is not context free
+
+b.Â Â L1 âˆ© L2 is context free
+
+c.Â Â ~L1 is context free
+
+d.Â Â ~L2 is regular",Theory of Computation,Language Properties,"Regular and context-free languages, pumping lemma"
+GATE_CS_1999.csv,41,The Newton-Raphson method is to be used to find the root of the equation f(x)=0 whereÂ x 0 is the initial approximation and f ' is the derivative of f. The method converges:,Engineering Mathematics,Calculus,
+GATE_CS_1999.csv,42,The number of articulation point of the following graph is:,Engineering Mathematics,Discrete Mathematics,"Graph Theory: Connectivity, matching, colouring."
+GATE_CS_1999.csv,43,The number of binary strings of n zeros and k ones such that no two ones are adjacent is: a) n-1 C k b) n C k c) n C k+1 d) None of the above,Engineering Mathematics,Discrete Mathematics,"Combinatorics: Counting, recurrence relations, generating functions."
+GATE_CS_1999.csv,44,"Two girls have picked 10 roses, 15 sunflowers and 14 daffodils. What is the number of ways they can divide the flowers amongstÂ  themselves?",Engineering Mathematics,Discrete Mathematics,"Combinatorics: Counting, recurrence relations, generating functions."
+GATE_CS_1999.csv,45,"The main memory of a computer has 2 cm blocks while the cache has 2c blocks. If the cache uses the set associative mapping scheme with 2 blocks per set, then the block k of main memory maps to the set:",Computer Organization and Architecture,Memory Hierarchy,"Cache, main memory and secondary storage"
+GATE_CS_1999.csv,46,"A certain processor supports only the immediate and the direct addressing modes. Which of the following programming language features cannot be implemented on this processor?
+a) Pointers
+b) Arrays
+c) Records
+d) Recursive procedures with local variables",Computer Organization and Architecture,Instruction Set Architecture,Machine instructions and addressing modes
+GATE_CS_1999.csv,47,"Arrange the following configurations for CPU in decreasing order of operating speeds; Hardwired Control, vertical microprogramming, horizontal microprogramming",Computer Organization and Architecture,Central Processing Unit (CPU),"ALU, data-path and control unit"
+GATE_CS_1999.csv,48,"The main difference(s) between a CISC and a RISC processor is/are that a USC processor typically:
+a) has fewer instructions
+b) has fewer addressing modes
+c) has more registers
+d) is easier to implement using hardwired control logic",Computer Organization and Architecture,Instruction Set Architecture,Machine instructions and addressing modes
+GATE_CS_1999.csv,49,Which of the following disk strategies is likely to give the best throughput?,Operating System,Scheduling,CPU and I/O scheduling
+GATE_CS_1999.csv,50,"[5 Marks question]
+a.  In a binary tree, a nil node is defined to be a node with 2 children. Use induction on the height of the binary tree to prove that the number of full nodes plus one is equal to the number of leaves.
+
+b.  Draw a min-heap that results from insertion of the following elements in order into an initially empty min-heap: 7, 6, 5, 4, 2, 3, 1. Show the result after the deletion of the root of  this heap.",Programming and Data Structures,Non-Linear Data Structures,"Trees, binary search trees, binary heaps, graphs"
+GATE_CS_1999.csv,51,"[5 Marks question]
+
+Consider the set of relations EMP(Employee-no, Dept-no, Employee-name, Salary)
+DEPT(Dept-no, Dept-name, Location) Write an SQL query to:
+a. Find all employee names who work in departments located at ""Calcutta"" and whose salary is greater than Rs. 50,000.
+b. Calculate, for each department number, the number of employees with a salary greater than Rs. 100,000.",Databases,Data Models,"ER-model, Relational model: relational algebra, tuple calculus, SQL"
+GATE_CS_1999.csv,52,"[5 Marks question]
+
+Consider a B-tree with degree m, that is, the number of children, c, of any internal node (except the root) is such that mâ‰¤câ‰¤2m-1 . Derive the maximum and minimum number of records in the leaf nodes for such a B-tree with height h, hâ‰¥1. (Assume that the root of a tree is at height 0.)",Databases,File Organization and Indexing,"File organization, indexing (e.g., B and B+ trees)"
+GATE_CS_1999.csv,53,"[5 Marks question]
+
+a. A certain processor provides a 'test and set' instruction that is used as follows: TEST register, flag This instruction atomically copies flag to register and sets flag to 1. Give pseudo-code for implementing the entry and exit code to a critical region using this instruction.
+
+b. Consider the following solution to the producer-consumer problem using a buffer of size 1. Assume that the initial value of count is 0. Also assume that the testing of count and assignment to count are atomic operations. Producer:      
+   Repeat 
+       Produce an item;
+       if count = 1 then sleep;
+       place item in buffer.
+       count = 1;
+       Wakeup(Consumer);
+  Forever 
+
+Consumer:
+  Repeat
+      if count = 0 then sleep;
+      Remove item from buffer;
+      count = 0;
+      Wakeup(Producer);
+      Consume item;
+  Forever; Show that in this solution it is possible that both the processes are sleeping at the same time.",Operating System,Concurrency,"Inter-process communication, concurrency and synchronization, Deadlock"
+GATE_CS_1999.csv,54,"[5 Marks question]
+
+A certain computer system has the segmented paging architecture for virtual memory. The memory is byte addressable. Both virtual and physical address spaces contain 216 bytes each. The virtual address space is divided into 8 non-overlapping equal size segments. The memory management unit (MMU) has a hardware segment table, each entry of which contains the physical address of the page table for the segments. Page tables are stored in the main memory and consists of 2 byte page table entries.
+
+a. What is the minimum page size in bytes so that the page table for a segment requires at most one page to store it? Assume that the page size can only be a power of 2.
+
+b. Now suppose that the pages size is 512 bytes. It is proposed to provide a TLB (Transaction look-aside buffer) for speeding up address translation. The proposed TLB will be capable of storing page table entries for 16 recently referenced virtual pages, in a fast cache that will use the direct mapping scheme. What is the number of tag bits that will need to be associated with each cache entry?
+
+c. Assume that each page table entry contains (besides other information) 1 valid bit, 3 bits for page protection and 1 dirty bit. How many bits are available in page table entry for storing the aging information for the page? Assume that the page size is 512 bytes.",Operating System,Memory Management,Memory management and virtual memory
+GATE_CS_1999.csv,55,"[5 Marks question]
+
+Design a 2K x 8 (2048 locations, each 8 bit wide) memory system mapped at addresses (1000) 16 to (17FF) 16 for the 8085 processor using four 1K x 4 memory chips. Each of these chips has the following signal pins:",Computer Organization and Architecture,Memory Hierarchy,"Cache, main memory and secondary storage"
+GATE_CS_1999.csv,56,"[5 Marks question]
+Consider the following program fragment in the assembly language of a certain hypothetical processor. The processor has three general purpose registers R1, R2 and R3. The meanings of the instructions are shown by comments (starting with ; ) after the instructions. X:  CMP R1, 0   ;Compare R1 and 0, set flags appropriately in status register
+    JZ  Z       ;Jump if zero to target Z
+    MOV R2, R1  ;Copy contents of R1 to R2
+    SHR R1      ;Shift right R1 by 1 bit
+    SHL R1      ;Shift left R1 by 1 bit
+    CMP R2, R1  ;Compare R2 and R1 and set flag in status register
+    JZ  Y       ;Jump if zero to target Y
+    INC R3      ;Increment R3 by 1;
+Y:  SHR R1      ;Shift right R1 by 1 bit
+    JMP X       ;Jump to target X
+Z:... a. Initially R1, R2 and R3 contain the value 5, 0 and 0 respectively. What are the final values of R1 and R3 when control reaches Z?
+b. In general, if R1, R2 and R3 initially contain the values n, 0 and 0 respectively. What is the final value of R3 when control reaches Z?",Computer Organization and Architecture,Instruction Set Architecture,Machine instructions and addressing modes
+GATE_CS_1999.csv,57,"[5 Marks question]
+Consider the following pascal program skeleton: program sort(...);
+      var a,x,...;
+      procedure readarray;
+       var i,....;
+       begin
+                        ...:=a...
+       end;
+     procedure exchange(...);
+       begin
+                         ...:=a...
+                         ...:=x...
+       end;http://cdn.geeksforgeeks.org/wp-admin/profile.php
+     procedure qsort(...);
+       var k,v,...;
+       function partition (...)...;
+                var i,j,...;
+                begin
+                         ...:=a...
+                         ...:=v...
+                end;
+        begin
+            .
+            .
+        end;
+   begin
+        .
+        .
+   end; Assume that at a given point in time during program execution, following procedures are active: sort, qsort(1,9), qsort(1.3), partition(1,3), exchange(1,3). 
+Show snapshots of the runtime stack with access links after each of the activations.",Compiler Design,Runtime Environments,
+GATE_CS_1999.csv,58,"[5 Marks question]
+
+What will be the output of the following program assuming that parameter passing is
+
+(i) call by value
+
+(ii) call by reference
+
+(iii) call by copy restore procedure P{x, y, z};
+    begin y:y+1; z: x+x end; 
+begin
+    a:= b:= 3;
+    P(a+b, a, a);
+    Print(a) 
+end.",Compiler Design,Runtime Environments,
+GATE_CS_1999.csv,59,"[5 Marks question]
+
+a.Â  Show that the formula [(~pÂ âˆ¨ q)Â â‡’ (qâ‡’ p)] is not a tautology.
+
+b.Â  Let A be a tautology and B be any other formula. Prove that (A âˆ¨ B) is a tautology.",Engineering Mathematics,Discrete Mathematics,Logic: Propositional and first order logic.
+GATE_CS_1999.csv,60,"[5 Marks question]
+
+An instruction pipeline consists of 4 stages: Fetch(F), Decode operand field (D), Execute (E), and Result-Write (W). The five instructions in a certain instruction sequence need these stages for the different number of clock cycles as shown by the table below.
+
+No. of cycles needed for Find the number of clock cycles needed to perform the 5 instructions.",Computer Organization and Architecture,Pipelining,"Instruction pipelining, pipeline hazards"
+GATE_CS_1999.csv,61,"[5 Marks question]
+
+a.Â  Consider the following algorithm. Assume procedure A and procedure B take O(1) and O(1/n) unit of time respectively. Derive the time complexity of the algorithm in O-notation. algorithm what (n)      
+begin 
+    if n = 1 then call A 
+    else 
+        begin
+            what (n-1);
+            call B(n)
+        end
+end. b.  Write a constant time algorithm to insert a node with data D just before the node with address p of a singly linked list.",Algorithms,Complexity Analysis,Asymptotic worst case time and space complexity
+GATE_CS_1999.csv,62,"[5 Marks question]
+
+Suppose we have a function HALTS which when applied to any arbitrary function f and its arguments will say TRUE if function f terminates for those argumentsÂ  and FALSE otherwise. Example, Given the following function definition. FACTORIAL (N) = IF(N=0) THEN 1 ELSE N*FACTORIAL (N-1)
+Then HALTS(FACTORIAL 4)= TRUE and HATS(FACTORIAL -5)=FLASE
+
+Let us define the function FUNNY( f ) = IF HALTS( ff ) THEN not( ff ) ELSE TRUE a.Â  Show that FUNNY terminates for all functions f b.Â  Use (a) to prove (by contradiction) that it is not possible to have a function like HALTS which for arbitrary functions and inputs says whether it willÂ  Â  Â  Â  Â terminate on that input or not.",Theory of Computation,Computability,Turing machines and undecidability
+GATE_CS_1999.csv,63,"[5 Marks question]
+
+Let A be an n*n matrix such that the elements in each row and each column are arranged in ascending order. Draw a decision tree which finds 1st, 2nd and 3rd smallest elements in minimum number of comparisons.",Algorithms,Basic Techniques,"Searching, sorting, hashing"
+GATE_CS_1999.csv,64,"If n is a power of 2, then the minimum number of multiplications needed to compute a n is:",Algorithms,Complexity Analysis,Asymptotic worst case time and space complexity
+GATE_CS_1999.csv,65,"[5 Marks question]
+
+Let G be a connected, undirected graph. A cut in G is a set of edges whose removal results in 0 being broken into two or more components which are not connected with each other. The size of a cut is called its cardinality. A men-cut of G is a cut in G of minimum cardinality. Consider the following graph. a.Â  Which of the following sets of edges is a cut?
+
+(i) {(A,B), (E,F), (B,D), (A,E), (A,D)}
+
+(ii)Â  {(B,D), (C,F), (A,B)}
+
+b.Â  What is the cardinality of a min-cut in the graph?
+
+c.Â  Prove that if a connected undirected graph G with n vertices has a min-cut of cardinality K, then G has atleastÂ  (nk/2) edges.",Engineering Mathematics,Discrete Mathematics,"Graph Theory: Connectivity, matching, colouring."
+GATE_CS_1999.csv,66,"[5 Marks question]
+
+Let G be a finite group and H be a subgroup of G . For aâˆˆG , defineÂ  aH= { ah | hâˆˆH }
+
+a.Â  Show that |aH| - |H|
+",Engineering Mathematics,Discrete Mathematics,"Algebraic Structures: Monoids, Groups."

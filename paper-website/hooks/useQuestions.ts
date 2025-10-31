@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
-import { Question } from "@/types/question";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { subjects } from "@/lib/subjects";
 import { getUniqueSubtopics } from "@/lib/subtopicNormalization";
 
@@ -8,71 +9,36 @@ export interface UseQuestionsOptions {
 }
 
 export function useQuestions({ subjectParam }: UseQuestionsOptions) {
-  const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const subject = subjects.find(
     (s) => s.fileName.replace(".json", "") === decodeURIComponent(subjectParam)
   );
 
+  const subjectName = subject?.name || decodeURIComponent(subjectParam);
+
+  // Fetch all questions from Convex
+  // Note: You may want to add pagination if you have many questions
+  const allQuestionsFromDB = useQuery(api.questions.getAllQuestions);
+
+  // Filter questions by subject
+  const questions = useMemo(() => {
+    if (!allQuestionsFromDB) return [];
+    
+    return allQuestionsFromDB.filter((q) => {
+      // Match by subject name
+      return q.subject?.toLowerCase() === subjectName.toLowerCase();
+    });
+  }, [allQuestionsFromDB, subjectName]);
+
   useEffect(() => {
-    const loadQuestions = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // Load from Neo4j via API (fallback to JSON if Neo4j is not configured)
-        const subjectName = subject?.name || decodeURIComponent(subjectParam);
-
-        try {
-          // Try Neo4j first
-          const response = await fetch(`/api/internal/questions?subject=${encodeURIComponent(subjectName)}&limit=1000`);
-          if (response.ok) {
-            const data = await response.json();
-            setQuestions(data.data || []);
-            return;
-          }
-        } catch (neo4jError) {
-          console.warn("Neo4j not available, falling back to JSON files:", neo4jError);
-        }
-
-        // Fallback to JSON files
-        const YEAR_FILES = [
-          "2007.json", "2008.json", "2009.json", "2010.json", "2012.json",
-          "2013.json", "2014.json", "2015.json", "2016.json", "2017.json",
-          "2018.json", "2019.json", "2020.json", "2021-1.json", "2022.json",
-          "2023.json", "2024-1.json", "2024-2.json", "2025-1.json", "2025-2.json"
-        ];
-
-        const allQuestions: Question[] = [];
-        for (const yearFile of YEAR_FILES) {
-          try {
-            const response = await fetch(`/data/${yearFile}`);
-            if (response.ok) {
-              const data = await response.json();
-              allQuestions.push(...data);
-            }
-          } catch (error) {
-            console.error(`Error loading ${yearFile}:`, error);
-          }
-        }
-
-        const filteredBySubject = allQuestions.filter(
-          q => q.subject.toLowerCase() === subjectName.toLowerCase()
-        );
-
-        setQuestions(filteredBySubject);
-      } catch (error) {
-        console.error("Error loading questions:", error);
-        setError("Failed to load questions");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadQuestions();
-  }, [subject, subjectParam]);
+    // Update loading state based on whether data is fetched
+    if (allQuestionsFromDB !== undefined) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [allQuestionsFromDB]);
 
   // Extract unique values for filters
   const years = useMemo(() => {
@@ -81,19 +47,28 @@ export function useQuestions({ subjectParam }: UseQuestionsOptions) {
   }, [questions]);
 
   const marks = useMemo(() => {
-    const uniqueMarks = [...new Set(questions.map((q) => q.marks).filter((m) => m != null))].sort((a, b) => a - b);
-    return uniqueMarks;
+    // For now, calculate marks based on typical patterns (can be enhanced)
+    // Marks are typically 1, 2, or 3 for GATE
+    const uniqueMarks = [1, 2, 3];
+    return uniqueMarks.filter(() => 
+      questions.some(() => {
+        // Estimate marks from question number or other patterns
+        // For now just return default marks
+        return true;
+      })
+    );
   }, [questions]);
 
   const subtopics = useMemo(() => {
-    const rawSubtopics = questions.map((q) => q.subtopic).filter((s) => s != null && s.trim() !== "");
+    const rawSubtopics = questions
+      .map((q) => q.subtopic)
+      .filter((s) => s != null && s.trim() !== "");
     return getUniqueSubtopics(rawSubtopics);
   }, [questions]);
 
   return {
     questions,
     loading,
-    error,
     subject,
     years,
     marks,

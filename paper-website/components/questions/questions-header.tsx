@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ArrowLeft, Play } from "lucide-react";
-import type { Question } from "@/types/question";
 
 interface QuestionsHeaderProps {
   subjectName: string;

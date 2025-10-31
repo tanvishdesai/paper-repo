@@ -42,14 +42,15 @@ export function useQuestionFilters(questions: Question[]) {
     const filtered = questions.filter((q) => {
       const matchesSearch =
         searchQuery === "" ||
-        q.question_text.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        q.subtopic.toLowerCase().includes(searchQuery.toLowerCase());
+        q.questionText.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (q.subtopic && q.subtopic.toLowerCase().includes(searchQuery.toLowerCase()));
 
       const matchesYear = yearFilter === "all" || q.year?.toString() === yearFilter;
-      const matchesMarks = marksFilter === "all" || q.marks?.toString() === marksFilter;
-      const matchesType =
-        typeFilter === "all" || q.theoretical_practical === typeFilter;
-      const matchesSubtopic = subtopicFilter === "all" || normalizeSubtopic(q.subtopic) === normalizeSubtopic(subtopicFilter);
+      const matchesMarks = marksFilter === "all" || marksFilter === "all"; // TODO: Add marks filtering when available
+      const matchesType = typeFilter === "all" || q.questionType === typeFilter;
+      const matchesSubtopic =
+        subtopicFilter === "all" ||
+        (q.subtopic && normalizeSubtopic(q.subtopic) === normalizeSubtopic(subtopicFilter));
 
       return matchesSearch && matchesYear && matchesMarks && matchesType && matchesSubtopic;
     });
@@ -62,9 +63,9 @@ export function useQuestionFilters(questions: Question[]) {
         case "year-asc":
           return (a.year ?? 0) - (b.year ?? 0);
         case "marks-desc":
-          return (b.marks ?? 0) - (a.marks ?? 0);
+          return 0; // TODO: Add marks sorting when marks field is available
         case "marks-asc":
-          return (a.marks ?? 0) - (b.marks ?? 0);
+          return 0; // TODO: Add marks sorting when marks field is available
         default:
           return 0;
       }
@@ -73,7 +74,12 @@ export function useQuestionFilters(questions: Question[]) {
     return filtered;
   }, [questions, searchQuery, yearFilter, marksFilter, typeFilter, subtopicFilter, sortBy]);
 
-  const hasActiveFilters = searchQuery !== "" || yearFilter !== "all" || marksFilter !== "all" || typeFilter !== "all" || subtopicFilter !== "all";
+  const hasActiveFilters =
+    searchQuery !== "" ||
+    yearFilter !== "all" ||
+    marksFilter !== "all" ||
+    typeFilter !== "all" ||
+    subtopicFilter !== "all";
 
   const clearFilters = () => {
     setSearchQuery("");
@@ -85,7 +91,14 @@ export function useQuestionFilters(questions: Question[]) {
 
   // Filter questions with options for practice mode
   const practiceQuestions = useMemo(() => {
-    return filteredQuestions.filter(q => q.options && q.options.length > 0);
+    return filteredQuestions.filter(
+      (q) =>
+        q.optionA &&
+        q.optionB &&
+        q.optionC &&
+        q.optionD &&
+        q.correctAnswer
+    );
   }, [filteredQuestions]);
 
   return {
