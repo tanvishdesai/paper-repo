@@ -32,7 +32,7 @@ export default function QuestionsPage() {
     practiceQuestions,
     hasActiveFilters,
     clearFilters,
-  } = useQuestionFilters(questions);
+  } = useQuestionFilters(questions as unknown as Question[]);
   const {
     practiceMode,
     startPractice,

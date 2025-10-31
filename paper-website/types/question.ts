@@ -1,4 +1,10 @@
+import { ReactNode } from "react";
+
 export interface Question {
+  marks: null;
+  theoretical_practical: ReactNode;
+  question_no: ReactNode;
+  provenance: any;
   _id?: string; // Convex document ID
   year: number;
   questionNumber: number;

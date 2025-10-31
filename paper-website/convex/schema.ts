@@ -30,6 +30,25 @@ export default defineSchema(
     .index("by_year_subject", ["year", "subject"])
     .index("by_year_chapter", ["year", "chapter"])
     .index("by_subject_chapter", ["subject", "chapter"]),
+    users: defineTable({
+      clerkId: v.string(),
+      email: v.string(),
+      name: v.optional(v.string()),
+      createdAt: v.number(),
+    })
+    .index("by_clerkId", ["clerkId"]),
+    apiKeys: defineTable({
+      userId: v.id("users"),
+      name: v.string(),
+      keyHash: v.string(),
+      keyPrefix: v.string(),
+      isActive: v.boolean(),
+      rateLimit: v.number(),
+      createdAt: v.number(),
+      lastUsedAt: v.optional(v.number()),
+    })
+    .index("by_userId", ["userId"])
+    .index("by_keyHash", ["keyHash"]),
   },
   { schemaValidation: true }
 );

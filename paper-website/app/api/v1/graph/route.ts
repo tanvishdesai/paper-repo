@@ -62,8 +62,8 @@ export async function GET(request: NextRequest) {
     // Add question nodes and links
     result.questions.forEach(q => {
       const questionNode: QuestionNode = {
-        id: `question-${q.questionId}`,
-        label: q.question_no,
+        id: `question-${q._id}`,
+        label: q.questionNumber.toString(),
         type: 'Question',
         year: q.year,
         subject: q.subject,
@@ -71,11 +71,13 @@ export async function GET(request: NextRequest) {
       nodes.push(questionNode);
 
       // Link question to subject
-      links.push({
-        source: `question-${q.questionId}`,
-        target: `subject-${q.subject}`,
-        type: 'HAS_SUBJECT',
-      });
+      if (q.subject) {
+        links.push({
+          source: `question-${q._id}`,
+          target: `subject-${q.subject}`,
+          type: 'HAS_SUBJECT',
+        });
+      }
     });
 
     return NextResponse.json({
@@ -124,15 +126,15 @@ export async function POST(request: NextRequest) {
     // Add question nodes and links
     result.questions.forEach(q => {
       const questionNode: QuestionNode = {
-        id: `question-${q.questionId}`,
-        label: q.question_no,
+        id: `question-${q._id}`,
+        label: q.questionNumber.toString(),
         type: 'Question',
         year: q.year,
       };
       nodes.push(questionNode);
 
       links.push({
-        source: `question-${q.questionId}`,
+        source: `question-${q._id}`,
         target: `subject-${subject}`,
         type: 'HAS_SUBJECT',
       });

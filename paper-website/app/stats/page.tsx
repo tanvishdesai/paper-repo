@@ -94,7 +94,7 @@ export default function StatsPage() {
     const yearSubjectMap = new Map<string, { [subject: string]: number }>();
 
     filteredData.forEach(item => {
-      const key = item.year;
+      const key = String(item.year);
       if (!yearSubjectMap.has(key)) {
         yearSubjectMap.set(key, {});
       }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -32,7 +33,7 @@ export async function GET(
         } else {
           // Fallback to graph-based if no vector results
           similarQuestions = await convex.query(api.questions.getSimilarQuestions, {
-            questionId,
+            questionId: questionId as Id<"gateQuestions">,
             limit,
           });
           algorithm = "graph";
@@ -42,7 +43,7 @@ export async function GET(
         
         // Fallback to graph-based similarity
         similarQuestions = await convex.query(api.questions.getSimilarQuestions, {
-          questionId,
+          questionId: questionId as Id<"gateQuestions">,
           limit,
         });
         algorithm = "graph";
@@ -50,7 +51,7 @@ export async function GET(
     } else {
       // Use graph-based similarity if vectors disabled
       similarQuestions = await convex.query(api.questions.getSimilarQuestions, {
-        questionId,
+        questionId: questionId as Id<"gateQuestions">,
         limit,
       });
       algorithm = "graph";

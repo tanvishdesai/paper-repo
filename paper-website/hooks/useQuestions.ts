@@ -62,7 +62,7 @@ export function useQuestions({ subjectParam }: UseQuestionsOptions) {
   const subtopics = useMemo(() => {
     const rawSubtopics = questions
       .map((q) => q.subtopic)
-      .filter((s) => s != null && s.trim() !== "");
+      .filter((s): s is string => s != null && s.trim() !== "");
     return getUniqueSubtopics(rawSubtopics);
   }, [questions]);
 

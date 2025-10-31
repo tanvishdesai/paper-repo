@@ -109,12 +109,11 @@ export function ChatDialog({ isOpen, onClose, question }: ChatDialogProps) {
     if (isOpen && question && !isInitialized) {
       const initialPrompt = `Look at this question and explain its solution to me like I'm a novice. Explain each term and calculation from the basics:
 
-Question: ${question.question_text}
-${question.options ? `Options: ${question.options.join(', ')}` : ''}
+Question: ${question.questionText}
+${question.optionA ? `Options: ${question.optionA}, ${question.optionB}, ${question.optionC}, ${question.optionD}` : ''}
 Subject: ${question.subject}
 Topic: ${question.subtopic}
-Marks: ${question.marks}
-Type: ${question.theoretical_practical}
+Type: ${question.questionType}
 Year: ${question.year}
 
 Please explain step by step, starting from the very basics.`;

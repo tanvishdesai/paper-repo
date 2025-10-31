@@ -30,10 +30,10 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
     const answered = answers.size;
     const correct = questions.reduce((count, question, index) => {
       const userAnswer = answers.get(index);
-      if (!userAnswer || !question.options) return count;
+      if (!userAnswer || !question.optionA) return count;
 
-      const correctIndex = detectCorrectOption(question.options, question.correct_answer);
-      return count + (correctIndex !== null && question.options[correctIndex] === userAnswer ? 1 : 0);
+      const correctIndex = detectCorrectOption([question.optionA, question.optionB, question.optionC, question.optionD].filter(Boolean) as string[], question.correctAnswer);
+      return count + (correctIndex !== null && question.optionA[correctIndex] === userAnswer ? 1 : 0);
     }, 0);
 
     return { total, answered, correct, incorrect: answered - correct, unanswered: total - answered };
@@ -150,8 +150,8 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
             <h3 className="text-xl font-semibold mb-6">Question Review</h3>
             {questions.map((question, index) => {
               const userAnswer = answers.get(index);
-              const correctIndex = question.options ? detectCorrectOption(question.options, question.correct_answer) : null;
-              const isCorrect = userAnswer && correctIndex !== null && question.options && question.options[correctIndex] === userAnswer;
+              const correctIndex = question.optionA ? detectCorrectOption([question.optionA], question.correctAnswer || '') : null;
+              const isCorrect = userAnswer && correctIndex !== null && question.optionA && question.optionA[correctIndex] === userAnswer;
               const isAnswered = userAnswer !== undefined;
 
               return (
@@ -168,13 +168,13 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold text-lg mb-2">Question {index + 1}</p>
-                      <p className="text-muted-foreground line-clamp-2">{question.question_text}</p>
+                      <p className="text-muted-foreground line-clamp-2">{question.questionText}</p>
                     </div>
                   </div>
 
-                  {question.options && (
+                  {question.optionA && Array.isArray(question.optionA) && (
                     <div className="grid gap-3 ml-12">
-                      {question.options.map((option, optIndex) => {
+                      {question.optionA.map((option: string, optIndex: number) => {
                         const isUserChoice = userAnswer === option;
                         const isCorrectOption = correctIndex === optIndex;
 
@@ -303,7 +303,7 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
                 {/* Question Text */}
                 <div className="prose prose-xl max-w-none dark:prose-invert">
                   <p className="text-2xl leading-relaxed text-foreground/90 font-medium m-0">
-                    {currentQuestion.question_text}
+                    {currentQuestion.questionText}
                   </p>
                 </div>
               </div>
@@ -315,9 +315,13 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
                 <div className="h-2 w-2 rounded-full bg-primary"></div>
                 Select your answer
               </div>
-
               <div className="grid gap-4">
-                {currentQuestion.options?.map((option, index) => {
+                {[
+                  currentQuestion.optionA,
+                  currentQuestion.optionB,
+                  currentQuestion.optionC,
+                  currentQuestion.optionD
+                ].filter(Boolean).map((option, index) => {
                   const isSelected = selectedAnswer === option;
 
                   return (
@@ -366,7 +370,7 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
                 <div className="flex items-center gap-2 text-muted-foreground/80">
                   <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40"></div>
                   <span className="font-medium">Topic:</span>
-                  <span className="text-foreground/70 font-medium">{getDisplaySubtopic(currentQuestion.subtopic)}</span>
+                  <span className="text-foreground/70 font-medium">{getDisplaySubtopic(currentQuestion.subtopic || '')}</span>
                 </div>
                 {currentQuestion.provenance && (
                   <div className="flex items-center gap-2 text-muted-foreground/80">
