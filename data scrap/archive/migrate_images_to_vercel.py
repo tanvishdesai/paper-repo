@@ -33,7 +33,7 @@ INPUT_DIRECTORY = os.path.join("csv scraped")
 OUTPUT_DIRECTORY = os.path.join("csv migrated")
 
 # Hardcoded token as requested by the user (keep secure in real projects)
-BLOB_READ_WRITE_TOKEN="vercel_blob_rw_RkokDQ5Fgqqf84hB_JnAeWigaxNq0ugwIxaZc3MwaxiP5uR"
+BLOB_READ_WRITE_TOKEN="apna daliye ji"
 
 # Optional: base public URL for the store (not required for upload; response includes full URL)
 # Provided by user for reference/documentation
