@@ -1,0 +1,2394 @@
+{
+  "count": 64,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 2961,
+      "question": "<p dir=\"ltr\"><span>Consider the procedure below for the Producer-Consumer problem which uses semaphores:</span><br/><br/><img alt=\"GATECS2014Q30\" height=\"241\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_2961/4279c77c860c4536-swcLooYodOYS3sKHqONRoT3hzBiFd7.png\" width=\"600\"/><br/><br/><span>Which one of the following is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 12326,
+          "answer": "<p dir=\"ltr\"><span>The producer will be able to add an item to the buffer, but the consumer can never consume it.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12327,
+          "answer": "<p dir=\"ltr\"><span>The consumer will remove no more than one item from the buffer.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12328,
+          "answer": "<p dir=\"ltr\"><span>Deadlock occurs if the consumer succeeds in acquiring semaphore s when the buffer is empty.</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12329,
+          "answer": "<p dir=\"ltr\"><span>The starting value for the semaphore n must be 1 and not 0 for deadlock-free operation. </span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Initially, there is no element in the buffer.</span><br><span>Semaphore </span><i><em class=\"GFGEditorTheme__textItalic\">s=1</em></i><span> and semaphore </span><i><em class=\"GFGEditorTheme__textItalic\">n=0</em></i><span>.</span><br><span>We assume that initially control goes to the consumer when buffer is empty.</span><br><br><i><em class=\"GFGEditorTheme__textItalic\">semWait(s)</em></i><span> decrements the value of semaphore ‘s’ . Now,&nbsp; s = 0 and </span><i><em class=\"GFGEditorTheme__textItalic\">semWait(n)</em></i><span> decrements the value of semaphore ‘n’.</span><br><span>Since, the value of semaphore ‘n’ becomes less than 0 , the control stucks in while loop of function semWait() and a deadlock arises.</span><br><span>Thus, deadlock occurs if the consumer succeeds in acquiring semaphore s when the buffer is empty.</span><br><br><br><span>Watch GeeksforGeeks Video Explanation :</span><br><br><iframe src=\"https://www.youtube.com/embed/MRza1t01xgE?start=2685\" width=\"560\" height=\"315\"></iframe><br><br><br><span>Please comment below if you find anything wrong in the above post.</span></p>",
+      "created_on": "2013-01-05 - 21:46:14",
+      "updated_on": "2025-06-19 - 15:42:38",
+      "year": 2014,
+      "subject": "Operating System",
+      "chapter": "Concurrency & Synchronization",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3067,
+      "question": "<p dir=\"ltr\"><span>Consider the store and forward packet switched network given below. Assume that the bandwidth of each link is 10</span><sup><span>6</span></sup><span> bytes / sec. A user on host A sends a file of size 10</span><sup><span>3</span></sup><span> bytes to host B through routers R1 and R2 in three different ways. In the first case a single packet containing the complete file is transmitted from A to B. In the second case, the file is split into 10 equal parts, and these packets are transmitted from A to B. In the third case, the file is split into 20 equal parts and these packets are sent from A to B. Each packet contains 100 bytes of header information along with the user data. Consider only transmission time and ignore processing, queuing and propagation delays. Also assume that there are no errors during transmission. Let T1, T2 and T3 be the times taken to transmit the file in the first, second and third case respectively. Which one of the following is CORRECT? </span></p><figure class=\"image\"><img height=\"inherit\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_3067/fc6b69a6ff953c1f-INDOvq9wmvdx1Gbv4IIfiF0FQpcMiR.png\" width=\"inherit\"/><figcaption> </figcaption></figure>",
+      "answers": [
+        {
+          "id": 12747,
+          "answer": "<p dir=\"ltr\"><span>T1 &lt; T2 &lt; T3</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12748,
+          "answer": "<p dir=\"ltr\"><span>T1 &gt; T2 &gt; T3</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12749,
+          "answer": "<p dir=\"ltr\"><span>T2 = T3, T3 &lt; T1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12750,
+          "answer": "<p dir=\"ltr\"><span>T1 = T3, T3 &gt; T2</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The important thing to note here is in first case, the whole packet is being transmitted, so no pipelining of packet happens. In second and third case, we have advantage of pipelining (While packet 'i' is being transmitted from R1 to R2, packet 'i-1' is being transmitted from A to R1 at the same time). Following are complete calculations.</span></p><pre><span>File Size = 1000 bytes</span><br><span>Header Size = 100 bytes</span><br><span>Transmission Speed of all  links = 10^6 bytes/sec</span><br><br><b><strong>Ist Case: </strong></b><br><span> Transmission time for one link </span><br><span>                = packetsize/bandwidth</span><br><span>                = (1000 + 100)/10^6</span><br><span>                = 1100 micros</span><br><span> Total time = 3*1100</span><br><span>            = 3300 microsec.</span><br><br><b><strong>Second case: </strong></b><br><span>  Transmission time for one link and one part</span><br><span>                   = (100 + 100)/10^6</span><br><span>                   =  200 microsec</span><br><br><span>  [Note the pipe-lining in packets.  While</span><br><span>  packet 'i' is being transmitted from R1 to R2,</span><br><span>  packet 'i-1' is being transmitted from A to R1</span><br><span>  at the same time]</span><br><span>  Total time = 3*200 + 9*200</span><br><span>             = 2400 micro sec</span><br><br><b><strong>Third Case: </strong></b><br><span>  Transmission time for one link and one part</span><br><span>                                 = (50+100)/10^6 </span><br><span>                                 = 150microsec</span><br><span>  Total time = 3*150+19*150</span><br><span>             = 3300 microsec </span></pre>",
+      "created_on": "2013-01-05 - 21:58:29",
+      "updated_on": "2025-06-19 - 15:46:10",
+      "year": 2014,
+      "subject": "Computer Networks",
+      "chapter": "Packet Switching",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3066,
+      "question": "<p dir=\"ltr\"><span>In the diagram shown below L1 is an Ethernet LAN and L2 is a Token-Ring LAN. An IP packet originates from sender S and traverses to R, as shown. The link within each ISP, and across two ISPs, are all point to point optical links. The initial value of TTL is 32. The maximum possible value of TTL field when R receives the datagram is</span><br/><br/><img alt=\"GATECS2014Q25\" height=\"168\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_3066/e188067485a9e649-Kmnl5kmbQYFQJ3Iblrh5qQ9lIUFBA2.png\" width=\"600\"/></p>",
+      "answers": [
+        {
+          "id": 12743,
+          "answer": "<p><span>25</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12744,
+          "answer": "<p><span>24</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12745,
+          "answer": "<p><span>26</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12746,
+          "answer": "<p><span>28</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>TTL(Time to Live) - It is a mechanism that limits the lifespan of a packet in a computer network. It is implemented with the help of a counter or timestamp which is set by the sender of the packet and embedded in the packet itself. It represents the maximum lifetime of a packet in the network. When a packet routes through a network, each router checks the current value of its TTL, if the TTL value is not zero then only the router accepts the packet, and decrements its value by 1. This process takes place at every router. If some router founds the TTL value of the incoming packet to be 0, then it simply discards/destroys the packet ( because the lifetime of the packet is over, and hence the packet is not eligible to be in the network ).  One of the main purposes of setting the TTL value and doing all this process is to ensure that there is no undelivered packet in the network which is circulating indefinitely, and to avoid the problem of duplicate delivery of the same packet, which may arise in the case of network congestion.  Now, routing decisions are taken place at the network layer. hence we have to see in the above question that when the packet is going through the network layer.  LANs work at Data Link Layer only, hence the packet doesn't reach network layer in LANs.  So in the question above, Except LANs, at all other points routing decisions have to be taken. Hence TTL value will be checked and manipulated at those points/routers.  At Receiver end also, the packet has to go through the network layer so as to reach to application layer, hence Receiver will also check and decrement the TTL value.  So there are 6 routers in the above diagram. Initially TTL value was 32, so at the Receiver it will become 32 - 6 = 26.  </span></p><img alt=\"TTL (1)\" height=\"360\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_3066/f335c7afa8adf905-PikSVkTUzHXP9ZSw8fjSm2Bprgw3Hz.jpg\" width=\"480\"/><p><b><strong> </strong></b></p>",
+      "created_on": "2013-01-05 - 21:58:29",
+      "updated_on": "2025-06-19 - 15:44:17",
+      "year": 2014,
+      "subject": "Computer Networks",
+      "chapter": "Miscellaneous",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3464,
+      "question": "<p dir=\"ltr\"><span>Consider two strings A = \"qpqrr\" and B = \"pqprqrp\". Let x be the length of the longest common subsequence (not necessarily contiguous) between A and B and let y be the number of such longest common subsequences between A and B. Then x + 10y = ___.</span></p>",
+      "answers": [
+        {
+          "id": 14314,
+          "answer": "<p><span>33</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 14315,
+          "answer": "<p><span>23</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 14316,
+          "answer": "<p><span>43</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 14317,
+          "answer": "<p><span>34</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The LCS is of length 4. There are 3 LCS of length 4 \"qprr\", \"pqrr\" and qpqr &nbsp; A subsequence is a sequence that can be derived from another sequence by selecting zero or more elements from it, without changing the order of the remaining elements. Subsequence need not be contiguous. Since the length of given strings A = “qpqrr” and B = “pqprqrp” are very small, we don’t need to build a 5x7 matrix and solve it using dynamic programming. Rather we can solve it manually just by brute force. We will first check whether there exist a subsequence &nbsp;of length 5 since min_length(A,B) = 5. Since there is no subsequence , we will now check for length 4. “qprr”, “pqrr” and “qpqr” are common in both strings. X = 4 and Y = 3 .&nbsp;</span></p><p dir=\"ltr\"><span>X + 10Y = 34 &nbsp;</span></p><p dir=\"ltr\"><span>Hence (D) is the correct naswer.</span></p>",
+      "created_on": "2013-01-08 - 15:48:01",
+      "updated_on": "2025-06-19 - 15:49:24",
+      "year": 2014,
+      "subject": "Algorithms",
+      "chapter": "Dynamic Programming",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3653,
+      "question": "<p dir=\"ltr\"><span>For a C program accessing X[i][j][k], the following intermediate code is generated by a compiler. Assume that the size of an integer is 32 bits and the size of a character is 8 bits. </span></p><pre><span>  t0 = i ∗ 1024</span><br><span>  t1 = j ∗ 32</span><br><span>  t2 = k ∗ 4</span><br><span>  t3 = t1 + t0</span><br><span>  t4 = t3 + t2</span><br><span>  t5 = X[t4] </span></pre><p dir=\"ltr\"><span> Which one of the following statements about the source code for the C program is CORRECT?</span></p>",
+      "answers": [
+        {
+          "id": 15060,
+          "answer": "<p dir=\"ltr\"><span>X is declared as “int X[32][32][8]”.</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 15061,
+          "answer": "<p dir=\"ltr\"><span>X is declared as “int X[4][1024][32]”.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 15062,
+          "answer": "<p dir=\"ltr\"><span> X is declared as “char X[4][32][8]”.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15063,
+          "answer": "<p dir=\"ltr\"><span> X is declared as “char X[32][16][2]”.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The final expression can be simplified in form ofi, j and k by following the intermediate code steps in reverse order </span></p><pre><span>t5 = X[t4]</span><br><span>   = X[t3 + t2]</span><br><span>   = X[t1 + t0 + t2]</span><br><span>   = X[i*1024 + j*32 + k*4]</span><br><span>   = X + i*1024 + j*32 + k*4 </span></pre><p dir=\"ltr\"><span>  Since k is multiplied by 4, the array must be an int array.  We are left with 2 choices (A and B) among the 4 given choices.  X[i][j][k]'th element in one dimensional array is equivalent to X[i*M*L + j*L + k]'th element in one dimensional array (Note that multi-dimensional arrays are stored in row major order in C).  So we get following equations </span></p><pre><span>j*L*4 = j*32, we get L = 8 (4 is the sizeof(int))</span><br><span>i*1024 = i*M*L*4, we get M = 1024/32 = 32</span></pre><p dir=\"ltr\"><span>  Therefore option A is the only correct option as M and L are 32 and 8 respectively.     </span></p><iframe src=\"https://www.youtube.com/embed/mNG-F-8t3a4?start=177\" width=\"560\" height=\"315\"></iframe>",
+      "created_on": "2013-01-10 - 19:44:32",
+      "updated_on": "2025-06-19 - 15:51:40",
+      "year": 2014,
+      "subject": "Data Structures",
+      "chapter": "Arrays",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3740,
+      "question": "<p dir=\"ltr\"><span>A computer has twenty physical page frames which contain pages numbered 101 through 120. Now a program accesses the pages numbered 1, 2, …, 100 in that order, and repeats the access sequence THRICE. Which one of the following page replacement policies experiences the same number of page faults as the optimal page replacement policy for this program?</span></p>",
+      "answers": [
+        {
+          "id": 15400,
+          "answer": "<p dir=\"ltr\"><span>Least-recently-used</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 15401,
+          "answer": "<p dir=\"ltr\"><span>First-in-first-out</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 15402,
+          "answer": "<p dir=\"ltr\"><span>Last-in-first-out </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15403,
+          "answer": "<p dir=\"ltr\"><span>Most-recently-used</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The optimal page replacement algorithm swaps out the page whose next use will occur farthest in the future.</span><br><br><span>In the given question, the computer has 20 page frames and initially page frames are filled with pages numbered from 101 to 120.  Then program accesses the pages numbered 1, 2, …, 100 in that order, and repeats the access sequence THRICE.</span><br><br><span>The first 20 accesses to pages from 1 to 20 would definitely cause page fault.  When 21st is accessed, there is another page fault.  The page swapped out would be 20 because 20 is going to be accessed farthest in future.  When 22nd is accessed, 21st is going to go out as it is going to be the farthest in future.  </span><br><br><span>The above optimal page replacement algorithm actually works as most recently used in this case.</span><br><br><b><strong>Iteration 1:</strong></b><span> (1-100) Not present - all replaced 1-20 in 20 frames, 21-100 in 20th frame. hence, page faults = </span><b><strong>100</strong></b><br><b><strong>Iteration 2:</strong></b><span> (1-19) present </span><b><strong>|</strong></b><span> (20-99) NOT present </span><b><strong>|</strong></b><span> (100) present - the replacements are done at the 19th frame hence, page faults = 100 - 19 - 1 = </span><b><strong>80</strong></b><br><b><strong>Iteration 3:</strong></b><span> (1-18) present </span><b><strong>|</strong></b><span> (19-98) NOT present </span><b><strong>|</strong></b><span> (99-100) present - the replacements are done at the 18th frame hence page faults = 100 - 18 - 2 = </span><b><strong>80</strong></b><br><b><strong>Iteration 4:</strong></b><span> (1-17) present </span><b><strong>|</strong></b><span> (17-97) NOT present </span><b><strong>|</strong></b><span> (98-100) present - the replacements are done at the 17th frame hence page faults = 100 - 17 - 3 = </span><b><strong>80</strong></b><br><br><span>Total page faults = </span><b><strong>100 + 80 + 80 +80 = 340</strong></b><br><br><span>Along with generating same number of page faults M.R.U also generates replacements at the same positions as in the Optimal algorithm.(Assuming the given 101-120 pages are INVALID (not belonging to the same process) or Empty).</span><br><br><span>While the LIFO replacement does not behave like Optimal replacement algorithm as it generates 343 page faults. Because from 21st page all pages are placed in 20th frame, therefore hits per iteration reduces down to 19 from the 2nd iteration of pages. Whereby </span><br><br><span>Total Page faults = </span><b><strong>100 + 81 + 81 + 81 = 343</strong></b></p>",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-06-19 - 16:16:36",
+      "year": 2014,
+      "subject": "Operating System",
+      "chapter": "Memory Management",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4001,
+      "question": "<p dir=\"ltr\"><span>Suppose n and p are unsigned int variables in a C program. We wish to set p to </span><sup><span>n</span></sup><span>C</span><sub><span>3</span></sub><span>. If n is large, which of the following statements is most likely to set p correctly?</span><br></p>",
+      "answers": [
+        {
+          "id": 16434,
+          "answer": "<p dir=\"ltr\"><span>p = n * (n-1) * (n-2) / 6;</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 16435,
+          "answer": "<p dir=\"ltr\"><span> p = n * (n-1) / 2 * (n-2) / 3;</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 16436,
+          "answer": "<p dir=\"ltr\"><span>p  = n * (n-1) / 3 * (n-2) / 2;</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 16437,
+          "answer": "<p dir=\"ltr\"><span>p = n * (n-1) * (n-2) / 6.0;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>As n is large, the product n*(n-1)*(n-2) will go out of the range(overflow) and it will return a value different from what is expected. Therefore, option </span></p><p dir=\"ltr\"><b><strong>(A)</strong></b></p><p dir=\"ltr\"><span> and </span></p><p dir=\"ltr\"><b><strong>(D)</strong></b></p><p dir=\"ltr\"><span> are eliminated. So we consider a shorter product n*(n-1). n*(n-1) is always an even number. So the subexpression \" n * (n-1) / 2 \" in option B would always produce an integer, which means no precision loss in this subexpression. And when we consider \" n*(n-1)/2*(n-2) \", it will always give a number which is a multiple of 3. So dividing it with 3 won't have any loss.</span></p>",
+      "created_on": "2013-02-09 - 12:08:12",
+      "updated_on": "2025-06-19 - 16:17:48",
+      "year": 2014,
+      "subject": "C Programming",
+      "chapter": "Storage Classes",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4150,
+      "question": "<p dir=\"ltr\"><span>Consider the expression tree shown. Each leaf represents a numerical value, which can either be 0 or 1. Over all possible choices of the values at the leaves, the maximum possible value of the expression represented by the tree is ___.</span><br/><br/><img alt=\"GATECS2014Q38\" height=\"370\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_4150/c8c695ce04fc87d2-VlDeTk0LwzpG1LXCOKNnNwODDG2IEB.png\" width=\"600\"/></p>",
+      "answers": [
+        {
+          "id": 16995,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 16996,
+          "answer": "<p><span>6</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 16997,
+          "answer": "<p><span>8</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 16998,
+          "answer": "<p><span>10</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>An </span><a href=\"http://www.geeksforgeeks.org/expression-tree/\"><span>Expression Tree</span></a><span> is a binary tree in which each internal node corresponds to operator and each leaf node corresponds to operand so for example expression tree for 3 + ((5+9)*2) would be:.</span><br/><br/><span>Below diagram shows values to pick to get the maximum value in expresison tree</span><br/><br/><img alt=\"GATECS2014Q38\" height=\"370\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_4150/f9a33b5feecd052c-LuEHgP7c07zsr2TRaejtDrW7w3AhSB.png\" width=\"600\"/><br/><br/><iframe height=\"315\" src=\"https://www.youtube.com/embed/Sn5eIxvrNBc?start=1982\" width=\"560\"></iframe></p>",
+      "created_on": "2013-02-13 - 20:44:01",
+      "updated_on": "2025-06-19 - 16:24:24",
+      "year": 2014,
+      "subject": "Data Structures",
+      "chapter": "Trees",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4355,
+      "question": "<p dir=\"ltr\"><span>Which one of the following correctly determines the solution of the recurrence relation with T(1) = 1? </span></p><pre><span>T(n) = 2T(n/2) + Logn </span></pre>",
+      "answers": [
+        {
+          "id": 17807,
+          "answer": "<p dir=\"ltr\"><span>Θ(n) </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 17808,
+          "answer": "<p dir=\"ltr\"><span>Θ(nLogn) </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 17809,
+          "answer": "<p dir=\"ltr\"><span>Θ(n*n) </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 17810,
+          "answer": "<p dir=\"ltr\"><span>Θ(log n)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span> T(n) = 2T(n/2) + log n</span><br><span> T(1) = 1</span><br><span>Substitute n = 2^k</span><br><br><span>T(2^k)  = k + 2T(2^(k-1))</span><br><span>T(2^k)  = k + 2(k-1) + 4T(2^(k-2))</span><br><span>        = k + 2(k-1) + 4(K-2) + 8T(2^(k-3))</span><br><span>        = k + 2(k-1) + 4(K-2) + 8(k-3) + 16T(2^(k-4))</span><br><span>        = k + 2(k-1) + 4(K-2) + 8(k-3) + ...... + 2^kT(2^(k-k))</span><br><span>        = k + 2(k-1) + 4(K-2) + 8(k-3) + .......+ 2^kT(1)</span><br><span>        = k + 2(k-1) + 4(K-2) + 8(k-3) + .......+ 2^k  --------(1)</span><br><br><span>2T(2^k) =     2k     + 4(k-1) + 8(K-2) + ...... + 2*2^k + 2^(k+1) --------(2)</span><br><br><span>Subtracting 1 from 2, we get below</span><br><span>T(2^k) = - k + 2 + 4 ......    2^(k-2) + 2^(k-1) + 2^k + 2^(k+1)</span><br><span>           = - k + 2 * (1 + 2 + 4 + ..... 2^k)</span><br><span>           = -k + [2*(2^k - 1)] / [2-1]</span><br><span>           = -k + [2*(2^k - 1)]</span><br><br><span>T(n) = -Logn + 2*(n - 1)</span><br><br><span>T(n)  = Θ(n) </span><br></pre>",
+      "created_on": "2013-02-25 - 16:47:51",
+      "updated_on": "2025-06-19 - 16:27:04",
+      "year": 2014,
+      "subject": "Algorithms",
+      "chapter": "Recurrence",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4415,
+      "question": "<p dir=\"ltr\"><span>Consider the JAVA function given below.&nbsp;</span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C++</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"cpp\">\n        <code class=\"language-cpp\"><div class=highlight><pre><span></span><span class=kt>int</span><span class=w> </span><span class=nf>f</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>j</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>50</span><span class=p>;</span>\n<span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>k</span><span class=p>;</span>\n<span class=w>    </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=n>j</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>        </span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=w> </span><span class=o>&lt;&lt;</span><span class=w> </span><span class=s>&quot;something&quot;</span><span class=p>;</span>\n<span class=w>        </span><span class=n>k</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>f</span><span class=p>(</span><span class=n>i</span><span class=p>);</span>\n<span class=w>        </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=w>    </span><span class=p>}</span>\n<span class=w>    </span><span class=k>else</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    \n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;stdio.h&gt;</span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>f</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>j</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>50</span><span class=p>;</span>\n<span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>k</span><span class=p>;</span>\n<span class=w>    </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=n>j</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>        </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;something&quot;</span><span class=p>);</span>\n<span class=w>        </span><span class=n>k</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>f</span><span class=p>(</span><span class=n>i</span><span class=p>);</span>\n<span class=w>        </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=w>    </span><span class=p>}</span>\n<span class=w>    </span><span class=k>else</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    \n        <gfg-tab slot=\"tab\">Java</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"java\">\n        <code class=\"language-java\"><div class=highlight><pre><span></span><span class=kd>static</span><span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=nf>f</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>j</span><span class=p>){</span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>50</span><span class=p>;</span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=n>k</span><span class=p>;</span>\n<span class=w>  </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=n>j</span><span class=p>){</span>\n<span class=w>    </span><span class=n>System</span><span class=p>.</span><span class=na>out</span><span class=p>.</span><span class=na>print</span><span class=p>(</span><span class=s>&quot;something&quot;</span><span class=p>);</span>\n<span class=w>    </span><span class=n>k</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>f</span><span class=p>(</span><span class=n>i</span><span class=p>);</span>\n<span class=w>    </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=w>  </span><span class=p>}</span>\n<span class=w>  </span><span class=k>else</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    \n        <gfg-tab slot=\"tab\">Python</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"python3\">\n        <code class=\"language-python3\"><div class=highlight><pre><span></span><span class=k>def</span> <span class=nf>f</span><span class=p>(</span><span class=n>j</span><span class=p>):</span>\n    <span class=n>i</span> <span class=o>=</span> <span class=mi>50</span>\n    <span class=k>if</span> <span class=n>i</span> <span class=o>==</span> <span class=n>j</span><span class=p>:</span>\n        <span class=nb>print</span><span class=p>(</span><span class=s2>&quot;something&quot;</span><span class=p>)</span>\n        <span class=n>k</span> <span class=o>=</span> <span class=n>f</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>\n        <span class=k>return</span> <span class=mi>0</span>\n    <span class=k>else</span><span class=p>:</span>\n        <span class=k>return</span> <span class=mi>0</span>\n</pre></div></code>\n        </gfg-panel>\n    \n        <gfg-tab slot=\"tab\">JavaScript</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"javascript\">\n        <code class=\"language-javascript\"><div class=highlight><pre><span></span><span class=kd>function</span><span class=w> </span><span class=nx>f</span><span class=p>(</span><span class=nx>j</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mf>50</span><span class=p>;</span>\n<span class=w>    </span><span class=kd>let</span><span class=w> </span><span class=nx>k</span><span class=p>;</span>\n<span class=w>    </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=nx>i</span><span class=w> </span><span class=o>===</span><span class=w> </span><span class=nx>j</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>        </span><span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&quot;something&quot;</span><span class=p>);</span>\n<span class=w>        </span><span class=nx>k</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=nx>f</span><span class=p>(</span><span class=nx>i</span><span class=p>);</span>\n<span class=w>        </span><span class=k>return</span><span class=w> </span><span class=mf>0</span><span class=p>;</span>\n<span class=w>    </span><span class=p>}</span>\n<span class=w>    </span><span class=k>else</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=mf>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>Which one of the following is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 18040,
+          "answer": "<p dir=\"ltr\"><span>The function returns 0 for all values of j.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 18041,
+          "answer": "<p dir=\"ltr\"><span>The function prints the string something for all values of j.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 18042,
+          "answer": "<p dir=\"ltr\"><span>The function returns 0 when j = 50.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 18043,
+          "answer": "<p dir=\"ltr\"><span>The function will exhaust the runtime stack or run into an infinite loop when j = 50</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>When j is 50, the function would call itself again and again as neither i nor j is changed inside the recursion.</span></p><p dir=\"ltr\"><span>Hence Option (D) is the correct answer.</span></p>",
+      "created_on": "2013-03-06 - 01:24:14",
+      "updated_on": "2025-06-19 - 16:28:05",
+      "year": 2014,
+      "subject": "C Programming",
+      "chapter": "Functions",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4568,
+      "question": "<p dir=\"ltr\"><span>Consider the tree arcs of a BFS traversal from a source node W in an unweighted, connected, undirected graph. The tree T formed by the tree arcs is a data structure for computing.</span></p>",
+      "answers": [
+        {
+          "id": 18627,
+          "answer": "<p dir=\"ltr\"><span>the shortest path between every pair of vertices.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 18628,
+          "answer": "<p dir=\"ltr\"><span>the shortest path from W to every vertex in the graph.</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 18629,
+          "answer": "<p dir=\"ltr\"><span>the shortest paths from W to only those nodes that are leaves of T.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 18630,
+          "answer": "<p dir=\"ltr\"><span>the longest path in the graph</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\" style=\"text-align: justify;\"><span>Explanation:</span><br><span>&nbsp;</span></p><p dir=\"ltr\" style=\"text-align: justify;\"><span>The correct answer is (B) the shortest path from W to every vertex in the graph. When performing a Breadth First Search (BFS) traversal from a source node W in an unweighted, connected, undirected graph, the tree T formed by the tree arcs represents the shortest path from W to every other vertex in the graph.</span><br><span>&nbsp;</span></p><p dir=\"ltr\" style=\"text-align: justify;\"><span>BFS explores the graph level by level, starting from the source node W. As it traverses the graph, it discovers the vertices in increasing order of their distance from W. The tree arcs in the resulting tree T represent the shortest paths from W to each vertex, as BFS ensures that the vertices are visited in the order of their distance from the source.</span><br><span>&nbsp;</span></p><p dir=\"ltr\" style=\"text-align: justify;\"><span>Option (A) the shortest path between every pair of vertices is not correct because the tree T only represents the shortest path from W to every vertex, not between all pairs of vertices in the graph.</span><br><span>&nbsp;</span></p><p dir=\"ltr\" style=\"text-align: justify;\"><span>Option (C) the shortest paths from W to only those nodes that are leaves of T is also not correct. The tree T formed by BFS includes all vertices reachable from W, not just the leaves of the tree. It represents the shortest path to every vertex, regardless of whether it is a leaf or an internal node in the tree.</span><br><span>&nbsp;</span></p><p dir=\"ltr\" style=\"text-align: justify;\"><span>Option (D) the longest path in the graph is also not correct. BFS does not provide information about the longest path in the graph. It focuses on finding the shortest paths from the source node W to other vertices, not the longest paths. Therefore, the correct answer is (B) the shortest path from W to every vertex in the graph.</span><br><span>Quiz of this Question</span></p>",
+      "created_on": "2013-09-04 - 11:45:14",
+      "updated_on": "2025-06-19 - 16:29:28",
+      "year": 2014,
+      "subject": "Algorithms",
+      "chapter": "Graph Traversals",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4619,
+      "question": "<p dir=\"ltr\"><span>The number of distinct minimum spanning trees for the weighted graph below is ____</span><br/><br/><br/><br/><br/></p><figure class=\"image\"><img alt=\"2014\" height=\"247\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_4619/5c63b058e91b4f6d-qRr2r3SfqUL6LzscHK7UKjptN4csia.webp\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250619163414928863/2014.webp 533w,https://media.geeksforgeeks.org/wp-content/uploads/20250619163414928863/2014-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250619163414928863/2014-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250619163414928863/2014-300.webp 300w\" width=\"533\"/><figcaption> </figcaption></figure><p><br/></p>",
+      "answers": [
+        {
+          "id": 18821,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 18822,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 18823,
+          "answer": "<p><span>6</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 18824,
+          "answer": "<p><span>7</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Below diagram shows a minimum spanning tree. Highlighted (in green) are the edges picked to make the MST.</span><br/><br/><img alt=\"MST2\" height=\"220\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_4619/f3c86964c292fc6b-Spr4mBjtrbN6diuX4LYzH3RfuiI7pl.png\" width=\"450\"/><br/><br/><span>In the right side of MST, we could either pick edge ‘a’ or ‘b’. In the left side, we could either pick ‘c’ or ‘d’ or ‘e’ in MST.</span><br/><br/><span>There are 2 options for one edge to be picked and 3 options for another edge to be picked. Therefore, total 2*3 possible MSTs.</span><br/></p>",
+      "created_on": "2013-09-04 - 11:46:25",
+      "updated_on": "2025-06-19 - 16:34:32",
+      "year": 2014,
+      "subject": "Algorithms",
+      "chapter": "Minimum Spanning Tree",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4995,
+      "question": "<p dir=\"ltr\"><span>Consider a join (relation algebra) between relations r(R)and s(S) using the nested loop method. There are 3 buffers each of size equal to disk block size, out of which one buffer is reserved for intermediate results. Assuming size(r(R)) &lt; size(s(S)), the join will have fewer number of disk block accesses if</span></p>",
+      "answers": [
+        {
+          "id": 20279,
+          "answer": "<p dir=\"ltr\"><span>relation r(R) is in the outer loop.</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 20280,
+          "answer": "<p dir=\"ltr\"><span>relation s(S) is in the outer loop.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20281,
+          "answer": "<p dir=\"ltr\"><span>join selection factor between r(R) and s(S) is more than 0.5.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20282,
+          "answer": "<p dir=\"ltr\"><span>join selection factor between r(R) and s(S) is less than 0.5.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Nested loop join is one of the methods to implement database in memory. A nested loop join is an&nbsp; algorithm that joins two sets by using two nested loops.</span></p><p dir=\"ltr\"><span>According to nested join,given relation R and S&nbsp;</span><b><strong> &nbsp;For each tuple r in R do For each tuple s in S do If r and s satisfy the join condition Then output the tuple &lt;r,s&gt;</strong></b><span> Cost estimations for the above loop: – b(R) and&nbsp; b(S) number of blocks in R and in S – Each block of outer relation is read once – Inner relation is read once for each block of outer relation </span><b><strong>Summing up : IO= b(R)+n(R)*b(S) total&nbsp; IO operations</strong></b><span> Lets assume |R|&gt;|S|&nbsp; i.e b(R) =10 , n(R) = 100&nbsp;, n(S)= 30 ,and b(s) =3 Now,&nbsp;&nbsp; if R is outer relation then, IO= 10+100*3=340 if S is outer relation then IO=3+30*10=303 As it can be observed , that total IO is lesser if the value of outer variable is less and as it is already given that |R|&lt;|S|.Therefore,&nbsp; Relation r(R) should be in the outer loop to have fewer number of disk block accesses.</span></p>",
+      "created_on": "2014-01-20 - 12:34:32",
+      "updated_on": "2025-06-19 - 16:38:04",
+      "year": 2014,
+      "subject": "Database Management System",
+      "chapter": "Tuple Calculus",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5062,
+      "question": "<p dir=\"ltr\"><span>Given the STUDENTS relation as shown below. </span></p><figure class=\"image\"><img height=\"inherit\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_5062/44adf4b6b3ab52ea-eQQsP6OLFSiulTyFVyNdkWlLLwQ2dK.png\" width=\"inherit\"/><figcaption> </figcaption></figure><p dir=\"ltr\"><span>For (StudentName, StudentAge) to be the key for this instance, the value X should not be equal to</span></p>",
+      "answers": [
+        {
+          "id": 20545,
+          "answer": "<p><span>18</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 20546,
+          "answer": "<p><span>19</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 20547,
+          "answer": "<p><span>17</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20548,
+          "answer": "<p><span>20</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>There is already an entry with same name and age as 19. So the age of this entry must be something other than 19.</span></p>",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-06-19 - 16:40:59",
+      "year": 2014,
+      "subject": "Database Management System",
+      "chapter": "Relational  Algebra",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5061,
+      "question": "<p dir=\"ltr\"><span>The maximum number of superkeys for the relation schema R(E,F,G,H) with E as the key is</span></p>",
+      "answers": [
+        {
+          "id": 20541,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 20542,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20543,
+          "answer": "<p><span>7</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20544,
+          "answer": "<p><span>8</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Maximum no. of possible superkeys for a table with n attributes = 2^(n-1)</span><br><span>Here, n = 4.</span><br><span>So, the possible superkeys = 2</span><sup><span>4-1</span></sup><span> = 8</span><br><span>The possible superkeys are : E, EH, EG, EF, EGH, EFH, EFG, EFGH</span></p>",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-06-19 - 16:39:05",
+      "year": 2014,
+      "subject": "Database Management System",
+      "chapter": "Key Concepts",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5144,
+      "question": "<p dir=\"ltr\"><span>SQL allows tuples in relations, and correspondingly defines the multiplicity of tuples in the result of joins. Which one of the following queries always gives the same answer as the nested query shown below: </span></p><pre><span>    select * from R where a in (select S.a from S) </span></pre>",
+      "answers": [
+        {
+          "id": 20869,
+          "answer": "<p dir=\"ltr\"><span>select R.* from R, S where R.a=S.a (D) </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 20870,
+          "answer": "<p dir=\"ltr\"><span>select distinct R.* from R,S where R.a=S.a</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20871,
+          "answer": "<p dir=\"ltr\"><span>select R.* from R,(select distinct a from S) as S1 where R.a=S1.a</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 20872,
+          "answer": "<p dir=\"ltr\"><span>select R.* from R,S where R.a=S.a and is unique R</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The solution of this question lies in the data set(tuples) of Relations R and S we define. If we miss some case then we may get wrong answer. Let's say,  Relation R(BCA) with attributes B, C and A contains the following tuples. </span></p><pre><span>B C A</span><br><span>---------</span><br><span>7 2 1</span><br><span>7 2 1</span><br><span>8 9 5</span><br><span>8 9 5</span></pre><p dir=\"ltr\"><span>  And Relation S(AMN) with attributes A, M, and N contains the following tuples.</span></p><pre><span>A M N</span><br><span>---------</span><br><span>1 6 7</span><br><span>2 8 4</span><br><span>5 9 6</span><br><span>5 5 3</span></pre><p dir=\"ltr\"><span> ----------------------------------------------------------------------------------------------------------- Now ,the original Query will give result as:  \"select * from R where a in (select S.a from S) \" - The query asks to display every tuple of Relation R where R.a is present in the complete set S.a.</span></p><pre><span>B C A</span><br><span>---------</span><br><span>7 2 1</span><br><span>7 2 1</span><br><span>8 9 5</span><br><span>8 9 5</span></pre><p dir=\"ltr\"><span>  -----------------------------------------------------------------------------------------------------------  Option A query will result in :  \"select R.* from R, S where R.a=S.a\"</span></p><pre><span>B C A</span><br><span>---------</span><br><span>7 2 1</span><br><span>7 2 1</span><br><span>8 9 5</span><br><span>8 9 5</span><br><span>8 9 5</span><br><span>8 9 5</span></pre><p dir=\"ltr\"><span>  -----------------------------------------------------------------------------------------------------------  Option B query will result in :  \" select distinct R.* from R,S where R.a=S.a\"</span></p><pre><span>B C A</span><br><span>---------</span><br><span>7 2 1</span><br><span>8 9 5</span></pre><p dir=\"ltr\"><span>  -----------------------------------------------------------------------------------------------------------  Option C query will result in :  \"select R.* from R,(select distinct a from S) as S1 where R.a=S1.a\" B C A --------- 7 2 1 7 2 1 8 9 5 8 9 5  -----------------------------------------------------------------------------------------------------------  Option D query will result in : NULL set  \"select R.* from R,S where R.a=S.a and is unique R\"  ---------------------------------------------------------------------------------------------------------- Hence option C query matches the original result set.  Note : As mentioned earlier, we should take those data sets which can show us the difference in different queries. Suppose in R if you don't put identical tuples then you will get wrong answers. (Try this yourself, this is left as an exercise for you ). </span></p>",
+      "created_on": "2014-01-20 - 12:35:54",
+      "updated_on": "2025-06-19 - 16:43:42",
+      "year": 2014,
+      "subject": "Database Management System",
+      "chapter": "SQL",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5202,
+      "question": "<p dir=\"ltr\"><span>Consider the following schedule S of transactions T1, T2, T3, T4:</span><br/><br/><img alt=\"GATECS2014Q29\" height=\"345\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_5202/a860f6c792712d02-AFF4xkNtPSCy7et6n8NLSZK4OUSZvn.png\" width=\"600\"/><br/><br/><br/><span>Which one of the following statements is CORRECT?</span><br/></p>",
+      "answers": [
+        {
+          "id": 21090,
+          "answer": "<p dir=\"ltr\"><span> S is conflict-serializable but not recoverable</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 21091,
+          "answer": "<p dir=\"ltr\"><span>S is not conflict-serializable but is recoverable</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21092,
+          "answer": "<p dir=\"ltr\"><span>S is both conflict-serializable and recoverable</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 21093,
+          "answer": "<p dir=\"ltr\"><span> S is neither conflict-serializable nor is it recoverable</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>To check for conflict-serializable, we need to make a precedence graph, if the graph contains a cycle, then it's not conflict serializable, else it is.  Here, for the precedence graph there will be only two directed edges, one from T2 -&gt; T3 ( Read- Write Conflict), and another from T2 -&gt; T1( Read- Write Conflict), hence no cycle, so the schedule is conflict serializable.  Now to check for Recoverable, we need to check for a dirty-read operation( Write by Transaction Ti, followed by Read by Transaction Tj but before Ti commits) between any pair of operations. If no dirty-read then recoverable schedule, if a dirty read is there then we need to check for commit operations.  Here no dirty read operation ( as T3 and T1 commits before T4 reads the Write(X) of T3 and T1 , and T2 commits before T4 reads the Write(Y) of T2 ). Therefore the schedule is recoverable.  Hence, Option C. </span></p>",
+      "created_on": "2014-01-20 - 12:36:43",
+      "updated_on": "2025-06-19 - 16:44:59",
+      "year": 2014,
+      "subject": "Database Management System",
+      "chapter": "Transaction",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5247,
+      "question": "<p dir=\"ltr\"><span>A FAT (file allocation table) based file system is being used and the total overhead of each entry in the FAT is 4 bytes in size. Given a 100 x 10</span><sup><span>6</span></sup><span> bytes disk on which the file system is stored and data block size is 10</span><sup><span>3</span></sup><span> bytes, the maximum size of a file that can be stored on this disk in units of 10</span><sup><span>6</span></sup><span> bytes is ____________.</span><br></p>",
+      "answers": [
+        {
+          "id": 21271,
+          "answer": "<p dir=\"ltr\"><span>99.55 to 99.65</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 21272,
+          "answer": "<p dir=\"ltr\"><span>100.5 to 101.4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21273,
+          "answer": "<p dir=\"ltr\"><span>97.2 to 98.5</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21274,
+          "answer": "<p dir=\"ltr\"><span>89.1 to 91.2</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Here block size is 10^3 B.</span><br><span>No. of entries in the FAT = Disk capacity/ Block size </span><br><span>                          = 10^8/10^3 </span><br><span>                          = 10^5</span><br><span>Total space consumed by FAT = 10^5 *4B </span><br><span>                            = 0.4*10^6B</span><br><span>Max. size of file that can be stored = 100*10^6-0.4*10^6</span><br><span>                                     = 99.6*10^6B.</span><br><span>So answer 99.6.</span></pre>",
+      "created_on": "2014-01-20 - 12:39:07",
+      "updated_on": "2025-06-19 - 16:46:27",
+      "year": 2014,
+      "subject": "Database Management System",
+      "chapter": "File System",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5289,
+      "question": "<p dir=\"ltr\"><span>Each of the nine words in the sentence </span><b><strong>”The quick brown fox jumps over the lazy dog”</strong></b><span> is written on a separate piece of paper. These nine pieces of paper are kept in a box. One of the pieces is drawn at random from the box. The expected length of the word drawn is _____________. (The answer should be rounded to one decimal place.)</span></p>",
+      "answers": [
+        {
+          "id": 21436,
+          "answer": "<p><span>3.9</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 601981,
+          "answer": "<p><span>2.7 </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 601982,
+          "answer": "<p><span>3.0</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 601983,
+          "answer": "<p><span>3.5</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>There are total 9 words in the sentence. To find expected length first we count total length of the sentence i.e 35. Now to find expected length divide total length by total words i.e 35/9 so answer is 3.8 or 3.9  Another Explanation: Expected value = ∑( x * P(x) ) = 3*4/9 + 4*2/9 + 5*3/9 = 35/9 = 3.9</span></p>",
+      "created_on": "2014-01-21 - 03:43:36",
+      "updated_on": "2025-06-19 - 16:50:18",
+      "year": 2014,
+      "subject": "Engineering Mathematics",
+      "chapter": "Probability",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5288,
+      "question": "<p dir=\"ltr\"><span>The security system at an IT office is composed of 10 computers of which exactly four are working. To check whether the system is functional, the officials inspect four of the computers picked at random (without replacement). The system is deemed functional if at least three of the four computers inspected are working. Let the probability that the system is deemed functional be denoted by p. Then 100p = _____________.</span></p>",
+      "answers": [
+        {
+          "id": 21435,
+          "answer": "<p><span>11.90</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 601978,
+          "answer": "<p><span>10.90</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 601979,
+          "answer": "<p><span>12.90</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 601980,
+          "answer": "<p><span>9.90</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Total ways to pick 4 computers = 10*9*8*7</span><br><br><span>Total ways that at least three computers are fine = </span><br><span>        Total ways that all 4 are fine + Total ways any 3 are fine</span><br><br><span>Total ways that all 4 are fine = 4*3*2*1</span><br><br><span>Total ways three are fine = 1st is Not working and other 3 working + </span><br><span>                            2nd is Not working and other 3 working + </span><br><span>                            3rd is Not working and other 3 working + </span><br><span>                            4th is Not working and other 3 working + </span><br><span>                         = 6*4*3*2 + 4*6*3*2 + 4*3*6*2 + 4*3*2*6</span><br><span>                         = 6*4*3*2*4</span><br><br><br><span>The probability = Total ways that at least three computers are fine /  </span><br><span>                  Total ways to pick 4 computers </span><br><span>                =  (4*3*2*1 + 6*4*3*2*4) / (10*9*8*7)</span><br><span>                = (4*3*2*25) / (10*9*8*7)</span><br><span>                = 11.9% </span></pre>",
+      "created_on": "2014-01-21 - 03:43:36",
+      "updated_on": "2025-06-19 - 16:48:49",
+      "year": 2014,
+      "subject": "Engineering Mathematics",
+      "chapter": "Probability",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5358,
+      "question": "<p dir=\"ltr\"><span>The probability that a given positive integer lying between 1 and 100 (both inclusive) is NOT divisible by 2, 3 or 5 is ______ . </span></p>",
+      "answers": [
+        {
+          "id": 21706,
+          "answer": "<p><span>0.259</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 21707,
+          "answer": "<p><span>0.459</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21708,
+          "answer": "<p><span>0.325</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21709,
+          "answer": "<p><span>0.225</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>There are total 100 numbers, out of which </span><br><br><span>50 numbers are divisible by 2, </span><br><span>33 numbers are divisible by 3,</span><br><span>20 numbers are divisible by 5</span><br><br><span>Following are counted twice above</span><br><span>16 numbers are divisible by both 2 and 3</span><br><span>10 numbers are divisible by both 2 and 5</span><br><span>6 numbers are divisible by both 3 and 5</span><br><br><span>Following is counted thrice above</span><br><span>3 numbers are divisible by all 2, 3 and 5</span><br></pre><p dir=\"ltr\"><span>  So total numbers divisible by 2, 3 and 5 are =                      =  50 + 33 + 20 - 16 - 10 - 6  + 3                     =  103 - 29                     =  74  So probability that a number is number is not  divisible by 2, 3 and 5 = (100 - 74)/100 = 0.26   </span></p>",
+      "created_on": "2014-01-21 - 03:43:36",
+      "updated_on": "2025-06-19 - 17:31:11",
+      "year": 2014,
+      "subject": "Engineering Mathematics",
+      "chapter": "Probability",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5370,
+      "question": "<p dir=\"ltr\"><span>Consider the following relation on subsets of the set S of integers between 1 and 2014. For two distinct subsets U and V of S we say U &lt; V if the minimum element in the symmetric difference of the two sets is in U. Consider the following two statements:</span></p><pre><span>S1: There is a subset of S that is larger than every other subset.</span><br><span>S2: There is a subset of S that is smaller than every other subset. </span></pre><p dir=\"ltr\"><span>Which one of the following is CORRECT?</span></p>",
+      "answers": [
+        {
+          "id": 21754,
+          "answer": "<p dir=\"ltr\"><span>Both S1 and S2 are true</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 21755,
+          "answer": "<p dir=\"ltr\"><span>S1 is true and S2 is false</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21756,
+          "answer": "<p dir=\"ltr\"><span>S2 is true and S1 is false</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21757,
+          "answer": "<p dir=\"ltr\"><span>Neither S1 nor S2 is true</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>According to the given information :&nbsp;</span><br><span>S1 is true because NULL set is smaller than every other set.&nbsp;</span><br><span>S2 is true because the UNIVERSAL set {1, 2, ..., 2014} is larger than every other set.&nbsp;</span><br><span>&nbsp;</span><br><span>Thus, both S1 and S2 are true.&nbsp;</span></p>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-06-19 - 17:32:42",
+      "year": 2014,
+      "subject": "Discrete Mathematics",
+      "chapter": "Set Theory",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5485,
+      "question": "<p dir=\"ltr\"><span>The product of the non-zero eigenvalues of the matrix</span></p><pre><span>1 0 0 0 1</span><br><span>0 1 1 1 0</span><br><span>0 1 1 1 0</span><br><span>0 1 1 1 0</span><br><span>1 0 0 0 1</span></pre><p dir=\"ltr\"><span>is ______</span></p>",
+      "answers": [
+        {
+          "id": 22183,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 22184,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22185,
+          "answer": "<p><span>6</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 22186,
+          "answer": "<p><span>7</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The characteristic equation is : | A - zI | = 0 , where I is an identity matrix of order 5. i.e. determinant of the below shown matrix to be 0. 1-z 0 0 0 1 0 1-z 1 1 0 0 1 1-z 1 0 0 1 1 1-z 0 1 0 0 0 1-z Now solve this equation to find values of z. Steps to solve : 1) Expand the matrix by 1st row. (1-z) [ ( 1-z , 1 , 1, 0 ) (1 , 1-z, 1, 0) (1, 1, 1-z, 0) (0, 0, 0, 1-z ) ] + 1. [ ( 0, 1-z, 1, 1 ) ( 0, 1, 1-z, 1) ( 0, 1, 1, 1-z )( 1, 0, 0, 0) ] Note: ( matrix is represented in brackets, row wise ) 2) Expand both of the above 4x4 matrices along the last row. (1-z)(1-z) [ (1-z, 1, 1) (1, 1-z,1) (1 , 1, 1-z ) ] + 1.(-1) [ (1-z, 1, 1) (1, 1-z,1) (1 , 1, 1-z ) ] 3) Apply row transformations to simplify above matrices ( both the matrices are same). C1 &lt;- C1 + C2 + C3 R2 &lt;- R2- R1 R3 &lt;- R3 - R1 result is : (1-z)(1-z) [ ( 3-z, 1, 1) (0, -z, 0) (0, 0, -z ) ] - 1. [ ( 3-z, 1, 1) (0, -z, 0) (0, 0, -z ) ] 4) Solve the matrix by expanding 1st column. result is : (1-z)(1-z)(z)(z) - (3-z)(z)(z) = 0 solve further to get : z^3 ( 3-z ) ( z-2 ) = 0 hence z = 0 , 0 , 0 , 3 , 2 Therefore product of non zero eigenvalues is 6.</span></p>",
+      "created_on": "2014-01-21 - 03:47:45",
+      "updated_on": "2025-06-19 - 17:39:35",
+      "year": 2014,
+      "subject": "Engineering Mathematics",
+      "chapter": "Linear Algebra",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5484,
+      "question": "<p dir=\"ltr\"><span>If the matrix A is such that&nbsp;</span>[Tex]A = \\begin{bmatrix}2 \\\\-4 \\\\7\\end{bmatrix}\\begin{bmatrix}1 &amp; 9 &amp; 5\\end{bmatrix}[/Tex]<span>,&nbsp;then the determinant of A is equal to</span></p>",
+      "answers": [
+        {
+          "id": 22179,
+          "answer": "<p><span>0</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 22180,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22181,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 22182,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>This is a numerical answer question of gate paper, in which no options are provided, and the answer is to given by filling a numeral into a text box provided.</span></p><p dir=\"ltr\"><span>In the question, matrix A is given as the product of 2 matrices which are of order 3 x 1 and 1 x 3 respectively. So after multiplication of these matrices, matrix A would be a square matrix of order 3 x 3.&nbsp;</span></p><p dir=\"ltr\"><span>So, matrix A is </span>[Tex]\\begin{bmatrix}2 &amp; 18 &amp; 10 \\\\-4 &amp; -36 &amp; -20 \\\\7 &amp; 63 &amp; 35\\end{bmatrix}[/Tex]</p><p dir=\"ltr\"><span>Now, we can observe by looking at the matrix that row 2 can be made completely zero by using row 1, this is to be done by using the row operation of matrix which here is : R</span><sub><span>2</span></sub><span> ↔ R</span><sub><span>2</span></sub><span> + 2R</span><sub><span>1</span></sub></p><p dir=\"ltr\"><span>After applying above row operation in the matrix, the resultant matrix would be: 2 18 10 0 0 0 7 63 35 i.e. Row 2 has become zero now.</span></p><p dir=\"ltr\"><span>And if a square matrix has a row or column with all its elements as 0, then its determinant is 0. ( A property of a square matrix ) Hence answer is 0.</span></p><p dir=\"ltr\"><b><strong>Note: </strong></b><span>Determinant is defined only for square matrices, and it is a number which encodes certain properties of a matrix, for ex: a square matrix with determinant 0 does not has its inverse matrix.</span></p>",
+      "created_on": "2014-01-21 - 03:47:45",
+      "updated_on": "2025-06-19 - 17:34:41",
+      "year": 2014,
+      "subject": "Discrete Mathematics",
+      "chapter": "Linear Algebra",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5573,
+      "question": "<p dir=\"ltr\"><span>Consider the equation (123)5 = (x8)y with x and y as unknown. The number of possible solutions is _____ .</span></p>",
+      "answers": [
+        {
+          "id": 22527,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 22528,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22529,
+          "answer": "<p><span>3</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 22530,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Changing (123) base 5 into base 10= 1*25+2*5+3*1=38  Changing x8 base y in decimal= x*y+8  Equating both we get xy+8=38 </span></p><ul><li value=\"1\"><span>xy=30</span></li><li value=\"2\"><span>possible combinations =(1,30),(2,15),(3,10)</span></li></ul><p dir=\"ltr\"><span> but we have ‘8’ present in x8 so base y&gt;8  as all three are satisfying the conditions so total solutions =3 hence ans is ( C) part</span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-06-19 - 17:42:07",
+      "year": 2014,
+      "subject": "Digital Logic",
+      "chapter": "Number",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5572,
+      "question": "<p dir=\"ltr\"><span>Let k = 2</span><sup><span>n</span></sup><span>. A circuit is built by giving the output of an n-bit binary counter as input to an n-to-2</span><sup><span>n</span></sup><span> bit decoder. This circuit is equivalent to a</span></p>",
+      "answers": [
+        {
+          "id": 22523,
+          "answer": "<p dir=\"ltr\"><span>k-bit binary up counter.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 22524,
+          "answer": "<p dir=\"ltr\"><span>k-bit binary down counter.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22525,
+          "answer": "<p dir=\"ltr\"><span>k-bit ring counter.</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 22526,
+          "answer": "<p dir=\"ltr\"><span>k-bit Johnson counter.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>For output of a decoder, only single output will be ‘1’ and remaining will be ‘0’ at the same time. So high output&nbsp; will give the count of the ring counter. Hence Ans is (C) part.&nbsp;</span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-06-19 - 17:40:18",
+      "year": 2014,
+      "subject": "Digital Logic",
+      "chapter": "Sequential",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5822,
+      "question": "<p dir=\"ltr\"><span>Let L1 = {w ∈ {0,1}</span><sup><span>∗</span></sup><span> | w has at least as many occurrences of (110)’s as (011)’s}.&nbsp;</span><br><span>Let L2 = { ∈ {0,1}</span><sup><span>∗</span></sup><span> | w has at least as many occurrences of (000)’s as (111)’s}.&nbsp;</span><br><span>&nbsp;</span><br><span>Which one of the following is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 23495,
+          "answer": "<p dir=\"ltr\"><span>L1 is regular but not L2</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 23496,
+          "answer": "<p dir=\"ltr\"><span>L2 is regular but not L!</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 23497,
+          "answer": "<p dir=\"ltr\"><span>Both L2 and L1 are regular</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 23498,
+          "answer": "<p dir=\"ltr\"><span>Neither L1 nor L2 are regular</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>L1 is regular</strong></b><span>&nbsp;</span><br><span>let us consider the string 011011011011 In this string, number of occurrences of 011 are 4 but when we see here 110 is also occurred and the number of occurrence of 110 is 3.&nbsp;</span><br><span>Note that if i add a 0 at the last of string we can have same number of occurrences of 011 and 110 so this string is accepted. We can say if the string is ending with 011 so by appending a 0 we can make 110 also.&nbsp;</span><br><span>Now string2: 110110110110 in this number of occurrences of 110 is 4 and 011 is 3 which already satisfy the condition So we can observe here that whenever 110 will be there string will be accepted So with this idea we can build an automata for this.&nbsp;</span><br><span>Therefore, it is regular.&nbsp;</span></p>",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-06-19 - 17:45:18",
+      "year": 2014,
+      "subject": "Theory Of Computation",
+      "chapter": "Regular Expression",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5821,
+      "question": "<img alt=\"GATECS2014Q15\" height=\"107\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_5821/23d9ab9bd9cd0009-IpElRLz8fl0KJUwbW302U471MLHynw.png\" width=\"496\"/><p dir=\"ltr\"><span>  Which one of the following is CORRECT?</span></p>",
+      "answers": [
+        {
+          "id": 23491,
+          "answer": "<p dir=\"ltr\"><span>Only (I)</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 23492,
+          "answer": "<p dir=\"ltr\"><span>Only (II)</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 23493,
+          "answer": "<p dir=\"ltr\"><span>Both (I) and (II) </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 23494,
+          "answer": "<p dir=\"ltr\"><span> Neither (I) nor (II)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>L1.L2 is definitely regular, since regular languages are closed under concatenation.</span><br><span>But L1.L2 = { </span><i><em class=\"GFGEditorTheme__textItalic\">a</em></i><i><sup><em class=\"GFGEditorTheme__textItalic\">n</em></sup></i><i><em class=\"GFGEditorTheme__textItalic\">b</em></i><i><sup><em class=\"GFGEditorTheme__textItalic\">n</em></sup></i><span> | n ≥ 0 } is not correct. Because both variable are independent of each other.</span><br><span>L1.L2 = {</span><i><em class=\"GFGEditorTheme__textItalic\"> a</em></i><i><sup><em class=\"GFGEditorTheme__textItalic\">n</em></sup></i><i><em class=\"GFGEditorTheme__textItalic\">b</em></i><i><sup><em class=\"GFGEditorTheme__textItalic\">m</em></sup></i><i><em class=\"GFGEditorTheme__textItalic\"> </em></i><span>| n ≥ 0 , m ≥ 0 } is possible.</span><br><br><span>Therefore, only statement</span><b><strong> (i) </strong></b><span>is </span><i><em class=\"GFGEditorTheme__textItalic\">TRUE</em></i><span>.</span><br><br><iframe src=\"https://www.youtube.com/embed/13C2qpmD9f8?start=1219\" width=\"560\" height=\"315\"></iframe></p>",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-06-19 - 17:43:26",
+      "year": 2014,
+      "subject": "Theory Of Computation",
+      "chapter": "Regular Expression",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6036,
+      "question": "<p dir=\"ltr\"><span>Let A ≤</span><sub><span>m</span></sub><span> B denotes that language A is mapping reducible (also known as many-to-one reducible) to language B. Which one of the following is FALSE?</span></p>",
+      "answers": [
+        {
+          "id": 24309,
+          "answer": "<p dir=\"ltr\"><span>If A ≤</span><sub><span>m</span></sub><span> B and B is recursive then A is recursive.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 24310,
+          "answer": "<p dir=\"ltr\"><span>If A ≤</span><sub><span>m</span></sub><span> B and A is undecidable then B is undecidable.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24311,
+          "answer": "<p dir=\"ltr\"><span>If A ≤</span><sub><span>m</span></sub><span> B and B is recursively enumerable then A is recursively enumerable.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24312,
+          "answer": "<p dir=\"ltr\"><span>If A ≤</span><sub><span>m</span></sub><span> B&nbsp; and B is not recursively enumerable then A is not recursively enumerable.</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><span>A ≤</span><sub><span>m</span></sub><span> B means language A is mapping reducible to language B.Thus, A cannot be harder than B. Since, A can be reduced to B, instead of deciding A we can now decide B. </span><b><strong>So, the first three options are correct.</strong></b></li><li value=\"2\"><span>As B is not recursively enumerable, it doesn't guarantee A is not recursively enumerable.Thus, if A ≤</span><sub><span>m</span></sub><span> B and B is not recursively enumerable then A is not recursively enumerable.</span><b><strong>&nbsp;Therefore, answer is D is correct</strong></b></li></ul><iframe src=\"https://www.youtube.com/embed/KrtQIYMB_PY?start=1181\" width=\"560\" height=\"315\"></iframe><p dir=\"ltr\"><span>  Please comment below if you find anything wrong in the above post.  </span></p>",
+      "created_on": "2014-01-21 - 04:01:02",
+      "updated_on": "2025-06-19 - 17:46:18",
+      "year": 2014,
+      "subject": "Theory Of Computation",
+      "chapter": "Rels",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6061,
+      "question": "<p dir=\"ltr\"><span>Let  be the encoding of a Turing machine as a string over&nbsp;∑= {0, 1}.&nbsp; Let L = {  |M is a Turing machine that accepts a string of length 2014 }. Then, L is</span></p>",
+      "answers": [
+        {
+          "id": 24409,
+          "answer": "<p dir=\"ltr\"><span>decidable and recursively enumerable</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 24410,
+          "answer": "<p dir=\"ltr\"><span> undecidable but recursively enumerable</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 24411,
+          "answer": "<p dir=\"ltr\"><span> undecidable and not recursively enumerable</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24412,
+          "answer": "<p dir=\"ltr\"><span>decidable but not recursively enumerable</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>There are finite number of strings of length ‘2014’. So, a turing machine will take the input string of length ‘2014’ and test it.</span><br><br><span>If, input string is present in the language then turing machine will halt in final state .</span><br><br><span>But, if turing machine is unable to accept the input string then it will halt in non-final state or go in an infinite loop and never halt.</span><br><span>Thus, ‘L’ is undecidable and recursively enumerable.</span><br><br><iframe src=\"https://www.youtube.com/embed/KrtQIYMB_PY?start=1846\" width=\"560\" height=\"315\"></iframe><br><br><span>Please comment below if you find anything wrong in the above post.</span></p>",
+      "created_on": "2014-01-21 - 04:01:29",
+      "updated_on": "2025-06-19 - 17:47:07",
+      "year": 2014,
+      "subject": "Theory Of Computation",
+      "chapter": "Turing Machine",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6218,
+      "question": "<p dir=\"ltr\"><span>A non-zero polynomial f(x) of degree 3 has roots at x = 1, x = 2 and x = 3. Which one of the following must be TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 25009,
+          "answer": "<p dir=\"ltr\"><span>f(0)f(4) &lt; 0</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 25010,
+          "answer": "<p dir=\"ltr\"><span>f(0)f(4) &gt; 0</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25011,
+          "answer": "<p dir=\"ltr\"><span>f(0) + f(4) &lt; 0</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25012,
+          "answer": "<p dir=\"ltr\"><span>f(0) + f(4) &gt; 0</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The graph of a degree 3 polynomial f(x) = a0 + a1x + a2(x^2) + a3(x^3), where a3 ≠ 0</span><br><span>is a cubic curve, </span><br><br><br><span>Now as given, the polynomial is zero at x = 1, x = 2 and x = 3, i.e. these are the only 3 real roots of this polynomial.</span><br><br><span>Hence we can write the polynomial as f(x) = K (x-1)(x-2)(x-3) where K is some constant coefficient.</span><br><br><span>Now f(0) = -6K and f(4) = 6K ( by putting x = 0 and x = 4 in the above polynomial )</span><br><br><span>and f(0)*f(4) = -36(k^2), which is always negative. Hence option A.</span><br><br><span>We can also get the answer by just looking at the graph. At x &lt; 1, the cubic graph (or say f(x) ) is at one side of x-axis, and at x &gt; 3 it should be at other side of x-axis. Hence +ve and -ve values, whose multiplication gives negative.</span></p>",
+      "created_on": "2014-01-21 - 04:44:45",
+      "updated_on": "2025-06-19 - 17:50:43",
+      "year": 2014,
+      "subject": "Engineering Mathematics",
+      "chapter": "Calculus",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6219,
+      "question": "<p dir=\"ltr\"><span>In the Newton-Raphson method, an initial guess of x0 = 2 is made and the sequence x0, x1, x2 … is obtained for the function </span></p><pre><br><span>0.75x</span><sup><span>3</span></sup><span> – 2x</span><sup><span>2</span></sup><span> – 2x + 4 = 0</span><br><br><span>Consider the statements</span><br><span>(I) x</span><sub><span>3</span></sub><span> = 0.</span><br><span>(II) The method converges to a solution in a finite number of iterations. </span></pre><p dir=\"ltr\"><span>  Which of the following is TRUE?  </span></p>",
+      "answers": [
+        {
+          "id": 25013,
+          "answer": "<p dir=\"ltr\"><span>Only I </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 25014,
+          "answer": "<p dir=\"ltr\"><span>Only II </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25015,
+          "answer": "<p dir=\"ltr\"><span>Both I and II </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25016,
+          "answer": "<p dir=\"ltr\"><span>Neither I nor II</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In Newton's method, we apply below formula to get next value.  </span></p>[Tex]\nx_{n+1} = x_n - \\frac{f{(x_n)}}{f'(x_n)}\n[/Tex]<pre><span>f'(x) = 2.25x</span><sup><span>2</span></sup><span> – 4x - 2</span><br><br><span>x1 = 2 - (0.75*2</span><sup><span>3</span></sup><span> – 2*2</span><sup><span>2</span></sup><span> – 2*2 + 4)/</span><br><span>         (2.25*2</span><sup><span>2</span></sup><span> – 4*2 - 2) </span><br><span>  = 2 - (-2/-1)</span><br><span>  = 0</span><br><br><span>x2 = 0 - (4/-2) = 2</span><br><br><span>x3 = 0</span><br></pre><p dir=\"ltr\"><span>  We get x = 0 and x = 2 repeatedly and it never converges.                 </span></p>",
+      "created_on": "2014-01-21 - 04:44:45",
+      "updated_on": "2025-06-19 - 17:51:20",
+      "year": 2014,
+      "subject": "Engineering Mathematics",
+      "chapter": "Calculus",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6298,
+      "question": "<p dir=\"ltr\"><span>A cycle on n vertices is isomorphic to its complement. The value of n is _____.</span></p>",
+      "answers": [
+        {
+          "id": 66929,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 66930,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 66931,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 66932,
+          "answer": "<p><span>5</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Below is a cyclic graph with 5 vertices and its complement graph.  </span></p><p><br/></p><figure class=\"image\"><img height=\"inherit\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_6298/eb88aebfc637068b-QYZ2fJDARHXMhdNGpQ3i3kJDlcZeVD.png\" width=\"inherit\"/><figcaption> </figcaption></figure><p><br/></p><img height=\"564\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_6298/72e8712106adb2cd-2FNl6Gc9QHh0b3MeaSLinRdCNZg41r.png\" width=\"1100\"/><p dir=\"ltr\"><span>  The complement graph is also isomorphic (same number of vertices connected in same way) to given graph.</span></p>",
+      "created_on": "2014-01-21 - 04:45:42",
+      "updated_on": "2025-06-19 - 17:57:49",
+      "year": 2014,
+      "subject": "Discrete Mathematics",
+      "chapter": "Graph Theory",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6297,
+      "question": "<p dir=\"ltr\"><span>The maximum number of edges in a bipartite graph on 12 vertices is __________________________.</span></p>",
+      "answers": [
+        {
+          "id": 25317,
+          "answer": "<p><span>36</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 25318,
+          "answer": "<p><span>48</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25319,
+          "answer": "<p><span>12</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25320,
+          "answer": "<p><span>24</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Number of edges would be maximum when there are 6 edges on each side and every vertex is connected to all 6 vertices of the other side.</span></p>",
+      "created_on": "2014-01-21 - 04:45:42",
+      "updated_on": "2025-07-05 - 16:19:14",
+      "year": 2014,
+      "subject": "Discrete Mathematics",
+      "chapter": "Graph Theory",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6402,
+      "question": "<p dir=\"ltr\"><span>In designing a computer’s cache system, the cache block (or cache line) size is an important parameter. Which one of the following statements is correct in this context?</span></p>",
+      "answers": [
+        {
+          "id": 25737,
+          "answer": "<p dir=\"ltr\"><span>A smaller block size implies better spatial locality</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25738,
+          "answer": "<p dir=\"ltr\"><span>A smaller block size implies a smaller cache tag and hence lower cache tag overhead</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25739,
+          "answer": "<p dir=\"ltr\"><span> A smaller block size implies a larger cache tag and hence lower cache hit time</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25740,
+          "answer": "<p dir=\"ltr\"><span> A smaller block size incurs a lower cache miss penalty</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Block : The memory is divided into equal size segments. Each segment is called a block.  Data in cache is retrieved in form of blocks. The idea is to use Spatial Locality (Once a location is retrieved, it is highly probable that the nearby locations would be retrieved in near future).   </span><br></p><p dir=\"ltr\"><span>TAG bits : Each cache block is given a set of TAG bits to identify which main memory block is present in that cache block. </span></p><p dir=\"ltr\"><span> Option A : If the block size is small, there would be less number of near-by address for future references by CPU to be present into that block. Hence this is not better spatial locality. </span><br><span> Option B : If the block size is smaller, no of blocks would be more in cache, hence more cache tag bits would be needed, not less. </span><br><span> Option C : Cache tag bits are more ( because more no of blocks due to smaller block size ), but more cache tag bits can't lower the hit time ( even it will increase ).  </span><br><span>Option D : If there is a miss at cache memory ( i.e. the needed block by the CPU is not present in the cache memory ), then that block has to be moved from next lower level of memory ( lets say main memory ) in the memory hierarchy, and if the block size is lower, then it takes less time to be placed into cache memory, hence less miss penalty. </span><br></p><p dir=\"ltr\"><span> Hence option D is correct.</span></p><iframe src=\"https://www.youtube.com/embed/lz3J33WzNOo?start=2871\" width=\"560\" height=\"315\"></iframe>",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-06-19 - 18:05:31",
+      "year": 2014,
+      "subject": "Computer Organization And Architecture",
+      "chapter": "Cache Memory",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6404,
+      "question": "<p dir=\"ltr\"><span>Consider a main memory system that consists of 8 memory modules attached to the system bus, which is one word wide. When a write request is made, the bus is occupied for 100 nanoseconds (ns) by the data, address, and control signals. During the same 100 ns, and for 500 ns thereafter, the addressed memory module executes one cycle accepting and storing the data. The (internal) operation of different memory modules may overlap in time, but only one request can be on the bus at any time. The maximum number of stores (of one word each) that can be initiated in 1 millisecond is ____________</span></p>",
+      "answers": [
+        {
+          "id": 25745,
+          "answer": "<p><span>1000</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25746,
+          "answer": "<p><span>10000</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 25747,
+          "answer": "<p><span>100000</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25748,
+          "answer": "<p><span>100</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>One request initiation takes 100 ns. As the operations of memory module may overlap in time another, request can be initiated before it completes its remaining 500 ns. Thus total requests that can be initiated is 1000000 ns/100 ns =10000.</span></p>",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-06-20 - 14:34:40",
+      "year": 2014,
+      "subject": "Computer Organization And Architecture",
+      "chapter": "Pipelining",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6401,
+      "question": "<p dir=\"ltr\"><span>A 4-way set-associative cache memory unit with a capacity of 16 KB is built using a block size of 8 words. The word length is 32 bits. The size of the physical address space is 4 GB. The number of bits for the TAG field is _____</span></p>",
+      "answers": [
+        {
+          "id": 25733,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25734,
+          "answer": "<p><span>15</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25735,
+          "answer": "<p><span>20</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 25736,
+          "answer": "<p><span>25</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<div><div class=\"&quot;comment-message\" data-role=\"&quot;message&quot;\" dir=\"&quot;auto&quot;\">In a k-way set associate mapping, cache memory is divided into sets, each of size k blocks. Size of Cache memory = 16 KB As it is 4-way set associative,K = 4 Block size B = 8 words The word length is 32 bits. size of Physical address space = 4 GB. --------------------------------------------------- No of blocks in Cache Memory(N) = (size of cache memory / size of a block) = (16*1024 bytes / 8*4 bytes) = 512 (as 1 word = 4 bytes) No of sets(S) = (No of blocks in cache memory/ no of blocks in a set) = N/K = 512/4 = 128 Now,size of physical address = 4GB = 4*(2^30) Bytes = 2^32 Bytes These physical addresses are divided equally among the sets. Hence, each set can access ((2^32)/128) bytes = 2^25 bytes = 2^23 words = 2^20 blocks So, each set can access total of 2^20 blocks. So to identify these 2^20 blocks, each set needs TAG bits of length 20 bits. Hence option C.&nbsp;<div>&nbsp;</div></div></div>",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-06-19 - 18:00:27",
+      "year": 2014,
+      "subject": "Computer Organization And Architecture",
+      "chapter": "Cache Memory",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6403,
+      "question": "<p dir=\"ltr\"><span>If the associativity of a processor cache is doubled while keeping the capacity and block size unchanged, which one of the following is guaranteed to be NOT affected?</span></p>",
+      "answers": [
+        {
+          "id": 25741,
+          "answer": "<p dir=\"ltr\"><span>Width of tag comparator</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25742,
+          "answer": "<p dir=\"ltr\"><span>Width of set index decoder</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25743,
+          "answer": "<p dir=\"ltr\"><span>Width of way selection multiplexer</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25744,
+          "answer": "<p dir=\"ltr\"><span>Width of processor to main memory data bus</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>If associativity is doubled, keeping the capacity and block size constant, then the number of sets gets halved. So, width of set index decoder can surely decrease - (B) is false. Width of way-selection multiplexer must be increased as we have to double the ways to choose from- (C) is false As the number of sets gets decreased, the number of possible cache block entries that a set maps to gets increased. So, we need more tag bits to identify the correct entry. So, (A) is also false. (D) is the correct answer- main memory data bus has nothing to do with cache associativity- this can be answered without even looking at other options.&nbsp;</span></p>",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-06-19 - 18:13:31",
+      "year": 2014,
+      "subject": "Computer Organization And Architecture",
+      "chapter": "Cache Memory",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6603,
+      "question": "<p dir=\"ltr\"><span>An IP machine Q has a path to another IP machine H via three IP routers R1, R2, and R3. </span></p><pre><span>Q—R1—R2—R3—H </span></pre><p dir=\"ltr\"><span> H acts as an HTTP server, and Q connects to H via HTTP and downloads a file. Session layer encryption is used, with DES as the shared key encryption protocol. Consider the following four pieces of information: </span></p><pre><span>[I1] The URL of the file downloaded by Q</span><br><span>[I2] The TCP port numbers at Q and H</span><br><span>[I3] The IP addresses of Q and H</span><br><span>[I4] The link layer addresses of Q and H </span></pre><p dir=\"ltr\"><span> Which of I1, I2, I3, and I4 can an intruder learn through sniffing at R2 alone?  </span></p>",
+      "answers": [
+        {
+          "id": 26526,
+          "answer": "<p dir=\"ltr\"><span>Only I1 and I2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 26527,
+          "answer": "<p dir=\"ltr\"><span>Only I1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 26528,
+          "answer": "<p dir=\"ltr\"><span>Only I2 and I3</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 26529,
+          "answer": "<p dir=\"ltr\"><span> Only I3 and I4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>An Intruder can’t learn [I1] through sniffing at R2 because </span><br><span>URLs and Download are functioned at Application layer of OSI Model.</span><br><br><span>An Intruder can learn [I2] through sniffing at R2 because</span><br><span>Port Numbers are encapsulated in the payload field of IP Datagram.</span><br><br><span>An Intruder can learn [I3] through sniffing at R2 because IP </span><br><span>Addresses and Routers are functioned at network layer of OSI Model.</span><br><br><span>An Intruder can’t learn [I4] through sniffing at R2 because </span><br><span>it is related to Data Link Layer of OSI Model.</span><br></pre>",
+      "created_on": "2014-01-21 - 07:17:32",
+      "updated_on": "2025-06-20 - 14:36:29",
+      "year": 2014,
+      "subject": "Computer Networks",
+      "chapter": "Miscellaneous",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6602,
+      "question": "<p dir=\"ltr\"><span>Which one of the following is TRUE about interior Gateway routing protocols - Routing Information Protocol (RIP) and Open Shortest Path First (OSPF)</span></p>",
+      "answers": [
+        {
+          "id": 26522,
+          "answer": "<p dir=\"ltr\"><span>RIP uses distance vector routing and OSPF uses link state routing</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 26523,
+          "answer": "<p dir=\"ltr\"><span>OSPF uses distance vector routing and RIP uses link state routing</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 26524,
+          "answer": "<p dir=\"ltr\"><span>Both RIP and OSPF use link state routing</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 26525,
+          "answer": "<p dir=\"ltr\"><span>Both RIP and OSPF use distance vector routing </span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Both Routing Information Protocol (RIP) and Open Shortest Path First (OSPF) are Interior Gateway Protocol, i.e., they both are used within an autonomous system.  RIP is an old protocol (not used anymore) based on distance vector routing.  OSPF is based on Link State Routing.</span></p>",
+      "created_on": "2014-01-21 - 07:17:32",
+      "updated_on": "2025-06-20 - 14:35:19",
+      "year": 2014,
+      "subject": "Computer Networks",
+      "chapter": "Routing Protocols",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6681,
+      "question": "<p dir=\"ltr\"><span>Which one of the following socket API functions converts an unconnected active TCP socket into a passive socket.</span></p>",
+      "answers": [
+        {
+          "id": 26842,
+          "answer": "<p dir=\"ltr\"><span>connect</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 26843,
+          "answer": "<p dir=\"ltr\"><span>bind</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 26844,
+          "answer": "<p dir=\"ltr\"><span>listen</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 26845,
+          "answer": "<p dir=\"ltr\"><span>accept</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>listen() marks the socket referred to by sockfd as a passive socket, that is, as a socket that will be used to accept incoming connection requests using accept().</span><br></p>",
+      "created_on": "2014-01-21 - 07:18:06",
+      "updated_on": "2025-06-20 - 14:37:33",
+      "year": 2014,
+      "subject": "Computer Networks",
+      "chapter": "Udp Tcp",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6777,
+      "question": "<p dir=\"ltr\"><span>A graphical HTML browser resident at a network client machine Q accesses a static HTML webpage from a HTTP server S. The static HTML page has exactly one static embedded image which is also at S. Assuming no caching, which one of the following is correct about the HTML webpage loading (including the embedded image)? </span></p>",
+      "answers": [
+        {
+          "id": 27226,
+          "answer": "<p dir=\"ltr\"><span>Q needs to send at least 2 HTTP requests to S, each necessarily in a separate TCP connection to server S</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 27227,
+          "answer": "<p dir=\"ltr\"><span>Q needs to send at least 2 HTTP requests to S, but a single TCP connection to server S is sufficient</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 27228,
+          "answer": "<p dir=\"ltr\"><span>A single HTTP request from Q to S is sufficient, and a single TCP connection between Q and S is necessary for this</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 27229,
+          "answer": "<p dir=\"ltr\"><span> A single HTTP request from Q to S is sufficient, and this is possible without any TCP connection between Q and S</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Whenever a browser opens a webpage, it makes a separate request for each object of page like image, css, javascript, etc.  However if multiple resources are served from same server, then one TCP connect is sufficient. </span></p>",
+      "created_on": "2014-01-22 - 18:21:14",
+      "updated_on": "2025-06-20 - 14:41:14",
+      "year": 2014,
+      "subject": "Computer Networks",
+      "chapter": "Miscellaneous",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6794,
+      "question": "<p dir=\"ltr\"><span>Which one of the following is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 27294,
+          "answer": "<p dir=\"ltr\"><span>The requirements document also describes how the requirements that are listed in the document are implemented efficiently.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 27295,
+          "answer": "<p dir=\"ltr\"><span>Consistency and completeness of functional requirements are always achieved in practice.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 27296,
+          "answer": "<p dir=\"ltr\"><span>Prototyping is a method of requirements validation.</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 27297,
+          "answer": "<p dir=\"ltr\"><span>Requirements review is carried out to find the errors in system design</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The true statement among the options provided is:</span></p><p dir=\"ltr\"><span>(C) Prototyping is a method of requirements validation.</span></p><p dir=\"ltr\"><span>Prototyping involves creating a simplified version of the system or its components to demonstrate specific aspects of functionality or design. It is commonly used in requirements validation to ensure that the proposed system will meet the needs of the users and stakeholders. Through prototyping, stakeholders can provide feedback on the system's functionality and usability before the full implementation, helping to refine and clarify the requirements.</span></p>",
+      "created_on": "2014-01-22 - 18:23:06",
+      "updated_on": "2025-06-20 - 14:41:47",
+      "year": 2014,
+      "subject": "Software Engineering",
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6948,
+      "question": "<p dir=\"ltr\"><span>Which one of the following Boolean expressions is NOT a tautology? </span><br/><br/><span> </span></p><p dir=\"ltr\"><img alt=\"GATECS2014Q63\" height=\"inherit\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_6948/00520f086fab8a13-wT8WG8TKDUskDnqiaPsrlY5gcICgt0.png\" width=\"inherit\"/></p><p><br/><span> </span></p>",
+      "answers": [
+        {
+          "id": 27910,
+          "answer": "<p dir=\"ltr\"><span>C</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 27911,
+          "answer": "<p dir=\"ltr\"><span>D</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 27912,
+          "answer": "<p dir=\"ltr\"><span>B</span><br><span>&nbsp;</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 27913,
+          "answer": "<p dir=\"ltr\"><span>A</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>(A) </span><b><strong>a -&gt; b</strong></b><span> means if ‘a’ is true then ‘b’ is also true.&nbsp;</span><br><span>Now, ‘b’ is true. Therefore, ‘c’ is also true.&nbsp;</span><br><span>=&gt; Using transitivity rule , a -&gt; c&nbsp;</span><br><br><br><span>(B) </span><b><strong>a &lt;-&gt; c</strong></b><span> is true if both ‘a’ and ‘c’ have same values.&nbsp;</span><br><span>Let ‘a’, ‘b’ and c’ be false.&nbsp;</span><br><span>Expression '</span><b><strong>a and b</strong></b><span>' is false and expression </span><b><strong>'not b'</strong></b><span> is true.&nbsp;</span><br><span>RHS of the given equation should be true. But it evaluates to be false. Therefore, contradiction is there.&nbsp;</span><br><br><br><span>Option (B) is not a tautology.&nbsp;</span><br><br><br><span>(C) Let ‘a’ and ‘c’ be false. ’b’ be true&nbsp;</span><br><b><strong>a and b and c</strong></b><span> is false&nbsp;</span><br><b><strong>c or a</strong></b><span> is false&nbsp;</span><br><br><br><span>(D) Let ‘b’ be true.&nbsp;</span><br><b><strong>b -&gt; a</strong></b><span> means if ‘b’ is true then ‘a’ is also true.&nbsp;</span><br><span>Therefore, ‘a’ and ‘b’ both evaluates to be true.&nbsp;</span><br><br><span>&nbsp;</span><br><br><span>Thus, option (B) is correct.&nbsp;</span><br><br><br><br><span>&nbsp;</span></p>",
+      "created_on": "2014-01-22 - 18:55:12",
+      "updated_on": "2025-06-20 - 14:42:25",
+      "year": 2014,
+      "subject": "Discrete Mathematics",
+      "chapter": "Logic",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7102,
+      "question": "<p dir=\"ltr\"><span>Match the columns. </span></p><pre><span>   Column 1          Column 2</span><br><span>1) eradicate       P) misrepresent</span><br><span>2) distort         Q) soak completely</span><br><span>3) saturate        R) use</span><br><span>4) utilize         S) destroy utterly </span></pre>",
+      "answers": [
+        {
+          "id": 28525,
+          "answer": "<p dir=\"ltr\"><span>1:S, 2:P, 3:Q, 4:R </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 28526,
+          "answer": "<p dir=\"ltr\"><span>1:P, 2:Q, 3:R, 4:S</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 28527,
+          "answer": "<p dir=\"ltr\"><span> 1:Q, 2:R, 3:S, 4:P</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28528,
+          "answer": "<p dir=\"ltr\"><span>1:S, 2:P, 3:R, 4:Q</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>\"eradicate\" means \"destroy utterly\" \"distort\" matches with  \"misrepresent\" \"saturate\" matches with \"soak completely\"  \"utilize\" matches with \"use\" </span></p>",
+      "created_on": "2014-01-22 - 19:53:10",
+      "updated_on": "2025-06-20 - 14:46:23",
+      "year": 2014,
+      "subject": "Aptitude",
+      "chapter": "Verbal",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7057,
+      "question": "<p dir=\"ltr\"><span>Choose the most appropriate phrase from the options given below to complete the following sentence. </span></p><pre><span>India is a post-colonial country because</span></pre>",
+      "answers": [
+        {
+          "id": 28345,
+          "answer": "<p dir=\"ltr\"><span>it was a former British colony </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 28346,
+          "answer": "<p dir=\"ltr\"><span>Indian Information Technology professionals have colonized the world </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 28347,
+          "answer": "<p dir=\"ltr\"><span>India does not follow any colonial practices</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28348,
+          "answer": "<p dir=\"ltr\"><span>India has helped other countries gain freedom</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>A country is called postcolonial if it came into existence after the colonies of the British and the Europeans were abolished and the countries then under their rule were declared independent.</span><br><br><span>India was under the British colonial rule till 1947, i.e. it was a former British colony and thus is called a postcolonial country.</span><br><br><b><strong>So, A is the correct option</strong></b><span>.</span></p>",
+      "created_on": "2014-01-22 - 19:53:10",
+      "updated_on": "2025-06-20 - 14:43:09",
+      "year": 2014,
+      "subject": "Aptitude",
+      "chapter": "Verbal",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7058,
+      "question": "<p dir=\"ltr\"><span>Who ___________ was coming to see us this evening?</span></p>",
+      "answers": [
+        {
+          "id": 28349,
+          "answer": "<p dir=\"ltr\"><span>you said </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 28350,
+          "answer": "<p dir=\"ltr\"><span>did you say</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 28351,
+          "answer": "<p dir=\"ltr\"><span>did you say that</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28352,
+          "answer": "<p dir=\"ltr\"><span>had you</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Only (B) makes sense, others don't fit.</span></p>",
+      "created_on": "2014-01-22 - 19:53:10",
+      "updated_on": "2025-06-20 - 14:43:48",
+      "year": 2014,
+      "subject": "Aptitude",
+      "chapter": "Verbal",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7059,
+      "question": "<p dir=\"ltr\"><span>The old city of Koenigsberg, which had a German majority population before World War 2, is now called Kaliningrad. After the events of the war, Kaliningrad is now a Russian territory and has a predominantly Russian population. It is bordered by the Baltic Sea on the north and the countries of Poland to the south and west and Lithuania to the east respectively. Which of the statements below can be inferred from this passage?</span></p>",
+      "answers": [
+        {
+          "id": 28353,
+          "answer": "<p dir=\"ltr\"><span>Kaliningrad was historically Russian in its ethnic make up</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 28354,
+          "answer": "<p dir=\"ltr\"><span>Kaliningrad is a part of Russia despite it not being contiguous with the rest of Russia</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 28355,
+          "answer": "<p dir=\"ltr\"><span>Koenigsberg was renamed Kaliningrad, as that was its original Russian name</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28356,
+          "answer": "<p dir=\"ltr\"><span> Poland and Lithuania are on the route from Kaliningrad to the rest of Russia</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Explanation:</strong></b></p><p dir=\"ltr\"><span> A is not true in the light of the given facts </span></p><ul><li value=\"1\"><span>A is incorrect because First line says that Kaliningrad (Koenigsberg before war) had a majority of the German population before the war. So, it was historically German and not Russian.</span></li><li value=\"2\"><b><strong>B is correct as although Kaliningrad is not contiguous with the rest of Russia (being surrounded by countries of Poland in the south and west, Lithuania in the east and Baltic sea on the north), it has a predominantly Russian population.</strong></b></li><li value=\"3\"><span>C cannot be inferred from the passage as it is nowhere in the passage what the original Russian name of Koenigsberg was.</span></li><li value=\"4\"><span>D is also not true because no data about the route is mentioned in the passage.</span></li></ul><p dir=\"ltr\"><b><strong>So, B is the correct option</strong></b></p>",
+      "created_on": "2014-01-22 - 19:53:10",
+      "updated_on": "2025-06-20 - 14:44:04",
+      "year": 2014,
+      "subject": "Aptitude",
+      "chapter": "Verbal",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7060,
+      "question": "<p dir=\"ltr\"><span>The number of people diagnosed with dengue fever (contracted from the bite of a mosquito) in north India is twice the number diagnosed last year. Municipal authorities have concluded that measures to control the mosquito population have failed in this region. Which one of the following statements, if true, does not contradict this conclusion?</span></p>",
+      "answers": [
+        {
+          "id": 28357,
+          "answer": "<p dir=\"ltr\"><span>A high proportion of the affected population has returned from neighbouring countries where dengue is prevalent</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 28358,
+          "answer": "<p dir=\"ltr\"><span>More cases of dengue are now reported because of an increase in the Municipal Office’s administrative efficiency</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 28359,
+          "answer": "<p dir=\"ltr\"><span>Many more cases of dengue are being diagnosed this year since the introduction of a new and effective diagnostic test </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28360,
+          "answer": "<p dir=\"ltr\"><span>The number of people with malarial fever (also contracted from mosquito bites) has increased this year</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Explanation:</strong></b></p><ul><li value=\"1\"><span>A contradicts the conclusion of the municipal authorities. So, A is not the correct choice.</span></li><li value=\"2\"><span>B is an incorrect choice because there is no data in the passage relating the reporting of cases and the efficiency of the administrative capabilities of the municipal authorities.</span></li><li value=\"3\"><span>C is also incorrect as it contradicts the conclusion of the municipal authorities.</span></li><li value=\"4\"><b><strong>D is the correct choice as both malarial fever and dengue fever are caused by mosquito bite</strong></b><span>. If dengue fever had increased because of some other reason other than that concluded by the municipal authorities, then there would not have been increase in the people with malarial fever. This statement supports the conclusion of the municipal authorities.</span></li></ul>",
+      "created_on": "2014-01-22 - 19:53:10",
+      "updated_on": "2025-06-20 - 14:46:08",
+      "year": 2014,
+      "subject": "Aptitude",
+      "chapter": "Verbal",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7113,
+      "question": "<p dir=\"ltr\"><span>What is the average of all multiples of 10 from 2 to 198?</span></p>",
+      "answers": [
+        {
+          "id": 28569,
+          "answer": "<p><span>90</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 28570,
+          "answer": "<p><span>100</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 28571,
+          "answer": "<p><span>110</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28572,
+          "answer": "<p><span>120</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>From 2 to 198 there are 19 multiples of 10.</span><br><br><span>These are 10,20,30.....180,190.</span><br><br><span>This is an A.P series, whose sum is (n/2{a1 + aN}), </span><br><span>where a1 and aN are the 1st and last terms respectively.</span><br><br><span>Putting in the formula,</span><br><br><span>a1 = 10, aN = 190.</span><br><br><span>Sum = Sn = (19/2{10 + 190 }) = 1900</span><br><br><span>Average = Sum / Total number = 1900 / 19 = 100. </span></pre>",
+      "created_on": "2014-01-22 - 19:54:09",
+      "updated_on": "2025-06-20 - 14:47:22",
+      "year": 2014,
+      "subject": "Aptitude",
+      "chapter": "Quantitative",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7114,
+      "question": "<p dir=\"ltr\"><span>Solve :</span></p><img alt=\"GATECS2014Q5\" height=\"61\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_7114/b02ef7ba6e78114b-UsffDYIeXVVCdCnyhzkr3g8OM5ZtkQ.png\" width=\"412\"/>",
+      "answers": [
+        {
+          "id": 28573,
+          "answer": "<p><span>3.464 </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 28574,
+          "answer": "<p><span>3.932 </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 28575,
+          "answer": "<p><span>4.000</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 28576,
+          "answer": "<p><span>4.444</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>let x = the given expression.</span><br><span>Now squaring both sides.</span><br><br><span>(x)^2 = 12 + x</span><br><span>(x)^2 - x - 12 = 0</span><br><br><span>Now solve this quadratic equation for finding the </span><br><span>roots(value of x, or this expression).</span><br><span>(x-4)(x+3) = 0</span><br><br><span>hence x = 4.</span><br></pre>",
+      "created_on": "2014-01-22 - 19:54:09",
+      "updated_on": "2025-06-20 - 14:48:16",
+      "year": 2014,
+      "subject": "Engineering Mathematics",
+      "chapter": "Calculus",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7115,
+      "question": "<p dir=\"ltr\"><span>If x is real and |x</span><sup><span>2</span></sup><span> - 2x + 3| = 11, then possible values of |- x</span><sup><span>3</span></sup><span> + x</span><sup><span>2</span></sup><span> - x| include</span></p>",
+      "answers": [
+        {
+          "id": 28577,
+          "answer": "<p><span>2, 4</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 28578,
+          "answer": "<p><span>2, 14</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 28579,
+          "answer": "<p><span> 4, 52</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28580,
+          "answer": "<p><span>14, 52</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Here we use the modulus property, which says:</span><br><br><span>|x| = x when x &gt;= 0</span><br><br><span>|x| = -x when x &lt; 0</span><br><br><span>i.e. range of a modulus function is always positive.</span><br><br><span>Now, given that |x^2 – 2x + 3| = 11, we can say that</span><br><br><span>x^2 – 2x + 3 = +11 ----------------(1)</span><br><br><span>and</span><br><br><span>x2 – 2x + 3 = -11------------------(2)</span><br><br><span>Solving 1st equation, we get real roots as 4 and -2.</span><br><br><span>Solving 2nd eq, we get imaginary roots, hence we ignore them.</span><br><br><span>Now, for eq |- x^3 + x^2 – x|, we put 4 and -2 in place of x.</span><br><br><span>putting x = 4, we get |-4^3 + 4^2-4| = |-64+16-4| =  52</span><br><br><span>putting x = -2 we get |-(-2)^3 + (-2)^2 - (-2)| = 14</span><br><br><span>so |- x^3 + x^2 – x| has possible values as 52 and 14 </span></pre>",
+      "created_on": "2014-01-22 - 19:54:09",
+      "updated_on": "2025-06-20 - 14:48:32",
+      "year": 2014,
+      "subject": "Engineering Mathematics",
+      "chapter": "Calculus",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7118,
+      "question": "<p dir=\"ltr\"><span>The number of distinct positive integral factors of 2014 is _________________________</span></p>",
+      "answers": [
+        {
+          "id": 28589,
+          "answer": "<p><span>7</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 28590,
+          "answer": "<p><span>8</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 28591,
+          "answer": "<p><span>9</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28592,
+          "answer": "<p><span>10</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Prime factorization of 2014 = 2</span><sup><span>1</span></sup><span>x19</span><sup><span>1</span></sup><span>x53</span><sup><span>1</span></sup><br><span>Therefore, total number of factors of 2014 = (1+1)x(1+1)x(1+1) = 2x2x2 = 8</span><br><span>These are = 1, 2, 19, 38, 53, 106, 1007 and 2014. </span><br><span>So, option (B) is correct.</span></p>",
+      "created_on": "2014-01-22 - 19:54:09",
+      "updated_on": "2025-06-19 - 15:32:05",
+      "year": 2014,
+      "subject": "Discrete Mathematics",
+      "chapter": "Combinatorics",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7116,
+      "question": "<p dir=\"ltr\"><span>The ratio of male to female students in a college for five years is plotted in the following line graph. If the number of female students doubled in 2009, by what percent did the number of male students increase in 2009?</span><br/><img alt=\"GATECS2014Q92\" height=\"293\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/2014/q_7116/bcc25e031ad1d75d-dymOwEO1nKjjX4xT2StVaxIC8nnqRt.png\" width=\"485\"/></p>",
+      "answers": [
+        {
+          "id": 28581,
+          "answer": "<p><span>120</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 28582,
+          "answer": "<p><span>140</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 28583,
+          "answer": "<p><span>160</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28584,
+          "answer": "<p><span>180</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Let x represent the males and y represent the females.</span><br><br><span>In 2008.</span><br><span>x / y = 2.5 -----------(1)</span><br><br><span>In 2009.</span><br><span>M / 2y = 3-------------(2)</span><br><br><span>where M is the total number of males in 2009.</span><br><br><span>Now x = 2.5y (from (1))</span><br><span>and M = 6y ( from (2))</span><br><br><span>hence increased number of males in 2009 are </span><br><span>M - x = 6y - 2.5y = 3.5y</span><br><br><span>Now the increase in % of males =</span><br><br><span>(change in no of males / initial number)*100</span><br><br><span>= (3.5y / x )*100 = (3.5 / 2.5)*100 = 140 </span><br><span>                                 (given x/y = 2.5)</span><br><br><span>Hence, B is the right option.</span></pre>",
+      "created_on": "2014-01-22 - 19:54:09",
+      "updated_on": "2025-06-20 - 14:48:55",
+      "year": 2014,
+      "subject": "Aptitude",
+      "chapter": "Quantitative",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7117,
+      "question": "<p dir=\"ltr\"><span>At what time between 6 a.m. and 7 a.m. will the minute hand and hour hand of a clock make an angle closest to 60</span><sup><span>o</span></sup></p>",
+      "answers": [
+        {
+          "id": 28585,
+          "answer": "<p dir=\"ltr\"><span>6:22 am</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 28586,
+          "answer": "<p dir=\"ltr\"><span>6:27 am</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 28587,
+          "answer": "<p dir=\"ltr\"><span>6:38 am</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28588,
+          "answer": "<p dir=\"ltr\"><span>6:45 am</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Speed of the Hour hand = ( 360 degree ) / ( 12 * 60 minutes ) </span><br><span>                       = 0.5 degree / minute.</span><br><span>Speed of the minute hand = ( 360 degree ) / ( 60 minutes ) </span><br><span>                         = 6 degree / minute.</span></pre><p dir=\"ltr\"><span>At 6 am, hour hand will point vertically downward to 6 in the clock, and minute hand will point vertically upward to 12 in the clock. ( Hence they are opposite with a gap of 180 degree between them). Now after t minutes, The angle between these two hands will be either of the below two:</span></p><pre><span>(180 - 6t) + 0.5t, when the minute hand is </span><br><span>                   behind the hour hand or,</span><br><br><span>6t - (180 + 0.5t), when the minute hand is </span><br><span>                    ahead of hour hand,</span><br><br><span>Now the the question asks for angle of 60 degree.</span><br><br><span>Hence, </span><br><span>(180 - 6t) + 0.5t = 60 , we get t = 21.8 minutes</span><br><span>and</span><br><span>6t - ( 180 + 0.5t ) = 60, we get t = 48 minutes</span></pre><p dir=\"ltr\"><span>Hence the closest to answer is 22 minutes, i.e. 6.22 am. Hence answer is A.</span></p>",
+      "created_on": "2014-01-22 - 19:54:09",
+      "updated_on": "2025-06-19 - 15:32:30",
+      "year": 2014,
+      "subject": "Aptitude",
+      "chapter": "Logical",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7244,
+      "question": "<p dir=\"ltr\"><span>Which one of the following is NOT performed during compilation?</span></p>",
+      "answers": [
+        {
+          "id": 29093,
+          "answer": "<p dir=\"ltr\"><span>Dynamic memory allocation</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 29094,
+          "answer": "<p dir=\"ltr\"><span> Type checking</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 29095,
+          "answer": "<p dir=\"ltr\"><span>Symbol table management </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 29096,
+          "answer": "<p dir=\"ltr\"><span>Inline expansion</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Dynamic memory allocation happens at run time only.  Compiler only compiles instructions for dynamic memory allocation like malloc(), calloc().</span><br><br><iframe src=\"https://www.youtube.com/embed/mNG-F-8t3a4?start=73\" width=\"560\" height=\"315\"></iframe></p>",
+      "created_on": "2014-01-22 - 20:51:51",
+      "updated_on": "2025-06-19 - 15:29:52",
+      "year": 2014,
+      "subject": "Compiler Design",
+      "chapter": "Miscellaneous",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7414,
+      "question": "<p dir=\"ltr\"><span>The dual of a Boolean function f(x1, x2, … , xn, +, ∙ , ′ ), written as F</span><sup><span>D</span></sup><span>, is the same expression</span><br><span>as that of F with + and . swapped. F is said to be self-dual if F = F</span><sup><span>D</span></sup><span>. The number of self-dual</span><br><span>functions with n Boolean variables is</span></p>",
+      "answers": [
+        {
+          "id": 29767,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>n</span></sup></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 29768,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>n-1</span></sup></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 29769,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>2n</span></sup></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 29770,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>2n-1</span></sup></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The question asks for no: of self-dual functions for n variables.  Principle of Duality: Any theorem or identity in Boolean algebra remains true if 0 and 1 are swapped and . and + are swapped throughout.  There are two properties for self-dual functions: 1. It is neutral (no of minterms = no of maxterms) 2. A single function does not contains two mutually exclusive terms.  Considering the above properties. If we have n-variable then we have 2^n minterms/maxterms From 2^n minterms/maxterms there are (2^n)/2 mutually exclusive pairs. ie 2^(n-1)  So we have 2^(n-1) pairs to use to make self-dual functions. So, by Fundamental principle of counting, because each pair in 2^(n-1) has two choices.  No of self-dual functions from n-variables are = 2*2*2...2^(n-1) times  = 2^(2^(n-1))  or example if n=3 We have minterms as(000,001,010,...,111) Mutually exclusive pairs are (0,7),(1,6),(2,5),(3,4) The pairs are mutually exclusive since they cannot come in a self-dual function together.  So here we have.2*2*2*2 functions ie 16.</span></p>",
+      "created_on": "2014-04-18 - 09:59:06",
+      "updated_on": "2025-06-19 - 15:28:58",
+      "year": 2014,
+      "subject": "Digital Logic",
+      "chapter": "Boolean",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7417,
+      "question": "<p dir=\"ltr\"><span>Suppose P, Q, R, S, T are sorted sequences having lengths 20, 24, 30, 35, 50 respectively. They are to be merged into a single sequence by merging together two sequences at a time. The number of comparisons that will be needed in the worst case by the optimal algorithm for doing this is ____.</span></p>",
+      "answers": [
+        {
+          "id": 29779,
+          "answer": "<p><span>358</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 29780,
+          "answer": "<p><span>438</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 29781,
+          "answer": "<p><span>568</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 29782,
+          "answer": "<p><span>664</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>To merge two lists of size m and n, we need to do m+n-1 comparisons in worst case. Since we need to merge 2 at a time, the optimal strategy would be to take smallest size lists first. The reason for picking smallest two items is to carry minimum items for repetition in merging.</span><br><span>We first merge 20 and 24 and get a list of 44 using 43 worst case comparisons. Then we merge 30 and 35 into a list of 65 using 64 worst case comparisons. Then we merge 50 and 44 into a list of 94 using 93 comparisons. Finally we merge 94 and 65 using 158 comparisons. So total number of comparisons is 43 + 64 + 93 + 158 which is 358.</span><br><br><span>Source: </span><a href=\"http://www.geeksforgeeks.org/data-structures-algorithms-set-34-2/\"><span>http://www.geeksforgeeks.org/data-structures-algorithms-set-34-2/</span></a></p>",
+      "created_on": "2014-04-18 - 09:59:06",
+      "updated_on": "2025-06-19 - 15:24:05",
+      "year": 2014,
+      "subject": "Algorithms",
+      "chapter": "Divide-And-Conquer",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7415,
+      "question": "<p dir=\"ltr\"><span>Consider the function func shown below:  </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=kt>int</span><span class=w> </span><span class=nf>func</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>num</span><span class=p>)</span>\n<span class=p>{</span>\n<span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>count</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=w>    </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>num</span><span class=p>)</span>\n<span class=w>    </span><span class=p>{</span>\n<span class=w>        </span><span class=n>count</span><span class=o>++</span><span class=p>;</span>\n<span class=w>        </span><span class=n>num</span><span class=w> </span><span class=o>&gt;&gt;=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span>\n<span class=w>    </span><span class=p>}</span>\n<span class=w>    </span><span class=k>return</span><span class=w> </span><span class=p>(</span><span class=n>count</span><span class=p>);</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>The value returned by func(435)is __________.  </span></p>",
+      "answers": [
+        {
+          "id": 29771,
+          "answer": "<p><span>8</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 29772,
+          "answer": "<p><span>9</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 29773,
+          "answer": "<p><span>10</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 29774,
+          "answer": "<p><span>11</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The function mainly returns position of Most significant bit in binary representation of n.  The MSD in binary representation of 435 is 9th bit.  Another explanation: &gt;&gt; in right shift. In other words, it means divide by 2.  If keep on dividing by 2, we get: 435, 217, 108, 54, 27, 13, 6, 3, 1. Therefore, the count is 9.</span></p>",
+      "created_on": "2014-04-18 - 09:59:06",
+      "updated_on": "2025-06-19 - 15:27:42",
+      "year": 2014,
+      "subject": "C Programming",
+      "chapter": "Functions",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7418,
+      "question": "<p dir=\"ltr\"><span>The value of a float type variable is represented using the single-precision 32-bit floating point format IEEE-754 standard that uses 1 bit for sign, 8 bits for biased exponent and 23 bits for mantissa. A float type variable X is assigned the decimal value of −14.25. The representation of X in hexadecimal notation is</span></p>",
+      "answers": [
+        {
+          "id": 29783,
+          "answer": "<p dir=\"ltr\"><span>C1640000H </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 29784,
+          "answer": "<p dir=\"ltr\"><span>416C0000H </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 29785,
+          "answer": "<p dir=\"ltr\"><span>41640000H </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 29786,
+          "answer": "<p dir=\"ltr\"><span>C16C0000H</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Since No is negative S bit will be 1</span><br><span>Convert 14.25 into binary 1110.01</span><br><span>Normalize it : 1.11001 X 2 ^ 3</span><br><span>Biased Exponent (Add 127) : 3 + 127 = 130 (In binary 10000010)</span><br><span>Mantissa : 110010.....0 (Total 23 bits)</span><br><br><span>Num represented in </span><a href=\"http://en.wikipedia.org/wiki/Single-precision_floating-point_format#IEEE_754_single-precision_binary_floating-point_format:_binary32\"><span>IEEE 754 single precision format</span></a><span> :</span><br><br><span>1 10000010 11001000000000000000000</span><br><br><span>In Hex (Group of Four bits) -</span><br><br><span>1100 0001 0110 0100 0000 0000 0000 0000</span><br><br><span>Num becomes : C1640000</span><br></pre>",
+      "created_on": "2014-04-18 - 09:59:06",
+      "updated_on": "2025-06-19 - 15:23:25",
+      "year": 2014,
+      "subject": "Computer Organization And Architecture",
+      "chapter": "Floating Point",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7416,
+      "question": "<p dir=\"ltr\"><span>Three processes A, B and C each execute a loop of 100 iterations. In each iteration of the loop, a process performs a single computation that requires tc CPU milliseconds and then initiates a single I/O operation that lasts for tio milliseconds. It is assumed that the computer where the processes execute has sufficient number of I/O devices and the OS of the computer assigns different I/O devices to each process. Also, the scheduling overhead of the OS is negligible. The processes have the following characteristics:</span></p><pre><span> </span><b><strong>Process id      tc           tio</strong></b><br><span>     A        100 ms    500 ms</span><br><span>     B        350 ms    500 ms</span><br><span>     C        200 ms    500 ms</span></pre><p dir=\"ltr\"><span>The processes A, B, and C are started at times 0, 5 and 10 milliseconds respectively, in a pure time sharing system (round robin scheduling) that uses a time slice of 50 milliseconds. The time in milliseconds at which process C would complete its first I/O operation is ___________.</span></p>",
+      "answers": [
+        {
+          "id": 29775,
+          "answer": "<p><span>500</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 29776,
+          "answer": "<p><span>1000</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 29777,
+          "answer": "<p><span>2000</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 29778,
+          "answer": "<p><span>10000</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>There are three processes A, B and C that run in </span><br><span>round robin manner with time slice of 50 ms.</span><br><br><span>Processes start at 0, 5 and 10 milliseconds.</span><br><br><span>The processes are executed in below order</span><br><span>A, B, C, A </span><br><span>50 + 50 + 50 + 50 (200 ms passed)</span><br><br><span>Now A has completed 100 ms of computations and </span><br><span>goes for I/O now</span><br><br><span>B, C, B, C, B, C</span><br><span>50 + 50 + 50 + 50 + 50 + 50 (300 ms passed)</span><br><br><span>C goes for i/o at 500ms and it needs 500ms to</span><br><span>finish the IO.</span><br><br><span>So C would complete its first IO at 1000 ms</span></p>",
+      "created_on": "2014-04-18 - 09:59:06",
+      "updated_on": "2025-08-28 - 12:26:39",
+      "year": 2014,
+      "subject": "Operating System",
+      "chapter": "CPU Scheduling",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3253,
+      "question": "<p dir=\"ltr\"><span>Suppose a stack implementation supports an instruction REVERSE, which reverses the order of elements on the stack, in addition to the PUSH and POP instructions. Which one of the following statements is TRUE with respect to this modified stack?</span></p>",
+      "answers": [
+        {
+          "id": 63350,
+          "answer": "<p dir=\"ltr\"><span>A queue cannot be implemented using this stack.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 63351,
+          "answer": "<p dir=\"ltr\"><span>A queue can be implemented where ENQUEUE takes a single instruction and DEQUEUE takes a sequence of two instructions.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 63352,
+          "answer": "<p dir=\"ltr\"><span>A queue can be implemented where ENQUEUE takes a sequence of three instructions and DEQUEUE takes a single instruction.</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 63353,
+          "answer": "<p dir=\"ltr\"><span>A queue can be implemented where both ENQUEUE and DEQUEUE take a single instruction each.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>To DEQUEUE an item, simply POP. To ENQUEUE an item, we can do following 3 operations 1) REVERSE 2) PUSH 3) REVERSE</span></p><p dir=\"ltr\"><span>Hence Option (C) is the correct answer.</span></p>",
+      "created_on": "2022-12-30 - 15:55:04",
+      "updated_on": "2025-06-19 - 15:48:08",
+      "year": 2014,
+      "subject": "Data Structures",
+      "chapter": "Stack",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4268,
+      "question": "<p dir=\"ltr\"><span>A priority queue is implemented as a Max-Heap. Initially, it has 5 elements. The level-order traversal of the heap is: 10, 8, 5, 3, 2. Two new elements 1 and 7 are inserted into the heap in that order. The level-order traversal of the heap after the insertion of the elements is:</span></p>",
+      "answers": [
+        {
+          "id": 17458,
+          "answer": "<p><span>10, 8, 7, 3, 2, 1, 5</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 17459,
+          "answer": "<p><span>10, 8, 7, 2, 3, 1, 5</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 17460,
+          "answer": "<p><span>10, 8, 7, 1, 2, 3, 5</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 17461,
+          "answer": "<p><span>10, 8, 7, 5, 3, 2, 1</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Initially heap has 10, 8, 5, 3, 2</span><br><span>    10</span><br><span>   /  \\\\ </span><br><span>  8    5</span><br><span> / \\\\</span><br><span>3   2</span><br><br><span>After insertion of 1</span><br><span>     10</span><br><span>   /   \\\\ </span><br><span>  8     5</span><br><span> / \\\\   /</span><br><span>3   2 1 </span><br><span>No need to heapify as 5 is greater than 1.</span><br><br><br><span>After insertion of 7</span><br><span>     10</span><br><span>   /   \\\\ </span><br><span>  8     5</span><br><span> / \\\\   / \\\\</span><br><span>3   2 1   7</span><br><span>Heapify 5 as 7 is greater than 5</span><br><span>     10</span><br><span>   /   \\\\ </span><br><span>  8     7</span><br><span> / \\\\   / \\\\</span><br><span>3   2 1   5</span><br><span>No need to heapify any further as 10 is</span><br><span>greater than 7 </span><br></pre><p dir=\"ltr\"><span>Hence Option(A) is the correct answer.</span></p>",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-06-19 - 16:25:29",
+      "year": 2014,
+      "subject": "Data Structures",
+      "chapter": "Binary Heaps",
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6103,
+      "question": "<p dir=\"ltr\"><span>Consider the grammar defined by the following production rules, with two operators ∗ and + </span></p><pre><span>    S --&gt; T * P </span><br><span>    T --&gt; U | T * U</span><br><span>    P --&gt; Q + P | Q</span><br><span>    Q --&gt; Id</span><br><span>    U --&gt; Id</span><br></pre><p dir=\"ltr\"><span> Which one of the following is TRUE? </span></p>",
+      "answers": [
+        {
+          "id": 24577,
+          "answer": "<p dir=\"ltr\"><span>+ is left associative, while ∗ is right associative</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 24578,
+          "answer": "<p dir=\"ltr\"><span>+ is right associative, while ∗ is left associative</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 24579,
+          "answer": "<p dir=\"ltr\"><span>Both + and ∗ are right associative</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24580,
+          "answer": "<p dir=\"ltr\"><span>Both + and ∗ are left associative </span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>From the grammar we can find out associative by looking at grammar.  </span></p><pre><span>Let us consider the 2nd production</span><br><span>T -&gt; T * U</span><br><span>T is generating T*U recursively (left recursive) so * is </span><br><span>left associative.</span><br><br><span>Similarly</span><br><span>P -&gt; Q + P</span><br><span>Right recursion so + is right associative.</span><br><span>So option B is correct. </span></pre><p dir=\"ltr\"><span>  NOTE: Above is the shortcut trick that can be observed after drawing few parse trees. One can also find out correct answer by drawing the parse tree.   </span></p><iframe src=\"https://www.youtube.com/embed/Sn5eIxvrNBc?start=1728\" width=\"560\" height=\"315\"></iframe>",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-06-19 - 17:48:58",
+      "year": 2014,
+      "subject": "Compiler Design",
+      "chapter": "Sdt",
+      "question_type": "MCQ"
+    }
+  ],
+  "quiz": {
+    "id": 210,
+    "question_count": 64,
+    "bottom_description": "",
+    "title": "GATE-CS-2014-(Set-2)",
+    "slug": "gate-cs-2014-set-2-gq",
+    "category": [
+      {
+        "id": 4355,
+        "name": "GATE",
+        "slug": "gate",
+        "origin_term_id": 2209,
+        "origin_slug": "computer-subject/computer-science-quizzes-gq/gate"
+      }
+    ],
+    "show_answer": 3,
+    "created_on": "2014-04-18 - 09:59:06",
+    "updated_on": "2024-04-02 - 13:00:26"
+  }
+}

@@ -3,52 +3,56 @@ import { v } from "convex/values";
 
 export default defineSchema(
   {
-    gateQuestions: defineTable({
-      year: v.number(),
-      questionNumber: v.number(),
-      questionText: v.string(),
-      questionImages: v.optional(v.string()),
-      optionA: v.string(),
-      optionAImages: v.optional(v.string()),
-      optionB: v.string(),
-      optionBImages: v.optional(v.string()),
-      optionC: v.string(),
-      optionCImages: v.optional(v.string()),
-      optionD: v.string(),
-      optionDImages: v.optional(v.string()),
-      correctAnswer: v.union(v.literal("A"), v.literal("B"), v.literal("C"), v.literal("D")),
-      questionType: v.string(),
-      explanation: v.string(),
-      explanationImages: v.optional(v.string()),
+    questions: defineTable({
+      // Original fields
+      originalId: v.number(), // The id from your JSON (144415)
+      question: v.string(), // HTML content
+      explanation: v.optional(v.string()),
+      year: v.optional(v.number()),
       subject: v.optional(v.string()),
       chapter: v.optional(v.string()),
-      subtopic: v.optional(v.string()),
+      questionType: v.optional(v.string()), // "MCQ", etc.
+
+      // Metadata
+      createdOn: v.optional(v.string()),
+      updatedOn: v.optional(v.string()),
+
+      // Computed fields for optimization
+      similarQuestionsComputed: v.boolean(), // Flag to track if similar questions have been computed
+      similarQuestionIds: v.optional(v.array(v.id("questions"))), // Array of Convex document IDs
+
+      // Composite key for efficient grouping
+      subjectChapter: v.optional(v.string()), // "Operating System::Concurrency & Synchronization"
     })
-    .index("by_year", ["year"])
-    .index("by_subject", ["subject"])
-    .index("by_chapter", ["chapter"])
-    .index("by_year_subject", ["year", "subject"])
-    .index("by_year_chapter", ["year", "chapter"])
-    .index("by_subject_chapter", ["subject", "chapter"]),
-    users: defineTable({
-      clerkId: v.string(),
-      email: v.string(),
-      name: v.optional(v.string()),
-      createdAt: v.number(),
+      .index("by_year", ["year"])
+      .index("by_subject_chapter", ["subjectChapter", "year"]) // Primary index for similar questions
+      .index("by_subject", ["subject", "chapter", "year"]) // Alternative compound index
+      .index("by_original_id", ["originalId"]) // For lookups during migration
+      .searchIndex("search_content", {
+        searchField: "question",
+        filterFields: ["subject", "chapter", "year"],
+      }),
+
+    answers: defineTable({
+      questionId: v.id("questions"), // Reference to parent question
+      originalId: v.number(), // The id from your JSON (552655)
+      answer: v.string(), // HTML content
+      correct: v.boolean(),
+      sortOrder: v.number(),
     })
-    .index("by_clerkId", ["clerkId"]),
-    apiKeys: defineTable({
-      userId: v.id("users"),
-      name: v.string(),
-      keyHash: v.string(),
-      keyPrefix: v.string(),
-      isActive: v.boolean(),
-      rateLimit: v.number(),
-      createdAt: v.number(),
-      lastUsedAt: v.optional(v.number()),
+      .index("by_question", ["questionId", "sortOrder"]) // Get all answers for a question, sorted
+      .index("by_correct", ["questionId", "correct"]), // Quickly find correct answer
+
+    // Optional: User progress tracking
+    userProgress: defineTable({
+      userId: v.string(), // Auth user ID
+      questionId: v.id("questions"),
+      attempted: v.boolean(),
+      correct: v.boolean(),
+      attemptedAt: v.number(), // timestamp
     })
-    .index("by_userId", ["userId"])
-    .index("by_keyHash", ["keyHash"]),
+      .index("by_user", ["userId", "questionId"])
+      .index("by_user_attempted", ["userId", "attempted"]),
   },
   { schemaValidation: true }
 );

@@ -1,0 +1,2301 @@
+{
+  "count": 65,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 2928,
+      "title": "GATE | CS | 2012 | Aptitude | Quantitative Aptitude | Question 56",
+      "slug": "the-cost-function-for-a-product-in-a-firm",
+      "question": "<p dir=\"ltr\"><span>The cost function for a product in a firm is given by 5q</span><sup><span>2</span></sup><span>, where q is the amount of production. The firm can sell the product at a market price of Rs 50 per unit. The number of units to be produced by the firm such that the profit is maximized is</span></p>",
+      "answers": [
+        {
+          "id": 12194,
+          "answer": "<p><span>5</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12195,
+          "answer": "<p><span>10</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12196,
+          "answer": "<p><span>15</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12197,
+          "answer": "<p><span>25</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Profit = Price - Cost</span><br><span>       = 50q - 5q</span><sup><span>2</span></sup><br><span>The above function will be maximum for the values on which its first derivative becomes 0.</span><br><span>        50 - 10*q = 0</span><br><span>        50 = 10 * q</span><br><span>        q = 5.</span><br><span>The value of above expression is maximum at q = 5. </span><br></pre>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:57:22"
+    },
+    {
+      "id": 2914,
+      "title": "GATE | CS | 2012 | Operating System | File System | Question 41",
+      "slug": "a-file-system-with-300-gbyte-disk-uses-a",
+      "question": "<p dir=\"ltr\"><span>A file system with 300 GByte disk uses a file descriptor with 8 direct block addresses, 1 indirect block address and 1 doubly indirect block address. The size of each disk block is 128 Bytes and the size of each disk block address is 8 Bytes. The maximum possible file size in this file system is</span></p>",
+      "answers": [
+        {
+          "id": 62798,
+          "answer": "<p dir=\"ltr\"><span>3 Kbytes</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 62799,
+          "answer": "<p dir=\"ltr\"><span>35 Kbytes</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 62800,
+          "answer": "<p dir=\"ltr\"><span> 280 Bytes</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 62801,
+          "answer": "<p dir=\"ltr\"><span>Dependent on the size of the disk</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Let's see the calculation:</span></p><p dir=\"ltr\"><span>Given:</span></p><p dir=\"ltr\"><span>Number of direct block addresses: 8</span></p><p dir=\"ltr\"><span>Number of indirect block addresses: 1</span></p><p dir=\"ltr\"><span>Number of doubly indirect block addresses: 1</span></p><p dir=\"ltr\"><span>Size of each disk block: 128 Bytes</span></p><p dir=\"ltr\"><span>Size of each disk block address: 8 Bytes</span></p><p dir=\"ltr\"><span>First, let's calculate the total size of direct blocks:</span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span>Total size of direct blocks = Number of direct blocks * Size of each disk block</span></p><p dir=\"ltr\"><span>                            = 8 * 128 Bytes</span></p><p dir=\"ltr\"><span>                            = 1024 Bytes</span></p><p dir=\"ltr\"><span>Next, let's calculate the maximum size of the file that can be addressed by the indirect block:</span></p><p dir=\"ltr\"><span>Copy code</span></p><p dir=\"ltr\"><span>Size of indirect block = Size of each disk block * Number of addresses in the indirect block</span></p><p dir=\"ltr\"><span>                        = 128 Bytes * (128 Bytes / 8 Bytes)</span></p><p dir=\"ltr\"><span>                        = 2048 Bytes</span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span>Size of doubly indirect block = Size of each disk block * Number of addresses in the doubly indirect block * Number of addresses in each doubly indirect block</span></p><p dir=\"ltr\"><span>                              = 128 Bytes * (128 Bytes / 8 Bytes) * (128 Bytes / 8 Bytes)</span></p><p dir=\"ltr\"><span>                              = 32768 Bytes</span></p><p dir=\"ltr\"><span>Total maximum file size = Total size of direct blocks + Size of indirect block + Size of doubly indirect block</span></p><p dir=\"ltr\"><span>                         = 1024 Bytes + 2048 Bytes + 32768 Bytes</span></p><p dir=\"ltr\"><span>                         = 35840 Bytes</span></p><p dir=\"ltr\"><span>Total maximum file size in Kbytes = 35840 Bytes / 1024 Bytes per Kbyte</span></p><p dir=\"ltr\"><span>                                   ≈ 35 Kbytes</span></p><p dir=\"ltr\"><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:38:24"
+    },
+    {
+      "id": 2915,
+      "title": "GATE | CS | 2012 | Operating System | Memory Management | Question 42",
+      "slug": "consider-the-virtual-page-reference-string-1-2-3",
+      "question": "<p dir=\"ltr\"><span>Consider the virtual page reference string 1, 2, 3, 2, 4, 1, 3, 2, 4, 1 On a demand paged virtual memory system running on a computer system that main memory size of 3 pages frames which are initially empty. Let LRU, FIFO and OPTIMAL denote the number of page faults under the corresponding page replacements policy. Then</span></p>",
+      "answers": [
+        {
+          "id": 12142,
+          "answer": "<p dir=\"ltr\"><span>OPTIMAL &lt; LRU &lt; FIFO</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12143,
+          "answer": "<p dir=\"ltr\"><span> OPTIMAL &lt; FIFO &lt; LRU</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12144,
+          "answer": "<p dir=\"ltr\"><span> OPTIMAL = LRU</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12145,
+          "answer": "<p dir=\"ltr\"><span>OPTIMAL = FIFO</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><br><b><strong>First In First Out (FIFO)</strong></b><br><span>This is the simplest page replacement algorithm. In this algorithm, operating system keeps track of all pages in the memory in a queue; oldest page is in the front of the queue. When a page needs to be replaced page in the front of the queue is selected for removal.</span><br><br><b><strong>Optimal Page replacement:</strong></b><br><br><span>in this algorithm, pages are replaced which are not used for the longest duration of time in the future. Least Recently Used (LRU) In this algorithm page will be replaced which is least recently used.</span><br><br><b><strong>Solution:</strong></b><br><br><span>the virtual page reference string is 1, 2, 3, 2, 4, 1, 3, 2, 4, 1 size of main memory pages frames is 3.</span><br><br><span>For FIFO: total no of page faults are 6 (depicted in red)</span><br><img src=\"https://cdncontribute.geeksforgeeks.org/wp-content/uploads/q40gate1.png\" alt=\"nitika_42\" width=\"inherit\" height=\"inherit\" loading=\"auto\"><br><br><span>For optimal: total no of page faults are 5 (depicted in red)</span><br><img src=\"https://cdncontribute.geeksforgeeks.org/wp-content/uploads/q40gate2.png\" alt=\"nitika_42_1\" width=\"inherit\" height=\"inherit\" loading=\"auto\"><br><br><span>For LRU: total no of page faults are 9 (depicted in red)</span><br><img src=\"https://cdncontribute.geeksforgeeks.org/wp-content/uploads/q40gate3.png\" alt=\"nitika_42_2\" width=\"inherit\" height=\"inherit\" loading=\"auto\"><br><br><span>The Optimal will be 5, FIFO 6 and LRU 9. so, OPTIMAL &lt; FIFO &lt; LRU</span><br><span>option (B) is correct answer.</span><br><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:39:14"
+    },
+    {
+      "id": 2916,
+      "title": "GATE | CS | 2012 | Databases | Relational Algebra | Question 43",
+      "slug": "suppose-a-b-and-cd-are-two-relation-schemas",
+      "question": "<p dir=\"ltr\"><span>Suppose (</span></p><p dir=\"ltr\"><u><span class=\"GFGEditorTheme__textUnderline\">A</span></u></p><p dir=\"ltr\"><span>, B) and (</span></p><p dir=\"ltr\"><u><span class=\"GFGEditorTheme__textUnderline\">C</span></u></p><p dir=\"ltr\"><span>,D) are two relation schemas. Let r1 and r2 be the corresponding relation instances. B is a foreign key that refers to C in r2. If data in r1 and r2 satisfy referential integrity constraints, which of the following is ALWAYS TRUE? </span></p><pre><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2013/11/DBMSGATE2012.png\" alt=\"DBMSGATE2012\" width=\"272\" height=\"164\" loading=\"auto\"></pre>",
+      "answers": [
+        {
+          "id": 12146,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12147,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12148,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12149,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See Question 3 of&nbsp;</span><a href=\"http://www.geeksforgeeks.org/database-management-system-set-2/\"><span>http://www.geeksforgeeks.org/database-management-system-set-2/</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:40:21"
+    },
+    {
+      "id": 2917,
+      "title": "GATE | CS | 2012 | Computer Networks | Congestion Control | Question 45",
+      "slug": "consider-an-instance-of-tcps-additive-increase-multiplicative-decrease",
+      "question": "<p dir=\"ltr\"><span>Consider an instance of TCP’s Additive Increase Multiplicative Decrease (AIMD) algorithm where the window size at the start of the slow start phase is 2 MSS and the threshold at the start of the first transmission is 8 MSS. Assume that a timeout occurs during the fifth transmission. Find the congestion window size at the end of the tenth transmission.</span></p>",
+      "answers": [
+        {
+          "id": 12150,
+          "answer": "<p dir=\"ltr\"><span>8 MSS</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12151,
+          "answer": "<p dir=\"ltr\"><span>14 MSS</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12152,
+          "answer": "<p dir=\"ltr\"><span>7 MSS</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12153,
+          "answer": "<p dir=\"ltr\"><span>12 MSS</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See question 2 of&nbsp;</span><a href=\"http://www.geeksforgeeks.org/computer-networks-set-2/\"><span>http://www.geeksforgeeks.org/computer-networks-set-2/</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:42:08"
+    },
+    {
+      "id": 2918,
+      "title": "GATE | CS | 2012 | TOC | Finite Automata | Question 46",
+      "slug": "consider-the-set-of-strings-on-01-in-which",
+      "question": "<p dir=\"ltr\"><span>Consider the set of strings on {0,1} in which, every substring of 3 symbols has at most two zeros. For example, 001110 and 011001 are in the language, but 100010 is not. All strings of length less than 3 are also in the language. A partially completed DFA that accepts this language is shown below.&nbsp;</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118010204/Capture.JPG\" width=\"712\" height=\"inherit\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118010204/Capture.JPG 712w, https://media.geeksforgeeks.org/wp-content/uploads/20230118010204/Capture-100.JPG 100w, https://media.geeksforgeeks.org/wp-content/uploads/20230118010204/Capture-200.JPG 200w, https://media.geeksforgeeks.org/wp-content/uploads/20230118010204/Capture-300.JPG 300w, https://media.geeksforgeeks.org/wp-content/uploads/20230118010204/Capture-660.JPG 660w, \" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure><p dir=\"ltr\"><span>&nbsp;The missing arcs in the DFA are&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 12154,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118005838/Capture.JPG\" width=\"385\" height=\"inherit\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118005838/Capture.JPG 385w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005838/Capture-100.JPG 100w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005838/Capture-200.JPG 200w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005838/Capture-300.JPG 300w, \" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12155,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118005912/Capture.JPG\" width=\"386\" height=\"inherit\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118005912/Capture.JPG 386w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005912/Capture-100.JPG 100w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005912/Capture-200.JPG 200w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005912/Capture-300.JPG 300w, \" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12156,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118005948/Capture.JPG\" width=\"388\" height=\"inherit\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118005948/Capture.JPG 388w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005948/Capture-100.JPG 100w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005948/Capture-200.JPG 200w, https://media.geeksforgeeks.org/wp-content/uploads/20230118005948/Capture-300.JPG 300w, \" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12157,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118010028/Capture.JPG\" width=\"386\" height=\"inherit\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20230118010028/Capture.JPG 386w, https://media.geeksforgeeks.org/wp-content/uploads/20230118010028/Capture-100.JPG 100w, https://media.geeksforgeeks.org/wp-content/uploads/20230118010028/Capture-200.JPG 200w, https://media.geeksforgeeks.org/wp-content/uploads/20230118010028/Capture-300.JPG 300w, \" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See&nbsp;</span><a href=\"&quot;http://www.geeksforgeeks.org/automata-theory-set-2/&quot;\"><span>http://www.geeksforgeeks.org/automata-theory-set-2/</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:42:55"
+    },
+    {
+      "id": 2919,
+      "title": "GATE | CS |  2012 | C Programming | Recursion | Question 47",
+      "slug": "the-height-of-a-tree-is-defined-as-the",
+      "question": "<p dir=\"ltr\"><span>The height of a tree is defined as the number of edges on the longest path in the tree. The function shown in the pseudocode below is invoked as height (root) to compute the height of a binary tree rooted at the tree pointer root.&nbsp;</span><br><br><span>&nbsp;</span></p><p dir=\"ltr\"><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gat2012height.png\" width=\"inherit\" height=\"inherit\" loading=\"auto\"></p><p dir=\"ltr\"><br><span>The appropriate expression for the two boxes B1 and B2 are</span><br><span>&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 12158,
+          "answer": "<p dir=\"ltr\"><span>B1 : (1 + height(n-&gt;right)), B2 : (1 + max(h1,h2))</span><br><span>&nbsp;</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12159,
+          "answer": "<p dir=\"ltr\"><span>B1 : (height(n-&gt;right)), B2 : (1 + max(h1,h2))</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12160,
+          "answer": "<p dir=\"ltr\"><span>B1 : height(n-&gt;right), B2 : max(h1,h2)</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12161,
+          "answer": "<p dir=\"ltr\"><span>B1 : (1 + height(n-&gt;right)), B2 : max(h1,h2)</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The box B1 gets expected when left subtree of n is NULL and right subtree is not NULL. In this case, height of n will be height of right subtree plus one.&nbsp;</span><br><span>The box B2 gets executed when both left and right subtrees of n are not NULL. In this case, height of n will be max of heights of left and right subtrees of n plus 1.</span><br><span>&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:48:55"
+    },
+    {
+      "id": 2920,
+      "title": "GATE | CS | 2012 | COA | Pipelining & Hazards | Question 20",
+      "slug": "register-renaming-is-done-in-pipelined-processors",
+      "question": "<p dir=\"ltr\"><span>Register renaming is done in pipelined processors</span></p>",
+      "answers": [
+        {
+          "id": 12162,
+          "answer": "<p dir=\"ltr\"><span>as an alternative to register allocation at compile time</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12163,
+          "answer": "<p dir=\"ltr\"><span>for efficient access to function parameters and local variables</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12164,
+          "answer": "<p dir=\"ltr\"><span>to handle certain kinds of hazards</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12165,
+          "answer": "<p dir=\"ltr\"><span>as part of address translation</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Register renaming is done to eliminate WAR (Write after Read) and WAW (Write after Write) dependency between instructions which could have caused pipieline stalls. Hence, </span><b><strong>(C) </strong></b><span>is the answer.</span></p><p dir=\"ltr\"><span>Example:</span></p><p dir=\"ltr\"><b><strong>I1:</strong></b><span> Read A to B</span><br><b><strong>I2: </strong></b><span>Write C to A</span><br><br><span>Here, there is a WAR dependency and pipeline would need stalls. In order to avoid it register renaming is done and&nbsp;</span></p><p dir=\"ltr\"><span>Write &nbsp;C to A</span><br><span>will be&nbsp;</span><br><span>Write &nbsp;C to A</span><br><br><span>WAR dependency is actually called anti-dependency and there is no real dependency except the fact that both uses same memory location. Register renaming can avoid this. Similarly WAW also.&nbsp;</span><br><span>&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:02:28"
+    },
+    {
+      "id": 2921,
+      "title": "GATE | CS | 2012 | Engineering Mathematics | Probability & Statistics | Question 21",
+      "slug": "consider-a-random-variable-x-that-takes-values-1",
+      "question": "<p dir=\"ltr\"><span>Consider a random variable X that takes values +1 and −1 with probability 0.5 each. The values of the cumulative distribution function F(x) at x = −1 and +1 are</span></p>",
+      "answers": [
+        {
+          "id": 12166,
+          "answer": "<p dir=\"ltr\"><span>0 and 0.5</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12167,
+          "answer": "<p dir=\"ltr\"><span>0 and 1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12168,
+          "answer": "<p dir=\"ltr\"><span>0.5 and 1 </span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12169,
+          "answer": "<p dir=\"ltr\"><span>0.25 and 0.75</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The</span><a href=\"http://en.wikipedia.org/wiki/Cumulative_distribution_function\" target=\"_blank\"><span> Cumulative Distribution Function </span></a><br><span>F(x) = P(X≤x)</span><br><span>F(-1) = P(X≤-1) = P(X=-1) = 0.5</span><br><span>F(+1) = P(X≤+1) = P(X=-1) + (P=+1) = 0.5+0.5 = 1</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:03:25"
+    },
+    {
+      "id": 2922,
+      "title": "GATE | CS | 2012 | C Programming | Recursion | Question 48",
+      "slug": "consider-the-following-c-program-c-int-a-b",
+      "question": "<p dir=\"ltr\"><span>Consider the following C program </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=kt>int</span><span class=w> </span><span class=n>a</span><span class=p>,</span><span class=w> </span><span class=n>b</span><span class=p>,</span><span class=w> </span><span class=n>c</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=kt>void</span><span class=w> </span><span class=nf>prtFun</span><span class=w> </span><span class=p>(</span><span class=kt>void</span><span class=p>);</span>\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=w> </span><span class=p>()</span>\n<span class=p>{</span>\n<span class=w>    </span><span class=k>static</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span><span class=w> </span><span class=cm>/* line 1 */</span>\n<span class=w>    </span><span class=n>prtFun</span><span class=p>();</span>\n<span class=w>    </span><span class=n>a</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span>\n<span class=w>    </span><span class=n>prtFun</span><span class=p>();</span>\n<span class=w>    </span><span class=n>printf</span><span class=w> </span><span class=p>(</span><span class=w> </span><span class=s>&quot;</span><span class=se>\\n</span><span class=s> %d %d &quot;</span><span class=w> </span><span class=p>,</span><span class=w> </span><span class=n>a</span><span class=p>,</span><span class=w> </span><span class=n>b</span><span class=p>)</span><span class=w> </span><span class=p>;</span>\n<span class=p>}</span>\n<span class=w> </span>\n<span class=kt>void</span><span class=w> </span><span class=nf>prtFun</span><span class=w> </span><span class=p>(</span><span class=kt>void</span><span class=p>)</span>\n<span class=p>{</span>\n<span class=w>    </span><span class=k>static</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>2</span><span class=p>;</span><span class=w> </span><span class=cm>/* line 2 */</span>\n<span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>b</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span>\n<span class=w>    </span><span class=n>a</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=o>++</span><span class=n>b</span><span class=p>;</span>\n<span class=w>    </span><span class=n>printf</span><span class=w> </span><span class=p>(</span><span class=s>&quot; </span><span class=se>\\n</span><span class=s> %d %d &quot;</span><span class=w> </span><span class=p>,</span><span class=w> </span><span class=n>a</span><span class=p>,</span><span class=w> </span><span class=n>b</span><span class=p>);</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>What output will be generated by the given code segment? </span></p>",
+      "answers": [
+        {
+          "id": 62794,
+          "answer": "<pre><span>3 1</span><br><span>4 1</span><br><span>4 2</span><br></pre>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 62795,
+          "answer": "<pre><span>4 2</span><br><span>6 1</span><br><span>6 1</span><br></pre>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 62796,
+          "answer": "<pre><span>4 2</span><br><span>6 2</span><br><span>2 0</span><br></pre>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 62797,
+          "answer": "<pre><span>3 1</span><br><span>5 2</span><br><span>5 2</span><br></pre>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>1.Certainly! To provide a solution, let's revisit the code and break down the execution:</span></p><p dir=\"ltr\"><span>2. Global Variables: `a`, `b`, and `c` are declared with `c` initialized to 0.</span></p><p dir=\"ltr\"><span>3. Function Declaration: `prtFun` is declared.</span></p><p dir=\"ltr\"><span>4. Main Function Execution:</span></p><p dir=\"ltr\"><span>   - A static local variable `a` is declared and initialized to 1.</span></p><p dir=\"ltr\"><span>   - `prtFun` is called.</span></p><p dir=\"ltr\"><span>   - `prtFun`'s static local variable `a` is initialized to 2.</span></p><p dir=\"ltr\"><span>   - A local variable `b` is declared and initialized to 1.</span></p><p dir=\"ltr\"><span>   - `a` in `prtFun` is incremented by `++b`, resulting in `a = 4` and `b = 2`.</span></p><p dir=\"ltr\"><span>   - Values of `a` and `b` are printed from `prtFun`.</span></p><p dir=\"ltr\"><span>   - `a` in `main` is incremented by 1, making it 2.</span></p><p dir=\"ltr\"><span>   - `prtFun` is called again.</span></p><p dir=\"ltr\"><span>   - `a` in `prtFun` is now 4 (the static variable retains its value), and `b` is 1.</span></p><p dir=\"ltr\"><span>   - `a` in `prtFun` is incremented by `++b`, resulting in `a = 6` and `b = 2`.</span></p><p dir=\"ltr\"><span>   - Values of `a` and `b` are printed again from `prtFun`.</span></p><p dir=\"ltr\"><span>5. Final Print in Main**: Prints the values of `a` (2) and the global `b` (0).</span></p><p dir=\"ltr\"><b><strong>Output:</strong></b></p><p><span>4 2 </span></p><p><span>6 2 </span></p><p><span>2 0</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:50:14"
+    },
+    {
+      "id": 2924,
+      "title": "GATE | CS | 2012 | Databases | Relational Algebra | Question 50",
+      "slug": "consider-the-following-relations-a-b-c-how-many",
+      "question": "<p dir=\"ltr\"><span>Consider the following relations A, B, C. How many tuples does the result of the following relational algebra expression contain? Assume that the schema of A U B is the same as that of A.&nbsp;</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20231223190621/DBMSGATE20124-300x47.png\" width=\"300\" height=\"inherit\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20231223190621/DBMSGATE20124-300x47.png 300w, https://media.geeksforgeeks.org/wp-content/uploads/20231223190621/DBMSGATE20124-300x47-100.png 100w, https://media.geeksforgeeks.org/wp-content/uploads/20231223190621/DBMSGATE20124-300x47-200.png 200w, https://media.geeksforgeeks.org/wp-content/uploads/20231223190621/DBMSGATE20124-300x47.png 300w, \" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure><pre><b><strong>Table A</strong></b><br><span>Id   Name    Age</span><br><span>----------------</span><br><span>12   Arun    60</span><br><span>15   Shreya  24</span><br><span>99   Rohit   11</span><br><br><b><strong>Table B</strong></b><br><span>Id   Name   Age</span><br><span>----------------</span><br><span>15   Shreya  24</span><br><span>25   Hari    40</span><br><span>98   Rohit   20</span><br><span>99   Rohit   11</span><br><br><b><strong>Table C</strong></b><br><span>Id   Phone  Area</span><br><span>-----------------</span><br><span>10   2200   02  </span><br><span>99   2100   01</span><br></pre>",
+      "answers": [
+        {
+          "id": 12178,
+          "answer": "<p><span>7</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12179,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12180,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12181,
+          "answer": "<p><span>9</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See </span><a href=\"https://www.geeksforgeeks.org/database-management-system-set-3/\"><u><span class=\"GFGEditorTheme__textUnderline\">https://www.geeksforgeeks.org/database-management-system-set-3/</span></u></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:51:48"
+    },
+    {
+      "id": 2925,
+      "title": "GATE | CS | 2012 | Compiler Design | Parsing | Question 52",
+      "slug": "for-the-grammar-below-a-partial-ll1-parsing-table",
+      "question": "<p dir=\"ltr\"><span>For the grammar below, a partial LL(1) parsing table is also presented along with the grammar. Entries that need to be filled are indicated as E1, E2, and E3. </span>[Tex]\\\\epsilon[/Tex]<span> is the empty string, $ indicates end of input, and, | separates alternate right hand sides of productions.</span><br><br><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2013/11/CSE_2012_51.jpg\" alt=\"CSE_2012_51\" width=\"379\" height=\"161\" loading=\"auto\"><br><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2013/11/CSE_GATE_20122.png\" alt=\"CSE_GATE_20122\" width=\"466\" height=\"120\" loading=\"auto\"><br></p>",
+      "answers": [
+        {
+          "id": 12182,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12183,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12184,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12185,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>First(X) - It is the set of terminals that begin the </span><br><span>            strings derivable from X.</span><br><br><span>Follow(X) - It is the set of terminals that can appear</span><br><span>            immediately to the right of X in some sentential</span><br><span>            form.</span><br><br><span>Now in the above question,</span><br><br><span>FIRST(S) = { a, b, epsilon}</span><br><span>FIRST(A) = FIRST(S) = { a, b, epsilon}</span><br><span>FIRST(B) = FIRST(S) = { a, b, epsilon}</span><br><span>FOLLOW (A) = { b , a }</span><br><span>FOLLOW (S) = { $ } U FOLLOW (A) = { b , a , $ }</span><br><span>FOLLOW (B) = FOLLOW (S) = { b ,a , $ }</span><br><br><span>epsilon corresponds to empty string.</span><br></pre>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:54:42"
+    },
+    {
+      "id": 2926,
+      "title": "GATE | CS | 2012 | Compiler Design | Parsing | Question 53",
+      "slug": "consider-the-date-same-as-above-question-the-appropriate",
+      "question": "<p dir=\"ltr\"><span>Consider the date same as </span><a href=\"https://www.geeksforgeeks.org/gate-gate-cs-2012-question-52/\"><span>above </span></a><span>question. The appropriate entries for E1, E2, and E3 are&nbsp;</span></p><figure class=\"image\"><img src=\"https://www.geeksforgeeks.org/wp-content/uploads/gq/2013/11/CSE_GATE_20123.png\" width=\"inherit\" height=\"inherit\" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure>",
+      "answers": [
+        {
+          "id": 12186,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12187,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12188,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12189,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>As we need to find entries E1, E2 and E3 which are against Non terminals S and B, so we will deal with only those productions which have S and B on LHS. Here representing the parsing table as M[ X , Y ], where X represents rows( Non terminals) and Y represents columns(terminals).</span></p><pre><span>Rule 1: if P --&gt; Q is a production, for each terminal</span><br><span>        't' in FIRST(Q) add P--&gt;Q to M [ P , t ]</span><br><br><span>Rule 2 : if epsilon is in FIRST(Q), add P --&gt; Q to</span><br><span>         M [ P , f ] for each f in FOLLOW(P). </span></pre><p dir=\"ltr\"><span>For the production rule S--&gt; aAbB, it will be added to parsing table at the position M[ S , FIRST( aAbB ) ], Now FIRST(aAbB) = {a}, hence add S--&gt; aAbB to M[ S , a ] which is E1. For the production rule S--&gt; bAaB, it will be added to parsing table at the position M[ S , FIRST( bAaB ) ], Now FIRST(bAaB) = {b}, hence add S--&gt; bAaB to M[ S , b ] which is E2 For the production rule S--&gt; epsilon , it will be added to parsing table at the position M[ S , FOLLOW(S) ], Now FOLLOW(S) = { a , b , $ }, hence add S --&gt; epsilon to M[ S , a ] and M[ S , b ] which are again E1 and E2 respectively. For the production rule B --&gt; S, it will be added to parsing table at the position M[ B , FIRST( S ) ], Now FIRST(S) also contains epsilon, hence add B --&gt; S to M[ S , FOLLOW(B) ], and FOLLOW(B) contains {$}, i.e. M[ S , $ ] which is E3. epsilon corresponds to empty string.&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:53:50"
+    },
+    {
+      "id": 2927,
+      "title": "GATE | CS | 2012 | COA | Cache Memory | Question 55",
+      "slug": "consider-the-data-given-in-previous-question-the-size",
+      "question": "<p dir=\"ltr\"><span>Consider the data given in </span><a href=\"https://www.geeksforgeeks.org/gate-gate-cs-2012-question-54/\"><span>previous question</span></a><span>. The size of the cache tag directory is</span></p>",
+      "answers": [
+        {
+          "id": 12190,
+          "answer": "<p dir=\"ltr\"><span>160 Kbits</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12191,
+          "answer": "<p dir=\"ltr\"><span>136 bits</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12192,
+          "answer": "<p dir=\"ltr\"><span>40 Kbits</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12193,
+          "answer": "<p dir=\"ltr\"><span>32 bits</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>16 bit address 2 bit valid 1 modified 1 replace Total bits = 20 20 × no. of blocks = 160 K bits.&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:56:04"
+    },
+    {
+      "id": 2883,
+      "title": "GATE | CS | 2012 | Computer Networks | Miscellaneous | Question 22",
+      "slug": "which-of-the-following-transport-layer-protocols-is-used",
+      "question": "<p dir=\"ltr\"><span>Which of the following transport layer protocols is used to support electronic mail?</span></p>",
+      "answers": [
+        {
+          "id": 12014,
+          "answer": "<p dir=\"ltr\"><span>SMTP </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12015,
+          "answer": "<p dir=\"ltr\"><span>IP </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12016,
+          "answer": "<p dir=\"ltr\"><span>TCP </span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12017,
+          "answer": "<p dir=\"ltr\"><span>UDP</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>E-mail uses&nbsp;</span><a href=\"http://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol\"><span>SMTP&nbsp;</span></a><span>as application layer protocol. </span><br><br><span>TCP and UDP are two transport layer protocols. SMTP uses&nbsp;</span><a href=\"http://en.wikipedia.org/wiki/Transmission_Control_Protocol\"><span>TCP&nbsp;</span></a><span>as transport layer protocol as TCP is reliable.</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:04:14"
+    },
+    {
+      "id": 2929,
+      "title": "GATE | CS | 2012 | Aptitude | Verbal Aptitude | Question 57",
+      "slug": "choose-the-most-appropriate-alternative-from-the-options-given",
+      "question": "<p dir=\"ltr\"><span>Choose the most appropriate alternative from the options given below to complete the following&nbsp;sentence:</span><br><b><strong>Despite several ––––––––– the mission succeeded in its attempt to resolve the conflict.</strong></b></p>",
+      "answers": [
+        {
+          "id": 12198,
+          "answer": "<p dir=\"ltr\"><span>attempts </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12199,
+          "answer": "<p dir=\"ltr\"><span>setbacks </span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12200,
+          "answer": "<p dir=\"ltr\"><span>meetings </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12201,
+          "answer": "<p dir=\"ltr\"><span>delegations</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See&nbsp;</span><a href=\"http://www.thefreedictionary.com/despite\"><span>http://www.thefreedictionary.com/despite</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:57:45"
+    },
+    {
+      "id": 2930,
+      "title": "GATE | CS | 2012 | Aptitude | Verbal Aptitude | Question 58",
+      "slug": "which-one-of-the-following-options-is-the-closest",
+      "question": "<p dir=\"ltr\"><span>Which one of the following options is the closest in meaning to the word given below?  Mitigate</span></p>",
+      "answers": [
+        {
+          "id": 12202,
+          "answer": "<p dir=\"ltr\"><span>Diminish</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12203,
+          "answer": "<p dir=\"ltr\"><span> Divulge </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12204,
+          "answer": "<p dir=\"ltr\"><span>Dedicate </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12205,
+          "answer": "<p dir=\"ltr\"><span>Denote</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See&nbsp;</span><a href=\"http://www.thefreedictionary.com/mitigate\"><span>http://www.thefreedictionary.com/mitigate</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:58:15"
+    },
+    {
+      "id": 2931,
+      "title": "GATE | CS | 2012 | Aptitude | Verbal Aptitude | Question 59",
+      "slug": "choose-the-grammatically-incorrect-sentence",
+      "question": "<p dir=\"ltr\"><span>Choose the grammatically INCORRECT sentence:</span></p>",
+      "answers": [
+        {
+          "id": 12206,
+          "answer": "<p dir=\"ltr\"><span>They gave us the money back less the service charges of Three Hundred rupees.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12207,
+          "answer": "<p dir=\"ltr\"><span> This country’s expenditure is not less than that of Bangladesh.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12208,
+          "answer": "<p dir=\"ltr\"><span>The committee initially asked for a funding of Fifty Lakh rupees, but later settled for a lesser sum.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12209,
+          "answer": "<p dir=\"ltr\"><span> This country’s expenditure on educational reforms is very less.</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See&nbsp;</span><a href=\"http://english.stackexchange.com/questions/38202/is-very-less-correct-english\"><span>http://english.stackexchange.com/questions/38202/is-very-less-correct-english</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:58:38"
+    },
+    {
+      "id": 2932,
+      "title": "GATE | CS | 2012 | Aptitude | Verbal Aptitude | Question 60",
+      "slug": "choose-the-most-appropriate-alternative-from-the-options-given-1",
+      "question": "<p dir=\"ltr\"><span>Choose the most appropriate alternative from the options given below to complete the following&nbsp;sentence:</span><br><b><strong>Suresh’s dog is the one ––––––––– was hurt in the stampede.</strong></b></p>",
+      "answers": [
+        {
+          "id": 12210,
+          "answer": "<p dir=\"ltr\"><span>that </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12211,
+          "answer": "<p dir=\"ltr\"><span>which </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12212,
+          "answer": "<p dir=\"ltr\"><span>who </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12213,
+          "answer": "<p dir=\"ltr\"><span>whom</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Refer </span><a href=\"http://www.grammarbook.com/grammar/whoVwhVt.asp\"><span>http://www.grammarbook.com/grammar/whoVwhVt.asp</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 13:02:22"
+    },
+    {
+      "id": 2933,
+      "title": "GATE | CS | 2012 | Aptitude | Verbal Aptitude | Question 61",
+      "slug": "wanted-temporary-part-time-persons-for-the-post-of-field",
+      "question": "<p dir=\"ltr\"><span>Wanted Temporary, Part-time persons for the post of Field Interviewer to conduct personal&nbsp;interviews to collect and collate economic data. Requirements: High School-pass, must be&nbsp;available for Day, Evening and Saturday work. Transportation paid, expenses reimbursed.&nbsp;Which one of the following is the best inference from the above advertisement?</span></p>",
+      "answers": [
+        {
+          "id": 12214,
+          "answer": "<p dir=\"ltr\"><span>Gender-discriminatory</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12215,
+          "answer": "<p dir=\"ltr\"><span>Xenophobic</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12216,
+          "answer": "<p dir=\"ltr\"><span>Not designed to make the post attractive</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12217,
+          "answer": "<p dir=\"ltr\"><span>Not gender-discriminatory</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Nothing is mentioned about any particular gender. Xenophobic [disliking people from other countries] also doesn't fit. We can't estimate whether the job is attractive or not. So, only option D is the correct answer.&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:59:43"
+    },
+    {
+      "id": 2934,
+      "title": "GATE | CS | 2012 | Aptitude | Quantitative Aptitude | Question 62",
+      "slug": "a-political-party-orders-an-arch-for-the-entrance",
+      "question": "<p dir=\"ltr\"><span>A political party orders an arch for the entrance to the ground in which the annual convention is being held. The profile of the arch follows the equation </span><i><em class=\"GFGEditorTheme__textItalic\">y = 2x – 0.1x</em></i><i><sup><em class=\"GFGEditorTheme__textItalic\">2</em></sup></i><span> where y is the height of the arch in meters. The maximum possible height of the arch is</span></p>",
+      "answers": [
+        {
+          "id": 12218,
+          "answer": "<p dir=\"ltr\"><span>8 meters</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12219,
+          "answer": "<p dir=\"ltr\"><span>10 meters</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12220,
+          "answer": "<p dir=\"ltr\"><span>12 meters</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12221,
+          "answer": "<p dir=\"ltr\"><span>14 meters</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">y = 2x – 0.1x</em></i></p><p><i><sup><em class=\"GFGEditorTheme__textItalic\">2</em></sup></i></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\"> dy/dx = 2 - 0.2x  So the value maximizes at 2 - 0.2x = 0 =&gt; x = 10 =&gt; y = 20 - 10 = 10 meters</em></i></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 13:00:11"
+    },
+    {
+      "id": 2935,
+      "title": "GATE | CS | 2012 | Aptitude | Quantitative Aptitude | Question 63",
+      "slug": "an-automobile-plant-contracted-to-buy-shock-absorbers-from",
+      "question": "<p dir=\"ltr\"><span>An automobile plant contracted to buy shock absorbers from two suppliers X and Y. X supplies 60% and Y supplies 40% of the shock absorbers. All shock absorbers are subjected to a quality test. The ones that pass the quality test are considered reliable. Of X’s shock absorbers, 96% are reliable. Of Y’s shock absorbers, 72% are reliable.   The probability that a randomly chosen shock absorber, which is found to be reliable, is made by Y is</span></p>",
+      "answers": [
+        {
+          "id": 12222,
+          "answer": "<p><span>0.288</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12223,
+          "answer": "<p><span> 0.334 </span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12224,
+          "answer": "<p><span> 0.667</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12225,
+          "answer": "<p><span>0.720</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Probability that the absorber is reliable = 0.96*0.6 + 0.72*0.4 </span><br><span>                                          = 0.576 + 0.288</span><br><br><br><span>Probability that  the absorber is from y and reliable = </span><br><span>            (Probability that is made by Y)  X (Probability that it is reliable)</span><br><span>           = 0.4 * 0.72 </span><br><span>           = 0.288</span><br><br><span>The probability that randomly picked reliable absorber is from y = </span><br><span>    (Probability that  the absorber is from y and reliable) / (&gt;Probability that the absorber is reliable )</span><br><span>   = (0.288)/ (0.576 + 0.288) </span><br><span>   =  0.334 </span><br></pre>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:59:06"
+    },
+    {
+      "id": 2936,
+      "title": "GATE | CS | 2012 | Aptitude | Logical Aptitude | Question 64",
+      "slug": "which-of-the-following-assertions-are-correct-p-adding",
+      "question": "<p dir=\"ltr\"><span>Which of the following assertions are CORRECT? </span></p><p dir=\"ltr\"><span>P: Adding 7 to each entry in a list adds 7 to the mean of the list </span></p><p dir=\"ltr\"><span>Q: Adding 7 to each entry in a list adds 7 to the standard deviation of the list </span></p><p dir=\"ltr\"><span>R: Doubling each entry in a list doubles the mean of the list </span></p><p dir=\"ltr\"><span>S: Doubling each entry in a list leaves the standard deviation of the list unchanged</span></p>",
+      "answers": [
+        {
+          "id": 12226,
+          "answer": "<p dir=\"ltr\"><span> P, Q </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12227,
+          "answer": "<p dir=\"ltr\"><span>Q, R</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12228,
+          "answer": "<p dir=\"ltr\"><span>P, R</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12229,
+          "answer": "<p dir=\"ltr\"><span>R, S</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Mean is average.</strong></b></p><pre><span>Let us consider below example</span><br>[Tex] 2,\\ 4,\\ 4,\\ 4,\\ 5,\\ 5,\\ 7,\\ 9 [/Tex]<br><br><span>These eight data points have the mean (average) of 5:</span><br>[Tex] \\frac{2 + 4 + 4 + 4 + 5 + 5 + 7 + 9}{8} = 5. [/Tex]<br><br><span>When we add 7 to all numbers, mean becomes 12 so P is TRUE.</span><br><br><span>If we double all numbers mean becomes double, so R is also</span><br><span>TRUE.</span><br><br><b><strong>Standard Deviation is square root of variance.</strong></b><br><b><strong>Variance is sum of squares of differences between all numbers</strong></b><br><b><strong>and means.</strong></b><br><br><span>Deviation for above example</span><br><span>First, calculate the deviations of each data point from the mean, </span><br><span>and square the result of each:</span><br><br>[Tex] \\begin{array}{lll} (2-5)^2 = (-3)^2 = 9 &amp;&amp; (5-5)^2 = 0^2 = 0 \\\\ (4-5)^2 = (-1)^2 = 1 &amp;&amp; (5-5)^2 = 0^2 = 0 \\\\ (4-5)^2 = (-1)^2 = 1 &amp;&amp; (7-5)^2 = 2^2 = 4 \\\\ (4-5)^2 = (-1)^2 = 1 &amp;&amp; (9-5)^2 = 4^2 = 16. \\\\ \\end{array} [/Tex]<br><br>[Tex]variance = \\frac{9 + 1 + 1 + 1 + 0 + 0 + 4 + 16}{8} = 4. [/Tex]<br><br>[Tex]standard deviation = \\sqrt{ 4 } = 2 [/Tex]<br><br><span>If we add 7 to all numbers, standard deviation won't change </span><br><span>as 7 is added to mean also. So Q is FALSE.</span><br><br><span>If we double all entries, standard deviation also becomes </span><br><span>double.  So S is false. </span></pre><p dir=\"ltr\"><span>   References: </span></p><a href=\"https://en.wikipedia.org/wiki/Standard_deviation\"><span>https://en.wikipedia.org/wiki/Standard_deviation</span></a><a href=\"http://staff.argyll.epsb.ca/jreed/math30p/statistics/standardDeviation.htm\"><span>http://staff.argyll.epsb.ca/jreed/math30p/statistics/standardDeviation.htm</span></a>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 13:01:56"
+    },
+    {
+      "id": 2937,
+      "title": "GATE | CS | 2012 | Aptitude | Logical Aptitude | Question 65",
+      "slug": "given-the-sequence-of-terms-ad-cg-fk-jp",
+      "question": "<p dir=\"ltr\"><span>Given the sequence of terms, AD CG FK JP, the next term is </span></p>",
+      "answers": [
+        {
+          "id": 62806,
+          "answer": "<p dir=\"ltr\"><span>OV</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 62807,
+          "answer": "<p dir=\"ltr\"><span>OW</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 62808,
+          "answer": "<p dir=\"ltr\"><span>PV</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 62809,
+          "answer": "<p dir=\"ltr\"><span>PW</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>A----2-------D | 1 | C----3-------G | 2 | F----4-------K | 3 | J----5-------P | 4 | O----6-------V   Hence, the next term will be OV .</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 13:00:51"
+    },
+    {
+      "id": 2938,
+      "title": "GATE | CS | 2012 | Computer Networks | Flow Control | Question 42",
+      "slug": "consider-a-source-computers-transmitting-a-file-of-size",
+      "question": "<p dir=\"ltr\"><span>Consider a source computer(S) transmitting a file of size 10</span><sup><span>6</span></sup><span>&nbsp;bits to a destination computer(D)over a network of two routers (R</span><sub><span>1</span></sub><span>&nbsp;and R</span><sub><span>2</span></sub><span>) and three links(L</span><sub><span>1</span></sub><span>, L</span><sub><span>2</span></sub><span>, and L</span><sub><span>3</span></sub><span>). L</span><sub><span>1</span></sub><span>connects S to R</span><sub><span>1</span></sub><span>; L</span><sub><span>2</span></sub><span>&nbsp;connects R</span><sub><span>1</span></sub><span>&nbsp;to R</span><sub><span>2</span></sub><span>; and L</span><sub><span>3</span></sub><span>&nbsp;connects R</span><sub><span>2</span></sub><span>&nbsp;to D.Let each link be of length 100 km. Assume signals travel over each link at a speed of 10</span><sup><span>8</span></sup><span>&nbsp;meters per second.Assume that the link bandwidth on each link is 1Mbps. Let the file be broken down into 1000 packets each of size 1000 bits. Find the total sum of transmission and propagation delays in transmitting the file from S to D?</span></p>",
+      "answers": [
+        {
+          "id": 12234,
+          "answer": "<p dir=\"ltr\"><span>1005 ms</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12235,
+          "answer": "<p dir=\"ltr\"><span>1010 ms</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12236,
+          "answer": "<p dir=\"ltr\"><span>3000 ms</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12237,
+          "answer": "<p dir=\"ltr\"><span>3003 ms</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See&nbsp;</span><a href=\"http://www.geeksforgeeks.org/computer-networks-set-2/\"><span>http://www.geeksforgeeks.org/computer-networks-set-2/</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:41:14"
+    },
+    {
+      "id": 2939,
+      "title": "GATE | CS | 2012 | Databases | Transaction & Concurrency Control | Question 27",
+      "slug": "consider-the-following-transactions-with-data-items-p-and",
+      "question": "<p dir=\"ltr\"><b><strong>Consider the following transactions with data items P and Q initialized to zero:</strong></b></p><pre><span>T1: read (P) ;</span><br><span>    read (Q) ;</span><br><span>    if P = 0 then Q : = Q + 1 ;</span><br><span>    write (Q) ;</span><br><span>T2: read (Q) ;</span><br><span>    read (P) ;</span><br><span>    if Q = 0 then P : = P + 1 ;</span><br><span>    write (P) ;</span><br></pre><p dir=\"ltr\"><b><strong>Any non-serial interleaving of T1 and T2 for concurrent execution leads to</strong></b></p>",
+      "answers": [
+        {
+          "id": 62802,
+          "answer": "<p dir=\"ltr\"><span>A serializable schedule</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 62803,
+          "answer": "<p dir=\"ltr\"><span>A schedule that is not conflict serializable</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 62804,
+          "answer": "<p dir=\"ltr\"><span>A conflict serializable schedule</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 62805,
+          "answer": "<p dir=\"ltr\"><span>A schedule for which a precedence graph cannot be drawn</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Let’s analyse of the conflicts between transactions T1 and T2:</span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span>T1 reads data item P, then T2 reads data item Q. (Conflict on data items P and Q)</span></p><p dir=\"ltr\"><span>T1 reads data item Q, then T2 reads data item P. (Conflict on data items P and Q)</span></p><p dir=\"ltr\"><span>T1 writes to data item Q, then T2 writes to data item P. (Conflict on data items P and Q)</span></p><p dir=\"ltr\"><span>These conflicts indicate that a non-serial interleaving of T1 and T2 does not lead to a conflict serializable schedule. Both transactions access the same data items, leading to conflicts. Therefore, the correct answer is (B) A schedule that is not conflict serializable.</span></p><p dir=\"ltr\"><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:20:19"
+    },
+    {
+      "id": 2940,
+      "title": "GATE | CS | 2012 | Databases | SQL | Question 51",
+      "slug": "table-a-id-name-age-12-arun-60",
+      "question": "<pre><span>Table A</span><br><span>Id   Name    Age</span><br><span>----------------</span><br><span>12   Arun    60</span><br><span>15   Shreya  24</span><br><span>99   Rohit   11</span><br><br><br><span>Table B</span><br><span>Id   Name   Age</span><br><span>----------------</span><br><span>15   Shreya  24</span><br><span>25   Hari    40</span><br><span>98   Rohit   20</span><br><span>99   Rohit   11</span><br><br><br><span>Table C</span><br><span>Id   Phone  Area</span><br><span>-----------------</span><br><span>10   2200   02  </span><br><span>99   2100   01</span></pre><p dir=\"ltr\"><span>  Consider the above tables A, B and C. How many tuples does the result of the following SQL query contains? </span></p><pre><span>SELECT A.id </span><br><span>FROM   A </span><br><span>WHERE  A.age &gt; ALL (SELECT B.age </span><br><span>                    FROM   B </span><br><span>                    WHERE  B. name = \"arun\") </span><br></pre>",
+      "answers": [
+        {
+          "id": 12242,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12243,
+          "answer": "<p><span>3</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12244,
+          "answer": "<p><span>0</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12245,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The meaning of “ALL” is the A.Age should be greater than all the values returned by the subquery. There is no entry with name “arun” in table B. So the subquery will return NULL. If a subquery returns NULL, then the condition becomes true for all rows of A (See this for details). So all rows of table A are selected.</span><br><br><span>Source:&nbsp;</span><a href=\"http://www.geeksforgeeks.org/database-management-system-set-3/\"><span>http://www.geeksforgeeks.org/database-management-system-set-3/</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:52:19"
+    },
+    {
+      "id": 2941,
+      "title": "GATE | CS | 2012 | C Programming | Recursion | Question 49",
+      "slug": "consider-the-following-codecint-a-b-c-0",
+      "question": "<p dir=\"ltr\"><span>Consider the following code:</span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C++</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"cpp\">\n        <code class=\"language-cpp\"><div class=highlight><pre><span></span><span class=kt>int</span><span class=w> </span><span class=n>a</span><span class=p>,</span><span class=w> </span><span class=n>b</span><span class=p>,</span><span class=w> </span><span class=n>c</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n\n<span class=kt>void</span><span class=w> </span><span class=nf>prtFun</span><span class=p>(</span><span class=kt>void</span><span class=p>);</span>\n\n<span class=kt>void</span><span class=w> </span><span class=nf>main</span><span class=p>()</span>\n<span class=p>{</span>\n<span class=w>    </span><span class=k>static</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span>\n<span class=w>    </span><span class=n>prtFun</span><span class=p>();</span>\n<span class=w>    </span><span class=n>a</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span>\n<span class=w>    </span><span class=n>prtFun</span><span class=p>()</span><span class=w> </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;</span><span class=se>\\n</span><span class=s> %d %d &quot;</span><span class=p>,</span><span class=w> </span><span class=n>a</span><span class=p>,</span><span class=w> </span><span class=n>b</span><span class=p>);</span>\n<span class=p>}</span>\n\n<span class=kt>void</span><span class=w> </span><span class=nf>prtFun</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span>\n<span class=p>{</span>\n<span class=w>    </span><span class=k>static</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>2</span><span class=p>;</span>\n<span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>b</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span>\n<span class=w>    </span><span class=n>a</span><span class=w> </span><span class=o>+=</span><span class=w> </span><span class=o>++</span><span class=n>b</span><span class=p>;</span>\n<span class=w>    </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;</span><span class=se>\\n</span><span class=s> %d %d &quot;</span><span class=p>,</span><span class=w> </span><span class=n>a</span><span class=p>,</span><span class=w> </span><span class=n>b</span><span class=p>);</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>What output will be generated by the given code d\\\\segment if:&nbsp;</span><br><span>Line 1 is replaced by “auto int a = 1;”&nbsp;</span><br><span>Line 2 is replaced by “register int a = 2;” (GATE CS 2012)&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 12246,
+          "answer": "<p><span>3 1</span><br><br><span>4 1</span><br><br><span>4 2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12247,
+          "answer": "<p><span>4 2</span><br><br><span>6 1</span><br><br><span>6 1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12248,
+          "answer": "<p><span>4 2</span><br><br><span>6 2</span><br><br><span>2 0</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12249,
+          "answer": "<p><span>4 2</span><br><br><span>4 2</span><br><br><span>2 0</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>If we replace line 1 by “auto int a = 1;” and line 2 by “register int a = 2;”, then ‘a’ becomes non-static in prtFun(). The output of first prtFun() remains same. But, the output of second prtFun() call is changed as a new instance of ‘a’ is created in second call. So “4 2″ is printed again. Finally, the printf() in main will print “2 0″. Making ‘a’ a register variable won’t change anything in output.&nbsp;</span><br><br><span>Please write comments if you find any of the answers/explanations incorrect, or you want to share more information about the topics discussed above.</span><br><span>&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 13:09:20"
+    },
+    {
+      "id": 2912,
+      "title": "GATE | CS | 2012 | Algorithms | Complexity Analysis | Question 39",
+      "slug": "a-list-of-n-strings-each-of-length-n",
+      "question": "<p dir=\"ltr\"><span>A list of n strings, each of length n, is sorted into lexicographic order using the merge-sort algorithm. The worst case running time of this computation is</span></p>",
+      "answers": [
+        {
+          "id": 12130,
+          "answer": "<p dir=\"ltr\"><span>O(n log n)</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12131,
+          "answer": "<p dir=\"ltr\"><span>O(n</span><sup><span>2</span></sup><span> log n)</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12132,
+          "answer": "<p dir=\"ltr\"><span>O(n</span><sup><span>2</span></sup><span> + log n)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12133,
+          "answer": "<p dir=\"ltr\"><span>O(n</span><sup><span>2</span></sup><span>)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><br><br><span>When we are sorting an array of n integers, Recurrence relation for Total number of comparisons involved will be, </span><br><br><span>T(n) = 2T(n/2) + (n)    where (n) is the number of comparisons in order to merge 2 sorted subarrays of size n/2.</span><br><span>        = (nlog2n)    </span><br><br><span>Instead of integers whose comparison take O(1) time, we are given n strings. We can compare 2 strings in O(n) worst case. Therefore, Total number of comparisons now will be (n2log2n)     where each comparison takes O(n) time now.</span><br><br><span>In general, merge sort makes (nlog2n) comparisons, and runs in (nlog2n) time if each comparison can be done in O(1) time.</span><br><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:35:55"
+    },
+    {
+      "id": 2882,
+      "title": "GATE | CS | 2012 | COA | Main Memory | Question 19",
+      "slug": "the-amount-of-rom-needed-to-implement-a-4",
+      "question": "<p dir=\"ltr\"><span>The amount of ROM needed to implement a 4 bit multiplier is </span></p>",
+      "answers": [
+        {
+          "id": 12010,
+          "answer": "<p dir=\"ltr\"><span>64 bits</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12011,
+          "answer": "<p dir=\"ltr\"><span>128 bits</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12012,
+          "answer": "<p dir=\"ltr\"><span>1 Kbits </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12013,
+          "answer": "<p dir=\"ltr\"><span>2 Kbits</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>For a 4 bit multiplier, there are 2</span><sup><span>4</span></sup><span> * 2</span><sup><span>4</span></sup><span> combinations, i.e., 2</span><sup><span>8</span></sup><span> combinations.</span><br><span>Also, Output of a 4 bit multiplier is 8 bits.</span><br><span>Thus, the amount of ROM needed = 2</span><sup><span>8</span></sup><span> * 8 = 2</span><sup><span>11</span></sup><span> = 2048 bits = 2Kbits</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:01:37"
+    },
+    {
+      "id": 2884,
+      "title": "GATE | CS | 2012 | TOC | Closure Property | Question 24",
+      "slug": "which-of-the-following-problems-are-decidable",
+      "question": "<p dir=\"ltr\"><span>Which of the following problems are decidable?</span><br></p><p><span> </span></p><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2013/11/gatecs2012automata2.png\" alt=\"gatecs2012automata2\" width=\"430\" height=\"100\" loading=\"auto\">",
+      "answers": [
+        {
+          "id": 12018,
+          "answer": "<p><span>1, 2, 3, 4 </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12019,
+          "answer": "<p><span>1, 2</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12020,
+          "answer": "<p><span>2, 3, 4</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12021,
+          "answer": "<p><span>3, 4</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See Question 3 of&nbsp;</span><a href=\"http://www.geeksforgeeks.org/automata-theory-set-2/\"><span>http://www.geeksforgeeks.org/automata-theory-set-2/</span></a><br><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 14:45:52"
+    },
+    {
+      "id": 2885,
+      "title": "GATE | CS | 2012 | Digital Logic | Boolean Algebra | Question 6",
+      "slug": "the-truth-table-represents-the-boolean-function",
+      "question": "<p dir=\"ltr\"><span>The truth table</span><br><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2013/11/truthtable-150x150.png\" alt=\"truthtable\" width=\"150\" height=\"150\" loading=\"auto\"><br><br><span>represents the Boolean function</span></p>",
+      "answers": [
+        {
+          "id": 12022,
+          "answer": "<p dir=\"ltr\"><span>X</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12023,
+          "answer": "<p dir=\"ltr\"><span>X+Y</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12024,
+          "answer": "<p dir=\"ltr\"><span>X xor Y</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12025,
+          "answer": "<p dir=\"ltr\"><span>Y</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The value of f(X, Y) is same as X for all input pairs.   Also sum of product form of expression we get,  </span></p><pre><span>= XY’+XY</span><br><span>= X(Y’+Y)</span><br><span>= X *1</span><br><span>= X </span><br></pre><p dir=\"ltr\"><span>  We see from truth table –  </span></p><pre><span>Column x = f(x,y) </span><br><span>So , </span><br><span>f(x,y)=x </span><br><br></pre><p dir=\"ltr\"><span>  Option (A) is correct.  </span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:09:47"
+    },
+    {
+      "id": 2886,
+      "title": "GATE | CS | 2012 | COA | Floating Point | Question 7",
+      "slug": "the-decimal-value-05-in-ieee-single-precision-floating",
+      "question": "<p dir=\"ltr\"><span>The decimal value 0.5 in IEEE single precision floating point representation has</span></p>",
+      "answers": [
+        {
+          "id": 12026,
+          "answer": "<p dir=\"ltr\"><span> fraction bits of 000…000 and exponent value of 0</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12027,
+          "answer": "<p dir=\"ltr\"><span> fraction bits of 000…000 and exponent value of −1</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12028,
+          "answer": "<p dir=\"ltr\"><span>fraction bits of 100…000 and exponent value of 0</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12029,
+          "answer": "<p dir=\"ltr\"><span> no exact representation</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The IEEE 754 standard specifies following distribution of bits:</span><br><span>Sign bit: 1 bit</span><br><span>Exponent width: 8 bits</span><br><span>Significand or Fraction: 24 (23 explicitly stored)</span><br><br><span>0.5 in base 10 means 1 X 2</span><sup><span>-1</span></sup><span> in base 2.</span><br><br><span>So exponent bits have value -1 and all fraction bits are 0.</span><br><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:27:28"
+    },
+    {
+      "id": 2887,
+      "title": "GATE | CS | 2012 | Algorithms | Complexity Analysis | Question 5",
+      "slug": "the-worst-case-running-time-to-search-for-an",
+      "question": "<p dir=\"ltr\"><span>The worst case running time to search for an element in a balanced in a binary search tree with n2^n elements is </span></p><pre><span>(A) </span>[Tex]\\\\Theta(n log n)[/Tex]<br><br><span>(B) </span>[Tex]\\\\Theta (n2^n) [/Tex]<br><br><span>(C) </span>[Tex]\\\\Theta (n) [/Tex]<br><br><span>(D) </span>[Tex]\\\\Theta (log n) [/Tex]<span> </span></pre>",
+      "answers": [
+        {
+          "id": 12030,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12031,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12032,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12033,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><br><br><span>-&gt; The search time in a binary search tree depends on the form of the tree, that is on the order in which its nodes were inserted. A pathological case: The n nodes were inserted by increasing order of the keys, yielding something like a linear list (but with a worse space consumption), with O(n) search time(in the case of skew tree).</span><br><br><span>-&gt; A balanced tree is a tree where every leaf is “not more than a certain distance” away from the root than any other leaf.So in balanced tree, the height of the tree is balanced to make distance between root and leafs nodes a low as possible. In a balanced tree, the height of tree is log</span><sub><span>2</span></sub><span>(n).</span><br><br><span>-&gt; So , if a Balanced Binary Search Tree contains n2n elements then Time complexity to search an item:</span><br><br><span>Time Complexity = log(n2</span><sup><span>n</span></sup><span>) = log (n) + log(2</span><sup><span>n</span></sup><span>)</span><br><span>= log (n) +n = O(n)</span><br><br><span>So Answer is C.</span><br><br><span>See&nbsp;</span><a href=\"http://www.geeksforgeeks.org/data-structures-and-algorithms-set-28/\"><span>http://www.geeksforgeeks.org/data-structures-and-algorithms-set-28/</span></a><br><br><span>This solution is contributed by </span><b><strong>Nirmal Bharadwaj</strong></b></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:06:23"
+    },
+    {
+      "id": 2888,
+      "title": "GATE | CS | 2012 | Aptitude | Logical Aptitude | Question 1",
+      "slug": "consider-the-following-logical-inferences-i1-if-it-rains",
+      "question": "<div>Consider the following logical inferences.</div><div></div><div>I<span>1</span>: If it rains then the cricket match will not be played.</div><div>The cricket match was played.</div><div><b>Inference</b>: There was no rain.</div><div></div><div>I<span>2</span>: If it rains then the cricket match will not be played.</div><div>It did not rain.</div><div><b>Inference</b>: The cricket match was played.</div><div></div><div>Which of the following is&nbsp;<b>TRUE</b>?</div><div></div>",
+      "answers": [
+        {
+          "id": 12034,
+          "answer": "<p dir=\"ltr\"><span>Both I1 and I2 are correct inferences</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12035,
+          "answer": "<p dir=\"ltr\"><span> I1 is correct but I2 is not a correct inference</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12036,
+          "answer": "<p dir=\"ltr\"><span>I1 is not correct but I2 is a correct inference</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12037,
+          "answer": "<p dir=\"ltr\"><span> Both I1 and I2 are not correct inferences</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The cricket match may not be played even if doesn't rain.   </span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 10:53:18"
+    },
+    {
+      "id": 2890,
+      "title": "GATE | CS | 2012 | C Programming | Loops & Conditionals | Question 3",
+      "slug": "what-will-be-the-output-of-the-following-c-3",
+      "question": "<p dir=\"ltr\"><span> What will be the output of the following C program segment?  </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=kt>char</span><span class=w> </span><span class=n>inchar</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=sc>&#39;A&#39;</span><span class=p>;</span>\n<span class=k>switch</span><span class=w> </span><span class=p>(</span><span class=n>inchar</span><span class=p>)</span>\n<span class=p>{</span>\n<span class=k>case</span><span class=w> </span><span class=sc>&#39;A&#39;</span><span class=w> </span><span class=p>:</span>\n<span class=w>    </span><span class=n>printf</span><span class=w> </span><span class=p>(</span><span class=s>&quot;choice A </span><span class=se>\\n</span><span class=s>&quot;</span><span class=p>)</span><span class=w> </span><span class=p>;</span>\n<span class=k>case</span><span class=w> </span><span class=sc>&#39;B&#39;</span><span class=w> </span><span class=p>:</span>\n<span class=w>    </span><span class=n>printf</span><span class=w> </span><span class=p>(</span><span class=s>&quot;choice B &quot;</span><span class=p>)</span><span class=w> </span><span class=p>;</span>\n<span class=k>case</span><span class=w> </span><span class=sc>&#39;C&#39;</span><span class=w> </span><span class=p>:</span>\n<span class=k>case</span><span class=w> </span><span class=sc>&#39;D&#39;</span><span class=w> </span><span class=p>:</span>\n<span class=k>case</span><span class=w> </span><span class=sc>&#39;E&#39;</span><span class=w> </span><span class=p>:</span>\n<span class=k>default</span><span class=o>:</span>\n<span class=w>    </span><span class=n>printf</span><span class=w> </span><span class=p>(</span><span class=s>&quot;No Choice&quot;</span><span class=p>)</span><span class=w> </span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs>",
+      "answers": [
+        {
+          "id": 12042,
+          "answer": "<pre><span>No choice</span><br></pre>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12043,
+          "answer": "<pre><span>Choice A</span><br></pre>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12044,
+          "answer": "<pre><span>Choice A</span><br><span>Choice B No choice</span><br></pre>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12045,
+          "answer": "<p><span> </span></p><pre><span>Program gives no output as it is erroneous</span><br></pre>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>There is no break statement in case ‘A’. If a case is executed and it doesn’t contain break, then all the subsequent cases are executed until a break statement is found. That is why everything inside the switch is printed. Try following program as an exercise. </span></p><pre><span>int main()</span><br><span>{</span><br><span>    char inchar = 'A';</span><br><span>    switch (inchar)</span><br><span>    {</span><br><span>    case 'A' :</span><br><span>        printf (\"choice A \\n\") ;</span><br><span>    case 'B' :</span><br><span>    {</span><br><span>        printf (\"choice B\") ;</span><br><span>        break;</span><br><span>    }</span><br><span>    case 'C' :</span><br><span>    case 'D' :</span><br><span>    case 'E' :</span><br><span>    default:</span><br><span>        printf (\"No Choice\") ;</span><br><span>    }</span><br><span>}</span></pre>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:04:22"
+    },
+    {
+      "id": 2892,
+      "title": "GATE | CS | 2012 | Operating System | System Calls | Question 8",
+      "slug": "a-process-executes-the-code-fork-fork-fork-the",
+      "question": "<p dir=\"ltr\"><span>A process executes the code </span></p><pre><span>fork();</span><br><span>fork();</span><br><span>fork(); </span></pre><p dir=\"ltr\"><span> The total number of child processes created is</span></p>",
+      "answers": [
+        {
+          "id": 12050,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12051,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12052,
+          "answer": "<p><span>7</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12053,
+          "answer": "<p><span>8</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Let us put some label names for the three lines </span></p><pre><span>  fork ();    // Line 1</span><br><span>  fork ();   // Line 2</span><br><span>  fork ();   // Line 3</span><br><br><span>       L1       // There will be 1 child process created by line 1</span><br><span>    /     \\\\</span><br><span>  L2      L2    // There will be 2 child processes created by line 2</span><br><span> /  \\\\    /  \\\\</span><br><span>L3  L3  L3  L3  // There will be 4 child processes created by line 3</span><br></pre><p dir=\"ltr\"><span> We can also use direct formula to get the number of child processes. With n fork statements, there are always 2^n – 1 child processes. </span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:28:26"
+    },
+    {
+      "id": 2893,
+      "title": "GATE | CS | 2012 | Engineering Mathematics | Calculus | Question 9",
+      "slug": "consider-the-function-fx-sinx-in-the-interval",
+      "question": "<p dir=\"ltr\"><span>Consider the function f(x) = sin(x) in the interval [π/4, 7π/4]. The number and location(s) of the local minima of this function are</span></p>",
+      "answers": [
+        {
+          "id": 12054,
+          "answer": "<p dir=\"ltr\"><span>One, at π/2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12055,
+          "answer": "<p dir=\"ltr\"><span>One, at 3π/2</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12056,
+          "answer": "<p dir=\"ltr\"><span>Two, at π/2 and 3π/2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12057,
+          "answer": "<p dir=\"ltr\"><span>Two, at π/4 and 3π/2</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Sine function increases till π/2&nbsp;and so for the considered interval π/4&nbsp;would be a local minimum. From π/2, the value of sine keeps on decreasing till 3π/2&nbsp;and hence 3π/2&nbsp;would be another local minima.</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:29:41"
+    },
+    {
+      "id": 2895,
+      "title": "GATE | CS | 2012 | Discrete Mathematics | Logic | Question 13",
+      "slug": "what-is-the-correct-translation-of-the-following-statement",
+      "question": "<p dir=\"ltr\"><span>What is the correct translation of the following statement into mathematical logic? “Some real numbers are rational”&nbsp;</span></p><figure class=\"image\"><img src=\"https://www.geeksforgeeks.org/wp-content/uploads/gq/2013/11/gatecs2012logic.png\" width=\"inherit\" height=\"inherit\" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure>",
+      "answers": [
+        {
+          "id": 12062,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12063,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12064,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12065,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>(A) \"There exist some numbers which are either real OR rational\"</span><br><br><span>(B) \"All real numbers are rational\"</span><br><br><span>(C) \"There exist some numbers which are both real AND rational\"</span><br><br><span>(D) \"There exist some numbers for which rational implies real\" </span><br><span>(See </span><a href=\"https://www.geeksforgeeks.org/proposition-logic/\"><span>Propositional Logic</span></a><span> for details)</span><br><br><span>Clearly answer C is correct among all</span><br></pre>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:50:02"
+    },
+    {
+      "id": 2896,
+      "title": "GATE | CS | 2012 | Databases | ER Model | Question 14",
+      "slug": "given-the-basic-er-and-relational-models-which-of",
+      "question": "<p dir=\"ltr\"><span>Given the basic ER and relational models, which of the following is INCORRECT? </span></p>",
+      "answers": [
+        {
+          "id": 12066,
+          "answer": "<p dir=\"ltr\"><span>An attribute of an entity can have more than one value</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12067,
+          "answer": "<p dir=\"ltr\"><span> An attribute of an entity can be composite</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12068,
+          "answer": "<p dir=\"ltr\"><span>In a row of a relational table, an attribute can have more than one value</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12069,
+          "answer": "<p dir=\"ltr\"><span> In a row of a relational table, an attribute can have exactly one value or a NULL value</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The term ‘entity’ belongs to ER model and the term ‘relational table’ belongs to relational model.  A and B both are true. ER model supports both multivalued and composite attributes See this for more details.  (C) is false and (D) is true. In Relation model, an entry in relational table can can have exactly one value or a NULL.</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:51:07"
+    },
+    {
+      "id": 2897,
+      "title": "GATE | CS  | 2012 | Algorithms | Miscellaneous | Question 16",
+      "slug": "the-recurrence-relation-capturing-the-optimal-execution-time-of",
+      "question": "<p dir=\"ltr\"><span>The recurrence relation capturing the optimal execution time of the Towers of Hanoi problem with n discs is </span></p>",
+      "answers": [
+        {
+          "id": 12070,
+          "answer": "<p dir=\"ltr\"><span>T(n) = 2T(n − 2) + 2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12071,
+          "answer": "<p dir=\"ltr\"><span> T(n) = 2T(n − 1) + n</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12072,
+          "answer": "<p dir=\"ltr\"><span>T(n) = 2T(n/2) + 1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12073,
+          "answer": "<p dir=\"ltr\"><span>T(n) = 2T(n − 1) + 1</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See question 1 of&nbsp;</span><a href=\"http://www.geeksforgeeks.org/data-structures-and-algorithms-set-29/\"><span>http://www.geeksforgeeks.org/data-structures-and-algorithms-set-29/</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 11:59:20"
+    },
+    {
+      "id": 2898,
+      "title": "GATE | CS | 2012 | Discrete Mathematics | Graph Theory | Question 17",
+      "slug": "let-g-be-a-simple-undirected-planar-graph-on",
+      "question": "<p dir=\"ltr\"><span>Let G be a simple undirected planar graph on 10 vertices with 15 edges. If G is a connected graph,&nbsp;then the number of bounded faces in any embedding of G on the plane is equal to</span></p>",
+      "answers": [
+        {
+          "id": 12074,
+          "answer": "<p><span>6</span><br><span>&nbsp;</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12075,
+          "answer": "<p><span>5</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12076,
+          "answer": "<p><span>4</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12077,
+          "answer": "<p><span>3</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>If the graph is planar, then it must follow below Euler's Formula for planar graphs</span><br><span>&nbsp;</span></p><pre><span>v - e + f = 2</span><br><span>v is number of vertices</span><br><span>e is number of edges</span><br><span>f is number of faces including bounded and unbounded</span><br><span>10 - 15 + f = 2</span><br><span>f = 7</span><br><span>There is always one unbounded face, so the number of bounded faces = &nbsp;6</span><br><span> </span><br></pre>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:00:08"
+    },
+    {
+      "id": 2900,
+      "title": "GATE | CS | 2012 | Discrete Mathematics | Graph Theory | Question 26",
+      "slug": "which-of-the-following-graphs-is-isomorphic-to",
+      "question": "<p dir=\"ltr\"><span>Which of the following graphs is isomorphic to  </span></p><pre><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2013/11/graphThoery2012.png\" alt=\"graphThoery2012\" width=\"595\" height=\"454\" loading=\"auto\"></pre>",
+      "answers": [
+        {
+          "id": 12082,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12083,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12084,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12085,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See</span><a href=\"http://en.wikipedia.org/wiki/Graph_isomorphism\" target=\"_blank\"><span> Graph isomorphism</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:18:54"
+    },
+    {
+      "id": 2913,
+      "title": "GATE | CS | 2012 | Algorithms | Shortest Path Algorithms | Question 40",
+      "slug": "consider-the-directed-graph-shown-in-the-figure-below",
+      "question": "<p dir=\"ltr\"><span>Consider the directed graph shown in the figure below. There are multiple shortest paths between vertices S and T. Which one will be reported by Dijkstra's shortest path algorithm? Assume that, in any iteration, the shortest path to a vertex v is updated only when a strictly shorter path to v is discovered.</span><br><br><img src=\"https://cdncontribute.geeksforgeeks.org/wp-content/uploads/q38gate.png\" alt=\"gat2012\" width=\"inherit\" height=\"inherit\" loading=\"auto\"></p>",
+      "answers": [
+        {
+          "id": 12134,
+          "answer": "<p dir=\"ltr\"><span>SDT</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12135,
+          "answer": "<p dir=\"ltr\"><span>SBDT</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12136,
+          "answer": "<p dir=\"ltr\"><span>SACDT</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12137,
+          "answer": "<p dir=\"ltr\"><span>SACET</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Background Required - &nbsp;Dijkstra's Single Source Shortest Path Algorithm Explanation - Applying &nbsp;Dijkstra's algorithm to compute the shortest distances from S and finally generating the Tree as given below in the diagram.</span></p><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2016/12/pranjal_1.png\" alt=\"pranjal_1\" width=\"633\" height=\"432\" loading=\"auto\"><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2016/12/pranjal_2.png\" alt=\"pranjal_2\" width=\"639\" height=\"277\" loading=\"auto\"><p><span>  &nbsp;  </span></p><p><span>&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:37:22"
+    },
+    {
+      "id": 2911,
+      "title": "GATE | CS | 2012 | Discrete Mathematics | Graph Theory | Question 38",
+      "slug": "let-g-be-a-complete-undirected-graph-on-6",
+      "question": "<p dir=\"ltr\"><span>Let G be a complete undirected graph on 6 vertices. If vertices of G are labeled, then the number of distinct cycles of length 4 in G is equal to</span></p>",
+      "answers": [
+        {
+          "id": 12126,
+          "answer": "<p><span>360</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12127,
+          "answer": "<p><span>45</span><br><span>&nbsp;</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12128,
+          "answer": "<p><span>30</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12129,
+          "answer": "<p><span>15</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>There can be total </span><sup><span>6</span></sup><span>C</span><sub><span>4</span></sub><span> ways to pick 4 vertices from 6. The value of </span><sup><span>6</span></sup><span>C</span><sub><span>4</span></sub><span> is 15.&nbsp;</span><br><br><span>Note that the given graph is complete so any 4 vertices can form a cycle.&nbsp;</span><br><br><span>There can be 6 different cycle with 4 vertices. For example, consider 4 vertices as a, b, c and d. The three distinct cycles are&nbsp;</span><br><br><span>cycles should be like this&nbsp;</span><br><span>(a, b, c, d,a)&nbsp;</span><br><span>(a, b, d, c,a)&nbsp;</span><br><span>(a, c, b, d,a)&nbsp;</span><br><span>(a, c, d, b,a)&nbsp;</span><br><span>(a, d, b, c,a)&nbsp;</span><br><span>(a, d, c, b,a)&nbsp;</span><br><br><span>and&nbsp;</span><br><br><span>(a, b, c, d,a) and (a, d, c, b,a)&nbsp;</span><br><span>(a, b, d, c,a) and (a, c, d, b,a)&nbsp;</span><br><span>(a, c, b, d,a) and (a, d, b, c,a)&nbsp;</span><br><span>are same cycles.&nbsp;</span><br><br><span>So total number of distinct cycles is (15*3) = 45.&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:35:09"
+    },
+    {
+      "id": 2910,
+      "title": "GATE | CS | 2012 | Discrete Mathematics | Functions | Question 37",
+      "slug": "how-many-onto-or-surjective-functions-are-there-from",
+      "question": "<p dir=\"ltr\"><span>How many onto (or surjective) functions are there from an n-element (n &gt;= 2) set to a 2-element set?</span><br><span>&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 12122,
+          "answer": "<p dir=\"ltr\"><span>2(2</span><sup><span>n</span></sup><span> - 2)</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12123,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>n</span></sup><span> - 2</span><br><span>&nbsp;</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12124,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>n</span></sup><span> - 1</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12125,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>n</span></sup><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Total possible number of functions is 2</span><sup><span>n</span></sup><span>.&nbsp;</span><br><br><span>In mathematics, a function f from a set X to a set Y is surjective (or onto), or a surjection, if every element y in Y has a corresponding element x in X such that f(x) = y</span><br><br><span>There are total 2 functions out of 2</span><sup><span>n</span></sup><span> that are NOT onto: one that maps to all 1s and other that maps to all 2s.&nbsp;</span><br><br><span>Therefore total number of onto functions is 2</span><sup><span>n</span></sup><span> - 2.&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:34:28"
+    },
+    {
+      "id": 2909,
+      "title": "GATE | CS | 2012 | COA | Cache Memory | Question 54",
+      "slug": "a-computer-has-a-256-kbyte-4-way-set-associative",
+      "question": "<p dir=\"ltr\"><span>A computer has a 256 KByte, 4-way set associative, write back data cache with block size of 32 Bytes. The processor sends 32 bit addresses to the cache controller. Each cache tag directory entry contains, in addition to address tag, 2 valid bits, 1 modified bit and 1 replacement bit. The number of bits in the tag field of an address is </span></p>",
+      "answers": [
+        {
+          "id": 12118,
+          "answer": "<p><span>11</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12119,
+          "answer": "<p><span>14</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12120,
+          "answer": "<p><span>16</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12121,
+          "answer": "<p><span>27</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>A set-associative scheme is a hybrid between a fully associative cache, and direct mapped cache. It's considered a reasonable compromise between the complex hardware needed for fully associative caches (which requires parallel searches of all slots), and the simplistic direct-mapped scheme, which may cause collisions of addresses to the same slot (similar to collisions in a hash table). (source: </span></p><a href=\"http://www.cs.umd.edu/class/spring2003/cmsc311/Notes/Memory/set.html\" target=\"_blank\"><span>http://www.cs.umd.edu/class/spring2003/cmsc311/Notes/Memory/set.html</span></a><p dir=\"ltr\"><span>). Also see&nbsp;</span></p><a href=\"http://csillustrated.berkeley.edu/PDFs/handouts/cache-3-associativity-handout.pdf\"><span>http://csillustrated.berkeley.edu/PDFs/handouts/cache-3-associativity-handout.pdf</span></a><p dir=\"ltr\"><span>  &nbsp;  Number of blocks = Cache-Size/Block-Size = 256 KB / 32 Bytes = 2</span></p><p><sup><span>13</span></sup></p><p dir=\"ltr\"><span>  Number of Sets = 2</span></p><p><sup><span>13</span></sup></p><p><span> / 4 = 2</span></p><p><sup><span>11</span></sup></p><p dir=\"ltr\"><span>  Tag + Set offset + Byte offset = 32 Tag + 11 + 5 = 32 Tag = 16  </span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:55:18"
+    },
+    {
+      "id": 2908,
+      "title": "GATE | CS | 2012 | Compiler Design | Miscellaneous | Question 36",
+      "slug": "consider-the-program-given-below-in-a-block-structured-pseudo-language",
+      "question": "<p dir=\"ltr\"><span>Consider the program given below, in a block-structured pseudo-language with lexical scoping and nesting of procedures permitted. </span></p><pre><span>Program main;</span><br><span>  Var ...</span><br><span>  </span><br><span>    Procedure A1;</span><br><span>     Var ...</span><br><span>     Call A2;</span><br><span>    End A1</span><br><span>    </span><br><span>    Procedure A2;</span><br><span>      Var ...</span><br><span>  </span><br><span>      Procedure A21;</span><br><span>        Var ...</span><br><span>        Call A1;</span><br><span>        End A21</span><br><span>        </span><br><span>    Call A21;</span><br><span>  End A21</span><br><span>  </span><br><span>    Call A1;</span><br><span>  End main.</span><br></pre><p dir=\"ltr\"><span> Consider the calling chain : Main-&gt;A1-&gt;A2-&gt;A21-&gt;A1 The correct set of activation records along with their access links is given by :  </span></p><img src=\"https://cdncontribute.geeksforgeeks.org/wp-content/uploads/q34gate1.png\" alt=\"gatecs2012activationrecord\" width=\"inherit\" height=\"inherit\" loading=\"auto\"><img src=\"https://cdncontribute.geeksforgeeks.org/wp-content/uploads/q34gate2.png\" alt=\"gatecs2012activationrecord\" width=\"inherit\" height=\"inherit\" loading=\"auto\">",
+      "answers": [
+        {
+          "id": 12114,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12115,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12116,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12117,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Access link is defined as link to activation record of closest lexically enclosing block in program text, so the closest enclosing blocks respectively for A1 ,A2 and A21 are main , main and A2 Since, Activation records are created at procedure entry time and destroyed at procedure exit time.</span><br><br><b><strong>Solution:</strong></b><br><span>Link to activation record of closest lexically enclosing block in program text. It depends on the static program text.</span><br><br><img src=\"https://cdncontribute.geeksforgeeks.org/wp-content/uploads/q34gate3.png\" alt=\"nitika_36\" width=\"inherit\" height=\"inherit\" loading=\"auto\"><br><br><span>Here Calling sequence is given as,</span><br><br><span>Main-&gt;A1-&gt;A2-&gt;A21-&gt;A1</span><br><span>Now A1,A2 are defined under Main...So A1,A2 Access link are pointed to main A21 is defined under A2 hence its Access link will point to A2 .</span><br><br><span>Reference:</span><br><a href=\"http://www.cs.nyu.edu/courses/spring08/G22.2130-001/lectures/lecture-13.html\"><span>http://www.cs.nyu.edu/courses/spring08/G22.2130-001/lectures/lecture-13.html</span></a><br><br><br><br><br><br><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:33:33"
+    },
+    {
+      "id": 2907,
+      "title": "GATE | CS | 2012 | Data Structures | Queue | Question 35",
+      "slug": "suppose-a-circular-queue-of-capacity-n-1",
+      "question": "<p dir=\"ltr\"><span>Suppose a circular queue of capacity (n – 1) elements is implemented with an array of n elements. Assume that the insertion and deletion operation are carried out using REAR and FRONT as array index variables, respectively. Initially, REAR = FRONT = 0. The conditions to detect queue full and queue empty are</span></p>",
+      "answers": [
+        {
+          "id": 12110,
+          "answer": "<p dir=\"ltr\"><span>Full: (REAR+1) mod n == FRONT, empty: REAR == FRONT</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12111,
+          "answer": "<p dir=\"ltr\"><span> Full: (REAR+1) mod n == FRONT, empty: (FRONT+1) mod n == REAR</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12112,
+          "answer": "<p dir=\"ltr\"><span>Full: REAR == FRONT, empty: (REAR+1) mod n == FRONT</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12113,
+          "answer": "<p dir=\"ltr\"><span>Full: (FRONT+1) mod n == REAR, empty: REAR == FRONT</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span> Implementation of Circular Queue :  </span></p><p dir=\"ltr\"><b><strong>Head</strong></b></p><p dir=\"ltr\"><span> - It always points to the location from where next deletion takes place from the queue. </span></p><p dir=\"ltr\"><b><strong>Tail</strong></b></p><p dir=\"ltr\"><span> - It always points to the next empty location in which next insertion will take place in the queue.  We will be using wrap around feature since it is a circular queue which is when the tail or head is at the index n-1, next operation will bring them to index 0. In Spite of having capacity of n inside array, we will reserve one empty spot in order to detect the overflow(Queue Full) and underflow(Queue Empty) conditions. The elements in the queue reside in locations Q.head,   Q.head + 1, . . . , Q.tail + 1, where we “wrap around” in the sense that location 0 immediately follows location n-1 in a circular order.  </span></p><p dir=\"ltr\"><b><strong>Algorithm :</strong></b></p><pre><span>ENQUEUE(Q, x)                        </span><br><span>{</span><br><br><span>  if Q.head == Q.tail + 1</span><br><span>      error \"Queue overflow\"</span><br><br><span>  Q[Q.tail] = x</span><br><br><span>  if Q.tail == Q.length    - 1</span><br><span>      Q.tail = 0</span><br><span>  else</span><br><span>      Q.tail = Q.tail + 1</span><br><span>}</span><br><br><br><span>DEQUEUE(Q)</span><br><span>{</span><br><span>  if Q.head == Q.tail</span><br><span>      error \"Queue underflow\"</span><br><br><span>  x = Q[Q.head]</span><br><br><span>  if Q.head == Q.length - 1</span><br><span>      Q.head = 0</span><br><span>  else</span><br><span>      Q.head = Q.head + 1</span><br><br><span>  return x</span><br><span>}</span><br><br><br></pre><p dir=\"ltr\"><span>See&nbsp;</span><a href=\"http://en.wikipedia.org/wiki/Circular_buffer#Always_Keep_One_Slot_Open\"><span>http://en.wikipedia.org/wiki/Circular_buffer#Always_Keep_One_Slot_Open</span></a></p><p dir=\"ltr\"><span>  This solution is contributed by </span></p><p dir=\"ltr\"><b><strong>Pranjul Ahuja</strong></b></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:32:32"
+    },
+    {
+      "id": 2906,
+      "title": "GATE | CS | 2012 | Computer Networks | CIDR Notations | Question 34",
+      "slug": "an-internet-service-provider-isp-has-the-following-chunk",
+      "question": "<p dir=\"ltr\"><span>An Internet Service Provider (ISP) has the following chunk of CIDR-based IP addresses available with it: 245.248.128.0/20. The ISP wants to give half of this chunk of addresses to Organization A, and a quarter to Organization B, while retaining the remaining with itself. Which of the following is a valid allocation of addresses to A and B?</span></p>",
+      "answers": [
+        {
+          "id": 12106,
+          "answer": "<p dir=\"ltr\"><span>245.248.136.0/21 and 245.248.128.0/22</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12107,
+          "answer": "<p dir=\"ltr\"><span>245.248.128.0/21 and 245.248.128.0/22</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12108,
+          "answer": "<p dir=\"ltr\"><span>245.248.132.0/22 and 245.248.132.0/21</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12109,
+          "answer": "<p dir=\"ltr\"><span>245.248.136.0/24 and 245.248.132.0/21</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Explanation : The correct option is A - 245.248.136.0/21 and 245.248.128.0/22</span><br><span>It has 20 bit mask, so total number of hosts are 2^12 hosts.</span><br><span>It wants half of the chunk to A, therefore mask of A should be 21 bits, so it will contain 2^11 hosts.</span><br><span>∴ Two choices for A</span><br><span>⇒ 245.248.1000 0000.0/21</span><br><span>&nbsp; &nbsp;245.248.1000 1000.0/21</span><br><span>∴ A can be assigned</span><br><span>⇒ 245.248.136.0/21</span><br><span>245.248.128.0/22</span><br><span>Now, one fourth needs to be assigned to B, hence its mask should be of 22 bits. But if we look at other choice, the host in A and B are conflicting, therefore option (A) is correct.</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:29:53"
+    },
+    {
+      "id": 2905,
+      "title": "GATE | CS | 2012 | Engineering Mathematics | Probability & Statistics |  Question 33",
+      "slug": "suppose-a-fair-six-sided-die-is-rolled-once-if",
+      "question": "<p dir=\"ltr\"><span>Suppose a fair six-sided die is rolled once. If the value on the die is 1, 2, or 3, the die is rolled a&nbsp;second time. What is the probability that the sum total of values that turn up is at least 6?</span></p>",
+      "answers": [
+        {
+          "id": 12102,
+          "answer": "<p><span>10/21</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12103,
+          "answer": "<p><span>5/12</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12104,
+          "answer": "<p><span>2/3</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12105,
+          "answer": "<p><span>1/6</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Solution set: { 6, (1,5), (1,6) ......}</span></p><p dir=\"ltr\"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; i.e. P(6 appeared on first throw) +</span></p><p dir=\"ltr\"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;P(1 appeared on first throw and 5 appeared on second throw) +</span></p><p dir=\"ltr\"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; P(1 appeared on first throw and 6 appeared on second throw) + ....................</span></p><p><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1/6 + (1/6)(1/6) + (1/6)(1/6) + .....</span></p><p><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 1/6 + 9/36</span></p><p dir=\"ltr\"><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = 5/12.</span><br><br><b><strong>Viewpoint 2:</strong></b></p><p dir=\"ltr\"><span>P(......) = &nbsp; P(6 came on first throw) + &nbsp;P(sum&gt;= 6 and 1,2,3 appeared in first throw)</span></p><p><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; = &nbsp; &nbsp; &nbsp;1/6 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ????</span></p><p dir=\"ltr\"><span>P(1,2,3 appeared in first throw) = 1/2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //P(E1)</span></p><p dir=\"ltr\"><span>P(sum &gt;= 6 | 1,2,3 appeared in first throw) = 9/18 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //P(E2 | E1)</span></p><p dir=\"ltr\"><span>// Our new sample space is: &nbsp;{ (1,1), (1,2), (1,3), (1,4), (1,5), (1,6)</span></p><p><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(2,1), (2,2), (2,3), (2,4), (2,5), (2,6)</span></p><p><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (3,1), (3,2), (3,3), (3,4), (3,5), (3,6) }</span></p><p dir=\"ltr\"><span>// 9 favorable cases: {(1,5), (1,6), (2,4), (2,5), (2,6), (3,3), (3,4), (3,5), (3,6) }</span></p><p dir=\"ltr\"><span>P(sum&gt;= 6 and 1,2,3 appeared in first throw) = (1/2)(9/18) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;//P(E2 ∩ E1) = P(E1)P(E2|E1)</span></p><p dir=\"ltr\"><span>P(what we are looking for) = 1/6 + 9/36 &nbsp; &nbsp; = 5/12</span></p><p dir=\"ltr\"><span>Correct Answer: B</span><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:28:52"
+    },
+    {
+      "id": 2904,
+      "title": "GATE | CS | 2012 | Operating System | Concurrency & Synchronization | Question 32",
+      "slug": "fetch_and_addxi-is-an-atomic-read-modify-write-instruction-that-reads-the",
+      "question": "<p dir=\"ltr\"><span>Fetch_And_Add(X,i) is an atomic Read-Modify-Write instruction that reads the value of memory location X, increments it by the value i, and returns the old value of X. It is used in the pseudocode shown below to implement a busy-wait lock. L is an unsigned integer shared variable initialized to 0. The value of 0 corresponds to lock being available, while any non-zero value corresponds to the lock being not available.  </span></p><pre><span>  AcquireLock(L){</span><br><span>         while (Fetch_And_Add(L,1))</span><br><span>               L = 1;</span><br><span>   }</span><br><span>  ReleaseLock(L){</span><br><span>         L = 0;</span><br><span>   }</span></pre><p dir=\"ltr\"><span> This implementation</span></p>",
+      "answers": [
+        {
+          "id": 12098,
+          "answer": "<p dir=\"ltr\"><span>fails as L can overflow</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12099,
+          "answer": "<p dir=\"ltr\"><span> fails as L can take on a non-zero value when the lock is actually available</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 12100,
+          "answer": "<p dir=\"ltr\"><span>works correctly but may starve some processes</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12101,
+          "answer": "<p dir=\"ltr\"><span>works correctly without starvation</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Take closer look the below while loop. </span></p><pre><span>     while (Fetch_And_Add(L,1))</span><br><span>               L = 1;  // A waiting process </span><br><span>                       // can be here just after </span><br><span>                       // the lock is released, </span><br><span>                       // and can make L = 1.</span><br><br></pre><p dir=\"ltr\"><span> Consider a situation where a process has just released the lock and made L = 0. Let there be one more process waiting for the lock, means executing the AcquireLock() function. Just after the L was made 0, let the waiting processes executed the line L = 1. Now, the lock is available and L = 1. Since L is 1, the waiting process (and any other future coming processes) can not come out of the while loop.  The above problem can be resolved by changing the AcuireLock() to following. </span></p><pre><span>  AcquireLock(L){</span><br><span>         while (Fetch_And_Add(L,1))</span><br><span>         { // Do Nothing }</span><br><span>   }</span><br><br></pre><p dir=\"ltr\"><span>  Overflow can occur only when larger number of processes than size of ‘int’ execute the check condition of while loop but not L = 1, i.e., preemption required. But when L is 1, the process repeats in the while loop- there is no overflow because after each increment to L, L is again made equal to 1.  Option (b) is best choice over option (a).   </span></p><p dir=\"ltr\"><span>Source : &nbsp;</span><a href=\"http://www.geeksforgeeks.org/operating-systems-set-17/\"><span>http://www.geeksforgeeks.org/operating-systems-set-17/</span></a></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:27:41"
+    },
+    {
+      "id": 2903,
+      "title": "GATE | CS | 2012 | Operating System | CPU Scheduling | Question 31",
+      "slug": "consider-the-3-processes-p1-p2-and-p3-shown",
+      "question": "<p dir=\"ltr\"><span>Consider the 3 processes, P1, P2 and P3 shown in the table. </span></p><pre><span>Process           Arrival time         Time Units Required</span><br><span>   P1                0                         5</span><br><span>   P2                1                         7</span><br><span>   P3                3                         4</span></pre><p dir=\"ltr\"><span> The completion order of the 3 processes under the policies FCFS and RR2 (round robin scheduling with CPU quantum of 2 time units) are</span></p>",
+      "answers": [
+        {
+          "id": 12094,
+          "answer": "<pre><span>FCFS: P1, P2, P3</span><br><span> RR2: P1, P2, P3</span><br></pre>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12095,
+          "answer": "<pre><span> FCFS: P1, P3, P2</span><br><span> RR2: P1, P3, P2</span><br></pre>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12096,
+          "answer": "<pre><span>FCFS: P1, P2, P3</span><br><span> RR2: P1, P3, P2</span><br></pre>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12097,
+          "answer": "<pre><span>FCFS: P1, P3, P2 </span><br><span>RR2: P1, P2, P3</span><br></pre>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>FCFS (First-Come, First-Served)</span></p><ul><li value=\"1\"><span>Timeline: P1 (0–5) → P2 (5–12) → P3 (12–16)</span></li><li value=\"2\"><span>Completion order: P1, P2, P3</span></li></ul><p dir=\"ltr\"><span>RR with quantum = 2 (RR2)</span></p><p dir=\"ltr\"><span>Slices:</span></p><ul><li value=\"1\"><span>P1: 0–2 (rem 3), P2: 2–4 (rem 5), P1: 4–6 (rem 1),</span></li><li value=\"2\"><span>P3: 6–8 (rem 2), P2: 8–10 (rem 3),</span></li><li value=\"3\"><span>P1: 10–11 (finishes), P3: 11–13 (finishes),</span></li><li value=\"4\"><span>P2: 13–15 (rem 1), 15–16 (finishes)</span></li></ul><p dir=\"ltr\"><span>Completion order: P1, P3, P2</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-08-28 - 11:41:29"
+    },
+    {
+      "id": 2902,
+      "title": "GATE | CS | 2012 | Algorithms | Minimum Spanning Trees | Question 29",
+      "slug": "let-g-be-a-weighted-graph-with-edge-weights",
+      "question": "<p dir=\"ltr\"><span>Let G be a weighted graph with edge weights greater than one and G'be the graph constructed by squaring the weights of edges in G. Let T and T' be the minimum spanning trees of G and G', respectively, with total weights t and t'. Which of the following statements is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 12090,
+          "answer": "<p dir=\"ltr\"><span> T' = T with total weight t' = t</span><sup><span>2</span></sup></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12091,
+          "answer": "<p dir=\"ltr\"><span>T' = T with total weight t' &lt; t</span><sup><span>2</span></sup></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12092,
+          "answer": "<p dir=\"ltr\"><span> T' != T but total weight t' = t</span><sup><span>2</span></sup></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12093,
+          "answer": "<p dir=\"ltr\"><span> None of the above</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Squaring the weights of the edges in a weighted graph will not change the minimum spanning tree</strong></b></p><p dir=\"ltr\"><span>. Assume the opposite to obtain a contradiction. If the minimum spanning tree changes then at least one edge from the old graph G in the old minimum spanning tree T must be replaced by a new edge in tree T' from the graph G' with squared edge weights. The new edge from G' must have a lower weight than the edge from G. This implies that there exists some weights C1 and C2 such that C1 &lt; C2 and C12 &gt;= C22. This is a contradiction. Source:&nbsp;</span></p><a href=\"http://www.cs.nyu.edu/courses/spring06/V22.0310-001/hw3.htm\"><span>http://www.cs.nyu.edu/courses/spring06/V22.0310-001/hw3.htm</span></a><p dir=\"ltr\"><span>  Sums of squares of two or more numbers is always smaller than square of sum. Example:  2^2 + 2^2 &lt; (4)^2  But </span></p><pre><span>there is one counter example when the graph has only one edge.  </span><br><span>         In that case, the two values are same. </span></pre>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:21:59"
+    },
+    {
+      "id": 2901,
+      "title": "GATE | CS | 2012 | Discrete Mathematics | Functions | Question 28",
+      "slug": "the-bisection-method-is-applied-to-compute-a-zero",
+      "question": "<p dir=\"ltr\"><span>The bisection method is applied to compute a zero of the function f(x) = x</span><sup><span>4</span></sup><span> – x</span><sup><span>3</span></sup><span> – x</span><sup><span>2</span></sup><span> – 4 in the&nbsp;</span><br><span>interval [1,9]. The method converges to a solution after ––––– iterations</span><br><span>&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 12086,
+          "answer": "<p><span>7</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12087,
+          "answer": "<p><span>5</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12088,
+          "answer": "<p><span>3</span><br><span>&nbsp;</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12089,
+          "answer": "<p><span>1</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In bisection method, we calculate the values at extreme points of given interval, if signs of values are opposite, then we find the middle point. Whatever sign we get at middle point, we take the corner point of opposite sign and repeat the process till we get 0.&nbsp;</span><br><br><span>f(1) &lt; 0 and f(9) &gt; 0&nbsp;</span><br><span>mid = (1 + 9)/2 = 5&nbsp;</span><br><br><span>f(5) &gt; 0, so zero value lies in [1, 5]&nbsp;</span><br><span>mid = (1+5)/2 = 3&nbsp;</span><br><br><span>f(3) &gt; 0, so zero value lies in [1, 3]&nbsp;</span><br><span>mid = (1+3)/2 = 2&nbsp;</span><br><br><span>f(2) = 0</span><br><span>&nbsp;</span></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:21:10"
+    },
+    {
+      "id": 2899,
+      "title": "GATE | CS | 2012 | Algorithms | Complexity Analysis | Question 18",
+      "slug": "let-wn-and-an-denote-respectively-the-worst-case",
+      "question": "<p dir=\"ltr\"><span>Let w(n) and A(n) denote respectively, the worst case and average case running time of an algorithm executed on an input of size n. which of the following is ALWAYS TRUE?</span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span>  (A) </span></p>[Tex]A(n) = \\\\Omega(W(n))[/Tex]<p><span> </span></p><p><br></p><p dir=\"ltr\"><span> (B) </span></p>[Tex]A(n) = \\\\Theta(W(n))[/Tex]<p><span> </span></p><p><br></p><p dir=\"ltr\"><span> (C) </span></p>[Tex]A(n) = O(W(n))[/Tex]<p><span> </span></p><p><br></p><p dir=\"ltr\"><span> (D) </span></p>[Tex]A(n) = o(W(n))[/Tex]<p><span> </span></p><p><br></p><p><br></p>",
+      "answers": [
+        {
+          "id": 12078,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 12079,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12080,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 12081,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The worst case time complexity is always greater than or same as the average case time complexity.</span><br><br><span>The term written in </span><a href=\"http://en.wikipedia.org/wiki/Big_O_notation\" target=\"_blank\"><span>Big O notation</span></a><span> can always asymptotically same or greater than the term on the other side.</span><br></p>",
+      "created_on": "2013-01-05 - 21:44:14",
+      "updated_on": "2025-06-21 - 12:00:57"
+    },
+    {
+      "id": 157664,
+      "title": "GATE | CS | 2012 | Computer Networks | OSI & TCP/IP Protocol Stacks | Question 10",
+      "slug": "gate-cs-2012-computer-networks-osi-tcpip-protocol-stacks-question-10",
+      "question": "<p dir=\"ltr\"><span>The protocol data unit (PDU) for the application layer in the Internet stack is</span></p>",
+      "answers": [
+        {
+          "id": 602698,
+          "answer": "<p dir=\"ltr\"><span>Segment</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602699,
+          "answer": "<p dir=\"ltr\"><span>Datagram</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 602700,
+          "answer": "<p dir=\"ltr\"><span>Message</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 602701,
+          "answer": "<p dir=\"ltr\"><span>Frame</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>At the </span><b><strong>Application Layer</strong></b><span>, the PDU is called a </span><b><strong>Message</strong></b><span> because it represents the data being exchanged between applications without any transport or network headers.</span></p><p dir=\"ltr\"><b><strong>Correct answer: (C) Message</strong></b><span>.</span></p>",
+      "created_on": "2025-06-21 - 11:32:50",
+      "updated_on": "2025-06-21 - 11:32:55"
+    },
+    {
+      "id": 157666,
+      "title": "GATE | CS | 2012 | Engineering Mathematics | Linear Algebra | Question 11",
+      "slug": "gate-cs-2012-engineering-mathematics-linear-algebra-question-11",
+      "question": "<p dir=\"ltr\"><span>Let A be the 2 × 2 matrix with elements a</span><sub><span>11</span></sub><span> = a</span><sub><span>12</span></sub><span> = a</span><sub><span>21 </span></sub><span>= +1 and a</span><sub><span>22</span></sub><span> = −1. Then the eigenvalues of the matrix A</span><sup><span>19</span></sup><span> are</span></p>",
+      "answers": [
+        {
+          "id": 602703,
+          "answer": "<p dir=\"ltr\"><span>1024 and −1024</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602704,
+          "answer": "<p dir=\"ltr\"><span>1024√2 and −1024√2</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 602705,
+          "answer": "<p dir=\"ltr\"><span>4√2 and −4√2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 602706,
+          "answer": "<p dir=\"ltr\"><span>512√2 and −512√2 </span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We are given a 2×2 matrix:</span></p><p dir=\"ltr\"><span>A = </span>[Tex]\\begin{bmatrix} 1 &amp; 1 \\\\ 1 &amp; -1 \\end{bmatrix}[/Tex]</p><p dir=\"ltr\"><span>We are asked to find the </span><b><strong>eigenvalues of</strong></b><span> </span><sup><span>19</span></sup></p><h3 id=\"step-1-find-eigenvalues-of-a\" style=\"text-align:left\"><b><strong>Step 1: Find Eigenvalues of A</strong></b></h3><p dir=\"ltr\"><span>To find the eigenvalues λ, solve:</span></p><p dir=\"ltr\"><span>det⁡(A−λI)=0</span></p><p dir=\"ltr\"><span>=(1−λ)(−1−λ)−1(1)= −(1−λ)(1+λ)−1</span></p><p dir=\"ltr\"><span>= λ</span><sup><span>2</span></sup><span>=2</span></p><p dir=\"ltr\"><span>So the </span><b><strong>eigenvalues of A</strong></b><span> are:</span></p><p dir=\"ltr\"><span>λ</span><sub><span>1</span></sub><span> = </span>[Tex]\\sqrt{2}[/Tex]<span>, λ</span><sub><span>2​</span></sub><span>=</span>[Tex]-\\sqrt{2}[/Tex]</p><h3 id=\"use-power-of-eigenvalues\" style=\"text-align:left\"><b><strong>Use Power of Eigenvalues</strong></b></h3><p dir=\"ltr\"><span>If a matrix is diagonalizable (which A is, since it has distinct eigenvalues), then:</span></p><p dir=\"ltr\"><span>Eigenvalues&nbsp;of&nbsp;A19=(λ1)</span><sup><span>19</span></sup><span>,  (λ2)</span><sup><span>19</span></sup></p><h3 id=\"final-answer\" style=\"text-align:left\"><span>Final Answer:</span></h3><p dir=\"ltr\"><b><strong>(D) 512√2 and −512√2</strong></b></p>",
+      "created_on": "2025-06-21 - 11:42:57",
+      "updated_on": "2025-06-21 - 11:48:48"
+    },
+    {
+      "id": 157667,
+      "title": "GATE | CS | 2012 | TOC | Finite Automata | Question 12",
+      "slug": "gate-cs-2012-toc-finite-automata-question-12",
+      "question": "<p dir=\"ltr\"><span>What is the complement of the language accepted by the NFA shown below? Assume </span>[Tex]\\sum [/Tex]<span> = {a} and </span>[Tex]\\epsilon[/Tex]<span> is the empty string.</span></p>",
+      "answers": [
+        {
+          "id": 602707,
+          "answer": "<p>[Tex]\\phi[/Tex]</p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602708,
+          "answer": "<p><span>{ </span>[Tex]{\\epsilon}[/Tex]<span> } </span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 602709,
+          "answer": "<p dir=\"ltr\"><span>a*</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 602710,
+          "answer": "<p dir=\"ltr\"><span>{a, </span>[Tex]\\epsilon[/Tex]<span>}</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<h3 id=\"1-understanding-the-nfa\" style=\"text-align:left\"><b><strong>1. Understanding the NFA</strong></b></h3><ul><li value=\"1\"><b><strong>States</strong></b><span>: Let’s label them as follows:</span><ul><li value=\"1\"><code><span>q0</span></code><span>: initial state (leftmost)</span></li><li value=\"2\"><code><span>q1</span></code><span>: middle state (double circle, final)</span></li><li value=\"3\"><code><span>q2</span></code><span>: rightmost state</span></li></ul></li><li value=\"2\"><b><strong>Transitions</strong></b><span>:</span><ul><li value=\"1\"><span>From </span><code><span>q0</span></code><span> to </span><code><span>q1</span></code><span> on </span><b><strong>a</strong></b></li><li value=\"2\"><span>From </span><code><span>q1</span></code><span> to </span><code><span>q2</span></code><span> on </span><b><strong>ε</strong></b></li><li value=\"3\"><span>From </span><code><span>q2</span></code><span> to </span><code><span>q0</span></code><span> on </span><b><strong>ε</strong></b></li></ul></li></ul><h3 id=\"2-language-accepted\" style=\"text-align:left\"><b><strong>2. Language Accepted</strong></b></h3><ul><li value=\"1\"><span>Start at </span><code><span>q0</span></code></li><li value=\"2\"><span>Read </span><code><span>a</span></code><span> → go to </span><code><span>q1</span></code><span> (which is a </span><b><strong>final state</strong></b><span>) ⇒ so </span><b><code><strong>a</strong></code></b><b><strong> is accepted</strong></b></li><li value=\"3\"><span>From </span><code><span>q1</span></code><span>, ε → </span><code><span>q2</span></code><span>, ε → </span><code><span>q0</span></code><span> again ⇒ </span><b><strong>can repeat the process</strong></b><span> with another </span><code><span>a</span></code></li><li value=\"4\"><span>So, the automaton accepts:</span><br><b><code><strong>a</strong></code></b><b><strong>, </strong></b><b><code><strong>aa</strong></code></b><b><strong>, </strong></b><b><code><strong>aaa</strong></code></b><b><strong>, ...</strong></b><span> = </span><b><strong>{ aⁿ | n ≥ 1 }</strong></b></li></ul><p dir=\"ltr\"><span>Thus, the accepted language is:</span><br><b><strong>L = a⁺</strong></b></p><h3 id=\"3-complement-of-the-language\" style=\"text-align:left\"><b><strong>3. Complement of the Language</strong></b></h3><p dir=\"ltr\"><span>Given Σ = {a}, the full language over Σ is:</span><br><b><strong>a*</strong></b><span> = {ε, a, aa, aaa, ...}</span></p><p dir=\"ltr\"><span>So, the </span><b><strong>complement of L = a⁺</strong></b><span> is:</span><br><b><strong>a* − a⁺ = {ε}</strong></b></p><h3 id=\"-final-answer-b-\" style=\"text-align:left\"><b><strong>Final Answer: (B) {ε}</strong></b></h3><p dir=\"ltr\"><span>Only the empty string is </span><b><strong>not accepted</strong></b><span> by the original NFA.</span></p>",
+      "created_on": "2025-06-21 - 11:48:41",
+      "updated_on": "2025-06-21 - 11:48:53"
+    },
+    {
+      "id": 157669,
+      "title": "GATE | CS | 2012 | Databases | SQL | Question 15",
+      "slug": "gate-cs-2012-databases-sql-question-15",
+      "question": "<p dir=\"ltr\"><span>Which of the following statements are TRUE about an SQL query? </span></p><p><br></p><p dir=\"ltr\"><span>P : An SQL query can contain a HAVING clause even if it does not have a GROUP BY clause </span></p><p dir=\"ltr\"><span>Q: An SQL query can contain a HAVING clause only if it has a GROUP BY clause </span></p><p dir=\"ltr\"><span>R : All attributes used in the GROUP BY clause must appear in the SELECT clause </span></p><p dir=\"ltr\"><span>S : Not all attributes used in the GROUP BY clause need to appear in the SELECT clause</span></p>",
+      "answers": [
+        {
+          "id": 602712,
+          "answer": "<p dir=\"ltr\"><span>P &amp; R</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602713,
+          "answer": "<p dir=\"ltr\"><span>P &amp; S</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 602714,
+          "answer": "<p dir=\"ltr\"><span>Q &amp; R</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 602715,
+          "answer": "<p dir=\"ltr\"><span>Q &amp; S</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<h4 id=\"p-an-sql-query-can-contain-a-having-clause-even-if-it-does-not-have-a-group-by-clause\" style=\"text-align:left\"><b><strong>P: An SQL query can contain a HAVING clause even if it does not have a GROUP BY clause</strong></b></h4><p dir=\"ltr\"><b><strong>True</strong></b></p><ul><li value=\"1\"><code><span>HAVING</span></code><span> is typically used with </span><code><span>GROUP BY</span></code><span>, but it </span><b><strong>can be used without </strong></b><b><code><strong>GROUP BY</strong></code></b><span>.</span></li><li value=\"2\"><span>In such cases, the entire result set is treated as one group.</span></li></ul><h4 id=\"q-an-sql-query-can-contain-a-having-clause-only-if-it-has-a-group-by-clause\" style=\"text-align:left\"><b><strong>Q: An SQL query can contain a HAVING clause only if it has a GROUP BY clause</strong></b></h4><p dir=\"ltr\"><b><strong>False</strong></b></p><ul><li value=\"1\"><span>This contradicts </span><b><strong>P</strong></b><span> and is incorrect for the reason explained above.</span></li></ul><h4 id=\"r-all-attributes-used-in-the-group-by-clause-must-appear-in-the-select-clause\" style=\"text-align:left\"><b><strong>R: All attributes used in the GROUP BY clause must appear in the SELECT clause</strong></b></h4><p dir=\"ltr\"><b><strong>False</strong></b></p><ul><li value=\"1\"><span>This is </span><b><strong>not required</strong></b><span>.</span></li><li value=\"2\"><span>You can group by columns not included in the </span><code><span>SELECT</span></code><span> clause, though it’s uncommon.</span></li></ul><h4 id=\"s-not-all-attributes-used-in-the-group-by-clause-need-to-appear-in-the-select-clause\" style=\"text-align:left\"><b><strong>S: Not all attributes used in the GROUP BY clause need to appear in the SELECT clause</strong></b></h4><p dir=\"ltr\"><b><strong>True</strong></b></p><ul><li value=\"1\"><span>As explained above, columns in </span><code><span>GROUP BY</span></code><span> don’t need to be in </span><code><span>SELECT</span></code><span>.</span></li></ul><p><br></p><p dir=\"ltr\"><span>Final Answer: </span><b><strong>(B) P and S</strong></b></p>",
+      "created_on": "2025-06-21 - 11:56:26",
+      "updated_on": "2025-06-21 - 11:56:34"
+    },
+    {
+      "id": 157672,
+      "title": "GATE | CS | 2012 | Computer Networks | IP Addressing & IPv4 Header | Question 23",
+      "slug": "gate-cs-2012-computer-networks-ip-addressing-ipv4-header-question-23",
+      "question": "<p dir=\"ltr\"><span>In the IPv4 addressing format, the number of networks allowed under Class C addresses is</span></p>",
+      "answers": [
+        {
+          "id": 602721,
+          "answer": "<p><span>2</span><sup><span>14</span></sup></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602722,
+          "answer": "<p><span>2</span><sup><span>7</span></sup></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 602723,
+          "answer": "<p><span>2</span><sup><span>21</span></sup></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 602724,
+          "answer": "<p><span>2</span><sup><span>24</span></sup></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Class C IP addresses range from </span><b><strong>192.0.0.0 to 223.255.255.255</strong></b><span>. So, the first octet can be from </span><b><strong>192 to 223</strong></b><span>, which is </span><b><strong>32 values</strong></b><span>.</span></p><ul><li value=\"1\"><span>Each of these allows </span><b><strong>256 combinations</strong></b><span> in the next octet, and 256 in the third.</span></li></ul><p dir=\"ltr\"><span>Total Class C networks=32×256×256=221=2,097,152Total Class C networks = 32 × 256 × 256 = 2^{21} = 2,097,152TotalClassCnetworks=32×256×256=221=2,097,152</span></p>",
+      "created_on": "2025-06-21 - 12:11:35",
+      "updated_on": "2025-06-21 - 12:17:27"
+    },
+    {
+      "id": 157675,
+      "title": "GATE | CS | 2012 | TOC | Regular Expressions | Question 25",
+      "slug": "gate-cs-2012-toc-regular-expressions-question-25",
+      "question": "<p dir=\"ltr\"><span>Given the language L = {ab, aa, baa}, which of the following strings are in L *? </span></p><p dir=\"ltr\"><span>1) abaabaaabaa </span></p><p dir=\"ltr\"><span>2) aaaabaaaa </span></p><p dir=\"ltr\"><span>3) baaaaabaaaab </span></p><p dir=\"ltr\"><span>4) baaaaabaa </span></p>",
+      "answers": [
+        {
+          "id": 602727,
+          "answer": "<p dir=\"ltr\"><span>1, 2 and 3</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602728,
+          "answer": "<p dir=\"ltr\"><span>2, 3 and 4 </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 602729,
+          "answer": "<p dir=\"ltr\"><span>1, 2 and 4</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 602730,
+          "answer": "<p dir=\"ltr\"><span>1, 3 and 4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<h3 id=\"language-l-ab-aa-baa\" style=\"text-align:left\"><b><strong>Language L = {ab, aa, baa}</strong></b></h3><p dir=\"ltr\"><span>So </span><b><strong>L*</strong></b><span> includes any </span><b><strong>combination (repetition)</strong></b><span> of these strings.</span></p><p dir=\"ltr\"><span>Now check each option:</span></p><p dir=\"ltr\"><b><strong>abaabaaabaa</strong></b><br><span> → Split: </span><b><strong>ab | aa | baa | ab | aa</strong></b><span> → doesn't match at end.</span><br><span> But if parsed as: </span><b><strong>ab | aa | baa | baa</strong></b><span> </span><br><b><strong>In L*</strong></b></p><p dir=\"ltr\"><b><strong>aaaabaaaa</strong></b><br><span> → Split: </span><b><strong>aa | aa | baa | aa</strong></b><span> </span><br><span> i</span><b><strong>n L*</strong></b></p><p dir=\"ltr\"><b><strong>baaaaabaaaab</strong></b><br><span> → Starts with </span><b><strong>baaa...</strong></b><span> ⇒ No valid prefix from L matches this (e.g., </span><b><strong>baaa</strong></b><span> not in L).</span><br><span> </span><b><strong>Not in L*</strong></b></p><p dir=\"ltr\"><b><strong>baaaaabaa</strong></b><br><span> → Split: </span><b><strong>baa | aa | baa</strong></b><span> </span><br><span> </span><b><strong>In L*</strong></b></p><h3 id=\"-final-answer-c-1-2-and-4\" style=\"text-align:left\"><span>Final Answer: </span><b><strong>(C) 1, 2 and 4</strong></b></h3>",
+      "created_on": "2025-06-21 - 12:17:17",
+      "updated_on": "2025-06-21 - 12:17:23"
+    },
+    {
+      "id": 157679,
+      "title": "GATE | CS | 2012 | Databases | Normal Forms | Question 2",
+      "slug": "gate-cs-2012-databases-normal-forms-question-2",
+      "question": "<p dir=\"ltr\"><span>Which of the following is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 602740,
+          "answer": "<p dir=\"ltr\"><span> Every relation in 3NF is also in BCNF</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602741,
+          "answer": "<p dir=\"ltr\"><span>A relation R is in 3NF if every non-prime attribute of R is fully functionally dependent on every key of R</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 602742,
+          "answer": "<p dir=\"ltr\"><span>Every relation in BCNF is also in 3NF</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 602743,
+          "answer": "<p dir=\"ltr\"><span>No relation can be in both BCNF and 3NF</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><b><strong>(A) False</strong></b><span>:</span><br><span> 3NF allows some functional dependencies where a non-prime attribute depends on a </span><b><strong>part of a candidate key</strong></b><span> via a </span><b><strong>transitive dependency</strong></b><span>, which </span><b><strong>BCNF does not allow</strong></b><span>.</span></li><li value=\"2\"><b><strong>(B) False</strong></b><span>:</span><br><span> This is the condition for </span><b><strong>2NF</strong></b><span>, not 3NF.</span><br><span> 3NF also considers </span><b><strong>transitive dependencies</strong></b><span>.</span></li><li value=\"3\"><b><strong>(C) ✅ True</strong></b><span>:</span><br><b><strong>BCNF is stricter</strong></b><span> than 3NF.</span><br><span> So, if a relation is in </span><b><strong>BCNF</strong></b><span>, it must also satisfy </span><b><strong>3NF</strong></b><span>.</span></li><li value=\"4\"><b><strong>(D) False</strong></b><span>:</span><br><span> A relation </span><b><strong>can</strong></b><span> be in </span><b><strong>both BCNF and 3NF</strong></b><span> — in fact, </span><b><strong>BCNF ⊆ 3NF</strong></b><span>.</span></li></ul><h3 id=\"-final-answer-c\" style=\"text-align:left\"><span>Final Answer: </span><b><strong>(C)</strong></b></h3>",
+      "created_on": "2025-06-21 - 13:04:59",
+      "updated_on": "2025-06-21 - 13:07:27"
+    },
+    {
+      "id": 157681,
+      "title": "GATE | CS | 2012 | Algorithms | Complexity Analysis | Question 4",
+      "slug": "gate-cs-2012-algorithms-complexity-analysis-question-4",
+      "question": "<p dir=\"ltr\"><span>Assuming P ≠ NP, which of the following is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 602748,
+          "answer": "<p dir=\"ltr\"><span>NP-complete = NP</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602749,
+          "answer": "<p dir=\"ltr\"><span>NP-complete ∩ P = </span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 602750,
+          "answer": "<p dir=\"ltr\"><span>NP-hard = NP</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 602751,
+          "answer": "<p dir=\"ltr\"><span>P = NP-complete</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><b><strong>Assuming P ≠ NP</strong></b><span>:</span><ul><li value=\"1\"><b><strong>P</strong></b><span>: Problems solvable in polynomial time.</span></li><li value=\"2\"><b><strong>NP-complete</strong></b><span>: Hardest problems in NP — if any one of them is in P, then </span><b><strong>P = NP</strong></b><span>.</span></li></ul></li></ul><h4 id=\"analyze-the-options\" style=\"text-align:left\"><span>Analyze the options:</span></h4><ul><li value=\"1\"><b><strong>(A) NP-complete = NP</strong></b><br><span>  </span><b><strong>False</strong></b><ul><li value=\"1\"><span>This would imply </span><b><strong>all NP problems are the hardest</strong></b><span> and solvable in polynomial time — contradicts P ≠ NP.</span></li></ul></li><li value=\"2\"><b><strong>(B) NP-complete ∩ P = ∅</strong></b><br><span> </span><b><strong>True</strong></b><span> (assuming P ≠ NP)</span><ul><li value=\"1\"><span>No NP-complete problem can be in P, otherwise P = NP — which contradicts the assumption.</span></li></ul></li></ul><h3 id=\"-final-answer-b-npcomplete-p-\" style=\"text-align:left\"><span>Final Answer: </span><b><strong>(B) NP-complete ∩ P = ∅</strong></b></h3>",
+      "created_on": "2025-06-21 - 13:07:21",
+      "updated_on": "2025-06-21 - 13:07:32"
+    },
+    {
+      "id": 157685,
+      "title": "GATE | CS | 2012 | Digital Logic | Minimization | Question 30",
+      "slug": "gate-cs-2012-digital-logic-minimization-question-30",
+      "question": "<p dir=\"ltr\"><span>What is the minimal form of the Karnaugh map shown below? Assume that X denotes a don’t care term. </span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250621131838769423/K_Map.webp\" alt=\"K_Map\" width=\"272\" height=\"220\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250621131838769423/K_Map.webp 272w,https://media.geeksforgeeks.org/wp-content/uploads/20250621131838769423/K_Map-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250621131838769423/K_Map-200.webp 200w\"><figcaption>K-Map</figcaption></figure><p><br></p>",
+      "answers": [
+        {
+          "id": 602764,
+          "answer": "<p>[Tex]\\bar{b}\\bar{d} [/Tex]</p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 602765,
+          "answer": "<p>[Tex]\\bar{b}\\bar{d} + \\bar{b}\\bar{c} [/Tex]</p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 602766,
+          "answer": "<p>[Tex]\\bar{b}\\bar{d} + a\\bar{b}\\bar{c}d [/Tex]</p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 602767,
+          "answer": "<p>[Tex]\\bar{b}\\bar{d} + \\bar{b}\\bar{c} +\\bar{c}\\bar{d}[/Tex]</p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><span>From the K-map, group the 1s and use don’t-cares (X) to form larger groups.</span></li><li value=\"2\"><span>Group 1: All cells where </span><b><strong>b = 0 and d = 0</strong></b><span> → gives </span><b><strong>b'd'</strong></b></li><li value=\"3\"><span>Group 2: Cells where </span><b><strong>b = 1 and c = 1</strong></b><span> → gives </span><b><strong>bc</strong></b></li><li value=\"4\"><span>These two groups cover all 1s in the map.</span></li></ul><p dir=\"ltr\"><b><strong>Minimal expression: b'd' + b'c' hence, Answer is  (b)</strong></b></p>",
+      "created_on": "2025-06-21 - 13:20:57",
+      "updated_on": "2025-06-21 - 14:45:17"
+    }
+  ],
+  "quiz": {
+    "id": 98,
+    "question_count": 65,
+    "bottom_description": "",
+    "title": "GATE CS 2012",
+    "slug": "gate-2012-gq",
+    "category": [
+      {
+        "id": 4355,
+        "name": "GATE",
+        "slug": "gate",
+        "origin_term_id": 2209,
+        "origin_slug": "computer-subject/computer-science-quizzes-gq/gate"
+      }
+    ],
+    "show_answer": 3,
+    "created_on": "2013-01-05 - 21:44:14",
+    "updated_on": "2024-03-18 - 13:00:30"
+  }
+}

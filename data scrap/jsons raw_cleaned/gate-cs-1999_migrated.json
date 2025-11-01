@@ -1,0 +1,2141 @@
+{
+  "count": 70,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 2713,
+      "question": "<p dir=\"ltr\"><span>Given the programming constructs </span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">i)</em></i><span> assignment&nbsp;</span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\"> ii)</em></i><span> for loops where the loop parameter cannot be changed within the loop&nbsp; </span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">iii)</em></i><span> if-then-else&nbsp;</span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\"> iv)</em></i><span> forward&nbsp; go to </span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">v)</em></i><span> arbitrary go to&nbsp; </span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">vi)</em></i><span> non-recursive procedure call </span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">vii)</em></i><span> recursive procedure/function call&nbsp; </span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">viii)</em></i><span> repeat loop,</span></p><p dir=\"ltr\"><span>which constructs will you not include in a programming language such that it should be possible to program the terminates (i.e. halting) function in the same programming language.</span></p>",
+      "answers": [
+        {
+          "id": 83705,
+          "answer": "<p dir=\"ltr\"><span>ii), iii), iv)</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 83706,
+          "answer": "<p dir=\"ltr\"><span>v), vii), viii)</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 83707,
+          "answer": "<p dir=\"ltr\"><span>vi), vii), viii)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 83708,
+          "answer": "<p dir=\"ltr\"><span>iii), v), viii)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2013-01-04 - 21:50:50",
+      "updated_on": "2025-02-24 - 16:35:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 2982,
+      "question": "Which of the following actions is/are typically not performed by the operating system when switching context from process A to process B?\r\n",
+      "answers": [
+        {
+          "id": 12410,
+          "answer": "Saving current register values and restoring saved register values for process B.",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12411,
+          "answer": "Changing address translation tables.",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12412,
+          "answer": "Swapping out the memory image of process A to the disk.",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 12413,
+          "answer": "Invalidating the translation look-aside buffer.\r",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "During context switch processes are not swapped out from memory to disk but processes are generally swapped out from memory to disk when they are suspended. Also, during context switch OS invalidates TLB so that the TLB coincides with the currently executing processes.\r\n\r\nSo, option (C) is false.",
+      "created_on": "2013-01-05 - 21:46:14",
+      "updated_on": "2025-01-13 - 16:48:02",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3311,
+      "question": "Consider the following C function definition.\r\n\r\n\r\n<pre>\r\nint Trial (int a, int b, int c)\r\n{\r\n    if ((a >= b) && (c < b) return b;\r\n    else if (a>=b) return Trial(a, c, b);\r\n    else return Trial(b, a, c);\r\n}\r\n</pre>\r\n\r\nThe function Trial:",
+      "answers": [
+        {
+          "id": 13724,
+          "answer": "finds the maximum of a, b and c",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 13725,
+          "answer": "finds the minimum of a, b and c",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 13726,
+          "answer": "finds the middle number of a, b and c",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 13727,
+          "answer": "None of the above",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Trial (a,b,c) return the median element of the a, b and c,but not middle element of a , b and c. But if a = b = c, then infinite loop.\r\nSo, Option (D) is correct.",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:05",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3310,
+      "question": "If T1 = O(1), give the correct matching for the following pairs:\r\n\r\n<pre>(M) Tn=Tn−1+n           (U) Tn=O(n)\r\n(N) Tn=Tn/2 +n          (V) Tn=O(nlogn)\r\n(O) Tn=Tn/2 +nlogn      (W) T=O(n^2)\r\n(P) Tn=Tn−1 +logn       (X) Tn=O(log^2n) </pre>\r\n",
+      "answers": [
+        {
+          "id": 13720,
+          "answer": "M-W N-V O-U P-X",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 13721,
+          "answer": "M-W N-U O-X P-V",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 13722,
+          "answer": "M-V N-W O-X P-U",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 13723,
+          "answer": "M-W N-U O-V P-X",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<pre>(M) T(n) = T(n-1) + n = 1 + 2 + 3 + … + n = O(n^2) — choice is (W)\r\n\r\n(N) T(n) = T(n/2) + n = O(n), using master theorem case -3, - choice is (U)\r\n\r\n(O) T(n) = T(n/2) + nlogn = O(nlogn), using master theorem case -3, - choice is (v)\r\n\r\n(P) T(n) = T(n-1) + logn = log 1 + log 2 + log 3 + … + log n \r\n         = log(1*2*3…*n) = log(n!) = nlogn = O(nlogn) - choice is (v) \n</pre>\r\rTherefore, none option matches.\r",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:05",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 3309,
+      "question": "The minimum number of record movements required to merge five files A (with 10 records), B (with 20 records), C (with 15 records), D (with 5 records) and E (with 25 records) is:",
+      "answers": [
+        {
+          "id": 13716,
+          "answer": "165",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 13717,
+          "answer": "90",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 13718,
+          "answer": "75",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 13719,
+          "answer": "65",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Using optimal merge pattern algorithm arrange files in increasing order of records:\r\n\r\n<pre>D  A   C   B   E\r\n\r\n5  10  15  20  25 </pre>\n<img alt=\"\" class=\"aligncenter size-full wp-image-224242\" height=\"341\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_3309/593df0fee77cb823-vd6U8SHNkwQltmdd51e2grB1nmanXZ.png\" width=\"337\"/>\r\n\r\nNow, minimum number of record movements required = sum of internal node's value = 15 + 30 + 45 + 75 = 165\r\n\r\nSo, option (A) is correct.\r\n",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:05",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3363,
+      "question": "<p>A sorting technique is called stable if:</p>",
+      "answers": [
+        {
+          "id": 13924,
+          "answer": "<p>It takes O(n*log(n)) time</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 13925,
+          "answer": "<p>It maintains the relative order of occurrence of non-distinct elements</p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 13926,
+          "answer": "<p>It uses divide and conquer paradigm</p>",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 13927,
+          "answer": "<p>It takes O(n) space</p>",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>The correct option is B it maintains the relative order of occurrence of non-distinct elements<br>A sorting algorithm is called stable if it keeps elements with equal keys in the same relative order in the output as they were in the input.</p>",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:06",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3304,
+      "question": "Suppose we want to arrange the ii numbers stored in an array such that all negative values occur before all positive ones. Minimum number of exchanges required in the worst case is:",
+      "answers": [
+        {
+          "id": 13696,
+          "answer": "n-1",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 13697,
+          "answer": "n",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 13698,
+          "answer": "n+1",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 13699,
+          "answer": "None of the above",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "When we have 'i' numbers stored in an array, we have to swap all positive numbers with negative and in worst case positive numbers will be i/2. ",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:05",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3364,
+      "question": "<p>If one uses a straight two-way merge sort algorithm to sort the following elements in ascending order 20, 47, 15, 8, 9, 4, 40, 30, 12, 17 then the order of these elements after the second pass of the algorithm is:</p>",
+      "answers": [
+        {
+          "id": 13928,
+          "answer": "<p>8, 9, 15, 20, 47, 4, 12, 17, 30, 40</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 13929,
+          "answer": "<p>8, 15, 20, 47, 4, 9, 30, 40, 12, 17</p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 13930,
+          "answer": "<p>15, 20, 47, 4, 8, 9, 12, 30, 40, 17</p>",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 13931,
+          "answer": "<p>4, 8, 9, 15, 20, 47, 12, 17, 30, 40</p>",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>In first pass the elements are sorted in n/4 (first 2 elements in each group) sub arrays but in second pass the elements are sorted in n/2 (first 4 elements in each group) sub arrays.</p>",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:06",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3776,
+      "question": "Listed below are some operating system abstractions (in the left column) and the hardware components or mechanism (in the right column) that they are abstractions of. Which of the following matching of pairs is correct?\r\n<pre>A. Thread                      1. Interrupt\r\nB. Virtual address space       2. Memory\r\nC. File system                 3. CPU\r\nD. Signal                      4. Disk</pre>",
+      "answers": [
+        {
+          "id": 15544,
+          "answer": "A-2, B-4, C-3, D-1",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 15545,
+          "answer": "A-1, B-2, C-3, D-4",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15546,
+          "answer": "A-3, B-2, C-4, D-1",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 15547,
+          "answer": "A-4, B-1, C-2, D-3",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<ol>\r\n<li>Thread is handled by CPU.\r\n</li>\r\n<li>Virtual address space (it is a set of virtual memory addresses that a process can use) is associated with memory management.\r\n</li>\r\n<li>File System is used for disk management.\r\n</li>\r\n<li>Interrupt is a type of signal.\r\n</li>\r\n</ol>",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-01-13 - 16:48:10",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3784,
+      "question": "Which of the following is/are advantages of virtual memory?\r\n\r\na) Faster access to memory on an average.\r\n\r\nb) Processes can be given protected address spaces.\r\n\r\nc) Linker can assign addresses independent of where the program will be loaded in physical memory.\r\n\r\nd) Programs larger than the physical memory size can be run.",
+      "answers": [
+        {
+          "id": 15576,
+          "answer": "a and b",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 15577,
+          "answer": "b and c",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15578,
+          "answer": "b and d",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 15579,
+          "answer": "All of the above",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Virtual memory provides an interface through which processes access the physical memory. So,\r\n<strong>A.</strong>  Swapping of pages increases time while virtual memory concept is there and it slower the execution as compared to Direct access from physical memory. So, it is false.\r\n<strong>B.</strong>  Without virtual memory, it is difficult to give protected address space to processes as they will be accessing physical memory directly. So, it is true\r\n<strong>C.</strong> Some other method can be used to assign addresses independent of where the program. so it is false. \r\n<strong>D.</strong> Virtual memory allows a process to run using a virtual address space which is larger in size then the address of physical memory and pages are swapped in between physical memory and virtual memory when physical memory gets full. So, it is True.\r\n\r\nSo, statement (b) and (d) are Correct.\r\n</p>",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-01-13 - 16:48:10",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 3783,
+      "question": "A multi-user, multi-processing operating system cannot be implemented on hardware that does not support:\r\n\r\na) Address translation\r\n\r\nb) DMA for disk transfer\r\n\r\nc) At least two modes of CPU execution (privileged and non-privileged).\r\n\r\nd) Demand Paging",
+      "answers": [
+        {
+          "id": 15572,
+          "answer": "Only A",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 15573,
+          "answer": "Both A, B",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15574,
+          "answer": "A, B and C",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 15575,
+          "answer": "A, B and D",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "The correct answer would be (a) and (c) as address translation is required in the multi-programming so that no process can go into any other process’s memory. And atleast 2 modes should be present in the CPU execution so that the privileged mode could control the resource allocation of the unprivileged mode users. The DMA and Demand Paging improves the performance of the OS. Hence they are not necessary conditions in a multi-programming. But since (a) and (c) is not answers mentions in the options so the next best option will be (C) containing both (a) and (c) along with (b).\r\nSo, option (C) is correct.",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-01-13 - 16:48:10",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4031,
+      "question": "Consider the following program in a language that has dynamic seeping.\r\n<pre class=\"prettyprint lang-c_cpp prettyprinted\"><span class=\"kwd\">var</span><span class=\"pln\"> x</span><span class=\"pun\">:</span><span class=\"pln\"> real</span><span class=\"pun\">;</span><span class=\"pln\">\r\nprocedure show</span><span class=\"pun\">:</span>\r\n    <span class=\"kwd\">begin</span> <span class=\"kwd\">print</span><span class=\"pun\">(</span><span class=\"pln\">x</span><span class=\"pun\">);</span><span class=\"kwd\">end</span><span class=\"pun\">;</span><span class=\"pln\">\r\nprocedure small</span><span class=\"pun\">;</span>\r\n    <span class=\"kwd\">var</span><span class=\"pln\"> x</span><span class=\"pun\">:</span><span class=\"pln\"> real</span><span class=\"pun\">;</span>\r\n        <span class=\"kwd\">begin</span><span class=\"pln\"> x</span><span class=\"pun\">:</span> <span class=\"pun\">=</span> <span class=\"lit\">0.125</span><span class=\"pun\">;</span><span class=\"pln\"> show</span><span class=\"pun\">;</span> <span class=\"kwd\">end</span><span class=\"pun\">;</span>\r\n<span class=\"kwd\">begin</span><span class=\"pln\"> x</span><span class=\"pun\">:=</span><span class=\"lit\">0.25</span><span class=\"pln\">\r\n    show</span><span class=\"pun\">;</span><span class=\"pln\"> small\r\n    </span><span class=\"kwd\">end</span><span class=\"pun\">.</span></pre>\r\nThen the output of the program is:",
+      "answers": [
+        {
+          "id": 16555,
+          "answer": "0.125 0.125",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 16556,
+          "answer": "0.25 0.25",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 16557,
+          "answer": "0.25 0.125",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 16558,
+          "answer": "0.125 0.25",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-02-09 - 15:23:43",
+      "updated_on": "2025-01-13 - 16:48:13",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4089,
+      "question": "<pre>System calls are usually invoked by using:\n</pre>",
+      "answers": [
+        {
+          "id": 16771,
+          "answer": "A software interrupt ",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 16772,
+          "answer": "Polling",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 16773,
+          "answer": "An indirect jump",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 16774,
+          "answer": "A privileged instruction",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-02-11 - 22:05:08",
+      "updated_on": "2025-01-13 - 16:48:14",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4170,
+      "question": "<pre>RAID configurations of disks are used to provide\n</pre>",
+      "answers": [
+        {
+          "id": 17075,
+          "answer": "Fault-tolerance ",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 17076,
+          "answer": "High speed",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 17077,
+          "answer": "High data density",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 17078,
+          "answer": "None of the above",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-02-13 - 20:44:01",
+      "updated_on": "2025-01-13 - 16:48:14",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4169,
+      "question": "The number of tokens in the Fortran statement DO 10  I= 1.25 is",
+      "answers": [
+        {
+          "id": 17071,
+          "answer": "3",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 17072,
+          "answer": "4",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 17073,
+          "answer": "5",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 17074,
+          "answer": "None of above",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-02-13 - 20:44:01",
+      "updated_on": "2025-01-13 - 16:48:14",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5005,
+      "question": "<p>The relational algebra expression equivalent to the following tuple calculus expression\r\n<h3>{ t | t ∈ r ∧ (t[A] = 10 ∧ t[B] = 20 }</h3>\r\nis\r\n\r\n<img alt=\"q5\" class=\"alignnone size-full wp-image-160413\" height=\"107\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_5005/9b9204e5be009446-3R279LVP0dtRHSicINOvcd3afoYwo6.png\" width=\"208\"/></p>",
+      "answers": [
+        {
+          "id": 20319,
+          "answer": "a",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20320,
+          "answer": "b",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20321,
+          "answer": "c",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 20322,
+          "answer": "d",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>In Given relational algebra, Tuple t should have two attributes A=10 and B=20\r\nIn A, we select tuples having A=10 or B=20 so, it is wrong choice.\r\nIn B, we select tuples having A=10 or we can select tuples having B=20, so it is also wrong choice.\r\nD is also wrong choice.\r\nIn C, we select tuples having A=10 and tuples having B=20, it is same as above relational algebra. Hence, <strong>option (C) </strong>is Correct.\r\n</p>",
+      "created_on": "2014-01-20 - 12:34:32",
+      "updated_on": "2025-01-13 - 16:48:23",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5004,
+      "question": "<p>Consider the join of a relation R with a relation S. If K has <em>m tuples</em> and S has<em> n tuples</em>, then the maximum and minimum sizes of the join respectively are:</p>",
+      "answers": [
+        {
+          "id": 20315,
+          "answer": "m+n and 0",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20316,
+          "answer": "mn and 0",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 20317,
+          "answer": "m+n and m-n",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 20318,
+          "answer": "mn and m+n",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "When there is no foreign key constraint between two tables then the max and min number of tuples in their join is mn and 0 respectively.\r\n",
+      "created_on": "2014-01-20 - 12:34:32",
+      "updated_on": "2025-01-13 - 16:48:23",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5092,
+      "question": "<p>Let <strong>R = </strong>( A, B, C, D, E, F ) be a relation scheme with the following dependencies:\r\n\r\nC→F, E→A, EC→D, A→B. Which of the following is a key of R?</p>",
+      "answers": [
+        {
+          "id": 20665,
+          "answer": "CD",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20666,
+          "answer": "EC",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 20667,
+          "answer": "AE",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 20668,
+          "answer": "AC",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "To check find the closure for all\r\n{CD} = {CDF}\r\n{EC} = {ECDAFB}   Only this is the key because it drives all attributes.\r\n{AE} = {AEB}\r\n{AC} = {ACBF}\r\n\r\nHence, Option (B) is Correct.",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-01-13 - 16:48:24",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5093,
+      "question": "Consider the schema R= ( S, T, U, V ) and the dependencies S→T, T→U, U→V and V→S. Let R (R1 and R2) be a decomposition such that R1∩R2 ≠ Ø. The decomposition is:",
+      "answers": [
+        {
+          "id": 20669,
+          "answer": "Not in 2NF",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20670,
+          "answer": "In 2NF but not in 3NF",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20671,
+          "answer": "In 3NF but not in 2NF",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 20672,
+          "answer": "In both 2NF and 3NF",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>R1∩R2 ≠ Ø means there is common attribute in R1 and R2.\r\n\r\nNow if we choose a decomposition positively then we can choose something like R1(S, T, U) and R2(U, V) then we can say that decomposition is <a href=\"https://www.geeksforgeeks.org/lossless-decomposition-in-dbms/\" rel=\"noopener\" target=\"_blank\">lossless</a> because common attribute is U and LHS of every FDs are candidate key, therefore it is in 2NF as well as 3NF.\r\n\r\nOption (D) is correct.</p>",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-01-13 - 16:48:24",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5161,
+      "question": "Which of the following is/are correct?",
+      "answers": [
+        {
+          "id": 20937,
+          "answer": "An SQL query automatically eliminates the duplicates",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20938,
+          "answer": "An SQL query will not work if there are no indexes on the relations",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20939,
+          "answer": "SQL permits attribute names to be repeated in the same relation",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 20940,
+          "answer": "None of the above",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "An SQL does not remove duplicates like relational algebra projection, we have to remove it using distinct.\r\nAn SQL will work slowly but surely if there are no indexes.\r\nAn SQL does not permit 2 attributes of same name in a relation.\r\n\r\nSo, none of the options (a), (b) and (c) are correct. Hence, option (d) is Answer.\r\n",
+      "created_on": "2014-01-20 - 12:35:54",
+      "updated_on": "2025-01-13 - 16:48:25",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5219,
+      "question": "For the schedule given below, which of the following is Correct?\r\n<pre>1   Read A\r\n2                               Read B\r\n3   Write A\r\n4                               Read A\r\n5                               Write A\r\n6                               Write B\r\n7   Read B\r\n8   Write B \r\n</pre>",
+      "answers": [
+        {
+          "id": 21159,
+          "answer": "This schedule is serialisable and can occur in a scheme using 2PL protocol.",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21160,
+          "answer": "This schedule is serialisable  but cannot occur in a scheme using 2PL protocol.",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21161,
+          "answer": "This schedule is not serialisable but can occur in a scheme using 2PL protocol.",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 21162,
+          "answer": "This schedule is not serialisable and cannot occur in a scheme using 2PL protocol.",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Initial read  of data item A  is done by T1  whereas final write of data item B os done by T1. therefore W1( A) , R2( A) and W2(B) , R1(B ) are conflicting pairs. The schedule is neither T1 –> T2   nor  T2 –> T1 serializable. Since schedule is not serializable , it can not occur in scheme using 2PL protocol . \r\n\r\nOption (D) is correct.",
+      "created_on": "2014-01-20 - 12:36:43",
+      "updated_on": "2025-01-13 - 16:48:25",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5321,
+      "question": "<p>Consider two events E1 and E2 such that probability of E1,<strong> Pr[E1]=1/2</strong>, probability of E2,<strong> Pr[E2]=1/3</strong>, and probability of E1 and E2, <strong>Pr[E1 and E2]=1/5</strong>, Which of the following statement is/are True?</p>",
+      "answers": [
+        {
+          "id": 21561,
+          "answer": "Pr[E1 and E2] is 2/3",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21562,
+          "answer": "Events E1 and E2 are independent.",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21563,
+          "answer": "Events E1 and E2 are not independent.",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 21564,
+          "answer": "Pr[E1/E2]= 4/5",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Given-\r[Tex]P(E1) = \\\\frac{1}{2}[/Tex]\r\n[Tex]P(E2) = \\\\frac{1}{3}[/Tex]\r\n[Tex]P(E1 \\\\cap E2) = \\\\frac{1}{5}[/Tex]\r\nTherefore, [Tex]P(E1 \\\\cup E2) = \\\\frac{1}{2} + \\\\frac{1}{3} - \\\\frac{1}{5} = \\\\frac{19}{30}[/Tex]\r\n[Tex]P(E1|E2) = \\\\frac{1/5}{1/3} = \\\\frac{3}{5}[/Tex]\r\nA option is wrong, since it is given in the question.\r\nB option is wrong since [Tex]P(E1|E2)[/Tex] is not equal to [Tex]P(E1 \\\\cap E2)[/Tex]\r\nD option is wrong since [Tex]P(E1|E2) = \\\\frac{3}{5}[/Tex]\r\nTherefore <strong>C</strong> option is correct.\n</p>",
+      "created_on": "2014-01-21 - 03:43:36",
+      "updated_on": "2025-01-13 - 16:48:26",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5315,
+      "question": "Suppose that the expectation of a random variable X is 5. Which of the following statement is True?\r\n\r\n ",
+      "answers": [
+        {
+          "id": 21537,
+          "answer": "There is a simple point at which X has  the value 5.",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21538,
+          "answer": "There is a simple point at which X has value greater than 5.",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21539,
+          "answer": "There is a simple point at which X has a value greater than or equal to 5.",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 21540,
+          "answer": "None of the above.",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "[Tex]E(X)=\\\\int \\\\limits_{-\\\\infty}^{\\\\infty} xf(x)\\\\:dx[/Tex]\r\nThe first option is wrong since the Expected value need not be present in the data.\r\nThe second option is wrong since in the event where every value in the data is the same, the expected value is the same as every value. So, In this case, there is no value which is greater than the expected value.\r\nThe third option is correct, Since there must be some value which is either equal to or greater than the expected value. This is because it is impossible to have all the values less than the expected value as it is analogous to the mean. And the mean value is never greater than all the values of the data.\n",
+      "created_on": "2014-01-21 - 03:43:36",
+      "updated_on": "2025-01-13 - 16:48:26",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5421,
+      "question": "<p>Let L be a set with relation R which is transitive, anti-symmetric and reflexive and for any two elements <em>a,b ∈ L</em> let the least upper bound <em>lub(a,b)</em> and greatest lower bound <em>glb(a,b)</em> exist. Which of the following is/are true?\r\n\r\na.  L is a poset.\r\n\r\nb.  L is a boolean algebra.\r\n\r\nc.  L is a lattice.\r\n\r\nd.  None of the above.</p>",
+      "answers": [
+        {
+          "id": 21955,
+          "answer": "a, b",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21956,
+          "answer": "a, c",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 21957,
+          "answer": "only c",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 21958,
+          "answer": "only b",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "A is true since By definition, a Relation is said to be a POSET if it is reflexive, transitive and anti-symmetric.\r\nC is true since by definition, a POSET is a lattice if every pair of elements has a greatest lower bound and a least upper bound.",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-01-13 - 16:48:27",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5412,
+      "question": "<p dir=\"ltr\"><span>The number of binary relations on a set with n elements is:</span></p>",
+      "answers": [
+        {
+          "id": 21923,
+          "answer": "<p dir=\"ltr\"><span>n²</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 21924,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>n</span></sup></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21925,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>n^2</span></sup></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 21926,
+          "answer": "<p dir=\"ltr\"><span>None of the above</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-04-19 - 15:03:43",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5422,
+      "question": "[5 Marks question]\r\n<ol>\r\n \t<li>Mr. X claims the following:\r\nIf a relation R is both symmetric and transitive, then R is reflexive. For this, Mr. X offers the following proof-\r\n\"From xRy, using symmetry we get yRy. Now because R is transitive, xRy and yRy together imply xRx. Therefore, R is reflexive.\"\r\nBriefly point out the flaw in Mr. X's proof.</li>\r\n \t<li>Give an example of relation R which is symmetric and transitive but not reflexive.</li>\r\n</ol>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-01-13 - 16:48:27",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 5654,
+      "question": "Zero has two representations in:\r\n\r\na) Sign magnitude\r\n\r\nb) 1's complement\r\n\r\nc) 2's complement\r\n\r\nd) None of the above",
+      "answers": [
+        {
+          "id": 22847,
+          "answer": "Only a ",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22848,
+          "answer": "a and b",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 22849,
+          "answer": "a and c",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 22850,
+          "answer": "a, b and c",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Zero has two representation in sign's magnitude:\r\n1 - MSB is 0\r\n2 - MSB is 1 \r\nBoth of these representation have equal value that is 0.\r\nAlso zero have two representation in 1's compliments:\r\n1 - All bits are Zero.\r\n2 - All bits are 1\r\nSo, option (B) is correct.",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5653,
+      "question": "The number of fill and half-address required to add 16-bit number is:",
+      "answers": [
+        {
+          "id": 22843,
+          "answer": "8 half-adders, 8 full-adders",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22844,
+          "answer": "1 half-adder, 15 full-adders",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 22845,
+          "answer": "16 half-adders, 0 full-adders",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 22846,
+          "answer": "4 half-adders, 12 full-adders",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5650,
+      "question": "The maximum gate delay for any output to appear in an array multiplier for multiplying two n bit number is:",
+      "answers": [
+        {
+          "id": 22831,
+          "answer": "O(n^2)",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22832,
+          "answer": "O(n)",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 22833,
+          "answer": "O(log n)",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 22834,
+          "answer": "O(1)",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5649,
+      "question": "<pre>Booth's coding in 8-bits for the decimal number -57 is:</pre>\r\n ",
+      "answers": [
+        {
+          "id": 22827,
+          "answer": "0-100+1000",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22828,
+          "answer": "0-100+100-1",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 22829,
+          "answer": "0-1+100-10+1",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 22830,
+          "answer": "00-10+100-1",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5651,
+      "question": "<p dir=\"ltr\"><span>Consider the circuit shown below . In a certain steady state, the line Y is at ' 1 '. What are the possible values of A, B and C in this state?  </span></p><img alt=\"q33\" height=\"197\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_5651/df4c315d5936f2f1-ZYOOKJuCHgZjNZJFEODBKJN41xxhD6.png\" width=\"300\"/><p dir=\"ltr\"><span>  a). A=0, B=0, C=1  b). A=0, B=1, C=1  c). A=1, B=0, C=1  d). A=1, B=1, C=1</span></p>",
+      "answers": [
+        {
+          "id": 84006,
+          "answer": "<p dir=\"ltr\"><span>b only</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 84007,
+          "answer": "<p dir=\"ltr\"><span>Both a and b</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 84008,
+          "answer": "<p dir=\"ltr\"><span>Both a and c</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 84009,
+          "answer": "<p dir=\"ltr\"><span>a, c and d</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Since f = 1,  2nd level AND gate must give 1 as a result for which C has to be 1 along with the lower first level NAND gate.  Thus, C = 1 is compulsory  Now NAND is 1 when any of the inputs are zero.  Let G be the NAND gate with input A and H be the NAND with input B.  Since, C =1 and H = 1 is needed so clearly we have following possibilities : </span></p><pre><span>B = 0 , G = 1  ………(1)</span><br><br><span>B = 0 , G = 0  ………(2)</span><br><br><span>B = 1,  G = 0  ……….(3)</span><br></pre><p dir=\"ltr\"><span> Since G is also a NAND gate and f = 1 </span></p><pre><span>G = 1 means A = 0</span><br><br><span>and G = 0 means A = 1</span><br></pre><p dir=\"ltr\"><span> using these in (1),(2) and (3) : </span></p><pre><span>A = 0 , B = 0 , C = 1</span><br><br><span>A = 1 , B = 0 , C = 1</span><br><br><span>A = 1,  B = 1 , C = 1</span><br></pre><p dir=\"ltr\"><span>  Option (D) is correct. </span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5652,
+      "question": "<p dir=\"ltr\"><span>Which of the following sets of component(s) is/are sufficient to implement any arbitrary boolean function?  a)&nbsp;XOR gates, NOT gates  b)&nbsp;2 to 1 multiplexers  c)&nbsp;&nbsp;AND gates, XOR gates  d)&nbsp;Three-input gates that output (A.B)+C for the inputs A, B and C.  &nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 84002,
+          "answer": "<p dir=\"ltr\"><span>a and d</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 84003,
+          "answer": "<p dir=\"ltr\"><span>b and c</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 84004,
+          "answer": "<p dir=\"ltr\"><span>c only</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 84005,
+          "answer": "<p dir=\"ltr\"><span>All of above</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Refer: </span></p><a href=\"https://www.geeksforgeeks.org/isro-isro-cs-2017-question-76/\" target=\"_blank\" rel=\"noopener\"><span>ISRO CS 2017 | Question 76</span></a><p dir=\"ltr\"><span>  Option (B) is correct.</span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5637,
+      "question": "Which of the following expressions is not equivalent to X‾  ?",
+      "answers": [
+        {
+          "id": 22783,
+          "answer": "x NAND x",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22784,
+          "answer": "x NOR x",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 22785,
+          "answer": "x NAND 1",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 22786,
+          "answer": "x NOR 1",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:29",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5638,
+      "question": "<p dir=\"ltr\"><span>Which of the following function implements the Karnaugh map shown below?  </span></p><img alt=\"q3\" height=\"300\" loading=\"auto\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_5638/b48db27a8f07a429-8S9fosFE1VYclJcWmSxQFZPaAWFF5V.png\" width=\"258\"/>",
+      "answers": [
+        {
+          "id": 84014,
+          "answer": "<p dir=\"ltr\"><span>a</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 84015,
+          "answer": "<p dir=\"ltr\"><span>b</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 84016,
+          "answer": "<p dir=\"ltr\"><span>c</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 84017,
+          "answer": "<p dir=\"ltr\"><span>d</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:29",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5861,
+      "question": "Consider the regular expression (0+1)(0+1)... n times. The minimum state finite automaton that recognizes the language represented by this regular expression contains:",
+      "answers": [
+        {
+          "id": 23651,
+          "answer": "n states",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 23652,
+          "answer": "n+1 states",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 23653,
+          "answer": "n+2 states",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 23654,
+          "answer": "None of the above",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5879,
+      "question": "[5 Marks question]\r\n\r\na.  Given that A is regular and A∪B is regular, does it follow that B is necessarily regular? Justify your answer.\r\n\r\nb.  Given two finite automata M1, M2, outline an algorithm to decide if L(M1)⊆L(M2).    (note: strict subset)",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 5973,
+      "question": "<p>Let L<sub>D </sub> be the set of all languages accepted by a PDA by final state and L<sub>F </sub> the set of all languages accepted by empty stack. Which of the following is true?\r\n<img alt=\"q2\" class=\"alignnone size-full wp-image-160365\" height=\"168\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_5973/569aec570c6a4fe6-FCPDaVKCHqXft5dCQpYylUkJo0ySZK.png\" width=\"155\"/></p>",
+      "answers": [
+        {
+          "id": 24072,
+          "answer": "a",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 24073,
+          "answer": "b",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24074,
+          "answer": "c",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 24075,
+          "answer": "d",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:00:34",
+      "updated_on": "2025-01-13 - 16:48:33",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5972,
+      "question": "Context free languages are closed under-",
+      "answers": [
+        {
+          "id": 24068,
+          "answer": "Union, Intersection",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24069,
+          "answer": "Union, Kleene closure",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 24070,
+          "answer": "Intersection, Complement",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 24071,
+          "answer": "Complement, Kleene closure",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<a href=\"https://www.geeksforgeeks.org/closure-properties-of-context-free-languages/\" rel=\"noopener\" target=\"_blank\">Context free language</a>s are closed under: Union, Concatenation and Kleene closure but not in Intersection and Complement.\r\n\r\n\r\nOption (B) is correct.",
+      "created_on": "2014-01-21 - 04:00:34",
+      "updated_on": "2025-01-13 - 16:48:33",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 5982,
+      "question": "<p>[5 Marks question]\r\n\r\nShow that the language L = { <em>xcx | x∈ {0,1}* </em>and<em> c </em>is a terminal symbol } is not context free, c is not 0 or 1.</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:00:34",
+      "updated_on": "2025-01-13 - 16:48:33",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 5981,
+      "question": "If L1 is a context free language and L2 as a regular language, which of the following is/are False?\r\n\r\na.  L1-L2 is not context free\r\n\r\nb.  L1 ∩ L2 is context free\r\n\r\nc.  ~L1 is context free\r\n\r\nd.  ~L2 is regular",
+      "answers": [
+        {
+          "id": 24105,
+          "answer": "Only b",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24106,
+          "answer": "Only c",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24107,
+          "answer": "Both a and c",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 24108,
+          "answer": "Both b and c",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Given L1 is a context free language and L2 as a regular language then L1-L2 is context free language and ~L1(complement of context free) is not context free because context free is not closed under complement. \r\n\r\nComplement of regular language i.e. ~L2 is also regular ( so d is correct ) since statements a and c are false. \r\n\r\nOption (C) is correct.",
+      "created_on": "2014-01-21 - 04:00:34",
+      "updated_on": "2025-01-13 - 16:48:33",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6250,
+      "question": "The Newton-Raphson method is to be used to find the root of the equation <em>f(x)=0</em> where x<sub>0</sub> is the initial approximation and <em>f <strong>'</strong></em> is the derivative of <em>f.  </em> The method converges:\r\n\r\n ",
+      "answers": [
+        {
+          "id": 25137,
+          "answer": "Always",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25138,
+          "answer": "Only if  f is a polynomial",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25139,
+          "answer": "<p>Only if f(x0) <0 <br></p>",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 25140,
+          "answer": "None of the above",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:44:45",
+      "updated_on": "2025-01-13 - 16:48:36",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6318,
+      "question": "<p>The number of articulation point of the following graph is:\r\n\r\n<img alt=\"q4\" class=\"alignnone size-medium wp-image-160404\" height=\"139\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_6318/146e6f9acc8bae6e-mU9VYF4qShcNtfTKfGnI3aLLdkDKDL.jpg\" width=\"300\"/></p>",
+      "answers": [
+        {
+          "id": 25401,
+          "answer": "0",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25402,
+          "answer": "1",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25403,
+          "answer": "2",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 25404,
+          "answer": "3",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "An articulation point is a vertex whose removal makes the graph disconnected.\r\nThere are three articulation points in the given graph, they are vertices- 2, 3, and 5\r\nIf any one of the above nodes is removed from the graph then the graph becomes disconnected.",
+      "created_on": "2014-01-21 - 04:45:42",
+      "updated_on": "2025-01-13 - 16:48:36",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6372,
+      "question": "<p dir=\"ltr\"><span>The number of binary strings of n zeros and k ones such that no two ones are adjacent is:</span></p><p dir=\"ltr\"><span>a) </span><sup><span>n-1</span></sup><span>C</span><sub><span>k</span></sub></p><p dir=\"ltr\"><span>b) </span><sup><span>n</span></sup><span>C</span><sub><span>k</span></sub></p><p dir=\"ltr\"><span>c) </span><sup><span>n</span></sup><span>C</span><sub><span>k+1</span></sub></p><p dir=\"ltr\"><span>d) None of the above </span></p>",
+      "answers": [
+        {
+          "id": 25617,
+          "answer": "<p dir=\"ltr\"><span>a</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25618,
+          "answer": "<p dir=\"ltr\"><span>b</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25619,
+          "answer": "<p dir=\"ltr\"><span>c</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25620,
+          "answer": "<p dir=\"ltr\"><span>d</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>There are n zeros placed :  _0_0_0_....._0_  So, (n+1) gaps. Now we can place k 1's in those place </span><sup><span>n+1</span></sup><span>C</span><sub><span>k</span></sub><span> ways.   Option (D) is correct. </span></p>",
+      "created_on": "2014-01-21 - 04:49:12",
+      "updated_on": "2025-08-26 - 12:44:14",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6374,
+      "question": "Two girls have picked 10 roses, 15 sunflowers and 14 daffodils. What is the number of ways they can divide the flowers amongst  themselves?",
+      "answers": [
+        {
+          "id": 25625,
+          "answer": "1638",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25626,
+          "answer": "2100",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25627,
+          "answer": "2640",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 25628,
+          "answer": "None of the above",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Assume the two girls only have 10 roses. They can share these in (11 choose 1) = <sup>11</sup>C<sub>1</sub> = 11 ways.\r\nSimilarly, they can share 15 sunflowers and 14 daffodils in \r\n(15 choose 1) = <sup>15</sup>C<sub>1</sub> = 16 ways\r\n(14 choose 1) = <sup>14</sup>C<sub>1</sub> = 15 ways\r\nSo, they can share all the flowers in 11 * 16 * 15 = 2640 ways \r\nSo, option (C) is correct.</p>",
+      "created_on": "2014-01-21 - 04:49:12",
+      "updated_on": "2025-01-13 - 16:48:37",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6470,
+      "question": "The main memory of a computer has 2 cm blocks while the cache has 2c blocks. If the cache uses the set associative mapping scheme with 2 blocks per set, then the block k of main memory maps to the set:",
+      "answers": [
+        {
+          "id": 26009,
+          "answer": "(k mod m) of the cache",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 26010,
+          "answer": "(k mod c) of the cache",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 26011,
+          "answer": "(k mod 2c) of the cache",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 26012,
+          "answer": "(k mod 2cm) of the cache",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Given,\rMain memory = 2 C M blocks\rCache Size = 2 C blocks\r\rSet Associative Mapping is 2-way set associative. Therefore Number of lines per set = 2 {i.e., Set size}.\r\rNumber of sets, \r<pre>= Cache size / Set size\r\n= 2 C / 2 \r\n</pre>\r\nNumber of sets = C in the cache.\r\n\r\nkth  block of the main memory maps to (K mod C)th  set of the main memory .\r\n<pre>\r\ni = k modulo c\r\nwhere\r\ni = cache set number\r\nk = main memory block number\r\nc = number of sets in the cache </pre>\r\n\r\nThis solution is contributed by <b>VIVEK YEMUL</b>.\n",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:38",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6473,
+      "question": "A certain processor supports only the immediate and the direct addressing modes. Which of the following programming language features cannot be implemented on this processor?\r\na) Pointers\r\nb) Arrays\r\nc) Records\r\nd) Recursive procedures with local variables",
+      "answers": [
+        {
+          "id": 26021,
+          "answer": "Only a",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 26022,
+          "answer": "a and b",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 26023,
+          "answer": "c and d",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 26024,
+          "answer": "a, b, c and d",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:38",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6471,
+      "question": "<p>Arrange the following configurations for CPU in decreasing order of operating speeds; Hardwired Control, vertical microprogramming, horizontal microprogramming</p>",
+      "answers": [
+        {
+          "id": 26013,
+          "answer": "<p>Hardwired control, Vertical microprogramming, Horizontal microprogramming.</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 26014,
+          "answer": "<p>Hardwired control, Horizontal microprogramming, Vertical microprogramming.</p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 26015,
+          "answer": "<p>Horizontal microprogramming, Vertical microprogramming, Hardwired control.</p>",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 26016,
+          "answer": "<p>Vertical microprogramming, Horizontal microprogramming, Hardwired control.</p>",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p><span style=\"background-color:rgb(255,255,255);color:rgb(4,3,4);\">Hard wired control involves only hardware, whereas microprogramming is software approach. So, hardwire control should be faster than both microprogramming approaches.</span><br><br><span style=\"background-color:rgb(255,255,255);color:rgb(4,3,4);\">Between vertical and horizontal microprogramming. Horizontal is faster because in this control signals are not encoded whereas in vertical microprogramming to save memory signals are encoded. So, it takes less time in horizontal microprogramming because decoding of signals is not required. Therefore, final order is :</span><br><br><span style=\"background-color:rgb(255,255,255);color:rgb(4,3,4);\">hard wired control &gt; horizontal microprogramming &gt; vertical microprogramming</span></p>",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:38",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6472,
+      "question": "The main difference(s) between a CISC and a RISC processor is/are that a USC processor typically:\r\na) has fewer instructions\r\nb) has fewer addressing modes\r\nc) has more registers\r\nd) is easier to implement using hardwired control logic",
+      "answers": [
+        {
+          "id": 26017,
+          "answer": "a and b",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 26018,
+          "answer": "b and c",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 26019,
+          "answer": "a and d",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 26020,
+          "answer": "a, b, c and d",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:38",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 7616,
+      "question": "Which of the following disk strategies is likely to give the best throughput?",
+      "answers": [
+        {
+          "id": 30575,
+          "answer": "Farthest cylinder next",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30576,
+          "answer": "Nearest cylinder next",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 30577,
+          "answer": "First come first served",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 30578,
+          "answer": "Elevator algorithm",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Nearest cylinder next is also known as <a href=\"https://www.geeksforgeeks.org/program-for-sstf-disk-scheduling-algorithm/\" rel=\"noopener\" target=\"_blank\">shortest seek time first</a> and in this algorithm many pages can be accessed in less amount of time. \r\n\r\nSo throughput will be high so this is optimal algorithm.\r\n\r\nOption (B) is correct.</p>",
+      "created_on": "2015-04-12 - 05:28:17",
+      "updated_on": "2025-01-13 - 16:48:49",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 8692,
+      "question": "[5 Marks question]\r\na.  In a binary tree, a nil node is defined to be a node with 2 children. Use induction on the height of the binary tree to prove that the number of full nodes plus one is equal to the number of leaves.\r\n\r\nb.  Draw a min-heap that results from insertion of the following elements in order into an initially empty min-heap: 7, 6, 5, 4, 2, 3, 1. Show the result after the deletion of the root of  this heap.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8702,
+      "question": "[5 Marks question]\r\n\r\nConsider the set of relations\r\n<pre>EMP(Employee-no, Dept-no, Employee-name, Salary)\r\nDEPT(Dept-no, Dept-name, Location)</pre>\r\nWrite an SQL query to:\r\na. Find all employee names who work in departments located at \"Calcutta\" and whose salary is greater than Rs. 50,000.\r\nb. Calculate, for each department number, the number of employees with a salary greater than Rs. 100,000.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8701,
+      "question": "<p>[5 Marks question]\r\n\r\nConsider a B-tree with degree m, that is, the number of children, c, of any internal node (except the root) is such that<em> m≤c≤2m-1</em>. Derive the maximum and minimum number of records in the leaf nodes for such a B-tree with height h,<em> h≥1.</em> (Assume that the root of a tree is at height 0.)</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8700,
+      "question": "[5 Marks question]\r\n\r\na. A certain processor provides a 'test and set' instruction that is used as follows:\r\n<pre> TEST register, flag</pre>\r\nThis instruction atomically copies flag to register and sets flag to 1. Give pseudo-code for implementing the entry and exit code to a critical region using this instruction.\r\n\r\nb. Consider the following solution to the producer-consumer problem using a buffer of size 1. Assume that the initial value of count is 0. Also assume that the testing of count and assignment to count are atomic operations.\r\n<pre>Producer:      \r\n   Repeat \r\n       Produce an item;\r\n       if count = 1 then sleep;\r\n       place item in buffer.\r\n       count = 1;\r\n       Wakeup(Consumer);\r\n  Forever \r\n\r\nConsumer:\r\n  Repeat\r\n      if count = 0 then sleep;\r\n      Remove item from buffer;\r\n      count = 0;\r\n      Wakeup(Producer);\r\n      Consume item;\r\n  Forever;\r\n</pre>\r\nShow that in this solution it is possible that both the processes are sleeping at the same time.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8699,
+      "question": "[5 Marks question]\r\n\r\nA certain computer system has the segmented paging architecture for virtual memory. The memory is byte addressable. Both virtual and physical address spaces contain 216 bytes each. The virtual address space is divided into 8 non-overlapping equal size segments. The memory management unit (MMU) has a hardware segment table, each entry of which contains the physical address of the page table for the segments. Page tables are stored in the main memory and consists of 2 byte page table entries.\r\n\r\na. What is the minimum page size in bytes so that the page table for a segment requires at most one page to store it? Assume that the page size can only be a power of 2.\r\n\r\nb. Now suppose that the pages size is 512 bytes. It is proposed to provide a TLB (Transaction look-aside buffer) for speeding up address translation. The proposed TLB will be capable of storing page table entries for 16 recently referenced virtual pages, in a fast cache that will use the direct mapping scheme. What is the number of tag bits that will need to be associated with each cache entry?\r\n\r\nc. Assume that each page table entry contains (besides other information) 1 valid bit, 3 bits for page protection and 1 dirty bit. How many bits are available in page table entry for storing the aging information for the page? Assume that the page size is 512 bytes.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8698,
+      "question": "<p>[5 Marks question]\r\n\r\nDesign a 2K x 8 (2048 locations, each 8 bit wide) memory system mapped at addresses (1000)<sub>16</sub> to (17FF)<sub>16</sub> for the 8085 processor using four 1K x 4 memory chips. Each of these chips has the following signal pins:\r\n\r\n<img alt=\"q20\" class=\"alignnone size-full wp-image-160774\" height=\"178\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_8698/2293ab551aa7d2f8-aZ707WJPh6gWstvJxKuQgRA0JrPfB2.png\" width=\"475\"/></p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8697,
+      "question": "[5 Marks question]\r\nConsider the following program fragment in the assembly language of a certain hypothetical processor. The processor has three general purpose registers R1, R2 and R3. The meanings of the instructions are shown by comments (starting with ; ) after the instructions.\r\n<pre>X:  CMP R1, 0   ;Compare R1 and 0, set flags appropriately in status register\r\n    JZ  Z       ;Jump if zero to target Z\r\n    MOV R2, R1  ;Copy contents of R1 to R2\r\n    SHR R1      ;Shift right R1 by 1 bit\r\n    SHL R1      ;Shift left R1 by 1 bit\r\n    CMP R2, R1  ;Compare R2 and R1 and set flag in status register\r\n    JZ  Y       ;Jump if zero to target Y\r\n    INC R3      ;Increment R3 by 1;\r\nY:  SHR R1      ;Shift right R1 by 1 bit\r\n    JMP X       ;Jump to target X\r\nZ:...\r\n</pre>\r\na. Initially R1, R2 and R3 contain the value 5, 0 and 0 respectively. What are the final values of R1 and R3 when control reaches Z?\r\nb. In general, if R1, R2 and R3 initially contain the values n, 0 and 0 respectively. What is the final value of R3 when control reaches Z?",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8696,
+      "question": "[5 Marks question]\r\nConsider the following pascal program skeleton:\r\n<pre>program sort(...);\r\n      var a,x,...;\r\n      procedure readarray;\r\n       var i,....;\r\n       begin\r\n                        ...:=a...\r\n       end;\r\n     procedure exchange(...);\r\n       begin\r\n                         ...:=a...\r\n                         ...:=x...\r\n       end;http://cdn.geeksforgeeks.org/wp-admin/profile.php\r\n     procedure qsort(...);\r\n       var k,v,...;\r\n       function partition (...)...;\r\n                var i,j,...;\r\n                begin\r\n                         ...:=a...\r\n                         ...:=v...\r\n                end;\r\n        begin\r\n            .\r\n            .\r\n        end;\r\n   begin\r\n        .\r\n        .\r\n   end;\r\n</pre>\r\nAssume that at a given point in time during program execution, following procedures are active: sort, qsort(1,9), qsort(1.3), partition(1,3), exchange(1,3). \r\nShow snapshots of the runtime stack with access links after each of the activations.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8695,
+      "question": "[5 Marks question]\r\n\r\nWhat will be the output of the following program assuming that parameter passing is\r\n\r\n(i) call by value\r\n\r\n(ii) call by reference\r\n\r\n(iii) call by copy restore\r\n<pre>procedure P{x, y, z};\r\n    begin y:y+1; z: x+x end; \r\nbegin\r\n    a:= b:= 3;\r\n    P(a+b, a, a);\r\n    Print(a) \r\nend.\r\n</pre>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8694,
+      "question": "[5 Marks question]\r\n\r\na.  Show that the formula [(~p ∨ q) ⇒ (q⇒ p)] is not a tautology.\r\n\r\nb.  Let A be a tautology and B be any other formula. Prove that (A ∨ B) is a tautology.\r\n\r\n&nbsp;\r\n\r\n&nbsp;",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8693,
+      "question": "[5 Marks question]\r\n\r\nAn instruction pipeline consists of 4 stages: Fetch(F), Decode operand field (D), Execute (E), and Result-Write (W). The five instructions in a certain instruction sequence need these stages for the different number of clock cycles as shown by the table below.\r\n\r\nNo. of cycles needed for\r\n\r\n<img alt=\"Untitled\" class=\"alignnone size-medium wp-image-160705\" height=\"98\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_8693/0667b93e79dcfeb5-PCWCzJM7ALVRDBimnmVml7PQ5U6v0b.png\" width=\"300\"/>\n<pre></pre>\r\nFind the number of clock cycles needed to perform the 5 instructions.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8691,
+      "question": "[5 Marks question]\r\n\r\na.  Consider the following algorithm. Assume procedure A and procedure B take O(1) and O(1/n) unit of time respectively. Derive the time complexity of the algorithm in O-notation.\r\n<pre>algorithm what (n)      \r\nbegin \r\n    if n = 1 then call A \r\n    else \r\n        begin\r\n            what (n-1);\r\n            call B(n)\r\n        end\r\nend.\r\n</pre>\r\n\r\nb.  Write a constant time algorithm to insert a node with data D just before the node with address p of a singly linked list.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8690,
+      "question": "[5 Marks question]\r\n\r\nSuppose we have a function HALTS which when applied to any arbitrary function f and its arguments will say TRUE if function f terminates for those arguments  and FALSE otherwise. Example, Given the following function definition.\r\n<pre>\r\nFACTORIAL (N) = IF(N=0) THEN 1 ELSE N*FACTORIAL (N-1)\r\nThen HALTS(FACTORIAL 4)= TRUE and HATS(FACTORIAL -5)=FLASE\r\n\r\nLet us define the function FUNNY(<em>f</em>) = IF HALTS(<em>ff</em>) THEN not(<em>ff</em>) ELSE TRUE\r\n\r\n</pre>\r\na.  Show that FUNNY terminates for all functions <em>f</em>\r\n\r\nb.  Use (a) to prove (by contradiction) that it is not possible to have a function like HALTS which for arbitrary functions and inputs says whether it will         terminate on that input or not.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8689,
+      "question": "<p>[5 Marks question]\r\n\r\nLet A be an<em> n*n</em> matrix such that the elements in each row and each column are arranged in ascending order. Draw a decision tree which finds 1st, 2nd and 3rd smallest elements in minimum number of comparisons.\r\n\r\n&nbsp;</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8686,
+      "question": "<p>If n is a power of 2, then the minimum number of multiplications needed to compute a<sup>n  </sup> is:</p>",
+      "answers": [
+        {
+          "id": 34865,
+          "answer": "log2n",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 34866,
+          "answer": "√n",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 34867,
+          "answer": "n-1",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 34868,
+          "answer": "n",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 8688,
+      "question": "<p>[5 Marks question]\r\n\r\nLet G be a connected, undirected graph. A cut in G is a set of edges whose removal results in 0 being broken into two or more components which are not connected with each other. The size of a cut is called its cardinality. A men-cut of G is a cut in G of minimum cardinality. Consider the following graph.\r\n\r\n<img alt=\"q55\" class=\"alignnone size-medium wp-image-160678\" height=\"185\" src=\"https://rkokdq5fgqqf84hb.public.blob.vercel-storage.com/gate-images/None/q_8688/e5ae2959eba50c3e-7K8Y5RT2tjDA0s1aSdXfV70KvW2F8n.jpg\" width=\"300\"/>\r\n\r\na.  Which of the following sets of edges is a cut?\r\n\r\n(i) {(A,B), (E,F), (B,D), (A,E), (A,D)}\r\n\r\n(ii)  {(B,D), (C,F), (A,B)}\r\n\r\nb.  What is the cardinality of a min-cut in the graph?\r\n\r\nc.  Prove that if a connected undirected graph G with <em>n vertices</em> has a min-cut of cardinality K, then G has <em>atleast  (nk/2)</em> edges.</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 8687,
+      "question": "<p>[5 Marks question]\r\n\r\nLet <em>G</em> be a finite group and<em> H</em> be a subgroup of <em>G</em>. For<em> a∈G</em>, define  aH= { ah | h∈H }\r\n\r\na.  Show that |aH| - |H|\r\n\r\nb.  Show that for every pair of elements <em>a, b</em>∈<em>G, </em>either<em> aH=bH</em> or <em>aH and bH</em> are disjoint.\r\n\r\nc.  Use the above to argue that the order of H must divide the order of G.</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-05 - 12:20:13",
+      "updated_on": "2025-01-13 - 16:49:01",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "Unknown"
+    },
+    {
+      "id": 6130,
+      "question": "Which of the following is the most powerful parsing method?",
+      "answers": [
+        {
+          "id": 24685,
+          "answer": "LL(1)",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24686,
+          "answer": "Canonical LR",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 24687,
+          "answer": "SLR",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 24688,
+          "answer": "LALR",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Canonical LR is the most powerful parser as compared to other LR parsers. \r\n\r\nOrder: LR(0) < SLR < LALR < CLR .\r\n\r\nSLR parser is a type of LR parser with small parse tables and a relatively simple parser generator algorithm.\r\nCanonical LR parser or LR(1) parser is an LR(k) parser for k=1, i.e., with a single lookahead terminal. It can handle all deterministic context-free languages.\r\n\r\nLALR parser or Look-Ahead LR parser is a simplified version of a canonical LR parser.\r\n\r\n\r\nOption (B) is correct.",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:34",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 4255,
+      "question": "Which of the following is correct?",
+      "answers": [
+        {
+          "id": 17408,
+          "answer": "B-trees are for storing data on disk and B+ trees are for main memory.",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 17409,
+          "answer": "Range queries are faster on B+ trees.",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 17410,
+          "answer": "B-trees are for primary indexes and B+ trees are for secondary indexes.",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 17411,
+          "answer": "The height of a B+ tree is independent of the number of records.",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Option (A) is False because  both  B-trees  and B+ trees are for storing data on disk\r\n\r\nOption (B) is True because  By searching leaf level linearly in B+ tree, we can say a node is present or not in B+ tree. But for B tree we have to traverse the whole tree and Most of the database system use indexes built on some form of a B+ tree  due to its many advantages, in particular its support for range queries. Leaf nodes are linked together in B+ tree. Hence range queries are faster.\r\n\r\nOption (C) is False because <a href=\"https://www.geeksforgeeks.org/difference-between-b-tree-and-b-tree/\" rel=\"noopener\" target=\"_blank\">B tree and B+ tree</a> uses for dynamic multilevel indexes not for primary or secondary index.\r\n\r\nOption (D) is False because Height depends on number of record as well as max no of keys in each node (i.e. order of tree) .</p>",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:15",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6180,
+      "question": "<p>The least number of temporary variables required to create a three-address code in static single assignment form for the expression a=b * d - c + b * e - c is ______</p>",
+      "answers": [
+        {
+          "id": 24861,
+          "answer": "<p>3</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24862,
+          "answer": "<p>4</p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 24863,
+          "answer": "<p>5</p>",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 24864,
+          "answer": "<p>6</p>",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<pre>a=b * d - c + b * e - c\nt1 = b * d\nt2 = b * e\nt3 = t1 + t2\nt4 = t3 -c\na= t4 -c  </pre>\n<p>Total temp variables = 4</p>\n\n<p>So, option <strong>(B) </strong>is correct.</p>\n\n<p>Refer - <a href=\"&quot;https://www.geeksforgeeks.org/gate-gate-cs-2016-set-1-question-29/&quot;\">Static Single Assignment</a></p>\n\n",
+      "created_on": "2022-12-30 - 15:56:29",
+      "updated_on": "2025-01-13 - 16:48:35",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    },
+    {
+      "id": 6179,
+      "question": "A grammar that is both left and right recursive for a non-terminal is",
+      "answers": [
+        {
+          "id": 24857,
+          "answer": "Ambiguous",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24858,
+          "answer": "Unambiguous",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24859,
+          "answer": "Information is not sufficient to decide whether it is ambiguous or Unambiguous.",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 24860,
+          "answer": "None of the above",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Suppose we have  grammar like this :\r<pre>\r\nS → n\r\nB → BbB </pre>\r\n\r\nHere we see that  grammar is left as well as right recursive but still it is unambiguous grammar because A is useless production but it is still part of grammar.\r\nSo we can say that  a grammar having both left as well as right recursion may or may not be ambiguous .\r\n\r\nLets understand with another example as we have grammar like this  A→AA  using this grammar we can not produce any string in finite steps as language of this grammar is empty set {}.\r\nHence, we finally get conclusion as if  grammar is having both left as well as  right recursion, then grammar may or may not be ambiguous.\r\n\r\nOption (C) is correct.\n",
+      "created_on": "2022-12-30 - 15:56:29",
+      "updated_on": "2025-01-13 - 16:48:35",
+      "year": null,
+      "subject": null,
+      "chapter": null,
+      "question_type": "MCQ"
+    }
+  ],
+  "quiz": {
+    "id": 311,
+    "question_count": 70,
+    "bottom_description": "",
+    "title": "GATE CS 1999",
+    "slug": "gate-cs-1999",
+    "category": [
+      {
+        "id": 4355,
+        "name": "GATE",
+        "slug": "gate",
+        "origin_term_id": 2209,
+        "origin_slug": "computer-subject/computer-science-quizzes-gq/gate"
+      }
+    ],
+    "show_answer": 3,
+    "created_on": "2017-10-05 - 12:20:13",
+    "updated_on": "2024-04-02 - 17:22:47"
+  }
+}

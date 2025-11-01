@@ -1,0 +1,2283 @@
+{
+  "count": 83,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 2983,
+      "title": "Aptitude | GATE CS 1998 | Question 64",
+      "slug": "in-a-computer-system-where-the-best-fit-algorithm-is",
+      "question": "In a computer system where the 'best-fit' algorithm is used for allocating 'jobs' to 'memory partitions', the following situation was encountered:\r\n\r\n<img class=\"alignnone size-full wp-image-161137\" src=\"http://cdn.geeksforgeeks.org/wp-content/uploads/tabkle.png\" alt=\"tabkle\" width=\"465\" height=\"109\" />\r\n\r\nWhen will the 20K job complete?\r\n\r\n\r\n<b>Note -</b> This question was subjective type.",
+      "answers": [
+        {
+          "id": 12414,
+          "answer": "8 ",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12415,
+          "answer": "18",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12416,
+          "answer": "11",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 12417,
+          "answer": "None of these",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Partitions are 4k , 8k, 20k,  2k, now due to best fit allocation algorithm.\r\n\r\n<a href=\"http://www.geeksforgeeks.org/program-best-fit-algorithm-memory-management/\">Best fit algo</a> allocates the process to a partition which is the smallest sufficient partition among the free available partitions\r\nnow come to the question first 2k come and fit into the partition of 2k and run (4 unit) and then come 14k and fit into the partition of 20k and run(10 unit ) and next process come of size 3k and fit into the portion 4k and run (2 unit) and now next process 6k come and fit to the 8k partition and run(1 unit ) now next process is 10k and fit into portion20k   run for (1 unit) and finally 20k come and fit into 20k portion and run for (8 unit)\r\n\r\nSo total completion time for 20k job = (10+1+8) = <b>19 unit</b> answer.\r\n\r\n\r\nThis explanation is contributed by <a href=\"http://auth.geeksforgeeks.org/user/ajay0007\" rel=\"noopener\" target=\"_blank\">ajay0007</a>.\r\n</p>",
+      "created_on": "2013-01-05 - 21:46:14",
+      "updated_on": "2025-01-13 - 16:48:02"
+    },
+    {
+      "id": 3313,
+      "title": "Aptitude | GATE CS 1998 | Question 22",
+      "slug": "give-the-correct-matching-for-the-following-pairs-a",
+      "question": "Give the correct matching for the following pairs:\r\n<pre>A. O(log n)     1. Selection sort\r\nB. O(n)         2. Insertion sort\r\nC. O(nlog n)    3. Binary search\r\nD. O(n^2)       4. Merge sort\r\n\r\n<em>codes: </em>\r\n     A   B   C   D\r\na.   3   1   2   4\r\nb.   3   1   4   2\r\nc.   1   3   4   2\r\nd.   1   4   3   2\r\n</pre>",
+      "answers": [
+        {
+          "id": 13732,
+          "answer": "a",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 13733,
+          "answer": "b",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 13734,
+          "answer": "c",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 13735,
+          "answer": "d",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:05"
+    },
+    {
+      "id": 3312,
+      "title": "Aptitude | GATE CS 1998 | Question 21",
+      "slug": "which-of-the-following-algorithm-design-technique-is-used",
+      "question": "Which of the following algorithm design technique is used in finding all pairs of shortest distances in a graph?",
+      "answers": [
+        {
+          "id": 13728,
+          "answer": "Dynamic programming",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 13729,
+          "answer": "Backtracking",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 13730,
+          "answer": "Greedy",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 13731,
+          "answer": "Divide and Conquer",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:05"
+    },
+    {
+      "id": 3315,
+      "title": "Aptitude | GATE CS 1998 | Question 60",
+      "slug": "solve-the-following-recurrence-relation-xn-2xn-1-1",
+      "question": "Solve the following recurrence relation:\r\n<pre>x<sub>n</sub> = 2x<sub>n-1 </sub>-1, n&gt;1\r\nx<sub>1</sub> = 2</pre>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:05"
+    },
+    {
+      "id": 3314,
+      "title": "Aptitude | GATE CS 1998 | Question 47",
+      "slug": "what-value-would-the-following-function-return-for-the",
+      "question": "What value would the following function return for the input x=95 ?\r\n<pre>function fun (x:integer):integer;\r\nBegin\r\n  If x >100 then fun = x-10\r\n  Else fun = fun(fun( x+11))\r\nEnd;\r\n</pre>",
+      "answers": [
+        {
+          "id": 13736,
+          "answer": "89",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 13737,
+          "answer": "90",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 13738,
+          "answer": "91",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 13739,
+          "answer": "92",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>for solution refer<a href=\"https://cdn.geeksforgeeks.org/isro-isro-cs-2017-question-73/\" rel=\"noopener\" target=\"_blank\"> ISRO CS 2017</a>\r\nSo option C is correct</p>",
+      "created_on": "2013-01-08 - 15:45:35",
+      "updated_on": "2025-01-13 - 16:48:05"
+    },
+    {
+      "id": 3664,
+      "title": "Aptitude | GATE CS 1998 | Question 49",
+      "slug": "let-a-be-a-two-dimensional-array-declared-as",
+      "question": "Let A be a two dimensional array declared as follows:\r\n<pre>A: array [1 ... 10] [1 ... 15] of integer;</pre>\r\nAssuming that each integer takes one memory location, the array is stored in row-major order and the first element of the array is stored at location 100, what is the address of the element a[i][j] ?",
+      "answers": [
+        {
+          "id": 15101,
+          "answer": "15i+ j+ 84",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 15102,
+          "answer": "15j+ i+ 84",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15103,
+          "answer": "10i+ j+ 89",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 15104,
+          "answer": "10j+ i+ 89",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-01-10 - 19:44:32",
+      "updated_on": "2025-01-13 - 16:48:09"
+    },
+    {
+      "id": 3703,
+      "title": "Aptitude | GATE CS 1998 | Question 50",
+      "slug": "faster-access-to-non-local-variables-is-achieved-using-an",
+      "question": "Faster access to non-local variables is achieved using an array of pointers to activation records, called a",
+      "answers": [
+        {
+          "id": 15252,
+          "answer": "stack",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 15253,
+          "answer": "heap",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15254,
+          "answer": "display",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 15255,
+          "answer": "activation tree",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-01-10 - 22:42:52",
+      "updated_on": "2025-01-13 - 16:48:10"
+    },
+    {
+      "id": 3786,
+      "title": "Aptitude | GATE CS 1998 | Question 82",
+      "slug": "free-disk-space-can-be-kept-track-of-using",
+      "question": "Free disk space can be kept track of using a free list or a bit map. Disk addresses require d bits. For a disk with 13 blocks, F of which is free, state the condition under which the free list uses less space than the bit map.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-01-13 - 16:48:10"
+    },
+    {
+      "id": 3785,
+      "title": "Aptitude | GATE CS 1998 | Question 51",
+      "slug": "the-overlay-tree-for-a-program-is-as-shown",
+      "question": "<p>The overlay tree for a program is as shown below:\r\n\r\n<img alt=\"hier\" class=\"alignnone size-full wp-image-161095\" height=\"223\" src=\"http://cdn.geeksforgeeks.org/wp-content/uploads/hier.png\" width=\"522\"/>\r\n\r\nWhat will be the size of the partition (in physical memory) required to load (and run)  this program?\r\n\r\n </p>",
+      "answers": [
+        {
+          "id": 15580,
+          "answer": "12 KB",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 15581,
+          "answer": "14 KB",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 15582,
+          "answer": "10 KB",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 15583,
+          "answer": "8 KB",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Depth First Traversal from left to right. when we visit a node for first time, it is loaded in main memory and when we visit it for last time, it is pulled out. \r\nFor the above program, maximum memory will be required when running code portion present at leaves.\r\n\r\nFor D = 2+4+6 = 12\r\nFor E = 2+4+8 = 14\r\nFor F = 2+6+2 = 10\r\nFor G = 2+8+4 = 14\r\n\r\n<strong>Max(12, 14, 10, 14) = 14</strong>\r\n</p>",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-01-13 - 16:48:10"
+    },
+    {
+      "id": 4092,
+      "title": "Aptitude | GATE CS 1998 | Question 30",
+      "slug": "when-the-result-of-a-computation-depends-on-the",
+      "question": "When the result of a computation depends on the speed of the processes involved, there is said to be",
+      "answers": [
+        {
+          "id": 16783,
+          "answer": "cycle stealing",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 16784,
+          "answer": "race condition",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 16785,
+          "answer": "a time lock",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 16786,
+          "answer": "a deadlock",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-02-11 - 22:05:08",
+      "updated_on": "2025-01-13 - 16:48:14"
+    },
+    {
+      "id": 4095,
+      "title": "Aptitude | GATE CS 1998 | Question 83",
+      "slug": "consider-a-disk-with-c-cylinders-t-tracks-per",
+      "question": "<p>Consider a disk with <em>C</em> cylinders, <em>t</em> tracks per cylinder, <em>s </em> sectors per track and a sector length s<sub>l</sub>. A logical file d<sub>l</sub> with fixed record length <em>r<sub>l</sub> </em>is stored continuously on this disk starting at location (<em>c<sub>L</sub>,t<sub>L</sub>,s<sub>L</sub></em>), where <em>c<sub>L</sub>,t<sub>L</sub></em> and <em>S<sub>L</sub></em> are the cylinder, track and sector numbers, respectively. Derive the formula to calculate the disk address (i.e. cylinder, track and sector) of a logical record n assuming that<em> r<sub>l</sub>=s<sub>l</sub></em>.</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2013-02-11 - 22:05:08",
+      "updated_on": "2025-01-13 - 16:48:14"
+    },
+    {
+      "id": 4090,
+      "title": "Aptitude | GATE CS 1998 | Question 18",
+      "slug": "which-of-the-following-devices-should-get-higher-priority",
+      "question": "Which of the following devices should get higher priority in assigning interrupts?",
+      "answers": [
+        {
+          "id": 16775,
+          "answer": "Hard disk",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 16776,
+          "answer": "Printer",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 16777,
+          "answer": "Keyboard",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 16778,
+          "answer": "Floppy disk",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-02-11 - 22:05:08",
+      "updated_on": "2025-01-13 - 16:48:14"
+    },
+    {
+      "id": 4091,
+      "title": "Aptitude | GATE CS 1998 | Question 29",
+      "slug": "which-of-the-following-is-an-example-of-a-6",
+      "question": "Which of the following is an example of a spooled device?",
+      "answers": [
+        {
+          "id": 16779,
+          "answer": "The terminal used to enter the input data for the C program being executed.",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 16780,
+          "answer": "An output device used to print the output of a number of jobs.",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 16781,
+          "answer": "The secondary memory device in a virtual storage system.",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 16782,
+          "answer": "The swapping area on a disk used by the sapper.",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-02-11 - 22:05:08",
+      "updated_on": "2025-01-13 - 16:48:14"
+    },
+    {
+      "id": 4093,
+      "title": "Aptitude | GATE CS 1998 | Question 44",
+      "slug": "formatting-of-a-floppy-disk-refers-to",
+      "question": "Formatting of a floppy disk refers to",
+      "answers": [
+        {
+          "id": 16787,
+          "answer": "arranging the data on the disk in contiguous fashion",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 16788,
+          "answer": "writing the directory",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 16789,
+          "answer": "erasing the system area",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 16790,
+          "answer": "writing identification information on all tracks and sectors.",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2013-02-11 - 22:05:08",
+      "updated_on": "2025-01-13 - 16:48:14"
+    },
+    {
+      "id": 4094,
+      "title": "Aptitude | GATE CS 1998 | Question 73",
+      "slug": "5-marks-question-calculate-the-total-time-required-to",
+      "question": "[5 Marks question]\r\n\r\nCalculate the total time required to read 35 sectors on a 2-sided floppy disk. Assume that each track has 8 sectors and the track-to-track step time is 8 milliseconds. The first sector to be read is sector 3 on track 10. Assume that the diskette is soft stored and the controller has a 1-sector buffer. The diskette spins at 300 RPM and initially, the head is on track 10.",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2013-02-11 - 22:05:08",
+      "updated_on": "2025-01-13 - 16:48:14"
+    },
+    {
+      "id": 4926,
+      "title": "Aptitude | GATE CS 1998 | Question 48",
+      "slug": "what-is-the-result-of-the-following-program-program",
+      "question": "What is the result of the following program?\r\n<pre>program side-effect (input, output);\r\n    var x, result: integer;\r\n    function f (var x:integer):integer;\r\n    begin\r\n        x:x+1;f:=x;\r\n    end;\r\nbegin\r\n    x:=5;\r\n    result:=f(x)*f(x);\r\n    writeln(result);\r\nend;\r\n</pre>",
+      "answers": [
+        {
+          "id": 20003,
+          "answer": "5",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20004,
+          "answer": "25",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20005,
+          "answer": "36",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 20006,
+          "answer": "42",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-07 - 08:48:05",
+      "updated_on": "2025-01-13 - 16:48:22"
+    },
+    {
+      "id": 5007,
+      "title": "Aptitude | GATE CS 1998 | Question 54",
+      "slug": "which-of-the-following-query-transformations-ie-replacing-the",
+      "question": "<p>Which of the following query transformations (i.e., replacing the l.h.s. expression by the r.h.s. expression) is incorrect? R<sub>1</sub> and R<sub>2</sub> are relations. C<sub>1</sub>, C<sub>2</sub> are selection conditions and A<sub>1</sub>, A<sub>2</sub> are attributes of R<sub>1</sub>.\r\n\r\na.  σC<sub>1</sub>( σC<sub>2</sub>R1)) → σC<sub>2</sub>(σC<sub>1</sub>(R<span style=\"font-size: 13.3333px;\">1</span>))\r\n\r\nb.  σC<sub>1</sub>( π<sub>A1</sub>R1)) → π<sub>A1</sub>(σC<sub>1</sub>(R1))\r\n\r\nc.  σC<sub>1</sub>( R<sub>1</sub> ∪ R<sub>2</sub> ) → σC<sub>1</sub>(R<sub>1</sub>) ∪ σC<sub>1</sub>(R<sub>2</sub>)\r\n\r\nd.  π<sub>A1</sub>(σC<sub>1</sub>(R<sub>1</sub>)) → σC<sub>1</sub> (πA<sub>1</sub> (R<sub>1</sub>))</p>",
+      "answers": [
+        {
+          "id": 20327,
+          "answer": "a",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20328,
+          "answer": "b",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20329,
+          "answer": "c",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 20330,
+          "answer": "d",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<strong>D</strong> is the answer. If the selection condition c1 is on attribute A2, then we can not replace LHS expression by RHS expression. In RHS first projection is on  A1 then selection condition c1 will fail because no A2  will be present there. \r\n",
+      "created_on": "2014-01-20 - 12:34:32",
+      "updated_on": "2025-01-13 - 16:48:23"
+    },
+    {
+      "id": 5006,
+      "title": "Aptitude | GATE CS 1998 | Question 33",
+      "slug": "given-two-union-compatible-relations-r1ab-and-r2cd-what",
+      "question": "<p>Given two union compatible relations R<sub>1</sub>(A,B) and R<sub>2</sub>(C,D). What is the result of the operation\r\nR<sub>1</sub>⋈<sub>A=C∧ B=D</sub> R<sub>2   </sub>\r\nA. R<sub>1 </sub>∪ R<sub>2</sub>\r\nB. R<sub>1</sub> Χ R<sub>2</sub>\r\nC. R<sub>1</sub> - R<sub>2</sub>\r\nD. R<sub>1</sub> ∩ R<sub>2</sub></p>",
+      "answers": [
+        {
+          "id": 20323,
+          "answer": "a",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20324,
+          "answer": "b",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20325,
+          "answer": "c",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 20326,
+          "answer": "d",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-20 - 12:34:32",
+      "updated_on": "2025-01-13 - 16:48:23"
+    },
+    {
+      "id": 5095,
+      "title": "Aptitude | GATE CS 1998 | Question 84",
+      "slug": "consider-the-following-database-relations-containing-the-attributes-book_id",
+      "question": "Consider the following database relations containing the attributes\r\n<pre>Book_id\r\nSubject_Category_of_book\r\nName_of_Author\r\nNationality_of_Author\r\n\r\nwith Book_id as the Primary Key.\r\n</pre>\r\n\r\n<ul>\r\n<li><b>(a).</b> What is the highest normal form satisfied by this relation ?\r\n</li>\r\n<li><b>(b).</b> Suppose the attributes <em>Book_title</em> and <em>Author_address</em> are added to the relation, and the primary key is changed to (Name_of_Author, Book_Title), what will be the highest normal form satisfied by the relation?\r\n</li>\r\n</ul>",
+      "answers": [],
+      "explanation": "<ul>\r<li><b>(a).</b> R(Book_id, Subject_Category_of_book, Name_of_Author , Nationality_of_Author)\rGiven that Book_id as the Primary Key.\r\rTherefore { Book_id → catalog Name Author , Nationality Author}\r\rHence Given relation is in BCNF.\r\r</li>\r<li><b>(b).</b> Two attributes Book_title and Author_address are added to the relation\r\rThen , R(bid , catalog , Name Author , Nationality Author  , Book Title , Author Address )\r\rFD are :-\r<pre>\r\n{ bid →  Catalog Name Author ,   Nationality Author , \r\nName Author Book Title → bid catalog Nationality Author Author Address } \r\n</pre>\r\n\r\nHere first FD because of previous relation is second FD because of new primary key .\r\n\r\nCandidate keys of this relation is  :\r\n<pre>\r\n[Name Author , Book Title , bid , book title  ]   </pre>\r\nHere partial dependency exist ( i.e. relation is not in 2NF)\r\n\r\nHence relation is in 1NF.\r\n</li>\r\n</ul>\n",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-01-13 - 16:48:24"
+    },
+    {
+      "id": 5094,
+      "title": "Aptitude | GATE CS 1998 | Question 34",
+      "slug": "which-normal-form-is-considered-adequate-for-normal-relational",
+      "question": "Which normal form is considered adequate for normal relational database design?",
+      "answers": [
+        {
+          "id": 20673,
+          "answer": "2NF",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20674,
+          "answer": "5NF",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20675,
+          "answer": "4NF",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 20676,
+          "answer": "3NF",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "3NF is sufficient because because most of the 3NF tables are free of insertion, update, and deletion anomalies. Moreover, 3NF always ensures functional dependency preserving and lossless.\r\n\r\nSo, option (D) is correct.",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-01-13 - 16:48:24"
+    },
+    {
+      "id": 5163,
+      "title": "Aptitude | GATE CS 1998 | Question 85",
+      "slug": "consider-the-following-relational-database-schemes-coursescno-name-pre-reqcno",
+      "question": "Consider the following relational database schemes:\r\n<pre>COURSES(Cno, name)\r\nPRE-REQ(Cno, pre_Cno)\r\nCOMPLETED(student_no, Cno)\r\n</pre>\r\nCOURSES give the number and the name of all the available courses.\r\nPRE-REQ gives the information about which course are pre-requisites for a given course.\r\nCOMPLETED indicates what courses have been completed by students.\r\n\r\nExpress the following using relational algebra:\r\n<pre>List all the courses for which a student with student_no 2310 has completed all the \r\npre-requisites.</pre>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-20 - 12:35:54",
+      "updated_on": "2025-01-13 - 16:48:25"
+    },
+    {
+      "id": 5162,
+      "title": "Aptitude | GATE CS 1998 | Question 62",
+      "slug": "suppose-we-have-a-database-consisting-of-the-following",
+      "question": "Suppose we have a database consisting of the following three relations.\r\n<pre>FREQUENTS(student, parlor) giving the parlors each student visits.\r\nSERVES(parlor, ice-cream) indicating what kind of ice-creams each parlor serves.\r\nLIKES(student, ice-cream) indicating what ice-creams each parlor serves.\r\n\r\n(<em>Assuming that each student likes at least one ice-cream and frequents at least one parlor</em>)</pre>\r\nExpress the following in SQL:\r\nPrint the students that frequent at least one parlor that serves some ice-cream that they like.",
+      "answers": [],
+      "explanation": "<strong>Answer:</strong> \r\r<pre>\r\nSELECT DISTINCT FREQUENTS.student FROM  \r\n   FREQUENTS, SERVES, LIKES\r\n   WHERE\r\n       FREQUENTS.parlor=SERVES.parlor  \r\n       AND\r\n       SERVES.ice-cream=LIKES.ice-cream\r\n       AND\r\n       FREQUENTS.student=LIKES.student; </pre>\n",
+      "created_on": "2014-01-20 - 12:35:54",
+      "updated_on": "2025-01-13 - 16:48:25"
+    },
+    {
+      "id": 5251,
+      "title": "Aptitude | GATE CS 1998 | Question 35",
+      "slug": "there-are-5-records-in-a-database-name-age",
+      "question": "<p>There are 5 records in a database.</p><pre>\n<u>Name     Age    Occupation    Category</u>\nRama     27       CON            A\nAbdul    22       ENG            A\nJeniffer 28       DOC            B\nMaya     32       SER            D\nDev      24       MUS            C</pre>\n<p>There is an index file associated with this and it contain the values 1, 3, 2, 5 and 4. Which one of the fields is the index built form?</p>\n\n",
+      "answers": [
+        {
+          "id": 21287,
+          "answer": "<p>Age</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21288,
+          "answer": "<p>Name</p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21289,
+          "answer": "<p>Occupation</p>",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 21290,
+          "answer": "<p>Category</p>",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p><br>The index field associated with the values 1, 3, 2, 5 and 4 is the Occupation field because after sorting the Occupational field lexicographically will give the sequence 1,3,2,5,4.<br>&nbsp;</p>",
+      "created_on": "2014-01-20 - 12:39:07",
+      "updated_on": "2025-01-13 - 16:48:26"
+    },
+    {
+      "id": 5322,
+      "title": "GATE | GATE CS 1998 | Question 1",
+      "slug": "a-die-is-rolled-three-times-the-probability-that",
+      "question": "A die is rolled three times. The probability that exact one odd number turns up among the three outcomes is",
+      "answers": [
+        {
+          "id": 21565,
+          "answer": "1/6",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21566,
+          "answer": "3/8",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 21567,
+          "answer": "1/8",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 21568,
+          "answer": "1/2",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>The question is an example of Binomial Experiment, with two possibilities-\rNumber is Even(E) or Number is odd(O).\r[Tex]P(E) = P(O) = \\\\frac{1}{2}[/Tex]\r\n[Tex]P(\\\\text{Exactly 1 Odd Number}) = C(3,1) * P(E)^2*P(O)^1 = \\\\frac{3}{8}[/Tex]\n</p>",
+      "created_on": "2014-01-21 - 03:43:36",
+      "updated_on": "2025-01-13 - 16:48:26"
+    },
+    {
+      "id": 5323,
+      "title": "Aptitude | GATE CS 1998 | Question 56",
+      "slug": "subjective-type-1two-friends-agree-to-meet-at-a",
+      "question": "<p>[Subjective type] 1Two friends agree to meet at a park with the following conditions. Each will reach the park between 4:00 p.m. and 5:00 p.m. and will see if the other has already arrived. If not, they will wait for 10 minutes or the end of the hour whichever is earlier and leave.&nbsp; What is the probability that the two will not meet?&nbsp;</p>",
+      "answers": [
+        {
+          "id": 21569,
+          "answer": "<p><span style=\"background-color:rgb(255,255,255);color:rgb(39,50,57);\">25/36</span></p>",
+          "correct": true,
+          "sort_order": 1
+        }
+      ],
+      "explanation": "<p>Let us consider two friends to be A and B probability that A comes between 4:00p.m and 4:50pm and B comes in the next 10 mins is (5/6)*(1/6) probability that B comes between 4:00p.m and 4:50pm and A comes in the next 10 mins is (5/6)*(1/6) probability that both A and B comes in the last 10 mins is (1/6)*(1/6) probability that the both meet is (5/6)*(1/6)+(5/6)*(1/6)+(1/6)*(1/6)=11/36 probability that they will not meet = 1-p(they will meet)=1-11/36=25/36</p>",
+      "created_on": "2014-01-21 - 03:43:36",
+      "updated_on": "2025-01-13 - 16:48:26"
+    },
+    {
+      "id": 5427,
+      "title": "Aptitude | GATE CS 1998 | Question 39",
+      "slug": "in-a-room-containing-28-people-there-are-18",
+      "question": "In a room containing 28 people, there are 18 people who speak English, 15 people who speak Hindi and 22 people who speak Kannada. 9 persons speak both English and Hindi, 11 persons speak both Hindi and Kannada whereas 13 persons speak both Kannada and English. How many people speak all the three languages?",
+      "answers": [
+        {
+          "id": 21975,
+          "answer": "9",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21976,
+          "answer": "8",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21977,
+          "answer": "7",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 21978,
+          "answer": "6",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-01-13 - 16:48:27"
+    },
+    {
+      "id": 5426,
+      "title": "Aptitude | GATE CS 1998 | Question 38",
+      "slug": "the-binary-relation-r-1-1-2-1",
+      "question": "<p>The binary relation  <em>R</em>= { (1, 1), (2, 1), (2, 2), (2, 3), (2, 4), (3, 1), (3, 2), (3, 3), (3, 4) } on the set <em>A</em>(1, 2, 3, 4) is</p>",
+      "answers": [
+        {
+          "id": 21971,
+          "answer": "Reflexive, symmetric and transitive",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21972,
+          "answer": "Neither reflexive, nor irreflexive but transitive",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 21973,
+          "answer": "Irreflexive, symmetric and transitive",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 21974,
+          "answer": "Irreflexive and anti-symmetric",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>R is not reflexive since it does not have (4,4)\r\nR is not symmetric since it has (2,1) but not (1,2)\r\nR is transitive since it satisfies the property of transitivity.\r\nTherefore option <strong>B</strong> is correct.</p>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-01-13 - 16:48:27"
+    },
+    {
+      "id": 5430,
+      "title": "Aptitude | GATE CS 1998 | Question 68",
+      "slug": "let-a-be-a-semi-group-furthermore-for",
+      "question": "<p>Let (A, *) be a semi group. Furthermore, for every a and b in A, if a ≠ b, then <em>a*b ≠ b*a</em>.\r\n\r\na. Show that for every <em>a </em>in A  <em>a*a = a</em>\r\n\r\nb. Show that for every <em>a, b </em>in A  <em>a*b*a = a</em>\r\n\r\nc. Show that for every <em>a, b, c </em>in A  <em>a*b*c = a*c</em></p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-01-13 - 16:48:27"
+    },
+    {
+      "id": 5429,
+      "title": "Aptitude | GATE CS 1998 | Question 67",
+      "slug": "suppose-a-a-b-c-d-and-1",
+      "question": "<p>Suppose A={ a, b, c, d } and Π<sub>1</sub> is the following partition of A\r\nΠ<sub>1</sub>= { {a, b, c} {d} }\r\n\r\n<strong>a</strong>. List the ordered pairs of the equivalence relations induced by Π<sub>1</sub>.\r\n<strong>b</strong>. Draw the graph of the above equivalence relation.\r\n\r\n<strong>c</strong>. Let Π<sub>2</sub>= {{a},{b},{C},{d}}\r\nΠ<sub>3</sub>= {{a,b,c,d}}\r\nand Π<sub>4</sub>= {{a,b},{c,d}}\r\n\r\nDraw a Poset diagram of the poset, ({Π<sub>1</sub>,Π<sub>2</sub>,Π<sub>3</sub>,Π<sub>4</sub>}, refines ⟩</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-01-13 - 16:48:27"
+    },
+    {
+      "id": 5425,
+      "title": "Aptitude | GATE CS 1998 | Question 8",
+      "slug": "the-number-of-functions-from-an-m-element-set",
+      "question": "<p dir=\"ltr\"><span>The number of functions from an m element set to an n element set is</span></p>",
+      "answers": [
+        {
+          "id": 67772,
+          "answer": "<p dir=\"ltr\"><span>m+n</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 67773,
+          "answer": "<p dir=\"ltr\"><span>m</span><sup><span>n</span></sup></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 67774,
+          "answer": "<p dir=\"ltr\"><span>n</span><sup><span>m</span></sup></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 67775,
+          "answer": "<p dir=\"ltr\"><span>m*n</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-04-21 - 10:26:41"
+    },
+    {
+      "id": 5424,
+      "title": "Aptitude | GATE CS 1998 | Question 7",
+      "slug": "let-r1-and-r2-be-two-equivalence-relations-on",
+      "question": "<p dir=\"ltr\"><span>Let </span><i><em class=\"GFGEditorTheme__textItalic\">R</em></i><i><sub><em class=\"GFGEditorTheme__textItalic\">1</em></sub></i><i><em class=\"GFGEditorTheme__textItalic\"> </em></i><span>and </span><i><em class=\"GFGEditorTheme__textItalic\">R</em></i><i><sub><em class=\"GFGEditorTheme__textItalic\">2</em></sub></i><span> be two equivalence relations on a set. Consider the following assertions: </span></p><p dir=\"ltr\"><span>(i) </span><i><em class=\"GFGEditorTheme__textItalic\">R</em></i><i><sub><em class=\"GFGEditorTheme__textItalic\">1</em></sub></i><span> ∪</span><i><em class=\"GFGEditorTheme__textItalic\"> R</em></i><i><sub><em class=\"GFGEditorTheme__textItalic\">2</em></sub></i><span> is an equivalence relation </span><br><span>(ii)</span><i><em class=\"GFGEditorTheme__textItalic\"> R</em></i><i><sub><em class=\"GFGEditorTheme__textItalic\">1</em></sub></i><span> ∩ </span><i><em class=\"GFGEditorTheme__textItalic\">R</em></i><i><sub><em class=\"GFGEditorTheme__textItalic\">2</em></sub></i><span> is an equivalence relation  </span></p><p dir=\"ltr\"><span>Which of the following is correct?</span></p>",
+      "answers": [
+        {
+          "id": 67768,
+          "answer": "<p dir=\"ltr\"><span>both assertions are true</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 67769,
+          "answer": "<p dir=\"ltr\"><span>assertions (i) is true but assertions (ii) is not true</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 67770,
+          "answer": "<p dir=\"ltr\"><span>assertions (ii) is true but assertions (i) is not true</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 67771,
+          "answer": "<p dir=\"ltr\"><span>neither (i) nor (ii) is true</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>To determine whether the union or intersection of two equivalence relations R1 and R2 on a set S is also an equivalence relation, we need to examine the properties of equivalence relations: reflexivity, symmetry, and transitivity.</span></p><p dir=\"ltr\"><span>Assertion (i): R1 ∪ R2 is an equivalence relation</span></p><ul><li value=\"1\"><b><strong>Reflexivity</strong></b><span>: For R1 ∪ R2​ to be reflexive, every element a ∈ S must be related to itself. Since R1​ and R2​ are equivalence relations, both contain the pairs (a, a) for all a ∈ S. Hence, R1 ∪ R2​ will also contain these pairs and is reflexive.</span></li></ul><ul><li value=\"1\"><b><strong>Symmetry</strong></b><span>: For R1 ∪ R2 to be symmetric, if (a, b) ∈ R1 ∪ R2​, then (b, a) must also be in R1 ∪ R2​. Both R1​ and R2​ are symmetric, so if (a, b) ∈ R1 ∪ R2​, then (a, b) ∈ R1 or (a, b) ∈ R2​. In either case, (b, a) ∈ R1​ or (b, a) ∈ R2​, hence (b, a) ∈ R1 ​∪ R2​. Therefore, R1 ​∪ R2​ is symmetric.</span></li></ul><ul><li value=\"1\"><b><strong>Transitivity</strong></b><span>: For R1 ​∪ R2​ to be transitive, if (a, b) ∈ R1​ ∪ R2​ and (b, c) ∈ R1​ ∪ R2​, then (a, c) must be in R1​ ∪ R2​. This is not necessarily true. For example, suppose (a, b) ∈ R1​ and (b, c)∈R2​, there is no guarantee that (a, c) ∈ R1​ or (a, c) ∈ R2​. Thus, R1 ​∪ R2​ is not necessarily transitive.</span></li></ul><p dir=\"ltr\"><span>Therefore, assertion (i) is false because R1 ∪ R2​ may not be transitive.</span></p><p dir=\"ltr\"><span>Assertion (ii): R1 ​∩ R2​ is an equivalence relation</span></p><ul><li value=\"1\"><b><strong>Reflexivity</strong></b><span>: Both R1​ and r2​ are reflexive, so (a, a) ∈ R1 and (a, a) ∈ R2 for all a ∈ S. Thus, (a, a) ∈ R1 ∩ R2​, making R1 ∩ R2​ reflexive.</span></li></ul><ul><li value=\"1\"><b><strong>Symmetry</strong></b><span>: Both R1​ and R2​ are symmetric, so if (a, b) ∈ R1 ∩ R2​, then (a, b) ∈ R1​ and (a, b) ∈ R2​. Thus, (b, a) ∈ R1​ and (b, a) ∈ R2​, so (b, a) ∈ R1 ∩ R2​. Therefore, R1 ∩ R2​ is symmetric.</span></li></ul><ul><li value=\"1\"><b><strong>Transitivity</strong></b><span>: Both R1​ and R2​ are transitive, so if (a, b) ∈ R1 ∩ R2​ and (b, c) ∈ R1 ∩ R2​, then (a, b) ∈ R1​ and (b, c) ∈ R1, hence (a,c) ∈ R1​. Similarly, (a, b) ∈ R2 and (b, c) ∈ R2 implies (a, c) ∈ R2​. Thus, (a, c) ∈ R1 ∩ R2​, making R1 ∩ R2​ transitive.</span></li></ul><p dir=\"ltr\"><span>Therefore, </span><b><strong>assertion (ii) is true</strong></b><span> because R1 ∩ R2​ retains the properties of an equivalence relation.</span></p><p><br></p><p dir=\"ltr\"><span>The correct answer is that only assertion (ii) is true.</span></p>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-04-19 - 15:51:04"
+    },
+    {
+      "id": 5423,
+      "title": "Aptitude | GATE CS 1998 | Question 6",
+      "slug": "suppose-a-is-a-finite-set-with-n-elements",
+      "question": "<p dir=\"ltr\"><span>Suppose A is a finite set with n elements. The number of elements in the largest equivalence relation of A is</span></p>",
+      "answers": [
+        {
+          "id": 67618,
+          "answer": "<p dir=\"ltr\"><span>n</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 67619,
+          "answer": "<p dir=\"ltr\"><span>n</span><sup><span>2</span></sup></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 67620,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 67621,
+          "answer": "<p dir=\"ltr\"><span>n+1</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-04-21 - 10:25:11"
+    },
+    {
+      "id": 5428,
+      "title": "Aptitude | GATE CS 1998 | Question 66",
+      "slug": "a-prove-by-induction-that-the-expression-for-the",
+      "question": "<p dir=\"ltr\"><span>a.&nbsp; Prove by induction that the expression for the number of diagonals in a polygon of</span><i><em class=\"GFGEditorTheme__textItalic\"> n</em></i><span> sides is</span><i><em class=\"GFGEditorTheme__textItalic\"> </em></i><span>n(n-3) /2.</span><br><br><span>b.&nbsp; Let R be a binary relation on A = {a, b, c, d, e, f, g, h} represented by following two component digraph. Find the smallest integers m and n such that m&lt;n&nbsp;and&nbsp; R</span><sup><span>m&nbsp;</span></sup><span>= R</span><sup><span>n</span></sup></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250422104822384293/GATE-CS-1998-Q10b-300.png\" alt=\"GATE-CS-1998-Q10b\" width=\"300\" height=\"149\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250422104822384293/GATE-CS-1998-Q10b.png 600w,https://media.geeksforgeeks.org/wp-content/uploads/20250422104822384293/GATE-CS-1998-Q10b-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250422104822384293/GATE-CS-1998-Q10b-200.png 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250422104822384293/GATE-CS-1998-Q10b-300.png 300w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><br></p>",
+      "answers": [
+        {
+          "id": 572439,
+          "answer": "<p><span> </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 572440,
+          "answer": "<p><span> </span></p>",
+          "correct": true,
+          "sort_order": 1
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-04-22 - 10:52:49"
+    },
+    {
+      "id": 5516,
+      "title": "Aptitude | GATE CS 1998 | Question 66",
+      "slug": "derive-the-expression-for-the-number-of-expressions-required",
+      "question": "<p>Derive the expression for the number of expressions required to solve a system of linear equations in <em>n</em> unknowns using the Gaussian Elimination Method. Assume that one operation refers to a multiplication followed by an addition.</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:47:45",
+      "updated_on": "2025-01-13 - 16:48:28"
+    },
+    {
+      "id": 5513,
+      "title": "Aptitude | GATE CS 1998 | Question 2",
+      "slug": "consider-the-following-set-of-equations-x2y-5",
+      "question": "Consider the following set of equations\r\n<pre>x+2y = 5\r\n4x+8y = 12\r\n3x+6y+3z = 15</pre>\r\nThis set-",
+      "answers": [
+        {
+          "id": 22295,
+          "answer": "has a unique solution",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22296,
+          "answer": "has no solutions",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 22297,
+          "answer": "has finite number of solutions",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 22298,
+          "answer": "has infinite number of solutions",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>When the given set of equations are represented in matrix form, the coefficient matrix A is singular. Since the determinant value of A is 0, the system of equations is inconsistent. \r\nTherefore, option (B) is correct.\r\n\r\nThis explanation is provided by <strong>Chirag Manwani</strong>.\r\n\r\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/hmtz4zIohNQ?start=1472\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></p>",
+      "created_on": "2014-01-21 - 03:47:45",
+      "updated_on": "2025-01-13 - 16:48:28"
+    },
+    {
+      "id": 5515,
+      "title": "Aptitude | GATE CS 1998 | Question 37",
+      "slug": "consider-the-following-determinantdelta-beginvmatrix-1-a",
+      "question": "<p dir=\"ltr\"><span>Consider the following determinant:</span></p><p>[Tex]\\Delta = \\begin{vmatrix} 1 &amp; a &amp; bc \\\\ 1 &amp; b &amp; ca \\\\ 1 &amp; c &amp; ab \\end{vmatrix}[/Tex]</p><p dir=\"ltr\"><span>Which of the following is a factor of&nbsp;Δ?</span></p>",
+      "answers": [
+        {
+          "id": 22303,
+          "answer": "<p dir=\"ltr\"><span>a+b</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 22304,
+          "answer": "<p dir=\"ltr\"><span>a-b</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 22305,
+          "answer": "<p dir=\"ltr\"><span>a+b+c</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 22306,
+          "answer": "<p dir=\"ltr\"><span>abc</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p>[Tex]\n\\begin{vmatrix}\n1&amp;a&amp;bc\\\\\n1&amp;b&amp;ac\\\\\n1&amp;c&amp;ab\\\\\n\\end{vmatrix} = \\begin{vmatrix}\n0&amp;a-b&amp;c(b-a)\\\\\n1&amp;b&amp;ac\\\\\n0&amp;c-b&amp;a(b-c)\\\\\n\\end{vmatrix} \n\\\\ \\text{Taking }(a-b) \\text{ common from R}_1 \\text{ and }(c-b)\\text{ from R}_3 \\\\\n= (a-b)(c-b)\n\\begin{vmatrix}\n0&amp;1&amp;-c\\\\\n1&amp;b&amp;ac\\\\\n0&amp;1&amp;-a \\end{vmatrix}\n[/Tex]</p><p dir=\"ltr\"><span>(a-b) is a factor of the determinant. Therefore option (B) is correct.</span></p><p dir=\"ltr\"><span>This explanation is provided by </span><b><strong>Chirag Manwani</strong></b><span>. </span></p>",
+      "created_on": "2014-01-21 - 03:47:45",
+      "updated_on": "2025-01-13 - 16:48:28"
+    },
+    {
+      "id": 5659,
+      "title": "Aptitude | GATE CS 1998 | Question 47",
+      "slug": "the-function-represented-by-the-karnaugh-map-given-below",
+      "question": "<p dir=\"ltr\"><span>The function represented by the Karnaugh map given below is:  </span></p><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20200625123143/k-map1.png\" width=\"270\" height=\"172\" loading=\"auto\">",
+      "answers": [
+        {
+          "id": 83994,
+          "answer": "<p dir=\"ltr\"><span>A.B</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 83995,
+          "answer": "<p dir=\"ltr\"><span>AB+BC+CA</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 83996,
+          "answer": "<p dir=\"ltr\"><span>(B⊕C)'</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 83997,
+          "answer": "<p dir=\"ltr\"><span>A.BC</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5660,
+      "title": "Aptitude | GATE CS 1998 | Question 48",
+      "slug": "which-of-the-following-operation-is-commutative-but-not",
+      "question": "<p dir=\"ltr\"><span>Which of the following operation is commutative but not associative</span></p>",
+      "answers": [
+        {
+          "id": 83990,
+          "answer": "<p dir=\"ltr\"><span>AND</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 83991,
+          "answer": "<p dir=\"ltr\"><span>OR</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 83992,
+          "answer": "<p dir=\"ltr\"><span>NAND</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 83993,
+          "answer": "<p dir=\"ltr\"><span>EXOR</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5663,
+      "title": "Aptitude | GATE CS 1998 | Question 72",
+      "slug": "design-a-synchronous-counter-to-go-through-the-following",
+      "question": "Design a synchronous counter to go through the following states:\r\n\r\n1, 4, 2, 3, 1, 4, 2, 3, 1, 4,...........",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5662,
+      "title": "Aptitude | GATE CS 1998 | Question 59",
+      "slug": "a-the-implication-gate-shown-below-has-two-inputs",
+      "question": "a.  The implication gate shown below, has two inputs (x and y), the output is 1 except when <em>x=1</em> and <em>y=0</em>. Realize<em> f=x'y  + xy' </em>using only four implication gates.\r\n\r\n<img class=\"alignnone size-full wp-image-161117\" src=\"http://cdn.geeksforgeeks.org/wp-content/uploads/logic.png\" alt=\"logic\" width=\"168\" height=\"69\" />\r\n\r\nb.  Show that the implication gate is functionally complete.\r\n\r\n ",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5658,
+      "title": "Aptitude | GATE CS 1998 | Question 17",
+      "slug": "the-octal-representation-of-an-integer-is-3428-if",
+      "question": "<p>The octal representation of an integer is (342)<sub>8</sub>. If this were to be treated as an eight bit integer in an 8085 based computer, its decimal equivalent is</p>",
+      "answers": [
+        {
+          "id": 22863,
+          "answer": "226",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22864,
+          "answer": "-98",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 22865,
+          "answer": "76",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 22866,
+          "answer": "-30",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "(342)<sub>8</sub>=(011100010)<sub>2</sub>=(11100010)<sub>2</sub>. \r\nIf we treat this as an 8-bit integer, the first bit becomes sign bit and since it is \"1\", number is negative. 8085 uses 2's complement representation for integers and hence the decimal equivalent will be\r\n(00011110)<sub>2</sub> = -30\r\nSo, option (D) is correct.",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5657,
+      "title": "Aptitude | GATE CS 1998 | Question 15",
+      "slug": "the-threshold-level-for-logic-1-in-the-ttl",
+      "question": "The threshold level for logic 1 in the TTL family is",
+      "answers": [
+        {
+          "id": 22859,
+          "answer": "any voltage above 2.5 V",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22860,
+          "answer": "any voltage between 0.8 V and 5.0 V",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 22861,
+          "answer": "any voltage below 5.0 V",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 22862,
+          "answer": "any voltage below Vcc but above 2.8 V",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5656,
+      "title": "Aptitude | GATE CS 1998 | Question 14",
+      "slug": "a-multiplexer-with-a-4-bit-data-select-input-is",
+      "question": "<p>A multiplexer with a 4-bit data select input is a</p>",
+      "answers": [
+        {
+          "id": 22855,
+          "answer": "<p>4:1 multiplexor</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22856,
+          "answer": "<p>2:1 multiplexor</p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 22857,
+          "answer": "<p>16:1 multiplexor</p>",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 22858,
+          "answer": "<p>8:1 multiplexor</p>",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>A multiplexer (MUX) with a 4-bit data select input is a 16:1 multiplexer.</p><p>The number before the colon represents the total number of inputs to the multiplexer, and the number after the colon represents the number of select inputs.&nbsp;</p><p>In this case, the 4-bit data select input indicates that there are 4 select inputs, each of which can have 2 possible states (0 or 1). As each select input can choose between 2 inputs, the total number of inputs is 2^4 = 16.&nbsp;</p><p>Therefore, the correct answer is (C) 16:1 multiplexer.<br>&nbsp;</p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5655,
+      "title": "Aptitude | GATE CS 1998 | Question 46",
+      "slug": "what-happens-when-a-bit-string-is-xored-with-itself",
+      "question": "<p dir=\"ltr\"><span>What happens when a bit-string is XORed with itself n-times as shown:  [ B⊕ (B⊕ (B⊕ (B........ n times) ]  &nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 83998,
+          "answer": "<p dir=\"ltr\"><span>complements when n is even</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 83999,
+          "answer": "<p dir=\"ltr\"><span>complements when n is odd</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 84000,
+          "answer": "<p dir=\"ltr\"><span>divides by 2^n always</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 84001,
+          "answer": "<p dir=\"ltr\"><span>remains unchanged when n is even</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Here n refers to the number of times XOR operation is triggered.  For example, </span></p><pre><span>A⊕A⊕A = A   (Number of XOR operation is 2 ,i.e., Even)</span><br><br><span>A⊕A⊕A⊕A = 0   (Number of XOR operation is 3 ,i.e., Odd)</span><br><br><span>A⊕A⊕A⊕A⊕A = A   (Number of XOR operation is 4 ,i.e., Even)</span><br><br><span>A⊕A⊕A⊕A⊕A⊕A = 0  (Number of XOR operation is 5 ,i.e., Odd) </span></pre><p dir=\"ltr\"><span>  In General, when the number of XOR operation is Even, the output remains unchanged, while when the number of XOR operation is Odd, the output will be 0. </span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5661,
+      "title": "Aptitude | GATE CS 1998 | Question 49",
+      "slug": "suppose-the-domain-set-of-an-attribute-consists-of",
+      "question": "<p dir=\"ltr\"><span>Suppose the domain set of an attribute consists of signed four digit numbers. What is the percentage rate of reduction in storage space of this attribute if it is stored as an integer rather than in character form?</span></p>",
+      "answers": [
+        {
+          "id": 83986,
+          "answer": "<p><span>80%</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 83987,
+          "answer": "<p><span>20%</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 83988,
+          "answer": "<p><span>60%</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 83989,
+          "answer": "<p><span>40%</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>I assume byte addressable memory- nothing smaller than a byte can be used.  We have four digits. So, to represent signed 4 digit numbers we need 5 bytes- 4 for four digits and 1 for the sign (like -7354).  So, required memory = 5 bytes  Now, if we use integer, the largest number needed to represent is 9999 and this requires 2 bytes of memory for signed representation (one byte can represent only 256 unique integers).  So, memory savings while using integer is, </span></p><pre><span>= (5−2)/5</span><br><span>= 3/5</span><br><span>= 60 % </span></pre><p dir=\"ltr\"><span>  So, option (C) is correct. </span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-01-13 - 16:48:30"
+    },
+    {
+      "id": 5883,
+      "title": "Aptitude | GATE CS 1998 | Question 40",
+      "slug": "let-l-be-the-set-of-all-binary-strings",
+      "question": "Let L be the set of all binary strings whose last two symbols are same. The number of states in the minimal state deterministic finite-state automaton accepting L is",
+      "answers": [
+        {
+          "id": 23735,
+          "answer": "2",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 23736,
+          "answer": "5",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 23737,
+          "answer": "8",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 23738,
+          "answer": "3",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p> Last two symbols of a binary string should be either 11 or 00. So it will be having 5 states.</p>\r\n<img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20210629120558/Screenshot20210629at120525PM-300x260.png\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20210629120558/Screenshot20210629at120525PM-660x572.png  660w, https://media.geeksforgeeks.org/wp-content/uploads/20210629120558/Screenshot20210629at120525PM-768x665.png  768w, https://media.geeksforgeeks.org/wp-content/uploads/20210629120558/Screenshot20210629at120525PM.png, \" sizes=\"100vw\" width=\"300\"></p>",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32"
+    },
+    {
+      "id": 5880,
+      "title": "Aptitude | GATE CS 1998 | Question 9",
+      "slug": "if-the-regular-set-a-is-represented-by-a",
+      "question": "If the regular set 'A' is represented by <em>A= (01+1)*</em> and the regular set 'B' is represented by<em> B= ((01)* 1*)*</em>, which of the following is true ?",
+      "answers": [
+        {
+          "id": 23723,
+          "answer": "A ⊂ B",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 23724,
+          "answer": "B ⊂ A",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 23725,
+          "answer": "A and B are incomparable",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 23726,
+          "answer": "A = B",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Some of the regular expression always equivalent to (0+1)* such that\r<pre>(0+1)* \r\n= (0*+1*)* \r\n= (01*)* \r\n= (0*+1)* \r\n= (0+1*)* \r\n= 0*(10*)* \r\n= 1*(01*)* </pre>\r\nSince, \r\n<pre>(01+1)* = ((01)* 1* )*  </pre>\r\nTherefore A = B. \n",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32"
+    },
+    {
+      "id": 5881,
+      "title": "Aptitude | GATE CS 1998 | Question 10",
+      "slug": "which-of-the-following-sets-can-be-recognized-by",
+      "question": "Which of the following sets can be recognized by a Deterministic Finite-state Automaton?",
+      "answers": [
+        {
+          "id": 23727,
+          "answer": "The number 1, 2, 4, 8......,2^n,.......... written in binary.",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 23728,
+          "answer": "The number 1, 2, 4,....., 2^n,.......... written in unary.",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 23729,
+          "answer": "The set of binary strings in which the number of zeros is the same as the number of ones.",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 23730,
+          "answer": "The set {1, 101, 11011, 1110111,.......}",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "If there is a infinite language and for that language if their is no any pattern exist then we can surely say that given language is not regular, but if pattern is exist for that language then it may or may not be regular language and for ensuring a given language is regular, if we are able to draw DFA for that language then surely it will be regular otherwise not regular, \r\rTherefore option (A) is regular language as it can written in binary i.e., \r<pre>L = {1, 10, 100, 1000, 10000, …} </pre>\r\nRegular expression is (10*), since, for this expression we can draw DFA. \r\n\r\nSo, option (A) is correct.\n",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32"
+    },
+    {
+      "id": 5886,
+      "title": "Aptitude | GATE CS 1998 | Question 58",
+      "slug": "subjective-type-design-a-deterministic-finite-state-automaton-using",
+      "question": "[Subjective type]\r\n\r\nDesign a deterministic finite state automaton (using minimum number of states) that recognizes the following language:\r\n<pre> L = { <em>w</em> ∈ {0,1}* | <em>w</em> interpreted as a binary number (ignoring the leading zeros) is divisible by 5 }\r\n</pre>\r\n&nbsp;",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32"
+    },
+    {
+      "id": 5885,
+      "title": "Aptitude | GATE CS 1998 | Question 57",
+      "slug": "given-a-regular-expression-for-the-set-of-binary",
+      "question": "<p dir=\"ltr\"><span>Given a regular expression for the set of binary strings where every 0 is immediately followed by </span><i><em class=\"GFGEditorTheme__textItalic\">exactly k</em></i><span> 1's and preceded by</span><i><em class=\"GFGEditorTheme__textItalic\"> atleast k</em></i><span> 1's (k is a fixed integer).</span></p>",
+      "answers": [
+        {
+          "id": 67800,
+          "answer": "<p dir=\"ltr\"><span>1∗1k(01k)∗+1+  </span></p><p dir=\"ltr\"><br></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 67801,
+          "answer": "<p dir=\"ltr\"><span>1+1k(01k)∗+1∗  </span></p><p dir=\"ltr\"><br></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 67802,
+          "answer": "<p dir=\"ltr\"><span>1+1k(01k)∗+1+  </span></p><p dir=\"ltr\"><br></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 67803,
+          "answer": "<p dir=\"ltr\"><span>1k(01k)∗+1∗  </span></p><p dir=\"ltr\"><br></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>1∗1k(01k)∗+1∗  </span></p><p dir=\"ltr\"><span>is correct answer for this because if even a single 0 come's then then next zero if any must come at a distance of k consecutive 1;s otherwise it will violate the property that a zero should be followed by exactly k 0's .thus all 0's must be at a distance of k 1's exactly. lso if no 0 is there then there is no constraint so 1* is added.</span></p>",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32"
+    },
+    {
+      "id": 5882,
+      "title": "Aptitude | GATE CS 1998 | Question 12",
+      "slug": "the-string-1101-does-not-belong-to-the-set",
+      "question": "The string 1101 does not belong to the set represented by",
+      "answers": [
+        {
+          "id": 23731,
+          "answer": "110* (0+1)",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 23732,
+          "answer": "1(0+1)* 101",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 23733,
+          "answer": "(10)* (01)* (00+11)*",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 23734,
+          "answer": "(00+(11)*0)*",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "R.E of option C won’t generate 1101 as you can see the language will contain L(C) = {epsilon,10,1010,1001,0101,00,11,0011,1100,………..}\r\nAlso, R.E of option D has ‘1’ but here two ’11’ are together hence its impossible to generate 1101.L(D) = {Epsilon,0,00,110,11110,11000,…………….}\r\nHere Option (C) and (D) both are correct. ",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32"
+    },
+    {
+      "id": 5884,
+      "title": "Aptitude | GATE CS 1998 | Question 41",
+      "slug": "which-of-the-following-statement-is-false-2",
+      "question": "Which of the following statement is false?",
+      "answers": [
+        {
+          "id": 23739,
+          "answer": "Every finite subset of a non-regular set is regular",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 23740,
+          "answer": "Every subset of a regular set is regular",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 23741,
+          "answer": "Every finite subset of a regular set is regular",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 23742,
+          "answer": "The intersection of two regular sets is regular",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Taking a counter example, suppose,\r<pre>L1 = { a^n b^m |n ,m >=0} is always regular\r\nL2 = { a^n b^n | n >=0} is not regular\r\nL1 ⋂ L2 = L2 </pre>\r\n\r\nL2 which is non regular but L1 is subset of L2.\r\n\r\nTherefore Every subset of a regular set is not regular.\r\n\r\nOption (B) is correct.\n",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-01-13 - 16:48:32"
+    },
+    {
+      "id": 5983,
+      "title": "Aptitude | GATE CS 1998 | Question 11",
+      "slug": "regarding-the-power-of-recognition-of-languages-which-of",
+      "question": "Regarding the power of recognition of languages, which of the following statement is false?",
+      "answers": [
+        {
+          "id": 24109,
+          "answer": "The non-deterministic finite state automata are equivalent to deterministic finite state automata.",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24110,
+          "answer": "Non-deterministic pushdown automata is equivalent to deterministic pushdown automata.",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 24111,
+          "answer": "Non-deterministic Turing machines are equivalent to deterministic Turing machines.",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 24112,
+          "answer": "Multi-tape Turing machines are equivalent to Single-tape Turing machines.",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<a href=\"https://www.geeksforgeeks.org/introduction-of-pushdown-automata/\" rel=\"noopener\" target=\"_blank\">Non-deterministic pushdown automata</a> is NOT equivalent to deterministic pushdown automata.\r\n\r\nOption (B) is false.",
+      "created_on": "2014-01-21 - 04:00:34",
+      "updated_on": "2025-01-13 - 16:48:33"
+    },
+    {
+      "id": 5984,
+      "title": "Aptitude | GATE CS 1998 | Question 69",
+      "slug": "let-m-q0-q1-0-1-z0-x",
+      "question": "Let M = ({q<sub>0</sub>, q<sub>1</sub>}, {0, 1}, {z<sub>0</sub>, x}, δ, q<sub>0</sub>, z<sub>0</sub>, ∅) be a pushdown automaton where δ is given by\r\n\r\nδ(q<sub>0</sub>, 1, z<sub>0</sub>) = {(q<sub>0</sub>, xz<sub>0</sub>)}\r\nδ(q<sub>0</sub>, ε, z<sub>0</sub>) = {(q<sub>0</sub>, ε)}\r\nδ(q<sub>0</sub>, 1, X) = {(q<sub>0</sub>, XX)}\r\nδ(q<sub>1</sub>, 1, X) = {(q<sub>1</sub>, ε)}\r\nδ(q<sub>0</sub>, 0, X) = {(q<sub>1</sub>, X)}\r\nδ(q<sub>0</sub>, 0, z<sub>0</sub>) = {(q<sub>0</sub>, z<sub>0</sub>)}\r\n<ol>\r\n \t<li>What is the language accepted by this PDA by empty stack?</li>\r\n \t<li>Describe informally the working of the PDA</li>\r\n</ol>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:00:34",
+      "updated_on": "2025-01-13 - 16:48:33"
+    },
+    {
+      "id": 6252,
+      "title": "Aptitude | GATE CS 1998 | Question 4",
+      "slug": "consider-the-function-y-x-in-the-interval",
+      "question": "<p dir=\"ltr\"><span>Consider the function y = |x|&nbsp;in the interval [-1,1]. In this interval, the function is</span></p>",
+      "answers": [
+        {
+          "id": 25145,
+          "answer": "<p dir=\"ltr\"><span>continuous and differentiable </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25146,
+          "answer": "<p dir=\"ltr\"><span>continuous but not differentiable </span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 25147,
+          "answer": "<p dir=\"ltr\"><span>differentiable but not continuous </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25148,
+          "answer": "<p dir=\"ltr\"><span>neither continuous nor differentiable </span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Here, </span>[Tex]f(x) = \\begin{cases} x, &amp;  x \\geq 0 \\\\ -x, &amp; x &lt; 0\\end{cases}[/Tex]</p><p dir=\"ltr\"><span>The function y = |x| in the interval [-1,1] is |x| is continuous and differentiable everywhere except at x = 0, where it is continuous but not differentiable. Since [-1, 1] contains 0, in this interval it is continues but not differentiable.</span></p><p dir=\"ltr\"><span>Hence, option (B) is correct.</span></p>",
+      "created_on": "2014-01-21 - 04:44:45",
+      "updated_on": "2025-01-13 - 16:48:36"
+    },
+    {
+      "id": 6251,
+      "title": "Aptitude | GATE CS 1998 | Question 3",
+      "slug": "which-of-the-following-statements-applies-to-the-bisection",
+      "question": "Which of the following statements applies to the bisection method used for finding roots of functions:",
+      "answers": [
+        {
+          "id": 25141,
+          "answer": "converges within a few iteration",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25142,
+          "answer": "guaranteed to work for all continuous functions",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 25143,
+          "answer": "is faster than the Newton-Raphson method",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 25144,
+          "answer": "requires that there be no error in determining the sign of the fuction",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "This method is guaranteed to convert to the root off if f is a continuous function in space [a, b] and f (a) and f (b) have opposing symbols. The total error is limited to half of each step so that the path is changed sequentially, which is relatively slow.\r\n\r\nRef: http://en.wikipedia.org/wiki/Bisection_method#Analysis",
+      "created_on": "2014-01-21 - 04:44:45",
+      "updated_on": "2025-01-13 - 16:48:36"
+    },
+    {
+      "id": 6253,
+      "title": "Aptitude | GATE CS 1998 | Question 65",
+      "slug": "a-find-the-points-of-local-maxima-and-minima",
+      "question": "a. Find the points of local maxima and minima, if any, of the following function defined in 0≤ x ≤ 6.\r\n<pre>  x<sup>3</sup>-6x+9x-15\r\n</pre>\r\n \r\n\r\nb. Integrate\r\n\r\n<img class=\"alignnone size-full wp-image-161150\" src=\"http://cdn.geeksforgeeks.org/wp-content/uploads/inte.png\" alt=\"inte\" width=\"141\" height=\"84\" />",
+      "answers": [],
+      "explanation": "<strong>(a) </strong>\r\n<pre>\r\nf(x)= x^3-6x^2+9x-15\r\nf'(x) = 3x^2-12x+9\r\nf''(x) = 6x-12\r\n</pre>\r\nFor finding critical point\r\n\r\nNow f'(x) =0 \r\n<pre>\r\n3x^2-12x+9=0\r\n</pre>\r\nAfter solving, we get\r\n<pre>\r\nx=3 or x=1\r\n</pre>\r\nNow, f''(x)= 6x-12. Put x=3 we get positive value at x=3 \r\nHence, local minima =3\r\n\r\nf''(x)= 6x-12. put x=1 we get negative value at x=1\r\n\r\nHence, local maxima =1\r\n\r\n\r\n\r\n<strong>(b)</strong>\r\n\r\nf(x)= ∫x cosx dx where upper limit π and lower limit is -π.\r\n\r\nHere x is an odd function and cos x is an even function so x cos x is an odd function.\r\n\r\nAs we know that  if g(x) is odd function then ∫g(x) dx = 0 upper limit a and lower limit is -a.\r\n\r\nHence, f(x)= ∫x cos x dx where upper limit π and the lower limit is -π having value 0.",
+      "created_on": "2014-01-21 - 04:44:45",
+      "updated_on": "2025-01-13 - 16:48:36"
+    },
+    {
+      "id": 6375,
+      "title": "Aptitude | GATE CS 1998 | Question 23",
+      "slug": "how-many-substrings-of-different-length-non-zero-can-be",
+      "question": "<p>How many substrings of different length (non-zero) can be formed from a character string of length n ?</p>",
+      "answers": [
+        {
+          "id": 25629,
+          "answer": "<p>n</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25630,
+          "answer": "<p>n<sup>2</sup></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25631,
+          "answer": "<p>2<sup>n</sup></p>",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 25632,
+          "answer": "<p>n(n+1)/2</p>",
+          "correct": true,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Number of substrings of length 1: n<br>Number of substrings of length 2: n-1<br>Number of substrings of length 3: n-2 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br>Similarly, the number of substrings of length n: 1</p><p>Sum of substrings of all lengths = 1+2+.......+(n-1)+n = n(n+1)/2 &nbsp; &nbsp; (Sum of n natural numbers)<br>&nbsp;</p>",
+      "created_on": "2014-01-21 - 04:49:12",
+      "updated_on": "2025-01-13 - 16:48:37"
+    },
+    {
+      "id": 6478,
+      "title": "Aptitude | GATE CS 1998 | Question 74",
+      "slug": "5-marks-question-for-a-set-associative-cache-organization-the",
+      "question": "[5 Marks question]\r\nFor a set-associative Cache Organization, the parameters are as follows:\r\n<pre><em>t<sub>c</sub></em> - Cache access tine\r\n<em>t<sub>m</sub></em> - Main memory access time\r\n<em>l</em> - number of sets\r\n<em>b</em> - block size\r\n<em>k x b</em> - set size\r\n</pre>\r\nCalculate the hit ratio for a loop executed 100 times where the size of the loop is <em>n X b</em> and <em>n= k X m</em> is a non-zero integer and <em>1 < m ≤ l.</em>\r\nGiven the value of the hit ratio for<em> <em>l</em> = 1.</em>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:38"
+    },
+    {
+      "id": 6593,
+      "title": "Aptitude | GATE CS 1998 | Question 71",
+      "slug": "answer-the-following-a-draw-the-schematic-of-an",
+      "question": "<p>Answer the following:\r\n<strong>a</strong>. Draw the schematic of an 8085 based system that can be used to measure the width of a pulse. Assume that the pulse is given as a TTL compatible signal by the source which generates it.\r\n\r\n<strong>b</strong>.  Write the 8085 Assembly Language program to measure the width of the pulse. State all your assumption clearly.</p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:39"
+    },
+    {
+      "id": 6476,
+      "title": "Aptitude | GATE CS 1998 | Question 45",
+      "slug": "the-address-space-of-8086-cpu-is",
+      "question": "The address space of 8086 CPU is",
+      "answers": [
+        {
+          "id": 26033,
+          "answer": "One Megabyte",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 26034,
+          "answer": "256 Kilobytes",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 26035,
+          "answer": "1 K Megabytes",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 26036,
+          "answer": "64 Kilobytes",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:38"
+    },
+    {
+      "id": 6477,
+      "title": "Aptitude | GATE CS 1998 | Question 53",
+      "slug": "if-an-instruction-takes-i-microseconds-and-a-page",
+      "question": "<p>If an instruction takes<em> i</em> microseconds and a page fault takes an additional <em>j</em> microseconds, the effective instruction time if on the average a  page fault occurs every <em>k </em>instructions is:</p>",
+      "answers": [
+        {
+          "id": 26037,
+          "answer": "i + j/k",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 26038,
+          "answer": "i  + j* k",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 26039,
+          "answer": "(i + j)/ k",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 26040,
+          "answer": "(i + j)* k",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:38"
+    },
+    {
+      "id": 6475,
+      "title": "Aptitude | GATE CS 1998 | Question 20",
+      "slug": "which-of-the-following-is-true-12",
+      "question": "Which of the following is true?",
+      "answers": [
+        {
+          "id": 26029,
+          "answer": "Unless enabled, a CPU will not be able to process interrupts.",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 26030,
+          "answer": "Loop instructions cannot be interrupted till they complete.",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 26031,
+          "answer": "A processor checks for interrupts before executing a new instruction.",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 26032,
+          "answer": "Only level triggered interrupts are possible in microprocessors.",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-01-13 - 16:48:38"
+    },
+    {
+      "id": 6745,
+      "title": "Aptitude | GATE CS 1998 | Question 16",
+      "slug": "in-serial-communications-employing-8-data-bits-a-parity",
+      "question": "<p dir=\"ltr\"><span>In serial communications employing 8 data bits, a parity bit and 2 stop bits, the minimum band rate required to sustain a transfer rate of 300 characters per second is</span></p>",
+      "answers": [
+        {
+          "id": 67749,
+          "answer": "<p dir=\"ltr\"><span>2400 band</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 67750,
+          "answer": "<p dir=\"ltr\"><span>19200 band</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 67751,
+          "answer": "<p dir=\"ltr\"><span>4800 band</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 67752,
+          "answer": "<p dir=\"ltr\"><span>1200 band</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>To calculate the minimum baud rate required for a given transfer rate in serial communication, you need to consider the number of bits per character (including data bits, parity bit, and stop bits) and the desired transfer rate.</span></p><p><br></p><p dir=\"ltr\"><span>In this case, you have:</span></p><p dir=\"ltr\"><span>- 8 data bits</span></p><p dir=\"ltr\"><span>- 1 parity bit</span></p><p dir=\"ltr\"><span>- 2 stop bits</span></p><p dir=\"ltr\"><span>- Total bits per character: 8 (data) + 1 (parity) + 2 (stop) = 11 bits</span></p><p><br></p><p dir=\"ltr\"><span>To transfer 300 characters per second, you need to calculate the total number of bits per second (baud rate) required:</span></p><p dir=\"ltr\"><span>\\[ \\text{Baud Rate} = \\text{Transfer Rate} \\times \\text{Total Bits Per Character} \\]</span></p><p><br></p><p dir=\"ltr\"><span>\\[ \\text{Baud Rate} = 300 \\, \\text{characters/sec} \\times 11 \\, \\text{bits/character} \\]</span></p><p><br></p><p dir=\"ltr\"><span>\\[ \\text{Baud Rate} = 3300 \\, \\text{bits/sec} \\]</span></p><p><br></p><p dir=\"ltr\"><span>So, the minimum baud rate required to sustain a transfer rate of 300 characters per second is 3300 bits per second (bps).</span></p>",
+      "created_on": "2014-01-21 - 07:18:47",
+      "updated_on": "2025-01-13 - 16:48:41"
+    },
+    {
+      "id": 6977,
+      "title": "Aptitude | GATE CS 1998 | Question 5",
+      "slug": "what-is-the-converse-of-the-following-assertioni-stay",
+      "question": "<p>What is the converse of the following assertion?</p><pre>I stay only if you go.</pre>\n",
+      "answers": [
+        {
+          "id": 28026,
+          "answer": "<p>I stay if you go</p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 28027,
+          "answer": "<p>If I stay then you go</p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 28028,
+          "answer": "<p>If you do not go then I do not stay</p>",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 28029,
+          "answer": "<p>If I do not stay then you go</p>",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p><br><strong>Explanation:</strong>&nbsp;</p><p>The converse of the assertion \"I stay only if you go\" is:</p><p>(D) If I do not stay then you go.</p><p>The converse of an implication swaps the positions of the antecedent and the consequent. In the original assertion, \"I stay\" is the consequent and \"you go\" is the antecedent. Therefore, in the converse, \"you go\" becomes the consequent and \"I do not stay\" becomes the antecedent.<br>&nbsp;</p>",
+      "created_on": "2014-01-22 - 18:55:12",
+      "updated_on": "2025-01-13 - 16:48:43"
+    },
+    {
+      "id": 7620,
+      "title": "Aptitude | GATE CS 1998 | Question 52",
+      "slug": "consider-n-processes-sharing-the-cpu-in-a-round-robin",
+      "question": "<p>Consider <em>n</em> processes sharing the CPU in a round-robin fashion. Assuming that each process switch takes <em>s</em> seconds, what must be the quantum size <em>q</em> such that the overhead resulting from process switching is minimized but, at the same time, each process is guaranteed to get its turn at the CPU at least every <em>t</em> seconds ?\r\n\r\n<img class=\"alignnone size-full wp-image-161099\" src=\"http://cdn.geeksforgeeks.org/wp-content/uploads/aq.png\" alt=\"aq\" width=\"103\" height=\"227\" />\r\n\r\n </p>",
+      "answers": [
+        {
+          "id": 30591,
+          "answer": "a",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 30592,
+          "answer": "b",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30593,
+          "answer": "c",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 30594,
+          "answer": "d",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Each process will get CPU for q seconds and each process wants CPU again after t seconds.\rThus, there will be (n-1) processes once after current process gets CPU again. Each process takes s seconds for context switch.\r<pre>(Qp1)(s)(Qp2)(s)(Qp3)(s)(Qp1) </pre>\r\nIt can be seen that since P1 left and arrived again, there have been n context switches and (n-1) processes. Thus, equation will be: \r\n<pre>q*(n-1) + n*s <= t\r\nq*(n-1) <= t - n*s\r\nq <= (t-n.s) / (n-1) </pre>\r\n\r\nSo, option (A) is correct.\n",
+      "created_on": "2015-04-12 - 05:28:17",
+      "updated_on": "2025-01-13 - 16:48:50"
+    },
+    {
+      "id": 7621,
+      "title": "Aptitude | GATE CS 1998 | Question 81",
+      "slug": "answer-the-following-a-four-jobs-are-waiting-to",
+      "question": "<p>Answer the following: a. Four jobs are waiting to be run. Their expected run times are 6, 3, 5 and x. In what order should they be run to minimize the average response time? b. Write a concurrent program using <i><strong>par begin - par end</strong> </i>to represent the precedence graph shown below.&nbsp;</p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20230203112806/Diagram.png\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20230203112806/Diagram.png 562w, https://media.geeksforgeeks.org/wp-content/uploads/20230203112806/Diagram-100.png 100w, https://media.geeksforgeeks.org/wp-content/uploads/20230203112806/Diagram-200.png 200w, https://media.geeksforgeeks.org/wp-content/uploads/20230203112806/Diagram-300.png 300w, \" sizes=\"100vw\" width=\"562\" alt=\"Precedence graph\"><figcaption><i>Precedence graph</i></figcaption></figure>",
+      "answers": [
+        {
+          "id": 30595,
+          "answer": "<p>No Option provided (Subjective Question)<br>Please click here for answer.</p>",
+          "correct": true,
+          "sort_order": 1
+        }
+      ],
+      "explanation": "<p><strong>a.</strong>&nbsp;If we use Round Robin with Time Quantum = 1, it will take minimum Response Time, but we will not get any specific order. So, <strong>SJF</strong> (Shortest Job First) will give a minimum response time.</p><ul><li>if x&lt;3&lt;5&lt;6 then order: x, 3, 5, 6</li><li>if 3&lt;x&lt;5&lt;6 then order: 3, x, 5, 6</li><li>if 3&lt;5&lt;x&lt;6 then order: 3, 5, x, 6</li><li>if 3&lt;5&lt;6&lt;x then order: 3, 5, 6, x</li></ul><p><strong>b.&nbsp;</strong></p><blockquote><p>Begin<br>&nbsp; &nbsp; &nbsp;S1;<br>&nbsp; &nbsp; &nbsp;Par Begin<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; S3;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Begin<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; S2;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; S3;<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End<br>&nbsp; &nbsp; &nbsp;Par End<br>&nbsp; &nbsp; &nbsp;S5;<br>End</p></blockquote>",
+      "created_on": "2015-04-12 - 05:28:17",
+      "updated_on": "2025-01-13 - 16:48:50"
+    },
+    {
+      "id": 7663,
+      "title": "Aptitude | GATE CS 1998 | Question 31",
+      "slug": "a-counting-semaphore-was-initialized-to-10-then-6",
+      "question": "<p>A counting semaphore was initialized to 10. Then 6 P (wait) operations and 4 V (signal) operations were completed on this semaphore. The resulting value of the semaphore is</p>",
+      "answers": [
+        {
+          "id": 30758,
+          "answer": "<p>0</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30759,
+          "answer": "<p>8</p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 30760,
+          "answer": "<p>10</p>",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 30761,
+          "answer": "<p>12</p>",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "<p>Initially we have semaphore value = 10 Now we have to perform 6 p operation means when we perform one p operation it decreases the semaphore values to one. So after performing 6 p operation we get, semaphore values = 10 - 6 = 4 and now we have to perform 4 v operation means when we perform one V operation it increases the semaphore values to one. So after performing 4 v operation we get, semaphore values = 4 + 4 = 8. Option (B) is correct.&nbsp;</p>",
+      "created_on": "2015-04-12 - 05:46:03",
+      "updated_on": "2025-01-13 - 16:48:50"
+    },
+    {
+      "id": 7645,
+      "title": "Aptitude | GATE CS 1998 | Question 32",
+      "slug": "a-computer-has-six-tape-drives-with-n-processes",
+      "question": "A computer has six tape drives, with n processes competing for them. Each process may need two drives. What is the maximum value of n for the system to be deadlock free?",
+      "answers": [
+        {
+          "id": 30688,
+          "answer": "6",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30689,
+          "answer": "5",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 30690,
+          "answer": "4",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 30691,
+          "answer": "3",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Given tape drive = 6 and each process may need 2 drive. \r\n\r\nWhen we give 1 drive to 1 process then total process will be 6 but in this case there will definitely deadlock occur because every process contain 1 drive and waiting for another drive which is hold by other process therefore when we reduce 1 process then system to be deadlock free. \r\n\r\nHence maximum value of n = 6 - 1 = 5.\r\n\r\nOption (B) is correct.",
+      "created_on": "2015-04-12 - 05:46:03",
+      "updated_on": "2025-01-13 - 16:48:50"
+    },
+    {
+      "id": 8703,
+      "title": "Aptitude | GATE CS 1998 | Question 76",
+      "slug": "compute-the-postfix-equivalent-of-the-following-infix-expression",
+      "question": "<p>Compute the Postfix equivalent of the following Infix expression  <strong>3* log(x+1) - a/2</strong></p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-11 - 05:53:11",
+      "updated_on": "2025-01-13 - 16:49:01"
+    },
+    {
+      "id": 8704,
+      "title": "Aptitude | GATE CS 1998 | Question 78",
+      "slug": "5-marks-question-answer-the-following-a-derive-a",
+      "question": "<p>[5 Marks question]\r\nAnswer the following:\r\n\r\na. Derive a recurrence relation of the size of the smallest AVL tree with height <em>h. </em>\r\nb. What is the size of the smallest AVL tree with height <em>8.</em></p>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2017-10-11 - 05:53:11",
+      "updated_on": "2025-01-13 - 16:49:01"
+    },
+    {
+      "id": 3188,
+      "title": "Aptitude | GATE CS 1998 | Question 75",
+      "slug": "what-are-the-applications-of-linked-list",
+      "question": "<p dir=\"ltr\"><span>What are the application(s) of linked list?</span></p>",
+      "answers": [
+        {
+          "id": 63566,
+          "answer": "<p dir=\"ltr\"><span>Implementation of stacks and queues.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 63567,
+          "answer": "<p dir=\"ltr\"><span>Maintaining a directory of names</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 63568,
+          "answer": "<p dir=\"ltr\"><span>None of the above</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 63569,
+          "answer": "<p dir=\"ltr\"><span>Both a and b</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Both a and b are the implementations of linked list.</span></p>",
+      "created_on": "2022-12-30 - 15:07:57",
+      "updated_on": "2025-01-13 - 16:48:04"
+    },
+    {
+      "id": 3544,
+      "title": "Aptitude | GATE CS 1998 | Question 77",
+      "slug": "draw-the-binary-tree-with-node-labels-a-b",
+      "question": "Draw the binary tree with node labels<em> a, b, c, d, e, f </em>and<em> g</em> for which the inorder and postorder traversals result in the following sequences:\r\n<pre>Inorder       <strong>a f b c d g e</strong>\r\nPostorder     <strong>a f c g e d b</strong>\r\n</pre>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2022-12-30 - 15:56:26",
+      "updated_on": "2025-01-13 - 16:48:08"
+    },
+    {
+      "id": 6132,
+      "title": "Aptitude | GATE CS 1998 | Question 27",
+      "slug": "type-checking-is-normally-done-during",
+      "question": "Type checking is normally done during",
+      "answers": [
+        {
+          "id": 24693,
+          "answer": "Lexical analysis",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24694,
+          "answer": "Syntax analysis",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24695,
+          "answer": "Syntax directed translation",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 24696,
+          "answer": "Code optimization",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Syntax-Directed Translation is used in following cases\r\n<ol>\t\r\n<li>Conversion of infix to Postfix</li>\r\n<li>Calculation of infix expression</li>\r\n<li>For creating a Acyclic graph</li>\r\n<li>Type Checking</li>\r\n<li>Conversion of Binary number to Decimal</li>\r\n<li>Counting the numbers of bits (0 or 1 ) in a binary number</li>\r\n<li>Creation of syntax tree</li>\r\n<li>To generate Intermediate code</li>\r\n<li>Storing the data into Symbol table</li>\r\n</ol>",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:35"
+    },
+    {
+      "id": 6131,
+      "title": "Aptitude | GATE CS 1998 | Question 26",
+      "slug": "which-of-the-following-statement-is-true-1",
+      "question": "Which of the following statement is true?",
+      "answers": [
+        {
+          "id": 24689,
+          "answer": "SLR parser is more powerful than LALR.",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24690,
+          "answer": "LALR parser is more powerful than Canonical LR parser.",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24691,
+          "answer": "Canonical LR parser is more powerful than LALR parser.",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 24692,
+          "answer": "The parsers SLR, Canonical LR, and LALR have the same power.",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Canonical LR is the most powerful parser as compared to other LR parsers. Order: LR(0)< SLR < LALR < CLR.  \r\n\r\nOption (C) is correct.",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:35"
+    },
+    {
+      "id": 6135,
+      "title": "Aptitude | GATE CS 1998 | Question 79",
+      "slug": "5-marks-question-answer-the-following-a-an-identifier",
+      "question": "[5 Marks question]\r\n\r\nAnswer the following:\r\n\r\n<strong>a</strong>. An identifier in a programming language consists of upto six letters and digits of which the first character must be a letter. Derive a regular expression for the identifier.\r\n\r\n<strong>b</strong>. Build an LL(1) parsing table for the language defined by the LL(1) grammar with productions\r\n<pre>Program → begin <em>d</em> semi X end\r\nX → <em>d</em> semi X | s Y\r\nY → semi s Y | ε</pre>",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:35"
+    },
+    {
+      "id": 6136,
+      "title": "Aptitude | GATE CS 1998 | Question 80",
+      "slug": "let-the-attribute-val-give-the-value-of-a",
+      "question": "Let the attribute 'val' give the value of a binary number generated by S in the following grammar:\r\n\r\nS → L.L | L\r\nL→ LB | B\r\nB → 0 | 1\r\n\r\nFor example, an input 101.101 gives S.val = 5.625\r\nConstruct a syntax directed translation scheme using only synthesized attributes, to determine <em>S.val.</em>",
+      "answers": [],
+      "explanation": "Given grammar is:- \r<pre>S -&gt; L.L | L\r\nL-&gt; LB | B\r\nB -&gt; 0 | 1 </pre>\r\n\r\nNow, syntax directed translation scheme using only synthesized attributes are:\r\n\r\n<pre>S -&gt; L.L  { S.val = L.Val + L.val / L.nb }\r\nS -&gt; L    { S.val = L.val}\r\nL -&gt; LB   { L.val = 2 * L.Val + B.val , L.nb = L.nb + B.nb }\r\nL -&gt; B    { L.val = B.val , L.nb = B.nb}\r\nB -&gt; 0    { B.val = 0 , B.nb = 1 }\r\nB -&gt; 1    { B.val = 1 , B.nb = 1 } </pre>\r\n\r\nwhere , val = decimal value , nb = number of bits\n",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:35"
+    },
+    {
+      "id": 4330,
+      "title": "Aptitude | GATE CS 1998 | Question 24",
+      "slug": "which-of-the-following-statement-is-false",
+      "question": "Which of the following statement is false?",
+      "answers": [
+        {
+          "id": 17707,
+          "answer": "A tree with n nodes has (n-1) edges.",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 17708,
+          "answer": "A labeled rooted binary tree can be uniquely constructed given its postorder and preorder traversal results. ",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 17709,
+          "answer": "A complete binary tree with n internal nodes has (n+1) leaves.",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 17710,
+          "answer": "The maximum number of nodes in a binary tree of height h is (2^(h+1)  -1).",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Both option (A) and (D) are correct. But option (B) is false because \"a labeled rooted binary tree <b>can not be uniquely</b> constructed given using its postorder and preorder traversal results\". It need inorder and preorder/postorder for uniquely constructed binary tree.\r\n\r\nOption (C) is also false, take counter example in given tree :\r\n<img src=\"https://contribute.geeksforgeeks.org/wp-content/uploads/gate-24.png\" alt=\"ALDS1_9_A_1\" width=\"386\" height=\"336\" class=\"aligncenter size-full wp-image-173257\" />\r\n\r\nTherefore, both option (B) and (C) are false.",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:16"
+    },
+    {
+      "id": 6134,
+      "title": "Aptitude | GATE CS 1998 | Question 70",
+      "slug": "answer-the-following-a-let-g1-n-t",
+      "question": "Answer the following:\r\n\r\na.  Let G1 = (N, T, P, S1) be a CFG where, N= {S1A, B}, T= {a,b} and P is given by\r\n<pre>         S<sub>1</sub> → aS<sub>1</sub>b             S<sub>1</sub> → aBb\r\n         S<sub>1</sub> → aAb              B → Bb\r\n         A → aA                B → b\r\n         A → a</pre>\r\nWhat is L(G<sub>1</sub>)?\r\n\r\nb. Use the grammar in part(a) to give a CFG for L<sub>2</sub> = {<em>a<sup>i </sup>b<sup>j </sup>a<sup>k </sup>b<sup>l</sup></em> | <em>i, j, k, l</em> ≥ 1, <em>i= j</em> or <em>k=l</em>} by adding not more than 5 production rule.\r\n\r\nc.  Is L<sub>2</sub> inherently ambiguous?",
+      "answers": [],
+      "explanation": "",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:35"
+    },
+    {
+      "id": 4331,
+      "title": "Aptitude | GATE CS 1998 | Question 46",
+      "slug": "a-complete-n-ary-tree-is-one-in-which-every",
+      "question": "<p>A complete n-ary tree is one in which every node has <em>0</em> or <em>n</em> sons. If x is the number of internal nodes of a complete n-ary tree, the number of leaves in it is given by</p>",
+      "answers": [
+        {
+          "id": 17711,
+          "answer": "x(n-1)+1",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 17712,
+          "answer": "xn-1",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 17713,
+          "answer": "xn+1",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 17714,
+          "answer": "x(n+1)",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:16"
+    },
+    {
+      "id": 6133,
+      "title": "Aptitude | GATE CS 1998 | Question 61",
+      "slug": "consider-the-grammar-s-aa-b-a",
+      "question": "Consider the grammar\r\n<pre>S →  Aa | b\r\nA → Ac | Sd | ε\r\n</pre>\r\nConstruct an equivalent grammar with no left recursion and with minimum number of production rules.",
+      "answers": [],
+      "explanation": "Given,\r<pre>S →  Aa | b\r\nA → Ac | Sd | ε </pre>\r\n\r\nWe can write this grammar as-\r\n\r\n<pre>S →  Aa | b\r\nA → Ac | Aad | bd | ε </pre>\r\n\r\nAfter removing left factor we get :-\r\n\r\n<pre>S → Aa | b\r\nA → A’ | bdA’\r\nA’ → cA’ | adA’ |  ε </pre>\n",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-01-13 - 16:48:35"
+    },
+    {
+      "id": 6182,
+      "title": "Aptitude | GATE CS 1998 | Question 28",
+      "slug": "a-linker-reads-four-modules-whose-lengths-are-200",
+      "question": "A linker reads four modules whose lengths are 200, 800, 600 and 500 words respectively. If they are loaded in that order, what are the relocation constants?",
+      "answers": [
+        {
+          "id": 24869,
+          "answer": "0, 200, 500, 600",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24870,
+          "answer": "0, 200, 1000, 1600",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 24871,
+          "answer": "200, 500, 600, 800",
+          "correct": false,
+          "sort_order": 3
+        },
+        {
+          "id": 24872,
+          "answer": "200, 700, 1300, 2100",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "According to question &nbsp;a linker reads four modules whose lengths are 200, 800, 600 and 500 words respectively. If first module loaded then it will start at address 0 and we know that Size is 200. hence it will occupy first 200 address and &nbsp;last address being 199 because it start with 0 therefore &nbsp;Second module will be present from 200 &nbsp;to 999 as &nbsp; 2nd module having length 800 &nbsp;and third module will start from 1000 to 1599 as its length is 600 similarly fourth module will start from 1600 to till 500 B.\r\n\r\nTherefore relocation constant is 0, 200, 1000, 1600. For better understanding see the table below.\r\n\r\n<table style=\"width:50%\">\r\n<tbody><tr><td>Module Number &nbsp; &nbsp; &nbsp;</td><td>&nbsp;relocation base &nbsp;&nbsp;</td><td>&nbsp;limit &nbsp;( length ) &nbsp; &nbsp;&nbsp;</td></tr><tr><td>1</td><td>0</td><td>200</td></tr><tr><td>2</td><td>200</td><td>800</td></tr><tr><td>3</td><td>1000</td><td>600</td></tr><tr><td>4</td><td>1600</td><td>500</td></tr></tbody></table>",
+      "created_on": "2022-12-30 - 15:56:29",
+      "updated_on": "2025-01-13 - 16:48:35"
+    },
+    {
+      "id": 6181,
+      "title": "Aptitude | GATE CS 1998 | Question 25",
+      "slug": "in-a-resident-os-computer-which-of-the-following",
+      "question": "In a resident- OS computer, which of the following system software must reside in the main memory under all situations?",
+      "answers": [
+        {
+          "id": 24865,
+          "answer": "Assembler",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24866,
+          "answer": "Linker",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24867,
+          "answer": "Loader",
+          "correct": true,
+          "sort_order": 3
+        },
+        {
+          "id": 24868,
+          "answer": "Compiler",
+          "correct": false,
+          "sort_order": 4
+        }
+      ],
+      "explanation": "Loader is the part of an operating system that is responsible for loading programs and libraries. it places the programs into memory and also prepares them for execution.\r\n\r\nLoading a program involves tasks such as reading the contents of the executable file containing the program instructions into memory, and then carrying out other required preparatory tasks to prepare the executable for running so any software must reside in the main memory under all situations.\r\n\r\nThe operating system starts the program by passing control to the loaded program code once the loading process is completed.\r\n\r\nOption (C) is correct.",
+      "created_on": "2022-12-30 - 15:56:29",
+      "updated_on": "2025-01-13 - 16:48:35"
+    }
+  ],
+  "quiz": {
+    "id": 312,
+    "question_count": 83,
+    "bottom_description": "",
+    "title": "GATE CS 1998",
+    "slug": "gate-cs-1998",
+    "category": [
+      {
+        "id": 4355,
+        "name": "GATE",
+        "slug": "gate",
+        "origin_term_id": 2209,
+        "origin_slug": "computer-subject/computer-science-quizzes-gq/gate"
+      }
+    ],
+    "show_answer": 3,
+    "created_on": "2017-10-11 - 05:53:11",
+    "updated_on": "2024-04-02 - 17:23:11"
+  }
+}

@@ -2,39 +2,18 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { HelpCircle, CheckCircle } from "lucide-react";
-import { Question } from "@/types/question";
-import { getDisplaySubtopic } from "@/lib/subtopicNormalization";
-import Image from "next/image";
+import { Doc } from "@/convex/_generated/dataModel";
 
 interface QuestionCardProps {
-  question: Question;
-  onGetHelp: (question: Question) => void;
+  question: Doc<"questions">;
+  answers: Doc<"answers">[];
+  onGetHelp?: (question: Doc<"questions">) => void;
 }
 
-export function QuestionCard({ question, onGetHelp }: QuestionCardProps) {
-  // Check if question has all options
-  const hasOptions =
-    question.optionA &&
-    question.optionB &&
-    question.optionC &&
-    question.optionD &&
-    question.correctAnswer;
-
-  // Map options to array with labels
-  const optionsArray = hasOptions
-    ? [
-        { label: "A", text: question.optionA },
-        { label: "B", text: question.optionB },
-        { label: "C", text: question.optionC },
-        { label: "D", text: question.optionD },
-      ]
-    : [];
-
-  const correctOptionIndex = hasOptions
-    ? optionsArray.findIndex(
-        (opt) => opt.label === question.correctAnswer
-      )
-    : -1;
+export function QuestionCard({ question, answers, onGetHelp }: QuestionCardProps) {
+  // Sort answers by sortOrder
+  const sortedAnswers = [...answers].sort((a, b) => a.sortOrder - b.sortOrder);
+  
 
   return (
     <Card className="group relative overflow-hidden bg-gradient-to-br from-card via-card/95 to-card/90 border border-border/50 shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-2">
@@ -62,37 +41,20 @@ export function QuestionCard({ question, onGetHelp }: QuestionCardProps) {
                   {question.questionType}
                 </Badge>
               )}
-              {question.questionNumber && (
-                <span className="text-sm text-muted-foreground/80 bg-muted/60 px-3 py-1.5 rounded-full border border-border/30 font-medium">
-                  #{question.questionNumber}
-                </span>
-              )}
             </div>
 
-            {/* Question Text */}
+            {/* Question Text - HTML Content */}
             <div className="prose prose-lg max-w-none dark:prose-invert">
-              <p className="text-xl leading-relaxed text-foreground/90 font-medium m-0">
-                {question.questionText}
-              </p>
+              <div 
+                className="text-xl leading-relaxed text-foreground/90 font-medium m-0"
+                dangerouslySetInnerHTML={{ __html: question.question }}
+              />
             </div>
           </div>
         </div>
 
-        {/* Question Images */}
-        {question.questionImages && (
-          <div className="mb-6 relative w-full h-auto">
-            <Image
-              src={question.questionImages}
-              alt="Question diagram"
-              width={800}
-              height={600}
-              className="max-w-full h-auto rounded-lg border border-border/30"
-            />
-          </div>
-        )}
-
         {/* Options */}
-        {hasOptions && (
+        {sortedAnswers.length > 0 && (
           <div className="mb-6 space-y-4">
             <div className="text-base font-medium text-muted-foreground flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-primary"></div>
@@ -100,12 +62,13 @@ export function QuestionCard({ question, onGetHelp }: QuestionCardProps) {
             </div>
 
             <div className="grid gap-3">
-              {optionsArray.map((option, optIndex) => {
-                const isCorrect = correctOptionIndex === optIndex;
+              {sortedAnswers.map((answer, optIndex) => {
+                const isCorrect = answer.correct;
+                const optionLabels = ["A", "B", "C", "D"];
 
                 return (
                   <div
-                    key={optIndex}
+                    key={answer._id}
                     className={`group/option relative p-4 rounded-xl border-2 transition-all duration-300 ${
                       isCorrect
                         ? "bg-gradient-to-r from-green-50/50 to-green-100/30 dark:from-green-950/20 dark:to-green-900/10 border-green-300 dark:border-green-700 shadow-sm shadow-green-500/10"
@@ -123,20 +86,19 @@ export function QuestionCard({ question, onGetHelp }: QuestionCardProps) {
                         {isCorrect ? (
                           <CheckCircle className="h-4 w-4" />
                         ) : (
-                          option.label
+                          optionLabels[optIndex]
                         )}
                       </div>
 
                       <div className="flex-1">
-                        <span
+                        <div 
                           className={`text-base leading-relaxed transition-colors ${
                             isCorrect
                               ? "text-green-800 dark:text-green-200 font-medium"
                               : "text-foreground/90 group-hover/option:text-foreground"
                           }`}
-                        >
-                          {option.text}
-                        </span>
+                          dangerouslySetInnerHTML={{ __html: answer.answer }}
+                        />
 
                         {isCorrect && (
                           <div className="mt-2 flex items-center gap-1 text-xs font-semibold text-green-600 dark:text-green-400">
@@ -159,9 +121,10 @@ export function QuestionCard({ question, onGetHelp }: QuestionCardProps) {
             <div className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
               Explanation
             </div>
-            <div className="text-sm text-blue-800 dark:text-blue-200 leading-relaxed">
-              {question.explanation}
-            </div>
+            <div 
+              className="text-sm text-blue-800 dark:text-blue-200 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: question.explanation }}
+            />
           </div>
         )}
 
@@ -178,24 +141,22 @@ export function QuestionCard({ question, onGetHelp }: QuestionCardProps) {
                 {question.chapter}
               </Badge>
             )}
-            {question.subtopic && (
-              <Badge variant="outline" className="text-xs">
-                {getDisplaySubtopic(question.subtopic)}
-              </Badge>
-            )}
           </div>
 
-          <Button
-            onClick={() => onGetHelp(question)}
-            variant="ghost"
-            size="sm"
-            className="text-primary hover:bg-primary/10"
-          >
-            <HelpCircle className="h-4 w-4 mr-2" />
-            Get Help
-          </Button>
+          {onGetHelp && (
+            <Button
+              onClick={() => onGetHelp(question)}
+              variant="ghost"
+              size="sm"
+              className="text-primary hover:bg-primary/10"
+            >
+              <HelpCircle className="h-4 w-4 mr-2" />
+              Get Help
+            </Button>
+          )}
         </div>
       </div>
     </Card>
   );
 }
+

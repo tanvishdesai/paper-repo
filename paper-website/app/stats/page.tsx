@@ -23,12 +23,17 @@ import {
   Cell,
   LineChart,
   Line,
-  Area,
   AreaChart,
+  Area,
   Pie
 } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D', '#FFC658', '#FF7C7C'];
+
+interface PieLabelProps {
+  name: string;
+  percent: number;
+}
 
 export default function StatsPage() {
   // Fetch data from Convex
@@ -172,8 +177,8 @@ export default function StatsPage() {
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{statsData.yearDistribution.length}</div>
-              <p className="text-xs text-muted-foreground">2007 - 2025</p>
+              <div className="text-2xl font-bold">{statsData.yearRange.max - statsData.yearRange.min + 1}</div>
+              <p className="text-xs text-muted-foreground">{statsData.yearRange.min} - {statsData.yearRange.max}</p>
             </CardContent>
           </Card>
 
@@ -249,25 +254,34 @@ export default function StatsPage() {
               <CardDescription>1-mark vs 2-mark questions</CardDescription>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <RechartsPieChart>
-                  <Pie
-                    data={statsData.marksDistribution}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, percent }) => `${name} (${((percent as number) * 100).toFixed(0)}%)`}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="count"
-                  >
-                    {statsData.marksDistribution.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </RechartsPieChart>
-              </ResponsiveContainer>
+              {statsData.marksDistribution.length > 0 ? (
+                <ResponsiveContainer width="100%" height={300}>
+                  <RechartsPieChart>
+                    <Pie
+                      data={statsData.marksDistribution}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={(props) => {
+                        const { name, percent } = props as unknown as { name: string; percent: number };
+                        return `${name} (${(percent * 100).toFixed(0)}%)`;
+                      }}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="count"
+                    >
+                      {statsData.marksDistribution.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex items-center justify-center h-[300px] text-muted-foreground">
+                  No marks data available
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -278,25 +292,34 @@ export default function StatsPage() {
               <CardDescription>Question type distribution</CardDescription>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <RechartsPieChart>
-                  <Pie
-                    data={statsData.theoryPracticalDistribution}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, percent }) => `${name} (${((percent as number) * 100).toFixed(0)}%)`}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="count"
-                  >
-                    {statsData.theoryPracticalDistribution.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </RechartsPieChart>
-              </ResponsiveContainer>
+              {statsData.theoryPracticalDistribution.length > 0 ? (
+                <ResponsiveContainer width="100%" height={300}>
+                  <RechartsPieChart>
+                    <Pie
+                      data={statsData.theoryPracticalDistribution}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={(props) => {
+                        const { name, percent } = props as unknown as { name: string; percent: number };
+                        return `${name} (${(percent * 100).toFixed(0)}%)`;
+                      }}
+                      outerRadius={80}
+                      fill="#8884d8"
+                      dataKey="count"
+                    >
+                      {statsData.theoryPracticalDistribution.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </RechartsPieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex items-center justify-center h-[300px] text-muted-foreground">
+                  No theory/practical data available
+                </div>
+              )}
             </CardContent>
           </Card>
 

@@ -3,46 +3,35 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ChatDialog } from "@/components/chat-dialog";
-import { Question } from "@/types/question";
-import { detectCorrectOption } from "@/utils/questionUtils";
-import { getDisplaySubtopic } from "@/lib/subtopicNormalization";
+import { Doc } from "@/convex/_generated/dataModel";
 import { X, HelpCircle, Check, ChevronRight, ArrowLeft } from "lucide-react";
 
 interface PracticeModeProps {
-  questions: Question[];
+  questions: Doc<"questions">[];
+  answers: (Doc<"answers">[] | undefined)[];
   onExit: () => void;
+  onAnswerSelected: (questionId: string, answerId: string) => void;
 }
 
-export function PracticeMode({ questions, onExit }: PracticeModeProps) {
+export function PracticeMode({ questions, answers, onExit, onAnswerSelected }: PracticeModeProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Map<number, string>>(new Map());
+  const [userAnswers, setUserAnswers] = useState<Map<string, string>>(new Map());
   const [showResults, setShowResults] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
-  const [chatQuestion, setChatQuestion] = useState<Question | null>(null);
+  const [chatQuestion, setChatQuestion] = useState<Doc<"questions"> | null>(null);
 
   const currentQuestion = questions[currentIndex];
-  const selectedAnswer = answers.get(currentIndex);
-  const progress = (answers.size / questions.length) * 100;
+  const currentAnswers = answers[currentIndex] || [];
+  const selectedAnswerId = userAnswers.get(currentQuestion?._id || "");
+  const progress = (userAnswers.size / questions.length) * 100;
 
-  // Calculate results when quiz is completed
-  const results = showResults ? (() => {
-    const total = questions.length;
-    const answered = answers.size;
-    const correct = questions.reduce((count, question, index) => {
-      const userAnswer = answers.get(index);
-      if (!userAnswer || !question.optionA) return count;
-
-      const correctIndex = detectCorrectOption([question.optionA, question.optionB, question.optionC, question.optionD].filter(Boolean) as string[], question.correctAnswer);
-      return count + (correctIndex !== null && question.optionA[correctIndex] === userAnswer ? 1 : 0);
-    }, 0);
-
-    return { total, answered, correct, incorrect: answered - correct, unanswered: total - answered };
-  })() : null;
-
-  const handleAnswerSelect = (answer: string) => {
-    const newAnswers = new Map(answers);
-    newAnswers.set(currentIndex, answer);
-    setAnswers(newAnswers);
+  const handleAnswerSelect = (answer: Doc<"answers">) => {
+    if (!currentQuestion) return;
+    
+    const newAnswers = new Map(userAnswers);
+    newAnswers.set(currentQuestion._id, answer._id);
+    setUserAnswers(newAnswers);
+    onAnswerSelected(currentQuestion._id, answer._id);
 
     // Auto-advance after short delay
     setTimeout(() => {
@@ -80,9 +69,27 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
 
   const resetQuiz = () => {
     setCurrentIndex(0);
-    setAnswers(new Map());
+    setUserAnswers(new Map());
     setShowResults(false);
   };
+
+  // Calculate results
+  const results = showResults ? (() => {
+    const total = questions.length;
+    const answered = userAnswers.size;
+    let correct = 0;
+
+    questions.forEach((q, index) => {
+      const qa = answers[index];
+      const userAnswerId = userAnswers.get(q._id);
+      if (userAnswerId && qa) {
+        const isCorrect = qa.find(a => a._id === userAnswerId)?.correct;
+        if (isCorrect) correct++;
+      }
+    });
+
+    return { total, answered, correct, incorrect: answered - correct, unanswered: total - answered };
+  })() : null;
 
   // Results Screen
   if (showResults && results) {
@@ -98,9 +105,7 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
                 </Button>
                 <div>
                   <h1 className="text-lg font-bold">Quiz Results</h1>
-                  <p className="text-xs text-muted-foreground">
-                    Practice Mode Complete
-                  </p>
+                  <p className="text-xs text-muted-foreground">Practice Mode Complete</p>
                 </div>
               </div>
               <ThemeToggle />
@@ -145,63 +150,6 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
             </div>
           </div>
 
-          {/* Question Review */}
-          <div className="space-y-4 mb-8">
-            <h3 className="text-xl font-semibold mb-6">Question Review</h3>
-            {questions.map((question, index) => {
-              const userAnswer = answers.get(index);
-              const correctIndex = question.optionA ? detectCorrectOption([question.optionA], question.correctAnswer || '') : null;
-              const isCorrect = userAnswer && correctIndex !== null && question.optionA && question.optionA[correctIndex] === userAnswer;
-              const isAnswered = userAnswer !== undefined;
-
-              return (
-                <div key={index} className="p-6 rounded-xl border bg-card shadow-sm">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                      !isAnswered
-                        ? "bg-gray-100 dark:bg-gray-800 text-gray-500"
-                        : isCorrect
-                        ? "bg-green-500 text-white"
-                        : "bg-red-500 text-white"
-                    }`}>
-                      {!isAnswered ? "?" : isCorrect ? <Check className="h-4 w-4" /> : <X className="h-3 w-3" />}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-lg mb-2">Question {index + 1}</p>
-                      <p className="text-muted-foreground line-clamp-2">{question.questionText}</p>
-                    </div>
-                  </div>
-
-                  {question.optionA && Array.isArray(question.optionA) && (
-                    <div className="grid gap-3 ml-12">
-                      {question.optionA.map((option: string, optIndex: number) => {
-                        const isUserChoice = userAnswer === option;
-                        const isCorrectOption = correctIndex === optIndex;
-
-                        return (
-                          <div
-                            key={optIndex}
-                            className={`text-sm p-3 rounded-lg border ${
-                              isCorrectOption
-                                ? "bg-green-50 dark:bg-green-950/20 border-green-500/50 text-green-800 dark:text-green-200"
-                                : isUserChoice && !isCorrectOption
-                                ? "bg-red-50 dark:bg-red-950/20 border-red-500/50 text-red-800 dark:text-red-200"
-                                : "bg-muted/30 border-border/30 text-muted-foreground"
-                            }`}
-                          >
-                            <span className="font-medium">{String.fromCharCode(65 + optIndex)}.</span> {option}
-                            {isUserChoice && <span className="ml-2 text-xs">(Your answer)</span>}
-                            {isCorrectOption && <span className="ml-2 text-xs">(Correct)</span>}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
           {/* Actions */}
           <div className="flex justify-center gap-4">
             <Button onClick={resetQuiz} variant="outline" size="lg">
@@ -221,6 +169,10 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
         />
       </div>
     );
+  }
+
+  if (!currentQuestion) {
+    return <div>No questions available</div>;
   }
 
   // Quiz Interface
@@ -263,7 +215,7 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
           <div className="flex items-center justify-between mb-3">
             <span className="text-lg font-medium">Progress</span>
             <span className="text-sm text-muted-foreground">
-              {answers.size} / {questions.length} answered
+              {userAnswers.size} / {questions.length} answered
             </span>
           </div>
           <div className="h-3 bg-secondary rounded-full overflow-hidden shadow-inner">
@@ -287,24 +239,19 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
                       {currentQuestion.year}
                     </Badge>
                   )}
-                  {currentQuestion.marks != null && (
-                    <Badge variant="default" className="bg-primary/10 text-primary">
-                      {currentQuestion.marks} Mark{currentQuestion.marks !== 1 ? "s" : ""}
+                  {currentQuestion.questionType && (
+                    <Badge variant="secondary" className="bg-secondary/80 backdrop-blur-sm capitalize">
+                      {currentQuestion.questionType}
                     </Badge>
                   )}
-                  <Badge variant="secondary" className="bg-secondary/80 backdrop-blur-sm capitalize">
-                    {currentQuestion.theoretical_practical}
-                  </Badge>
-                  <span className="text-sm text-muted-foreground/80 bg-muted/50 px-3 py-1 rounded-full">
-                    #{currentQuestion.question_no}
-                  </span>
                 </div>
 
                 {/* Question Text */}
                 <div className="prose prose-xl max-w-none dark:prose-invert">
-                  <p className="text-2xl leading-relaxed text-foreground/90 font-medium m-0">
-                    {currentQuestion.questionText}
-                  </p>
+                  <div
+                    className="text-2xl leading-relaxed text-foreground/90 font-medium m-0"
+                    dangerouslySetInnerHTML={{ __html: currentQuestion.question }}
+                  />
                 </div>
               </div>
             </div>
@@ -316,23 +263,19 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
                 Select your answer
               </div>
               <div className="grid gap-4">
-                {[
-                  currentQuestion.optionA,
-                  currentQuestion.optionB,
-                  currentQuestion.optionC,
-                  currentQuestion.optionD
-                ].filter(Boolean).map((option, index) => {
-                  const isSelected = selectedAnswer === option;
+                {currentAnswers.sort((a, b) => a.sortOrder - b.sortOrder).map((answer, index) => {
+                  const isSelected = selectedAnswerId === answer._id;
+                  const optionLabels = ["A", "B", "C", "D"];
 
                   return (
                     <button
-                      key={index}
-                      onClick={() => handleAnswerSelect(option)}
-                      disabled={selectedAnswer !== undefined}
+                      key={answer._id}
+                      onClick={() => handleAnswerSelect(answer)}
+                      disabled={selectedAnswerId !== undefined}
                       className={`group/option w-full text-left p-6 rounded-2xl border-2 transition-all duration-300 ${
                         isSelected
                           ? "border-primary bg-primary/10 shadow-xl shadow-primary/20 scale-[1.02]"
-                          : selectedAnswer !== undefined
+                          : selectedAnswerId !== undefined
                           ? "border-border/30 bg-muted/30 cursor-not-allowed opacity-60"
                           : "border-border/50 hover:border-primary/40 hover:bg-accent/50 hover:shadow-lg hover:scale-[1.01]"
                       }`}
@@ -347,15 +290,16 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
                         >
                           {isSelected && <Check className="h-5 w-5 text-primary-foreground" />}
                         </div>
-                        <span className={`flex-1 text-left text-lg transition-colors ${
-                          isSelected
-                            ? "text-primary font-semibold"
-                            : "text-foreground/80 group-hover/option:text-foreground"
-                        }`}>
-                          {option}
-                        </span>
+                        <div
+                          className={`flex-1 text-left text-lg transition-colors ${
+                            isSelected
+                              ? "text-primary font-semibold"
+                              : "text-foreground/80 group-hover/option:text-foreground"
+                          }`}
+                          dangerouslySetInnerHTML={{ __html: answer.answer }}
+                        />
                         <div className="flex-shrink-0 text-lg font-bold text-primary/60 bg-primary/10 px-3 py-1 rounded-full">
-                          {String.fromCharCode(65 + index)}
+                          {optionLabels[index]}
                         </div>
                       </div>
                     </button>
@@ -367,16 +311,18 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
             {/* Footer */}
             <div className="mt-10 pt-8 border-t border-border/30">
               <div className="flex flex-wrap gap-6 text-sm">
-                <div className="flex items-center gap-2 text-muted-foreground/80">
-                  <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40"></div>
-                  <span className="font-medium">Topic:</span>
-                  <span className="text-foreground/70 font-medium">{getDisplaySubtopic(currentQuestion.subtopic || '')}</span>
-                </div>
-                {currentQuestion.provenance && (
+                {currentQuestion.chapter && (
                   <div className="flex items-center gap-2 text-muted-foreground/80">
                     <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40"></div>
-                    <span className="font-medium">Source:</span>
-                    <span className="text-foreground/70">{currentQuestion.provenance}</span>
+                    <span className="font-medium">Chapter:</span>
+                    <span className="text-foreground/70 font-medium">{currentQuestion.chapter}</span>
+                  </div>
+                )}
+                {currentQuestion.subject && (
+                  <div className="flex items-center gap-2 text-muted-foreground/80">
+                    <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40"></div>
+                    <span className="font-medium">Subject:</span>
+                    <span className="text-foreground/70">{currentQuestion.subject}</span>
                   </div>
                 )}
               </div>
@@ -400,7 +346,7 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
             <div className="text-lg font-medium mb-2">
               {currentIndex + 1} / {questions.length}
             </div>
-            {selectedAnswer === undefined && (
+            {selectedAnswerId === undefined && (
               <div className="text-sm text-orange-600 dark:text-orange-400 font-medium">
                 Select an answer to continue
               </div>
@@ -409,7 +355,7 @@ export function PracticeMode({ questions, onExit }: PracticeModeProps) {
 
           <Button
             onClick={handleNext}
-            disabled={selectedAnswer === undefined || currentIndex === questions.length - 1}
+            disabled={selectedAnswerId === undefined || currentIndex === questions.length - 1}
             className="gap-2"
           >
             {currentIndex === questions.length - 1 ? "Finish Quiz" : "Next"}

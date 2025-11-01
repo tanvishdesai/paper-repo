@@ -8,7 +8,7 @@ const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 // Get statistics from Convex database
 export async function GET() {
   try {
-    const stats = await convex.query(api.questions.getStats);
+    const stats = await convex.query(api.questions.getDetailedStats);
 
     return NextResponse.json({
       success: true,

@@ -1,352 +1,565 @@
-"""
-Retry failed image migrations identified by the comparison script.
-
-This script:
-- Reads the migration failures report
-- Extracts failed URLs with their context (file, row, column)
-- Retries downloading and uploading only those specific images
-- Updates the migrated CSV files with the new blob URLs
-- Maintains proper folder structure in Vercel Blob (year/column/hash)
-"""
-
+import json
 import os
 import re
-import mimetypes
-import hashlib
-import logging
-import time
-from typing import Dict, List, Tuple
-import requests
-import pandas as pd
+from collections import defaultdict
+from pathlib import Path
 
-
-# ---------------------- Configuration ----------------------
-
-# Directory containing the migrated CSV files (will be updated in-place)
-MIGRATED_DIRECTORY = "csv migrated"
-
-# Hardcoded token (same as migration script)
-BLOB_READ_WRITE_TOKEN = "vercel_blob_rw_RkokDQ5Fgqqf84hB_JnAeWigaxNq0ugwIxaZc3MwaxiP5uR"
-
-# Folder prefix to organize uploads in the blob store
-BLOB_PREFIX = "gate-cs"
-
-# CSV columns that may contain image URLs
-IMAGE_COLUMNS = [
-    "Question_Images",
-    "Option_A_Images",
-    "Option_B_Images",
-    "Option_C_Images",
-    "Option_D_Images",
-    "Explanation_Images",
-]
-
-# Network settings
-HTTP_TIMEOUT_SECONDS = 30
-RETRY_COUNT = 3
-RETRY_BACKOFF_SECONDS = 1.5
-
-# Report file from comparison script
-COMPARISON_REPORT_FILE = "migration_failures_report.txt"
-
-
-# ---------------------- Logging ----------------------
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
-
-# ---------------------- Helpers ----------------------
-
-def split_urls_field(field_value) -> List[str]:
-    """Split comma-separated URLs from a field."""
-    if pd.isna(field_value) or not str(field_value).strip():
-        return []
-    parts = [p.strip() for p in str(field_value).split(",")]
-    return [p for p in parts if p and p.lower() not in ['nan', 'none', '']]
-
-
-def guess_filename_and_mime(url: str, fallback_ext: str = ".bin") -> Tuple[str, str]:
-    """Extract filename and MIME type from URL."""
-    filename = os.path.basename(url.split("?")[0].split("#")[0])
-    if not filename or "." not in filename:
-        url_hash = hashlib.sha256(url.encode("utf-8")).hexdigest()[:16]
-        filename = f"blob_{url_hash}{fallback_ext}"
-    mime, _ = mimetypes.guess_type(filename)
-    if mime is None:
-        mime = "application/octet-stream"
-    return filename, mime
-
-
-def build_blob_path(year: str, column_name: str, original_url: str) -> str:
-    """Create a deterministic path under the prefix."""
-    url_hash = hashlib.sha256(original_url.encode("utf-8")).hexdigest()[:16]
-    safe_col = re.sub(r"[^a-zA-Z0-9_\-]", "_", column_name)
-    fn, _ = guess_filename_and_mime(original_url)
-    _, ext = os.path.splitext(fn)
-    if not ext:
-        ext = ".bin"
-    return f"{BLOB_PREFIX}/{year}/{safe_col}/{url_hash}{ext}"
-
-
-def http_get_bytes(url: str) -> bytes:
-    """Download image with retries."""
-    last_exc = None
-    for attempt in range(1, RETRY_COUNT + 1):
-        try:
-            resp = requests.get(url, timeout=HTTP_TIMEOUT_SECONDS)
-            resp.raise_for_status()
-            return resp.content
-        except Exception as exc:
-            last_exc = exc
-            logger.warning("GET failed (attempt %d/%d) for %s: %s", attempt, RETRY_COUNT, url, exc)
-            time.sleep(RETRY_BACKOFF_SECONDS * attempt)
-    raise RuntimeError(f"Failed to download after {RETRY_COUNT} attempts: {url}") from last_exc
-
-
-def upload_to_vercel_blob(file_bytes: bytes, blob_path: str, content_type: str) -> str:
-    """Upload bytes to Vercel Blob via REST API and return the public URL."""
-    headers = {
-        "Authorization": f"Bearer {BLOB_READ_WRITE_TOKEN}",
-        "x-vercel-blobs-filename": blob_path,
-        "x-vercel-blobs-public": "true",
-        "Content-Type": content_type or "application/octet-stream",
+def normalize_subject(subject):
+    """Normalize subject names to handle variations and inconsistencies."""
+    if not subject:
+        return None
+    
+    # Convert to title case and strip whitespace
+    subject = subject.strip().title()
+    
+    # Define mapping for common variations
+    subject_mappings = {
+        # Operating System variations
+        'Operating System': 'Operating System',
+        'Operating Systems': 'Operating System',
+        'Cos': 'Operating System',
+        
+        # Database variations
+        'Dbms': 'Database Management System',
+        'Databases': 'Database Management System',
+        'Database': 'Database Management System',
+        
+        # Algorithm variations
+        'Algorithm': 'Algorithms',
+        'Algorithms': 'Algorithms',
+        
+        # Data Structure variations
+        'Data Structure': 'Data Structures',
+        'Data Structures': 'Data Structures',
+        
+        # Computer Networks variations
+        'Computer Network': 'Computer Networks',
+        'Computer Networks': 'Computer Networks',
+        'Compute Networks': 'Computer Networks',
+        
+        # Mathematics variations
+        'Engineering Maths': 'Engineering Mathematics',
+        'Engineering Mathematics': 'Engineering Mathematics',
+        'Engineering  Mathematics': 'Engineering Mathematics',
+        'Engineering  Maths': 'Engineering Mathematics',
+        'Engineering Mathematic': 'Engineering Mathematics',
+        
+        # Discrete Mathematics variations
+        'Discrete Maths': 'Discrete Mathematics',
+        'Discrete Mathematics': 'Discrete Mathematics',
+        'Discrete  Maths': 'Discrete Mathematics',
+        
+        # Theory of Computation variations
+        'Toc': 'Theory Of Computation',
+        'Theory Of Computation': 'Theory Of Computation',
+        
+        # Computer Organization and Architecture
+        'Coa': 'Computer Organization And Architecture',
+        
+        # Compiler Design
+        'Compiler Design': 'Compiler Design',
+        
+        # Digital Logic
+        'Digital Logic': 'Digital Logic',
+        
+        # C Programming variations
+        'C Programming': 'C Programming',
+        'C-Programming': 'C Programming',
+        'C Programming Loops & Conditionals': 'C Programming',
+        
+        # Aptitude variations
+        'Aptitude': 'Aptitude',
+        'Quantitative Aptitude': 'Quantitative Aptitude',
+        'Quantative Aptitude': 'Quantitative Aptitude',
+        'Logical Aptitude': 'Logical Aptitude',
+        'Verbal Aptitude': 'Verbal Aptitude',
+        'Spatial Aptitude': 'Spatial Aptitude',
+        
+        # Probability and Statistics
+        'Probability And Statistics': 'Probability And Statistics',
+        'Probability  And Statistics': 'Probability And Statistics',
+        
+        # Software Engineering
+        'Software Engineering': 'Software Engineering',
+        
+        # Miscellaneous
+        'Miscellaneous': 'Miscellaneous',
+        'Misceallaneous': 'Miscellaneous',
+        
+        # Machine Learning
+        'Machine Learning': 'Machine Learning',
+        
+        # Artificial Intelligence
+        'Artificial Intelligence': 'Artificial Intelligence',
+        
+        # Linear Algebra
+        'Linear Algebra': 'Linear Algebra',
+        
+        # Calculus
+        'Calculus': 'Calculus',
+        
+        # Python
+        'Python': 'Python',
+        
+        # Programming
+        'Programming': 'Programming',
+        
+        # Number System
+        'Number System': 'Number System',
     }
-    upload_url = f"https://blob.vercel-storage.com/{blob_path}"
-    resp = requests.put(
-        upload_url,
-        headers=headers,
-        data=file_bytes,
-        timeout=HTTP_TIMEOUT_SECONDS,
-    )
-    try:
-        resp.raise_for_status()
-    except Exception as exc:
-        raise RuntimeError(f"Blob upload failed for {blob_path}: {resp.status_code} {resp.text}") from exc
-    data = resp.json()
-    url = data.get("url")
-    if not url:
-        raise RuntimeError(f"Blob upload response missing URL for {blob_path}: {data}")
-    return url
+    
+    # Check if subject matches any mapping
+    if subject in subject_mappings:
+        return subject_mappings[subject]
+    
+    # Filter out question numbers that were mistakenly parsed as subjects
+    if re.match(r'^Question\s+\d+$', subject):
+        return None
+    
+    # Return the normalized subject if no mapping found
+    return subject
 
+def normalize_chapter(chapter):
+    """Normalize chapter names to handle variations and inconsistencies."""
+    if not chapter:
+        return None
+    
+    # Convert to title case and strip whitespace
+    chapter = chapter.strip().title()
+    
+    # Define mapping for common chapter variations
+    chapter_mappings = {
+        # Relational Algebra variations
+        'Relational Algebra': 'Relational Algebra',
+        'Relational Algbebra': 'Relational Algebra',
+        
+        # Synchronization variations
+        'Synchronization': 'Synchronization',
+        'Synchronisation': 'Synchronization',
+        'Concurrency & Synchronisation': 'Concurrency & Synchronization',
+        'Concurrency & Synchronization': 'Concurrency & Synchronization',
+        
+        # Regular Expression variations
+        'Regular Expression': 'Regular Expression',
+        'Regular Expressions': 'Regular Expression',
+        'Regular Expression & Languages': 'Regular Expression & Languages',
+        
+        # Normalization variations
+        'Normalization': 'Normalization',
+        'Normalisation': 'Normalization',
+        
+        # Pipelining variations
+        'Pipelining': 'Pipelining',
+        'Pipeline': 'Pipelining',
+        
+        # Hashing variations
+        'Hashing': 'Hashing',
+        'Hash': 'Hashing',
+        
+        # Sorting variations
+        'Sorting': 'Sorting',
+        'Sort': 'Sorting',
+        
+        # Searching variations
+        'Searching': 'Searching',
+        'Search': 'Searching',
+        
+        # Tree variations
+        'Trees': 'Trees',
+        'Tree': 'Trees',
+        'Binary Trees': 'Binary Trees',
+        'Binary Tree': 'Binary Trees',
+        'Binary Search Trees': 'Binary Search Trees',
+        'Binary Search Tree': 'Binary Search Trees',
+        
+        # Graph variations
+        'Graphs': 'Graphs',
+        'Graph': 'Graphs',
+        'Graph Theory': 'Graph Theory',
+        
+        # Linked List variations
+        'Linked List': 'Linked List',
+        'Linked Lists': 'Linked List',
+        
+        # Stack variations
+        'Stack': 'Stack',
+        'Stacks': 'Stack',
+        
+        # Queue variations
+        'Queue': 'Queue',
+        'Queues': 'Queue',
+        
+        # Heap variations
+        'Heap': 'Heap',
+        'Heaps': 'Heap',
+        
+        # Recursion variations
+        'Recursion': 'Recursion',
+        'Recursive': 'Recursion',
+        
+        # Dynamic Programming variations
+        'Dynamic Programming': 'Dynamic Programming',
+        'Dp': 'Dynamic Programming',
+        
+        # Greedy variations
+        'Greedy': 'Greedy',
+        'Greedy Algorithm': 'Greedy',
+        'Greedy Algorithms': 'Greedy',
+        
+        # Divide and Conquer variations
+        'Divide And Conquer': 'Divide And Conquer',
+        'Divide & Conquer': 'Divide And Conquer',
+        
+        # Complexity variations
+        'Complexity': 'Complexity Analysis',
+        'Complexity Analysis': 'Complexity Analysis',
+        'Time Complexity': 'Time Complexity',
+        'Space Complexity': 'Space Complexity',
+        
+        # Memory variations
+        'Memory': 'Memory Management',
+        'Memory Management': 'Memory Management',
+        'Cache': 'Cache Memory',
+        'Cache Memory': 'Cache Memory',
+        
+        # Process variations
+        'Process': 'Process',
+        'Processes': 'Process',
+        'Process Management': 'Process Management',
+        
+        # Thread variations
+        'Thread': 'Thread',
+        'Threads': 'Thread',
+        'Threading': 'Thread',
+        
+        # Deadlock variations
+        'Deadlock': 'Deadlock',
+        'Deadlocks': 'Deadlock',
+        
+        # Scheduling variations
+        'Scheduling': 'Scheduling',
+        'Cpu Scheduling': 'CPU Scheduling',
+        'Process Scheduling': 'Process Scheduling',
+        
+        # File System variations
+        'File System': 'File System',
+        'File Systems': 'File System',
+        
+        # SQL variations
+        'Sql': 'SQL',
+        
+        # Normalization variations
+        'Er Model': 'ER Model',
+        'E-R Model': 'ER Model',
+        
+        # Transaction variations
+        'Transaction': 'Transaction',
+        'Transactions': 'Transaction',
+        
+        # Concurrency variations
+        'Concurrency': 'Concurrency Control',
+        'Concurrency Control': 'Concurrency Control',
+        
+        # Indexing variations
+        'Indexing': 'Indexing',
+        'Index': 'Indexing',
+        
+        # Network Layer variations
+        'Network Layer': 'Network Layer',
+        'Network': 'Network Layer',
+        
+        # Transport Layer variations
+        'Transport Layer': 'Transport Layer',
+        'Transport': 'Transport Layer',
+        
+        # Application Layer variations
+        'Application Layer': 'Application Layer',
+        'Application': 'Application Layer',
+        
+        # Data Link Layer variations
+        'Data Link Layer': 'Data Link Layer',
+        'Datalink Layer': 'Data Link Layer',
+        
+        # Physical Layer variations
+        'Physical Layer': 'Physical Layer',
+        
+        # TCP variations
+        'Tcp': 'TCP',
+        'Tcp/Ip': 'TCP/IP',
+        
+        # UDP variations
+        'Udp': 'UDP',
+        
+        # IP variations
+        'Ip': 'IP',
+        'Ipv4': 'IPv4',
+        'Ipv6': 'IPv6',
+        'Ip Header': 'IP Header',
+        
+        # Routing variations
+        'Routing': 'Routing',
+        'Routing Algorithm': 'Routing',
+        'Routing Algorithms': 'Routing',
+        'Routing Protocol': 'Routing Protocol',
+        
+        # Subnetting variations
+        'Subnetting': 'Subnetting',
+        'Subnet': 'Subnetting',
+        
+        # Finite Automata variations
+        'Finite Automata': 'Finite Automata',
+        'Finite Automaton': 'Finite Automata',
+        
+        # Context Free Grammar variations
+        'Context Free Grammar': 'Context Free Grammar',
+        'Cfg': 'Context Free Grammar',
+        
+        # Turing Machine variations
+        'Turing Machine': 'Turing Machine',
+        'Turing Machines': 'Turing Machine',
+        
+        # Pushdown Automata variations
+        'Pushdown Automata': 'Pushdown Automata',
+        'Pda': 'Pushdown Automata',
+        
+        # Decidability variations
+        'Decidability': 'Decidability',
+        'Undecidability': 'Undecidability',
+        
+        # Lexical Analysis variations
+        'Lexical Analysis': 'Lexical Analysis',
+        'Lexical Analyzer': 'Lexical Analysis',
+        
+        # Syntax Analysis variations
+        'Syntax Analysis': 'Syntax Analysis',
+        'Parsing': 'Syntax Analysis',
+        'Parser': 'Syntax Analysis',
+        
+        # Semantic Analysis variations
+        'Semantic Analysis': 'Semantic Analysis',
+        
+        # Code Generation variations
+        'Code Generation': 'Code Generation',
+        
+        # Code Optimization variations
+        'Code Optimization': 'Code Optimization',
+        'Optimization': 'Code Optimization',
+        
+        # Boolean Algebra variations
+        'Boolean Algebra': 'Boolean Algebra',
+        
+        # Combinational Circuit variations
+        'Combinational Circuit': 'Combinational Circuit',
+        'Combinational Circuits': 'Combinational Circuit',
+        'Combinational Logic': 'Combinational Circuit',
+        
+        # Sequential Circuit variations
+        'Sequential Circuit': 'Sequential Circuit',
+        'Sequential Circuits': 'Sequential Circuit',
+        'Sequential Logic': 'Sequential Circuit',
+        
+        # Number System variations
+        'Number System': 'Number System',
+        'Number Systems': 'Number System',
+        
+        # K-Map variations
+        'K-Map': 'K-Map',
+        'Karnaugh Map': 'K-Map',
+        
+        # Flip Flop variations
+        'Flip Flop': 'Flip Flop',
+        'Flip-Flop': 'Flip Flop',
+        'Flip Flops': 'Flip Flop',
+        
+        # ALU variations
+        'Alu': 'ALU',
+        'Alu, Data-Path & Control Unit': 'ALU, Data-Path & Control Unit',
+        
+        # Control Unit variations
+        'Control Unit': 'Control Unit',
+        
+        # Instruction Set variations
+        'Instruction Set': 'Instruction Set',
+        'Instruction': 'Instruction Set',
+        
+        # Addressing Mode variations
+        'Addressing Mode': 'Addressing Mode',
+        'Addressing Modes': 'Addressing Mode',
+        
+        # I/O variations
+        'I/O': 'I/O',
+        'Input Output': 'I/O',
+        
+        # Miscellaneous
+        'Miscellaneous': 'Miscellaneous',
+    }
+    
+    # Check if chapter matches any mapping
+    if chapter in chapter_mappings:
+        return chapter_mappings[chapter]
+    
+    # Filter out question numbers that were mistakenly parsed as chapters
+    if re.match(r'^Question\s+\d+$', chapter):
+        return None
+    
+    # Return the normalized chapter if no mapping found
+    return chapter
 
-def parse_comparison_report(report_file: str) -> List[Dict]:
-    """
-    Parse the comparison report to extract failed migrations.
-    Returns list of dicts with: filename, row, column, original_url
-    """
-    if not os.path.exists(report_file):
-        raise FileNotFoundError(f"Comparison report not found: {report_file}")
-    
-    failures = []
-    current_file = None
-    
-    with open(report_file, 'r', encoding='utf-8') as f:
-        lines = f.readlines()
-    
-    for i, line in enumerate(lines):
-        line = line.strip()
-        
-        # Detect file section
-        if line.startswith("FILE: "):
-            current_file = line.replace("FILE: ", "").strip()
-            continue
-        
-        # Detect failure entry
-        if line.startswith("Row ") and ", Column:" in line:
-            # Parse: "Row 15, Column: Question_Images"
-            match = re.match(r"Row (\d+), Column: (.+)", line)
-            if match and current_file:
-                row = int(match.group(1))
-                column = match.group(2).strip()
-                
-                # Next line should be "Original: <url>"
-                if i + 1 < len(lines):
-                    orig_line = lines[i + 1].strip()
-                    if orig_line.startswith("Original: "):
-                        original_url = orig_line.replace("Original: ", "").strip()
-                        # Remove trailing "..." if present
-                        if original_url.endswith("..."):
-                            original_url = original_url[:-3]
-                        
-                        failures.append({
-                            'filename': current_file,
-                            'row': row,
-                            'column': column,
-                            'original_url': original_url
-                        })
-    
-    return failures
+def extract_year_subject_chapter(title):
+    """Extract year, subject and chapter from title string."""
+    parts = title.split('|')
+    year = None
+    subject = None
+    chapter = None
 
+    if len(parts) >= 3:
+        # Extract year from third part (index 2)
+        year_part = parts[2].strip()
+        # Extract numeric year
+        year_match = re.search(r'\d{4}', year_part)
+        if year_match:
+            year = int(year_match.group())
 
-def retry_failed_migration(failure: Dict, migrated_dir: str) -> bool:
-    """
-    Retry a single failed migration and update the CSV.
-    Returns True if successful, False otherwise.
-    """
-    filename = failure['filename']
-    row_num = failure['row']
-    column = failure['column']
-    original_url = failure['original_url']
-    
-    csv_path = os.path.join(migrated_dir, filename)
-    
-    if not os.path.exists(csv_path):
-        logger.error("CSV file not found: %s", csv_path)
-        return False
-    
-    # Extract year from filename
-    m = re.search(r"(\d{4})", filename)
-    year = m.group(1) if m else "unknown"
-    
-    try:
-        # Download image
-        logger.info("Downloading: %s", original_url)
-        file_bytes = http_get_bytes(original_url)
-        
-        # Prepare upload
-        _, mime = guess_filename_and_mime(original_url)
-        blob_path = build_blob_path(year, column, original_url)
-        
-        # Upload to Vercel Blob
-        logger.info("Uploading to blob: %s", blob_path)
-        new_url = upload_to_vercel_blob(file_bytes, blob_path, mime)
-        logger.info("Successfully uploaded: %s", new_url)
-        
-        # Update CSV
-        df = pd.read_csv(csv_path, encoding='utf-8')
-        
-        # Row number is 1-indexed and includes header, so actual index is row_num - 2
-        csv_index = row_num - 2
-        
-        if csv_index < 0 or csv_index >= len(df):
-            logger.error("Invalid row number %d for file %s", row_num, filename)
-            return False
-        
-        if column not in df.columns:
-            logger.error("Column %s not found in %s", column, filename)
-            return False
-        
-        # Get current cell value
-        current_value = df.loc[csv_index, column]
-        current_urls = split_urls_field(current_value)
-        
-        # Replace the original URL with new URL
-        updated_urls = []
-        found_and_replaced = False
-        
-        for url in current_urls:
-            if url == original_url or url.startswith(original_url[:50]):
-                updated_urls.append(new_url)
-                found_and_replaced = True
-            else:
-                updated_urls.append(url)
-        
-        # If URL wasn't found in list, add it
-        if not found_and_replaced:
-            if current_urls:
-                updated_urls.append(new_url)
-            else:
-                updated_urls = [new_url]
-        
-        # Update cell
-        df.loc[csv_index, column] = ", ".join(updated_urls)
-        
-        # Save CSV
-        df.to_csv(csv_path, index=False, encoding='utf-8')
-        logger.info("Updated CSV: %s (row %d, column %s)", filename, row_num, column)
-        
-        return True
-        
-    except Exception as e:
-        logger.error("Failed to retry migration for %s: %s", original_url, e)
-        return False
-
-
-def retry_all_failed_migrations(report_file: str, migrated_dir: str) -> Dict:
-    """
-    Retry all failed migrations from the comparison report.
-    Returns statistics about the retry attempts.
-    """
-    if not BLOB_READ_WRITE_TOKEN or BLOB_READ_WRITE_TOKEN.startswith("REPLACE_WITH_"):
-        raise RuntimeError("BLOB_READ_WRITE_TOKEN is not set. Please set it in this script.")
-    
-    # Parse report
-    logger.info("Parsing comparison report: %s", report_file)
-    failures = parse_comparison_report(report_file)
-    
-    logger.info("Found %d failed migrations to retry", len(failures))
-    
-    if not failures:
-        logger.info("No failures to retry!")
-        return {'total': 0, 'success': 0, 'failed': 0}
-    
-    # Group by file for better logging
-    by_file = {}
-    for failure in failures:
-        fname = failure['filename']
-        if fname not in by_file:
-            by_file[fname] = []
-        by_file[fname].append(failure)
-    
-    logger.info("Failures grouped by file:")
-    for fname, fails in by_file.items():
-        logger.info("  %s: %d failures", fname, len(fails))
-    
-    # Retry each failure
-    stats = {'total': len(failures), 'success': 0, 'failed': 0}
-    
-    for i, failure in enumerate(failures, 1):
-        logger.info("")
-        logger.info("=" * 60)
-        logger.info("Retrying %d/%d: %s", i, len(failures), failure['original_url'][:60])
-        logger.info("  File: %s, Row: %d, Column: %s", 
-                   failure['filename'], failure['row'], failure['column'])
-        
-        success = retry_failed_migration(failure, migrated_dir)
-        
-        if success:
-            stats['success'] += 1
-            logger.info("✓ SUCCESS")
+    if len(parts) >= 4:
+        # Check if this is a "Set X" format (2014+ files)
+        if len(parts) >= 6 and parts[3].strip().startswith('Set '):
+            # Format: GATE | CS | 2014 | Set 1 | COA | Control Unit | Question 55
+            subject = parts[4].strip()
+            potential_chapter = parts[5].strip()
+            # Don't treat "Question X" as a chapter
+            if not potential_chapter.startswith('Question'):
+                chapter = potential_chapter
         else:
-            stats['failed'] += 1
-            logger.info("✗ FAILED")
-        
-        # Small delay between uploads
-        time.sleep(0.5)
-    
-    return stats
+            # Format: GATE | CS | 2000 | C Programming | Storage Classes | Question 11
+            subject = parts[3].strip()
+            if len(parts) >= 5:
+                potential_chapter = parts[4].strip()
+                # Don't treat "Question X" as a chapter
+                if not potential_chapter.startswith('Question'):
+                    chapter = potential_chapter
 
+    # Normalize the subject and chapter
+    subject = normalize_subject(subject)
+    chapter = normalize_chapter(chapter)
+    
+    return year, subject, chapter
 
-def main():
-    logger.info("=" * 80)
-    logger.info("RETRY FAILED IMAGE MIGRATIONS")
-    logger.info("=" * 80)
-    logger.info("")
-    logger.info("Comparison report: %s", COMPARISON_REPORT_FILE)
-    logger.info("Migrated directory: %s", MIGRATED_DIRECTORY)
-    logger.info("")
+def clean_question(question_obj):
+    """Clean a single question object by adding normalized fields and removing title, slug, and title_slug."""
+    title = question_obj.get('title', '')
+    answers = question_obj.get('answers', [])
     
-    stats = retry_all_failed_migrations(COMPARISON_REPORT_FILE, MIGRATED_DIRECTORY)
+    # Count correct answers to determine MCQ or MSQ
+    correct_count = sum(1 for ans in answers if ans.get('correct') == True)
+    question_type = 'MCQ' if correct_count == 1 else 'MSQ' if correct_count > 1 else 'Unknown'
     
-    logger.info("")
-    logger.info("=" * 80)
-    logger.info("RETRY COMPLETE")
-    logger.info("=" * 80)
-    logger.info("Total failures attempted: %d", stats['total'])
-    logger.info("Successful retries: %d", stats['success'])
-    logger.info("Failed retries: %d", stats['failed'])
+    # Extract year, subject and chapter
+    year, subject, chapter = extract_year_subject_chapter(title)
     
-    if stats['total'] > 0:
-        success_rate = (stats['success'] / stats['total']) * 100
-        logger.info("Retry success rate: %.2f%%", success_rate)
+    # Remove title, slug, and title_slug if they exist
+    if 'title' in question_obj:
+        del question_obj['title']
+    if 'slug' in question_obj:
+        del question_obj['slug']
+    if 'title_slug' in question_obj:
+        del question_obj['title_slug']
     
-    logger.info("")
-    logger.info("Updated CSV files are in: %s", MIGRATED_DIRECTORY)
+    # Add new fields
+    question_obj['year'] = year
+    question_obj['subject'] = subject
+    question_obj['chapter'] = chapter
+    question_obj['question_type'] = question_type
+    
+    return question_obj
 
+def clean_json_files(folder_path, output_folder=None):
+    """Clean all JSON files in the given folder."""
+    folder = Path(folder_path)
+    
+    if not folder.exists():
+        print(f"Error: Folder '{folder_path}' does not exist!")
+        return
+    
+    # Set output folder (default to same folder with '_cleaned' suffix)
+    if output_folder is None:
+        output_folder = folder.parent / (folder.name + '_cleaned')
+    else:
+        output_folder = Path(output_folder)
+    
+    # Create output folder if it doesn't exist
+    output_folder.mkdir(parents=True, exist_ok=True)
+    
+    # Get all JSON files
+    json_files = list(folder.glob('*.json'))
+    
+    if not json_files:
+        print(f"No JSON files found in '{folder_path}'")
+        return
+    
+    print(f"Found {len(json_files)} JSON file(s) to clean")
+    print(f"Output folder: {output_folder}")
+    print("="*80)
+    
+    # Process each file
+    files_processed = 0
+    questions_processed = 0
+    
+    for json_file in json_files:
+        try:
+            print(f"\nProcessing: {json_file.name}")
+            
+            with open(json_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            # Extract questions from the 'results' key
+            questions = data.get('results', [])
+            
+            if not questions:
+                print(f"  Warning: No questions found in {json_file.name}")
+                continue
+            
+            # Clean each question
+            cleaned_questions = []
+            for question in questions:
+                cleaned_question = clean_question(question)
+                cleaned_questions.append(cleaned_question)
+            
+            # Update the data with cleaned questions
+            data['results'] = cleaned_questions
+            
+            # Write to output file
+            output_file = output_folder / json_file.name
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+            
+            print(f"  ✓ Cleaned {len(cleaned_questions)} questions")
+            print(f"  ✓ Saved to: {output_file.name}")
+            
+            files_processed += 1
+            questions_processed += len(cleaned_questions)
+            
+        except json.JSONDecodeError as e:
+            print(f"  ✗ Error: Invalid JSON in {json_file.name}: {e}")
+        except Exception as e:
+            print(f"  ✗ Error processing {json_file.name}: {e}")
+    
+    # Print summary
+    print("\n" + "="*80)
+    print("CLEANING SUMMARY")
+    print("="*80)
+    print(f"Files processed: {files_processed}/{len(json_files)}")
+    print(f"Total questions cleaned: {questions_processed}")
+    print(f"Output location: {output_folder}")
+    print("\nCleaning complete!")
 
 if __name__ == "__main__":
-    main()
+    # Replace with your folder path
+    folder_path = "jsons raw"
+    
+    # Remove quotes if user pastes path with quotes
+    folder_path = folder_path.strip('"').strip("'")
+    
+    # Optional: specify output folder (if None, will create 'jsons raw_cleaned')
+    output_folder = None  # or specify like "jsons cleaned"
+    
+    clean_json_files(folder_path, output_folder)

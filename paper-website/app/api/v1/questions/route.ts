@@ -14,21 +14,9 @@ async function hashApiKey(key: string): Promise<string> {
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// Verify API key
-async function verifyApiKey(apiKey: string) {
-  const keyHash = await hashApiKey(apiKey);
-  const result = await convex.query(api.apiKeys.verify, { keyHash });
-  return result;
-}
 
-// Log API usage
-async function logApiUsage(apiKeyId: string) {
-  try {
-    await convex.mutation(api.apiKeys.updateLastUsed, { keyId: apiKeyId as Id<"apiKeys"> });
-  } catch (error) {
-    console.error("Failed to log API usage:", error);
-  }
-}
+
+
 
 // Get all questions from Convex database
 export async function GET(request: NextRequest) {
@@ -43,14 +31,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Verify API key
-    const keyData = await verifyApiKey(apiKey);
-    if (!keyData) {
-      return NextResponse.json(
-        { error: "Invalid or inactive API key" },
-        { status: 401 }
-      );
-    }
+
 
     // Get query parameters
     const { searchParams } = new URL(request.url);
@@ -73,8 +54,7 @@ export async function GET(request: NextRequest) {
       offset,
     });
 
-    // Log usage
-    await logApiUsage(keyData.id);
+
 
     // Return response
     return NextResponse.json({

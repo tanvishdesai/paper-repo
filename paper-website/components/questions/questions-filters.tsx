@@ -9,24 +9,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search, Filter, SortAsc, X } from "lucide-react";
-import { getDisplaySubtopic } from "@/lib/subtopicNormalization";
 
 interface QuestionsFiltersProps {
   searchQuery: string;
   onSearchChange: (value: string) => void;
   yearFilter: string;
   onYearFilterChange: (value: string) => void;
-  marksFilter: string;
-  onMarksFilterChange: (value: string) => void;
-  typeFilter: string;
-  onTypeFilterChange: (value: string) => void;
-  subtopicFilter: string;
-  onSubtopicFilterChange: (value: string) => void;
+  chapterFilter: string;
+  onChapterFilterChange: (value: string) => void;
   sortBy: string;
   onSortByChange: (value: string) => void;
   years: number[];
-  marks: number[];
-  subtopics: string[];
+  chapters: string[];
   hasActiveFilters: boolean;
   onClearFilters: () => void;
 }
@@ -36,17 +30,12 @@ export function QuestionsFilters({
   onSearchChange,
   yearFilter,
   onYearFilterChange,
-  marksFilter,
-  onMarksFilterChange,
-  typeFilter,
-  onTypeFilterChange,
-  subtopicFilter,
-  onSubtopicFilterChange,
+  chapterFilter,
+  onChapterFilterChange,
   sortBy,
   onSortByChange,
   years,
-  marks,
-  subtopics,
+  chapters,
   hasActiveFilters,
   onClearFilters,
 }: QuestionsFiltersProps) {
@@ -56,7 +45,7 @@ export function QuestionsFilters({
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <Input
-          placeholder="Search questions or topics..."
+          placeholder="Search questions..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
           className="pl-12 h-12 text-base border-2 border-border/50 focus:border-primary/50 transition-colors"
@@ -64,7 +53,7 @@ export function QuestionsFilters({
       </div>
 
       {/* Filter Controls */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium flex items-center gap-2 text-foreground/80">
             <Filter className="h-4 w-4" />
@@ -88,54 +77,17 @@ export function QuestionsFilters({
         <div className="space-y-2">
           <label className="text-sm font-medium flex items-center gap-2 text-foreground/80">
             <Filter className="h-4 w-4" />
-            Marks
+            Chapter
           </label>
-          <Select value={marksFilter} onValueChange={onMarksFilterChange}>
+          <Select value={chapterFilter} onValueChange={onChapterFilterChange}>
             <SelectTrigger className="h-10">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Marks</SelectItem>
-              {marks.map((mark) => (
-                <SelectItem key={mark} value={mark.toString()}>
-                  {mark} Mark{mark !== 1 ? "s" : ""}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium flex items-center gap-2 text-foreground/80">
-            <Filter className="h-4 w-4" />
-            Type
-          </label>
-          <Select value={typeFilter} onValueChange={onTypeFilterChange}>
-            <SelectTrigger className="h-10">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="theoretical">Theoretical</SelectItem>
-              <SelectItem value="practical">Practical</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium flex items-center gap-2 text-foreground/80">
-            <Filter className="h-4 w-4" />
-            Subtopic
-          </label>
-          <Select value={subtopicFilter} onValueChange={onSubtopicFilterChange}>
-            <SelectTrigger className="h-10">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Subtopics</SelectItem>
-              {subtopics.map((subtopic) => (
-                <SelectItem key={subtopic} value={subtopic}>
-                  {subtopic}
+              <SelectItem value="all">All Chapters</SelectItem>
+              {chapters.map((chapter) => (
+                <SelectItem key={chapter} value={chapter}>
+                  {chapter}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -152,10 +104,10 @@ export function QuestionsFilters({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="year-desc">Year (Newest)</SelectItem>
-              <SelectItem value="year-asc">Year (Oldest)</SelectItem>
-              <SelectItem value="marks-desc">Marks (High to Low)</SelectItem>
-              <SelectItem value="marks-asc">Marks (Low to High)</SelectItem>
+              <SelectItem value="year-desc">Year (Newest First)</SelectItem>
+              <SelectItem value="year-asc">Year (Oldest First)</SelectItem>
+              <SelectItem value="chapter-asc">Chapter (A-Z)</SelectItem>
+              <SelectItem value="chapter-desc">Chapter (Z-A)</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -179,21 +131,9 @@ export function QuestionsFilters({
             </Badge>
           )}
 
-          {marksFilter !== "all" && (
-            <Badge variant="secondary" className="bg-green-50 dark:bg-green-950/20 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800">
-              Marks: {marksFilter}
-            </Badge>
-          )}
-
-          {typeFilter !== "all" && (
+          {chapterFilter !== "all" && (
             <Badge variant="secondary" className="bg-purple-50 dark:bg-purple-950/20 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800">
-              Type: {typeFilter}
-            </Badge>
-          )}
-
-          {subtopicFilter !== "all" && (
-            <Badge variant="secondary" className="bg-orange-50 dark:bg-orange-950/20 text-orange-700 dark:text-orange-300 border-orange-200 dark:border-orange-800">
-              Topic: {getDisplaySubtopic(subtopicFilter)}
+              Chapter: {chapterFilter}
             </Badge>
           )}
 

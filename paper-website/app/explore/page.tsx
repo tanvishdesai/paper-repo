@@ -47,6 +47,19 @@ interface GraphFilters {
   searchTerm: string;
 }
 
+/**
+ * Sanitize a string to be used as an object key by replacing invalid characters
+ * Must match the sanitization function in convex/questions.ts
+ */
+function sanitizeKey(key: string): string {
+  return key
+    .replace(/‐/g, '-') // Replace en-dash (U+2010) with regular hyphen
+    .replace(/–/g, '-') // Replace en-dash (U+2013) with regular hyphen
+    .replace(/—/g, '-') // Replace em-dash (U+2014) with regular hyphen
+    .replace(/[\x00-\x1F\x7F-\x9F]/g, '') // Remove control characters
+    .replace(/[^\x20-\x7E]/g, '_'); // Replace any other non-ASCII printable characters with underscore
+}
+
 export default function ExplorePage() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
@@ -97,58 +110,75 @@ export default function ExplorePage() {
 
       // Add subject nodes
       for (const subject of convexStats.subjectList || []) {
-        const count = convexStats.subjects?.[subject] || 0;
+        const sanitizedSubject = sanitizeKey(subject);
+        const count = convexStats.subjects?.[sanitizedSubject] || 0;
         const subjectNode: GraphNode = {
-          id: `subject-${subject}`,
-          label: `${subject}\n(${count})`,
+          id: `subject-${sanitizedSubject}`,
+          label: `${subject}\n(${count})`, // Display original name but use sanitized ID
           type: "subject",
         };
         nodes.push(subjectNode);
-        nodeMap.set(subject, subjectNode);
-        links.push({ source: "root", target: `subject-${subject}`, type: "contains" });
+        nodeMap.set(sanitizedSubject, subjectNode);
+        links.push({ source: "root", target: `subject-${sanitizedSubject}`, type: "contains" });
       }
 
       // Add chapter and subtopic nodes if enabled
       if (filters.showChapters || filters.showSubtopics) {
-        for (const [chapter] of Object.entries(convexStats.chapters || {})) {
+        for (const [sanitizedChapter] of Object.entries(convexStats.chapters || {})) {
+          // Find the original chapter name from subtopicsByChapter (which stores original names in arrays)
+          const originalChapterNames = convexStats.subtopicsByChapter?.[sanitizedChapter] || [];
+          const originalChapter = originalChapterNames[0] || sanitizedChapter; // Use first original name if available
+          
           if (filters.showChapters) {
             const chapterNode: GraphNode = {
-              id: `chapter-${chapter}`,
-              label: `${chapter}`,
+              id: `chapter-${sanitizedChapter}`,
+              label: originalChapter, // Display original name but use sanitized ID
               type: "chapter",
             };
             nodes.push(chapterNode);
-            nodeMap.set(chapter, chapterNode);
+            nodeMap.set(sanitizedChapter, chapterNode);
 
             // Connect to subjects
+            // Need to compare sanitized chapter names
             const relatedSubjects = new Set<string>();
             allQuestions.forEach((q) => {
-              if (q.chapter === chapter && q.subject) {
+              if (q.chapter && sanitizeKey(q.chapter) === sanitizedChapter && q.subject) {
                 relatedSubjects.add(q.subject);
               }
             });
 
             relatedSubjects.forEach((subject) => {
-              links.push({ source: `subject-${subject}`, target: `chapter-${chapter}`, type: "has_chapter" });
+              const sanitizedSubject = sanitizeKey(subject);
+              links.push({ 
+                source: `subject-${sanitizedSubject}`, 
+                target: `chapter-${sanitizedChapter}`, 
+                type: "has_chapter" 
+              });
             });
           }
 
           if (filters.showSubtopics) {
-            const subtopics = convexStats.subtopicsByChapter?.[chapter] || [];
+            const subtopics = convexStats.subtopicsByChapter?.[sanitizedChapter] || [];
             subtopics.forEach((subtopic) => {
+              // Sanitize subtopic name for node ID to match the chapter key
+              const sanitizedSubtopic = sanitizeKey(subtopic);
               const subtopicNode: GraphNode = {
-                id: `subtopic-${subtopic}`,
-                label: subtopic,
+                id: `subtopic-${sanitizedSubtopic}`,
+                label: subtopic, // Display original name
                 type: "subtopic",
               };
 
-              if (!nodeMap.has(subtopic)) {
+              if (!nodeMap.has(sanitizedSubtopic)) {
                 nodes.push(subtopicNode);
-                nodeMap.set(subtopic, subtopicNode);
+                nodeMap.set(sanitizedSubtopic, subtopicNode);
               }
 
               if (filters.showChapters) {
-                links.push({ source: `chapter-${chapter}`, target: `subtopic-${subtopic}`, type: "has_subtopic" });
+                links.push({ 
+                  source: `chapter-${sanitizedChapter}`, 
+                  target: `subtopic-${sanitizedSubtopic}`, 
+                  type: "has_subtopic" 
+                });
               }
             });
           }

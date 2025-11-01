@@ -1,77 +1,120 @@
-import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { subjects } from "@/lib/subjects";
-import { getUniqueSubtopics } from "@/lib/subtopicNormalization";
+import { Id } from "@/convex/_generated/dataModel";
 
 export interface UseQuestionsOptions {
-  subjectParam: string;
+  subject?: string;
+  chapter?: string;
+  year?: number;
+  limit?: number;
 }
 
-export function useQuestions({ subjectParam }: UseQuestionsOptions) {
-  const [loading, setLoading] = useState(true);
-
-  const subject = subjects.find(
-    (s) => s.fileName.replace(".json", "") === decodeURIComponent(subjectParam)
-  );
-
-  const subjectName = subject?.name || decodeURIComponent(subjectParam);
-
-  // Fetch all questions from Convex
-  // Note: You may want to add pagination if you have many questions
-  const allQuestionsFromDB = useQuery(api.questions.getAllQuestions);
-
-  // Filter questions by subject
-  const questions = useMemo(() => {
-    if (!allQuestionsFromDB) return [];
-    
-    return allQuestionsFromDB.filter((q) => {
-      // Match by subject name
-      return q.subject?.toLowerCase() === subjectName.toLowerCase();
-    });
-  }, [allQuestionsFromDB, subjectName]);
-
-  useEffect(() => {
-    // Update loading state based on whether data is fetched
-    if (allQuestionsFromDB !== undefined) {
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
-  }, [allQuestionsFromDB]);
-
-  // Extract unique values for filters
-  const years = useMemo(() => {
-    const uniqueYears = [...new Set(questions.map((q) => q.year).filter((y) => y != null))].sort((a, b) => b - a);
-    return uniqueYears;
-  }, [questions]);
-
-  const marks = useMemo(() => {
-    // For now, calculate marks based on typical patterns (can be enhanced)
-    // Marks are typically 1, 2, or 3 for GATE
-    const uniqueMarks = [1, 2, 3];
-    return uniqueMarks.filter(() => 
-      questions.some(() => {
-        // Estimate marks from question number or other patterns
-        // For now just return default marks
-        return true;
-      })
-    );
-  }, [questions]);
-
-  const subtopics = useMemo(() => {
-    const rawSubtopics = questions
-      .map((q) => q.subtopic)
-      .filter((s): s is string => s != null && s.trim() !== "");
-    return getUniqueSubtopics(rawSubtopics);
-  }, [questions]);
+/**
+ * Hook to fetch questions with optional filters
+ */
+export function useQuestions({
+  subject,
+  chapter,
+  year,
+  limit,
+}: UseQuestionsOptions) {
+  const questions = useQuery(api.questions.getQuestionsByFilters, {
+    subject,
+    chapter,
+    year,
+    limit,
+  });
 
   return {
-    questions,
-    loading,
+    questions: questions || [],
+    loading: questions === undefined,
+  };
+}
+
+/**
+ * Hook to fetch a single question with all its answers
+ */
+export function useQuestionWithAnswers(questionId: Id<"questions"> | null) {
+  const questionData = useQuery(
+    api.questions.getQuestion,
+    questionId ? { questionId } : "skip"
+  );
+
+  return {
+    question: questionData,
+    loading: questionData === undefined,
+  };
+}
+
+/**
+ * Hook to fetch similar questions
+ */
+export function useSimilarQuestions(questionId: Id<"questions"> | null, limit?: number) {
+  const similar = useQuery(
+    api.questions.getSimilarQuestions,
+    questionId ? { questionId, limit: limit || 15 } : "skip"
+  );
+
+  return {
+    similar: similar || [],
+    loading: similar === undefined,
+  };
+}
+
+/**
+ * Hook to fetch all available subjects
+ */
+export function useSubjects() {
+  const subjects = useQuery(api.questions.getSubjects);
+
+  return {
+    subjects: subjects || [],
+    loading: subjects === undefined,
+  };
+}
+
+/**
+ * Hook to fetch chapters for a subject
+ */
+export function useChaptersBySubject(subject: string | null) {
+  const chapters = useQuery(
+    api.questions.getChaptersBySubject,
+    subject ? { subject } : "skip"
+  );
+
+  return {
+    chapters: chapters || [],
+    loading: chapters === undefined,
+  };
+}
+
+/**
+ * Hook to fetch years available for a subject/chapter
+ */
+export function useYearsBySubjectChapter(subject: string | null, chapter?: string | null) {
+  const years = useQuery(
+    api.questions.getYearsBySubjectChapter,
+    subject ? { subject, chapter: chapter || undefined } : "skip"
+  );
+
+  return {
+    years: years || [],
+    loading: years === undefined,
+  };
+}
+
+/**
+ * Hook to get question count with optional filters
+ */
+export function useQuestionCount(subject?: string, chapter?: string, year?: number) {
+  const count = useQuery(api.questions.getQuestionCount, {
     subject,
-    years,
-    marks,
-    subtopics,
+    chapter,
+    year,
+  });
+
+  return {
+    count: count || 0,
+    loading: count === undefined,
   };
 }

@@ -1,0 +1,2301 @@
+{
+  "count": 65,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 9243,
+      "title": "GATE | CS | 2019 | COA | Main Memory | Question 42",
+      "slug": "assume-that-in-a-certain-computer-the-virtual-addresses",
+      "question": "<p dir=\"ltr\"><span>Assume that in a certain computer, the virtual addresses are 64 bits long and the physical addresses are 48 bits long. The memory is word addressable. The page size is 8k Band the word size is 4 bytes. The Translation  Look-aside Buffer (TLB) in the address translation path has 128 valid entries. At most how many distinct virtual addresses can be translated without any TLB miss?</span></p>",
+      "answers": [
+        {
+          "id": 37020,
+          "answer": "<p dir=\"ltr\"><span>16 x 2</span><sup><span>10</span></sup></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37021,
+          "answer": "<p dir=\"ltr\"><span>8 x 2</span><sup><span>20</span></sup></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37022,
+          "answer": "<p dir=\"ltr\"><span>4 x 2</span><sup><span>20</span></sup></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37023,
+          "answer": "<p dir=\"ltr\"><span>256 x 2</span><sup><span>10</span></sup></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Number of words in a page </span><br><span>= Page size / word size</span><br><span>= 8 KB / 4 B </span><br><span>= 2 K</span><br><span>= 2 * 2</span><sup><span>10</span></sup><span> </span></pre><p dir=\"ltr\"><span>  Since TLB can hold 128 valid entries, therefore, TLB can translate  </span></p><pre><span>= 128 * number of words in page </span><br><span>= 128 * 2 * 2</span><sup><span>10</span></sup><br><span>= 256 * 2</span><sup><span>10</span></sup><span> addresses with TLB hit </span></pre><p dir=\"ltr\"><span>  So, option (D) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:22:31"
+    },
+    {
+      "id": 9251,
+      "title": "GATE | CS | 2019 | Operating System | Memory Management | Question 51",
+      "slug": "the-index-node-inode-of-a-unix-like-file-system",
+      "question": "<p dir=\"ltr\"><span>The index node (inode) of a Unix-like file system has 12 direct, one single-indirect and one double-indirect pointer The disk block size is 4 kB and the disk block addresses 32-bits long. The maximum possible file  size is (rounded off to 1 decimal place) __________ GB.</span><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37052,
+          "answer": "<p><span>4</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37053,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37054,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37055,
+          "answer": "<p><span>0.50</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190219142232/5555.gif\" width=\"519\" height=\"335\" loading=\"auto\"><p dir=\"ltr\"><span>  So, answer is </span></p><p><b><strong>4</strong></b></p><p><span>.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:51:45"
+    },
+    {
+      "id": 9250,
+      "title": "GATE | CS | 2019 | Operating System | CPU Scheduling | Question 50",
+      "slug": "consider-the-following-four-processes-with-arrival-times-in",
+      "question": "<p dir=\"ltr\"><span>Consider the following four processes with arrival times (in milliseconds) and their length of  CPU  burst  (in  milliseconds)  as  shown  below:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830102115883323/3.png\" alt=\"3\" width=\"595\" height=\"87\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830102115883323/3.png 595w,https://media.geeksforgeeks.org/wp-content/uploads/20250830102115883323/3-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250830102115883323/3-200.png 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250830102115883323/3-300.png 300w\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>These processes are run on a single processor using preemptive Shortest Remaining Time First scheduling algorithm. If the average waiting time of the processes is 1 millisecond, then the value of Z is  __________.</span><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37048,
+          "answer": "<p><span>2</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37049,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37050,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37051,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Using </span></p><a href=\"https://www.geeksforgeeks.org/program-shortest-job-first-scheduling-set-2srtf-make-changesdoneplease-review/\" target=\"_blank\" rel=\"noopener\"><u><span class=\"GFGEditorTheme__textUnderline\">shortest remaining time (SRTF)</span></u></a><p dir=\"ltr\"><span>The Gant chart till t = 4 will be:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123343923430/gant_chart2.webp\" alt=\"gant_chart2\" width=\"800\" height=\"400\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123343923430/gant_chart2.webp 800w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123343923430/gant_chart2-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123343923430/gant_chart2-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123343923430/gant_chart2-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123343923430/gant_chart2-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123343923430/gant_chart2-768.webp 768w\" loading=\"eager\"><figcaption> </figcaption></figure><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span>Now, there are two possible cases: </span></p><p dir=\"ltr\"><b><strong>Case 1 (z&lt;4):</strong></b></p><p style=\"text-align: left;\" dir=\"ltr\"><span>Then average waiting time&nbsp;=(1+0+(1+x) +0)/4=1</span></p><p style=\"text-align: left;\" dir=\"ltr\"><span>(2+x)/4=1⇒x=2.</span></p><p dir=\"ltr\"><b><strong>Case 2 (z&gt;4):</strong></b></p><p dir=\"ltr\"><span>Then average waiting time&nbsp;= (1+0+1+3)/4=1</span></p><p style=\"text-align: left;\" dir=\"ltr\"><span>5/4≠1⇒&nbsp;This case is invalid.</span></p><p style=\"text-align: left;\" dir=\"ltr\"><b><strong>Correct Answer: 2</strong></b></p><p dir=\"ltr\"><span>.  Watch GeeksforGeeks Video explanation:  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 10:45:35"
+    },
+    {
+      "id": 9249,
+      "title": "GATE | CS | 2019 | Algorithm | Complexity Analysis | Question 49",
+      "slug": "consider-the-following-statements-i-the-smallest-element-in",
+      "question": "<p dir=\"ltr\"><span>Consider the following statements: </span></p><ul><li value=\"1\"><b><strong>I.</strong></b><span> The smallest element in a max-heap is always at a leaf node. </span></li><li value=\"2\"><b><strong>II.</strong></b><span> The second largest element in a max-heap is always a child of the root node. </span></li><li value=\"3\"><b><strong>III.</strong></b><span> A max-heap can be constructed from a binary search tree in Θ(n) time. </span></li><li value=\"4\"><b><strong>IV.</strong></b><span> A binary search tree can be constructed from a max-heap in Θ(n) time.  </span></li></ul><p dir=\"ltr\"><span> Which of the above statements is/are TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 37044,
+          "answer": "<p dir=\"ltr\"><span> II, III and IV</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37045,
+          "answer": "<p dir=\"ltr\"><span> I, II and III</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 37046,
+          "answer": "<p dir=\"ltr\"><span> I, III and IV</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37047,
+          "answer": "<p dir=\"ltr\"><span>I, II and IV</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Statement (I) is correct. In a max heap, the smallest element is always present at a leaf node. So we need to check for all leaf nodes for the minimum value. Worst case complexity will be O(n)  </span></p><pre><span>         12</span><br><span>        /  \\\\</span><br><span>      /      \\\\</span><br><span>    8         7</span><br><span>   / \\\\        / \\\\</span><br><span> /     \\\\    /     \\\\</span><br><span>2      3   4       5 </span></pre><p dir=\"ltr\"><span>   Statement (II) is also correct, otherwise it will not satisfy</span></p><a href=\"https://www.geeksforgeeks.org/binary-heap/\" target=\"_blank\" rel=\"noopener\"><span> max-heap property</span></a><p dir=\"ltr\"><span>.  Statement (III) is also correct, as </span></p><a href=\"https://www.geeksforgeeks.org/time-complexity-of-building-a-heap/\" target=\"_blank\" rel=\"noopener\"><span>build-heap</span></a><p dir=\"ltr\"><span> always takes Θ(n) time, (Refer: </span></p><a href=\"https://www.geeksforgeeks.org/convert-bst-to-max-heap/\" target=\"_blank\" rel=\"noopener\"><span>Convert BST to Max Heap</span></a><p dir=\"ltr\"><span>).  Statement (IV) is false, because </span></p><a href=\"https://stackoverflow.com/questions/4966014/convert-a-maximum-heap-to-a-binary-search-tree\" target=\"_blank\" rel=\"noopener\"><span>construction of binary search tree from max-heap</span></a><p dir=\"ltr\"><span> will take O(nlogn) time.   So, option (B) is correct.   </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:52:15"
+    },
+    {
+      "id": 9248,
+      "title": "GATE | CS | 2019 | Operating Systems | Deadlock | Question 48",
+      "slug": "consider-the-following-snapshot-of-a-system-running-n-2",
+      "question": "<p dir=\"ltr\"><span>Consider the following snapshot of a system running n concurrent processes. Process i is holding X</span><sub><span>i</span></sub><span> instances of a resource R, 1 ≤ i ≤ n. Assume that all instances of R arecurrently in use. Further, for all i, process i can place a request for at most Y</span><sub><span>i</span></sub><span> additional instances of R while holding the X</span><sub><span>t</span></sub><span> instances it already has. Of the n processes, there are exactly two processes p and q such that Y</span><sub><span>p</span></sub><span> = Y</span><sub><span>q</span></sub><span> = 0. </span><br><br><span>Which one of the following conditions guarantees that no other process apart from p and q can complete execution?</span><br></p>",
+      "answers": [
+        {
+          "id": 37040,
+          "answer": "<p dir=\"ltr\"><span>X</span><sub><span>p</span></sub><span> + X</span><sub><span>q</span></sub><span> &lt; Min {Y</span><sub><span>k</span></sub><span> ⏐ 1 ≤ k ≤ n, k ≠ p, k ≠ q}</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37041,
+          "answer": "<p dir=\"ltr\"><span>Min (X</span><sub><span>p</span></sub><span>, X</span><sub><span>q</span></sub><span>) ≥ Min {Y</span><sub><span>k</span></sub><span> ⏐ 1 ≤ k≤ n, k ≠ p, k ≠ q}</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37042,
+          "answer": "<p dir=\"ltr\"><span>Min (X</span><sub><span>p</span></sub><span>, X</span><sub><span>q</span></sub><span>) ≤ Max {Y</span><sub><span>k</span></sub><span> ⏐ 1 ≤ k ≤ n, k ≠ p, k ≠ q}</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37043,
+          "answer": "<p dir=\"ltr\"><span>X</span><sub><span>p</span></sub><span> + X</span><sub><span>q</span></sub><span> &lt; Max {Y</span><sub><span>k</span></sub><span> ⏐ 1 ≤ k ≤ n, k ≠ p, k ≠ q}</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Xi → Holding resources for process pi,</span><br><span>Yi → Additional resources for process pi. </span></pre><p dir=\"ltr\"><span> As process p and q doesn’t require any additional resources, it completes its execution and available resources are (Xp + Xq)  There are (n – 2) process pi (1&lt; i &lt; n, i ≠ p, q) with their requirements as Yi (1 &lt; i &lt; n, i ≠ p, q). </span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span> In order to not execute process pi, no instance of Yi should be satisfied with (Xp + Xq) resources, i.e., minimum of Yi instances should be greater than (Xp + Xq).   So, option (A) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:52:28"
+    },
+    {
+      "id": 9247,
+      "title": "GATE | CS | 2019 | Algorithms | Minimum Spanning Tree | Question 47",
+      "slug": "let-g-be-any-connection-weighted-undirected-graph-i",
+      "question": "<p dir=\"ltr\"><span>Let G be any connection, weighted, undirected graph: </span></p><ul><li value=\"1\"><b><strong>I.</strong></b><span> G has a unique minimum spanning tree if no two edges of G have the same weight. </span></li><li value=\"2\"><b><strong>II.</strong></b><span> G has a unique minimum spanning tree if, for every cut G, there is a unique minimum weight edge crossing the cut. </span></li></ul><p dir=\"ltr\"><span> Which of the above two statements is/are TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 37036,
+          "answer": "<p dir=\"ltr\"><span>Neither I nor II</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37037,
+          "answer": "<p dir=\"ltr\"><span>I only</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37038,
+          "answer": "<p dir=\"ltr\"><span>II only</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37039,
+          "answer": "<p dir=\"ltr\"><span> Both I and II</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Statement (I)</strong></b><span> is always correct, as you need only (n-1) edges with n node graph for minimum spanning tree. </span></p><p dir=\"ltr\"><span>You can prove that there will not be any other choice of edges other than first (n-1) lighter weight edges using </span><a href=\"https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/\" target=\"_blank\" rel=\"noopener\"><span>Krushkal algorithm</span></a><span>. </span><br><br><span>Note that converse of statement (I) is also true.</span></p><p dir=\"ltr\"><b><strong>Statement (II)</strong></b><span> is also correct. Suppose MST is not unique, i.e., there exist T1 and T2 where both of them are MST and they are not identical. Suppose e1 ∈ T1 but e1 ∉ T2, if we remove e1 from T1, then we will have two trees with vertex sets V1 and V2. </span></p><p dir=\"ltr\"><span>By problem 1 of HW #2, we know that e1 is a minimum cost edge in the cut between V1 and V2. </span></p><p dir=\"ltr\"><span>Now consider T2, again problem 1 of HW #2, we know that T2 contains an edge e2 that is a minimum cost edge of the cut between V1 and V2. </span></p><p dir=\"ltr\"><span>However, since e2 ≠ e1 we must have: c(e1) = c(e2) which is contradicting with the assumption that for every cut of the graph, the edge with the smallest cost across that cut is unique.</span><br><br><span>Note that converse of statement (II) may be true.</span><br><br><b><strong>So, option (D) is correct.</strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:21:11"
+    },
+    {
+      "id": 9246,
+      "title": "GATE | CS | 2019 | Algorithms | Searching & Sorting | Question 46",
+      "slug": "there-are-n-unsorted-arrays-a1-a2-an-assume",
+      "question": "<p dir=\"ltr\"><span>There are n unsorted arrays: A</span><sub><span>1</span></sub><span>, A</span><sub><span>2</span></sub><span>, ....,A</span><sub><span>n</span></sub><span>. Assume that n is odd. Each of A</span><sub><span>1</span></sub><span>, A</span><sub><span>2</span></sub><span>, ...., A</span><sub><span>n</span></sub><span> contains n distinct elements. There are no common elements between any two arrays. The worst-case time complexity of computing the median of the medians of A</span><sub><span>1</span></sub><span>, A</span><sub><span>2</span></sub><span>, ....,A</span><sub><span>n</span></sub><span> is ________ .&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 37032,
+          "answer": "<p dir=\"ltr\"><span>Ο(n log n)</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37033,
+          "answer": "<p dir=\"ltr\"><span>Ο(n</span><sup><span>2</span></sup><span>)</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 37034,
+          "answer": "<p dir=\"ltr\"><span>Ο(n)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37035,
+          "answer": "<p dir=\"ltr\"><span>Ω(n</span><sup><span>2</span></sup><span>log n)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Since given arrays are not sorted, so the time complexity to </span><a href=\"&quot;https://www.geeksforgeeks.org/program-for-mean-and-median-of-an-unsorted-array/&quot;\"><span>find median is O(n) in an unsorted array</span></a><span>. </span></p><p dir=\"ltr\"><span>You need to apply this algorithm n time to find all medians and again once to find the median of all these medians.</span></p><p dir=\"ltr\"><span>So total time complexity is,&nbsp;</span></p><pre><span>= O(n)*O(n) + O(n)</span><br><span>= O(n</span><sup><span>2</span></sup><span>) + O(n)</span><br><span>≈ O(n</span><sup><span>2</span></sup><span>) </span></pre><p dir=\"ltr\"><span>So, option (B) is correct.&nbsp;</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 10:54:36"
+    },
+    {
+      "id": 9245,
+      "title": "GATE | CS | 2019 | Compiler Design | SDT | Question 45",
+      "slug": "consider-the-following-grammar-and-the-semantic-actions-to",
+      "question": "<p dir=\"ltr\"><span>Consider the following grammar and the semantic actions to support the inherited type declaration attributes. Let X</span><sub><span>1</span></sub><span>, X</span><sub><span>2</span></sub><span>, X</span><sub><span>3</span></sub><span>, X</span><sub><span>4</span></sub><span>, X</span><sub><span>5</span></sub><span> and X</span><sub><span>6</span></sub><span> be the  placeholders for the non-terminals D, T, L or L</span><sub><span>1</span></sub><span> in  the  following  table:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830105552226672/8.png\" alt=\"8\" width=\"572\" height=\"237\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830105552226672/8.png 572w,https://media.geeksforgeeks.org/wp-content/uploads/20250830105552226672/8-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250830105552226672/8-200.png 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250830105552226672/8-300.png 300w\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>Which one of the following are the appropriate choices for X</span><sub><span>1</span></sub><span>, X</span><sub><span>2</span></sub><span>, X</span><sub><span>3</span></sub><span> and X</span><sub><span>4</span></sub><span>?</span></p>",
+      "answers": [
+        {
+          "id": 37028,
+          "answer": "<p dir=\"ltr\"><span>X</span><sub><span>1</span></sub><span> = L,  X</span><sub><span>2</span></sub><span> = T,  X</span><sub><span>3</span></sub><span> = L</span><sub><span>1</span></sub><span>,  X</span><sub><span>4</span></sub><span> = L</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37029,
+          "answer": "<p dir=\"ltr\"><span>X</span><sub><span>1</span></sub><span> = L,  X</span><sub><span>2</span></sub><span> = L,  X</span><sub><span>3</span></sub><span> = L</span><sub><span>1</span></sub><span>,  X</span><sub><span>4</span></sub><span> = T</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37030,
+          "answer": "<p dir=\"ltr\"><span>X</span><sub><span>1</span></sub><span> = T,  X</span><sub><span>2</span></sub><span> = L,  X</span><sub><span>3</span></sub><span> = L</span><sub><span>1</span></sub><span>,  X</span><sub><span>4</span></sub><span> = T</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37031,
+          "answer": "<p dir=\"ltr\"><span>X</span><sub><span>1</span></sub><span> = T,  X</span><sub><span>2</span></sub><span> = L,  X</span><sub><span>3</span></sub><span> = T,  X</span><sub><span>4</span></sub><span> = L</span><sub><span>1</span></sub></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>According to Inherited attribute definition, an attribute is inherited if the attribute value of a parse-tree node is determined from attribute values of its parent and siblings.  So, semantic rules should be as following below: </span><pre><span>D → TL {L.idtype = T.stype}</span><br><span>T → int {T.stype = int}</span><br><span>T → float {T.stype = float}</span><br><span>L → L1, id {L1.itype = L.itype}</span><br><span>           addtype(id.entry, L.itype)</span><br><span>L → id addtype(id.entry, L.itype) </span></pre><p dir=\"ltr\"><span>  Option (A) is correct.  </span></p></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 10:56:40"
+    },
+    {
+      "id": 9244,
+      "title": "GATE | CS | 2019 | Discrete Mathematics | Logic | Question 44",
+      "slug": "consider-the-first-order-predicate-formula-x-z",
+      "question": "<p dir=\"ltr\"><span>Consider the first order predicate formula:  </span></p><pre><span>∀x [( ∀z z|x ⇒ ((z = x) ∨ (z = 1))) ⇒ ∃w(w &gt; x) ∧ (∀z z⏐w ⇒ ((w = z) ∨ (z = 1)))] </span></pre><p dir=\"ltr\"><span> Here ‘a⏐b’ denotes that ‘a divides b’, where a and b are integers. Consider the following sets: </span></p><ul><li value=\"1\"><b><strong>S</strong></b><b><sub><strong>1</strong></sub></b><b><strong>:</strong></b><span> {1, 2, 3, ..., 100} </span></li><li value=\"2\"><b><strong>S</strong></b><b><sub><strong>2</strong></sub></b><b><strong>:</strong></b><span> Set of all positive integers </span></li><li value=\"3\"><b><strong>S</strong></b><b><sub><strong>3</strong></sub></b><b><strong>:</strong></b><span> Set of  all integers </span></li></ul><p dir=\"ltr\"><span> Which of the above sets satisfy φ ?</span></p>",
+      "answers": [
+        {
+          "id": 37024,
+          "answer": "<p dir=\"ltr\"><span>S</span><sub><span>1</span></sub><span> and S</span><sub><span>3</span></sub></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37025,
+          "answer": "<p dir=\"ltr\"><span>S</span><sub><span>2</span></sub><span> and S</span><sub><span>3</span></sub></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 37026,
+          "answer": "<p dir=\"ltr\"><span>S</span><sub><span>1</span></sub><span>, S</span><sub><span>2</span></sub><span> and S</span><sub><span>3</span></sub></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37027,
+          "answer": "<p dir=\"ltr\"><span>S</span><sub><span>1</span></sub><span> and S</span><sub><span>2</span></sub></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Given predicate φ: </span></p><pre><span>∀x [( ∀z z|x ⇒ ((z = x) ∨ (z = 1))) ⇒ ∃w(w &gt; x) ∧ (∀z z⏐w ⇒ ((w = z) ∨ (z = 1)))] </span></pre><p dir=\"ltr\"><span>  It simply says that if z is a prime number in the set then there exists another prime number is the set which is larger.   Therefore, it can not be satisfy in </span></p><p dir=\"ltr\"><b><strong>finite</strong></b></p><p dir=\"ltr\"><span>, like 97 ∈ S</span></p><p><sub><span>1</span></sub></p><p dir=\"ltr\"><span> there exists no prime number in the set which is greater.  Only sets S</span></p><p><sub><span>2</span></sub></p><p dir=\"ltr\"><span> and S</span></p><p><sub><span>3</span></sub></p><p dir=\"ltr\"><span> satisfy φ.   Option (B) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:22:14"
+    },
+    {
+      "id": 9252,
+      "title": "GATE | CS | 2019 | Compiler Design | Parsing | Question 52",
+      "slug": "consider-the-augmented-grammar-given-below-s-s",
+      "question": "<p dir=\"ltr\"><span>Consider the augmented grammar given below:</span><br><span>S′  → S</span><br><span>S →  ⏐id</span><br><span>L →  L,  S⏐S</span><br><span>Let I</span><sub><span>0</span></sub><span> = CLOSURE ({[S′ → S]}). The number of items in the set GOTO (I</span><sub><span>0</span></sub><span>, &lt;) is __________.</span><br><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37056,
+          "answer": "<p><span>5</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37057,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37058,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37059,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190219142653/slr41.png\" width=\"455\" height=\"477\" loading=\"auto\"><p dir=\"ltr\"><span>  Total number of items in the set GOTO (I</span></p><p><sub><span>0</span></sub></p><p dir=\"ltr\"><span>, &lt;) is </span></p><p><b><strong>5</strong></b></p><p dir=\"ltr\"><span>.  So, option (A) is correct.   </span></p><iframe src=\"https://www.youtube.com/embed/9LF8Bby1Qhc?start=2056\" width=\"560\" height=\"315\"></iframe>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:51:31"
+    },
+    {
+      "id": 9242,
+      "title": "GATE | CS | 2019 | Databases | Decomposition | Question 41",
+      "slug": "let-the-set-of-functional-dependencies-f-qr",
+      "question": "<p dir=\"ltr\"><span>Let the set of functional dependencies F = {QR → S, R → P, S → Q} hold on a relation schema X = (PQRS). X is not in BCNF. Suppose X is decomposed into two schemas and Z where Y = (PR) and Z = (QRS). Consider the two statements given below:</span></p><ul><li value=\"1\"><b><strong>I.</strong></b><span> Both Y and Z are in BCNF</span></li><li value=\"2\"><b><strong>II.</strong></b><span> Decomposition of X into Y and Z is dependency preserving and a lossless.</span></li></ul><p dir=\"ltr\"><span>Which of the above statements is/are correct?</span></p>",
+      "answers": [
+        {
+          "id": 37016,
+          "answer": "<p dir=\"ltr\"><span>I only</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37017,
+          "answer": "<p dir=\"ltr\"><span>Neither I nor II</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37018,
+          "answer": "<p dir=\"ltr\"><span>Both I and II</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37019,
+          "answer": "<p dir=\"ltr\"><span>II only</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>X(PQRS) {QR → S, R → P, S → Q} decomposed into Y (PR) and Z (QRS). So,</span></p><table><thead><tr><th><span>Y (PR)</span></th><th><span>Z (QRS)</span></th></tr></thead><tbody><tr><td><span>{R → P}&nbsp;</span><br><span>Candidate key : {R}&nbsp;</span><br><span>So, relation Y in BCNF</span></td><td><span>{QR → S, S → Q}&nbsp;</span><br><span>Candidate key : {QR, RS}&nbsp;</span><br><span>So, relation Z in 3NF but not </span><a href=\"&quot;https://www.geeksforgeeks.org/database-normalization-normal-forms/&quot;\"><span>BCNF</span></a><span>, becasuse of S is not superkey.</span></td></tr></tbody></table><p dir=\"ltr\"><span>Since, this decomposition covers all functional dependencies of original relation (X), so decomposition of X into Y and Z is </span><a href=\"&quot;https://www.geeksforgeeks.org/lossless-join-and-dependency-preserving-decomposition/&quot;\"><span>dependency preserving</span></a><span>. Also, this decomposition has common attribute (i.e., R) which is superkey of relation Y(PR), so decomposition of X into Y and Z is also </span><a href=\"&quot;https://www.geeksforgeeks.org/lossless-join-and-dependency-preserving-decomposition/&quot;\"><span>lossless join decomposition</span></a><span>. Option (D) is correct.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:22:51"
+    },
+    {
+      "id": 9241,
+      "title": "GATE | CS | 2019 | TOC | Context Free Grammars & Languages | Question 40",
+      "slug": "which-one-of-the-following-languages-over",
+      "question": "<p dir=\"ltr\"><span>Which one of the following languages over ∑ = {a, b} is NOT context-free?</span></p>",
+      "answers": [
+        {
+          "id": 37012,
+          "answer": "<p dir=\"ltr\"><span>{a</span><sup><span>n</span></sup><span>b</span><sup><span>i</span></sup><span> ⏐ i ∈ {n, 3n, 5n}, n≥ 0}</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37013,
+          "answer": "<p dir=\"ltr\"><span>{wa</span><sup><span>n</span></sup><span>w</span><sup><span>R</span></sup><span>b</span><sup><span>n</span></sup><span> ⏐ w ∈ {a, b}*, n≥ 0}</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 37014,
+          "answer": "<p dir=\"ltr\"><span>{ww</span><sup><span>R</span></sup><span> ⏐ w ∈ {a, b}*}</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37015,
+          "answer": "<p dir=\"ltr\"><span>{wa</span><sup><span>n</span></sup><span> b</span><sup><span>n</span></sup><span> w</span><sup><span>R</span></sup><span> ⏐ w ∈ {a, b}*, n≥ 0}</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>(A):</strong></b><span> It is CFL, because we have union of three CFLs, and </span><a href=\"&quot;https://www.geeksforgeeks.org/theory-of-computation-closure-properties-of-context-free-languages/&quot;\"><span>CFLs are closed under union property</span></a><span>.</span></p><pre><span>{a</span><sup><span>n</span></sup><span>b</span><sup><span>i</span></sup><span> ⏐ i ∈ {n, 3n, 5n}, n≥ 0} </span><br><span>= a</span><sup><span>n</span></sup><span>b</span><sup><span>n</span></sup><span> ∪ a</span><sup><span>n</span></sup><span>b</span><sup><span>3n</span></sup><span> ∪ a</span><sup><span>n</span></sup><span>b</span><sup><span>5n</span></sup><span> </span></pre><p dir=\"ltr\"><span>We can identify strings of these languages using only one stack.&nbsp;</span></p><p dir=\"ltr\"><b><strong>(B):</strong></b><span> It is not CFL, because you can identify strings of given language using only one stack, you need atleast 2 stacks. There is alternate string matching which is not possible using only one stack. It is </span><a href=\"&quot;https://www.geeksforgeeks.org/toc-context-sensitive-grammar-csg-language-csl/&quot;\"><span>context sensitive language</span></a><span> but not content free.&nbsp;</span></p><p dir=\"ltr\"><b><strong>(C):</strong></b><span> It is very well known CFL. It is language of palindrome over only two alphabets which can be recognize by using only one stack.&nbsp;</span></p><p dir=\"ltr\"><b><strong>(D):</strong></b><span> It is also CFL, since we can first push w, then a’s, b’s pop with a’s and wR pops with the w.&nbsp;</span></p><p dir=\"ltr\"><span>So PDA can accept the language. Option (B) is correct.&nbsp;</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:23:15"
+    },
+    {
+      "id": 9240,
+      "title": "GATE | CS | 2019 | Digital Logic | Minimization | Question 39",
+      "slug": "consider-three-4-variable-functions-f1-f2-and-f3-which",
+      "question": "<p dir=\"ltr\"><span>Consider three 4-variable functions f</span><sub><span>1</span></sub><span>, f</span><sub><span>2</span></sub><span> and f</span><sub><span>3</span></sub><span>, which are expressed in sum-of-minterms </span></p><pre><span>f</span><sub><span>1</span></sub><span> = Σ(0, 2, 5, 8, 14)</span><br><span>f</span><sub><span>2</span></sub><span> = Σ(2, 3, 6, 8, 14, 15)</span><br><span>f</span><sub><span>3</span></sub><span> = Σ(2, 7, 11, 14) </span></pre><p dir=\"ltr\"><span> For the following circuit with one AND gate and one XOR gate, the output function f can be expressed as:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830111124367984/13.png\" alt=\"13\" width=\"332\" height=\"143\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830111124367984/13.png 332w,https://media.geeksforgeeks.org/wp-content/uploads/20250830111124367984/13-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250830111124367984/13-200.png 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250830111124367984/13-300.png 300w\"><figcaption> </figcaption></figure>",
+      "answers": [
+        {
+          "id": 37008,
+          "answer": "<p dir=\"ltr\"><span>Σ(7, 8, 11)</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37009,
+          "answer": "<p dir=\"ltr\"><span>Σ(2, 14)</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37010,
+          "answer": "<p dir=\"ltr\"><span>Σ(0, 2, 3, 5, 6, 7, 8, 11, 14)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37011,
+          "answer": "<p dir=\"ltr\"><span>Σ(2, 7, 8, 11, 14)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>According to the circuit diagram: </span></p><pre><span>= f</span><sub><span>1</span></sub><span> ∧ f</span><sub><span>2</span></sub><span> </span><br><span>= Σ(0, 2, 5, 8, 14) ∧ Σ(2, 3, 6, 8, 14, 15) </span><br><span>= Σ (2, 8, 14)      </span><br><br><span>{ i.e., Common minterm }</span></pre><p dir=\"ltr\"><span> Again, </span></p><pre><span>= (f</span><sub><span>1</span></sub><span> ∧ f</span><sub><span>2</span></sub><span>) ⊕ Σ(2, 7, 11, 14) </span><br><span>= Σ(2, 8, 14) ⊕ Σ(2, 7, 11, 14) </span><br><span>= Σ(7, 8, 11) </span><br><br><span>{ i.e., either in first set or in second set but not in both } </span></pre><p dir=\"ltr\"><span>  So, option (A) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 11:18:52"
+    },
+    {
+      "id": 9239,
+      "title": "GATE | CS | 2019 | Computer Networks | Medium Access Control | Question 38",
+      "slug": "suppose-that-in-an-ip-over-ethernet-network-a-machine-x",
+      "question": "<p dir=\"ltr\"><span>Suppose that in an IP-over-Ethernet network, a machine X wishes to find the MAC address of another machine Y in its subnet. Which one of the following techniques can be used for this? </span></p>",
+      "answers": [
+        {
+          "id": 37004,
+          "answer": "<p dir=\"ltr\"><span>X sends an ARP request packet with broadcast IP address in its local subnet</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37005,
+          "answer": "<p dir=\"ltr\"><span>X sends an ARP request packet to the local gateway’s MAC address which then finds the MAC address of Y and sends to X</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37006,
+          "answer": "<p dir=\"ltr\"><span>X sends an ARP request packet with broadcast MAC address in its local subnet</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 37007,
+          "answer": "<p dir=\"ltr\"><span>X sends an ARP request packet to the local gateway’s IP address which then finds the MAC address of Y and sends to X</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><span>If a machine X wants to find the MAC address of Y then it will send </span><a href=\"https://www.geeksforgeeks.org/computer-network-arp-reverse-arprarp-inverse-arpinarp-proxy-arp-gratuitous-arp/\" target=\"_blank\" rel=\"noopener\"><span>ARP</span></a><span> packet. Since it is used for discovering physical address associated with the given network address. </span></li><li value=\"2\"><span>X will send a broadcast message to all host in its network with an intended IP address. </span></li><li value=\"3\"><span>This message will be discarded by every host except the one with the intended IP address. </span></li><li value=\"4\"><span>Now the receiver will unicast a packet with MAC address (ARP reply).</span></li><li value=\"5\"><span>So, option (C) is correct.</span><br></li></ul>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:23:49"
+    },
+    {
+      "id": 9238,
+      "title": "GATE | CS | 2019 | Computer Networks | IP Addressing | Question 37",
+      "slug": "consider-three-machines-m-n-and-p-with-ip",
+      "question": "<p dir=\"ltr\"><span>Consider three machines M, N and P with IP addresses 100.10.5.2, 100.10.5.5 and 100.10.5.6 respectively. The subnet mask is set to 255.255.255.252 for all the three machines. Which one of the following is true?     </span></p>",
+      "answers": [
+        {
+          "id": 37000,
+          "answer": "<p dir=\"ltr\"><span>M, N and P all belong to the same subnet</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37001,
+          "answer": "<p dir=\"ltr\"><span>Only N and P belong to the same subnet</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 37002,
+          "answer": "<p dir=\"ltr\"><span>M, N, and P belong to three different subnets</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37003,
+          "answer": "<p dir=\"ltr\"><span>Only M and N belong to the same subnet</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>First, we will do bitwise AND between Subnet mask and given IP address one by one  For M: 100.10.5.2  Bitwise AND: </span></p><pre><span>&nbsp;&nbsp;&nbsp;&nbsp;01100100.00001010.00000101.00000010 (100.10.5.2)</span><br><span>AND 11111111.11111111.11111111.11111100 (255.255.255.252)</span><br><span>___________________________________________________________</span><br><span>&nbsp;&nbsp;&nbsp;= 01100100.00001010.00000101.00000000 (100.10.5.0)</span></pre><p dir=\"ltr\"><span>  For N: 100.10.5.5  Bitwise AND: </span></p><pre><span>&nbsp;&nbsp;&nbsp;&nbsp;01100100.00001010.00000101.00000101 (100.10.5.5)</span><br><span>AND 11111111.11111111.11111111.11111100 (255.255.255.252)</span><br><span>___________________________________________________________</span><br><span>&nbsp;&nbsp;&nbsp;= 01100100.00001010.00000101.00000100 (100.10.5.4)</span></pre><p dir=\"ltr\"><span>   For P: 100.10.5.2  Bitwise AND: </span></p><pre><span>&nbsp;&nbsp;&nbsp;&nbsp;01100100.00001010.00000101.00000110 (100.10.5.6)</span><br><span>AND 11111111.11111111.11111111.11111100 (255.255.255.252)</span><br><span>___________________________________________________________</span><br><span>&nbsp;&nbsp;&nbsp;= 01100100.00001010.00000101.00000100 (100.10.5.4)</span></pre><ul><li value=\"1\"><span>It is sure from the above computation that N and P belong to the same network (i.e., 100.10.5.4).</span></li><li value=\"2\"><span>While M can belong to the same network or it can be from any other network.  </span></li><li value=\"3\"><span>So, option (B) is correct.  </span></li></ul>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:24:02"
+    },
+    {
+      "id": 9237,
+      "title": "GATE | CS | 2019 | C Programming | Storage Classes | Question 36",
+      "slug": "consider-the-following-c-program-c-includestdioh-int-r",
+      "question": "<p dir=\"ltr\"><span>Consider the following C program:  </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=cpf>&lt;stdio.h&gt;</span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>r</span><span class=p>(){</span>\n<span class=w> </span><span class=kt>int</span><span class=w> </span><span class=k>static</span><span class=w> </span><span class=n>num</span><span class=o>=</span><span class=mi>7</span><span class=p>;</span>\n<span class=w> </span><span class=k>return</span><span class=w> </span><span class=n>num</span><span class=o>--</span><span class=p>;</span>\n<span class=p>}</span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span>\n<span class=w> </span><span class=k>for</span><span class=p>(</span><span class=n>r</span><span class=p>();</span><span class=n>r</span><span class=p>();</span><span class=n>r</span><span class=p>())</span><span class=w> </span><span class=p>{</span>\n<span class=w>  </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%d &quot;</span><span class=p>,</span><span class=n>r</span><span class=p>());</span>\n<span class=w>  </span><span class=p>};</span>\n<span class=w>  </span>\n<span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>Which one of the following values will be displayed on execution of the programs?</span></p>",
+      "answers": [
+        {
+          "id": 67117,
+          "answer": "<p><span>41</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 67118,
+          "answer": "<p><span>52</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 67119,
+          "answer": "<p><span>63</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 67120,
+          "answer": "<p><span>630</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>According to </span></p><a href=\"https://www.geeksforgeeks.org/loops-in-c-and-cpp/\" target=\"_blank\" rel=\"noopener\"><span>\"for\" loop in C</span></a><p><span>, </span></p><pre><span>for (initialization expr; test expr; update expr)</span><br><span>{    </span><br><span>     // body of the loop</span><br><span>     // statements we want to execute</span><br><span>}</span></pre><p dir=\"ltr\"><span>  Code will execute as following flow chart, </span></p><img src=\"https://cdncontribute.geeksforgeeks.org/wp-content/uploads/loops.png\" width=\"357\" height=\"594\" loading=\"auto\"><p dir=\"ltr\"><span>  Also, note that there is </span></p><a href=\"https://www.geeksforgeeks.org/g-fact-40/\" target=\"_blank\" rel=\"noopener\"><span>postdecrement</span></a><p dir=\"ltr\"><span> (num – –) in given return statement, so it will return previous value of \"num\" then decrements it by 1.   </span></p><a href=\"https://www.geeksforgeeks.org/static-variables-in-c/\" target=\"_blank\" rel=\"noopener\"><span>Static</span></a><p dir=\"ltr\"><span> will assign memory once  for variable int \"num\" and all the changes will happen here.  </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=cpf>&lt;stdio.h&gt;</span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>r</span><span class=p>(){</span>\n<span class=w> </span><span class=kt>int</span><span class=w> </span><span class=k>static</span><span class=w> </span><span class=n>num</span><span class=o>=</span><span class=mi>7</span><span class=p>;</span>\n<span class=w> </span><span class=k>return</span><span class=w> </span><span class=n>num</span><span class=o>--</span><span class=p>;</span>\n<span class=p>}</span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span>\n<span class=w> </span><span class=k>for</span><span class=p>(</span><span class=n>r</span><span class=p>();</span><span class=n>r</span><span class=p>();</span><span class=n>r</span><span class=p>())</span><span class=w> </span><span class=p>{</span>\n<span class=w>  </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%d &quot;</span><span class=p>,</span><span class=n>r</span><span class=p>());</span>\n<span class=w>  </span><span class=p>};</span>\n<span class=w>  </span>\n<span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>Therefore, given code will print: </span></p><p><b><strong>5 2</strong></b></p><p><span>. </span></p><img src=\"https://cdn.geeksforgeeks.org/wp-content/uploads/11111-3.png\" width=\"211\" height=\"38\" loading=\"auto\"><p dir=\"ltr\"><span>  Option (B) is correct.   </span></p><iframe src=\"https://www.youtube.com/embed/fP8QED8d6ws?start=869\" width=\"560\" height=\"315\"></iframe>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:24:18"
+    },
+    {
+      "id": 9236,
+      "title": "GATE | CS | 2019 | C Programming | Recursion | Question 35",
+      "slug": "consider-the-following-c-program-c-void-convertint-n",
+      "question": "<p dir=\"ltr\"><span>Consider the following C program:  </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=kt>void</span><span class=w> </span><span class=nf>convert</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>n</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>  </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>n</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=mi>0</span><span class=p>)</span>\n<span class=w>    </span><span class=n>printf</span><span class=p>(</span><span class=err>“</span><span class=w> </span><span class=o>%</span><span class=w> </span><span class=n>d</span><span class=err>”</span><span class=p>,</span><span class=w> </span><span class=n>n</span><span class=p>);</span>\n<span class=w>  </span><span class=k>else</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span><span class=n>convert</span><span class=p>(</span><span class=n>n</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=mi>2</span><span class=p>);</span>\n<span class=w>    </span><span class=n>printf</span><span class=p>(</span><span class=err>“</span><span class=w> </span><span class=o>%</span><span class=w> </span><span class=n>d</span><span class=err>”</span><span class=p>,</span><span class=w> </span><span class=n>n</span><span class=w> </span><span class=o>%</span><span class=w> </span><span class=mi>2</span><span class=p>);</span>\n<span class=w>  </span><span class=p>}</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>Which one of the following will happen when the function convert is called with any positive integer n as argument?</span></p>",
+      "answers": [
+        {
+          "id": 83139,
+          "answer": "<p dir=\"ltr\"><span>It will print the binary representation of n in the reverse order and terminate.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 83140,
+          "answer": "<p dir=\"ltr\"><span>It will print the binary representation of n but will not terminate</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 83141,
+          "answer": "<p dir=\"ltr\"><span>It will not print anything and will not terminate.</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 83142,
+          "answer": "<p dir=\"ltr\"><span>It will print the binary representation of n and terminate.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Since n is the integer, so it 1/2 = 0.5 = 0 will return because of integer.  0/2 = 0 will cause infinite loop because there is no terminating condition for 0.   So, option (C) is correct.  </span></p><p dir=\"ltr\"><b><strong>Note:</strong></b></p><p dir=\"ltr\"><span> It will print the </span></p><a href=\"https://www.geeksforgeeks.org/binary-representation-of-a-given-number/\" target=\"_blank\" rel=\"noopener\"><span>binary representation of n</span></a><p dir=\"ltr\"><span> and terminate, only if condition \"if (n &lt;= 0)\".  </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;stdio.h&gt;</span>\n\n<span class=kt>void</span><span class=w> </span><span class=nf>convert</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>n</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n\n<span class=w>  </span><span class=k>if</span><span class=p>(</span><span class=n>n</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=mi>0</span><span class=p>)</span>\n<span class=w>  </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%d&quot;</span><span class=p>,</span><span class=w> </span><span class=n>n</span><span class=p>);</span>\n<span class=w>  </span>\n<span class=w>  </span><span class=k>else</span><span class=w> </span><span class=p>{</span>\n<span class=w>  </span><span class=n>convert</span><span class=p>(</span><span class=n>n</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=mi>2</span><span class=p>);</span>\n<span class=w>  </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%d&quot;</span><span class=p>,</span><span class=w> </span><span class=n>n</span><span class=o>%</span><span class=mi>2</span><span class=p>);</span>\n<span class=w>  </span><span class=p>};</span>\n<span class=p>}</span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span>\n<span class=w> </span><span class=n>convert</span><span class=w> </span><span class=p>(</span><span class=mi>16</span><span class=p>);</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:24:30"
+    },
+    {
+      "id": 9235,
+      "title": "GATE | CS | 2019 | Algorithms | Dynamic Programming | Question 34",
+      "slug": "consider-a-sequence-of-14-elements-a-5",
+      "question": "<p dir=\"ltr\"><span>Consider a sequence of 14 elements: A = [-5, -10, 6, 3, -1, -2, 13, 4, -9, -1, 4, 12, -3, 0]. The subsequence sum </span>[Tex]S(i,j) = \\sum_{k=i}^{j} A[k][/Tex]<span>. Determine the maximum of S(i,j), where 0 ≤ i ≤ j &lt; 14. (Divide and conquer approach may be used)</span><br><br><b><strong>Note:</strong></b><span> This was a numerical-type question.</span></p>",
+      "answers": [
+        {
+          "id": 36988,
+          "answer": "<p><span>29</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36989,
+          "answer": "<p><span>19</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36990,
+          "answer": "<p><span>39</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36991,
+          "answer": "<p><span>09</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>According to </span></p><a href=\"https://www.geeksforgeeks.org/largest-sum-contiguous-subarray/\" target=\"_blank\" rel=\"noopener\"><span>largest Sum Contiguous subarray</span></a><p dir=\"ltr\"><span> is from index 2 to 11, </span></p><pre><span>Max (S(i, j)) </span><br><span>= S(2, 11) </span><br><span>= 6 + 3 + (-1) + (-2) + 13 + 4 + (-9) + (-1) + 4 + 12</span><br><span>= 29 </span></pre><p dir=\"ltr\"><span> So, answer is </span><b><strong>29</strong></b><span>.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 11:21:27"
+    },
+    {
+      "id": 9253,
+      "title": "GATE | CS | 2019 | Engineering Mathematics | Linear Algebra | Question 53",
+      "slug": "consider-the-following-matrix-the-absolute-value-of-the",
+      "question": "<p dir=\"ltr\"><span>Consider the following matrix:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830114155067009/19.png\" alt=\"19\" width=\"296\" height=\"98\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830114155067009/19.png 296w,https://media.geeksforgeeks.org/wp-content/uploads/20250830114155067009/19-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250830114155067009/19-200.png 200w\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>The absolute value of the product of Eigenvalues of R is _________ .</span><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37060,
+          "answer": "<p><span>12</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37061,
+          "answer": "<p><span>145</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37062,
+          "answer": "<p><span>125</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37063,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The determinant of a matrix is equal to the product of eigenvalues. So, the determinant of above matrix will be calculated as follows:&nbsp;</span></p><p dir=\"ltr\"><span>Apply row operation R</span><sub><span>2</span></sub><span> → R</span><sub><span>2</span></sub><span> - R</span><sub><span>1</span></sub><span> and R</span><sub><span>3</span></sub><span> → R</span><sub><span>3</span></sub><span> - R</span><sub><span>1</span></sub><span> and R</span><sub><span>4</span></sub><span> → R4 - R</span><sub><span>1</span></sub></p><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/CodeCogsEqn12.png\" width=\"inherit\" height=\"inherit\" loading=\"eager\"><p dir=\"ltr\"><span>Apply row operation R</span><sub><span>3</span></sub><span> → R</span><sub><span>3</span></sub><span> - 2 * R</span><sub><span>2</span></sub><span> and R</span><sub><span>4</span></sub><span> → R</span><sub><span>4</span></sub><span> - 3 * R</span><sub><span>2</span></sub><span>&nbsp;</span></p><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/CodeCogsEqn13.png\" width=\"inherit\" height=\"inherit\" loading=\"eager\"><p dir=\"ltr\"><span>Apply row operation R</span><sub><span>4</span></sub><span> → R</span><sub><span>4</span></sub><span> - 3 * R</span><sub><span>3</span></sub><span>&nbsp;</span></p><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/CodeCogsEqn14-1.png\" width=\"inherit\" height=\"inherit\" loading=\"eager\"><p dir=\"ltr\"><span>So, determinant of above matrix is,&nbsp;&nbsp;</span></p><pre><span>= 6 * (2 * (1*1))</span><br><span>= 12 </span></pre><p dir=\"ltr\"><span>So, answer is </span><b><strong>12</strong></b><span>.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 11:43:48"
+    },
+    {
+      "id": 9254,
+      "title": "GATE | CS | 2019 | COA | Cache Memory | Question 54",
+      "slug": "a-certain-processor-deploys-a-single-level-cache-the-cache",
+      "question": "<p dir=\"ltr\"><span>A certain processor deploys a single-level cache. The cache block size is 8 words and the word size is 4 bytes. The memory system uses a 60 MHz clock. To service a cache-miss, the memory controller first takes 1 cycle to accept the starting address of the block, it then takes 3 cycles to fetch all the eight words of the block, and finally transmits the words of the requested block at the rate of 1 word per cycle. </span><br><br><span>The maximum bandwidth for the memory system when the program running on the processor issues a series of read operations  is  _________  ×  10</span><sup><span>6</span></sup><span> bytes/sec.</span><br><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37064,
+          "answer": "<p><span>160</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37065,
+          "answer": "<p><span>128</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37066,
+          "answer": "<p><span>256</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37067,
+          "answer": "<p><span>320</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Total time to transfer a cache block = 1 + 3 + 8 = 12 cycles.  </span></p><pre><span>8 W      ----------  12 cycles</span><br><span>8 × 4 bytes --------- 12 cycles</span><br><span>? B ------------ 1 sec  </span></pre><p dir=\"ltr\"><span> So, </span></p><pre><span>= { (8*4 bytes) / (12 cycles) } * 60 MHz clock</span><br><span>= { (32 bytes) / (12 cycles) } * 60 * 10</span><sup><span>6</span></sup><span>Hz cycles / second</span><br><span>= {(32 * 60) / (12)} bytes / second</span><br><span>= 160 bytes / second </span></pre><p dir=\"ltr\"><span>  So, answer is </span></p><p><b><strong>160</strong></b></p><p><span>.  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:50:47"
+    },
+    {
+      "id": 9255,
+      "title": "GATE | CS | 2019 | Data Structures | Trees | Question 55",
+      "slug": "let-t-be-a-full-binary-tree-with-8",
+      "question": "<p dir=\"ltr\"><span>Let T be a full binary tree with 8 leaves. (A full binary tree has every level full.) Suppose two leaves a and b of T are chosen uniformly and independently at random. The expected value of the distance between a and b in T (i.e., the number of edges in the unique path between a and b) is (rounded off to 2 decimal places) ___________ .</span><br><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37068,
+          "answer": "<p dir=\"ltr\"><span>5.71 to 5.73</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37069,
+          "answer": "<p dir=\"ltr\"><span>4.85 to 4.86</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37070,
+          "answer": "<p dir=\"ltr\"><span>2.71 to 2.73</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37071,
+          "answer": "<p dir=\"ltr\"><span>4.24 to 4.26</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Full binary tree with 8 leaf nodes, </span></p><img src=\"https://cdn.geeksforgeeks.org/wp-content/uploads/tree-1.png\" width=\"501\" height=\"212\" loading=\"auto\"><p dir=\"ltr\"><span>  Two leaf nodes can be selected in 8*8 = 64 ways.  </span></p><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190219133530/tree-21.png\" width=\"541\" height=\"91\" loading=\"auto\"><p dir=\"ltr\"><span>  Where, X is length between two nodes selected.  The expected value of the length between a and b in T, </span></p><pre><span>= E[X]</span><br><span>= X * P[X]</span><br><span>= 0*(8/64) + 2*(8/64) + 4*(16/64) + 6*(32/64)</span><br><span>= 272/64</span><br><span>= 4.25 </span></pre><p dir=\"ltr\"><span>  So, answer is </span></p><p><b><strong>4.25</strong></b></p><p><span>.  </span></p><p dir=\"ltr\"><b><strong>Alternative way:</strong></b></p><p dir=\"ltr\"><span> Sum of distances from a particular leaf to the remaining 7 leaves is 34. The sum would remain the same for each leaf node. Therefore total sum of distance of all the leaf nodes = 34*8.   Two leaf nodes can be selected in 8*8 = 64 ways.  Therefore, the expected value of the length between a and b in T, </span></p><pre><span>= (34*8) / (8*8)</span><br><span>= 34 / 8</span><br><span>= 4.25</span></pre>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:50:26"
+    },
+    {
+      "id": 9256,
+      "title": "GATE | CS | 2019 | Engineering Mathematics | Probability | Question 56",
+      "slug": "suppose-y-is-distributed-uniformly-in-the-open-interval",
+      "question": "<p dir=\"ltr\"><span>Suppose Y is distributed uniformly in the open interval (1, 6). The probability that the polynomial 3x</span><sup><span>2</span></sup><span> + 6xY + 3Y + 6 has only real roots is (rounded off to 1 decimal place) _________.</span><br><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37072,
+          "answer": "<p><span>0.80</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37073,
+          "answer": "<p><span>0.17</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37074,
+          "answer": "<p><span>0.20</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37075,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>For a quadratic polynomial ax</span></p><p><sup><span>2</span></sup></p><p dir=\"ltr\"><span> + bx + c = 0. There are three condition: </span></p><pre><span>b</span><sup><span>2</span></sup><span> - 4ac &gt; 0   {real and distinct root, i.e., two real roots}</span><br><span>b</span><sup><span>2</span></sup><span> - 4ac = 0     {real and equal roots, i.e., only one real root}</span><br><span>b</span><sup><span>2</span></sup><span> - 4ac &lt; 0    {imaginary roots} </span></pre><p dir=\"ltr\"><span>  Polynomial 3x</span></p><p><sup><span>2</span></sup></p><p dir=\"ltr\"><span> + 6xY + 3Y + 6 has only real roots, </span></p><pre><span>⇒ b</span><sup><span>2</span></sup><span> – 4ax ≥ 0</span><br><span>⇒ (6Y)</span><sup><span>2</span></sup><span> – 4(3) (3Y+ 6) ≥ 0</span><br><span>⇒ Y</span><sup><span>2</span></sup><span> – Y + 2 ≥ 0</span><br><br><span>Y ∈ (–∞, – 1] ∩ [2, ∞)</span><br><span>⇒ Y ∈ [2, 6) </span></pre><p dir=\"ltr\"><span> Since y is uniformly distributed in (1, 6).  Probability distributed function, </span></p><pre><span> f(Y) = (1/5), 1 &lt; y &gt; 6</span></pre><p dir=\"ltr\"><span>  Hence,  </span></p><img src=\"https://cdn.geeksforgeeks.org/wp-content/uploads/222222.gif\" width=\"117\" height=\"257\" loading=\"auto\"><p dir=\"ltr\"><span>  So, answer is </span></p><p><b><strong>0.8</strong></b></p><p><span>. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:41:16"
+    },
+    {
+      "id": 9257,
+      "title": "GATE | CS | 2019 | TOC | Finite Automata | Question 57",
+      "slug": "let-be-the-set-of-all-bijections-from",
+      "question": "<p dir=\"ltr\"><span>Let Σ be the set of all bijections from {1, ..., 5} to {1, ..., 5}, where id denotes the identity function,  i.e.  id(j)  =  j,∀j.  Let ° denote composition on functions. For a string x = x</span><sub><span>1</span></sub><span>x</span><sub><span>2</span></sub><span> ... x</span><sub><span>n</span></sub><span> ∈ Σn, n ≥ 0, let  π(x)  = x</span><sub><span>1</span></sub><span>°x</span><sub><span>2</span></sub><span>° ... °x</span><sub><span>n</span></sub><span>. </span><br><br><span>Consider the language L = {x ∈ Σ* ⏐ π(x) = id}. The minimum number of states in any DFA accepting L is _________ .</span><br><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37076,
+          "answer": "<p><span>120</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37077,
+          "answer": "<p><span>125</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37078,
+          "answer": "<p><span>210</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37079,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The DFA for accepting L will have 5! = 120 states, since we need one state for every possible permutation function on 5 elements.</span><br><br><span>So, answer is </span><b><strong>120</strong></b><span>.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:40:57"
+    },
+    {
+      "id": 9258,
+      "title": "GATE | CS | 2019 | Computer Networks | Miscellaneous | Question 58",
+      "slug": "consider-that-15-machines-need-to-be-connected-in",
+      "question": "<p dir=\"ltr\"><span>Consider that 15 machines need to be connected in a LAN using 8-port Ethernet switches. Assume that these switches do not have any separate up link ports. The minimum number of switches needed is ___________.</span><br><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37080,
+          "answer": "<p><span>3</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37081,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37082,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37083,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p><p dir=\"ltr\"><span> You need at least </span></p><p><b><strong>3</strong></b></p><p dir=\"ltr\"><span> switches of Ethernet are required to connect 15 computers.  </span></p><img src=\"https://cdn.geeksforgeeks.org/wp-content/uploads/kp2-1.png\" width=\"635\" height=\"240\" loading=\"auto\">",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:40:35"
+    },
+    {
+      "id": 9259,
+      "title": "GATE | CS | 2019 | Digital Logic | Minimization | Question 59",
+      "slug": "what-is-the-minimum-number-of-2-input-nor-gates",
+      "question": "<p dir=\"ltr\"><span>What is the minimum number of 2-input NOR gates required to implement 4-variable function expressed in sum-of-minterms from as f = Σ(0, 2, 5, 7, 8, 10, 13, 15)? Assume that all the inputs and their complements are available. Answer  ________ .</span><br><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37084,
+          "answer": "<p><span>3</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37085,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37086,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37087,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>K-map for given,  </span></p><pre><span>f = Σ(0, 2, 5, 7, 8, 10, 13, 15)</span></pre><img src=\"https://cdn.geeksforgeeks.org/wp-content/uploads/kpmmm.png\" width=\"388\" height=\"264\" loading=\"auto\"><p dir=\"ltr\"><span>  Therefore, </span></p><pre><span>f = BD +B'D' </span><br><span>= (B' + D).(B + D')</span></pre><p dir=\"ltr\"><span> Since all the inputs and their complements are available, so circuit implementation using NOR gate:  </span></p><img src=\"https://cdn.geeksforgeeks.org/wp-content/uploads/kp1-1-1.png\" width=\"352\" height=\"181\" loading=\"auto\"><p dir=\"ltr\"><span>  F can be implemented using </span></p><p><b><strong>3</strong></b></p><p dir=\"ltr\"><span> NOR gates.  So, option (A) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:40:17"
+    },
+    {
+      "id": 9260,
+      "title": "GATE | CS | 2019 | Discrete Mathematics | Miscellaneous | Question 60",
+      "slug": "in-an-rsa-cryptosystem-the-value-of-the-public",
+      "question": "<p dir=\"ltr\"><span>In an RSA cryptosystem, the value of the public modulus parameter n is 3007. If it is also is known that φ(n) = 2880, where φ( ) denotes Euler’s Totient Function, then the prime factors of n which is greater than 50  is _________ .</span><br><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37088,
+          "answer": "<p><span>97</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37089,
+          "answer": "<p><span>31</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37090,
+          "answer": "<p><span>37</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37091,
+          "answer": "<p><span>91</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Given, </span></p><pre><span>n = p * q = 3007  ... ... (1) </span></pre><p dir=\"ltr\"><span>  And, </span></p><pre><span>φ(n) = (p - 1) * (q - 1) = 2880 ... ... (2) </span><br><br><span>→ pq - p - q + 1 = 2880</span><br><span>→ 3007 - p - q + 1 = 2880</span><br><span>→ p + q = 128 ......(2) </span></pre><p dir=\"ltr\"><span>  Using equation (1) and (2), </span></p><pre><span>→ (3007 / q) + q = 128</span><br><br><span>→ q</span><sup><span>2</span></sup><span> - (128*q) + 3007 = 0 </span></pre><p dir=\"ltr\"><span> On solving the above equation: </span></p><pre><span>q = 31, 97  </span></pre><p><b><strong>97</strong></b></p><p dir=\"ltr\"><span> is greater than 50.   So, option (A) is correct.  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:39:59"
+    },
+    {
+      "id": 9261,
+      "title": "GATE | CS | 2019 | Databases | SQL | Question 61",
+      "slug": "a-relational-database-contains-two-tables-student-and-performance",
+      "question": "<p dir=\"ltr\"><span>A relational database contains two tables Student and Performance as shown below: </span></p><p dir=\"ltr\"><br></p><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190219171939/611122.png\" width=\"769\" height=\"264\" loading=\"auto\"><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span> The primary key of the Student table is Roll_no. For the Performance table, the columns Roll_no. and Subject_code together from the primary key. Consider the SQL query given below: </span></p><pre><span>SELECT S.Student_name, sum(P.Marks)</span><br><span>FROM Student S, Performance P</span><br><span>WHERE  P.Marks  &gt;  84</span><br><span>GROUP BY S.Student_name;</span></pre><p dir=\"ltr\"><span> The number of rows returned by the above SQL query is  _________ .  </span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\"><b><strong>Note:</strong></b></p><p dir=\"ltr\"><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37092,
+          "answer": "<p><span>5</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37093,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37094,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37095,
+          "answer": "<p dir=\"ltr\"><span>None of these.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In where condition no condition over Roll_no so query produces all groups.  </span></p><table><thead><tr><th style=\"text-align: left;\"><span>Student_name</span></th><th style=\"text-align: left;\"><span>Sum (P.marks)</span></th></tr></thead><tbody><tr><td><span>Amit</span></td><td><span>452</span></td></tr><tr><td><span>Priya</span></td><td><span>452</span></td></tr><tr><td><span>Rohan</span></td><td><span>452</span></td></tr><tr><td><span>Smita</span></td><td><span>452</span></td></tr><tr><td><span>Vinit</span></td><td><span>452</span></td></tr></tbody></table><p dir=\"ltr\"><span>  Total </span></p><p><b><strong>5</strong></b></p><p dir=\"ltr\"><span> different student names all 5 group records in result. See: </span></p><a href=\"http://sqlfiddle.com/#!9/8a79d3/1/0\" target=\"_blank\" rel=\"noopener\"><span>http://sqlfiddle.com/#!9/8a79d3/1/0</span></a>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:39:42"
+    },
+    {
+      "id": 9262,
+      "title": "GATE | CS | 2019 | C Programming | Loops & Conditionals | Question 62",
+      "slug": "consider-the-following-c-program-c-include-stdioh-int-2",
+      "question": "<p dir=\"ltr\"><span>Consider the following C program:   </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;stdio.h&gt;</span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span>\n<span class=w> </span><span class=kt>float</span><span class=w> </span><span class=n>sum</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mf>0.0</span><span class=p>,</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mf>1.0</span><span class=p>,</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mf>2.0</span><span class=p>;</span>\n<span class=w> </span>\n<span class=w> </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mf>0.0625</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span>\n<span class=w>    </span><span class=n>j</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>j</span><span class=p>;</span>\n<span class=w>    </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%f</span><span class=se>\\\\</span><span class=s>n&quot;</span><span class=p>,</span><span class=w> </span><span class=n>sum</span><span class=p>);</span>\n<span class=w> </span><span class=p>};</span>\n<span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>The number of times variable sum will be printed When the above program is executed is _________ .  </span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\"><b><strong>Note:</strong></b></p><p dir=\"ltr\"><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37096,
+          "answer": "<p><span>5</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37097,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37098,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37099,
+          "answer": "<p><span>0</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;stdio.h&gt;</span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span>\n<span class=w> </span><span class=kt>float</span><span class=w> </span><span class=n>sum</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mf>0.0</span><span class=p>,</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mf>1.0</span><span class=p>,</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mf>2.0</span><span class=p>;</span>\n<span class=w> </span>\n<span class=w> </span><span class=k>while</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>&gt;</span><span class=w> </span><span class=mf>0.0625</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span>\n<span class=w>    </span><span class=n>j</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>j</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>j</span><span class=p>;</span>\n<span class=w>    </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%f</span><span class=se>\\\\</span><span class=s>n&quot;</span><span class=p>,</span><span class=w> </span><span class=n>sum</span><span class=p>);</span>\n<span class=w> </span><span class=p>};</span>\n<span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>According to </span></p><a href=\"https://www.geeksforgeeks.org/loops-in-c-and-cpp/\" target=\"_blank\" rel=\"noopener\"><span>\"while\" loop</span></a><p><span>, </span></p><pre><span>Initially i = 2.0, j = 1.0</span><br><span>i / j = 2.0 / 1. 0 = 2.0 &gt; 0.0625</span><br><br><span>j = j + j </span><br><span>j = 2.0</span><br><span>printed sum = 0.0</span><br><br><span>Second time, </span><br><span>i / j = 1 &gt; 0.0625</span><br><span>j = 4</span><br><span>printed sum = 0.0</span><br><br><span>Third time, </span><br><span>i / j = 0.5 &gt; 0.0625</span><br><span>j = 8</span><br><span>printed sum = 0.0</span><br><br><span>Fourth time,</span><br><span>i / j = 0.25 &gt; 0.0625</span><br><span>j = 16</span><br><span>printed sum = 0.0</span><br><br><span>Fifth time, </span><br><span>i / j = 0.125 &gt; 0.0625</span><br><span>j = 32</span><br><span>printed sum = 0.0</span><br><br><span>Sixth time,</span><br><span>i / j = 0.0625 = 0.0625  </span><br><span>It violates the greater then condition. </span><br><span>This time while loop will not execute.</span></pre><p dir=\"ltr\"><span>  So, option (A) is correct.  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:39:20"
+    },
+    {
+      "id": 9263,
+      "title": "GATE | CS | 2019 | Databases | Relational Algebra | Question 63",
+      "slug": "consider-the-following-relation-px-y-z-qx-y",
+      "question": "<p dir=\"ltr\"><span>Consider the following relation P(X, Y, Z), Q(X, Y, T) and R(Y, V): </span></p><p dir=\"ltr\"><br></p><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190219155144/612221.png\" width=\"633\" height=\"236\" loading=\"auto\"><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span>  How many tuples will be returned by the following relational algebra query? </span></p><pre><span>π</span><sub><span>x</span></sub><span>(σ(</span><sub><span>P.Y = R.Y ∧ R.V = V</span></sub><span>(P X R))) - π</span><sub><span>x</span></sub><span>(σ(</span><sub><span>Q.Y = R.Y ∧ Q.T &gt; 2</span></sub><span>(Q X R))) </span></pre><p dir=\"ltr\"><br></p><p dir=\"ltr\"><b><strong>Note:</strong></b></p><p dir=\"ltr\"><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37100,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37101,
+          "answer": "<p><span>1</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 37102,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37103,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Query-1:</strong></b></p><p><span>&nbsp;</span></p><p><br></p><p><span>&nbsp;</span></p><p><br></p><pre><span>π</span><sub><span>x</span></sub><span>(σ(</span><sub><span>P.Y = R.Y ∧ R.V = V</span></sub><span>(P X R)))</span></pre><p dir=\"ltr\"><br><span>It will satisfy only one row:&nbsp;</span><br><span>&nbsp;</span></p><pre><span>X  Y  Z  Y  V</span><br><span>-------------------</span><br><span>X2  Y2  Z2  Y2  V2 </span><br><span>-------------------</span></pre><p dir=\"ltr\"><br><span>Only column X will be selected.&nbsp;</span><br><span>&nbsp;</span></p><pre><span>X </span><br><span>-----</span><br><span>X2  </span><br><span>-----</span></pre><p dir=\"ltr\"><br><br><b><strong>Query-2:</strong></b><span>&nbsp;</span><br><span>&nbsp;</span></p><pre><span>π</span><sub><span>x</span></sub><span>(σ(</span><sub><span>Q.Y = R.Y ∧ Q.T &gt; 2</span></sub><span>(Q X R)))</span></pre><p dir=\"ltr\"><br><span>It will satisfy three row:&nbsp;</span><br><span>&nbsp;</span></p><pre><span>X  Y  T  Y  V</span><br><span>-------------------</span><br><span>X1  Y2  5  Y2  V3</span><br><span>X1  Y2  5  Y2  V2</span><br><span>X1  Y1  6  Y1  V1 </span><br><span>-------------------</span></pre><p dir=\"ltr\"><br><span>Only column X will be selected.&nbsp;</span><br><span>&nbsp;</span></p><pre><span>X </span><br><span>-----</span><br><span>X1 </span><br><span>-----</span></pre><p dir=\"ltr\"><br><br><b><strong>Note</strong></b><span> that relational algebra return unique tuples only.&nbsp;</span><br><br><span>Now,&nbsp;</span><br><span>&nbsp;</span></p><pre><span>= π</span><sub><span>x</span></sub><span>(σ(</span><sub><span>P.Y = R.Y ∧ R.V = V</span></sub><span>(P X R))) </span><br><span>= (Query-1) - (Query-2)</span><br><span>= X2 - X1</span><br><span>= X2</span></pre><p dir=\"ltr\"><br><br><span>So, answer is </span><b><strong>1</strong></b><span>.&nbsp;</span><br><br><b><strong>Note</strong></b><span> that {(Query-1) - (Query-2)} will return all tuples from query-1 those are not in query-2.&nbsp;</span><br><br><br><a href=\"https://cdn.geeksforgeeks.org/gate-cs-2019/\"><span>Quiz of this Question</span></a><br><span>&nbsp;</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:38:59"
+    },
+    {
+      "id": 9264,
+      "title": "GATE | CS | 2019 | C Programming | Pointers | Question 64",
+      "slug": "consider-the-following-c-program-c-includestdioh-int-main-1",
+      "question": "<p dir=\"ltr\"><span>Consider the following C program:  </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=cpf>&lt;stdio.h&gt;</span><span class=c1> </span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=n>a</span><span class=p>[]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>{</span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=mi>4</span><span class=p>,</span><span class=w> </span><span class=mi>6</span><span class=p>,</span><span class=w> </span><span class=mi>8</span><span class=p>,</span><span class=w> </span><span class=mi>10</span><span class=p>};</span><span class=w> </span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=p>,</span><span class=w> </span><span class=n>sum</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=o>*</span><span class=n>b</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>4</span><span class=p>;</span><span class=w> </span>\n\n<span class=w>  </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=mi>5</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=o>++</span><span class=w> </span><span class=p>)</span><span class=w> </span>\n<span class=w>  </span><span class=n>sum</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>sum</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=p>(</span><span class=o>*</span><span class=n>b</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>i</span><span class=p>)</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=o>*</span><span class=p>(</span><span class=n>b</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>i</span><span class=p>);</span><span class=w> </span>\n\n<span class=w>  </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%d</span><span class=se>\\\\</span><span class=s>n&quot;</span><span class=p>,</span><span class=w> </span><span class=n>sum</span><span class=p>);</span><span class=w> </span>\n<span class=w>  </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span>\n<span class=p>}</span><span class=w> </span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>The output of above C program is __________ .   </span></p><p dir=\"ltr\"><b><strong>Note:</strong></b></p><p dir=\"ltr\"><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 37104,
+          "answer": "<p><span>10</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 37105,
+          "answer": "<p><span>8</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37106,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37107,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=cpf>&lt;stdio.h&gt;</span><span class=c1> </span>\n\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=n>a</span><span class=p>[]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>{</span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=mi>4</span><span class=p>,</span><span class=w> </span><span class=mi>6</span><span class=p>,</span><span class=w> </span><span class=mi>8</span><span class=p>,</span><span class=w> </span><span class=mi>10</span><span class=p>};</span><span class=w> </span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=p>,</span><span class=w> </span><span class=n>sum</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=o>*</span><span class=n>b</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>a</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>4</span><span class=p>;</span><span class=w> </span>\n\n<span class=w>  </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=mi>5</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=o>++</span><span class=w> </span><span class=p>)</span><span class=w> </span>\n<span class=w>  </span><span class=n>sum</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>sum</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=p>(</span><span class=o>*</span><span class=n>b</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>i</span><span class=p>)</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=o>*</span><span class=p>(</span><span class=n>b</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=n>i</span><span class=p>);</span><span class=w> </span>\n\n<span class=w>  </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%d</span><span class=se>\\\\</span><span class=s>n&quot;</span><span class=p>,</span><span class=w> </span><span class=n>sum</span><span class=p>);</span><span class=w> </span>\n<span class=w>  </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span>\n<span class=p>}</span><span class=w> </span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>Given, \"for\" loop will run from i=0 to 4.  </span></p><pre><span>i = 0</span><br><span>sum = 0+ 10 – 10 = 0</span><br><span>i = 1</span><br><span>sum = 0 + 9 – 8 = 1</span><br><span>i = 2</span><br><span>sum = 1 + 8 – 6 = 3</span><br><span>i = 3</span><br><span>sum = 3 + 7 – 4 = 6</span><br><span>i = 4</span><br><span>sum = 6 + 6 – 2 = 10</span></pre><p dir=\"ltr\"><span> Now, loop terminate and value of sum (i.e., 10) will be printed.   </span></p><iframe src=\"https://www.youtube.com/embed/fP8QED8d6ws?start=1641\" width=\"560\" height=\"315\"></iframe><p dir=\"ltr\"><span>  So, The output of above C program is </span></p><p><b><strong>10</strong></b></p><p><span>. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:38:37"
+    },
+    {
+      "id": 9265,
+      "title": "GATE | CS | 2019 | TOC | Regular Expressions & Languages | Question 65",
+      "slug": "if-l-is-a-regular-language-over",
+      "question": "<p dir=\"ltr\"><span>If L is a regular language over ∑ = {a, b}, which one of the following languages is NOT regular?</span></p>",
+      "answers": [
+        {
+          "id": 37108,
+          "answer": "<p dir=\"ltr\"><span>L⋅ L</span><sup><span>R</span></sup><span> {xy ⏐ x ∈ L,  y</span><sup><span>R</span></sup><span>∈ L}</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37109,
+          "answer": "<p dir=\"ltr\"><span>Suffix (L) = {y ∈ ∑* ⏐ ∃x ∈ ∑* such that  xy ∈ L}</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 37110,
+          "answer": "<p dir=\"ltr\"><span>Prefix (L) = {x ∈ ∑* ⏐ ∃y ∈ ∑* such that  xy ∈ L}</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37111,
+          "answer": "<p dir=\"ltr\"><span>{ww</span><sup><span>R</span></sup><span> ⏐ w ∈ L}</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<a href=\"https://www.geeksforgeeks.org/regular-expressions-regular-grammar-and-regular-languages/\" target=\"_blank\" rel=\"noopener\"><span>Regular languages</span></a><p dir=\"ltr\"><span> closed under reversal, concatenation, prefix(L), and suffix(L) property. So, languages given in option (A), (B), and (C) are regular.  But language L = {ww</span></p><p dir=\"ltr\"><sup><span>R</span></sup></p><p dir=\"ltr\"><span> ⏐ w ∈ L} is infinite and not regular because it involves string matching and we can increase in length indefinitely and then finite automata will run out of memory, so it require stack. Hence, it is </span></p><a href=\"https://www.geeksforgeeks.org/check-if-the-language-is-context-free-or-not/\" target=\"_blank\" rel=\"noopener\"><span>context-free</span></a><p dir=\"ltr\"><span> but not regular.  Option (D) is correct.  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:38:11"
+    },
+    {
+      "id": 9266,
+      "title": "GATE | CS | 2019 | Computer Networks | Miscellaneous | Question 25",
+      "slug": "which-of-the-following-protocol-pairs-can-be-used",
+      "question": "<p dir=\"ltr\"><span>Which of the following protocol pairs can be used to send and retrieve e-mails (in that order)?</span></p>",
+      "answers": [
+        {
+          "id": 37112,
+          "answer": "<p dir=\"ltr\"><span>IMAP POP3</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37113,
+          "answer": "<p dir=\"ltr\"><span>SMTP, POP3</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 37114,
+          "answer": "<p dir=\"ltr\"><span>SMTP, MIME</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37115,
+          "answer": "<p dir=\"ltr\"><span>IMAP, SMTP</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><a href=\"&quot;https://www.geeksforgeeks.org/simple-mail-transfer-protocol-smtp/&quot;\"><span>Simple Mail Transfer Protocol (SMTP)</span></a><span> is a push protocol and is used to send the mail whereas </span><a href=\"&quot;https://practice.geeksforgeeks.org/problems/what-is-pop&quot;\"><span>post office protocol (POP)</span></a><span> or IMAP (internet message access protocol) are used to retrieve those emails at the receiver’s side. Whereas </span><a href=\"&quot;https://www.geeksforgeeks.org/computer-network-multipurpose-internet-mail-extension-mime/&quot;\"><span>Multipurpose Internet Mail Extension (MIME)</span></a><span> is a kind of add-on or a </span><i><em class=\"GFGEditorTheme__textItalic\">supplementary protocol</em></i><span> which allows non-ASCII data to be sent through SMTP and received through POP. MIME allows the users to exchange different kinds of data files on the Internet: audio, video, images, and application programs as well. So, option (B) is correct.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:37:39"
+    },
+    {
+      "id": 9267,
+      "title": "GATE | CS | 2019 | Aptitude | Spatial Aptitude | Question 43",
+      "slug": "consider-the-following-sets-s1-set-of-all-recursively",
+      "question": "<p dir=\"ltr\"><span>Consider the following sets: </span></p><ul><li value=\"1\"><span>S</span><sub><span>1</span></sub><span>: Set of all recursively enumerable languages over the alphabet {0, 1}. </span></li><li value=\"2\"><span>S</span><sub><span>2</span></sub><span>: Set of all syntactically valid C programs. </span></li><li value=\"3\"><span>S</span><sub><span>3</span></sub><span>: Set of all languages over the alphabet {0, 1}. </span></li><li value=\"4\"><span>S</span><sub><span>4</span></sub><span>: Set of all non-regular languages over the alphabet {0, 1}.  </span></li></ul><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span> Which of the above sets are uncountable?</span></p>",
+      "answers": [
+        {
+          "id": 37116,
+          "answer": "<p dir=\"ltr\"><span>S</span><sub><span>1</span></sub><span>  and S</span><sub><span>2</span></sub><span> </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 37117,
+          "answer": "<p dir=\"ltr\"><span>S</span><sub><span>3</span></sub><span> and S</span><sub><span>4</span></sub><span> </span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 37118,
+          "answer": "<p dir=\"ltr\"><span>S</span><sub><span>1</span></sub><span> and S</span><sub><span>4</span></sub><span> </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 37119,
+          "answer": "<p dir=\"ltr\"><span>S</span><sub><span>2</span></sub><span> and S</span><sub><span>3</span></sub><span> </span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ol><li value=\"1\"><a href=\"https://\" rel=\"\"><span>Recursively enumerable languages</span></a><span> are countable. </span></li><li value=\"2\"><span>Syntactically valid C program can be represented with CFG. CFG generates CFL, CFL is countable. </span></li><li value=\"3\"><span>All languages over {0, 1} may not be countable, because they may also lie in the region of 2</span><sup><span>Σ*</span></sup><span>.  </span></li><li value=\"4\"><span>Set of regular languages are countable, non-regular languages may not be countable. </span></li></ol><p dir=\"ltr\"><span>  Option (C) is true.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 11:52:52"
+    },
+    {
+      "id": 9219,
+      "title": "GATE | CS | 2019 | Discrete Mathematics | Set Theory | Question 17",
+      "slug": "let-g-be-an-arbitrary-group-consider-the-following",
+      "question": "<p dir=\"ltr\"><span>Let G be an arbitrary group. Consider the following relations on G: </span></p><ul><li value=\"1\"><b><strong>R</strong></b><b><sub><strong>1</strong></sub></b><b><strong>:</strong></b><span> ∀a, b ∈ G, aR</span><sub><span>1</span></sub><span>b if and only if ∃g ∈ G such that a = g</span><sup><span>−1</span></sup><span>bg </span></li><li value=\"2\"><b><strong>R</strong></b><b><sub><strong>2</strong></sub></b><b><strong>:</strong></b><span> ∀a, b ∈ G, aR</span><sub><span>2</span></sub><span>b if and only if a = b</span><sup><span>−1</span></sup></li></ul><p dir=\"ltr\"><span> Which of the above is/are equivalence relation/relations?</span></p>",
+      "answers": [
+        {
+          "id": 36924,
+          "answer": "<p dir=\"ltr\"><span>R</span><sub><span>1</span></sub><span> and R</span><sub><span>2</span></sub></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36925,
+          "answer": "<p dir=\"ltr\"><span>R</span><sub><span>1</span></sub><span> only</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 36926,
+          "answer": "<p dir=\"ltr\"><span>R</span><sub><span>2</span></sub><span> only</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36927,
+          "answer": "<p dir=\"ltr\"><span>Neither R</span><sub><span>1</span></sub><span> nor R</span><sub><span>2</span></sub></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Given </span></p><p dir=\"ltr\"><b><strong>R</strong></b><b><sub><strong>1</strong></sub></b></p><p dir=\"ltr\"><span> is a equivalence relation, because it satisfied reflexive, symmetric, and transitive conditions: </span></p><ul><li value=\"1\"><b><strong>Reflexive:</strong></b><span> a = g</span><sup><span>–1</span></sup><span>ag can be satisfied by putting g = e, identity “e” always exists in a group.  </span></li><li value=\"2\"><b><strong>Symmetric:</strong></b><pre><span>aRb ⇒ a = g</span><sup><span>–1</span></sup><span>bg for some g</span><br><span>⇒ b = gag</span><sup><span>–1</span></sup><span> = (g</span><sup><span>–1</span></sup><span>)</span><sup><span>–1</span></sup><span>ag</span><sup><span>–1</span></sup><br><span>g</span><sup><span>–1</span></sup><span> always exists for every g ∈ G. </span></pre></li><li value=\"3\"><b><strong>Transitive:</strong></b><pre><span>aRb and bRc ⇒ a = g1</span><sup><span>–1</span></sup><span>bg1 </span><br><span>and b = g2</span><sup><span>–1</span></sup><span> cg2 for some g1g2 ∈ G.</span><br><span>Now a = g1</span><sup><span>–1</span></sup><span> g2</span><sup><span>–1</span></sup><span> cg2g1 = (g2g1)</span><sup><span>–1</span></sup><span> cg2g1</span><br><span>g1 ∈ G and g2 ∈ G ⇒ g2g1 ∈ G </span><br><span>since group is closed so aRb and aRb ⇒ aRc</span><br><br></pre></li></ul><p dir=\"ltr\"><b><strong>R</strong></b><b><sub><strong>2</strong></sub></b></p><p dir=\"ltr\"><span> is not equivalence because it does not satisfied reflexive condition of equivalence relation: </span></p><pre><span>aR</span><sub><span>2</span></sub><span>a ⇒ a = a</span><sup><span>–1</span></sup><span> ∀a which not be true in a group. </span></pre><p dir=\"ltr\"><span>  So, option (B) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:29:20"
+    },
+    {
+      "id": 9204,
+      "title": "GATE | CS | 2019 | Aptitude | Verbal Aptitude | Question 2",
+      "slug": "the-search-engines-business-model-________-around-the-fulcrum",
+      "question": "<p dir=\"ltr\"><span>The search engine’s business model ________ around the fulcrum of trust.</span></p>",
+      "answers": [
+        {
+          "id": 36864,
+          "answer": "<p dir=\"ltr\"><span>revolves</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36865,
+          "answer": "<p dir=\"ltr\"><span>plays</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36866,
+          "answer": "<p dir=\"ltr\"><span>sinks</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36867,
+          "answer": "<p dir=\"ltr\"><span>bursts</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><b><strong>revolve:</strong></b><span> move in a circle on a central axis. </span></li><li value=\"2\"><b><strong>play:</strong></b><span> engage in activity for enjoyment and recreation rather than a serious or practical purpose. </span></li><li value=\"3\"><b><strong>sink:</strong></b><span> go down below the surface of something, especially of a liquid; become submerged. </span></li><li value=\"4\"><b><strong>burst:</strong></b><span> break open or apart suddenly and violently, especially as a result of an impact or internal pressure. </span></li></ul><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">fulcrum</em></i></p><p dir=\"ltr\"><span> means the point against which a lever is placed to get a purchase, or on which it turns or is supported. SO, </span></p><p dir=\"ltr\"><i><em class=\"GFGEditorTheme__textItalic\">revolve</em></i></p><p dir=\"ltr\"><span> is most appropriate.  Option (A) is correct.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:26:44"
+    },
+    {
+      "id": 9205,
+      "title": "GATE | CS | 2019 | Aptitude | Verbal Aptitude | Question 3",
+      "slug": "a-court-is-to-a-judge-as-_________-is",
+      "question": "<p dir=\"ltr\"><span>A court is to a judge as _________ is to a teacher</span></p>",
+      "answers": [
+        {
+          "id": 36868,
+          "answer": "<p dir=\"ltr\"><span>a student</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36869,
+          "answer": "<p dir=\"ltr\"><span>a punishment</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36870,
+          "answer": "<p dir=\"ltr\"><span>a syllabus</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36871,
+          "answer": "<p dir=\"ltr\"><span>a school</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>A court is a place where judges hear cases, similarly, a </span><b><strong>school</strong></b><span> is a place where teachers teach students.</span><br><br><span>So, option (D) is correct.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:26:56"
+    },
+    {
+      "id": 9206,
+      "title": "GATE | CS | 2019 | Aptitude | Logical Aptitude | Question 4",
+      "slug": "the-police-arrested-four-criminals-p-q-r",
+      "question": "<p dir=\"ltr\"><span>The police arrested four criminals – P, Q, R and S. The criminals knew each other. They made the following statements: </span></p><pre><span>P says “Q committed the crime.”</span><br><span>Q says “S committed the crime.”</span><br><span>R says “ I did not do it.”</span><br><span>S says “What Q said about me is false”.</span></pre><p dir=\"ltr\"><span> Assume only one of the arrested four committed the crime and only one of the statements made above is true. Who committed the crime?</span></p>",
+      "answers": [
+        {
+          "id": 36872,
+          "answer": "<p dir=\"ltr\"><span>P</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36873,
+          "answer": "<p dir=\"ltr\"><span>R</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 36874,
+          "answer": "<p dir=\"ltr\"><span>S</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36875,
+          "answer": "<p dir=\"ltr\"><span>Q</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Given that only one person committed the crime and only one given statement is correct.  </span></p><ul><li value=\"1\"><b><strong>When P is correct and Q, R, S are false:</strong></b><span> it implies, </span><pre><span>Q committed crime,</span><br><span>S did not commit crime,</span><br><span>R committed crime,</span><br><span>S committed crime. </span></pre><span>  This situation is impossible.  </span></li><li value=\"2\"><b><strong>When Q is correct and P, R, S are false:</strong></b><span> it implies, </span><pre><span>Q did not commit crime,</span><br><span>S committed crime,</span><br><span>R committed crime,</span><br><span>S committed crime. </span></pre><span>  This situation is impossible.  </span></li><li value=\"3\"><b><strong>When R is correct and P, Q, S are false:</strong></b><span> it implies, </span><pre><span>Q did not commit crime,</span><br><span>S did not commit crime,</span><br><span>R did not commit crime,</span><br><span>S committed crime. </span></pre><span>  This situation is impossible.  </span></li><li value=\"4\"><b><strong>When S is correct and P, Q, R are false:</strong></b><span> it implies, </span><pre><span>Q did not commit crime,</span><br><span>S did not commit crime,</span><br><span>R committed crime,</span><br><span>S did not commit crime. </span></pre><span>  This situation is </span><b><strong>possible</strong></b><span> means </span><b><strong>R</strong></b><span> has committed crime. </span></li></ul><p dir=\"ltr\"><span>  So, option (B) is correct.   </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:27:06"
+    },
+    {
+      "id": 9207,
+      "title": "GATE | CS | 2019 | Aptitude | Quantitative Aptitude | Question 5",
+      "slug": "two-cars-at-the-same-time-from-the-same",
+      "question": "<p dir=\"ltr\"><span>Two cars at the same time from the same location and go in the same direction. The speed of the first car is 50 km/h and the speed of the second car is 60 km/h. The number of hours it takes for the distance between the two cars to be 20 km is _________.</span><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 36876,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36877,
+          "answer": "<p><span>2</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 36878,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36879,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Best approach</strong></b><span>:</span></p><p dir=\"ltr\"><span>If we consider 1st car stationery, then speed of second car will be 10 Km/h.</span></p><p dir=\"ltr\"><span>so, time required to travel 20 km will be: 2 hours.</span></p><p dir=\"ltr\"><b><strong>Alternative way</strong></b><span>:</span></p><p dir=\"ltr\"><span>Given two cars at the same time from the same location and go in the same direction with speed of 50 km/h and 60 km/h.    Therefore, after 1 hour, </span></p><pre><span>distance traveled by first car (with speed of 50 km/h) = 50*1 = 50 km</span><br><span>And, distance traveled by second car (with speed of 60 km/h) = 60*1 = 60 km</span><br><br><span>So, distance between these cars = 60 - 50 = 10 km </span></pre><p dir=\"ltr\"><span>  After 2 hour, </span></p><pre><span>distance traveled by first car (with speed of 50 km/h) = 50*2 = 100 km</span><br><span>And, distance traveled by second car (with speed of 60 km/h) = 60*2 = 120 km</span><br><br><span>So, distance between these cars = 120 - 100 = 20 km </span></pre><p dir=\"ltr\"><b><strong>Alternative way:</strong></b></p><pre><span>→ (distance traveled by second car) - (distance traveled by first car) = 20 km</span><br><span>→ (S</span><sub><span>2</span></sub><span>*T) - (S</span><sub><span>1</span></sub><span>*T) = 20 </span><br><span>→ (60*T) - (50*T) = 20 </span><br><span>→ 10*T = 20 </span><br><span>→ T = 2 </span></pre><p dir=\"ltr\"><span>  Therefore, option (B) is correct.  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:27:17"
+    },
+    {
+      "id": 9208,
+      "title": "GATE | CS | 2019 | Aptitude | Quantitative Aptitude | Question 6",
+      "slug": "ten-friends-planned-to-share-equally-the-cost-of",
+      "question": "<p dir=\"ltr\"><span>Ten friends planned to share equally the cost of buying a gifts for their teacher. When two of them decided not to contribute, each of the other friends had to pay Rs. 150 more. The cost of the gift was Rs. _________ .</span></p>",
+      "answers": [
+        {
+          "id": 36880,
+          "answer": "<p><span>666</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36881,
+          "answer": "<p><span>3000</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36882,
+          "answer": "<p><span>6000</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 36883,
+          "answer": "<p><span>12000</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Let share of each student = x  Since cost of gift will be same in both situation, therefore, </span></p><pre><span>→ 10*x = 8*(x + 150) </span><br><span>→ 10*x = 8*x + 8*150</span><br><span>→ 2*x = 8*150</span><br><span>→ x = 8*150 / 2</span><br><span>→ x = 600 </span></pre><p dir=\"ltr\"><span>  Therefore, cost of gift is, </span></p><pre><span>10*x = 10*600 = 6000 </span></pre><p dir=\"ltr\"><span>  Option (C) is correct.   </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:32:25"
+    },
+    {
+      "id": 9209,
+      "title": "GATE | CS  | 2019 | Aptitude | Verbal Aptitude | Question 7",
+      "slug": "a-recent-high-court-judgement-has-sought-to-dispel",
+      "question": "<p dir=\"ltr\"><span>“A recent High Court judgement has sought to dispel the idea of begging as a disease – which leads to its stigmatization and criminalization  – and to regard it as a symptom. The underlying disease is the failure of the state to protect citizens who fall through the social security net.”  Which one of the following statements can be inferred from the given passage?</span></p>",
+      "answers": [
+        {
+          "id": 36884,
+          "answer": "<p dir=\"ltr\"><span>Beggars are lazy people who beg because they are unwilling to work</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36885,
+          "answer": "<p dir=\"ltr\"><span>Beggars are created because of the lack of social welfare schemes</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 36886,
+          "answer": "<p dir=\"ltr\"><span>Begging is an offence that has to be dealt with firmly</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36887,
+          "answer": "<p dir=\"ltr\"><span>Begging has to be banned because it adversely affects the welfare of the state</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The passage is clearly state that the underlying disease behind begging is the failure of the state to protect citizens who fall through the social security net.  So, option (B) is correct.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:32:07"
+    },
+    {
+      "id": 9210,
+      "title": "GATE | CS | 2019 | Aptitude | Quantitative Aptitude | Question 8",
+      "slug": "in-the-given-diagram-teachers-are-represented-in-the",
+      "question": "<p dir=\"ltr\"><span>In the given diagram, teachers are represented in the triangle, researchers in the circle and administrators in the rectangle. Out of the total number of the people, the percentage of administrators shall be in the range of _________ .</span><br><br></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154900130106/Frame-21.webp\" alt=\"Frame-21\" width=\"600\" height=\"400\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154900130106/Frame-21.webp 600w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154900130106/Frame-21-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154900130106/Frame-21-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154900130106/Frame-21-300.webp 300w\" loading=\"auto\"><figcaption>Figure</figcaption></figure><p dir=\"ltr\"><br></p>",
+      "answers": [
+        {
+          "id": 36888,
+          "answer": "<p dir=\"ltr\"><span>0 to 15</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36889,
+          "answer": "<p dir=\"ltr\"><span>16 to 30</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36890,
+          "answer": "<p dir=\"ltr\"><span>31 to 45</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 36891,
+          "answer": "<p dir=\"ltr\"><span>46 to 60</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>No of administrator,  </span></p><pre><span>= 10+20+20 </span><br><span>= 50 </span></pre><p dir=\"ltr\"><span>  Total no of person,  </span></p><pre><span>= 80+20+20+40 </span><br><span>= 160 </span></pre><p dir=\"ltr\"><span>  Percentage of administrators,  </span></p><pre><span>= (50/160)*100</span><br><span>= 31.25 % </span></pre><p dir=\"ltr\"><span>  Note that question ask percentage of administrators belongs in given range.   Since 31.25 percent is belong in 31 to 45 range. So, option (C) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 15:53:05"
+    },
+    {
+      "id": 9211,
+      "title": "GATE | CS | 2019 | Aptitude | Quantitative Aptitude | Question 9",
+      "slug": "in-a-college-there-are-three-student-clubs-sixty",
+      "question": "<p dir=\"ltr\"><span>In a college, there are three student clubs, Sixty students are only in the Drama club, 80 students are only in the Dance club, 30 students are only in Maths club, 40 students are in both Drama and Dance clubs, 12 students are in both Dance and Maths clubs, 7 students are in both Drama and Maths clubs, and 2 students are in all clubs. If 75% of the students in the college are not in any of these clubs, then the total number of students in the college is _____________.</span></p>",
+      "answers": [
+        {
+          "id": 36892,
+          "answer": "<p><span>1000</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36893,
+          "answer": "<p><span>975</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36894,
+          "answer": "<p><span>900</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 36895,
+          "answer": "<p><span>225</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><b><strong>Note</strong></b><span> that given 2 students are in all clubs so these are common in given each two group. </span></li><li value=\"2\"><span>After deducting 2: Venn Diagram</span></li></ul><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618155049539919/Frame-22.webp\" alt=\"Frame-22\" width=\"600\" height=\"400\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618155049539919/Frame-22.webp 600w,https://media.geeksforgeeks.org/wp-content/uploads/20250618155049539919/Frame-22-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250618155049539919/Frame-22-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250618155049539919/Frame-22-300.webp 300w\"><figcaption> </figcaption></figure><p><br></p><p dir=\"ltr\"><span>  Therefore total number of students participating in any of these clubs are:</span></p><pre><span>= 60 + 80 + 30 + 38 + 2 + 10 + 5</span><br><span>= 225 </span></pre><p dir=\"ltr\"><span>  Given only these are 25% of the total number of students in the college (75% of the students in the college are not in any of these clubs.). Therefore total total number of students in the college:</span></p><pre><span>x*0.25 = 225</span><br><span>= 225/0.25</span><br><span>= 900 </span></pre><p dir=\"ltr\"><b><strong>  So, option (C) is correct. </strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 15:52:29"
+    },
+    {
+      "id": 9212,
+      "title": "GATE | CS | 2019 | Aptitude | Logical Aptitude | Question 10",
+      "slug": "three-of-the-five-students-are-allocated-to-a",
+      "question": "<p dir=\"ltr\"><span>Three of the five students are allocated to a hostel put in special requests to the warden, Given the floor plan of the vacant rooms, select the allocation plan that will accommodate all their requests. </span></p><ul><li value=\"1\"><b><strong>Request by X:</strong></b><span> Due to pollen allergy, I want to avoid a wing next to the garden. </span></li><li value=\"2\"><b><strong>Request by Y:</strong></b><span> I want to live as far from the washrooms as possible since I am very much sensitive to smell. </span></li><li value=\"3\"><b><strong>Request by Z:</strong></b><span> I believe in Vaastu and so I want to stay in South-West wing. </span></li></ul><p dir=\"ltr\"><span> The shaded rooms are already occupied. WR is washroom </span></p>",
+      "answers": [
+        {
+          "id": 36896,
+          "answer": "<p><br><span> </span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154304328554/Frame-23.webp\" alt=\"Frame-23\" width=\"398\" height=\"400\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154304328554/Frame-23.webp 398w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154304328554/Frame-23-100.webp 99w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154304328554/Frame-23-200.webp 199w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154304328554/Frame-23-300.webp 298w\"><figcaption> </figcaption></figure><p><br></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36897,
+          "answer": "<p><br><span> </span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154349522373/Frame-24.webp\" alt=\"Frame-24\" width=\"398\" height=\"400\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154349522373/Frame-24.webp 398w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154349522373/Frame-24-100.webp 99w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154349522373/Frame-24-200.webp 199w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154349522373/Frame-24-300.webp 298w\"><figcaption> </figcaption></figure><p><br></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36898,
+          "answer": "<p><br><span> </span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154416200531/Frame-25.webp\" alt=\"Frame-25\" width=\"398\" height=\"400\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154416200531/Frame-25.webp 398w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154416200531/Frame-25-100.webp 99w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154416200531/Frame-25-200.webp 199w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154416200531/Frame-25-300.webp 298w\"><figcaption> </figcaption></figure><p><br></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36899,
+          "answer": "<p><br><span> </span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154450129289/Frame-26.webp\" alt=\"Frame-26\" width=\"398\" height=\"400\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250618154450129289/Frame-26.webp 398w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154450129289/Frame-26-100.webp 99w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154450129289/Frame-26-200.webp 199w,https://media.geeksforgeeks.org/wp-content/uploads/20250618154450129289/Frame-26-300.webp 298w\"><figcaption> </figcaption></figure><p><br></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In all other option except D, Z is not staying in south-west wing. Since Z believe in vastu, he can stay in Any of the south-west wings but not in any other wing. In option (D) X is away from the garden as well as Y is away from the washroom. So, option (D) is correct.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 15:46:28"
+    },
+    {
+      "id": 9213,
+      "title": "GATE | CS | 2019 | COA | Cache Memory | Question 11",
+      "slug": "a-certain-processor-uses-a-fully-associative-cache-of",
+      "question": "<p dir=\"ltr\"><span>A certain processor uses a fully associative cache of size 16 kB, The cache block size is 16 bytes. Assume that the main memory is byte addressable and uses a 32-bit address. How many bits are required for the Tag and the Index fields respectively in the addresses generated by the processor? </span></p>",
+      "answers": [
+        {
+          "id": 36900,
+          "answer": "<p dir=\"ltr\"><span>24 bits and 0 bits</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36901,
+          "answer": "<p dir=\"ltr\"><span>28 bits and 4 bits</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36902,
+          "answer": "<p dir=\"ltr\"><span>24 bits and 4 bits</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36903,
+          "answer": "<p dir=\"ltr\"><span>28 bits and 0 bits</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Given cache block size is 16 bytes, so block or word offset is 4 bits. Fully associative cache of size 16 kB, so line offset should be, </span></p><pre><span>= cache size / block size</span><br><span>= 16 kB / 16 B</span><br><span>= 1 k </span><br><span>= 1024</span><br><span>= 10 bits Line or Index Offset </span></pre><p dir=\"ltr\"><span> Tag bit size would be, </span></p><pre><span>= processor address size - (line offset + word offset)</span><br><span>= 32 - 10 - 4</span><br><span>= 18 bits tag size </span></pre><p dir=\"ltr\"><span> Since, there no option matches, but if we assume that Line Offset is a part of Tag bits. Therefore, </span></p><pre><span>Tag bits = 18+10 = 28 bits</span><br><span>Line or Index offset = 0 bits (since fully associative cache memory),</span><br><span>Word or block offset = 4 bits </span></pre><img src=\"https://cdn.geeksforgeeks.org/wp-content/uploads/Club2.png\" width=\"inherit\" height=\"inherit\" loading=\"auto\"><p dir=\"ltr\"><b><strong>Alternative way:</strong></b></p><p dir=\"ltr\"><span> We know in fully associative mapping, </span></p><pre><span>Line size = block size = frame size </span></pre><p dir=\"ltr\"><span> Number of bits in tag can be founded using given below formula </span></p><pre><span>Number of Tag bits </span><br><span>= Total number of bits in Physical Address - no of bits in Block offset </span></pre><p dir=\"ltr\"><span> Here number of bits in block offset is not given. It can be found using </span></p><pre><span>ceil(log2 Cache block size) = ceil(log2 16) = 4 </span></pre><p dir=\"ltr\"><span> So,  </span></p><pre><span>Number of Tag bits = 32-4 = 28 </span></pre><p dir=\"ltr\"><span> No index bits is there in fully associative mapping. Hence Index bits = 0  </span><b><strong>So, option (D) is correct</strong></b><span>.   </span></p><iframe src=\"https://www.youtube.com/embed/lz3J33WzNOo?start=1363\" width=\"560\" height=\"315\"></iframe>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:31:00"
+    },
+    {
+      "id": 9214,
+      "title": "GATE | CS | 2019 | COA| Main Memory | Question 12",
+      "slug": "the-chip-select-logic-for-a-certain-dram-chip",
+      "question": "<p dir=\"ltr\"><span>The chip select logic for a certain DRAM chip in a memory system design is shown below. Assume that the memory system has 16 address lines denoted by A15 to A0. What is the range of address (in hexadecimal) of the memory system that can get enabled by the chip select (CS) signal?</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830121423150754/45.png\" alt=\"45\" width=\"387\" height=\"157\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830121423150754/45.png 387w,https://media.geeksforgeeks.org/wp-content/uploads/20250830121423150754/45-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250830121423150754/45-200.png 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250830121423150754/45-300.png 300w\"><figcaption> </figcaption></figure>",
+      "answers": [
+        {
+          "id": 36904,
+          "answer": "<p dir=\"ltr\"><span>C800 to CFFF</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36905,
+          "answer": "<p dir=\"ltr\"><span>CA00 to CAFF</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36906,
+          "answer": "<p dir=\"ltr\"><span>C800 to C8FF</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36907,
+          "answer": "<p dir=\"ltr\"><span>DA00 to DFFF</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><span>The memory system has </span><b><strong>16 address lines</strong></b><span> (A15​ to A0​), meaning the address range spans 2</span><sup><span>16</span></sup><span> = 65536 addresses (0000h</span><sub><span>h</span></sub><span> to FFFF</span><sub><span>h</span></sub><span>​).</span></li><li value=\"2\"><span>The chip select (CS) signal depends on four address lines: A15​, A14​, A13​, and A12​.</span></li><li value=\"3\"><span>These lines are </span><b><strong>inputs to an </strong></b><a href=\"https://www.geeksforgeeks.org/and-gate/\" target=\"_blank\" rel=\"noopener\"><b><strong>AND gate</strong></b></a><b><strong> with </strong></b><a href=\"https://www.geeksforgeeks.org/not-gate/\" target=\"_blank\" rel=\"noopener\"><b><strong>NOT gates</strong></b></a><span> on A14​ and A13​.</span></li><li value=\"4\"><span>The AND gate activates CS if: A</span><sub><span>15</span></sub><span>=1, A</span><sub><span>14</span></sub><span>=0, A</span><sub><span>13</span></sub><span>=0, A</span><sub><span>12</span></sub><span>=1.</span></li></ul><pre><span>A15 A14 A13 A12 A11 A10 A9 ... .... A0 </span><br><span>1    1   0   0   1   0   0 ... .... 0  = C800 </span><br><span>|-Chip select (CS)-| ...   ... .... 1  = C801 </span><br><span>1    1   0   0   1   ...   ... .... .  = ... </span><br><span>1    1   0   0   1   1   1 ... .... 1  = CFFF </span></pre><p dir=\"ltr\"><span>Combining the fixed upper nibble (C</span><sub><span>h</span></sub><span>​) with all possible values for the lower 12 bits (A</span><sub><span>11</span></sub><span>​ to A</span><sub><span>0</span></sub><span>​), the address range is:</span><b><strong>  </strong></b><span>C800</span><sub><span>h</span></sub><span> to CFFF</span><sub><span>h</span></sub></p><p dir=\"ltr\"><b><strong>So, option (A) is correct. </strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 12:14:45"
+    },
+    {
+      "id": 9215,
+      "title": "GATE | CS | 2019 | Compiler Design | Parsing | Question 13",
+      "slug": "which-one-of-the-following-kinds-of-derivation-is",
+      "question": "<p dir=\"ltr\"><span>Which one of the following kinds of derivation is used by LR parsers?</span></p>",
+      "answers": [
+        {
+          "id": 36908,
+          "answer": "<p dir=\"ltr\"><span>Leftmost</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36909,
+          "answer": "<p dir=\"ltr\"><span>Leftmost in reverse</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36910,
+          "answer": "<p dir=\"ltr\"><span>Rightmost</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36911,
+          "answer": "<p dir=\"ltr\"><span>Rightmost in reverse</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<a href=\"https://www.geeksforgeeks.org/compiler-design-classification-top-parsers/\" target=\"_blank\" rel=\"noopener\"><span>Parsing</span></a><p dir=\"ltr\"><span>is classified into two categories, i.e. Top Down Parsing and Bottom-Up Parsing. Top-Down Parsing is based on Left Most Derivation whereas Bottom Up Parsing is dependent on Reverse Right Most Derivation.  A general shift reduce parsing is </span></p><a href=\"https://www.geeksforgeeks.org/parsing-set-2-bottom-up-or-shift-reduce-parsers/\" target=\"_blank\" rel=\"noopener\"><b><strong>LR parsing</strong></b></a><p dir=\"ltr\"><span> is bottom-up parsing where L stands for scanning the input from left to right and R stands for constructing a </span></p><p dir=\"ltr\"><b><strong>rightmost derivation in reverse</strong></b></p><p dir=\"ltr\"><span>.  So, option (D) is correct.  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:30:32"
+    },
+    {
+      "id": 9216,
+      "title": "GATE | CS | 2019 | Digital Logic | Number System | Question 14",
+      "slug": "in-16-bit-2s-complement-representation-the-decimal-number-28",
+      "question": "<p dir=\"ltr\"><span>In 16-bit 2’s complement representation, the decimal number −28 is:</span></p>",
+      "answers": [
+        {
+          "id": 36912,
+          "answer": "<p><span>1111 1111 0001 1100</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36913,
+          "answer": "<p><span>0000 0000 1110 0100</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36914,
+          "answer": "<p><span>1111 1111 1110 0100</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 36915,
+          "answer": "<p><span>1000 0000 1110 0100</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Represent 28 in Binary</strong></b></p><ul><li value=\"1\"><span>Convert 28 to its binary representation in 16 bits:</span><ul><li value=\"1\"><span>28 in binary is 11100 (5 bits).</span></li><li value=\"2\"><span>To make it 16 bits, pad with leading zeros: 28=0000 0000 0001 1100</span></li></ul></li></ul><p dir=\"ltr\"><b><strong>Find the </strong></b><a href=\"https://www.geeksforgeeks.org/twos-complement/\" target=\"_blank\" rel=\"noopener\"><b><strong>2's Complement</strong></b></a></p><ul><li value=\"1\"><span>To find −28, take the </span><b><strong>2's complement</strong></b><span> of the binary representation of 28:</span><ol><li value=\"1\"><b><strong>Step 2.1: Take the 1's complement</strong></b><span>:</span><ul><li value=\"1\"><span>Invert all bits of 28 (0000 0000 0001 11000000): 1’s&nbsp;complement=1111 1111 1110 0011.</span></li></ul></li><li value=\"2\"><b><strong>Step 2.2: Add 1 to the 1's complement</strong></b><span>:</span><ul><li value=\"1\"><span>Add 1 to 1111 1111 1110 0011: 1111 1111 1110 0011+1 = 1111 1111 1110 0100.</span></li></ul></li></ol></li></ul><p dir=\"ltr\"><span>Thus, the 16-bit 2's complement representation of −28 is:</span></p><p><span>1111 1111 1110 0100</span></p><p dir=\"ltr\"><b><strong>So option (C) is correct.  </strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:30:18"
+    },
+    {
+      "id": 9217,
+      "title": "GATE | CS | 2019 | Digital Logic | Number System | Question 15",
+      "slug": "consider-z-x-y-where-x-y",
+      "question": "<p dir=\"ltr\"><span>Consider Z = X − Y where X, Y and Z are all in sign-magnitude form. X and Y are each represented in n bits. To avoid overflow, the representation of Z would require a minimum of:</span></p>",
+      "answers": [
+        {
+          "id": 36916,
+          "answer": "<p dir=\"ltr\"><span>n bits</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36917,
+          "answer": "<p dir=\"ltr\"><span>n−1 bits</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36918,
+          "answer": "<p dir=\"ltr\"><span>n+1 bits</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 36919,
+          "answer": "<p dir=\"ltr\"><span>n+2 bits</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<a href=\"https://www.geeksforgeeks.org/binary-number-system-overflow-in-arithmetic-addition/\" target=\"_blank\" rel=\"noopener\"><span>Overflow</span></a><p dir=\"ltr\"><span> can occur when two same sign numbers are added or two opposite sign numbers are subtracted.   </span></p><p dir=\"ltr\"><i><b><strong class=\"GFGEditorTheme__textItalic\">For example:</strong></b></i></p><pre><span>let n = 4 bit, X = +6 and Y = -5 (1 bit for sign and 3 bit for magnitude)</span><br><span>Therefore, Z = X - Y = 6 - (-5) = 6+5 = 11</span><br><span>But result (Z) 11 needs 5 (= 4 + 1) bits to store, </span><br><span>Sin integer 11 needs 1 bit for sign and 4 bit for magnitude. </span></pre><p dir=\"ltr\"><span>Therefore to avoid overflow the representation of Z would require a minimum of </span><b><strong>(n + 1)</strong></b><span> bits.</span></p><p dir=\"ltr\"><b><strong>Option (C) is correct.</strong></b><span>  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:29:58"
+    },
+    {
+      "id": 9218,
+      "title": "GATE | CS | 2019 | Engineering Mathematics | Linear Algebra | Question 16",
+      "slug": "let-x-be-a-square-matrix-consider-the-following",
+      "question": "<p dir=\"ltr\"><span>Let X be a square matrix. Consider the following two statements on X. </span></p><pre><b><strong>I.</strong></b><span> X is invertible</span><br><b><strong>II.</strong></b><span> Determinant of X is non-zero </span></pre><p dir=\"ltr\"><span> Which one of the following is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 36920,
+          "answer": "<p dir=\"ltr\"><span>I implies II; II does not imply I</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36921,
+          "answer": "<p dir=\"ltr\"><span> II implies I; I does not imply II</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36922,
+          "answer": "<p dir=\"ltr\"><span>I does not imply II; II does not imply I</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36923,
+          "answer": "<p dir=\"ltr\"><span> I and II are equivalent statements</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Since, </span></p><a href=\"https://www.geeksforgeeks.org/check-if-a-matrix-is-invertible/\" target=\"_blank\" rel=\"noopener\"><span>inverse of a matrix</span></a><p dir=\"ltr\"><span> is defined iff |A| is not equal to 0.</span></p><p dir=\"ltr\"><span> So, if denominator or divisor (i.e., determinant of matrix, |A|) is zero, then inverse of matrix (i.e., (A)</span><sup><span>-1</span></sup><span>) can not be defined.  That means if inverse of matrix (i.e., (A)</span><sup><span>-1</span></sup><span>) exists, then it means that denominator (i.e., determinant of matrix, |A|) is </span><b><strong>non-zero</strong></b><span>.   </span></p><blockquote><span>A square matrix is Invertible if and only if its determinant is non-zero.</span></blockquote><p dir=\"ltr\"><span>   Hence, both given statements are equivalent.  </span><b><strong>So, option (D) is correct.</strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:29:40"
+    },
+    {
+      "id": 9203,
+      "title": "GATE | CS | 2019 | Aptitude | Quantitative Aptitude | Question 1",
+      "slug": "the-expenditure-on-the-project-__________-as-follows-equipment",
+      "question": "<p dir=\"ltr\"><span>The expenditure on the project __________ as follows: equipment Rs.20 lakhs, salaries Rs.12 lakhs, and contingency Rs.3 lakhs.</span></p>",
+      "answers": [
+        {
+          "id": 36860,
+          "answer": "<p dir=\"ltr\"><span>break down</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36861,
+          "answer": "<p dir=\"ltr\"><span>break</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36862,
+          "answer": "<p dir=\"ltr\"><span>breaks down</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 36863,
+          "answer": "<p dir=\"ltr\"><span>breaks</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Break down:</strong></b></p><p dir=\"ltr\"><span> to separate, or to separate something, into smaller parts.  For example, </span></p><pre><span>The data breaks down into three main categories.</span></pre><p dir=\"ltr\"><b><strong>Note</strong></b></p><p dir=\"ltr\"><span> that 'breaks down' or 'break down' will depend on singular (e.g., expenditure) or plural (e.g., expenditures) form of the subject in given sentence.  So, option (C) is correct.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:26:34"
+    },
+    {
+      "id": 9220,
+      "title": "GATE | CS | 2019 | Databases | Transaction & Concurrency Control | Question 18",
+      "slug": "consider-the-following-two-statements-about-database-transaction-schedules",
+      "question": "<p dir=\"ltr\"><span>Consider the following two statements about database transaction schedules: </span></p><ul><li value=\"1\"><b><strong>I.</strong></b><span> Strict two-phase locking protocol generates conflict serializable schedules that are also recoverable. </span></li><li value=\"2\"><b><strong>II.</strong></b><span> Timestamp-ordering concurrency control protocol with Thomas’ Write Rule can generate view serializable schedules that are not conflict serializable. </span></li></ul><p dir=\"ltr\"><span> Which of the above statements is/are TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 36928,
+          "answer": "<p dir=\"ltr\"><span>I only</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36929,
+          "answer": "<p dir=\"ltr\"><span>II only</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36930,
+          "answer": "<p dir=\"ltr\"><span>Both I and II</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 36931,
+          "answer": "<p dir=\"ltr\"><span>Neither I nor II</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Following </span><a href=\"https://www.geeksforgeeks.org/dbms-concurrency-control-protocol-two-phase-locking-2-pl-ii/\" target=\"_blank\" rel=\"noopener\"><span>Strict 2-PL</span></a><span> ensures that our schedule is: serializablity, Recoverable, and Cascadeless. So statement (I) is true.</span><br><br><a href=\"https://www.geeksforgeeks.org/dbms-concurrency-control-protocol-thomas-write-rule/\" target=\"_blank\" rel=\"noopener\"><span>Thomas Write Rule</span></a><span> for concurrency control does not enforce Conflict Serializablity, so statement (II) is also true.</span><br><br><span>Hence option (C) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:29:05"
+    },
+    {
+      "id": 9221,
+      "title": "GATE | CS | 2019 | Discrete Mathematics | Graph Theory | Question 19",
+      "slug": "let-g-be-an-undirected-complete-graph-on-n",
+      "question": "<p dir=\"ltr\"><span>Let G be an undirected complete graph on n vertices, where n &gt; 2. Then, the number of different Hamiltonian cycles in G is equal to </span></p>",
+      "answers": [
+        {
+          "id": 36932,
+          "answer": "<p dir=\"ltr\"><span>n!</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36933,
+          "answer": "<p dir=\"ltr\"><span>n - 1!</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36934,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36935,
+          "answer": "<p dir=\"ltr\"><span>(n-1)! / 2</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>A simple circuit in a graph G that passes through every vertex exactly once is called a </span><a href=\"https://www.geeksforgeeks.org/mathematics-euler-hamiltonian-paths/\" target=\"_blank\" rel=\"noopener\"><span>Hamiltonian circuit.</span></a></p><p dir=\"ltr\"><span>In an undirected complete graph on n vertices, there are n permutations are possible to visit every node. But from these permutations, there are: </span></p><ol><li value=\"1\"><span>n different places (i.e., nodes) you can start; </span></li><li value=\"2\"><span>2 (clockwise or anticlockwise) different directions you can travel. </span></li></ol><p dir=\"ltr\"><span> So any one of these n! cycles is in a set of 2n cycles which all contain the same set of edges. So there are, </span></p><pre><span>= (n)! / (2n)</span><br><span>= (n−1)! / 2 distinct Hamilton cycles. </span></pre><p dir=\"ltr\"><b><strong>  Option (D) is correct. </strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:28:54"
+    },
+    {
+      "id": 9222,
+      "title": "GATE | CS | 2019 | Discrete Mathematics | Set Theory | Question 20",
+      "slug": "let-u-1-2-n-and-a",
+      "question": "<p dir=\"ltr\"><span>Let U = {1, 2, …,n} and A = {(x, X)∣ x∈X, X⊆U }. Consider the following two statements on </span>[Tex]|A|[/Tex]<span>:</span></p><p>[Tex]\\text{I. } |A| = n2^{n-1} \\\\\n\\text{II. } |A| = \\sum_{k=1}^{n} k\\binom{n}{k}[/Tex]</p><p dir=\"ltr\"><span>Which of the above statements is/are TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 36936,
+          "answer": "<p dir=\"ltr\"><span>Only I</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36937,
+          "answer": "<p dir=\"ltr\"><span>Only II</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36938,
+          "answer": "<p dir=\"ltr\"><span>Both I and II</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 36939,
+          "answer": "<p dir=\"ltr\"><span>Neither I nor II</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Given, A = {(x, X)∣ x∈X, X⊆U }, where U = {1, 2, …,n}.</span></p><p dir=\"ltr\"><span>As we know, the number of k-element subsets of a set U with n elements is </span><sup><span>n</span></sup><span>C</span><sub><span>k</span></sub><span>.</span></p><p dir=\"ltr\"><span>The number of possible ordered pairs (x, X) where x ∈ X is k⋅ </span><sup><span>n</span></sup><span>C</span><sub><span>k</span></sub><span> for a given value of k from 1 to n. So total number of ordered pairs in A.</span></p><p dir=\"ltr\"><span>Also by the combinational identity: </span><br><img src=\"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190219113454/1111.gif\" alt=\"combinational identity sum\" width=\"110\" height=\"186\" loading=\"eager\"><span>So, both given statements (I) and (II) are correct.</span></p><p dir=\"ltr\"><b><strong>Hence option (C) is true.</strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 12:21:44"
+    },
+    {
+      "id": 9223,
+      "title": "GATE | CS | 2019 | Digital Logic | Boolean Algebra | Question 21",
+      "slug": "which-one-of-the-following-is-not-a-valid",
+      "question": "<p dir=\"ltr\"><span>Which one of the following is NOT a valid identity?</span></p>",
+      "answers": [
+        {
+          "id": 36940,
+          "answer": "<p dir=\"ltr\"><span>(x ⊕ y) ⊕ z = x ⊕ (y ⊕ z)</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36941,
+          "answer": "<p dir=\"ltr\"><span>(x + y) ⊕ z = x ⊕ (y + z)</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 36942,
+          "answer": "<p dir=\"ltr\"><span>x ⊕ y = x + y, if xy = 0</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36943,
+          "answer": "<p dir=\"ltr\"><span>x ⊕ y = (xy + x′y′)′</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>According to XOR (⊕) operation,</span></p><table><thead><tr><th><span>x</span></th><th><span>y</span></th><th><span>x⊕y</span></th></tr></thead><tbody><tr><td><span>0</span></td><td><span>0</span></td><td><span>0</span></td></tr><tr><td><span>0</span></td><td><span>1</span></td><td><span>1</span></td></tr><tr><td><span>1</span></td><td><span>0</span></td><td><span>1</span></td></tr><tr><td><span>1</span></td><td><span>1</span></td><td><span>0</span></td></tr></tbody></table><p dir=\"ltr\"><span>Therefore, option (D),</span></p><pre><span>x⊕y </span><br><span>= (x'y + xy′)</span><br><span>= (x'+y').(x+y)</span><br><span>= (x⊙y)'</span><br><span>= (xy + x′y′)′ </span></pre><p dir=\"ltr\"><span>It also clearly shows that, if atleast one of x and y is 0, then it works as (x+y).</span></p><pre><span>x⊕y = x + y,  if xy = 0</span></pre><p dir=\"ltr\"><span>You can notice that it works as (x+y) except last row in given Truth table, because only last row does not satisfy (x.y)=0. So, option (C) is also correct. XOR (⊕) operation also satisfies </span><a href=\"\\&quot;https://www.geeksforgeeks.org/mathematics-properties-boolean-algebra/\\&quot;\"><span>associative law</span></a><span>, i.e.,</span></p><pre><span>(x ⊕ y) ⊕ z = x ⊕ (y ⊕ z)</span></pre><p dir=\"ltr\"><span>So, option (A) is also correct. But, option (B) is not correct because,</span></p><pre><span>(x+y)⊕z </span><br><span>= (x+y)'.z + (x+y).z'</span><br><span>= (x'y').z + xz' + yz'</span><br><br><span>And,</span><br><span>x⊕(y+z)</span><br><span>= x'.(y+z) + x.(y+z)'</span><br><span>= x'y + x'z + x.y'z'</span><br><br><span>Therefore,</span><br><span>(x+y)⊕z ≠ x⊕(y+z)</span></pre>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:28:24"
+    },
+    {
+      "id": 9224,
+      "title": "GATE | CS | 2019 | Engineering Mathematics | Calculus | Question 22",
+      "slug": "compute",
+      "question": "<p dir=\"ltr\"><span>Compute:</span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\" style=\"text-align: center;\">[Tex]\\lim _{x \\to 3 }\\frac{x^4-81}{2x^2-5x-3} [/Tex]<br><br><br></p>",
+      "answers": [
+        {
+          "id": 36944,
+          "answer": "<p dir=\"ltr\"><span>Limit does not exist</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36945,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36946,
+          "answer": "<p><span>53/12</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36947,
+          "answer": "<p><span>108/7</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>On Factorizing the numerator and denominator</span></p><ol><li value=\"1\"><b><strong>Numerator</strong></b><span> (x</span><sup><span>4</span></sup><span> −81) = (x−3) (x+3) (x2+9)</span></li><li value=\"2\"><b><strong>Denominator </strong></b><span>2x</span><sup><span>2</span></sup><span> −5x −3 = (2x+1) (x−3)Simplify the fraction</span></li></ol><p dir=\"ltr\"><span>The limit becomes: </span></p><p dir=\"ltr\">[Tex]\\frac{(x-3)(x+3)(x^2+9)}{(2x+1)(x-3)}[/Tex]</p><p dir=\"ltr\"><span>Cancel the common factor (x−3) (since x→3, x−3 ≠ 0 in the neighborhood of x=3):</span></p><p dir=\"ltr\">[Tex]\\frac{(x+3)(x^2+9)}{2x+1}[/Tex]</p><h3 id=\"substitute-x3\" style=\"text-align:left\"><span>Substitute x=3</span></h3><p dir=\"ltr\"><span>Now, substitute x=3 into the simplified expression:</span></p><p dir=\"ltr\">[Tex]\\frac{(3+3)(3^2+9)} {2(3)+1}= \\frac{108}{7} [/Tex]</p><p dir=\"ltr\" style=\"text-align: center;\">[Tex]\\lim _{x \\to 3 }\\frac{x^4-81}{2x^2-5x-3} = \\frac{108}{7}[/Tex]<br></p><p dir=\"ltr\"><b><strong>  So, option (D) is correct. </strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:28:13"
+    },
+    {
+      "id": 9225,
+      "title": "GATE | CS | 2019 | Databases | Indexing(B/B+ Tree) | Question 23",
+      "slug": "which-one-of-the-following-statements-is-not-correct-1",
+      "question": "<p dir=\"ltr\"><span>Which one of the following statements is NOT correct about the B+ tree data structure used for creating an index of a relational database table? </span></p>",
+      "answers": [
+        {
+          "id": 36948,
+          "answer": "<p dir=\"ltr\"><span>B+ Tree is a height-balanced tree</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36949,
+          "answer": "<p dir=\"ltr\"><span>Non-leaf nodes have pointers to data records</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 36950,
+          "answer": "<p dir=\"ltr\"><span>Key values in each node are kept in sorted order</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36951,
+          "answer": "<p dir=\"ltr\"><span>Each leaf node has a pointer to the next leaf node</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<a href=\"https://www.geeksforgeeks.org/database-file-indexing-b-tree-introduction/\" target=\"_blank\" rel=\"noopener\"><u><span class=\"GFGEditorTheme__textUnderline\">B+ tree</span></u></a><p dir=\"ltr\"><span> is height balance search tree, where key values in each node are kept in sorted order.   </span></p><p dir=\"ltr\"><span>All leaf nodes are at same level and connected to next leaf node.  </span></p><p dir=\"ltr\"><span>Each non-leaf (i.e., internal) node is of the form: </span></p><pre><span>&lt;P1, K1, P2, K2, ….., Pc-1, Kc-1, Pc&gt; </span></pre><p dir=\"ltr\"><span> where c &lt;= a and each Pi is a tree pointer (i.e points to another node of the tree) and, each Ki is a key value. </span></p><p dir=\"ltr\"><span>That means each non-leaf (i.e., internal) nodes has only block (i.e., node or tree pointers) and keys. </span></p><p dir=\"ltr\"><span>These internal (i.e., non-leaf) node do not contain data record pointers.   </span></p><p dir=\"ltr\"><span>So, option (B) is not correct.   </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:28:02"
+    },
+    {
+      "id": 9226,
+      "title": "GATE | CS | 2019 | TOC | Pumping Lemma | Question 24",
+      "slug": "for-a-b-let-us-consider-the",
+      "question": "<p dir=\"ltr\"><span>For Σ = {a, b}, let us consider the regular language</span></p><pre><span>L = {x ∣ x = a</span><sup><span>2 + 3k</span></sup><span> or x = b</span><sup><span>10 + 12k</span></sup><span>, k ≥ 0} </span></pre><p dir=\"ltr\"><span>Which one of the following can be a pumping length (the constant guaranteed by the pumping lemma) for L?</span></p>",
+      "answers": [
+        {
+          "id": 36952,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36953,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36954,
+          "answer": "<p><span>9</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36955,
+          "answer": "<p><span>24</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><span>According to </span><a href=\"&quot;https://www.geeksforgeeks.org/theory-of-computation-pumping-lemma/&quot;\"><span>Pumping lemma</span></a><span>, there must be repetition (DFA then it repeats some states, and regular grammar repeats its nonterminal in derivation.) for all acceptable stings. </span></li><li value=\"2\"><span>Therefore, </span><i><em class=\"GFGEditorTheme__textItalic\">minimum</em></i><span> Pumping Length should be </span><b><strong>11</strong></b><span>, because string with length 10 (i.e., w = b</span><sup><span>10</span></sup><span>) does not repeat anything, but string with length 11 (i.e., w = b</span><sup><span>11</span></sup><span>) will repeat states. </span></li><li value=\"3\"><span>Therefore, pumping length for given language should greater than </span><b><strong>10</strong></b><span>, which is 24. </span></li><li value=\"4\"><b><strong>Option (D) is correct.&nbsp;</strong></b></li></ul>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:27:45"
+    },
+    {
+      "id": 9227,
+      "title": "GATE | CS | 2019 | Operating Systems | System Calls | Question 26",
+      "slug": "the-following-c-program-is-executed-on-a-unix",
+      "question": "<p dir=\"ltr\"><span>The following C program is executed on a Unix / Linux system:   </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;unistd.h&gt;</span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span><span class=kt>int</span><span class=w> </span><span class=n>i</span><span class=p>;</span>\n<span class=w>    </span><span class=k>for</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=w> </span><span class=o>&lt;</span><span class=w> </span><span class=mi>10</span><span class=p>;</span><span class=w> </span><span class=n>i</span><span class=o>++</span><span class=p>)</span>\n<span class=w>      </span><span class=k>if</span><span class=w> </span><span class=p>(</span><span class=n>i</span><span class=w> </span><span class=o>%</span><span class=w> </span><span class=mi>2</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=mi>0</span><span class=p>)</span><span class=w> </span><span class=n>fork</span><span class=p>();</span>\n<span class=w>    </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=w>  </span><span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>The total number of child process created is __________ .  </span></p><p dir=\"ltr\"><b><strong>Note -</strong></b></p><p dir=\"ltr\"><span> This was Numerical Type question.  </span></p>",
+      "answers": [
+        {
+          "id": 36956,
+          "answer": "<p><span>31</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36957,
+          "answer": "<p><span>63</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36958,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36959,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Condition \"if\" will be satisfy for i = 0, 2, 4, 6, 8 only. So, \"fork()\" will call for 5 times.   Total number of processes created is,  </span></p><pre><span>= 2</span><sup><span>number of fork()</span></sup><span> </span></pre><p dir=\"ltr\"><span>  There is always only one parent process of these processes and remaining will be child processes.  Hence number of child process created is, </span></p><pre><span>= 2</span><sup><span>number of fork()</span></sup><span> - 1</span><br><span>= 2</span><sup><span>5</span></sup><span> - 1</span><br><span>= 32 - 1</span><br><span>= 31</span></pre><p dir=\"ltr\"><span>  So, option (A) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:27:33"
+    },
+    {
+      "id": 9228,
+      "title": "GATE | CS | 2019 | C Programming | Functions | Question 27",
+      "slug": "consider-the-following-c-program-c-include-stdioh-int-1",
+      "question": "<p dir=\"ltr\"><span>Consider the following C program:   </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=w> </span><span class=cpf>&lt;stdio.h&gt;</span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=nf>jumble</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>x</span><span class=p>,</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>y</span><span class=p>)</span><span class=w> </span><span class=p>{</span>\n<span class=w>    </span><span class=n>x</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>2</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=n>x</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>y</span><span class=p>;</span>\n<span class=w>    </span><span class=k>return</span><span class=w> </span><span class=n>x</span><span class=p>;</span>\n<span class=w>  </span><span class=p>}</span>\n<span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=n>x</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=n>y</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>5</span><span class=p>;</span>\n<span class=w>  </span><span class=n>y</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>jumble</span><span class=p>(</span><span class=n>y</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>);</span>\n<span class=w>  </span><span class=n>x</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>jumble</span><span class=p>(</span><span class=n>y</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>);</span>\n<span class=w>  </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%d</span><span class=se>\\\\</span><span class=s>n&quot;</span><span class=p>,</span><span class=w> </span><span class=n>x</span><span class=p>);</span>\n<span class=w>  </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>The value printed by program is __________ .   </span></p><p dir=\"ltr\"><b><strong>Note:</strong></b></p><p dir=\"ltr\"><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 36960,
+          "answer": "<p><span>26</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36961,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36962,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36963,
+          "answer": "<p><span>12</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><span>Initially  x = 2, y = 5; jumble (5, 2) is called and y will be updated as 12  </span></li><li value=\"2\"><span>jumble (12, 2) is called and x will updated as 26  </span></li><li value=\"3\"><span>Final value of x = 26 </span></li><li value=\"4\"><span>So, option (A) is correct.  </span></li></ul>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:26:18"
+    },
+    {
+      "id": 9229,
+      "title": "GATE | CS | 2019 | Compiler Design | Parsing | Question 28",
+      "slug": "consider-the-following-given-grammar-s-aaa",
+      "question": "<p dir=\"ltr\"><span>Consider the following given grammar: </span></p><pre><span>S → Aa</span><br><span>A → BD</span><br><span>B → b|ε</span><br><span>D → d|ε </span></pre><p dir=\"ltr\"><span>Let a, b, d, and $ be indexed as follows:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830125132269548/60.png\" alt=\"60\" width=\"203\" height=\"85\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830125132269548/60.png 203w,https://media.geeksforgeeks.org/wp-content/uploads/20250830125132269548/60-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250830125132269548/60-200.png 200w\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>Compute the FOLLOW set of the non-terminal B and write the index values for the symbols in the FOLLOW set in the descending order. (For example, if the FOLLOW set is {a, b, d, $}, then the answer should be 3210).  </span></p><p dir=\"ltr\"><b><strong>Note:</strong></b></p><p dir=\"ltr\"><span>This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 36964,
+          "answer": "<p><span>31</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36965,
+          "answer": "<p><span>310</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36966,
+          "answer": "<p><span>230</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36967,
+          "answer": "<p><span>23</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Follow (B) to be the set of terminals that can appear immediately to the right of Non-Terminal B in some sentential form.  Therefore, </span></p><p dir=\"ltr\"><span>Follow (B) = {d, a} </span></p><p dir=\"ltr\"><span>Hence their index in descending order is 31.</span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 12:51:53"
+    },
+    {
+      "id": 9230,
+      "title": "GATE | CS | 2019 | Engineering Mathematics | Probability & Statistics | Question 29",
+      "slug": "two-numbers-are-chosen-independently-and-uniformly-at-random",
+      "question": "<p dir=\"ltr\"><span>Two numbers are chosen independently and uniformly at random from the set {1, 2, ..., 13}. The probability (rounded off to 3 decimal places) that their 4-bit (unsigned) binary representations have the same most significant bit is ___________.</span><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 36968,
+          "answer": "<p><span>0.5029</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36969,
+          "answer": "<p><span>0.538</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36970,
+          "answer": "<p><span>0.461</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36971,
+          "answer": "<p><span>0.248</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The 4-bit binary representation of numbers (1, 2, 3, 4.........13): </span></p><pre><span>0  - 0000 </span><br><span>1  - 0001 </span><br><span>2  - 0010</span><br><span>3  - 0011</span><br><span>4  - 0100</span><br><span>5  - 0101</span><br><span>6  - 0110</span><br><span>7  - 0111</span><br><span>8  - 1000</span><br><span>9  - 1001</span><br><span>10 - 1010</span><br><span>11 - 1011</span><br><span>12 - 1100</span><br><span>13 - 1101</span></pre><p dir=\"ltr\"><span> There 6 numbers which start with MSB as 1, and 7 numbers which start with MSB as 0.  Therefore, probability that their 4-bit binary representations have the same most significant bit is, </span></p><pre><span>= P(MSB is 0) + P(MSB is 1)</span><br><span>= (7×7)/(13×13) + (6×6)/(13×13)</span><br><span>= (49+36)/169</span><br><span>= 85/169</span><br><span>= 0.5029 </span></pre><p dir=\"ltr\"><span>  Option (A) is correct.   </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:25:48"
+    },
+    {
+      "id": 9231,
+      "title": "GATE | CS | 2019 | Algorithms | Searching & Sorting | Question 30",
+      "slug": "an-array-of-25-distinct-elements-is-to-be",
+      "question": "<p dir=\"ltr\"><span>An array of 25 distinct elements is to be sorted using quicksort. Assume that the pivot element is chosen uniformly at random. The probability that the pivot element gets placed in the worst possible location in the first round of partitioning (rounded off to 2 decimal places) is _________.</span><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 36972,
+          "answer": "<p><span>0.08</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36973,
+          "answer": "<p><span>0.0016</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36974,
+          "answer": "<p><span>0.04</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36975,
+          "answer": "<p><span>0.0008</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Given an array of 25 distinct elements, and pivot element is chosen uniformly randomly. So, there are only 2 </span></p><a href=\"https://www.geeksforgeeks.org/when-does-the-worst-case-of-quicksort-occur/\" target=\"_blank\" rel=\"noopener\"><span>worst case position</span></a><p dir=\"ltr\"><span> in the pivot element is either first (or) last.   Therefore, required probability is, </span></p><pre><span>= 2/25</span><br><span>= 0.08</span></pre><p dir=\"ltr\"><span>  So, option (A) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:25:36"
+    },
+    {
+      "id": 9232,
+      "title": "GATE | CS | 2019 | Aptitude | Quantitative Aptitude | Question 31",
+      "slug": "the-value-of-351-mod-5-is",
+      "question": "<p dir=\"ltr\"><span>The value of 3</span><sup><span>51</span></sup><span> mod 5 is _________ .</span><br><br><br><b><strong>Note:</strong></b><span> This was Numerical Type question.</span></p>",
+      "answers": [
+        {
+          "id": 36976,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 36977,
+          "answer": "<p><span>2</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 36978,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36979,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>According to </span></p><a href=\"https://www.geeksforgeeks.org/chinese-remainder-theorem-set-1-introduction/\" target=\"_blank\" rel=\"noopener\"><span>chinese remainder theorem</span></a><p><span>: </span></p><pre><span>= 3</span><sup><span>51</span></sup><span> mod 5 </span><br><span>= (3</span><sup><span>3</span></sup><span>)</span><sup><span>17</span></sup><span> mod 5 </span><br><span>= (27)</span><sup><span>17</span></sup><span> mod 5</span><br><span>= {(2</span><sup><span>2</span></sup><span>)</span><sup><span>8</span></sup><span>*2</span><sup><span>1</span></sup><span>} mod 5</span><br><span>= {(4)</span><sup><span>8</span></sup><span>*(2)} mod 5</span><br><span>= {(-1)</span><sup><span>8</span></sup><span>*(2)} mod 5</span><br><span>= {(1*2)} mod 5</span><br><span>= {(2)} mod 5</span><br><span>= 2  </span></pre><p dir=\"ltr\"><b><strong>Note:</strong></b></p><p dir=\"ltr\"><span> You can solve it directly by using power and mod operations in given calculator.   So, option (B) is correct.  </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:25:23"
+    },
+    {
+      "id": 9233,
+      "title": "GATE | CS | 2019 | Operating System | Concurrency & Synchronization | Question 32",
+      "slug": "consider-three-concurrent-processes-p1-p2-and-p3-as",
+      "question": "<p dir=\"ltr\"><span>Consider three concurrent processes P1, P2 and P3 as shown below, which access a shared variable D that has been initialized to 100.</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830124913017607/64.png\" alt=\"64\" width=\"610\" height=\"167\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250830124913017607/64.png 610w,https://media.geeksforgeeks.org/wp-content/uploads/20250830124913017607/64-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250830124913017607/64-200.png 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250830124913017607/64-300.png 300w\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>The processes are executed on a uniprocessor system running a time-shared operating system. If the minimum and maximum possible values of D after the three processes have completed execution are X and Y respectively, then the value of Y–X is __________.</span><br><br><b><strong>Note:</strong></b><span> This was a numerical-type question.</span></p>",
+      "answers": [
+        {
+          "id": 36980,
+          "answer": "<p><span>80</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36981,
+          "answer": "<p><span>130</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36982,
+          "answer": "<p><span>50</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36983,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Minimum value (X) of D will possible when, </span></p><ol><li value=\"1\"><span>P2 reads D=100, preempted. </span></li><li value=\"2\"><span>P1 executes D=D+20, D=120. </span></li><li value=\"3\"><span>P3 executes D=D+10, D=130. </span></li><li value=\"4\"><span>Now, P2 has D=100, executes, D = D-50 = 100-50 = 50. P2 writes D=50 final value.  </span></li></ol><p dir=\"ltr\"><span> So, minimum value (X) of D is 50.   Maximum value (Y) of D will possible when, </span></p><ol><li value=\"1\"><span>P1 reads D=100, preempted. </span></li><li value=\"2\"><span>P2 reads D=100, executes, D = D-50 = 100-50 = 50. </span></li><li value=\"3\"><span>Now, P1 executes, D = D+20 = 100+20 = 120. </span></li><li value=\"4\"><span>And now, P3 reads D=120, executes D=D+10, D=130. P3 writes D=130 final value.  </span></li></ol><p dir=\"ltr\"><span> So, maximum value (Y) of D is 130.   Therefore, </span></p><pre><span>= Y - X</span><br><span>= 130 - 50</span><br><span>= 80 </span></pre><p dir=\"ltr\"><span>  So, option (A) is correct. </span></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-08-30 - 12:49:44"
+    },
+    {
+      "id": 9234,
+      "title": "GATE | CS | 2019 | C Programming | Pointers | Question 33",
+      "slug": "consider-the-following-c-program-c-includestdioh-int-main",
+      "question": "<p dir=\"ltr\"><span>Consider the following C program:  </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=cp>#include</span><span class=cpf>&lt;stdio.h&gt;</span>\n<span class=w> </span><span class=kt>int</span><span class=w> </span><span class=nf>main</span><span class=p>(){</span>\n<span class=w>  </span><span class=kt>int</span><span class=w> </span><span class=n>arr</span><span class=p>[]</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=p>{</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w> </span><span class=mi>4</span><span class=p>,</span><span class=w> </span><span class=mi>5</span><span class=p>,</span><span class=w> </span><span class=mi>6</span><span class=p>,</span><span class=w> </span><span class=mi>7</span><span class=p>,</span><span class=w> </span><span class=mi>8</span><span class=p>,</span><span class=w> </span><span class=mi>9</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=mi>5</span><span class=p>},</span><span class=w> </span><span class=o>*</span><span class=n>ip</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>arr</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=mi>4</span><span class=p>;</span>\n\n<span class=w>  </span><span class=n>printf</span><span class=p>(</span><span class=s>&quot;%d</span><span class=se>\\\\</span><span class=s>n&quot;</span><span class=p>,</span><span class=w> </span><span class=n>ip</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>\n\n<span class=w>  </span><span class=k>return</span><span class=w> </span><span class=mi>0</span><span class=p>;</span>\n<span class=p>}</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>The number that will be displayed on execution of the program is _________ .</span></p>",
+      "answers": [
+        {
+          "id": 36984,
+          "answer": "<p><span>6</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 36985,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 36986,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 36987,
+          "answer": "<p dir=\"ltr\"><span>segmentation error</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Note that index of array always start from </span><b><strong>0</strong></b><span> in C.   </span></p><p dir=\"ltr\"><span>  Initially ip pointer is pointing at (arr+4) or skipping starting first 4 position,.i.e., it is pointing at element 5.</span></p><p dir=\"ltr\"><span>Now in the printf system call, 1 more position is to skip, So it will point to (arr+5) or skip 5 position from starting:  Hence, printf will print value at 6</span><sup><span>th</span></sup><span> position, i.e., </span><b><strong>6</strong></b><span> will printed.  </span></p><p dir=\"ltr\"><b><strong>So, option (A) is correct.  </strong></b></p>",
+      "created_on": "2019-02-11 - 11:28:24",
+      "updated_on": "2025-06-18 - 12:24:55"
+    }
+  ],
+  "quiz": {
+    "id": 368,
+    "question_count": 65,
+    "bottom_description": "",
+    "title": "GATE CS 2019",
+    "slug": "gate-cs-2019",
+    "category": [
+      {
+        "id": 4355,
+        "name": "GATE",
+        "slug": "gate",
+        "origin_term_id": 2209,
+        "origin_slug": "computer-subject/computer-science-quizzes-gq/gate"
+      }
+    ],
+    "show_answer": 3,
+    "created_on": "2019-02-11 - 11:28:24",
+    "updated_on": "2024-04-02 - 17:28:13"
+  }
+}

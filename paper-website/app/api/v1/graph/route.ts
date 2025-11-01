@@ -52,10 +52,9 @@ export async function GET(request: NextRequest) {
     // Add subject nodes
     subjects.forEach(s => {
       nodes.push({
-        id: `subject-${s.name}`,
-        label: s.name,
+        id: `subject-${s}`,
+        label: s,
         type: 'Subject',
-        questionCount: s.questionCount,
       });
     });
 
@@ -63,9 +62,9 @@ export async function GET(request: NextRequest) {
     result.questions.forEach(q => {
       const questionNode: QuestionNode = {
         id: `question-${q._id}`,
-        label: q.questionNumber.toString(),
+        label: q.year?.toString() || 'Unknown',
         type: 'Question',
-        year: q.year,
+        year: q.year || 0,
         subject: q.subject,
       };
       nodes.push(questionNode);
@@ -127,9 +126,9 @@ export async function POST(request: NextRequest) {
     result.questions.forEach(q => {
       const questionNode: QuestionNode = {
         id: `question-${q._id}`,
-        label: q.questionNumber.toString(),
+        label: q.question?.substring(0, 50) || `Question ${q._id}`,
         type: 'Question',
-        year: q.year,
+        year: q.year || 0,
       };
       nodes.push(questionNode);
 

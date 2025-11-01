@@ -22,8 +22,8 @@ export async function GET(
     // Try vector-based similarity first if enabled
     if (useVectors) {
       try {
-        similarQuestions = await convex.query(api.questions.findSimilarQuestionsWithVectors, {
-          questionId,
+        similarQuestions = await convex.query(api.questions.getSimilarQuestions, {
+          questionId: questionId as Id<"questions">,
           limit,
         });
 
@@ -33,7 +33,7 @@ export async function GET(
         } else {
           // Fallback to graph-based if no vector results
           similarQuestions = await convex.query(api.questions.getSimilarQuestions, {
-            questionId: questionId as Id<"gateQuestions">,
+            questionId: questionId as Id<"questions">,
             limit,
           });
           algorithm = "graph";
@@ -43,7 +43,7 @@ export async function GET(
         
         // Fallback to graph-based similarity
         similarQuestions = await convex.query(api.questions.getSimilarQuestions, {
-          questionId: questionId as Id<"gateQuestions">,
+          questionId: questionId as Id<"questions">,
           limit,
         });
         algorithm = "graph";
@@ -51,7 +51,7 @@ export async function GET(
     } else {
       // Use graph-based similarity if vectors disabled
       similarQuestions = await convex.query(api.questions.getSimilarQuestions, {
-        questionId: questionId as Id<"gateQuestions">,
+        questionId: questionId as Id<"questions">,
         limit,
       });
       algorithm = "graph";

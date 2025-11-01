@@ -12,8 +12,20 @@ import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 import NavigationDock from "@/components/navigation-dock";
 import DisplayCards from "@/components/ui/display-cards";
 import { CyberneticBentoGrid } from "@/components/ui/cybernetic-bento-grid";
-import { subjects } from "@/lib/subjects";
 import { BookOpen, Target,  Zap, Brain, Trophy, CheckCircle2, Users, Star, ArrowRight, BarChart3, Filter,  Cpu, Database, Network, Settings, Calculator, Layers,  Sparkles, ChevronDown } from "lucide-react";
+
+/**
+ * Sanitize a string to be used as an object key by replacing invalid characters
+ * Must match the sanitization function in convex/questions.ts
+ */
+function sanitizeKey(key: string): string {
+  return key
+    .replace(/‐/g, '-') // Replace en-dash (U+2010) with regular hyphen
+    .replace(/–/g, '-') // Replace en-dash (U+2013) with regular hyphen
+    .replace(/—/g, '-') // Replace em-dash (U+2014) with regular hyphen
+    .replace(/[\x00-\x1F\x7F-\x9F]/g, '') // Remove control characters
+    .replace(/[^\x20-\x7E]/g, '_'); // Replace any other non-ASCII printable characters with underscore
+}
 
 // Icon mapping for subjects
 const iconMap: Record<string, React.ElementType> = {
@@ -30,62 +42,41 @@ const iconMap: Record<string, React.ElementType> = {
   "🎯": Target,
 };
 
-// Shortened names mapping
-const shortNameMap: Record<string, string> = {
-  "Computer Organization and Architecture": "COA",
-  "General Aptitude": "GA",
-  "Programming and Data Structures": "DS",
-  "Computer Networks": "CN",
-  "Operating System": "OS",
-  "Theory of Computation": "TOC",
-  "Compiler Design": "CD",
-  "Digital Logic": "DL",
-  "Engineering Mathematics": "EM",
-};
-
-// Define stats type
-interface DetailedStats {
-  totalQuestions?: number;
-  subjects?: Record<string, number>;
-  subjectList?: string[];
-}
-
-// Transform subjects to timeline data
-const transformSubjectsToTimeline = (stats: DetailedStats | undefined) => {
-  return subjects.map((subject, index) => {
-    const questionCount = stats?.subjects?.[subject.name] || 0;
-    return {
-      id: index + 1,
-      title: shortNameMap[subject.name] || subject.name,
-      fullTitle: subject.name,
-      date: `${questionCount} Questions`,
-      content: subject.description,
-      category: "Computer Science",
-      icon: iconMap[subject.icon] || BookOpen,
-      relatedIds: [],
-      status: "completed" as const,
-      energy: Math.floor(60 + Math.random() * 40),
-      fileName: subject.fileName,
-      questionCount: questionCount,
-    };
-  });
-};
-
 export default function Home() {
   const router = useRouter();
   
-  // Fetch statistics from Convex
-  const stats = useQuery(api.questions.getDetailedStats);
+  // Fetch subjects
+  const subjects = useQuery(api.questions.getSubjects);
+  // Calculate total question count
+  const totalQuestions = useQuery(api.questions.getQuestionCount, {});
+  // Fetch detailed stats for per-subject counts
+  const detailedStats = useQuery(api.questions.getDetailedStats);
 
-  const timelineData = stats ? transformSubjectsToTimeline(stats) : [];
-
-  const handleNavigate = (subjectSlug: string) => {
-    router.push(`/questions/${encodeURIComponent(subjectSlug)}`);
+  const handleNavigate = (subject: string) => {
+    router.push(`/questions/${encodeURIComponent(subject)}`);
   };
 
-  // Calculate total questions for display cards
-  const totalQuestions = stats?.totalQuestions || 0;
-  const totalSubjects = stats?.subjectList?.length || 0;
+  // Transform subjects to timeline data for display
+  const timelineData = (subjects || []).map((subject, index) => {
+    // Get actual question count for this subject (use sanitized key to match getDetailedStats)
+    const sanitizedSubject = sanitizeKey(subject);
+    const subjectCount = detailedStats?.subjects?.[sanitizedSubject] || 0;
+    
+    return {
+      id: index + 1,
+      title: subject.substring(0, 3).toUpperCase(),
+      fullTitle: subject,
+      date: `${subjectCount} Questions`,
+      content: subject,
+      category: "Computer Science",
+      icon: iconMap[subject.charAt(0)] || BookOpen,
+      relatedIds: [],
+      status: "completed" as const,
+      energy: Math.floor(60 + Math.random() * 40),
+      fileName: subject,
+      questionCount: subjectCount,
+    };
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -103,14 +94,14 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Hero Content with Side-by-Side Layout */}
+            {/* Hero Content */}
             <div className="grid lg:grid-cols-2 gap-12 items-center pt-8">
               {/* Left Side - Text Content */}
               <div className="space-y-8 text-left">
                 <div className="space-y-6">
                   <div>
                     <p className="text-lg md:text-2xl text-muted-foreground leading-relaxed font-light">
-                      Comprehensive question bank with <span className="text-foreground font-semibold">{totalQuestions.toLocaleString()}+ previous year questions</span> across <span className="text-foreground font-semibold">{totalSubjects} Computer Science subjects</span>.
+                      Comprehensive question bank with <span className="text-foreground font-semibold">{(totalQuestions || 0).toLocaleString()}+ previous year questions</span> across <span className="text-foreground font-semibold">{(subjects || []).length} Computer Science subjects</span>.
                     </p>
                     <p className="text-lg md:text-xl text-primary font-semibold mt-3 flex items-center gap-2">
                       <CheckCircle2 className="h-5 w-5" />
@@ -143,7 +134,7 @@ export default function Home() {
                   cards={[
                     {
                       icon: <BookOpen className="size-4 text-red-300" />,
-                      title: `${totalSubjects}+`,
+                      title: `${(subjects || []).length}+`,
                       description: "CS Subjects",
                       date: "Comprehensive",
                       iconClassName: "text-red-500",
@@ -151,7 +142,7 @@ export default function Home() {
                     },
                     {
                       icon: <Target className="size-4 text-blue-300" />,
-                      title: `${totalQuestions.toLocaleString()}+`,
+                      title: `${(totalQuestions || 0).toLocaleString()}+`,
                       description: "Questions",
                       date: "Practice ready",
                       iconClassName: "text-red-500",

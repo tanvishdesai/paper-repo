@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Question } from "@/types/question";
+import {  Doc } from "@/convex/_generated/dataModel";
 
 export function usePracticeMode() {
   const [practiceMode, setPracticeMode] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<Map<number, string>>(new Map());
+  const [userAnswers, setUserAnswers] = useState<Map<string, string>>(new Map()); // questionId -> answerId
   const [quizCompleted, setQuizCompleted] = useState(false);
 
-  const startPractice = (questions: Question[]) => {
+  const startPractice = (questions: Doc<"questions">[]) => {
     if (questions.length > 0) {
       setPracticeMode(true);
       setCurrentQuestionIndex(0);
@@ -38,11 +38,15 @@ export function usePracticeMode() {
     }
   };
 
-  const answerQuestion = (answer: string) => {
+  const answerQuestion = (questionId: string, answerId: string) => {
     // Record the answer
     const newAnswers = new Map(userAnswers);
-    newAnswers.set(currentQuestionIndex, answer);
+    newAnswers.set(questionId, answerId);
     setUserAnswers(newAnswers);
+  };
+
+  const getAnswerForQuestion = (questionId: string): string | undefined => {
+    return userAnswers.get(questionId);
   };
 
   return {
@@ -55,5 +59,6 @@ export function usePracticeMode() {
     nextQuestion,
     previousQuestion,
     answerQuestion,
+    getAnswerForQuestion,
   };
 }

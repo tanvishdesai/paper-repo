@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send, Loader2, Bot, User } from 'lucide-react';
-import { Question } from '@/types/question';
+import { Doc } from '@/convex/_generated/dataModel';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -18,7 +18,7 @@ interface Message {
 interface ChatDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  question: Question | null;
+  question: Doc<"questions"> | null;
 }
 
 export function ChatDialog({ isOpen, onClose, question }: ChatDialogProps) {
@@ -109,10 +109,10 @@ export function ChatDialog({ isOpen, onClose, question }: ChatDialogProps) {
     if (isOpen && question && !isInitialized) {
       const initialPrompt = `Look at this question and explain its solution to me like I'm a novice. Explain each term and calculation from the basics:
 
-Question: ${question.questionText}
-${question.optionA ? `Options: ${question.optionA}, ${question.optionB}, ${question.optionC}, ${question.optionD}` : ''}
+Question: ${question.questionType}
+${question.question ? `Question: ${question.question}` : ''}
 Subject: ${question.subject}
-Topic: ${question.subtopic}
+Topic: ${question.chapter}
 Type: ${question.questionType}
 Year: ${question.year}
 

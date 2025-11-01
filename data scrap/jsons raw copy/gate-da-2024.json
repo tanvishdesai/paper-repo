@@ -1,0 +1,2266 @@
+{
+  "count": 64,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 14441,
+      "title": "GATE | DA | 2024 |Machine learning | Question 18",
+      "slug": "consider-the-two-neural-networks-nns-shown-in-figures",
+      "question": "<p dir=\"ltr\"><span>Consider the two neural networks (NNs) shown in Figures 1 and 2, with 𝑅𝑒𝐿𝑈 activation (𝑅𝑒𝐿𝑈(𝑧) = max{0, 𝑧}, ∀𝑧 ∈ ℝ). ℝ denotes the set of real numbers. The  connections and their corresponding weights are shown in the Figures. The biases  at every neuron are set to 0. For what values of 𝑝, 𝑞, 𝑟 in Figure 2 are the two NNs  equivalent, when 𝑥1 ,𝑥2 , 𝑥3 are positive?</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231144158131594/Image12.png\" alt=\"Image12\" width=\"591\" height=\"479\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231144158131594/Image12.png 591w,https://media.geeksforgeeks.org/wp-content/uploads/20241231144158131594/Image12-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241231144158131594/Image12-200.png 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241231144158131594/Image12-300.png 300w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><br></p>",
+      "answers": [
+        {
+          "id": 57813,
+          "answer": "<p dir=\"ltr\"><span>(A) 𝑝 = 36, 𝑞 = 24,𝑟 = 24</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 311665,
+          "answer": "<p dir=\"ltr\"><span>(B) 𝑝 = 24, 𝑞 = 24,𝑟 = 36</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 311666,
+          "answer": "<p dir=\"ltr\"><span>(C) 𝑝 = 18, 𝑞 = 36,𝑟 = 24</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 311667,
+          "answer": "<p dir=\"ltr\"><span>(D) 𝑝 = 36, 𝑞 = 36,𝑟 = 36</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>For the first hidden layer (h1), let the neurons be h11,h12,h13</span></p><pre><span>h11=1⋅x1+1⋅x2=x1+x2</span><br><span>h12=1⋅x1+1⋅x3=x1+x3</span><br><span>h13=1⋅x1+1⋅x2+1⋅x3=x1+x2+x3</span></pre><p dir=\"ltr\"><span>For the second hidden layer (h2), let the neurons be h21,h22</span></p><pre><span>h21=h22=2⋅h11+2⋅h12+2⋅h13</span><br><span>              =2(3x1+2x2+2x3)</span></pre><p dir=\"ltr\"><span>For the output layer, the final output is:</span></p><pre><span>y=3⋅h21+3⋅h22=3(h21+h22)</span><br><span>  =12(3x1+2x2+2x3) </span><br><span>  = 36x1 + 24x2 + 24x3</span></pre><p dir=\"ltr\"><span>Comparing with resultant artificial neural network, p=36, q=24 and r=24</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 10:27:17"
+    },
+    {
+      "id": 14423,
+      "title": "GATE | DA | 2024 | Probability and Statistics | Question 12",
+      "slug": "three-fair-coins-are-tossed-independently-t-is-the",
+      "question": "<p dir=\"ltr\"><span>Three fair coins are tossed independently. T is the event that two or more tosses result in heads. S is the event that two or more tosses result in tails. What is the probability of the event that  (T ∧ S) ?</span></p>",
+      "answers": [
+        {
+          "id": 57744,
+          "answer": "<p><span>0</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 57745,
+          "answer": "<p><span>0.5</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57746,
+          "answer": "<p><span>0.25</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57747,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The event T∧S (two or more heads </span><i><em class=\"GFGEditorTheme__textItalic\">and </em></i><span>two or more tails) cannot occur simultaneously, as having two or more heads leaves at most one tail and vice versa. Hence, the probability of T∧ST is </span><b><strong>0</strong></b><span>.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 12:20:05"
+    },
+    {
+      "id": 14439,
+      "title": "GATE | DA | 2024 | Python | Question 41",
+      "slug": "consider-the-following-python-functiondef-fund-s1-s2-if",
+      "question": "<p dir=\"ltr\"><span>Consider the following Python function:1</span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">Python</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"python3\">\n        <code class=\"language-python3\"><div class=highlight><pre><span></span><span class=k>def</span> <span class=nf>fun</span><span class=p>(</span><span class=n>D</span><span class=p>,</span> <span class=n>s1</span><span class=p>,</span> <span class=n>s2</span><span class=p>):</span>\n <span class=k>if</span> <span class=n>s1</span> <span class=o>&lt;</span> <span class=n>s2</span><span class=p>:</span>\n <span class=n>D</span><span class=p>[</span><span class=n>s1</span><span class=p>],</span> <span class=n>D</span><span class=p>[</span><span class=n>s2</span><span class=p>]</span> <span class=o>=</span> <span class=n>D</span><span class=p>[</span><span class=n>s2</span><span class=p>],</span> <span class=n>D</span><span class=p>[</span><span class=n>s1</span><span class=p>]</span>\n <span class=n>fun</span><span class=p>(</span><span class=n>D</span><span class=p>,</span> <span class=n>s1</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span> <span class=n>s2</span><span class=o>-</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>What does this Python function fun() do? Select the ONE appropriate option below.</span><br><span>&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 57808,
+          "answer": "<p dir=\"ltr\"><span>It finds the smallest element in D from index s1 to s2, both inclusive.&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 57809,
+          "answer": "<p dir=\"ltr\"><span>It performs a merge sort in-place on this list D between indices s1 and s2, both inclusive.</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57810,
+          "answer": "<p dir=\"ltr\"><span>It reverses the list D between indices s1 and s2, both inclusive</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 57811,
+          "answer": "<p dir=\"ltr\"><span>It swaps the elements in D at indices s1 and s2, and leaves the remaining elements unchanged.</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The given function recursively swaps elements at indices s1 and s2, incrementing s1 and decrementing s2, effectively reversing the sublist between s1 and s2, inclusive.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-15 - 10:31:42"
+    },
+    {
+      "id": 14438,
+      "title": "GATE | DA  | 2024 | Algorithm | Recurrence | Question 16",
+      "slug": "let-fn-denote-the-maximum-number-of-comparisons-made",
+      "question": "<p dir=\"ltr\"><span>Let F(n) denote the maximum number of comparisons made while searching for an entry in a sorted array of size</span><b><strong> 𝑛</strong></b><span> using binary search.  Which </span><b><strong>ONE</strong></b><span> of the following options is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 57804,
+          "answer": "<p dir=\"ltr\"><span>F(n)=F(⌊n/2⌋)+1</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 57805,
+          "answer": "<p dir=\"ltr\"><span>F(n)=F(⌊n/2⌋)+F(⌈n/2⌉)</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57806,
+          "answer": "<p dir=\"ltr\"><span>F(n)=F(⌊n/2⌋)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57807,
+          "answer": "<p dir=\"ltr\"><span>F(n)=F(n-1)+1</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In binary search, the maximum number of comparisons for an array of size n is determined by halving the array at each step and adding one comparison for each level of recursion.</span></p><p dir=\"ltr\"><span>Hence, The recurrence relation is F(n)=F(⌊n/2⌋)+1</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-15 - 10:25:47"
+    },
+    {
+      "id": 14437,
+      "title": "GATE | DA | 2024 | DBMS | Question 39",
+      "slug": "consider-the-function-computesx-whose-pseudocode-is-given-belowcomputesxs1",
+      "question": "<p dir=\"ltr\"><span>Consider the function computeS(X) whose pseudocode is given below:</span></p><p dir=\"ltr\"><span>computeS(X)</span><br><span>𝑆[1] ← 1</span><br><span>for 𝑖 ←2 to length(X)  </span><br><span>        𝑆[𝑖] ← 1  </span><br><span>         if 𝑋[𝑖 − 1] ≤ 𝑋[𝑖]  </span><br><span>                  𝑆[𝑖] ← 𝑆[𝑖] + 𝑆[𝑖 − 1] </span><br><span>         end if </span><br><span>end for </span><br><span>return S </span></p><p dir=\"ltr\"><span>which ONE of the following values is returned by the function computeS(x) </span></p><p dir=\"ltr\"><span>for  X=[6,3,5,4,10]?</span></p><p dir=\"ltr\"><br></p>",
+      "answers": [
+        {
+          "id": 57800,
+          "answer": "<p><span>[1,1,2,3,4]</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 57801,
+          "answer": "<p><span>[1,1,2,3,3]</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57802,
+          "answer": "<p><span>[1,1,2,1,2]</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 57803,
+          "answer": "<p><span>[1,1,2,1,5]</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The function computeS(X) initializes S[1] to 1 and iterates through the array X. For each i from 2 to the length of X, if X[i-1] &lt;= X[i], it updates S[i] by adding S[i-1]. Otherwise, S[i] is set to 1.</span></p><p dir=\"ltr\"><span>For X=[6,3,5,4,10]:</span></p><ul><li value=\"1\"><span>S[1]=1</span></li><li value=\"2\"><span>X[1]&gt;X[2], so S[2]=1</span></li><li value=\"3\"><span>X[2]&lt;X[3], so S[3]=S[2]+1=2</span></li><li value=\"4\"><span>X[3]&gt;X[4], so S[4]=1</span></li><li value=\"5\"><span>X[4]&lt;X[5], so S[5]=S[4]+1=2</span></li></ul><p dir=\"ltr\"><span>Output: [1, 1, 2, 1, 2]</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-14 - 18:38:08"
+    },
+    {
+      "id": 14436,
+      "title": "GATE | DA | 2024 | python | Question 38",
+      "slug": "consider-the-following-python-codedef-countchild_dict-i-if-i",
+      "question": "<p dir=\"ltr\"><span>Consider the following python code:</span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">Python</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"python3\">\n        <code class=\"language-python3\"><div class=highlight><pre><span></span><span class=k>def</span> <span class=nf>count</span><span class=p>(</span><span class=n>child_dict</span><span class=p>,</span> <span class=n>i</span><span class=p>):</span>\n       <span class=k>if</span> <span class=n>i</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>child_dict</span><span class=o>.</span><span class=n>keys</span><span class=p>():</span>\n               <span class=k>return</span> <span class=mi>1</span>\n      <span class=n>ans</span> <span class=o>=</span> <span class=mi>1</span>\n      <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=n>child_dict</span><span class=p>[</span><span class=n>i</span><span class=p>]:</span>\n                 <span class=n>ans</span> <span class=o>+=</span> <span class=n>count</span><span class=p>(</span><span class=n>child_dict</span><span class=p>,</span> <span class=n>j</span><span class=p>)</span>\n      <span class=k>return</span> <span class=n>ans</span>\n\n<span class=n>child_dict</span> <span class=o>=</span> <span class=nb>dict</span><span class=p>()</span>\n<span class=n>child_dict</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>=</span> <span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>]</span>\n<span class=n>child_dict</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>=</span> <span class=p>[</span><span class=mi>3</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>]</span>\n<span class=n>child_dict</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=p>[</span><span class=mi>6</span><span class=p>,</span><span class=mi>7</span><span class=p>,</span><span class=mi>8</span><span class=p>]</span>\n<span class=nb>print</span><span class=p>(</span><span class=n>count</span><span class=p>(</span><span class=n>child_dict</span><span class=p>,</span><span class=mi>0</span><span class=p>))</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>Which </span><b><strong>ONE</strong></b><span> of the following is the output of this code?</span></p>",
+      "answers": [
+        {
+          "id": 57796,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 57797,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57798,
+          "answer": "<p><span>8</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57799,
+          "answer": "<p><span>9</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The function recursively counts all leaf nodes in the tree-like structure defined by child_dict.</span></p><p dir=\"ltr\"><span>Starting from key 0, it processes [1, 2].</span></p><p dir=\"ltr\"><span>Key 1 expands to [3, 4, 5] (all leaves).</span></p><p dir=\"ltr\"><span>Key 2 expands to [6, 7, 8] (all leaves).</span></p><p dir=\"ltr\"><span>Leaves: 3, 4, 5, 6, 7, 8 + 1, 2 (2 root connections) = 9.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-15 - 10:33:25"
+    },
+    {
+      "id": 14435,
+      "title": "GATE | DA | 2024 | Probability and statistics | Question 36",
+      "slug": "a-fair-six-sided-die-with-faces-numbered-1-2",
+      "question": "<p dir=\"ltr\"><span>A fair six-sided die (with faces numbered 1, 2, 3, 4, 5, 6) is repeatedly thrown Independently. What is the expected number of times the die is thrown until two consecutive throws of even numbers are seen?</span><br><span>&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 57792,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 57793,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57794,
+          "answer": "<p><span>6</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 57795,
+          "answer": "<p><span>8</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241227115458315598/gate_cs_pyq_2029-300.webp\" alt=\"gate_cs_pyq_2029\" width=\"300\" height=\"150\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241227115458315598/gate_cs_pyq_2029.webp 800w,https://media.geeksforgeeks.org/wp-content/uploads/20241227115458315598/gate_cs_pyq_2029-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241227115458315598/gate_cs_pyq_2029-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241227115458315598/gate_cs_pyq_2029-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241227115458315598/gate_cs_pyq_2029-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241227115458315598/gate_cs_pyq_2029-768.webp 768w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>Let E[X} be the expected number of throws. If the first roll is odd (1/2 probability), as one toss is wasted the expected throws are E[X]+1. If it starts with an even followed by an odd (1/4 probability), it takes E[X]+2. If the first two are even (1/4} probability), it takes 2 throws. </span></p><p dir=\"ltr\"><span>So, E[X]=1/2(E[X]+1)+1/4(E[X]+2)+1/4(2)</span></p><p dir=\"ltr\"><span>E[X] = 6.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 11:15:19"
+    },
+    {
+      "id": 14434,
+      "title": "GATE | DA  | 2024 | Linear algebra | Question 35",
+      "slug": "consider-a-3x3-matrix-m-beginbmatrix1-2",
+      "question": "<p>[Tex]\\text{Let } M = \\begin{bmatrix} 1 &amp; 2 &amp; 3 \\\\ 3 &amp; 1 &amp; 3 \\\\ 4 &amp; 3 &amp; 6 \\end{bmatrix}[/Tex]<span>. </span>[Tex]\\text{Find } \\det(M^2 + 12M)[/Tex]</p>",
+      "answers": [
+        {
+          "id": 57788,
+          "answer": "<p><span>0</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 57789,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57790,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57791,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p style=\"text-align: left;\" dir=\"ltr\"><br><span>We have |M| = 0. Since, |A+B| &lt;= |A| + |B|</span></p><p style=\"text-align: left;\" dir=\"ltr\"><span>∴&nbsp;|M</span><sup><span>2&nbsp;</span></sup><span>+ 12M| &lt;= |M</span><sup><span>2</span></sup><span>| + |12M|</span></p><p style=\"text-align: left;\" dir=\"ltr\"><span>RHS of which is :&nbsp;</span></p><p style=\"text-align: left;\" dir=\"ltr\"><span>|M|</span><sup><span>2</span></sup><span>&nbsp;+ 12</span><sup><span>3</span></sup><span>|M| (By properties of determinants)</span></p><p style=\"text-align: left;\"><span>= 0 + 0 </span></p><p><span>= 0</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-08-23 - 11:57:30"
+    },
+    {
+      "id": 14433,
+      "title": "GATE | DA  | 2024 | Algorithm | Question 30",
+      "slug": "consider-sorting-the-following-array-of-integers-in-ascending",
+      "question": "<p dir=\"ltr\"><span>Consider sorting the following array of integers in ascending order using an in-place Quicksort algorithm that uses the last element as the pivot.</span></p><table><thead></thead><tbody><tr><td><span>60</span></td><td><span>70</span></td><td><span>80</span></td><td><span>90</span></td><td><span>100</span></td></tr></tbody></table><p dir=\"ltr\"><span>The minimum number of swaps perfoemed during this quicksort ?</span></p>",
+      "answers": [
+        {
+          "id": 57784,
+          "answer": "<p><span>0</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 57785,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57786,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57787,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The given array is already sorted in ascending order. In QuickSort, no swaps are required for a sorted array when using the last element as the pivot, resulting in </span><b><strong>0 swap</strong></b></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 11:29:18"
+    },
+    {
+      "id": 14431,
+      "title": "GATE | DA  | 2024 | Data Structure | Question 28",
+      "slug": "consider-the-following-tree-traversals-on-a-full-binary",
+      "question": "<p dir=\"ltr\"><span>Consider the following tree traversals on a full binary tree:</span></p><p dir=\"ltr\"><span>1.PreOrder</span></p><p dir=\"ltr\"><span>2.Inorder</span></p><p dir=\"ltr\"><span>3.PostOrder</span></p><p dir=\"ltr\"><span>Which of the following traversal options is/are suffiecient to uniquely reconstruct the full Binary Tree?</span></p>",
+      "answers": [
+        {
+          "id": 57776,
+          "answer": "<p dir=\"ltr\"><span>(i) and (ii)</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 57777,
+          "answer": "<p dir=\"ltr\"><span>(ii) and (iii)</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 57778,
+          "answer": "<p dir=\"ltr\"><span>(i) and (iii)</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 57779,
+          "answer": "<p dir=\"ltr\"><span>(ii) only&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Preorder + Inorder (Option A): Preorder identifies the root nodes, and Inorder specifies the left and right subtrees. Together, they uniquely reconstruct the tree.</span></p><p dir=\"ltr\"><span>Inorder + Postorder (Option B)</span><b><strong>:</strong></b><span> Postorder identifies the root nodes in reverse, and Inorder specifies the subtrees. This combination also uniquely reconstructs the tree.</span></p><p dir=\"ltr\"><span>Preorder + Postorder (Option C): For full binary trees, Preorder and Postorder can uniquely reconstruct the tree, as every internal node in a full binary tree has exactly two children.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 12:03:55"
+    },
+    {
+      "id": 14424,
+      "title": "GATE | DA |  2024 |  Linear algebra | Question 13",
+      "slug": "consider-the-matrix-which-one-of-the-following-statements",
+      "question": "<p dir=\"ltr\"><span>Consider the matrix:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241226154258183735/Screenshot-2024-12-26-154229-100.png\" alt=\"Matrix\" width=\"100\" height=\"47\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241226154258183735/Screenshot-2024-12-26-154229.png 193w,https://media.geeksforgeeks.org/wp-content/uploads/20241226154258183735/Screenshot-2024-12-26-154229-100.png 100w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><br><span>Which ONE of the following statements is TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 57748,
+          "answer": "<p dir=\"ltr\"><span>The eigenvalues of M are non-negative and real.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 57749,
+          "answer": "<p dir=\"ltr\"><span>The eigenvalues of M are complex and conjugate pairs.</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 57750,
+          "answer": "<p dir=\"ltr\"><span>One eigenvalue of is positive and real and another eigen value of M is Zero.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57751,
+          "answer": "<p dir=\"ltr\"><span>One eigenvalue of M is non-negative and real,and another eigen value of M is negative and real.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p>[Tex]\\[\r\n\\mathbf{M} = \\begin{bmatrix} 2 &amp; -1 \\\\ 3 &amp; 1 \\end{bmatrix}\r\n\\]\r\n\r\n\\textbf{Step 1: Characteristic Equation}\r\n\\[\r\n\\det(\\mathbf{M} - \\lambda \\mathbf{I}) = 0\r\n\\]\r\n\\[\r\n\\begin{vmatrix} 2 - \\lambda &amp; -1 \\\\ 3 &amp; 1 - \\lambda \\end{vmatrix} = 0\r\n\\]\r\n\r\n\\text{Compute the determinant:}\r\n\\[\r\n(2 - \\lambda)(1 - \\lambda) + 3 = 0\r\n\\]\r\n\\[\r\n\\lambda^2 - 3\\lambda + 5 = 0\r\n\\]\r\n\r\n\\textbf{Step 2: Discriminant}\r\n\\[\r\nD = (-3)^2 - 4(1)(5) = 9 - 20 = -11\r\n\\]\r\n\r\n\\text{Since } D &lt; 0, \\text{ the eigenvalues are complex conjugate pairs.}\r\n\r\n\\[\r\n\\boxed{\\text{(B) The eigenvalues of } \\mathbf{M} \\text{ are complex conjugate pairs.}}\r\n\\]\r\n[/Tex]</p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-14 - 17:34:45"
+    },
+    {
+      "id": 14425,
+      "title": "GATE | DA  | 2024 | Artificial Intelligence |  Question 14",
+      "slug": "consider-performing-depth-first-search-dfs-on-an-undirected-and",
+      "question": "<p dir=\"ltr\"><span>Consider performing depth-first search (DFS) on an undirected and unweighted graph G starting at vertex 𝑠. For any vertex 𝑢 in G, 𝑑[𝑢] is the length of the shortest path from 𝑠 to 𝑢. Let (𝑢,𝑣) be an edge in G such that 𝑑[𝑢]&lt;𝑑[𝑣]. If the edge (𝑢,𝑣) is explored first in the direction from 𝑢 to 𝑣 during the above DFS, then (𝑢,𝑣) becomes a ______ edge.</span></p>",
+      "answers": [
+        {
+          "id": 57752,
+          "answer": "<p dir=\"ltr\"><span>Tree</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 57753,
+          "answer": "<p dir=\"ltr\"><span>Cross</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57754,
+          "answer": "<p dir=\"ltr\"><span>Back </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57755,
+          "answer": "<p dir=\"ltr\"><span>Grey </span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In DFS, an edge (u, v) is classified as a </span><b><strong>tree edge</strong></b><span> if v is discovered for the first time while exploring u. Since d[u]&lt;d[v], it means v is being visited for the first time from u, making (u, v) part of the DFS tree.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 12:17:16"
+    },
+    {
+      "id": 14426,
+      "title": "GATE | DA | 2024 | Data Structure | Question 16",
+      "slug": "match-the-items-in-column-1-with-the-items",
+      "question": "<p dir=\"ltr\"><span>Match the items in Column 1 with the items in Column 2 in the following tab</span><br><span>&nbsp;</span></p><table><thead></thead><tbody><tr><td><span>Column 1</span></td><td><span>Column 2</span></td></tr><tr><td><span>p. First In First Out</span><br><span>q. Lookup Operation</span><br><span>r. Last In First Out</span></td><td><span>i. Stacks</span><br><span>ii. Queues</span><br><span>iii.&nbsp;Hash Tables</span></td></tr></tbody></table>",
+      "answers": [
+        {
+          "id": 57756,
+          "answer": "<p dir=\"ltr\"><span>(p) − (ii), (q) − (iii), (r) − (i)</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 57757,
+          "answer": "<p dir=\"ltr\"><span>(p) − (ii), (q) − (i), (r) − (iii)</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57758,
+          "answer": "<p dir=\"ltr\"><span>(p) − (i), (q) − (ii), (r) − (iii)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57759,
+          "answer": "<p dir=\"ltr\"><span>(p) − (i), (q) − (iii), (r) − (ii)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>First In First Out (FIFO)</strong></b><span> → </span><a href=\"https://www.geeksforgeeks.org/queue-data-structure/\" target=\"_blank\" rel=\"noopener\"><b><strong>Queues</strong></b></a><span> (Elements are processed in the order they arrive).</span></p><p dir=\"ltr\"><b><strong>Lookup Operation</strong></b><span> → </span><a href=\"https://www.geeksforgeeks.org/hash-table-data-structure/\" target=\"_blank\" rel=\"noopener\"><b><strong>Hash Tables</strong></b></a><span> (Efficient key-value pair retrieval).</span></p><p dir=\"ltr\"><b><strong>Last In First Out (LIFO)</strong></b><span> → </span><a href=\"https://www.geeksforgeeks.org/stack-data-structure/\" target=\"_blank\" rel=\"noopener\"><b><strong>Stacks</strong></b></a><span> (Last inserted element is processed first).</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 12:12:49"
+    },
+    {
+      "id": 14429,
+      "title": "GATE | DA  | 2024 | Machine learning | Question 20",
+      "slug": "given-a-dataset-with-k-binary-valued-attributes-where-k2",
+      "question": "<p dir=\"ltr\"><span>Given a dataset with 𝐾 binary-valued attributes (where 𝐾&gt;2) for a two-class classification task, the number of parameters to be estimated for learning a naïve Bayes classifier is</span></p>",
+      "answers": [
+        {
+          "id": 57768,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>k</span></sup><span>+1</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 57769,
+          "answer": "<p dir=\"ltr\"><span>2K+1</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 57770,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>k+1</span></sup><span>+1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57771,
+          "answer": "<p dir=\"ltr\"><span>K</span><sup><span>2</span></sup><span>+1</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>For a dataset with K binary-valued attributes in a two-class classification task using a Naive Bayes classifier:</span></p><p dir=\"ltr\"><span>1 parameter is P(Y) and each attribute has 2 probabilities (P(Xi∣Y=1) and P(Xi|Y=0)), so for K attributes, there are 2K parameters.</span></p><p dir=\"ltr\"><span>Thus, the total number of parameters to estimate is 2K+1.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 12:09:57"
+    },
+    {
+      "id": 14432,
+      "title": "GATE | DA  |  2024 | Artificial Intelligence | Question 29",
+      "slug": "let-x-and-y-be-two-propositionswhich-of-the",
+      "question": "<p dir=\"ltr\"><span>Let x and y be two propositions.Which of the following statements is a tautology / are tautologies ?</span><br><span>&nbsp;</span></p><p dir=\"ltr\"><br></p>",
+      "answers": [
+        {
+          "id": 57780,
+          "answer": "<p dir=\"ltr\"><span>(~x ∧ y )=&gt; (y=&gt;x)</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 57781,
+          "answer": "<p dir=\"ltr\"><span>(x ∧ ~y) =&gt;(~x=&gt;y)</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 57782,
+          "answer": "<p dir=\"ltr\"><span>(~x ∧ y)=&gt;(~x=&gt;y)</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 57783,
+          "answer": "<p dir=\"ltr\"><span>(x ⟑ ~y)=&gt;(y=&gt;x)</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We can check every option for tautology by putting the values of X and Y:</span></p><pre><span>A) </span><b><strong>if X = F and Y = T:</strong></b><span> we get RHS = F an LHS = T (not tautology)</span><br><span>B) </span><b><strong>if X = F and Y = F: </strong></b><span>we get RHS = F an LHS = F (tautology)</span><br><span>C) </span><b><strong>if X = F and Y = F: </strong></b><span>we get RHS = F an LHS = F (tautology)</span><br><span>D) </span><b><strong>if X = F and Y = T: </strong></b><span>we get RHS = F an LHS = F (tautology)</span></pre><p dir=\"ltr\"><span>Therefore, option B, C, D are correct.</span><br></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 12:00:24"
+    },
+    {
+      "id": 14427,
+      "title": "GATE | DA | 2024 | Calculus | Question 15",
+      "slug": "for-any-twice-differentiable-function-fr-r-if-at-some",
+      "question": "<p dir=\"ltr\"><span>For any twice differentiable function f:R-&gt;R if at some x* ∈ R , f'(x*)=0 and f''(x*)&gt;0 then the function </span><i><em class=\"GFGEditorTheme__textItalic\">f </em></i><span>necessarily has a __________ at x =x* </span></p><p dir=\"ltr\"><b><strong>Note</strong></b><span> : R denotes the set of real numbers.</span></p>",
+      "answers": [
+        {
+          "id": 57760,
+          "answer": "<p dir=\"ltr\"><span>local minimum</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 57761,
+          "answer": "<p dir=\"ltr\"><span>global minimum</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 57762,
+          "answer": "<p dir=\"ltr\"><span>local maximum</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57763,
+          "answer": "<p dir=\"ltr\"><span>global maximum</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>At x*, f′(x*)=0 indicates a critical point, and f′′(x*)&gt;0 confirms the function is concave upwards, implying a </span><b><strong>local minimum</strong></b><span> at x*.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 12:11:02"
+    },
+    {
+      "id": 14430,
+      "title": "GATE | DA |  2024 | Machine learning | Question 27",
+      "slug": "let-the-minimum-maximum-mean-and-standard-deviation-values",
+      "question": "<p dir=\"ltr\"><span>Let the minimum, maximum, mean and standard deviation values for the attribute income of data scientists be₹ 46000, ₹170000, ₹96000, and₹ 21000, respectively. The z - score normalized income value of ₹106000 is closest to which ONE of the following options ?</span></p>",
+      "answers": [
+        {
+          "id": 57772,
+          "answer": "<p><span>0.217</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 57773,
+          "answer": "<p><span>0.476</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 57774,
+          "answer": "<p><span>0.623</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 57775,
+          "answer": "<p><span>2.304</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>To calculate the z-score, we use the formula:</span></p><p dir=\"ltr\"><span>z = (x−μ)/σ where:</span></p><p dir=\"ltr\"><span>x = 106,000 (the value to normalize),</span></p><p dir=\"ltr\"><span>μ=96,000 (mean),</span></p><p dir=\"ltr\"><span>σ=21,000 (standard deviation).</span></p><p dir=\"ltr\"><span>On solving, z= 0.476.</span></p>",
+      "created_on": "2024-02-22 - 16:53:40",
+      "updated_on": "2025-07-08 - 12:06:06"
+    },
+    {
+      "id": 78287,
+      "title": "GATE | DA |  2024 | Artificial intelligence | Question 44",
+      "slug": "consider-a-state-space-where-the-start-state-is-2",
+      "question": "<p dir=\"ltr\"><span>Consider a state space where the start state is number 1. The successor function for  the state numbered n returns two states numbered n+1 and n+2. Assume that the  states in the unexpanded state list are expanded in the ascending order of numbers  and the previously expanded states are not added to the unexpanded state list.  Which ONE of the following statements about breadth-first search (BFS) and  depth-first search (DFS) is true, when reaching the goal state number 6? </span></p>",
+      "answers": [
+        {
+          "id": 311748,
+          "answer": "<p dir=\"ltr\"><span>BFS expands more states than DFS.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 311749,
+          "answer": "<p dir=\"ltr\"><span>DFS expands more states than BFS. </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 311750,
+          "answer": "<p dir=\"ltr\"><span>Both BFS and DFS expand equal number of states</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 311751,
+          "answer": "<p dir=\"ltr\"><span>Both BFS and DFS do not reach the goal state number 6</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Both BFS and DFS will expand the same number of states to reach the goal state 6. In BFS, states are expanded level by level, while in DFS, states are expanded deeply along each branch. In this case, both algorithms will ultimately expand the states: 1 → 2 → 3 → 4 → 5 → 6. Therefore, they expand an equal number of states.</span></p><p dir=\"ltr\"><span>Therefore,</span><b><strong> correct answer is C</strong></b></p>",
+      "created_on": "2024-12-27 - 14:15:35",
+      "updated_on": "2025-07-08 - 10:19:27"
+    },
+    {
+      "id": 78298,
+      "title": "GATE| DA  | 2024 | Algorithm | Question 45",
+      "slug": "consider-the-following-sorting-algorithms-i-bubble-sort-ii-1",
+      "question": "<p dir=\"ltr\"><span>Consider the following sorting algorithms: </span></p><p dir=\"ltr\"><span>(i) Bubble sort </span></p><p dir=\"ltr\"><span>(ii) Insertion sort </span></p><p dir=\"ltr\"><span>(iii) Selection sort </span></p><p dir=\"ltr\"><span>Which ONE among the following choices of sorting algorithms sorts the numbers  in the array [4, 3, 2, 1, 5] in increasing order after exactly two passes over the array?</span></p>",
+      "answers": [
+        {
+          "id": 311792,
+          "answer": "<p dir=\"ltr\"><span>(i) only</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 311793,
+          "answer": "<p dir=\"ltr\"><span>(iii) only</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 311794,
+          "answer": "<p dir=\"ltr\"><span>(i) and (iii) only</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 311795,
+          "answer": "<p dir=\"ltr\"><span>(ii) and (iii) only</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><a href=\"https://www.geeksforgeeks.org/bubble-sort-algorithm/\" target=\"_blank\" rel=\"noopener\"><b><strong>Bubble Sort</strong></b></a><span> requires 3 passes to sort the array, as it moves the largest unsorted element to its correct position in each pass.</span></p><p dir=\"ltr\"><a href=\"https://www.geeksforgeeks.org/insertion-sort-algorithm/\" target=\"_blank\" rel=\"noopener\"><b><strong>Insertion Sort</strong></b></a><span> wastes 1 pass assuming the first element is already sorted.</span></p><p dir=\"ltr\"><a href=\"https://www.geeksforgeeks.org/selection-sort-algorithm-2/\" target=\"_blank\" rel=\"noopener\"><b><strong>Selection Sort</strong></b></a><span> sorts the array in two passes.</span></p><ol><li value=\"1\"><b><strong>First pass</strong></b><span>: Select the smallest element (1) and swap it with the first element (4) → [1, 3, 2, 4, 5].</span></li><li value=\"2\"><b><strong>Second pass</strong></b><span>: Select the smallest element (2) from the remaining array and swap it with 3 → [1, 2, 3, 4, 5].</span></li></ol><p dir=\"ltr\"><span>After two passes, the array is sorted.</span></p><p dir=\"ltr\"><span>Therefore, option </span><b><strong>B is correct.</strong></b></p>",
+      "created_on": "2024-12-27 - 14:30:26",
+      "updated_on": "2025-07-08 - 10:16:27"
+    },
+    {
+      "id": 78316,
+      "title": "GATE|  DA  |  2024 |  DBMS | Question  46",
+      "slug": "given-the-relational-schema-r-uv-w-x",
+      "question": "<p dir=\"ltr\"><span>Given the relational schema 𝑅 = (𝑈,𝑉, 𝑊, 𝑋, 𝑌, 𝑍) and the set of functional  dependencies: </span></p><pre><span>{𝑈 → 𝑉, 𝑈 → 𝑊, 𝑊𝑋 → 𝑌, 𝑊𝑋 → 𝑍, 𝑉 → 𝑋} </span></pre><p dir=\"ltr\"><span>Which of the following functional dependencies can be derived from the above set?</span></p>",
+      "answers": [
+        {
+          "id": 311864,
+          "answer": "<p dir=\"ltr\"><span>𝑉𝑊 → 𝑌Z</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 311865,
+          "answer": "<p dir=\"ltr\"><span>𝑊𝑋 → 𝑌Z</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 311866,
+          "answer": "<p dir=\"ltr\"><span>𝑉𝑊 → </span><i><em class=\"GFGEditorTheme__textItalic\">U</em></i></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 311867,
+          "answer": "<p dir=\"ltr\"><span>𝑉𝑊 → Y</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Using attribute closure:</span></p><p dir=\"ltr\"><span>The closure of (VW)</span><sup><span>+</span></sup><span>=VWXYZ so we can determine V,W,X,Y,Z.</span></p><p dir=\"ltr\"><span>The closure of (WX)</span><sup><span>+</span></sup><span>=WXYZ, so we can determine Y,Z.</span></p><p dir=\"ltr\"><span>However, (VW)</span><sup><span>+ </span></sup><span>cannot determine U.</span></p>",
+      "created_on": "2024-12-27 - 14:40:41",
+      "updated_on": "2025-07-07 - 17:56:36"
+    },
+    {
+      "id": 78318,
+      "title": "GATE | DA  | 2024 |  Linear algebra |  Question 47",
+      "slug": "select-all-choices-that-are-subspaces-of-r-3",
+      "question": "<p dir=\"ltr\"><span>Select all choices that are subspaces of ℝ </span><sup><span>3</span></sup><span> . </span></p><p dir=\"ltr\"><b><strong>Note</strong></b><span>: ℝ denotes the set of real numbers.</span></p>",
+      "answers": [
+        {
+          "id": 311872,
+          "answer": "<p dir=\"ltr\"><span>[Tex]\\left\\{\\mathbf{x} =\\begin{bmatrix}x_1 \\\\x_2 \\\\x_3\\end{bmatrix}\\in \\mathbb{R}^3 :\\mathbf{x} = \\alpha\\begin{bmatrix}1 \\\\1 \\\\0\\end{bmatrix}+ \\beta\\begin{bmatrix}1 \\\\0 \\\\0\\end{bmatrix}, \\, \\alpha, \\beta \\in \\mathbb{R}\\right\\}[/Tex]</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 311873,
+          "answer": "<p dir=\"ltr\"><span>[Tex]\\left\\{\\mathbf{x} =\\begin{bmatrix}x_1 \\\\x_2 \\\\x_3\\end{bmatrix}\\in \\mathbb{R}^3 :\\mathbf{x} = \\alpha^2\\begin{bmatrix}1 \\\\2 \\\\0\\end{bmatrix}+ \\beta^2\\begin{bmatrix}1 \\\\0 \\\\1\\end{bmatrix}, \\, \\alpha, \\beta \\in \\mathbb{R}\\right\\}[/Tex]</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 311874,
+          "answer": "<p dir=\"ltr\"><span>[Tex]\\left\\{\\mathbf{x} =\\begin{bmatrix}x_1 \\\\x_2 \\\\x_3\\end{bmatrix}\\in \\mathbb{R}^3 :5x_1 + 2x_3 = 0, \\, 4x_1 - 2x_2 + 3x_3 = 0\\right\\}[/Tex]</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 311875,
+          "answer": "<p dir=\"ltr\"><span>[Tex]\\left\\{\\mathbf{x} =\\begin{bmatrix}x_1 \\\\x_2 \\\\x_3\\end{bmatrix}\\in \\mathbb{R}^3 :5x_1 + 2x_3 + 4 = 0\\right\\}[/Tex]</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Option A</strong></b><span>: Correct, as it represents a linear combination of two vectors, forming a vector space and subspace of R</span><sup><span>3</span></sup></p><p dir=\"ltr\"><b><strong>Option B</strong></b><span>: Incorrect, as the inclusion of the zero vector is not guaranteed, failing the subspace condition.</span></p><p dir=\"ltr\"><b><strong>Option C</strong></b><span>: Correct, as the equations represent a subspace of R</span><sup><span>3</span></sup><span>, satisfying the conditions for a vector space.</span></p><p dir=\"ltr\"><b><strong>Option D</strong></b><span>: Incorrect, as the given equation does not pass through the origin, making it a non-homogeneous equation and not a subspace of R</span><sup><span>3</span></sup><span>.</span></p>",
+      "created_on": "2024-12-27 - 14:46:51",
+      "updated_on": "2025-07-07 - 17:54:30"
+    },
+    {
+      "id": 78345,
+      "title": "GATE |  DA 2024  |  Linear algebra  | Question 48",
+      "slug": "which-of-the-following-statements-isare-true-note-r-1",
+      "question": "<p dir=\"ltr\"><span>Which of the following statements is/are TRUE? </span></p><p dir=\"ltr\"><b><strong>Note</strong></b><span>: ℝ denotes the set of real numbers.</span></p>",
+      "answers": [
+        {
+          "id": 311980,
+          "answer": "<p dir=\"ltr\"><span>There exist 𝑴 ∈ ℝ</span><sup><span>3×3</span></sup><span> , 𝒑 ∈ ℝ</span><sup><span>3</span></sup><span> , and 𝒒 ∈ ℝ</span><sup><span>3</span></sup><span> such that 𝑴𝐱 = 𝒑 has a unique  solution and M𝐱 = 𝒒 has infinite solutions.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 311981,
+          "answer": "<p dir=\"ltr\"><span>There exist 𝑴 ∈ ℝ</span><sup><span>3×3</span></sup><span> , 𝒑 ∈ ℝ</span><sup><span>3</span></sup><span> , and 𝒒 ∈ ℝ</span><sup><span>3</span></sup><span> such that 𝑴𝐱 = 𝒑 has no solution and M𝐱 = 𝒒 has infinite solutions.</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 311982,
+          "answer": "<p dir=\"ltr\"><span>There exist 𝑴 ∈ ℝ</span><sup><span>2×3</span></sup><span> , 𝒑 ∈ ℝ</span><sup><span>2</span></sup><span> , and 𝒒 ∈ ℝ</span><sup><span>2</span></sup><span> such that 𝑴𝐱 = 𝒑 has a unique  solution and M𝐱 = 𝒒 has infinite solutions.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 311983,
+          "answer": "<p dir=\"ltr\"><span>There exist 𝑴 ∈ ℝ</span><sup><span>3×2</span></sup><span> , 𝒑 ∈ ℝ</span><sup><span>3</span></sup><span> , and 𝒒 ∈ ℝ</span><sup><span>3</span></sup><span> such that 𝑴𝐱 = 𝒑 has a unique  solution and M𝐱 = 𝒒 has no solution.</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>If M∈R</span><sup><span>3×3</span></sup><span>, the system Mx=p can have no solution if p is not in the column space of M. For Mx=q to have infinite solutions, M must be singular (i.e., its determinant is 0), meaning its rank is less than 3. This condition ensures there are infinitely many solutions for q within the null space of M.</span></p><p dir=\"ltr\"><span>If M∈R</span><sup><span>3×2</span></sup><span>, it is a rectangular matrix, so it cannot have a unique solution for any p because the system is underdetermined (fewer equations than variables). Furthermore, Mx=q can have no solutions if q lies outside the column space of M. Thus, this statement is </span><b><strong>incorrect</strong></b><span>.</span></p>",
+      "created_on": "2024-12-27 - 15:12:44",
+      "updated_on": "2025-07-07 - 17:50:58"
+    },
+    {
+      "id": 78357,
+      "title": "GATE |  DA  | 2024 |  Linear algebra |Question 49",
+      "slug": "let-r-be-the-set-of-real-numbers-u-1",
+      "question": "<p dir=\"ltr\"><span>Let ℝ be the set of real numbers, 𝑈 be a subspace of ℝ</span><sup><span>3</span></sup><span>  and 𝑴 ∈ ℝ</span><sup><span>3×3</span></sup><span> be the  matrix corresponding to the projection on to the subspace 𝑈. Which of the following statements is/are TRUE? </span></p>",
+      "answers": [
+        {
+          "id": 312028,
+          "answer": "<p dir=\"ltr\"><span>If 𝑈 is a 1-dimensional subspace of ℝ</span><sup><span>3</span></sup><span> , then the null space of 𝑴 is a  1-dimensional subspace.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312029,
+          "answer": "<p dir=\"ltr\"><span>If 𝑈 is a 2-dimensional subspace of ℝ</span><sup><span>3</span></sup><span> , then the null space of 𝑴 is a 1-dimensional subspace. </span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312030,
+          "answer": "<p dir=\"ltr\"><span>M</span><sup><span>2</span></sup><span>=M</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312031,
+          "answer": "<p dir=\"ltr\"><span>M</span><sup><span>3</span></sup><span>=M</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Matrix M=A(A</span><sup><span>T</span></sup><span>A)</span><sup><span>−1</span></sup><span>A</span><sup><span>T</span></sup><span> is a projection matrix. If U is a 2-dimensional subspace of R</span><sup><span>3</span></sup><span>, M</span><sup><span>2</span></sup><span>=M (idempotent property). The rank of M equals the rank of A, which is 2. By the rank-nullity theorem, rank(M)+nullity(M)=3, so nullity(M)=1.</span></p><p dir=\"ltr\"><span>This means M's null space is 1-dimensional, and its column space spans the 2-dimensional subspace U. Thus, the answers are (B), (C), and (D).</span></p>",
+      "created_on": "2024-12-27 - 15:32:26",
+      "updated_on": "2025-07-07 - 17:47:39"
+    },
+    {
+      "id": 78368,
+      "title": "GATE | DA  | 2024 | Calculus | Question 50",
+      "slug": "consider-the-function-f-r-r-where-r-1",
+      "question": "<p dir=\"ltr\"><span>Consider the function 𝑓: ℝ → ℝ where ℝ is the set of all real numbers.</span></p><pre><span>f(x)= (x</span><sup><span>4</span></sup><span>/4) - (2x</span><sup><span>3</span></sup><span>/3) - (3x</span><sup><span>2</span></sup><span>/2) +1 </span></pre><p dir=\"ltr\"><span>Which of the following statements is/are TRUE ?</span></p>",
+      "answers": [
+        {
+          "id": 312072,
+          "answer": "<p dir=\"ltr\"><span>𝑥 = 0 is a local maximum of</span><i><em class=\"GFGEditorTheme__textItalic\"> </em></i><span>f</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312073,
+          "answer": "<p dir=\"ltr\"><span>𝑥 = 3 is a local minimum of f</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312074,
+          "answer": "<p dir=\"ltr\"><span>𝑥 = −1 is a local maximum of f</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312075,
+          "answer": "<p dir=\"ltr\"><span>𝑥 = 0 is a local minimum of f</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Equating first derivative to 0</span></p><pre><span>f′(x)=x</span><sup><span>3</span></sup><span>−2x</span><sup><span>2</span></sup><span>−3x =0</span><br><span>x=0,3,-1</span></pre><p dir=\"ltr\"><span>Evaluate f′′(x) at the critical points</span></p><p dir=\"ltr\"><span>f′′(0)&lt;0, x=0 is a </span><b><strong>local maximum</strong></b><span>.</span></p><p dir=\"ltr\"><span>f′′(3)&gt;0, x=3 is a </span><b><strong>local minimum</strong></b><span>.</span></p><p dir=\"ltr\"><span>f′′(−1)&gt;0, x=−1 is a </span><b><strong>local minimum</strong></b><span>.</span></p>",
+      "created_on": "2024-12-27 - 16:06:03",
+      "updated_on": "2025-07-07 - 17:15:51"
+    },
+    {
+      "id": 78369,
+      "title": "GATE | DA |  2024 | Algorithms | Question 51",
+      "slug": "consider-the-directed-acyclic-graph-dag-below-which-of-1",
+      "question": "<p dir=\"ltr\"><span>Consider the directed acyclic graph (DAG) below:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123031084709/GATE-DA-PYQ-2024-5-300.webp\" alt=\"GATE-DA-PYQ-2024-5\" width=\"284\" height=\"300\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123031084709/GATE-DA-PYQ-2024-5.webp 379w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123031084709/GATE-DA-PYQ-2024-5-100.webp 95w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123031084709/GATE-DA-PYQ-2024-5-200.webp 190w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123031084709/GATE-DA-PYQ-2024-5-300.webp 284w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>Which of the following is/are valid vertex orderings that can be obtained from a  topological sort of the DAG? </span></p>",
+      "answers": [
+        {
+          "id": 312076,
+          "answer": "<p dir=\"ltr\"><span>P Q R S T U V</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312077,
+          "answer": "<p dir=\"ltr\"><span>P R Q V S U T</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312078,
+          "answer": "<p dir=\"ltr\"><span>P Q R S V U T</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312079,
+          "answer": "<p dir=\"ltr\"><span>P R Q S V T U</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In a topological sort of a Directed Acyclic Graph (DAG):</span></p><p dir=\"ltr\"><span>P and R must appear before Q since they are its predecessors.</span></p><p dir=\"ltr\"><span>Q must appear before S and V, and S, V must appear before U and T. Hence, B and D are valid orders.</span></p>",
+      "created_on": "2024-12-27 - 16:19:19",
+      "updated_on": "2025-07-07 - 17:12:39"
+    },
+    {
+      "id": 78376,
+      "title": "GATE |  DA  |  2024 | Data structure | Question 52",
+      "slug": "let-hi-l-and-n-represent-height-number-of",
+      "question": "<p dir=\"ltr\"><span>Let </span><i><em class=\"GFGEditorTheme__textItalic\">H</em></i><span>,𝐼, 𝐿, and 𝑁 represent height, number of internal nodes, number of leaf nodes, and the total number of nodes respectively in a rooted binary tree. Which of the following statements is/are always TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 312104,
+          "answer": "<p dir=\"ltr\"><span>𝐿 ≤ 𝐼 + 1</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312105,
+          "answer": "<p dir=\"ltr\"><span>𝐻 + 1 ≤ 𝑁 ≤ 2 </span><sup><span>𝐻+1</span></sup><span> − 1</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312106,
+          "answer": "<p dir=\"ltr\"><span>𝐻 ≤ 𝐼 ≤ 2 </span><sup><span>𝐻</span></sup><span> − 1</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312107,
+          "answer": "<p dir=\"ltr\"><span>𝐻 ≤ 𝐿 ≤ 2 </span><sup><span>𝐻−1 </span></sup></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Option A</strong></b><span>: This is always true because, in a binary tree, the number of leaf nodes L is at most one more than the number of internal nodes I.</span></p><p dir=\"ltr\"><b><strong>Option B</strong></b><span>:: This holds as H+1 represents the minimum number of nodes (path length from root to leaf), and 2</span><sup><span>H+1</span></sup><span>- 1 is the maximum number of nodes for a complete binary tree.</span></p><p dir=\"ltr\"><b><strong>Option C</strong></b><span>: The height H is always less than or equal to the number of internal nodes I, and the maximum I is 2</span><sup><span>H</span></sup><span>−1, which is true for binary trees.</span></p><p dir=\"ltr\"><b><strong>Option D</strong></b><span>: This is </span><b><strong>false</strong></b><span>, as L does not necessarily satisfy the given upper and lower bounds in all cases (e.g., for unbalanced trees).</span></p>",
+      "created_on": "2024-12-27 - 16:45:52",
+      "updated_on": "2025-07-07 - 17:10:02"
+    },
+    {
+      "id": 78377,
+      "title": "GATE | DA  | 2024 | Machine learning | Question 53",
+      "slug": "consider-the-following-figures-representing-datasets-consisting-of-two-dimensional-1",
+      "question": "<p dir=\"ltr\"><span>Consider the following figures representing datasets consisting of  two-dimensional features with two classes denoted by circles and squares. </span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123200705456/GATE-DA-PYQ-2024-3-660.webp\" alt=\"GATE-DA-PYQ-2024-3\" width=\"660\" height=\"516\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123200705456/GATE-DA-PYQ-2024-3.webp 801w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123200705456/GATE-DA-PYQ-2024-3-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123200705456/GATE-DA-PYQ-2024-3-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123200705456/GATE-DA-PYQ-2024-3-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123200705456/GATE-DA-PYQ-2024-3-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123200705456/GATE-DA-PYQ-2024-3-768.webp 768w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>Which of the following is/are TRUE?</span></p>",
+      "answers": [
+        {
+          "id": 312108,
+          "answer": "<p dir=\"ltr\"><span>(i) is linearly separable</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312109,
+          "answer": "<p dir=\"ltr\"><span>(ii) is linearly separable</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312110,
+          "answer": "<p dir=\"ltr\"><span>(iii) is linearly separable</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312111,
+          "answer": "<p dir=\"ltr\"><span>(iv) is linearly separable</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>i and iv are linearly separable because a line can be drawn to separate data points of both the classes.</span></p>",
+      "created_on": "2024-12-27 - 17:03:30",
+      "updated_on": "2025-07-07 - 16:41:42"
+    },
+    {
+      "id": 78386,
+      "title": "GATE | DA  | 2024 | Artificial intelligence | Question 54",
+      "slug": "let-gameball-rugby-be-true-if-the-ball-is-1",
+      "question": "<p dir=\"ltr\"><span>Let game(ball, rugby) be true if the ball is used in rugby and false otherwise. Let shape(ball, round) be true if the ball is round and false otherwise.  Consider the following logical sentences:</span></p><p dir=\"ltr\"><span>s1: ∀ball ¬ game(ball, rugby) ⟹shape(ball, round) </span></p><p dir=\"ltr\"><span>s2: ∀ball ¬ shape(ball, round) ⟹game(ball, rugby) </span></p><p dir=\"ltr\"><span>s3: ∀ball game(ball, rugby) ⟹ ¬ shape(ball, round) </span></p><p dir=\"ltr\"><span>s4: ∀ball shape(ball, round) ⟹ ¬ game(ball, rugby) </span></p><p dir=\"ltr\"><span>Which of the following choices is/are logical representations of the assertion,</span></p><p dir=\"ltr\"><span>“All balls are round except balls used in rugby”?</span></p>",
+      "answers": [
+        {
+          "id": 312144,
+          "answer": "<p dir=\"ltr\"><span>𝑠1 ∧ 𝑠3</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312145,
+          "answer": "<p dir=\"ltr\"><span>s1 ∧ 𝑠2</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312146,
+          "answer": "<p dir=\"ltr\"><span>𝑠2 ∧ 𝑠3</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312147,
+          "answer": "<p dir=\"ltr\"><span>𝑠3 ∧ 𝑠4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Let A=game(ball,rugby) and B=shape(ball,round), we get</span></p><pre><span>S1=S2=AUB and S3=S4=A'UB'</span></pre><p dir=\"ltr\"><span>Assertion: “All balls are round except balls used in rugby” can be wriiten as </span></p><p dir=\"ltr\"><span>∀ balls [(shape(ball,round)⇒┍game(ball,rugby)) ∧ (┍game(ball,rugby)⇒(shape(ball,round))]</span></p><p dir=\"ltr\"><span>= (B'U A')∧(AUB)</span></p><p dir=\"ltr\"><span>which matches option A and C.</span></p>",
+      "created_on": "2024-12-27 - 17:30:05",
+      "updated_on": "2025-07-07 - 16:36:32"
+    },
+    {
+      "id": 78387,
+      "title": "GATE | DA  | 2024 |  DBMS | Question 55",
+      "slug": "an-ott-company-is-maintaining-a-large-disk-based-relational-1",
+      "question": "<p dir=\"ltr\"><span>An OTT company is maintaining a large disk-based relational database of different  movies with the following schema: Movie(ID, CustomerRating)</span></p><p dir=\"ltr\"><span>Genre(ID, Name) </span></p><p dir=\"ltr\"><span>Movie_Genre(MovieID, GenreID)</span></p><p dir=\"ltr\"><span>Consider the following SQL query on the relation database above: </span></p><p dir=\"ltr\"><span>SELECT * FROM Movie, Genre, Movie_Genre WHERE </span></p><p dir=\"ltr\"><span>Movie.CustomerRating &gt; 3.4 AND</span></p><p dir=\"ltr\"><span>Genre.Name = “Comedy” AND </span></p><p dir=\"ltr\"><span>Movie_Genre.MovieID = Movie.ID AND Movie_Genre.GenreID = Genre.ID; </span></p><p dir=\"ltr\"><span>This SQL query can be sped up using which of the following indexing options? </span></p>",
+      "answers": [
+        {
+          "id": 312148,
+          "answer": "<p dir=\"ltr\"><span>B + tree on all the attributes</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312149,
+          "answer": "<p dir=\"ltr\"><span>Hash index on Genre.Name and B + tree on the remaining attributes.</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312150,
+          "answer": "<p dir=\"ltr\"><span>Hash index on Movie.CustomerRating and B + tree on the remaining  attributes.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312151,
+          "answer": "<p dir=\"ltr\"><span>Hash index on all the attributes.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>(A): B+ trees are efficient for range queries like CustomerRating &gt; 3.4 and equality conditions, making B+ tree indexing on all attributes speed up the query.</span></p><p dir=\"ltr\"><span>(B): Hash indexing is efficient for equality searches like Genre.Name = \"Comedy\". Combining this with B+ trees for other attributes ensures efficient range queries and joins.</span></p><p dir=\"ltr\"><span>(C): Hash indexing on CustomerRating fails for range queries, so it won't improve the query's performance.</span></p><p dir=\"ltr\"><span>(D): Hash indexing on all attributes doesn't support range queries effectively. Hence, (A) and (B) are valid.</span></p>",
+      "created_on": "2024-12-27 - 17:41:11",
+      "updated_on": "2025-07-15 - 11:06:57"
+    },
+    {
+      "id": 78393,
+      "title": "GATE | DA  | 2024 |  probability and statistics | Question 56",
+      "slug": "let-x-be-a-random-variable-uniformly-distributed-in-4",
+      "question": "<p dir=\"ltr\"><span>Let 𝑋 be a random variable uniformly distributed in the interval [1, 3] and 𝑌 be a  random variable uniformly distributed in the interval [2, 4]. If X and Y are  independent of each other, the probability P(𝑋 ≥ 𝑌) is ______ (rounded off to  three decimal places)</span></p>",
+      "answers": [
+        {
+          "id": 312172,
+          "answer": "<p><span>0.167</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312173,
+          "answer": "<p><span>0.134</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312174,
+          "answer": "<p><span>0.125</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312175,
+          "answer": "<p><span>0.215</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>P(X&gt;=Y) = Area (△) / Area (◻) = (1/2 * 1* 1) / (2*2) = 1/8</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123317384736/graph-300.webp\" alt=\"graph\" width=\"300\" height=\"150\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123317384736/graph.webp 800w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123317384736/graph-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123317384736/graph-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123317384736/graph-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123317384736/graph-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123317384736/graph-768.webp 768w\" loading=\"auto\"><figcaption> </figcaption></figure>",
+      "created_on": "2024-12-28 - 10:38:58",
+      "updated_on": "2025-07-15 - 11:29:38"
+    },
+    {
+      "id": 78394,
+      "title": "GATE | DA  |  2024  |Probability and statistics | Question 57",
+      "slug": "let-x-be-a-random-variable-exponentially-distributed-with-2",
+      "question": "<p dir=\"ltr\"><span>Let 𝑋 be a random variable exponentially distributed with parameter 𝜆 &gt; 0. The  probability density function of X is given by: </span></p><pre><span>𝑓</span><sub><span>𝑋</span></sub><span> (𝑥) = 𝜆 𝑒 −𝜆𝑥 , 𝑥 ≥ 0 </span><br><span>𝑓</span><sub><span>𝑋</span></sub><span> (𝑥) =0, 𝑜𝑡ℎ𝑒𝑟𝑤𝑖𝑠𝑒</span></pre><p dir=\"ltr\"><span> If 5𝐸(𝑋) = 𝑉𝑎𝑟(𝑋), where 𝐸(𝑋) and 𝑉𝑎𝑟(𝑋) indicate the expectation and variance  of 𝑋, respectively, the value of 𝜆 is ______ (rounded off to one decimal place)</span></p>",
+      "answers": [
+        {
+          "id": 312176,
+          "answer": "<p><span>0.2</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312177,
+          "answer": "<p><span>0.3</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312178,
+          "answer": "<p><span>0.1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312179,
+          "answer": "<p><span>0.4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>For an exponential random variable X with parameter λ&gt;0:</span></p><p dir=\"ltr\"><span>The expectation E(X)=1/λ</span></p><p dir=\"ltr\"><span>The variance Var(X)=1/λ</span><sup><span>2</span></sup></p><p dir=\"ltr\"><span>Given 5E(X)=Var(X)</span></p><pre><span>5⋅1/λ=1/λ</span><sup><span>2</span></sup></pre><p dir=\"ltr\"><span>Solve for λ, λ=0.2</span></p>",
+      "created_on": "2024-12-28 - 10:41:24",
+      "updated_on": "2025-07-07 - 16:24:12"
+    },
+    {
+      "id": 78395,
+      "title": "GATE | DA  | 2024 | Probability and Statistics | Question 58",
+      "slug": "consider-two-events-t-and-s-let-tdenote-the-1",
+      "question": "<p dir=\"ltr\"><span>Consider two events T and S. Let 𝑇̅denote the complement of the event T . The  probability associated with different events are given as follows: 𝑃(~𝑇̅) = 0.6 ,  𝑃(𝑆|𝑇) = 0.3,    𝑃(𝑆|~𝑇̅) = 0.6 Then, 𝑃(𝑇|𝑆) is ______ (rounded off to two decimal places).</span></p>",
+      "answers": [
+        {
+          "id": 312180,
+          "answer": "<p><span>0.22</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312181,
+          "answer": "<p><span>0.25</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312182,
+          "answer": "<p><span>0.50</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312183,
+          "answer": "<p><span>0.28</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We can use</span><a href=\"https://www.geeksforgeeks.org/bayes-theorem/\" target=\"_blank\" rel=\"noopener\"><span> </span><b><strong>Bayes' Theorem</strong></b></a><span>:</span></p><p dir=\"ltr\"><span>P(T∣S)=P(S∣T)P(T)/P(S)</span></p><ol><li value=\"1\"><span>P(T‾)=0.6P ⇒P(T)=1−P(T‾)=0.4 </span></li><li value=\"2\"><span>P(S∣T)=0.3P(S|T) = 0.3</span></li><li value=\"3\"><span>P(S∣T‾)=0.6</span></li></ol><p dir=\"ltr\"><span>Using the law of total probability:</span></p><p dir=\"ltr\"><span>P(S)=P(S∣T)P(T)+P(S∣T‾)P(T‾)</span></p><p dir=\"ltr\"><span>Substitute the values:</span></p><p dir=\"ltr\"><span>P(S)=(0.3)(0.4)+(0.6)(0.6)P(S) = (0.3)(0.4) + (0.6)(0.6)P(S)=0.12+0.36=0.48P(S) = 0.12 + 0.36 = 0.48</span></p><p dir=\"ltr\"><span>P(T∣S)=P(S∣T)P(T)/P(S)</span></p><p dir=\"ltr\"><span>Substitute the values:</span></p><p dir=\"ltr\"><span>P(T∣S)=(0.3)(0.4)/0.48</span></p><p dir=\"ltr\"><span>P(T∣S)=0.25</span></p>",
+      "created_on": "2024-12-28 - 10:44:49",
+      "updated_on": "2025-07-08 - 17:45:37"
+    },
+    {
+      "id": 78396,
+      "title": "GATE | DA  | 2024 |  Calculus | Question 60",
+      "slug": "evaluate-the-following-limit-lim-x0-lnx-21-cos-1",
+      "question": "<p dir=\"ltr\"><span>Evaluate the following limit: </span></p><p dir=\"ltr\"><span>lim </span><sub><span>𝑥→0 </span></sub><span>ln((𝑥</span><sup><span> 2</span></sup><span>+1) cos 𝑥)/ 𝑥</span><sup><span> 2</span></sup><span> = ______</span></p>",
+      "answers": [
+        {
+          "id": 312184,
+          "answer": "<p><span>0.7</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312185,
+          "answer": "<p><span>0.4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312186,
+          "answer": "<p><span>0.3</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312187,
+          "answer": "<p><span>0.5</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><br><span>To evaluate the given limit:</span></p><p dir=\"ltr\"><span>Expand the logarithmic term: </span></p><pre><span>ln⁡((x</span><sup><span>2</span></sup><span>+1)cos⁡x)</span><br><span>= ln⁡(x</span><sup><span>2</span></sup><span>+1)+ln⁡(cos⁡x)</span></pre><p dir=\"ltr\"><span>Use Taylor approximations: </span></p><pre><span>ln⁡(x</span><sup><span>2</span></sup><span>+1)≈x</span><sup><span>2</span></sup><span> and ln⁡(cos⁡x)≈−x</span><sup><span>2</span></sup><span>/2 as x→0</span></pre><p dir=\"ltr\"><span>Substitute these approximations into the numerator, resulting in </span>[Tex] x^2 - \\frac{x^2}{2}[/Tex]<span>.</span></p><p dir=\"ltr\"><span>Divide by x^2, yielding </span>[Tex] 1 - \\frac{1}{2} = \\frac{1}{2}.[/Tex]</p><p dir=\"ltr\"><span>Thus, the final answer is </span>[Tex]\\frac{1}{2}[/Tex]<span>.</span></p>",
+      "created_on": "2024-12-28 - 10:46:58",
+      "updated_on": "2025-07-07 - 16:17:21"
+    },
+    {
+      "id": 78397,
+      "title": "GATE | DA  | 2024 | Linear algebra | Question 61",
+      "slug": "let-mathbfu-beginbmatrix-1-2-3",
+      "question": "<p dir=\"ltr\"><span>[Tex][/Tex]</span></p><p>[Tex]\\text{Let } \\mathbf{u} = \\begin{bmatrix}\n1 \\\\ \n2 \\\\ \n3 \\\\ \n4 \\\\ \n5\n\\end{bmatrix}[/Tex]</p><p dir=\"ltr\"><span> ,  and let </span>[Tex]\\sigma_1, \\; \\sigma_2, \\; \\sigma_3, \\; \\sigma_4, \\; \\sigma_5[/Tex]<span> be the singular values of the matrix  </span>[Tex]M = uu^{T}[/Tex]<span> (where </span>[Tex]u^T[/Tex]<span> is the transpose of 𝒖). The value of </span>[Tex]\\sum_{i=1}^{5} \\sigma_i[/Tex]<span> is ______.</span></p>",
+      "answers": [
+        {
+          "id": 312188,
+          "answer": "<p><span>50</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312189,
+          "answer": "<p><span>55</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312190,
+          "answer": "<p><span>60</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312191,
+          "answer": "<p><span>65</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>\\sum_{i=1}^{5} \\sigma_i = 1^2 + 2^2 + 3^2 + 4^2 + 5^2 = 55</span></p>",
+      "created_on": "2024-12-28 - 10:48:19",
+      "updated_on": "2025-08-23 - 12:06:12"
+    },
+    {
+      "id": 78398,
+      "title": "GATE | DA | 2024 | Machine learning | Question 62",
+      "slug": "details-of-ten-international-cricket-games-between-two-teams-2",
+      "question": "<p dir=\"ltr\"><span>Details of ten international cricket games between two teams “Green” and “Blue”  are given in Table C. This table consists of matches played on different pitches,  across formats along with their winners. The attribute Pitch can take one of two  values: spin-friendly (represented as 𝑆) or pace-friendly (represented as 𝐹). The  attribute Format can take one of two values: one-day match (represented as 𝑂) or  test match (represented as 𝑇).  </span></p><p dir=\"ltr\"><span>A cricket organization would like to use the information given in Table C to develop  a decision-tree model to predict outcomes of future games between these two teams.  </span></p><p dir=\"ltr\"><span>To develop such a model, the computed InformationGain(C, Pitch) with respect to  the Target is ______ (rounded off to two decimal places).</span></p><p dir=\"ltr\" style=\"text-align: center;\"><b><strong>Table C</strong></b></p><table><thead><tr><th><p dir=\"ltr\"><span>Match Number</span></p></th><th><p dir=\"ltr\"><span>Pitch</span></p></th><th><p dir=\"ltr\"><span>Format</span></p></th><th><p dir=\"ltr\"><span>Winner(Target)</span></p></th></tr></thead><tbody><tr><td><p><span>1</span></p></td><td><p dir=\"ltr\"><span>S</span></p></td><td><p dir=\"ltr\"><span>T</span></p></td><td><p dir=\"ltr\"><span>Green</span></p></td></tr><tr><td><p><span>2</span></p></td><td><p dir=\"ltr\"><span>S</span></p></td><td><p dir=\"ltr\"><span>T</span></p></td><td><p dir=\"ltr\"><span>Blue</span></p></td></tr><tr><td><p><span>3</span></p></td><td><p dir=\"ltr\"><span>F</span></p></td><td><p dir=\"ltr\"><span>O</span></p></td><td><p dir=\"ltr\"><span>Blue</span></p></td></tr><tr><td><p><span>4</span></p></td><td><p dir=\"ltr\"><span>S</span></p></td><td><p dir=\"ltr\"><span>O</span></p></td><td><p dir=\"ltr\"><span>Blue</span></p></td></tr><tr><td><p><span>5</span></p></td><td><p dir=\"ltr\"><span>F</span></p></td><td><p dir=\"ltr\"><span>T</span></p></td><td><p dir=\"ltr\"><span>Green</span></p></td></tr><tr><td><p><span>6</span></p></td><td><p dir=\"ltr\"><span>F</span></p></td><td><p dir=\"ltr\"><span>O</span></p></td><td><p dir=\"ltr\"><span>Blue</span></p></td></tr><tr><td><p><span>7</span></p></td><td><p dir=\"ltr\"><span>S</span></p></td><td><p dir=\"ltr\"><span>O</span></p></td><td><p dir=\"ltr\"><span>Green</span></p></td></tr><tr><td><p><span>8</span></p></td><td><p dir=\"ltr\"><span>F</span></p></td><td><p dir=\"ltr\"><span>T</span></p></td><td><p dir=\"ltr\"><span>Blue</span></p></td></tr><tr><td><p><span>9</span></p></td><td><p dir=\"ltr\"><span>F</span></p></td><td><p dir=\"ltr\"><span>O</span></p></td><td><p dir=\"ltr\"><span>Blue</span></p></td></tr><tr><td><p><span>10</span></p></td><td><p dir=\"ltr\"><span>S</span></p></td><td><p dir=\"ltr\"><span>O</span></p></td><td><p dir=\"ltr\"><span>Green</span></p></td></tr></tbody></table>",
+      "answers": [
+        {
+          "id": 312192,
+          "answer": "<p><span>0.34</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312193,
+          "answer": "<p><span>0.12</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312194,
+          "answer": "<p><span>0.56</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312195,
+          "answer": "<p><span>0.78</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><br><span>To compute the Information Gain (IG) for Pitch with respect to the Target:</span></p><p dir=\"ltr\"><b><strong>Entropy of the Target (Overall Entropy):</strong></b></p><p dir=\"ltr\"><span>Total games: 10, Green wins: 4, Blue wins: 6.</span></p><p dir=\"ltr\"><span>E(T)=</span>[Tex]-\\left(\\frac{4}{10} \\log_2 \\frac{4}{10} + \\frac{6}{10} \\log_2 \\frac{6}{10}\\right) \\approx 0.97.[/Tex]</p><p dir=\"ltr\"><b><strong>Conditional Entropy for Pitch:</strong></b></p><p dir=\"ltr\"><b><strong>For S:</strong></b><span> 5 games (Green: 3, Blue: 2). E(S)= </span>[Tex]-\\left(\\frac{3}{5} \\log_2 \\frac{3}{5} + \\frac{2}{5} \\log_2 \\frac{2}{5}\\right) \\approx 0.97.[/Tex]</p><p dir=\"ltr\"><b><strong>For F:</strong></b><span> 5 games (Green: 1, Blue: 4). E(F)=</span>[Tex]-\\left(\\frac{1}{5} \\log_2 \\frac{1}{5} + \\frac{4}{5} \\log_2 \\frac{4}{5}\\right) \\approx 0.72.[/Tex]</p><p dir=\"ltr\"><span>Weighted average: E(Pitch)=</span>[Tex] \\frac{5}{10}(0.97) + \\frac{5}{10}(0.72) = 0.845.[/Tex]</p><p dir=\"ltr\"><b><strong>Information Gain: </strong></b><span>IG=E(T)−E(Pitch)=0.97−0.845=0.125</span></p>",
+      "created_on": "2024-12-28 - 10:54:31",
+      "updated_on": "2025-07-07 - 16:10:14"
+    },
+    {
+      "id": 78399,
+      "title": "GATE | DA  | 2024 | Machine learning | Question 63",
+      "slug": "given-the-two-dimensional-dataset-consisting-of-5-data-points-1",
+      "question": "<p dir=\"ltr\"><span>Given the two-dimensional dataset consisting of 5 data points from two classes  (circles and squares) and assume that the Euclidean distance is used to measure the  distance between two points. The minimum odd value of 𝑘 in 𝑘-nearest neighbor  algorithm for which the diamond (⋄) shaped data point is assigned the label square  is ______</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123501964985/GATE-DA-PYQ-2024-2-300.webp\" alt=\"GATE-DA-PYQ-2024-2\" width=\"300\" height=\"235\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123501964985/GATE-DA-PYQ-2024-2.webp 800w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123501964985/GATE-DA-PYQ-2024-2-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123501964985/GATE-DA-PYQ-2024-2-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123501964985/GATE-DA-PYQ-2024-2-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123501964985/GATE-DA-PYQ-2024-2-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123501964985/GATE-DA-PYQ-2024-2-768.webp 768w\" loading=\"auto\"><figcaption> </figcaption></figure>",
+      "answers": [
+        {
+          "id": 312196,
+          "answer": "<p><span>5</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312197,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312198,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312199,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>With k=5, the nearest neighbors include 3 squares ((2,3),(3,2),(3,3)) and 2 circles ((1,1),(1,2)), resulting in the diamond being classified as a </span><b><strong>square</strong></b><span> by majority vote.</span></p><p dir=\"ltr\"><span>Hence, The minimum odd value of k is </span><b><strong>5</strong></b><span>. </span></p>",
+      "created_on": "2024-12-28 - 10:59:57",
+      "updated_on": "2025-07-07 - 16:07:04"
+    },
+    {
+      "id": 78400,
+      "title": "GATE | DA  | 2024 | Artificial intelligence | Question 64",
+      "slug": "given-the-following-bayesian-network-consisting-of-four-bernoulli-2",
+      "question": "<p dir=\"ltr\"><span>Given the following Bayesian Network consisting of four Bernoulli random variables and the associated conditional probability tables:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123632466565/GATE-DA-PYQ-2024-4-660.webp\" alt=\"GATE-DA-PYQ-2024-4\" width=\"660\" height=\"425\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230123632466565/GATE-DA-PYQ-2024-4.webp 800w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123632466565/GATE-DA-PYQ-2024-4-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123632466565/GATE-DA-PYQ-2024-4-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123632466565/GATE-DA-PYQ-2024-4-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123632466565/GATE-DA-PYQ-2024-4-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241230123632466565/GATE-DA-PYQ-2024-4-768.webp 768w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>The value of 𝑃(𝑈 = 1, 𝑉 = 1, 𝑊 = 1,𝑍 = 1) = ______ (rounded off to three decimal places).</span></p>",
+      "answers": [
+        {
+          "id": 312200,
+          "answer": "<p><span>0.135</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312201,
+          "answer": "<p><span>0.150</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312202,
+          "answer": "<p><span>0.341</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312203,
+          "answer": "<p><span>0.125</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The joint probability is calculated as:</span></p><p dir=\"ltr\"><span>P(Z=1,V=1,W=1,U=1)=P(Z=1∣V=1,W=1)⋅P(V=1∣U=1)⋅P(W=1∣U=1)⋅P(U=1)</span></p><p dir=\"ltr\"><span>Substituting values from the tables:</span></p><ul><li value=\"1\"><span>P(Z=1∣V=1,W=1)=0.5P(Z = 1 | V = 1, W = 1) = 0.5</span></li><li value=\"2\"><span>P(V=1∣U=1)=0.5P(V = 1 | U = 1) = 0.5</span></li><li value=\"3\"><span>P(W=1∣U=1)=1P(W = 1 | U = 1) = 1</span></li><li value=\"4\"><span>P(U=1)=0.5P(U = 1) = 0.5</span></li></ul><p dir=\"ltr\"><span>P(Z=1,V=1,W=1,U=1)=(0.5)*(0.5)*1*(0.5)=0.125</span></p>",
+      "created_on": "2024-12-28 - 11:14:16",
+      "updated_on": "2025-07-07 - 16:04:50"
+    },
+    {
+      "id": 78401,
+      "title": "GATE |  DA  |  2024 | Probability and statistics | Question  65",
+      "slug": "two-fair-coins-are-tossed-independently-x-is-a-1",
+      "question": "<p dir=\"ltr\"><span>Two fair coins are tossed independently. X is a random variable that takes a value  of 1 if both tosses are heads and 0 otherwise. Y is a random variable that takes a  value of 1 if at least one of the tosses is heads and 0 otherwise.  The value of the covariance of X and Y is ______ (rounded off to three decimal  places)</span></p>",
+      "answers": [
+        {
+          "id": 312204,
+          "answer": "<p><span>0.062</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312205,
+          "answer": "<p><span>0.072</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312206,
+          "answer": "<p><span>0.056</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312207,
+          "answer": "<p><span>0.076</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<table><thead><tr><th><p dir=\"ltr\"><span>Outcome</span></p></th><th><p dir=\"ltr\"><span>Probability(outcome)</span></p></th><th><p dir=\"ltr\"><span>X</span></p></th><th><p dir=\"ltr\"><span>Y</span></p></th></tr></thead><tbody><tr><td><p dir=\"ltr\"><span>HH</span></p></td><td><p><span>1/4</span></p></td><td><p><span>1</span></p></td><td><p><span>1</span></p></td></tr><tr><td><p dir=\"ltr\"><span>HT</span></p></td><td><p><span>1/4</span></p></td><td><p><span>0</span></p></td><td><p><span>1</span></p></td></tr><tr><td><p dir=\"ltr\"><span>TH</span></p></td><td><p><span>1/4</span></p></td><td><p><span>0</span></p></td><td><p><span>1</span></p></td></tr><tr><td><p dir=\"ltr\"><span>TT</span></p></td><td><p><span>1/4</span></p></td><td><p><span>0</span></p></td><td><p><span>0</span></p></td></tr></tbody></table><pre><span>E(X)=1/4 , E(Y)=3/4 and E(XY)=(0*0*1/4)+(0*1*1/4)+(0*1*1/4)+(1*1*1/4) =1/4</span><br><span>Cov(X,Y) = E(XY)-E(X).E(Y)</span><br><span>                 =1/4 - (1/4)*(3/4)</span><br><span>                 =1/16 =0.625</span></pre>",
+      "created_on": "2024-12-28 - 11:27:09",
+      "updated_on": "2025-07-07 - 16:01:22"
+    },
+    {
+      "id": 78402,
+      "title": "GATE | DA  | 2024 | Aptitude | Verbal Analogy | Question 1",
+      "slug": "if-denotes-increasing-order-of-intensity-then-the-7",
+      "question": "<p dir=\"ltr\"><span>If ‘→’ denotes increasing order of intensity, then the meaning of the words  [sick → infirm → moribund] is analogous to [silly → _______ → daft]. Which one of the given options is appropriate to fill the blank?</span></p>",
+      "answers": [
+        {
+          "id": 312208,
+          "answer": "<p dir=\"ltr\"><span>frown</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312209,
+          "answer": "<p dir=\"ltr\"><span>fawn</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312210,
+          "answer": "<p dir=\"ltr\"><span>vein</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312211,
+          "answer": "<p dir=\"ltr\"><span>vain</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The analogy represents increasing levels of intensity. In the sequence </span><b><strong>[silly → vain → daft]</strong></b><span>, \"vain\" represents an intermediate intensity between \"silly\" and \"daft,\" similar to the progression in the first sequence.</span></p>",
+      "created_on": "2024-12-28 - 11:32:10",
+      "updated_on": "2025-07-08 - 12:32:56"
+    },
+    {
+      "id": 78403,
+      "title": "GATE | DA | 2024 | Aptitude | Logical Reasoning | Question 2",
+      "slug": "the-15-parts-of-the-given-figure-are-to-1",
+      "question": "<p dir=\"ltr\"><span>The 15 parts of the given figure are to be painted such that no two adjacent parts  with shared boundaries (excluding corners) have the same color. The minimum  number of colors required is</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228113344664752/Screenshot-2024-12-28-113316-300.png\" alt=\"Screenshot-2024-12-28-113316\" width=\"300\" height=\"245\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228113344664752/Screenshot-2024-12-28-113316.png 445w,https://media.geeksforgeeks.org/wp-content/uploads/20241228113344664752/Screenshot-2024-12-28-113316-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241228113344664752/Screenshot-2024-12-28-113316-200.png 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241228113344664752/Screenshot-2024-12-28-113316-300.png 300w\" loading=\"auto\"><figcaption> </figcaption></figure>",
+      "answers": [
+        {
+          "id": 312212,
+          "answer": "<p><span>4</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312213,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312214,
+          "answer": "<p><span>5</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312215,
+          "answer": "<p><span>6</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We know a planar graph can be colored using a minimum of 4 colors such that no two adjacent regions share the same color. We can see this in the figure given below.</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231120615332168/diagram-660.webp\" alt=\"diagram\" width=\"660\" height=\"330\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231120615332168/diagram.webp 800w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120615332168/diagram-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120615332168/diagram-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120615332168/diagram-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120615332168/diagram-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120615332168/diagram-768.webp 768w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><br></p>",
+      "created_on": "2024-12-28 - 11:41:21",
+      "updated_on": "2025-07-08 - 12:31:09"
+    },
+    {
+      "id": 78404,
+      "title": "GATE | DA | 2024 |  Verbal aptitude | Quantitative  | Question 3",
+      "slug": "how-many-4-digit-positive-integers-divisible-by-3-can-1",
+      "question": "<p dir=\"ltr\"><span>How many 4-digit positive integers divisible by 3 can be formed using only the  digits {1, 3,4, 6, 7}, such that no digit appears more than once in a number ?</span></p>",
+      "answers": [
+        {
+          "id": 312216,
+          "answer": "<p><span>24</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312217,
+          "answer": "<p><span>48</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312218,
+          "answer": "<p><span>72</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312219,
+          "answer": "<p><span>12</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The sum of all digits {1,3,4,6,7}is 21, divisible by 3.</span></p><p dir=\"ltr\"><span>Now we have to remove 1 digit to form 4 digit number. For the remaining digits to also sum to a number divisible by 3, we must remove a digit divisible by 3 (3 or 6), as removing any other digit would make the sum not divisible by 3.</span></p><p dir=\"ltr\"><span>Removing 3 or 6 will leave subsets {1,4,6,7}and {1,3,4,7}, both with sums divisible by 3. Each subset forms 4!=24 numbers, giving a total of 2×24=48 numbers.</span></p>",
+      "created_on": "2024-12-28 - 11:47:52",
+      "updated_on": "2025-07-07 - 15:48:32"
+    },
+    {
+      "id": 78405,
+      "title": "GATE | DA  | 2024 | Aptitude | Numerical |  Question 4",
+      "slug": "the-sum-of-the-following-infinite-series-is-2",
+      "question": "<p dir=\"ltr\"><span>The sum of the following infinite series is 2 + 1/2 + 1 /3 + 1 /4 + 1 /8 + 1/ 9 + 1 /16 + 1/27 + ⋯ </span></p>",
+      "answers": [
+        {
+          "id": 312220,
+          "answer": "<p><span>11/3</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312221,
+          "answer": "<p><span>7/2</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312222,
+          "answer": "<p><span> 13/4 </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312223,
+          "answer": "<p><span>9/2</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>S= 2 + 1/2 + 1 /3 + 1 /4 + 1 /8 + 1/ 9 + 1 /16 + 1/27 + ⋯ </span><br><span>S= (1+1/2 + 1 /4 + 1 /8 + 1 /16 + ⋯ ) + (1 + 1 /3+ 1/ 9 + 1/27 + ⋯ )</span><br><span>Sum of infinite GP: S= 1/(1-1/2) + 1/(1-1/3)</span><br><span>                                   = 2+ 3/2</span><br><span>                                   = 7/2</span></pre>",
+      "created_on": "2024-12-28 - 11:54:10",
+      "updated_on": "2025-07-08 - 12:29:11"
+    },
+    {
+      "id": 78406,
+      "title": "GATE | DA | 2024 | Aptitude | Data interpretation  | Question 5",
+      "slug": "in-an-election-the-share-of-valid-votes-received-1",
+      "question": "<p dir=\"ltr\"><span>In an election, the share of valid votes received by the four candidates A, B, C, and  D is represented by the pie chart shown. The total number of votes cast in the  election were 1,15,000, out of which 5,000 were invalid.</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228115736661074/Screenshot-2024-12-28-115706-300.png\" alt=\"Screenshot-2024-12-28-115706\" width=\"283\" height=\"300\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228115736661074/Screenshot-2024-12-28-115706.png 487w,https://media.geeksforgeeks.org/wp-content/uploads/20241228115736661074/Screenshot-2024-12-28-115706-100.png 94w,https://media.geeksforgeeks.org/wp-content/uploads/20241228115736661074/Screenshot-2024-12-28-115706-200.png 189w,https://media.geeksforgeeks.org/wp-content/uploads/20241228115736661074/Screenshot-2024-12-28-115706-300.png 283w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>Based on the data provided, the total number of valid votes received by the  candidates B and C is</span></p>",
+      "answers": [
+        {
+          "id": 312224,
+          "answer": "<p><span>45,000</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312225,
+          "answer": "<p><span>49,500</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312226,
+          "answer": "<p><span>51,750</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312227,
+          "answer": "<p><span>54,000</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Total valid votes </span></p><pre><span>= 115,000 - 5,000 (invalid votes) = 110,000</span></pre><p dir=\"ltr\"><br><span>the total number of valid votes received by candidates B and C: </span></p><pre><span>=(20+25)% of 110,000 </span><br><span>= 0.45*110,000 </span><br><span>= 49,500</span></pre>",
+      "created_on": "2024-12-28 - 12:04:40",
+      "updated_on": "2025-07-08 - 12:28:37"
+    },
+    {
+      "id": 78407,
+      "title": "GATE | DA  | 2024 | Aptitude | verbal | Question 6",
+      "slug": "thousands-of-years-ago-some-people-began-dairy-farming-1",
+      "question": "<p dir=\"ltr\"><span>Thousands of years ago, some people began dairy farming. This coincided with a  number of mutations in a particular gene that resulted in these people developing  the ability to digest dairy milk. Based on the given passage, which of the following can be inferred?</span></p>",
+      "answers": [
+        {
+          "id": 312228,
+          "answer": "<p dir=\"ltr\"><span>All human beings can digest dairy milk. </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312229,
+          "answer": "<p dir=\"ltr\"><span> No human being can digest dairy milk. </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312230,
+          "answer": "<p dir=\"ltr\"><span> No human being can digest dairy milk. </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312231,
+          "answer": "<p dir=\"ltr\"><span>In human beings, digestion of dairy milk resulted from a mutated gene.</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The passage states that mutations in a particular gene allowed some people to digest dairy milk. This implies that the ability to digest milk in humans was a result of genetic mutations. Hence,\"In human beings, digestion of dairy milk resulted from a mutated gene\" is the correct inference.</span></p>",
+      "created_on": "2024-12-28 - 12:09:58",
+      "updated_on": "2025-07-07 - 15:22:33"
+    },
+    {
+      "id": 78408,
+      "title": "GATE | DA | 2024 |Probability and statistics | Question 7",
+      "slug": "the-probability-of-a-boy-or-a-girl-being-2",
+      "question": "<p dir=\"ltr\"><span>The probability of a boy or a girl being born is 1/2. For a family having only three children, what is the probability of having two girls and one boy?</span></p>",
+      "answers": [
+        {
+          "id": 312232,
+          "answer": "<p><span>3/8</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312233,
+          "answer": "<p><span>1/8</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312234,
+          "answer": "<p><span>1/4</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312235,
+          "answer": "<p><span>1/2</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The outcomes are(2</span><sup><span>3</span></sup><span>=8) given as {GGG,GGB,GBG,BGG,BBB,BBG,BGB,GBB}</span></p><p dir=\"ltr\"><span>Favorable outcomes are 3 : {GGB,GBG,BGG}</span></p><p dir=\"ltr\"><span>Hence, required probability =3/8</span></p>",
+      "created_on": "2024-12-28 - 12:20:35",
+      "updated_on": "2025-07-08 - 10:05:37"
+    },
+    {
+      "id": 78409,
+      "title": "GATE | DA  | 2024 | Aptitude | Data Interpretation  | Question 8",
+      "slug": "person-1-and-person-2-invest-in-three-mutual-1",
+      "question": "<p dir=\"ltr\"><span>Person 1 and Person 2 invest in three mutual funds A, B, and C. The amounts they  invest in each of these mutual funds are given in the table.</span></p><table><thead><tr><th><p dir=\"ltr\"><br></p></th><th><p dir=\"ltr\"><span>Mutual fund A </span></p></th><th><p dir=\"ltr\"><span>Mutual fund B </span></p></th><th><p dir=\"ltr\"><span>Mutual fund C</span></p></th></tr></thead><tbody><tr><td><p dir=\"ltr\"><span>Person 1</span></p></td><td><p><span>₹10,000</span></p></td><td><p><span>₹20,000</span></p></td><td><p><span>₹20,000</span></p></td></tr><tr><td><p dir=\"ltr\"><span>Person 2 </span></p></td><td><p><span>₹20,000</span></p></td><td><p><span>₹15,000</span></p></td><td><p><span>₹15,000</span></p></td></tr></tbody></table><p dir=\"ltr\"><span>At the end of one year, the total amount that Person 1 gets is ₹500 more than  Person 2. The annual rate of return for the mutual funds B and C is 15% each. What  is the annual rate of return for the mutual fund A ?</span></p>",
+      "answers": [
+        {
+          "id": 312236,
+          "answer": "<p><span>7.5%</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312237,
+          "answer": "<p><span> 10% </span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312238,
+          "answer": "<p><span> 15% </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312239,
+          "answer": "<p><span>20 %</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Let annual rate of return for mutual fund A be x%.</span></p><p dir=\"ltr\"><span>Amount received by Person 1 at the end of 1 year</span></p><pre><span> = 100x+400*15</span></pre><p dir=\"ltr\"><span>Amount received by Person 1 at the end of 1 year </span></p><pre><span>= 200x+300*15</span></pre><p dir=\"ltr\"><span>Person 1 gets 500 more than Person 2 : </span></p><pre><span>100x+6000 = 200x+4500+500</span><br><span>x=10</span></pre><p dir=\"ltr\"><br></p>",
+      "created_on": "2024-12-28 - 12:39:45",
+      "updated_on": "2025-07-08 - 12:37:02"
+    },
+    {
+      "id": 78410,
+      "title": "GATE | DA  | 2024 |  Aptitude | Reasoning | Question 9",
+      "slug": "three-different-views-of-a-dice-are-shown-in-2",
+      "question": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124230587165/Screenshot-2024-12-28-124034-200.png\" alt=\"Screenshot-2024-12-28-124034\" width=\"200\" height=\"59\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124230587165/Screenshot-2024-12-28-124034.png 286w,https://media.geeksforgeeks.org/wp-content/uploads/20241228124230587165/Screenshot-2024-12-28-124034-100.png 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241228124230587165/Screenshot-2024-12-28-124034-200.png 200w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><span>Three different views of a dice are shown in the figure. The piece of paper that can be folded to make this dice is:</span></p>",
+      "answers": [
+        {
+          "id": 312240,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124712298897/A.png\" alt=\"A\" width=\"103\" height=\"130\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124712298897/A.png 103w,https://media.geeksforgeeks.org/wp-content/uploads/20241228124712298897/A-100.png 79w\" loading=\"auto\"><figcaption> </figcaption></figure>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312241,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124733932571/B.png\" alt=\"B\" width=\"88\" height=\"133\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124733932571/B.png 88w\" loading=\"auto\"><figcaption> </figcaption></figure>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312242,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124753978771/C.png\" alt=\"C\" width=\"86\" height=\"121\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124753978771/C.png 86w\" loading=\"auto\"><figcaption> </figcaption></figure>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312243,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124810544427/D.png\" alt=\"D\" width=\"85\" height=\"115\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241228124810544427/D.png 85w\" loading=\"auto\"><figcaption> </figcaption></figure>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>From the dice views, opposite faces are: 4↔2, 5↔3, 1↔6. Only </span><b><strong>option (A)</strong></b><span> satisfies these conditions when folded, as no two opposite faces are adjacent.</span></p>",
+      "created_on": "2024-12-28 - 12:52:31",
+      "updated_on": "2025-07-08 - 12:35:33"
+    },
+    {
+      "id": 78411,
+      "title": "GATE | DA | 2024 | Aptitude | Mensuration | Question 10",
+      "slug": "visualize-two-identical-right-circular-cones-such-that-one-2",
+      "question": "<p dir=\"ltr\"><span>Visualize two identical right circular cones such that one is inverted over the other  and they share a common circular base. If a cutting plane passes through the vertices  of the assembled cones, what shape does the outer boundary of the  resulting cross-section make?</span></p>",
+      "answers": [
+        {
+          "id": 312244,
+          "answer": "<p dir=\"ltr\"><span>A rhombus </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312245,
+          "answer": "<p dir=\"ltr\"><span>A triangle</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312246,
+          "answer": "<p dir=\"ltr\"><span>An ellipse</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312247,
+          "answer": "<p dir=\"ltr\"><span>A hexagon</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The cutting plane passing through the vertices of both cones will slice through the cones along the axis of symmetry (the line connecting the two vertices).</span><br><span>Each cone is symmetrical and has a circular base, but the cutting plane through the vertices will reveal </span><b><strong>two triangle-like shapes</strong></b><span> meeting at the center, forming a </span><b><strong>rhombus</strong></b><span>.</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250103180331119054/geometric_diagram-660.webp\" alt=\"geometric_diagram\" width=\"660\" height=\"330\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250103180331119054/geometric_diagram.webp 800w,https://media.geeksforgeeks.org/wp-content/uploads/20250103180331119054/geometric_diagram-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250103180331119054/geometric_diagram-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250103180331119054/geometric_diagram-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20250103180331119054/geometric_diagram-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20250103180331119054/geometric_diagram-768.webp 768w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><br></p>",
+      "created_on": "2024-12-28 - 12:58:26",
+      "updated_on": "2025-07-08 - 12:34:17"
+    },
+    {
+      "id": 78412,
+      "title": "GATE | DA 2024 | Probability and statistics | Question 11",
+      "slug": "consider-the-following-statements-i-the-mean-and-variance-1",
+      "question": "<p dir=\"ltr\"><span>Consider the following statements: </span></p><p dir=\"ltr\"><span>(i) The mean and variance of a Poisson random variable are equal.</span></p><p dir=\"ltr\"><span>(ii) For a standard normal random variable, the mean is zero and the  variance is one.</span></p><p dir=\"ltr\"><span>Which ONE of the following options is correct?</span></p>",
+      "answers": [
+        {
+          "id": 312248,
+          "answer": "<p dir=\"ltr\"><span>Both (i) and (ii) are true</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312249,
+          "answer": "<p dir=\"ltr\"><span>(i) is true and (ii) is false</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312250,
+          "answer": "<p dir=\"ltr\"><span>(ii) is true and (i) is false</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312251,
+          "answer": "<p dir=\"ltr\"><span>Both (i) and (ii) are false</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Statement (i) is true because the mean and variance of a Poisson random variable are both equal to λ. Statement (ii) is also true because a standard normal random variable has a mean of 0 and a variance of 1.</span></p>",
+      "created_on": "2024-12-28 - 13:02:55",
+      "updated_on": "2025-07-15 - 11:48:08"
+    },
+    {
+      "id": 78413,
+      "title": "GATE | DA  | 2024 |  Machine learning | Question 17",
+      "slug": "consider-the-dataset-with-six-datapoints-x1-y1",
+      "question": "<p dir=\"ltr\"><span>Consider the dataset with six datapoints: </span>[Tex](x_1, y_1), (x_2, y_2),...,(x_6, y_6)[/Tex]<span>, where </span>[Tex]x_1 = \\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}[/Tex]<span>, </span>[Tex]x_2 = \\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}[/Tex]<span>, </span>[Tex]x_3 = \\begin{bmatrix} 0 \\\\ -1 \\end{bmatrix}[/Tex]<span>, </span>[Tex]x_4 = \\begin{bmatrix} -1 \\\\ 0 \\end{bmatrix}[/Tex]<span>, </span>[Tex]x_5 = \\begin{bmatrix} 2 \\\\ 2 \\end{bmatrix}[/Tex]<span>, </span>[Tex]x_6 = \\begin{bmatrix} -2 \\\\ -2 \\end{bmatrix}[/Tex]<span> and the labels are given by </span>[Tex]y_1 = y_2 = y_5 = 1[/Tex]<span>, and </span>[Tex]y_3 = y_4 = y_6 = -1[/Tex]<span>. A hard  margin linear support vector machine is trained on the above dataset.  Which ONE of the following sets is a possible set of support vectors?</span></p>",
+      "answers": [
+        {
+          "id": 312252,
+          "answer": "<p dir=\"ltr\"><span>{𝒙𝟏 , 𝒙𝟐 ,𝒙𝟓 }</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312253,
+          "answer": "<p dir=\"ltr\"><span> {𝒙𝟑 , 𝒙𝟒 ,𝒙𝟓 }</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312254,
+          "answer": "<p dir=\"ltr\"><span>{𝒙𝟒 , 𝒙𝟓 } </span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312255,
+          "answer": "<p dir=\"ltr\"><span> {𝒙𝟏 , 𝒙𝟐 ,𝒙𝟑 , 𝒙𝟒}</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We can see from the figure that  {𝒙𝟏 , 𝒙𝟐 , 𝒙𝟑 , 𝒙𝟒} is a possible set of support vectors and x5 and x6 are outliers.</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231121033615535/svm-660.webp\" alt=\"svm\" width=\"660\" height=\"474\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231121033615535/svm.webp 1045w,https://media.geeksforgeeks.org/wp-content/uploads/20241231121033615535/svm-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241231121033615535/svm-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241231121033615535/svm-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241231121033615535/svm-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241231121033615535/svm-768.webp 768w,https://media.geeksforgeeks.org/wp-content/uploads/20241231121033615535/svm-1024.webp 1024w\" loading=\"eager\"><figcaption> </figcaption></figure>",
+      "created_on": "2024-12-28 - 14:24:06",
+      "updated_on": "2025-08-23 - 10:52:44"
+    },
+    {
+      "id": 78414,
+      "title": "GATE | DA  | 2024 | Machine learning | Question 18",
+      "slug": "match-the-items-in-column-1-with-the-items-5",
+      "question": "<p dir=\"ltr\"><span>Match the items in Column 1 with the items in Column 2 in the following table:</span></p><table><thead><tr><th><p dir=\"ltr\"><span>Column 1      </span></p></th><th><p dir=\"ltr\"><span>Column 2 </span></p></th></tr></thead><tbody><tr><td><p dir=\"ltr\"><span>(p) Principal Component Analysis</span></p></td><td><p dir=\"ltr\"><span>(i) Discriminative Model</span></p></td></tr><tr><td><p dir=\"ltr\"><span>(q) Naïve Bayes Classification</span></p></td><td><p dir=\"ltr\"><span>(ii) Dimensionality Reduction</span></p></td></tr><tr><td><p dir=\"ltr\"><span>(r) Logistic Regression</span></p></td><td><p dir=\"ltr\"><span>(iii) Generative Mode</span></p></td></tr></tbody></table>",
+      "answers": [
+        {
+          "id": 312256,
+          "answer": "<p dir=\"ltr\"><span>(A)(p) − (iii), (q) − (i), (r) − (ii)   </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312257,
+          "answer": "<p dir=\"ltr\"><span>(B) (p) − (ii), (q) − (i), (r) − (iii)</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312258,
+          "answer": "<p dir=\"ltr\"><span>(C) (p) − (ii), (q) − (iii), (r) − (i)</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312259,
+          "answer": "<p dir=\"ltr\"><span>(D) (p) − (iii), (q) − (ii), (r)− (i)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><a href=\"https://www.geeksforgeeks.org/principal-component-analysis-pca/\" target=\"_blank\" rel=\"noopener\"><span>Principal Component Analysis</span></a><span> (P): Dimensionality Reduction (ii) as it reduces data dimensions.</span></p><p dir=\"ltr\"><a href=\"https://www.geeksforgeeks.org/naive-bayes-classifiers/\" target=\"_blank\" rel=\"noopener\"><span>Naïve Bayes Classification</span></a><span> (Q): Generative Model (iii) since it models the joint probability.</span></p><p dir=\"ltr\"><a href=\"https://www.geeksforgeeks.org/understanding-logistic-regression/\" target=\"_blank\" rel=\"noopener\"><span>Logistic Regression</span></a><span> (R): Discriminative Model (i) as it directly models the decision boundary.</span></p>",
+      "created_on": "2024-12-28 - 14:36:40",
+      "updated_on": "2025-07-07 - 14:50:05"
+    },
+    {
+      "id": 78421,
+      "title": "GATE | DA  | 2024 |  Machine learning | Question 19",
+      "slug": "euclidean-distance-based-k-means-clustering-algorithm-was-run-on-1",
+      "question": "<p dir=\"ltr\"><span>Euclidean distance-based k-means clustering algorithm was run on a dataset of 100 points with k=3. If the points </span>[Tex]\\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} \\text{ and } \\begin{bmatrix} -1 \\\\ 1 \\end{bmatrix}[/Tex]<span> are both part of cluster 3, then which one of the following points is necessarily also part of cluster 3?</span></p>",
+      "answers": [
+        {
+          "id": 312284,
+          "answer": "<p>[Tex]\\begin{bmatrix} 0 \\\\ 0 \\end{bmatrix}[/Tex]</p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312285,
+          "answer": "<p>[Tex]\\begin{bmatrix} 0 \\\\ 2 \\end{bmatrix}[/Tex]</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312286,
+          "answer": "<p>[Tex]\\begin{bmatrix} 2 \\\\ 0 \\end{bmatrix}[/Tex]</p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312287,
+          "answer": "<p>[Tex]\\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}[/Tex]</p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Points [1, 1] and [-1, 1] are both part of cluster 3 in the k-means clustering algorithm.</span><br><span>Since the clustering is based on Euclidean distance, point that is closest to points [1, 1] and [-1, 1] will also be part of cluster 3.</span><br><br><span>[0, 0] has a distance of √2 from both [1, 1] and [-1, 1].</span><br><br><span>[0, 2] has a distance of √5 from both [1, 1] and [-1, 1].</span><br><br><span>[2, 0] has a distance of 2√2 from both [1, 1] and [-1, 1].</span><br><br><span>[0, 1] has a distance of 1 from both [1, 1] and [-1, 1].</span><br><br><span>[0, 1] has the same distance from both [1, 1] and [-1, 1]. Therefore, [0, 1] is necessarily also part of cluster 3.</span></p>",
+      "created_on": "2024-12-28 - 14:59:47",
+      "updated_on": "2025-08-23 - 12:39:03"
+    },
+    {
+      "id": 78425,
+      "title": "GATE | DA  | 2024 |  Data structure | Question  21",
+      "slug": "consider-performing-uniform-hashing-on-an-open-address-hash-1",
+      "question": "<p dir=\"ltr\"><span>Consider performing uniform hashing on an open address hash table with load  factor </span>[Tex]\\alpha = \\frac{n}{m} &lt; 1[/Tex]<span>, where 𝑛 elements are stored in the table with m slots. The expected number of probes in an unsuccessful search is at most </span>[Tex]\\frac{1}{1-\\alpha}[/Tex]<span>. Inserting an element in this hash table requires at most ______ probes, on average.</span></p>",
+      "answers": [
+        {
+          "id": 312297,
+          "answer": "<p>[Tex]n\\frac{1}{1-\\alpha}[/Tex]</p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312298,
+          "answer": "<p>[Tex]\\frac{1}{1-\\alpha}[/Tex]</p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312299,
+          "answer": "<p>[Tex]1+\\frac{\\alpha}{2}[/Tex]</p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312300,
+          "answer": "<p>[Tex]\\frac{1}{1+\\alpha}[/Tex]</p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>n open addressing with uniform hashing, the expected number of probes for insertion is given by </span>[Tex]\\frac{1}{1 - \\alpha}, \\text{ where} \\ \\alpha = \\frac{n}{m}[/Tex]</p>",
+      "created_on": "2024-12-28 - 15:11:11",
+      "updated_on": "2025-08-23 - 12:51:52"
+    },
+    {
+      "id": 78427,
+      "title": "GATE | DA | 2024 | Machine learning | Question 22",
+      "slug": "for-any-binary-classification-dataset-let-sb-r",
+      "question": "<p dir=\"ltr\"><span>For any binary classification dataset, let 𝑆</span><sub><span>𝐵</span></sub><span> ∈ ℝ </span><sup><span>𝑑×𝑑</span></sup><span> and 𝑆</span><sub><span>𝑊</span></sub><span> ∈ ℝ</span><sup><span> 𝑑×𝑑 </span></sup><span>be the  between-class and within-class scatter (covariance) matrices, respectively. The  Fisher linear discriminant is defined by 𝑢</span><sup><span> ∗</span></sup><span> ∈ ℝ </span><sup><span>𝑑</span></sup><span> , that maximizes</span></p><pre><span>[Tex]J(u) = \\frac{u^T S_B u}{u^T S_W u}</span><br><span>[/Tex]</span></pre><p dir=\"ltr\"><span>If 𝜆 = 𝐽(𝑢 </span><sup><span>∗</span></sup><span> ), 𝑆</span><sub><span>𝑊</span></sub><span> is non-singular and 𝑆</span><sub><span>𝐵</span></sub><span> ≠ 0, then (𝑢 </span><sup><span>∗</span></sup><span> , 𝜆) must satisfy which </span><b><strong>ONE</strong></b><span> of the following equations? </span></p><p dir=\"ltr\"><b><strong>Note</strong></b><span>: ℝ denotes the set of real numbers.</span></p>",
+      "answers": [
+        {
+          "id": 312305,
+          "answer": "<p dir=\"ltr\"><span>𝑆</span><sub><span>𝑊</span></sub><span> </span><sup><span>−1</span></sup><span>𝑆</span><sub><span>𝐵</span></sub><span>𝑢</span><sup><span> ∗</span></sup><span> = 𝜆𝑢 </span><sup><span>∗</span></sup><span> </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312306,
+          "answer": "<p dir=\"ltr\"><span>𝑆</span><sub><span>𝑊</span></sub><span>𝑢</span><sup><span> ∗ </span></sup><span>= 𝜆𝑆</span><sub><span>𝐵</span></sub><span>𝑢 </span><sup><span>∗</span></sup></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312307,
+          "answer": "<p dir=\"ltr\"><span>𝑆</span><sub><span>𝐵</span></sub><span>𝑆</span><sub><span>𝑊</span></sub><span>𝑢 </span><sup><span>∗</span></sup><span> = 𝜆𝑢 </span><sup><span>∗</span></sup></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312308,
+          "answer": "<p dir=\"ltr\"><span> 𝑢 </span><sup><span>∗𝑇</span></sup><span> 𝑢 </span><sup><span>∗</span></sup><span> = 𝜆</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The Fisher linear discriminant maximizes the function:</span></p><p dir=\"ltr\"><span>J(u) = \\frac{u^T S_B u}{u^T S_W u}</span></p><p dir=\"ltr\"><span>To maximize J(u), we take its derivative with respect to u and set it to zero. The derivative is:</span></p><p dir=\"ltr\">[Tex]\\frac{d}{du} J(u) = \\frac{(2 S_B u)(u^T S_W u) - (2 S_W u)(u^T S_B u)}{(u^T S_W u)^2} = 0[/Tex]</p><p dir=\"ltr\"><span>This simplifies to:</span></p><p dir=\"ltr\"><span>S</span><sub><span>B</span></sub><span>u=λS</span><sub><span>W</span></sub><span>u</span></p><p dir=\"ltr\"><span>where λ=J(u</span><sup><span>∗</span></sup><span>), the eigenvalue corresponding to the eigenvector u*.</span></p><p dir=\"ltr\"><span>Rearranging:</span></p><p dir=\"ltr\"><span>S</span><sub><span>W</span></sub><sup><span>−1</span></sup><span>S</span><sub><span>B</span></sub><span>u=λu</span></p><p dir=\"ltr\"><span>This shows u* is the eigenvector of S</span><sub><span>W</span></sub><sup><span>−1</span></sup><span>S</span><sub><span>B</span></sub></p>",
+      "created_on": "2024-12-28 - 15:37:58",
+      "updated_on": "2025-07-07 - 14:44:34"
+    },
+    {
+      "id": 78428,
+      "title": "GATE | DA | 2024 | Artificial intelligence | Question 23",
+      "slug": "let-h1-and-h2-be-two-admissible-heuristics-used-2",
+      "question": "<p dir=\"ltr\"><span>Let ℎ1 and ℎ2 be two admissible heuristics used in 𝐴</span><sup><span> ∗</span></sup><span> search.  Which ONE of the following expressions is always an admissible heuristic?</span></p>",
+      "answers": [
+        {
+          "id": 312309,
+          "answer": "<p><span>ℎ1 + ℎ2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312310,
+          "answer": "<p><span>ℎ1 × ℎ2</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312311,
+          "answer": "<p><span>ℎ1 /ℎ2, (ℎ2 ≠ 0)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312312,
+          "answer": "<p><span>|ℎ1 − ℎ2|</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>An admissible heuristic must not overestimate the true cost. For two admissible heuristics h1 and h2, ∣h1−h2∣ will always satisfy the admissibility condition because it ensures a non-negative value less than or equal to the true cost, making it admissible.</span></p>",
+      "created_on": "2024-12-28 - 15:44:04",
+      "updated_on": "2025-07-07 - 14:40:43"
+    },
+    {
+      "id": 78429,
+      "title": "GATE | DA  | 2024 |  Probability and statistics | Question 24",
+      "slug": "consider-five-random-variables-u-v-w-x-and-1",
+      "question": "<p dir=\"ltr\"><span>Consider five random variables 𝑈, 𝑉, 𝑊, 𝑋, and 𝑌 whose joint distribution  satisfies: </span></p><p dir=\"ltr\"><span> 𝑃(𝑈, 𝑉, 𝑊, 𝑋, 𝑌) = 𝑃(𝑈)𝑃(𝑉)𝑃(𝑊|𝑈, 𝑉)𝑃(𝑋|𝑊)𝑃(𝑌|𝑊) </span></p><p dir=\"ltr\"><span>Which ONE of the following statements is FALSE? </span></p>",
+      "answers": [
+        {
+          "id": 312313,
+          "answer": "<p dir=\"ltr\"><span>𝑌 is conditionally independent of 𝑉 given 𝑊</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312314,
+          "answer": "<p dir=\"ltr\"><span>𝑋 is conditionally independent of 𝑈 given 𝑊</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312315,
+          "answer": "<p dir=\"ltr\"><span> 𝑈 and 𝑉 are conditionally independent given 𝑊</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312316,
+          "answer": "<p dir=\"ltr\"><span>𝑌 and 𝑋 are conditionally independent given</span><i><em class=\"GFGEditorTheme__textItalic\"> W</em></i></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\" style=\"text-align: left;\"><span>U and V are conditionally independent as can be seen below:</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231120908904544/tree-660.webp\" alt=\"tree\" width=\"660\" height=\"330\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231120908904544/tree.webp 800w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120908904544/tree-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120908904544/tree-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120908904544/tree-300.webp 300w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120908904544/tree-660.webp 660w,https://media.geeksforgeeks.org/wp-content/uploads/20241231120908904544/tree-768.webp 768w\" loading=\"auto\"><figcaption> </figcaption></figure><p dir=\"ltr\"><br></p>",
+      "created_on": "2024-12-28 - 15:50:16",
+      "updated_on": "2025-07-07 - 14:36:50"
+    },
+    {
+      "id": 78430,
+      "title": "GATE | DA |  2024 | Artificial intelligence | Question 25",
+      "slug": "consider-the-following-statement-in-adversarial-search-1",
+      "question": "<p dir=\"ltr\"><span>Consider the following statement:  In adversarial search, 𝛼– 𝛽 pruning can be applied to game trees of any depth where  𝛼 is the </span><b><strong>(m)</strong></b><span> value choice we have formed so far at any choice point along the  path for the MAX player and 𝛽 is the </span><b><strong>(n) </strong></b><span>value choice we have formed so far  at any choice point along the path for the MIN player. Which </span><b><strong>ONE</strong></b><span> of the following choices of (m) and (n) makes the above statement valid?</span></p>",
+      "answers": [
+        {
+          "id": 312317,
+          "answer": "<p dir=\"ltr\"><span>(m) = highest, (n) = highest</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312318,
+          "answer": "<p dir=\"ltr\"><span>(m) = lowest, (n) = highest </span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312319,
+          "answer": "<p dir=\"ltr\"><span>(m) = highest, (n) = lowest </span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312320,
+          "answer": "<p dir=\"ltr\"><span>(m) = lowest, (n) = lowest</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In \\alpha-\\beta pruning, m represents the best value for the MAX player and is initialized to -\\infty, while n represents the best value for the MIN player and is initialized to +\\infty.</span></p><p dir=\"ltr\"><span>During the search, m updates to the highest value for MAX, and n updates to the lowest value for MIN. Thus, the correct choice is m=highest, n=lowest.</span></p>",
+      "created_on": "2024-12-28 - 16:01:45",
+      "updated_on": "2025-07-07 - 14:31:15"
+    },
+    {
+      "id": 78431,
+      "title": "GATE | DA | 2024 | DBMS | Question 26",
+      "slug": "consider-a-database-that-includes-the-following-relations-defendername-1",
+      "question": "<p dir=\"ltr\"><span>Consider a database that includes the following relations: </span></p><p dir=\"ltr\"><span>Defender(name, rating, side, goals) </span></p><p dir=\"ltr\"><span>Forward(name, rating, assists, goals)</span></p><p dir=\"ltr\"><span>Team(name, club, price) </span></p><p dir=\"ltr\"><span>Which ONE of the following relational algebra expressions checks that every name  occurring in Team appears in either Defender or Forward, where 𝜙 denotes the  empty set? </span></p>",
+      "answers": [
+        {
+          "id": 312321,
+          "answer": "<p>[Tex]\\Pi_{\\text{name}}(\\text{Team}) \\setminus \n\\big( \\Pi_{\\text{name}}(\\text{Defender}) \\cap \n      \\Pi_{\\text{name}}(\\text{Forward}) \\big) = \\varnothing[/Tex]</p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312322,
+          "answer": "<p>[Tex]\\big( \\Pi_{\\text{name}}(\\text{Defender}) \\cap \n      \\Pi_{\\text{name}}(\\text{Forward}) \\big) \n      \\setminus \\Pi_{\\text{name}}(\\text{Team}) = \\varnothing[/Tex]</p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312323,
+          "answer": "<p>[Tex]\\Pi_{\\text{name}}(\\text{Team}) \\setminus \n\\big( \\Pi_{\\text{name}}(\\text{Defender}) \\cup \n      \\Pi_{\\text{name}}(\\text{Forward}) \\big) = \\varnothing[/Tex]</p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312324,
+          "answer": "<p>[Tex]\\big( \\Pi_{\\text{name}}(\\text{Defender}) \\cup \n      \\Pi_{\\text{name}}(\\text{Forward}) \\big) \n      \\setminus \\Pi_{\\text{name}}(\\text{Team}) = \\varnothing[/Tex]</p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The expression </span>[Tex]\\Pi_{\\text{name}}(\\text{Team}) \\setminus (\\Pi_{\\text{name}}(\\text{Defender}) \\cup \\Pi_{\\text{name}}(\\text{Forward})) = \\phi [/Tex]<span>checks if every name in the Team relation is present in either Defender or Forward.</span></p><p dir=\"ltr\"><span>The subtraction ∖ ensures there are no names in Team that are missing from the union of Defender and Forward.</span></p><p dir=\"ltr\"><span>If the result is the empty set (\\phi), the condition is satisfied.</span></p>",
+      "created_on": "2024-12-28 - 16:08:41",
+      "updated_on": "2025-08-23 - 11:54:08"
+    },
+    {
+      "id": 78432,
+      "title": "GATE | DA | 2024 | DBMS | Question 31",
+      "slug": "consider-the-following-two-tables-named-raider-and-team-1",
+      "question": "<p dir=\"ltr\"><span>Consider the following two tables named Raider and Team in a relational database  maintained by a Kabaddi league. The attribute ID in table Team references the  primary key of the Raider table, ID.</span></p><p dir=\"ltr\" style=\"text-align: center;\"><b><strong>Raider</strong></b></p><table><thead><tr><th><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span>ID </span></p></th><th><p dir=\"ltr\"><span>Name</span></p></th><th><p dir=\"ltr\"><span>Raids</span></p></th><th><p dir=\"ltr\"><span> RaidPoints</span></p></th></tr></thead><tbody><tr><td><p><span>1</span></p></td><td><p dir=\"ltr\"><span>Arjun</span></p></td><td><p><span>200</span></p></td><td><p><span>250</span></p></td></tr><tr><td><p><span>2</span></p></td><td><p dir=\"ltr\"><span>Ankush</span></p></td><td><p><span>190</span></p></td><td><p><span>219</span></p></td></tr><tr><td><p><span>3</span></p></td><td><p dir=\"ltr\"><span>Sunil</span></p></td><td><p><span>150</span></p></td><td><p><span>200</span></p></td></tr><tr><td><p><span>4</span></p></td><td><p dir=\"ltr\"><span>Reza</span></p></td><td><p><span>150</span></p></td><td><p><span>190</span></p></td></tr><tr><td><p><span>5</span></p></td><td><p dir=\"ltr\"><span>Pratham</span></p></td><td><p><span>175</span></p></td><td><p><span>220</span></p></td></tr><tr><td><p><span>6</span></p></td><td><p dir=\"ltr\"><span>Gopal</span></p></td><td><p><span>193</span></p></td><td><p><span>215</span></p></td></tr></tbody></table><p dir=\"ltr\" style=\"text-align: center;\"><b><strong>Team</strong></b></p><table><thead><tr><th><p dir=\"ltr\"><span>City                </span></p></th><th><p dir=\"ltr\"><span>ID </span></p></th><th><p dir=\"ltr\"><span>BidPoints</span></p></th></tr></thead><tbody><tr><td><p dir=\"ltr\"><span> Jaipur</span></p></td><td><p><span> 2 </span></p></td><td><p><span>200</span></p></td></tr><tr><td><p dir=\"ltr\"><span>Patna</span></p></td><td><p><span>3</span></p></td><td><p><span>195</span></p></td></tr><tr><td><p dir=\"ltr\"><span>Hyderabad</span></p></td><td><p><span>5</span></p></td><td><p><span>175</span></p></td></tr><tr><td><p dir=\"ltr\"><span>Jaipur</span></p></td><td><p><span>1</span></p></td><td><p><span>250</span></p></td></tr><tr><td><p dir=\"ltr\"><span>Patna</span></p></td><td><p><span>4</span></p></td><td><p><span>200</span></p></td></tr><tr><td><p dir=\"ltr\"><span>Jaipur</span></p></td><td><p><span>6</span></p></td><td><p><span>20</span></p></td></tr></tbody></table><p dir=\"ltr\"><span>The SQL query described below is executed on this database: </span></p><pre><span>SELECT * FROM Raider, Team WHERE Raider.ID=Team.ID AND City=“Jaipur” AND  RaidPoints &gt; 200; </span></pre><p dir=\"ltr\"><span>The number of rows returned by this query is ______</span></p>",
+      "answers": [
+        {
+          "id": 312325,
+          "answer": "<p><span>1</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312326,
+          "answer": "<p><span>3</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 312327,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312328,
+          "answer": "<p><span>0</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Cross-Product of given tables with given conditions gives following rows as output:</span></p><table><thead><tr><th><span>ID</span></th><th><span>Name</span></th><th><span>Raid</span></th><th><span>Raid Point</span></th><th><span>City</span></th><th><span>Bid Point</span></th></tr></thead><tbody><tr><th><span>1</span></th><td><span>ARJUN</span></td><td><span>200</span></td><td><span>250</span></td><td><span>JAIPUR</span></td><td><span>250</span></td></tr><tr><th><span>2</span></th><td><span>ANKUSH</span></td><td><span>190</span></td><td><span>219</span></td><td><span>JAIPUR</span></td><td><span>200</span></td></tr><tr><th><span>6</span></th><td><span>GOPAL</span></td><td><span>193</span></td><td><span>215</span></td><td><span>JAIPUR</span></td><td><span>200</span></td></tr></tbody></table>",
+      "created_on": "2024-12-28 - 16:32:33",
+      "updated_on": "2025-07-07 - 13:03:45"
+    },
+    {
+      "id": 78433,
+      "title": "GATE | DA  | 2024 | Data structure | Question 32",
+      "slug": "the-fundamental-operations-in-a-double-ended-queue-d-are-1",
+      "question": "<p dir=\"ltr\"><span>The fundamental operations in a double-ended queue D are:  </span></p><ul><li value=\"1\"><span>insertFirst(e) – Insert a new element e at the beginning of D. </span></li><li value=\"2\"><span>insertLast(e) – Insert a new element e at the end of D.</span></li><li value=\"3\"><span>removeFirst() – Remove and return the first element of D.</span></li><li value=\"4\"><span>removeLast() – Remove and return the last element of D. </span></li></ul><p dir=\"ltr\"><span>In an empty double-ended queue, the following operations are performed: </span></p><p dir=\"ltr\" style=\"text-indent: 20px;\"><span>insertFirst(10) </span></p><p dir=\"ltr\" style=\"text-indent: 20px;\"><span>insertLast(32) </span></p><p dir=\"ltr\" style=\"text-indent: 20px;\"><b><strong>a</strong></b><span> ←removeFirst() </span></p><p dir=\"ltr\" style=\"text-indent: 20px;\"><span>insertLast(28) </span></p><p dir=\"ltr\" style=\"text-indent: 20px;\"><span>insertLast(17) </span></p><p dir=\"ltr\" style=\"text-indent: 20px;\"><b><strong>a</strong></b><span> ←removeFirst() </span></p><p dir=\"ltr\" style=\"text-indent: 20px;\"><b><strong>a</strong></b><span> ← removeLast() </span></p><p dir=\"ltr\"><span>The value of a is ______.</span></p>",
+      "answers": [
+        {
+          "id": 312329,
+          "answer": "<p><span>17</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312330,
+          "answer": "<p><span>19</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312331,
+          "answer": "<p><span>15</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312332,
+          "answer": "<p><span>20</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ol><li value=\"1\"><span>insertFirst(10): D = [10]</span></li><li value=\"2\"><span>insertLast(32): D = [10, 32]</span></li><li value=\"3\"><span>removeFirst(): Removes and returns 10, resulting in D = [32]</span></li><li value=\"4\"><span>insertLast(28): D = [32, 28]</span></li><li value=\"5\"><span>insertLast(17): D = [32, 28, 17]</span></li><li value=\"6\"><span>removeFirst(): Removes and returns 32, leaving D = [28, 17]</span></li><li value=\"7\"><span>removeLast(): Removes and returns 17, leaving D = [28]</span></li></ol><p dir=\"ltr\"><span>Hence, the value of </span><code><span>a</span></code><span> is 17.</span></p>",
+      "created_on": "2024-12-28 - 16:53:25",
+      "updated_on": "2025-07-15 - 17:01:00"
+    },
+    {
+      "id": 78434,
+      "title": "GATE | DA 2024 |  Calculus | Question 33",
+      "slug": "let-fr-r-be-the-function-fx",
+      "question": "<p dir=\"ltr\"><span>Let 𝑓:ℝ → ℝ be the function 𝑓(𝑥) = 1 /1+𝑒</span><sup><span>−𝑥</span></sup><span> .  The value of the derivative of 𝑓 at 𝑥 where 𝑓(𝑥) = 0.4 is ______ (rounded off to two decimal places). </span></p><p dir=\"ltr\"><b><strong>Note</strong></b><span>: ℝ denotes the set of real numbers</span></p>",
+      "answers": [
+        {
+          "id": 312333,
+          "answer": "<p><span>0.34</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312334,
+          "answer": "<p><span>0.28</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312335,
+          "answer": "<p><span>0.24</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 312336,
+          "answer": "<p><span>0.18</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>𝑓(𝑥) = 1 /1+𝑒</span><sup><span>−𝑥</span></sup></pre><p dir=\"ltr\"><span>On differentiating f(x) with respect to x, we get</span></p><pre><span>f'(x)=f(x)(1-f(x))</span></pre><p dir=\"ltr\"><span>On substituting f(x)=0.4,</span></p><pre><span>f'(x)= 0.4*0.6 = 0.24</span></pre>",
+      "created_on": "2024-12-28 - 16:58:47",
+      "updated_on": "2025-07-07 - 12:42:35"
+    },
+    {
+      "id": 78435,
+      "title": "GATE | DA | 2024 |  Probability and statistics  | Question 34",
+      "slug": "the-sample-average-of-50-data-points-is-40-2",
+      "question": "<p dir=\"ltr\"><span>The sample average of 50 data points is 40. The updated sample average after  including a new data point taking the value of 142 is ______.</span></p>",
+      "answers": [
+        {
+          "id": 312337,
+          "answer": "<p><span>45</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 312338,
+          "answer": "<p><span>40</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312339,
+          "answer": "<p><span>38</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312340,
+          "answer": "<p><span>42</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p>[Tex]\\text{New average} = \\frac{\\left(\\text{Old average} \\times \\text{Number of data points}\\right) + \\text{New data point}}{\\text{Number of data points} + 1}[/Tex]</p><p dir=\"ltr\"><span>Substituting values:</span></p><p dir=\"ltr\"><span>old average: 40</span></p><p dir=\"ltr\"><span>number of data points: 50</span></p><p dir=\"ltr\"><span>new data point: 142</span></p><p dir=\"ltr\"><span>New average =</span>[Tex]\\frac{(40*50)+142}{50+1}[/Tex]</p><p dir=\"ltr\"><span> On solving, new average =42</span></p><p dir=\"ltr\"><br></p><p dir=\"ltr\"><br></p>",
+      "created_on": "2024-12-28 - 17:08:56",
+      "updated_on": "2025-07-08 - 14:45:39"
+    },
+    {
+      "id": 78436,
+      "title": "GATE | DA  | 2024 | Calculus | Question 37",
+      "slug": "let-fr-r-be-a-function-note-r",
+      "question": "<p dir=\"ltr\"><span>Let 𝑓:ℝ → ℝ be a function. Note: ℝ denotes the set of real numbers.[Tex]f(x) = \\begin{cases}     -x, &amp; \\text{if } x &lt; -2 \\\\    ax^2 + bx + c, &amp; \\text{if } x \\in [-2, 2] \\\\    x, &amp; \\text{if } x &gt; 2\\end{cases}[/Tex]</span></p><p dir=\"ltr\"><span>Which ONE of the following choices gives the values of 𝑎, 𝑏, 𝑐 that make the  function 𝑓 continuous and differentiable?  </span></p>",
+      "answers": [
+        {
+          "id": 312341,
+          "answer": "<p dir=\"ltr\"><span>(A) 𝑎 = 1/4 , 𝑏 = 0, 𝑐 = 1 </span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312342,
+          "answer": "<p dir=\"ltr\"><span> (B) 𝑎 = 1/2 , 𝑏 = 0, 𝑐 = 0</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312343,
+          "answer": "<p dir=\"ltr\"><span>(C) 𝑎 = 0, 𝑏 = 0, 𝑐 = 0</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312344,
+          "answer": "<p dir=\"ltr\"><span>(D) 𝑎 = 1, 𝑏 = 1, 𝑐 = −4</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Continuity</strong></b><span> at x=−2 and x = 2:</span></p><pre><span>f(-2)=4a - 2b + c = 2                       (1)</span><br><span>f(2)= 4a+2b+c=2                             (2)</span></pre><p dir=\"ltr\"><b><strong>Differentiability</strong></b><span> at x = -2 and x = 2:</span></p><pre><span>f'(-2) = −4a+b = -1                   (3)</span><br><span>f'(2) = 4a + b = 1                      (4)</span></pre><p dir=\"ltr\"><span>Solve the system:</span></p><pre><span>From (1) and (2): 4b=0  ⟹ b = 0.</span><br><span>From (3) and (4): a= \\frac{1}{4}.</span><br><span>Substitute into (1): c = 1.</span></pre>",
+      "created_on": "2024-12-28 - 17:13:39",
+      "updated_on": "2025-07-07 - 12:29:35"
+    },
+    {
+      "id": 78501,
+      "title": "GATE | DA |  2024 |  Machine learning | Question 42",
+      "slug": "consider-the-table-below-where-the-ij-th-element",
+      "question": "<p dir=\"ltr\"><span>Consider the table below, where the (𝑖,𝑗) 𝑡ℎ element of the table is the distance  between points 𝑥𝑖 and 𝑥𝑗 . Single linkage clustering is performed on data points,  𝑥1 ,𝑥2 , 𝑥3 ,𝑥4 , 𝑥5 . </span></p><table><thead><tr><th><p dir=\"ltr\"><br></p><p dir=\"ltr\"><br></p></th><th><p dir=\"ltr\"><span>x1</span></p></th><th><p dir=\"ltr\"><span>𝑥2</span></p></th><th><p dir=\"ltr\"><span>x3</span></p></th><th><p dir=\"ltr\"><span>x4</span></p></th><th><p dir=\"ltr\"><span>x5</span></p></th></tr></thead><tbody><tr><th><p dir=\"ltr\"><span>x1</span></p></th><td><p><span>0</span></p></td><td><p><span>1</span></p></td><td><p><span>4</span></p></td><td><p><span>3</span></p></td><td><p><span>6</span></p></td></tr><tr><th><p dir=\"ltr\"><span>x2</span></p></th><td><p><span>1</span></p></td><td><p><span>0</span></p></td><td><p><span>3</span></p></td><td><p><span>5</span></p></td><td><p><span>3</span></p></td></tr><tr><th><p dir=\"ltr\"><span>x3</span></p></th><td><p><span>4</span></p></td><td><p><span>3</span></p></td><td><p><span>0</span></p></td><td><p><span>2</span></p></td><td><p><span>5</span></p></td></tr><tr><th><p dir=\"ltr\"><span>x4</span></p></th><td><p><span>3</span></p></td><td><p><span>5</span></p></td><td><p><span>2</span></p></td><td><p><span>0</span></p></td><td><p><span>1</span></p></td></tr><tr><th><p dir=\"ltr\"><span>x5</span></p></th><td><p><span>6</span></p></td><td><p><span>3</span></p></td><td><p><span>5</span></p></td><td><p><span>1</span></p></td><td><p><span>0</span></p></td></tr></tbody></table><p dir=\"ltr\"><span>Which ONE of the following is the correct representation of the clusters produced?</span></p>",
+      "answers": [
+        {
+          "id": 312601,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231152946337189/Screenshot-2024-12-31-152927.png\" alt=\"Screenshot-2024-12-31-152927\" width=\"320\" height=\"392\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231152946337189/Screenshot-2024-12-31-152927.png 320w,https://media.geeksforgeeks.org/wp-content/uploads/20241231152946337189/Screenshot-2024-12-31-152927-100.png 82w,https://media.geeksforgeeks.org/wp-content/uploads/20241231152946337189/Screenshot-2024-12-31-152927-200.png 163w,https://media.geeksforgeeks.org/wp-content/uploads/20241231152946337189/Screenshot-2024-12-31-152927-300.png 245w\" loading=\"auto\"><figcaption> </figcaption></figure><p><br></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 312602,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231153022206788/Screenshot-2024-12-31-153014.png\" alt=\"Screenshot-2024-12-31-153014\" width=\"313\" height=\"343\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231153022206788/Screenshot-2024-12-31-153014.png 313w,https://media.geeksforgeeks.org/wp-content/uploads/20241231153022206788/Screenshot-2024-12-31-153014-100.png 91w,https://media.geeksforgeeks.org/wp-content/uploads/20241231153022206788/Screenshot-2024-12-31-153014-200.png 183w,https://media.geeksforgeeks.org/wp-content/uploads/20241231153022206788/Screenshot-2024-12-31-153014-300.png 274w\" loading=\"auto\"><figcaption> </figcaption></figure><p><br></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 312603,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231153050840601/Screenshot-2024-12-31-153044.png\" alt=\"Screenshot-2024-12-31-153044\" width=\"308\" height=\"358\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241231153050840601/Screenshot-2024-12-31-153044.png 308w,https://media.geeksforgeeks.org/wp-content/uploads/20241231153050840601/Screenshot-2024-12-31-153044-100.png 86w,https://media.geeksforgeeks.org/wp-content/uploads/20241231153050840601/Screenshot-2024-12-31-153044-200.png 172w,https://media.geeksforgeeks.org/wp-content/uploads/20241231153050840601/Screenshot-2024-12-31-153044-300.png 258w\" loading=\"auto\"><figcaption> </figcaption></figure><p><br></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 312604,
+          "answer": "<figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230121334762863/D-100.png\" alt=\"D\" width=\"100\" height=\"64\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20241230121334762863/D.png 199w,https://media.geeksforgeeks.org/wp-content/uploads/20241230121334762863/D-100.png 100w\" loading=\"auto\"><figcaption> </figcaption></figure><p><br></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Using </span><b><strong>single-linkage clustering</strong></b><span> (nearest neighbor):</span></p><p dir=\"ltr\"><span>Start with the smallest distance d = 1: x1 and x2 form a cluster.</span></p><p dir=\"ltr\"><span>Merge x4 and x5 since d=1 between them.</span></p><p dir=\"ltr\"><span>Evaluate x3:</span></p><p dir=\"ltr\"><span>Distance to {x1,x2}: min⁡(4,3)=3</span></p><p dir=\"ltr\"><span>Distance to {x4,x5}: min⁡(2,5)=2</span><br><span>x3 merges with {x4,x5}</span></p><p dir=\"ltr\"><span>Final clusters: {x1,x2} and {x3,x4,x5}</span></p><p dir=\"ltr\"><span>Hence, answer is A</span></p>",
+      "created_on": "2024-12-30 - 12:22:59",
+      "updated_on": "2025-07-07 - 12:23:53"
+    }
+  ],
+  "quiz": {
+    "id": 720,
+    "question_count": 64,
+    "bottom_description": "",
+    "title": "GATE DA 2024",
+    "slug": "gate-da-2024",
+    "category": [
+      {
+        "id": 4355,
+        "name": "GATE",
+        "slug": "gate",
+        "origin_term_id": 2209,
+        "origin_slug": "computer-subject/computer-science-quizzes-gq/gate"
+      }
+    ],
+    "show_answer": 3,
+    "created_on": "2024-02-22 - 16:53:40",
+    "updated_on": "2024-04-02 - 18:25:11"
+  }
+}

@@ -1,8 +1,8 @@
 import json
 
 # === CONFIG ===
-har_file = "C:/Users/DELL/Downloads/www.geeksforgeeks.org.har"  # Path to your .har file
-output_file = "api_endpoints.txt"  # Optional: where to save the results
+har_file = "C:/Users/DELL/Downloads/www.geeksforgeeks.org-2024.har"  # Path to your .har file
+output_file = "api_endpoints-2024.txt"  # Optional: where to save the results
 
 # === LOAD HAR FILE ===
 with open(har_file, "r", encoding="utf-8") as f:

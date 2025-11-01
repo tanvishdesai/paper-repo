@@ -1,0 +1,1776 @@
+{
+  "count": 50,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 3077,
+      "title": "GATE | CS | 2002 | Computer Network | MAC  | Question 11",
+      "slug": "in-serial-data-transmission-every-byte-of-data-is",
+      "question": "<p dir=\"ltr\"><span>In serial data transmission, every byte of data is padded with a ‘0’ in the beginning and one or two ‘I’ s at the end of byte because</span></p>",
+      "answers": [
+        {
+          "id": 12787,
+          "answer": "<p dir=\"ltr\"><span>Receiver is to be synchronized for byte reception</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 12788,
+          "answer": "<p dir=\"ltr\"><span>Receiver recovers lost ‘0’ and ‘1’s from these padded bits</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 12789,
+          "answer": "<p dir=\"ltr\"><span>Padded bits are useful in parity computation</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 12790,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In serial communication, the sender &amp; receiver needs to be synchronized with each other. '0' is added in the beginning of data as start bit and  '1' is added at the end as a stop bit. The start signal tells the receiver about the arrival of data and the stop signal resets the receiver's state for the arrival of a new data. Thus, in serial communication receiver is to be synchronized for byte reception. </span></p>",
+      "created_on": "2013-01-05 - 21:58:29",
+      "updated_on": "2025-07-01 - 15:50:26"
+    },
+    {
+      "id": 3221,
+      "title": "GATE | CS | 2002 | TOC | Turing Machines | Question 44",
+      "slug": "to-evaluate-an-expression-without-any-embedded-function-calls",
+      "question": "<p dir=\"ltr\"><span>To evaluate an expression without any embedded function calls :</span><br><span>&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 13364,
+          "answer": "<p dir=\"ltr\"><span>As many stacks as the height of the expression tree are needed</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 13365,
+          "answer": "<p dir=\"ltr\"><span>One stack is enough</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 13366,
+          "answer": "<p dir=\"ltr\"><span>Two stacks are needed</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 13367,
+          "answer": "<p dir=\"ltr\"><span>A Turing machine is needed in the general case</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Any expression can be converted into Postfix or Prefix form.&nbsp;</span><br><br><br><span>Prefix and postfix evaluation can be done using a single stack.&nbsp;</span><br><br><br><span>For example : Expression '10 2 8 * + 3 -' is given.&nbsp;</span><br><span>PUSH 10 in the stack.&nbsp;</span><br><span>PUSH 2 in the stack.&nbsp;</span><br><span>PUSH 8 in the stack.&nbsp;</span><br><span>When operator '*' occurs, POP 2 and 8 from the stack.&nbsp;</span><br><span>PUSH 2 * 8 = 16 in the stack.&nbsp;</span><br><span>When operator '+' occurs, POP 16 and 10 from the stack.&nbsp;</span><br><span>PUSH 10 * 16 = 26 in the stack.&nbsp;</span><br><span>PUSH 3 in the stack.&nbsp;</span><br><span>When operator '-' occurs, POP 26 and 3 from the stack.&nbsp;</span><br><span>PUSH 26 - 3 = 23 in the stack.&nbsp;</span><br><span>So, 23 is the answer obtained using single stack.&nbsp;</span><br><br><span>Thus, option (B) is correct.&nbsp;</span></p>",
+      "created_on": "2013-01-06 - 21:13:59",
+      "updated_on": "2025-07-01 - 15:56:57"
+    },
+    {
+      "id": 3754,
+      "title": "GATE | CS | 2002 | Miscellaneous | Question 45",
+      "slug": "dynamic-linking-can-cause-security-concerns-because",
+      "question": "<p dir=\"ltr\"><span>Dynamic linking can cause security concerns because:</span></p>",
+      "answers": [
+        {
+          "id": 15456,
+          "answer": "<p dir=\"ltr\"><span>Security is dynamic</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 15457,
+          "answer": "<p dir=\"ltr\"><span>The path for searching dynamic libraries is not known till runtime</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 15458,
+          "answer": "<p dir=\"ltr\"><span>Linking is insecure</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15459,
+          "answer": "<p dir=\"ltr\"><span>Cryptographic procedures are not available for dynamic linking</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Static Linking and Static Libraries</strong></b></p><p dir=\"ltr\"><span> is the result of the linker making copy of all used library functions to the executable file. Static Linking creates larger binary files, and need more space on disk and main memory. Examples of static libraries (libraries which are statically linked) are, </span></p><p dir=\"ltr\"><i><b><strong class=\"GFGEditorTheme__textItalic\">.a</strong></b></i></p><p dir=\"ltr\"><span> files in Linux and </span></p><p dir=\"ltr\"><i><b><strong class=\"GFGEditorTheme__textItalic\">.lib </strong></b></i></p><p dir=\"ltr\"><span>files in Windows. </span></p><p dir=\"ltr\"><b><strong>Dynamic linking and Dynamic Libraries</strong></b></p><p dir=\"ltr\"><span> Dynamic Linking doesn’t require the code to be copied, it is done by just placing name of the library in the binary file. The actual linking happens when the program is run, when both the binary file and the library are in memory. Examples of Dynamic libraries (libraries which are linked at run-time) are, </span></p><p dir=\"ltr\"><i><b><strong class=\"GFGEditorTheme__textItalic\">.so</strong></b></i></p><p dir=\"ltr\"><span> in Linux and </span></p><p dir=\"ltr\"><i><b><strong class=\"GFGEditorTheme__textItalic\">.dll</strong></b></i></p><p dir=\"ltr\"><span> in Windows.  In Dynamic Linking, the path for searching dynamic libraries is not known till runtime  &nbsp;  &nbsp;</span></p>",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-07-01 - 15:56:27"
+    },
+    {
+      "id": 3753,
+      "title": "GATE | CS | 2002 | Operating System | Page Replacement Algorithms | Question 23",
+      "slug": "the-optimal-page-replacement-algorithm-will-select-the-page",
+      "question": "<p dir=\"ltr\"><span>The optimal page replacement algorithm will select the page that</span><br><span>&nbsp;</span></p>",
+      "answers": [
+        {
+          "id": 15452,
+          "answer": "<p dir=\"ltr\"><span>Has been used least number of times.</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 15453,
+          "answer": "<p dir=\"ltr\"><span>Will not be used for the longest time in the future.</span><br><span>&nbsp;</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 15454,
+          "answer": "<p dir=\"ltr\"><span>Has not been used for the longest time in the past.</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 15455,
+          "answer": "<p dir=\"ltr\"><span>Has been used most number of times.</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The optimal page replacement algorithm will select the page whose next occurrence will be after the longest time in future. For example, if we need to swap a page and there are two options from which we can swap, say one would be used after 10s and the other after 5s, then the algorithm will swap out the page that would be required 10s later.&nbsp;</span><br><br><span>Thus, B is the correct choice.</span><br><span>&nbsp;</span></p>",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-07-01 - 15:54:50"
+    },
+    {
+      "id": 3752,
+      "title": "GATE | CS | 2002 | COA | Cache Memory | Question 13",
+      "slug": "which-of-the-following-is-not-a-form-of",
+      "question": "<p dir=\"ltr\"><span>Which of the following is not a form of memory?</span></p>",
+      "answers": [
+        {
+          "id": 15448,
+          "answer": "<p dir=\"ltr\"><span>instruction cache</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 15449,
+          "answer": "<p dir=\"ltr\"><span>instruction register</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 15450,
+          "answer": "<p dir=\"ltr\"><span>instruction opcode</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 15451,
+          "answer": "<p dir=\"ltr\"><span>translation lookaside buffer</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Instruction Cache - Used for storing instructions that are frequently used  Instruction Register - Part of CPU's control unit that stores the instruction currently being executed  Instruction Opcode - It is the portion of a machine language instruction that specifies the operation to be performed  Translation Lookaside Buffer - It is a memory cache that stores recent translations of virtual memory to physical addresses for faster access.  &nbsp;  So, all the above except Instruction Opcode are memories.  Thus, C is the correct choice.  &nbsp;  Please comment below if you find anything wrong in the above post.</span></p>",
+      "created_on": "2013-01-30 - 21:40:06",
+      "updated_on": "2025-07-01 - 15:51:02"
+    },
+    {
+      "id": 4027,
+      "title": "GATE | CS | 2002 | TOC | CFG | Question 43",
+      "slug": "the-c-language-is",
+      "question": "<p dir=\"ltr\"><span>The C language is:</span></p>",
+      "answers": [
+        {
+          "id": 16538,
+          "answer": "<p dir=\"ltr\"><span>A context free language</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 16539,
+          "answer": "<p dir=\"ltr\"><span>A context sensitive language</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 16540,
+          "answer": "<p dir=\"ltr\"><span>A regular language</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 16541,
+          "answer": "<p dir=\"ltr\"><span>Parsable fully only by a Turing machine</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>C and C++ are context-sensitive languages. There are several reasons:</span></p><ol><li value=\"1\"><span>To parse C and C++, you start by using a very powerful </span><i><em class=\"GFGEditorTheme__textItalic\">preprocessor</em></i><span>. These preprocessors are inevitably written by hand (they are not based on a theoretic foundation like regular expressions or context-free grammars).</span></li><li value=\"2\"><span>The grammar is ambiguous: it has LR conflicts, such as the if-then-else conflict. Parsers typically resolve this using context (an “else” matches the closest “if”).</span></li><li value=\"3\"><span>C and C++ lexers require lexical feedback to differentiate between typedef names and identifiers. That is, the context-sensitive lexer needs help from the “context-free” parser to distinguish between an identifier “foo” and a typedef name “foo”. In this snippet,</span></li></ol><pre><span>int foo;</span><br><span>typedef int foo;</span><br><span>foo x;</span><br></pre><ol><li value=\"1\"><span>the first “foo” is an identifier while the second and third are typedef names. You need to parse typedef declarations to figure this out (and since types have nested parentheses, this is definitely at least as hard as parsing a context-free language). This means that the parser and lexer are mutually recursive, so it doesn’t make sense to say that the parser is context free while the lexer is context sensitive.</span></li></ol>",
+      "created_on": "2013-02-09 - 15:23:43",
+      "updated_on": "2025-07-01 - 15:55:49"
+    },
+    {
+      "id": 4358,
+      "title": "GATE | CS | 2002 | Algorithms | Complexity Analysis | Question 3",
+      "slug": "the-solution-to-the-recurrence-equation-t2k-3",
+      "question": "<p dir=\"ltr\"><span>The solution to the recurrence equation T(2</span><sup><span>k</span></sup><span>) = 3 T(2</span><sup><span>k-1</span></sup><span>) + 1, T (1) = 1, is:</span></p>",
+      "answers": [
+        {
+          "id": 17819,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>k</span></sup></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 17820,
+          "answer": "<p dir=\"ltr\"><span>(3</span><sup><span>k + 1</span></sup><span> - 1)/2</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 17821,
+          "answer": "<p dir=\"ltr\"><span>3</span><sup><span>log</span></sup><span>2k</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 17822,
+          "answer": "<p dir=\"ltr\"><span>2</span><sup><span>log</span></sup><span>3k</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We have</span><br><br><span>T (2</span><sup><span>k</span></sup><span>) = 3&nbsp; T (2</span><sup><span>k-1</span></sup><span>) + 1</span><br><br><span>= 3</span><sup><span>2</span></sup><span>&nbsp; T (2</span><sup><span>k-2</span></sup><span>) + 1 + 3</span><br><span>= 3</span><sup><span>3</span></sup><span>&nbsp; T (2</span><sup><span>k-3</span></sup><span>) + 1 + 3 + 9</span><br><span>. . . (k steps of recursion (recursion depth))</span><br><span>= 3</span><sup><span>k</span></sup><span>&nbsp; T (2</span><sup><span>k-k</span></sup><span>) + (1 + 3 + 9 + 27 + ... + 3</span><sup><span>k-1</span></sup><span>)</span><br><span>= 3</span><sup><span>k</span></sup><span> + ( ( 3</span><sup><span>k</span></sup><span> - 1 ) / 2 )</span><br><span>= ( (2 * 3</span><sup><span>k</span></sup><span>) + 3</span><sup><span>k</span></sup><span> - 1 )/2</span><br><span>= ( (3 * 3</span><sup><span>k</span></sup><span>) - 1 ) / 2</span><br><span>= (3</span><sup><span>k+1</span></sup><span> - 1) / 2</span><br><br><span>Hence, B is the correct choice.</span></p>",
+      "created_on": "2013-02-25 - 16:47:51",
+      "updated_on": "2025-07-01 - 15:48:55"
+    },
+    {
+      "id": 5070,
+      "title": "GATE | CS | 2002 | Database | Normal Forms | Question 19",
+      "slug": "relation-r-with-an-associated-set-of-functional-dependencies",
+      "question": "<p dir=\"ltr\"><span>Relation R with an associated set of functional dependencies, F is decomposed into BCNF. The redundancy (arising out of functional dependencies) in the resulting set relations is.</span></p>",
+      "answers": [
+        {
+          "id": 20577,
+          "answer": "<p dir=\"ltr\"><span>Zero</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 20578,
+          "answer": "<p dir=\"ltr\"><span>More than zero but less than that of an equivalent 3NF decomposition</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20579,
+          "answer": "<p dir=\"ltr\"><span>Proportional to the size of F+</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 20580,
+          "answer": "<p dir=\"ltr\"><span>Indeterminate</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>If a relational schema is in BCNF then all redundancy based on functional dependency has been removed, although other types of redundancy may still exist. </span></p>",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-07-01 - 15:54:38"
+    },
+    {
+      "id": 5073,
+      "title": "GATE | CS | 2002 | Databases | Functional Dependency | Question 50",
+      "slug": "from-the-following-instance-of-a-relation-scheme-r",
+      "question": "<p dir=\"ltr\"><span>From the following instance of a relation scheme R (A, B, C), we can conclude that : </span></p><table><thead></thead><tbody><tr><td><span>A</span></td><td><span>B</span></td><td><span>C</span></td></tr><tr><td><span>1</span></td><td><span>1</span></td><td><span>1</span></td></tr><tr><td><span>1</span></td><td><span>1</span></td><td><span>0</span></td></tr><tr><td><span>2</span></td><td><span>3</span></td><td><span>2</span></td></tr><tr><td><span>2</span></td><td><span>3</span></td><td><span>2</span></td></tr></tbody></table>",
+      "answers": [
+        {
+          "id": 20589,
+          "answer": "<p dir=\"ltr\"><span>A functionally determines B and B function­ally determines C </span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 20590,
+          "answer": "<p dir=\"ltr\"><span>A functionally determines B and B does not functionally determine C</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20591,
+          "answer": "<p dir=\"ltr\"><span>B does not functionally determine C</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 20592,
+          "answer": "<p dir=\"ltr\"><span>A does not functionally determine B and B does not functionally determine C</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Generally Normalization is done on the schema itself.</span><br><br><span>From the relational instance given,we may strike out FD s that do not hold.</span><br><br><span>e.g.B does not functionally determine C(This is true).</span><br><br><span>But we cannot say that A functionally determines B for the entire relation itself. This is because that, A-&gt;B holds for this instance, but in future there might be some tuples added to the instance that may violate A-&gt;B.</span><br><br><span>So overall on the relation we cannot conclude that A-&gt;B, from the relational instance which is just a subset of an entire relation.</span></p>",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-07-01 - 17:15:50"
+    },
+    {
+      "id": 5072,
+      "title": "GATE | CS | 2002 | Databases | Normal Forms | Question 49",
+      "slug": "relation-r-is-decomposed-using-a-set-of-functional",
+      "question": "<p dir=\"ltr\"><span>Relation R is decomposed using a set of functional dependencies, F and relation S is decomposed using another set of functional dependencies G. One decomposition is definitely BCNF, the other is definitely 3NF, but it is not known which is which. To make a guaranteed identification, which one of the following tests should be used on the decompositions? (Assume that the closures of F and G are available).</span></p>",
+      "answers": [
+        {
+          "id": 20585,
+          "answer": "<p dir=\"ltr\"><span>Dependency-preservation</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 20586,
+          "answer": "<p dir=\"ltr\"><span>Lossless-join</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20587,
+          "answer": "<p dir=\"ltr\"><span>BCNF definition</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 20588,
+          "answer": "<p dir=\"ltr\"><span>3NF definition</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Answer is (C) since to identify BCNF we need BCNF definition. One relation which satisfies will be in BCNF and other will be in 3NF.  1st is wrong because dependency may be preserved by both 3NF and BCNF. 2nd is wrong Because both 3NF and BCNF decomposition can be lossless. 4th is wrong because 3NF and BCNF both are in 3NF also.</span></p>",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-07-01 - 17:16:31"
+    },
+    {
+      "id": 5071,
+      "title": "GATE | CS | 2002 | Database | Relational Algebra | Question 20",
+      "slug": "with-regard-to-the-expressive-power-of-the-formal",
+      "question": "<p dir=\"ltr\"><span>With regard to the expressive power of the formal relational query languages, which of the following statements is true?</span></p>",
+      "answers": [
+        {
+          "id": 20581,
+          "answer": "<p dir=\"ltr\"><span>Relational algebra is more powerful than relational calculus</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 20582,
+          "answer": "<p dir=\"ltr\"><span>Relational algebra has the same power as relational calculus</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 20583,
+          "answer": "<p dir=\"ltr\"><span>Relational algebra has the same power as safe relational calculus</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 20584,
+          "answer": "<p dir=\"ltr\"><span>None of the above</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>A query can be formulated in relational calculus if and only if it can be formulated in relational algebra. So, relational algebra has the same power as relational calculus. But, it is possible to write syntactically correct relational calculus queries that have infinite number of answers. Such queries are unsafe. Queries that have an finite number of answers are safe relational calculus queries. Thus, Relational algebra has the same power as safe relational calculus. Thus, option (C) is the answer. </span></p>",
+      "created_on": "2014-01-20 - 12:35:23",
+      "updated_on": "2025-07-01 - 15:52:17"
+    },
+    {
+      "id": 5275,
+      "title": "GATE | CS | 2002 | Operating System | File System | Question 47",
+      "slug": "in-the-index-allocation-scheme-of-blocks-to-a",
+      "question": "<p dir=\"ltr\"><span>In the index allocation scheme of blocks to a file, the maximum possible size of the file depends on :</span></p>",
+      "answers": [
+        {
+          "id": 21383,
+          "answer": "<p dir=\"ltr\"><span>the size of the blocks, and the size of the ad­dress of the blocks.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 21384,
+          "answer": "<p dir=\"ltr\"><span>the number of blocks used for the index, and the size of the blocks.</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 21385,
+          "answer": "<p dir=\"ltr\"><span>the size of the blocks, the number of blocks used for the index, and the size of the address of the blocks.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21386,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><br><span>In the index allocation method, an index block stores the address of all the blocks allocated to a file.&nbsp;</span><br><span>When indexes are created, the maximum number of blocks given to a file depends upon the size of the index which tells how many blocks can be there and size of each block(i.e. same as depending upon the number of blocks for storing the indexes and size of each index block).&nbsp;</span><br><span>&nbsp;</span><br><span>Thus, option (B) is correct.&nbsp;</span></p>",
+      "created_on": "2014-01-20 - 12:39:07",
+      "updated_on": "2025-07-01 - 17:14:50"
+    },
+    {
+      "id": 5302,
+      "title": "GATE | CS | 2002 | Engineering Mathematics | Probability & Statistics | Question 41",
+      "slug": "four-fair-coins-are-tossed-simultaneously-the-probability-that",
+      "question": "<p dir=\"ltr\"><span>Four fair coins are tossed simultaneously. The probability that at least one head and one tail turn up is :</span></p>",
+      "answers": [
+        {
+          "id": 21485,
+          "answer": "<p><span>1/16</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 21486,
+          "answer": "<p><span>1/8</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21487,
+          "answer": "<p><span>7/8</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 21488,
+          "answer": "<p><span>15/16</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>There are only two cases (when all head or all tail) against the given output.  So the required probability is (16-2)/16 = 7/8.</span></p>",
+      "created_on": "2014-01-21 - 03:43:36",
+      "updated_on": "2025-07-01 - 17:13:37"
+    },
+    {
+      "id": 5394,
+      "title": "GATE | CS | 2002 | Discrete Mathematics | Set Theory | Question 42",
+      "slug": "the-binary-relation-s-empty-set-on",
+      "question": "<p dir=\"ltr\"><span>The binary relation S = ф (empty set) on set A = {1, 2, 3} is :</span></p>",
+      "answers": [
+        {
+          "id": 21850,
+          "answer": "<p dir=\"ltr\"><span>Neither reflexive nor symmetric</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 21851,
+          "answer": "<p dir=\"ltr\"><span>Symmetric and reflexive</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 21852,
+          "answer": "<p dir=\"ltr\"><span>Transitive and reflexive</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21853,
+          "answer": "<p dir=\"ltr\"><span>Transitive and symmetric</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<ul><li value=\"1\"><b><strong>Reflexive</strong></b><span> : A relation is reflexive if every element of set is paired with itself. Here none of the element of A is paired with themselves, so S is not reflexive.</span></li><li value=\"2\"><b><strong>Symmetric</strong></b><span> : This property says that if there is a pair (a, b) in S, then there must be a pair (b, a) in S. Since there is no pair here in S, this is trivially true, so S is symmetric.</span></li><li value=\"3\"><b><strong>Transitive</strong></b><span> : This says that if there are pairs (a, b) and (b, c) in S, then there must be pair (a,c) in S. Again, this condition is trivially true, so S is transitive.  </span><b><strong>Thus, option (D) is correct.</strong></b><span>   Please comment below if you find anything wrong in the above post.</span></li></ul>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-07-01 - 17:14:12"
+    },
+    {
+      "id": 5393,
+      "title": "GATE | CS | 2002 | Engineering Mathematics | Linear Algebra | Question 6",
+      "slug": "which-of-the-following-is-true-8",
+      "question": "<p dir=\"ltr\"><span>Which of the following is true?</span></p>",
+      "answers": [
+        {
+          "id": 21846,
+          "answer": "<p dir=\"ltr\"><span>The set of all rational negative numbers forms a group under multiplication.</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 21847,
+          "answer": "<p dir=\"ltr\"><span>The set of all non-singular matrices forms a group under multiplication.</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 21848,
+          "answer": "<p dir=\"ltr\"><span>The set of all matrices forms a group under multiplication.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 21849,
+          "answer": "<p dir=\"ltr\"><span>Both (2) and (3) are true.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>A group is a set of elements such that any two elements of the group combine to form a third element of the same group. Also, a group must satisfy certain properties:  </span></p><p dir=\"ltr\"><span>Closure Property - Any two elements of the set when operated open by an operator form a third element that must also be in the set.  </span></p><p dir=\"ltr\"><span>Associative Property - For an expression with three or more operands having the same operator between them, the order of operation does not matter as long as the sequence of operands are not changed. For example, (a + b) + c = a + (b + c).  </span></p><p dir=\"ltr\"><span>Identity element Property - Each set must have an identity element, which is an element of the set such that when operated upon with another element of the set, it gives the element itself. For example, a + 0 = a. Here, 0 is the identity element.  </span></p><p dir=\"ltr\"><span>Invertibility Property - For each element of the set, inverse should exist.  &nbsp;  </span></p><p dir=\"ltr\"><span>Now, for the given statements, we have  A is incorrect as it does not satisfies closure property. If we take two negative numbers and multiply them, we get a positive number which is not in the set.  B is correct. The matrices in the set must be non - singular, i.e., their determinant should not be zero, for the inverse to exist (Invertibility Property).  </span></p><p dir=\"ltr\"><span>C is incorrect as the inverse of a singular (determinant = 0) matrix does not exist (Invertibility Property violated).  &nbsp;  </span></p><p dir=\"ltr\"><span>Thus, B is the correct option.  &nbsp;  &nbsp;  </span></p>",
+      "created_on": "2014-01-21 - 03:44:39",
+      "updated_on": "2025-07-01 - 16:46:20"
+    },
+    {
+      "id": 5496,
+      "title": "GATE | CS | 2002 | Engineering Mathematics | Linear Algebra | Question 1",
+      "slug": "the-rank-of-the-given-matrix-isbeginbmatrix-1",
+      "question": "<p dir=\"ltr\"><span>The rank of the given matrix is:</span></p><p>[Tex]\\begin{bmatrix} 1 &amp; 1 \\\\ 0 &amp; 0 \\end{bmatrix}[/Tex]</p>",
+      "answers": [
+        {
+          "id": 22227,
+          "answer": "<p><span>1</span><br><span>&nbsp;</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 22228,
+          "answer": "<p><span>0</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22229,
+          "answer": "<p><span>2</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 22230,
+          "answer": "<p><span>4</span><br><span>&nbsp;</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Rank of the matrix is defined as the maximum number of linearly independent vectors (or) the number of non-zero rows in its row-echelon matrix.&nbsp;</span></p><p dir=\"ltr\"><span>A = </span>[Tex]\\begin{bmatrix} 1 &amp; 1 \\\\ 0 &amp; 0 \\end{bmatrix}[/Tex]</p><p dir=\"ltr\"><span>Since the matrix A is already in echelon form, Just count the number of non-zero rows to get the rank of the matrix = 1.</span></p>",
+      "created_on": "2014-01-21 - 03:47:45",
+      "updated_on": "2025-07-01 - 16:45:20"
+    },
+    {
+      "id": 5608,
+      "title": "GATE | CS | 2002 | Digital Logic | Logic Gates | Question 28",
+      "slug": "let-fa-b-a-b-simplified-expression",
+      "question": "<p dir=\"ltr\"><span>Let f(A, B) = A' + B. Simplified expression for function f(f(x + y, y)z) is :</span></p>",
+      "answers": [
+        {
+          "id": 84058,
+          "answer": "<p dir=\"ltr\"><span>x' + z</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 84059,
+          "answer": "<p dir=\"ltr\"><span>xyz</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 84060,
+          "answer": "<p dir=\"ltr\"><span>xy' + z</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 84061,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Simplified expression for given function 'g' is : </span></p><p dir=\"ltr\"><span> g = f( f(x + y, y), z) g = f( ((x + y)’ + y), z) g = f( (x’y’ + y), z)    g = f( ((y + y’) * (x’ + y)), z)                        g = f( (1 * (x’ + y)), z)                        g = f( (x’ + y), z) g = (x’ + y)’ + z) g = xy’ + z </span></p><p dir=\"ltr\"><span>Thus, option (C) is correct.</span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-07-01 - 17:09:50"
+    },
+    {
+      "id": 5607,
+      "title": "GATE | CS | 2002 | Digital Logic | Combinational Circuit | Question 27",
+      "slug": "consider-the-following-multiplexor-where-10-11-12-13",
+      "question": "<p dir=\"ltr\"><span>Consider the following multiplexor where 10, 11, 12, 13 are four data input lines selected by two address line combinations A1A0 = 00, 01, 10, 11 respectively and f is \"the output of the multiplexor. EN is the enable input.  </span></p><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2014/11/GATECS200227-300x108.png\" alt=\"GATECS200227\" width=\"300\" height=\"108\" loading=\"auto\"><p dir=\"ltr\"><span> The function f(x, y, z) implemented by the above circuit is :</span></p>",
+      "answers": [
+        {
+          "id": 22663,
+          "answer": "<p dir=\"ltr\"><span>xyz'</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 22664,
+          "answer": "<p dir=\"ltr\"><span>xy + z</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 22665,
+          "answer": "<p dir=\"ltr\"><span>x + z</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 22666,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>F = (A1’A0’I0 + A1’A0I1 + A1A0’I2 + A1A0I3) * EN</strong></b></p><p dir=\"ltr\"><span>  F = (XYZ' +XYZ + Y'ZY + ZY')Z' F = (XYZ' +XYZ + ZY'(Y + 1))Z' F = (XYZ' +XYZ + ZY' * 1)Z' F = (XY(Z’ + Z) + ZY’)Z’ F = (XY + ZY’)Z’ F = XYZ’ + 0 F = XYZ'  </span></p><p dir=\"ltr\"><b><strong>Thus, option (A) is correct</strong></b></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-07-01 - 16:53:33"
+    },
+    {
+      "id": 5606,
+      "title": "GATE | CS | 2002 | Digital Logic | Logic Gates | Question 26",
+      "slug": "consider-the-following-logic-circuit-whose-inputs-and-function",
+      "question": "<p dir=\"ltr\"><span>Consider the following logic circuit whose inputs and function and output is f.  </span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20250701170638641421/logic-gates.webp\" alt=\"logic-gates\" width=\"353\" height=\"137\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20250701170638641421/logic-gates.webp 353w,https://media.geeksforgeeks.org/wp-content/uploads/20250701170638641421/logic-gates-100.webp 100w,https://media.geeksforgeeks.org/wp-content/uploads/20250701170638641421/logic-gates-200.webp 200w,https://media.geeksforgeeks.org/wp-content/uploads/20250701170638641421/logic-gates-300.webp 300w\" loading=\"auto\"><figcaption>Figure</figcaption></figure><p dir=\"ltr\"><br></p><p dir=\"ltr\"><span>  Given that  </span></p><pre><span>f1(dx, y, z) = ∑(0, 1, 3, 5),</span><br><span>f2(dx, y, z) = ∑(6, 7) and</span><br><span>f(dx, y, z) = ∑(1, 4, 5),</span></pre><p dir=\"ltr\"><span>  f3 is : </span></p>",
+      "answers": [
+        {
+          "id": 84062,
+          "answer": "<p><span>∑(1, 4, 5)</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 84063,
+          "answer": "<p><span>∑(6, 7)</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 84064,
+          "answer": "<p><span>∑(0, 1, 3, 5)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 84065,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Function  f will be: </span></p><pre><span>f = ((f1f2)′(f3)')′ = (f1f2) + f3</span></pre><p dir=\"ltr\"><span> Since AND of two expressions will contain the common terms and f1 and f2 don't have any common term, so f1f2 is 0 and hence f = f3 = Σ(1,4,5).  Option (A) is correct. </span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-07-01 - 17:07:56"
+    },
+    {
+      "id": 5605,
+      "title": "GATE | CS | 2002 | Digital Logic | Minimization | Question 12",
+      "slug": "minimum-sum-of-product-expression-for-fw-x-y",
+      "question": "<p dir=\"ltr\"><span>Minimum sum of product expression for f(w, x, y, z) shown in Karnaugh-map below is &nbsp;</span></p><table><thead></thead><tbody><tr><td><sub><span>yz</span></sub><span>\\\\</span><sup><span>wx</span></sup></td><td><span>00</span></td><td><span>01</span></td><td><span>11</span></td><td><span>10</span></td></tr><tr><td><span>00</span></td><td><span>0</span></td><td><span>1</span></td><td><span>1</span></td><td><span>0</span></td></tr><tr><td><span>01</span></td><td><span>x</span></td><td><span>0</span></td><td><span>0</span></td><td><span>1</span></td></tr><tr><td><span>11</span></td><td><span>x</span></td><td><span>0</span></td><td><span>0</span></td><td><span>1</span></td></tr><tr><td><span>10</span></td><td><span>0</span></td><td><span>1</span></td><td><span>1</span></td><td><span>x</span></td></tr></tbody></table>",
+      "answers": [
+        {
+          "id": 84066,
+          "answer": "<p dir=\"ltr\"><span>xz + y'z</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 84067,
+          "answer": "<p dir=\"ltr\"><span>xz' + zx'</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 84068,
+          "answer": "<p dir=\"ltr\"><span>x'y + zx'</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 84069,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p><figure class=\"image\"><img src=\"https://media.geeksforgeeks.org/wp-content/uploads/20240320105848/GATE-CS-2002-Question-50.jpg\" width=\"882\" height=\"inherit\" srcset=\"https://media.geeksforgeeks.org/wp-content/uploads/20240320105848/GATE-CS-2002-Question-50.jpg 882w, https://media.geeksforgeeks.org/wp-content/uploads/20240320105848/GATE-CS-2002-Question-50-100.jpg 100w, https://media.geeksforgeeks.org/wp-content/uploads/20240320105848/GATE-CS-2002-Question-50-200.jpg 200w, https://media.geeksforgeeks.org/wp-content/uploads/20240320105848/GATE-CS-2002-Question-50-300.jpg 300w, https://media.geeksforgeeks.org/wp-content/uploads/20240320105848/GATE-CS-2002-Question-50-660.jpg 660w, https://media.geeksforgeeks.org/wp-content/uploads/20240320105848/GATE-CS-2002-Question-50-768.jpg 768w, \" loading=\"auto\"><figcaption>&nbsp;</figcaption></figure><p dir=\"ltr\"><span>&nbsp;</span><b><strong>On solving this we get </strong></b><span>xz’+zx’ so ans is (B) part</span></p>",
+      "created_on": "2014-01-21 - 03:49:31",
+      "updated_on": "2025-07-01 - 16:51:49"
+    },
+    {
+      "id": 5833,
+      "title": "GATE | CS | 2002 | TOC | Finite Automata | Question 30",
+      "slug": "the-finite-state-machine-described-by-the-following-state",
+      "question": "<p dir=\"ltr\"><span>The Finite state machine described by the following state diagram with A as starting state, where an arc label is x / y and x stands for 1-bit input and y stands for 2- bit output</span><br><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2014/11/GATECS2002Q28-300x70.png\" alt=\"GATECS2002Q28\" width=\"300\" height=\"70\" loading=\"auto\"></p>",
+      "answers": [
+        {
+          "id": 23539,
+          "answer": "<p dir=\"ltr\"><span>Outputs the sum of the present and the previous bits of the input.</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 23540,
+          "answer": "<p dir=\"ltr\"><span>Outputs 01 whenever the input sequence contains 11.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 23541,
+          "answer": "<p dir=\"ltr\"><span>Outputs 00 whenever the input sequence contains 10.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 23542,
+          "answer": "<p dir=\"ltr\"><span>None of these</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p><p dir=\"ltr\"><span> We assume the input string to be 1101. </span></p><p dir=\"ltr\"><span>1.  (A, 1) --&gt;  (B, 01)     Here, previous input bit + present input bit = 0 + 1 = 01 = output </span></p><p dir=\"ltr\"><span>2. (B, 1) --&gt; (C, 10) Here, previous input bit + present input bit = 1 + 1 = 10 = output </span></p><p dir=\"ltr\"><span>3. (C, 0) --&gt; (A, 01) Here, previous input bit + present input bit = 1 + 0 = 01 = output </span></p><p dir=\"ltr\"><span>4. (A, 1) --&gt; (B, 01)     Here, previous input bit + present input bit = 0 + 1 = 01 = output </span></p><p dir=\"ltr\"><span>Thus, option (A) is correct. </span></p>",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-07-01 - 17:09:06"
+    },
+    {
+      "id": 5834,
+      "title": "GATE | CS | 2002 | TOC | Finite Automata | Question 38",
+      "slug": "the-smallest-finite-automation-which-accepts-the-language-x",
+      "question": "<p dir=\"ltr\"><span>The smallest finite automation which accepts the language {x | length of x is divisible by 3} has : \t\t </span></p>",
+      "answers": [
+        {
+          "id": 23543,
+          "answer": "<p dir=\"ltr\"><span>2 states</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 23544,
+          "answer": "<p dir=\"ltr\"><span>3 states</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 23545,
+          "answer": "<p dir=\"ltr\"><span>4 states</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 23546,
+          "answer": "<p dir=\"ltr\"><span>5 states</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p><p><span>&nbsp;</span></p><p><br></p><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2015/12/gate-2002-38.png\" alt=\"2002-38\" width=\"365\" height=\"150\" loading=\"auto\"><p dir=\"ltr\"><span> Thus, we require 3 states. </span></p><p dir=\"ltr\"><br></p><p><span>&nbsp;</span></p><p><br></p><p dir=\"ltr\"><span> So, B is the correct choice. </span></p><p dir=\"ltr\"><br></p><p><span>&nbsp;</span></p><p><br></p><p dir=\"ltr\"><span> Please comment below if you find anything wrong in the above post.</span></p>",
+      "created_on": "2014-01-21 - 04:00:03",
+      "updated_on": "2025-07-01 - 17:11:32"
+    },
+    {
+      "id": 5965,
+      "title": "GATE | CS | 2002 | TOC | PDA | Question 7",
+      "slug": "the-language-accepted-by-a-pushdown-automation-in-which",
+      "question": "<p dir=\"ltr\"><span>The language accepted by a Pushdown Automation in which the stack is limited to 10 items is best described as</span></p>",
+      "answers": [
+        {
+          "id": 24040,
+          "answer": "<p dir=\"ltr\"><span>Context Free</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 24041,
+          "answer": "<p dir=\"ltr\"><span>Regular</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 24042,
+          "answer": "<p dir=\"ltr\"><span>Deterministic Context Free</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24043,
+          "answer": "<p dir=\"ltr\"><span>Recursive</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Pushdown automata is used for context free languages, i.e., languages in which the length of elements is unrestricted and length of one element is related to other. To resolve this problem, we use a stack with no restrictions on length. </span><br><span>But in the given case, length of stack is restricted. Thus, this pushdown automata can only accept languages which can also be accepted by finite state automata and a finite state automata accepts only regular languages.</span><br><span>Thus, B is the correct choice.</span></p>",
+      "created_on": "2014-01-21 - 04:00:34",
+      "updated_on": "2025-07-01 - 16:47:04"
+    },
+    {
+      "id": 6043,
+      "title": "GATE | CS | 2002 | TOC | RELs | Question 39",
+      "slug": "which-of-the-following-is-true-10",
+      "question": "<p dir=\"ltr\"><span>Which of the following is true?</span></p>",
+      "answers": [
+        {
+          "id": 24337,
+          "answer": "<p dir=\"ltr\"><span>The complement of a recursive language is recursive.</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 24338,
+          "answer": "<p dir=\"ltr\"><span>The complement of a recursively enumerable language is recursively enumerable.</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 24339,
+          "answer": "<p dir=\"ltr\"><span>The complement of a recursive language is either recursive or recursively enumerable.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 24340,
+          "answer": "<p dir=\"ltr\"><span>The complement of a context-free language is context-free.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 04:01:02",
+      "updated_on": "2025-07-01 - 17:12:04"
+    },
+    {
+      "id": 6226,
+      "title": "GATE | CS | 2002 | Aptitude | Quantitative Aptitude | Question 2",
+      "slug": "the-trapezoidal-rule-for-integration-give-exact-result-when",
+      "question": "<p dir=\"ltr\"><span>The trapezoidal rule for integration give exact result when the integrand is a polynomial of degree:</span></p>",
+      "answers": [
+        {
+          "id": 25041,
+          "answer": "<p dir=\"ltr\"><span>0 but not 1</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25042,
+          "answer": "<p dir=\"ltr\"><span>1 but not 0</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25043,
+          "answer": "<p dir=\"ltr\"><span>0 or 1</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 25044,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-01-21 - 04:44:45",
+      "updated_on": "2025-07-01 - 16:43:09"
+    },
+    {
+      "id": 6227,
+      "title": "GATE | CS | 2002 | Miscellaneous | Question 40",
+      "slug": "the-newton-raphson-iteration-xn-1-xn2",
+      "question": "<p dir=\"ltr\"><span>The Newton-Raphson iteration X</span><sub><span>n + 1</span></sub><span> = (X</span><sub><span>n</span></sub><span>/2) + 3/(2X</span><sub><span>n</span></sub><span>) can be used to solve the equation</span></p>",
+      "answers": [
+        {
+          "id": 25045,
+          "answer": "<p dir=\"ltr\"><span>X</span><sup><span>2</span></sup><span> = 3</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 25046,
+          "answer": "<p dir=\"ltr\"><span>X</span><sup><span>3</span></sup><span> = 3</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25047,
+          "answer": "<p dir=\"ltr\"><span>X</span><sup><span>2</span></sup><span> = 2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25048,
+          "answer": "<p dir=\"ltr\"><span>X</span><sup><span>3</span></sup><span> = 2</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In this, We use the following formula to get the next value of f(x). f'(x) is derivative of f(x).  </span><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2013/12/af2d6f780d8673d64e8cc328ae52631d.png\" alt=\"af2d6f780d8673d64e8cc328ae52631d\" width=\"165\" height=\"48\" loading=\"auto\"><p dir=\"ltr\"><b><strong>Option (A)</strong></b></p><pre><span>X</span><sup><span>2</span></sup><span> = 3</span><br><span>f(x) = X</span><sup><span>2</span></sup><span> - 3</span><br><br><span>X</span><sub><span>n + 1</span></sub><span> = X</span><sub><span>n</span></sub><span> - (X</span><sub><span>n</span></sub><sup><span>2</span></sup><span> - 3) / (2*X</span><sub><span>n</span></sub><span>)</span><br><span>  =  (X</span><sub><span>n</span></sub><span>/2) + 3/(2x</span><sub><span>n</span></sub><span>) </span></pre></p>",
+      "created_on": "2014-01-21 - 04:44:45",
+      "updated_on": "2025-07-01 - 17:12:46"
+    },
+    {
+      "id": 6311,
+      "title": "GATE | CS | 2002 | Discrete Mathematics | Graph Theory | Question 4",
+      "slug": "the-minimum-number-of-colours-required-to-colour-the-1",
+      "question": "<p dir=\"ltr\"><span>The minimum number of colours required to colour the vertices of a cycle with η nodes in such a way that no two adjacent nodes have the same colour is\t </span></p>",
+      "answers": [
+        {
+          "id": 25373,
+          "answer": "<p><span>2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25374,
+          "answer": "<p><span>3</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25375,
+          "answer": "<p><span>4</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25376,
+          "answer": "<p dir=\"ltr\"><span>n - 2⌊n/2⌋ + 2</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We need 3 colors to color a odd cycle and 2 colors to color an even cycle.</span></p>",
+      "created_on": "2014-01-21 - 04:45:42",
+      "updated_on": "2025-07-01 - 16:43:44"
+    },
+    {
+      "id": 6312,
+      "title": "GATE | CS | 2002 | Discrete Mathematics | Graph Theory | Question 25",
+      "slug": "maximum-number-of-edges-in-a-n-node",
+      "question": "<p dir=\"ltr\"><span>Maximum number of edges in a n - node undirected graph without self loops is</span></p>",
+      "answers": [
+        {
+          "id": 25377,
+          "answer": "<p dir=\"ltr\"><span>n</span><sup><span>2</span></sup></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25378,
+          "answer": "<p dir=\"ltr\"><span>n(n - 1)/2</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 25379,
+          "answer": "<p dir=\"ltr\"><span>n - 1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25380,
+          "answer": "<p dir=\"ltr\"><span>(n + 1) (n)/2</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><p dir=\"ltr\"><span>Since the given graph is undirected, that means the order of edges doesn't matter.  Since we have to insert an edge between all possible pair of vertices, therefore problem reduces to finding the count of the number of subsets of size 2 chosen from the set of vertices.   Since the set of vertices has size n, the number of such subsets is given by the binomial coefficient C(n,2) (also known as \"n choose 2\"). Using the formula for binomial coefficients, C(n,2) = n(n-1)/2.e </span></p></p>",
+      "created_on": "2014-01-21 - 04:45:42",
+      "updated_on": "2025-07-01 - 16:49:36"
+    },
+    {
+      "id": 6422,
+      "title": "GATE | CS | 2002 | COA | Pipelining | Question 31",
+      "slug": "the-performance-of-a-pipelined-processor-suffers-if",
+      "question": "<p dir=\"ltr\"><span>The performance of a pipelined processor suffers if :</span></p>",
+      "answers": [
+        {
+          "id": 25817,
+          "answer": "<p dir=\"ltr\"><span>the pipeline stages have different delays</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 25818,
+          "answer": "<p dir=\"ltr\"><span>consecutive instructions are dependent on each other</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 25819,
+          "answer": "<p dir=\"ltr\"><span>the pipeline stages share hardware resources</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 25820,
+          "answer": "<p dir=\"ltr\"><span>all of the above</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Pipelining is a method to execute a program breaking it in several independent sequence of stages.  In that case pipeline stages can’t have different delays ,no dependency among consecutive &nbsp;instructions and sharing of hardware resources should not be there.  So option (D) is correct</span></p>",
+      "created_on": "2014-01-21 - 04:55:18",
+      "updated_on": "2025-07-01 - 17:10:41"
+    },
+    {
+      "id": 6961,
+      "title": "GATE | CS | 2002 | Discrete Mathematics | Logic | Question 8",
+      "slug": "if-x-then-y-unless-z-is-represented-by",
+      "question": "<p dir=\"ltr\"><span>\"If X, then Y unless Z\" is represented by which of the following formulae in </span><a href=\"https://origin.geeksforgeeks.org/proposition-logic/\"><span>propositional logic</span></a><span>? (\"¬\" is negation \"^\" is conjunction, and \"→\" is implication)</span></p>",
+      "answers": [
+        {
+          "id": 27962,
+          "answer": "<p dir=\"ltr\"><span>(X ^ ¬ Z) → Y</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 27963,
+          "answer": "<p dir=\"ltr\"><span>(X ^ Y) → ¬ Z</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 27964,
+          "answer": "<p dir=\"ltr\"><span>(X → (Y ^ ¬ Z)</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 27965,
+          "answer": "<p dir=\"ltr\"><span>(X → Y(^ ¬ Z)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The statement \"If X then Y unless Z\" means, if Z doesn't occur, X implies Y i.e. ¬Z→(X→Y), which is equivalent to Z ∨ (X→Y) (since P→Q ≡ ¬P ∨ Q), which is then equivalent to Z ∨ (¬X ∨ Y). Now we can look into options which one matches with this. So option (a) is (X∧¬Z)→Y = ¬( (X∧¬Z) ) ∨ Y = (¬X∨Z) ∨ Y, which matches our expression. So option (A) is correct. Source: http://www.cse.iitd.ac.in/~mittal/gate/gate_math_2002.html</span></p>",
+      "created_on": "2014-01-22 - 18:55:12",
+      "updated_on": "2025-07-01 - 16:27:45"
+    },
+    {
+      "id": 7253,
+      "title": "GATE | CS | 2002 | Miscellaneous | Question 18",
+      "slug": "the-results-returned-by-functions-under-value-result-and-reference",
+      "question": "<p dir=\"ltr\"><span>The results returned by functions under value-result and reference parameter passing conventions</span></p>",
+      "answers": [
+        {
+          "id": 29129,
+          "answer": "<p dir=\"ltr\"><span>Do not differ</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 29130,
+          "answer": "<p dir=\"ltr\"><span>Differ in the presence of loops</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 29131,
+          "answer": "<p dir=\"ltr\"><span>Differ in all cases</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 29132,
+          "answer": "<p dir=\"ltr\"><span>May differ in the presence of exceptions</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The result is updated since the updated values are returned back to the original variable. In call by reference, any change in the variable reflects immediately.</span><br></p>",
+      "created_on": "2014-01-22 - 20:51:51",
+      "updated_on": "2025-07-01 - 16:31:27"
+    },
+    {
+      "id": 7484,
+      "title": "GATE | CS | 2002 | Digital Logic | Number System | Question 21",
+      "slug": "in-2-s-complement-addition-overflow",
+      "question": "<p dir=\"ltr\"><span>In 2' s complement addition, overflow</span></p>",
+      "answers": [
+        {
+          "id": 30047,
+          "answer": "<p dir=\"ltr\"><span>is flagged whenever there is carry from sign bit addition</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30048,
+          "answer": "<p dir=\"ltr\"><span>cannot occur when a positive value is added to a negative value</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 30049,
+          "answer": "<p dir=\"ltr\"><span>is flagged when the carries from sign bit and previous bit match</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30050,
+          "answer": "<p dir=\"ltr\"><span>none of the above</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>is flagged when the carries from sign bit and previous bit DO NOT match. </span></p>",
+      "created_on": "2014-09-16 - 08:51:03",
+      "updated_on": "2025-07-01 - 16:33:43"
+    },
+    {
+      "id": 7481,
+      "title": "GATE | CS | 2002 | Digital Logic | Number System | Question 14",
+      "slug": "the-decimal-value-025",
+      "question": "<p dir=\"ltr\"><span>The decimal value 0.25</span></p>",
+      "answers": [
+        {
+          "id": 30035,
+          "answer": "<p dir=\"ltr\"><span>is equivalent to the binary value 0.1</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30036,
+          "answer": "<p dir=\"ltr\"><span>is equivalent to the binary value 0.01</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 30037,
+          "answer": "<p dir=\"ltr\"><span>is equivalent to the binary value 0.00111....</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30038,
+          "answer": "<p dir=\"ltr\"><span>cannot be represented precisely in binary</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We have 0.25</span><sub><span>10</span></sub><br><br><span>0.25 * 2 = </span><b><strong>0</strong></b><span>.50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 (whole part)</span><br><br><span>0.50 * 2 = </span><b><strong>1</strong></b><span>.00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 (whole part)</span><br><br><span>&nbsp;</span><br><br><span>So, 0.25</span><sub><span>10</span></sub><span> = 0.01</span><sub><span>2</span></sub><br><br><span>Thus, B is the correct choice.</span><br><br><span>&nbsp;</span><br><br><span>Please comment below if you find anything wrong in the above post.</span></p>",
+      "created_on": "2014-09-16 - 08:51:03",
+      "updated_on": "2025-07-01 - 16:30:04"
+    },
+    {
+      "id": 7482,
+      "title": "GATE | CS | 2002 | Number System | Digital Logic | Question 15",
+      "slug": "the-2-s-complement-representation-of-the-decimal-value",
+      "question": "<p dir=\"ltr\"><span>The 2' s complement representation of the decimal value - 15 is</span></p>",
+      "answers": [
+        {
+          "id": 30039,
+          "answer": "<p><span>1111</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30040,
+          "answer": "<p><span>11111</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30041,
+          "answer": "<p><span>111111</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30042,
+          "answer": "<p><span>10001</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>We have -15</span></p><p><sub><span>10</span></sub></p><p><span> = 1 1111</span></p><p><sub><span>2</span></sub></p><p dir=\"ltr\"><span>  1's complement of&nbsp; -15 = 1 0000 (Here, 1 represents negative sign)  2's complement of -15 = 1 0001  &nbsp;  Hence, D is the correct choice.  </span></p>",
+      "created_on": "2014-09-16 - 08:51:03",
+      "updated_on": "2025-07-01 - 16:29:30"
+    },
+    {
+      "id": 7483,
+      "title": "GATE | CS | 2002 | Digital Logic | Number System | Question 16",
+      "slug": "sign-extension-is-a-step-in",
+      "question": "<p dir=\"ltr\"><span>Sign extension is a step in</span></p>",
+      "answers": [
+        {
+          "id": 30043,
+          "answer": "<p dir=\"ltr\"><span>floating point multiplication</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30044,
+          "answer": "<p dir=\"ltr\"><span>signed 16 bit integer addition</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30045,
+          "answer": "<p dir=\"ltr\"><span>arithmetic left shift</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30046,
+          "answer": "<p dir=\"ltr\"><span>converting a signed integer from one size to another</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br></p>",
+      "created_on": "2014-09-16 - 08:51:03",
+      "updated_on": "2025-07-01 - 16:30:45"
+    },
+    {
+      "id": 7510,
+      "title": "GATE | CS | 2002 | COA | Control Unit | Question 32",
+      "slug": "horizontal-microprogramming",
+      "question": "<p dir=\"ltr\"><span>Horizontal microprogramming :</span></p>",
+      "answers": [
+        {
+          "id": 30151,
+          "answer": "<p dir=\"ltr\"><span>does not require use of signal decoders</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30152,
+          "answer": "<p dir=\"ltr\"><span>results in larger sized microinstructions than vertical microprogramming</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30153,
+          "answer": "<p dir=\"ltr\"><span>uses one bit for each control signal</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30154,
+          "answer": "<p dir=\"ltr\"><span>all of the above.</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>In horizontal microprogramming the instruction size is less as compared to vertical microprogramming. So, there is no need for decoding. </span><br><span>But, one bit is used for all control signals to execute the microinstruction.  If the bit is set to ‘1’  the control signal field is activated. If the bit is set to ‘0’ the control signal field is deactivated.</span><br><span>Thus, option (D) is correct.</span><br></p>",
+      "created_on": "2014-09-16 - 09:49:41",
+      "updated_on": "2025-07-01 - 16:37:07"
+    },
+    {
+      "id": 7509,
+      "title": "GATE | CS | 2002 | Miscellaneous | Question 29",
+      "slug": "what-are-the-states-of-the-auxiliary-carry-ac",
+      "question": "<p dir=\"ltr\"><span>What are the states of the Auxiliary Carry (AC) and Carry Flag (dCY) after executing the following 8085 program? </span></p><pre><span>   MVI L, 5DH</span><br><span>   MVI L, 6BH</span><br><span>   MOV A, H</span><br><span>   ADD L</span></pre>",
+      "answers": [
+        {
+          "id": 30147,
+          "answer": "<p dir=\"ltr\"><span>AC = 0 and CY = 0</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30148,
+          "answer": "<p dir=\"ltr\"><span>AC = 1 and CY = 1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30149,
+          "answer": "<p dir=\"ltr\"><span>AC = 1 and CY = 0</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 30150,
+          "answer": "<p dir=\"ltr\"><span>AC = 0 and CY = 0</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>First we load &nbsp;5D in L register But we have not stored it to the accumulator So, when we load 6B in L register, it overwrites 5D in L register and the same value 6BH is copied to accumulator</span><br><br><span>Now A = 6BH</span><br><span>L = 6BH</span><br><span>ADD L i.e. A = A + L</span><br><span>It will generate internal carry i.e. B + B = 22 i.e. 22 - 16 = 6</span><br><span>adding 2 to 6 + 6 =&gt; we get 14 =&gt; D</span><br><span>Hence answer is D6</span><br><span>Since there is internal carry only, no final carry as 14 &lt; 16</span><br><span>So, Auxiliary carry flag(AC) = 1</span><br><br><span>Carry Flag(CY) = 0 &nbsp; &nbsp;</span></p>",
+      "created_on": "2014-09-16 - 09:49:41",
+      "updated_on": "2025-07-01 - 16:35:50"
+    },
+    {
+      "id": 7507,
+      "title": "GATE | CS | 2002 | COA | Miscellaneous | Question 10",
+      "slug": "in-8085-which-of-the-following-modifies-the-program",
+      "question": "<p dir=\"ltr\"><span>In 8085, which of the following modifies the program counter ?\t\t </span></p>",
+      "answers": [
+        {
+          "id": 30139,
+          "answer": "<p dir=\"ltr\"><span>Only PCHL instruction</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30140,
+          "answer": "<p dir=\"ltr\"><span>Only ADD instructions</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30141,
+          "answer": "<p dir=\"ltr\"><span>Only JMP and CALL instructions</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30142,
+          "answer": "<p dir=\"ltr\"><span>All instructions</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Program counter is the register which has the next location of the program to be executed next. JMP &amp; CALL changes the value of PC. PCHL instruction copies content of registers H &amp; L to PC.  ADD instruction after completion increments program counter. So program counter is modified in all cases. Hence (D) is correct option.</span></p>",
+      "created_on": "2014-09-16 - 09:49:41",
+      "updated_on": "2025-07-01 - 16:42:11"
+    },
+    {
+      "id": 7506,
+      "title": "GATE | CS | 2002 | COA | Machine Instructions | Question 9",
+      "slug": "a-device-employing-intr-line-for-device-interrupt-puts",
+      "question": "<p dir=\"ltr\"><span>A device employing INTR line for device interrupt puts the CALL instruction on the data bus while </span></p><pre><span>\t\t </span><br><span>A)      </span><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2014/11/gatecs2002Q8.png\" alt=\"gatecs2002Q8\" width=\"37\" height=\"24\" loading=\"auto\"><span> is active</span><br><span>B)\tHOLD is active</span><br><span>C)\tREADY is active</span><br><span>D)\tNone of these</span></pre>",
+      "answers": [
+        {
+          "id": 30135,
+          "answer": "<p dir=\"ltr\"><span>A</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 30136,
+          "answer": "<p dir=\"ltr\"><span>B</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30137,
+          "answer": "<p dir=\"ltr\"><span>C</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30138,
+          "answer": "<p dir=\"ltr\"><span>D</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>Explanation:</strong></b></p><p dir=\"ltr\"><span>  INTR is a signal which if enabled then microprocessor has interrupt enabled .It receives high INTR signal and activates INTA signal, So another request can’t be accepted till CPU is busy in servicing interrupt  So (A) is correct option.</span></p>",
+      "created_on": "2014-09-16 - 09:49:41",
+      "updated_on": "2025-07-01 - 16:28:40"
+    },
+    {
+      "id": 7508,
+      "title": "GATE | CS | 2002 | COA  | Addressing Modes | Question 24",
+      "slug": "in-the-absolute-addressing-mode",
+      "question": "<p dir=\"ltr\"><span>In the absolute addressing mode</span></p>",
+      "answers": [
+        {
+          "id": 30143,
+          "answer": "<p dir=\"ltr\"><span>the operand is inside the instruction</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30144,
+          "answer": "<p dir=\"ltr\"><span>the address of the operand is inside the instruction</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 30145,
+          "answer": "<p dir=\"ltr\"><span>the register containing address of the operand is specified inside the instruction</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30146,
+          "answer": "<p dir=\"ltr\"><span>the location of the operand is implicit</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>(b) is the answer. Absolute addressing mode means address of operand is given in the instruction.  (a) operand is inside the instruction -&gt; immediate addressing (c) -&gt; register addressing (d) -&gt; implicit addressing</span></p>",
+      "created_on": "2014-09-16 - 09:49:41",
+      "updated_on": "2025-07-01 - 16:34:52"
+    },
+    {
+      "id": 7569,
+      "title": "GATE | CS | 2002 | Operating System | CPU Scheduling | Question 22",
+      "slug": "which-of-the-following-scheduling-algorithms-is-non-preemptive",
+      "question": "<p dir=\"ltr\"><span>Which of the following scheduling algorithms is non-preemptive?</span></p>",
+      "answers": [
+        {
+          "id": 30387,
+          "answer": "<p dir=\"ltr\"><span>Round Robin</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30388,
+          "answer": "<p dir=\"ltr\"><span>First-In First-Out</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 30389,
+          "answer": "<p dir=\"ltr\"><span>Multilevel Queue Scheduling</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30390,
+          "answer": "<p dir=\"ltr\"><span>Multilevel Queue Scheduling with Feedback</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><b><strong>1. Round Robin:</strong></b><span> Preemption takes place when the time quantum expires </span><br><b><strong>2. First In First Out:</strong></b><span> No Preemption, the process once started completes before the other process takes over</span><br><span>3. </span><b><strong>Multi Level Queue Scheduling:</strong></b><span> Preemption takes place when a process of higher priority arrive</span><br><span>4. </span><b><strong>Multi Level Queue Scheduling with Feedback: </strong></b><span>Preemption takes a place when process of higher priority arrives or when the quantum of high priority queue expires and we need to move the process to low priority queue &nbsp;So, B is the correct choice. &nbsp;</span></p>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-08-28 - 12:43:06"
+    },
+    {
+      "id": 7570,
+      "title": "GATE | CS | 2002 | Data Structures | Array | Question 33",
+      "slug": "consider-the-following-declaration-of-a-two-dimensional-array",
+      "question": "<p dir=\"ltr\"><span>Consider the following declaration of a two dimensional array in C: </span></p><gfg-tabs data-run-ide=\"false\">\n        <gfg-tab slot=\"tab\">C</gfg-tab>\n        <gfg-panel slot=\"panel\" data-code-lang=\"c\">\n        <code class=\"language-c\"><div class=highlight><pre><span></span><span class=w>   </span><span class=kt>char</span><span class=w> </span><span class=n>a</span><span class=p>[</span><span class=mi>100</span><span class=p>][</span><span class=mi>100</span><span class=p>];</span>\n</pre></div></code>\n        </gfg-panel>\n    </gfg-tabs><p dir=\"ltr\"><span>Assuming that the main memory is byte-addressable and that the array is stored starting from memory address 0, the address of a [40][50] is : </span></p>",
+      "answers": [
+        {
+          "id": 30391,
+          "answer": "<p><span>4040</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30392,
+          "answer": "<p><span>4050</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 30393,
+          "answer": "<p><span>5040</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30394,
+          "answer": "<p><span>5050</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Address of a[40][50] = </span><br><span>     Base address + 40*100*element_size + 50*element_size</span><br><span>     0 + 4000*1 + 50*1</span><br><span>     4050</span></pre>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-07-01 - 16:37:48"
+    },
+    {
+      "id": 7568,
+      "title": "GATE | CS | 2002 | C Programming | Recursion | Question 17",
+      "slug": "in-the-c-language",
+      "question": "<p dir=\"ltr\"><span>In the C language</span></p>",
+      "answers": [
+        {
+          "id": 30383,
+          "answer": "<p dir=\"ltr\"><span>At most one activation record exists between the current activation record and the activation record for the main</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30384,
+          "answer": "<p dir=\"ltr\"><span>The number of activation records between the current activation record and the activation record for the main depends on the actual function calling sequence.</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 30385,
+          "answer": "<p dir=\"ltr\"><span>The visibility of global variables depends on the actual function calling sequence.</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30386,
+          "answer": "<p dir=\"ltr\"><span>Recursion requires the activation record for the recursive function to be saved on a different stack before the recursive function can be called.</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>The portion of the stack used for an invocation of a function is called the function’s stack frame or activation record. An activation record is another name for Stack Frame. It's the data structure that composes a call stack. It is generally composed of:</span></p><ul><li value=\"1\"><span>Locals to the callee</span></li><li value=\"2\"><span>Return address to the caller</span></li><li value=\"3\"><span>Parameters of the callee</span></li></ul><p dir=\"ltr\"><span>The Call Stack is thus composed of any number of activation records that get added to the stack as new subroutines are added, and removed from the stack (usually) as they return. In C language the program execution starts with main function, so it is the first activation record in the function stack. Now looking at each option-</span></p><p><u><span class=\"GFGEditorTheme__textUnderline\">:</span></u></p><p dir=\"ltr\"><span>  Option a</span></p><p><span>- </span></p><p dir=\"ltr\"><span>The statement is false as any number of functions can be called from the main. It might not be necessary that at-most one activation record exist and activation record of main. For example- as in case of recursion.</span></p><pre><span>Recurse (int n)</span><br><span>{</span><br><span>\tif(n==0)</span><br><span>         return ;</span><br><span>       else </span><br><span>         recurse(n-1);</span><br><span>}</span><br></pre><p dir=\"ltr\"><span>In above example activation record of main and recurse(4) will have activation record of recurse(5), recurse(6) (more than one) if we pass n=6 initially to the function.</span></p><p dir=\"ltr\"><u><span class=\"GFGEditorTheme__textUnderline\">Option b</span></u></p><p dir=\"ltr\"><span>- True as soon as a function is called its activation record is created in the function stack.</span></p><p dir=\"ltr\"><u><span class=\"GFGEditorTheme__textUnderline\">Option c</span></u></p><p dir=\"ltr\"><span>- In C language variables are statically scoped not dynamically, the global variables are statically assigned address space when the execution starts not depending on when and where they are used.</span></p><p dir=\"ltr\"><u><span class=\"GFGEditorTheme__textUnderline\">Option d</span></u></p><p dir=\"ltr\"><span>- The functions are stored in the same each time recursive call is made, considering the above recurse function</span></p><table><thead><span>  </span></thead><tbody><tr><td><span>Recurse(4)</span></td></tr><tr><td><span>Recurse(5)</span></td></tr><tr><td><span>Recurse(6)</span></td></tr><tr><td><span>Main()</span></td></tr></tbody></table><p dir=\"ltr\"><span> &nbsp;  Refer </span></p><a href=\"http://geeksquiz.com/c-misc-question-1/\"><span>http://geeksquiz.com/c-misc-question-1/</span></a><p dir=\"ltr\"><span>  This solution is contributed by</span></p><p dir=\"ltr\"><b><strong> P</strong></b></p><p dir=\"ltr\"><b><strong>arul</strong></b></p><p dir=\"ltr\"><b><strong> sharma.</strong></b></p>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-07-01 - 16:32:22"
+    },
+    {
+      "id": 7567,
+      "title": "GATE | CS | 2002 |  Algorithms | Complexity Analysis | Question 5",
+      "slug": "in-the-worst-case-the-number-of-comparisons-needed-1",
+      "question": "<p dir=\"ltr\"><span>In the worst case, the number of comparisons needed to search a singly linked list of length n for a given element is</span></p>",
+      "answers": [
+        {
+          "id": 30379,
+          "answer": "<p dir=\"ltr\"><span>log</span><sub><span>2</span></sub><span> n</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30380,
+          "answer": "<p dir=\"ltr\"><span>n/2</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30381,
+          "answer": "<p dir=\"ltr\"><span>log</span><sub><span>2</span></sub><span>n - 1</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30382,
+          "answer": "<p dir=\"ltr\"><span>n</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>Singly linked list has uni - directional flow, i.e., it has only one pointer for moving (the next pointer).  In the worst case, for searching an element in the singly linked list, we will have to traverse the whole list (the case when the required element is either the last element or is not present in the list).  So, in the worst case for a list of length n, we will have to go to each node for comparison and thus, we would be needing 'n' comparisons.  Thus, D is the correct choice.  &nbsp;  Please comment below if you find anything wrong in the above post.</span></p>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-07-01 - 16:27:01"
+    },
+    {
+      "id": 7575,
+      "title": "GATE | CS | 2002 | Operating System | Process | Question 46",
+      "slug": "which-combination-of-the-following-features-will-suffice-to",
+      "question": "<p dir=\"ltr\"><span>Which combination of the following features will suffice to characterize an OS as a multi-programmed OS? </span></p><pre><span>(a) More than one program may be loaded into main memory </span><br><span>   at the same time for execution. </span><br><span>(b) If a program waits for certain events such as I/O, </span><br><span>   another program is immediately scheduled for execution. </span><br><span>(c) If the execution of program terminates, another program </span><br><span>   is immediately scheduled for execution. </span></pre>",
+      "answers": [
+        {
+          "id": 30411,
+          "answer": "<p dir=\"ltr\"><span>a</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30412,
+          "answer": "<p dir=\"ltr\"><span>a and b</span></p>",
+          "correct": true,
+          "sort_order": 1
+        },
+        {
+          "id": 30413,
+          "answer": "<p dir=\"ltr\"><span>a and c</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30414,
+          "answer": "<p dir=\"ltr\"><span>a, b and c</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>(a) More than one program may be loaded into main memory </span><br><span>   at the same time for execution. </span><br><b><strong>True:</strong></b><span> Only done in a multiprogrammed OS, not in single</span><br><span>       programmed OS</span><br><br><span>(b) If a program waits for certain events such as I/O, </span><br><span>   another program is immediately scheduled for execution.</span><br><b><strong>True:</strong></b><span> Only done in a multiprogrammed OS, not in single</span><br><span>       programmed OS</span><br><span> </span><br><span>(c) If the execution of program terminates, another program </span><br><span>   is immediately scheduled for execution. </span><br><b><strong>False:</strong></b><span> Done in both Multiprogrammed and single</span><br><span>       programmed OSs</span></pre>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-07-01 - 16:41:08"
+    },
+    {
+      "id": 7574,
+      "title": "GATE | CS | 2002 | Algorithms | Complexity Analysis | Question 37",
+      "slug": "a-weight-balanced-tree-is-a-binary-tree-in-which-1",
+      "question": "<p dir=\"ltr\"><span>A weight-balanced tree is a binary tree in which for each node, the number of nodes in the left subtree is at least half and at most twice the number of nodes in the right subtree. The maximum possible height (number of nodes on the path from the root to the furthest leaf) of such a tree on n nodes is best described by which of the following?</span></p>",
+      "answers": [
+        {
+          "id": 30407,
+          "answer": "<p dir=\"ltr\"><span>log</span><sub><span>2</span></sub><span> n</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30408,
+          "answer": "<p dir=\"ltr\"><span>log</span><sub><span>4/3</span></sub><span> n</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30409,
+          "answer": "<p dir=\"ltr\"><span>log</span><sub><span>3</span></sub><span> n</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30410,
+          "answer": "<p dir=\"ltr\"><span>log</span><sub><span>3/2</span></sub><span> n</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p><br><br><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2017/01/anil_ds_37.png\" alt=\"anil_ds_37\" width=\"541\" height=\"776\" loading=\"auto\"><br><br></p>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-07-01 - 16:40:22"
+    },
+    {
+      "id": 7573,
+      "title": "GATE | CS | 2002 | Algorithms | Complexity Analysis | Question 36",
+      "slug": "the-running-time-of-the-following-algorithm-procedure-an-1",
+      "question": "<p dir=\"ltr\"><span>The running time of the following algorithm Procedure A(n) </span></p><pre><span>  If n &lt; = 2 return (1) </span><br><span>  else return (A(Image not present√nImage not present));</span></pre><p dir=\"ltr\"><span> is best described by :</span></p>",
+      "answers": [
+        {
+          "id": 30403,
+          "answer": "<p dir=\"ltr\"><span>O(n)</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30404,
+          "answer": "<p dir=\"ltr\"><span>O(log n)</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30405,
+          "answer": "<p dir=\"ltr\"><span>O(log Log n)</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 30406,
+          "answer": "<p dir=\"ltr\"><span>O(l1)</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>&nbsp;</span><br><br><span>Now let the function is called k times</span><br><br><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2016/12/parul_7.png\" alt=\"parul_7\" width=\"102\" height=\"47\" loading=\"auto\"><br><br><span>Taking</span><b><strong> log</strong></b><span> on both side (base 2).</span><br><br><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2016/12/parul_8.png\" alt=\"parul_8\" width=\"96\" height=\"91\" loading=\"auto\"><br><br><span>Taking </span><b><strong>log</strong></b><span> again.</span><br><br><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2016/12/parul_9.png\" alt=\"parul_9\" width=\"117\" height=\"28\" loading=\"auto\"><br><br><span>Running time complexity = number of function calls = k =&nbsp;Therefore Running time complexity =&nbsp;</span><img src=\"http://www.geeksforgeeks.org/wp-content/uploads/gq/2016/12/parul_9.png\" alt=\"parul_9\" width=\"117\" height=\"28\" loading=\"auto\"><br><br><span>&nbsp;</span></p>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-07-01 - 16:40:03"
+    },
+    {
+      "id": 7572,
+      "title": "GATE | CS | 2002 | Algorithms | Complexity Analysis | Question 35",
+      "slug": "consider-the-following-algorithm-for-searching-for-a-given",
+      "question": "<p dir=\"ltr\"><span>Consider the following algorithm for searching for a given number x in an unsorted array A[1.....n] having n distinct values:</span></p><pre><span>   1. Choose an i uniformly at random from 1..... n;</span><br><span>   2. If A[i] = x then Stop else Goto 1; </span></pre><p dir=\"ltr\"><span>Assuming that x is present in A, what is the expected number of comparisons made by the algorithm before it terminates ?</span></p>",
+      "answers": [
+        {
+          "id": 30399,
+          "answer": "<p dir=\"ltr\"><span>n</span></p>",
+          "correct": true,
+          "sort_order": 0
+        },
+        {
+          "id": 30400,
+          "answer": "<p dir=\"ltr\"><span>n - 1</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30401,
+          "answer": "<p dir=\"ltr\"><span>2n</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30402,
+          "answer": "<p dir=\"ltr\"><span>n/2</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>If you remember the coin and dice questions, you can just guess the answer for the above.</span></p><p dir=\"ltr\"><span>Below is proof for the answer.</span></p><p dir=\"ltr\"><span>Let expected number of comparisons be E. Value of E is sum of following expression for all the possible cases.</span></p><pre><span>number_of_comparisons_for_a_case * probability_for_the_case </span></pre><p dir=\"ltr\"><span>Case 1</span></p><pre><span>  If A[i] is found in the first attempt </span><br><span>  number of comparisons = 1</span><br><span>  probability of the case  = 1/n</span></pre><p dir=\"ltr\"><span>Case 2</span></p><pre><span>  If A[i] is found in the second attempt </span><br><span>  number of comparisons = 2</span><br><span>  probability of the case  = (n-1)/n*1/n</span></pre><p dir=\"ltr\"><span>Case 3</span></p><pre><span>  If A[i] is found in the third attempt </span><br><span>  number of comparisons = 2</span><br><span>  probability of the case  = (n-1)/n*(n-1)/n*1/n</span></pre><p dir=\"ltr\"><span>There are actually infinite such cases. So, we have following infinite series for E.</span></p><pre><span>E  = 1/n + [(n-1)/n]*[1/n]*2 + [(n-1)/n]*[(n-1)/n]*[1/n]*3 + ….  (1)</span></pre><p dir=\"ltr\"><span>After multiplying equation (1) with (n-1)/n, we get</span></p><pre><span>E (n-1)/n = [(n-1)/n]*[1/n] + [(n-1)/n]*[(n-1)/n]*[1/n]*2 + </span><br><span>                                 [(n-1)/n]*[(n-1)/n]*[(n-1)/n]*[1/n]*3 ……….(2)</span></pre><p dir=\"ltr\"><span>Subtracting (2) from (1), we get</span></p><pre><span>E/n = 1/n + (n-1)/n*1/n + (n-1)/n*(n-1)/n*1/n + …………</span></pre><p dir=\"ltr\"><span>The expression on right side is a GP with infinite elements. Let us apply the sum formula (a/(1-r))</span></p><pre><span>  E/n = [1/n]/[1-(n-1)/n]  = 1</span><br><span>  E = n</span></pre>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-07-01 - 16:39:10"
+    },
+    {
+      "id": 7571,
+      "title": "GATE | CS | 2002 | Data Structures | Trees | Question 34",
+      "slug": "the-number-of-leaf-nodes-in-a-rooted-tree-1",
+      "question": "<p dir=\"ltr\"><span>The number of leaf nodes in a rooted tree of n nodes, with each node having 0 or 3 children is:</span></p>",
+      "answers": [
+        {
+          "id": 30395,
+          "answer": "<p dir=\"ltr\"><span>n/2</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 30396,
+          "answer": "<p dir=\"ltr\"><span>(n - 1)/3</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 30397,
+          "answer": "<p dir=\"ltr\"><span>(n - 1)/2</span></p>",
+          "correct": false,
+          "sort_order": 2
+        },
+        {
+          "id": 30398,
+          "answer": "<p dir=\"ltr\"><span>(2n + 1)/3</span></p>",
+          "correct": true,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<p dir=\"ltr\"><span>See </span><a href=\"http://geeksquiz.com/data-structures-binary-trees-question-17/\" target=\"_blank\"><span>http://geeksquiz.com/data-structures-binary-trees-question-17/</span></a></p>",
+      "created_on": "2014-11-29 - 07:10:59",
+      "updated_on": "2025-07-01 - 16:38:25"
+    },
+    {
+      "id": 4246,
+      "title": "GATE | CS | 2002 | Database | Indexing(B/B+ Tree) | Question 48",
+      "slug": "a-b-tree-index-is-to-be-built-on",
+      "question": "<p dir=\"ltr\"><span>A B+ -tree index is to be built on the Name attribute of the relation STUDENT. Assume that all student names are of length 8 bytes, disk block are size 512 bytes, and index pointers are of size 4 bytes. Given this scenario, what would be the best choice of the degree (i.e. the number of pointers per node) of the B+ -tree?</span></p>",
+      "answers": [
+        {
+          "id": 17372,
+          "answer": "<p><span>16</span></p>",
+          "correct": false,
+          "sort_order": 0
+        },
+        {
+          "id": 17373,
+          "answer": "<p><span>42</span></p>",
+          "correct": false,
+          "sort_order": 1
+        },
+        {
+          "id": 17374,
+          "answer": "<p><span>43</span></p>",
+          "correct": true,
+          "sort_order": 2
+        },
+        {
+          "id": 17375,
+          "answer": "<p><span>44</span></p>",
+          "correct": false,
+          "sort_order": 3
+        }
+      ],
+      "explanation": "<pre><span>Size of 1 record = 8 + 4 = 12</span><br><br><span>Let the order be N.</span><br><br><span>No. of index values per block = N - 1</span><br><br><span>(N - 1) 12 + 4 = 512</span><br><br><span>12N - 12 + 4 = 512</span><br><br><span>12N - 8 = 512</span><br><br><span>12N = 520</span><br><br><span>N = 520/12</span><br><br><span>N = 43.333</span><br></pre>",
+      "created_on": "2022-12-30 - 15:56:28",
+      "updated_on": "2025-07-01 - 15:58:04"
+    }
+  ],
+  "quiz": {
+    "id": 218,
+    "question_count": 50,
+    "bottom_description": "",
+    "title": "GATE-CS-2002",
+    "slug": "gate-cs-2002-gq",
+    "category": [
+      {
+        "id": 4355,
+        "name": "GATE",
+        "slug": "gate",
+        "origin_term_id": 2209,
+        "origin_slug": "computer-subject/computer-science-quizzes-gq/gate"
+      }
+    ],
+    "show_answer": 3,
+    "created_on": "2014-11-29 - 07:10:59",
+    "updated_on": "2024-04-02 - 13:01:22"
+  }
+}
