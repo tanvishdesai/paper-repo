@@ -34,7 +34,6 @@ interface Stats {
   totalQuestions: number;
   totalSubjects: number;
   totalChapters: number;
-  totalSubtopics: number;
   earliestYear: number;
   latestYear: number;
 }
@@ -42,7 +41,6 @@ interface Stats {
 interface GraphFilters {
   showSubjects: boolean;
   showChapters: boolean;
-  showSubtopics: boolean;
   showQuestions: boolean;
   searchTerm: string;
 }
@@ -68,7 +66,6 @@ export default function ExplorePage() {
   const [filters, setFilters] = useState<GraphFilters>({
     showSubjects: true,
     showChapters: true,
-    showSubtopics: true,
     showQuestions: false,
     searchTerm: ""
   });
@@ -122,8 +119,8 @@ export default function ExplorePage() {
         links.push({ source: "root", target: `subject-${sanitizedSubject}`, type: "contains" });
       }
 
-      // Add chapter and subtopic nodes if enabled
-      if (filters.showChapters || filters.showSubtopics) {
+      // Add chapter nodes if enabled
+      if (filters.showChapters) {
         for (const [sanitizedChapter] of Object.entries(convexStats.chapters || {})) {
           // Find the original chapter name from subtopicsByChapter (which stores original names in arrays)
           const originalChapterNames = convexStats.subtopicsByChapter?.[sanitizedChapter] || [];
@@ -156,32 +153,6 @@ export default function ExplorePage() {
               });
             });
           }
-
-          if (filters.showSubtopics) {
-            const subtopics = convexStats.subtopicsByChapter?.[sanitizedChapter] || [];
-            subtopics.forEach((subtopic) => {
-              // Sanitize subtopic name for node ID to match the chapter key
-              const sanitizedSubtopic = sanitizeKey(subtopic);
-              const subtopicNode: GraphNode = {
-                id: `subtopic-${sanitizedSubtopic}`,
-                label: subtopic, // Display original name
-                type: "subtopic",
-              };
-
-              if (!nodeMap.has(sanitizedSubtopic)) {
-                nodes.push(subtopicNode);
-                nodeMap.set(sanitizedSubtopic, subtopicNode);
-              }
-
-              if (filters.showChapters) {
-                links.push({ 
-                  source: `chapter-${sanitizedChapter}`, 
-                  target: `subtopic-${sanitizedSubtopic}`, 
-                  type: "has_subtopic" 
-                });
-              }
-            });
-          }
         }
       }
 
@@ -190,7 +161,6 @@ export default function ExplorePage() {
         totalQuestions: convexStats.totalQuestions,
         totalSubjects: convexStats.subjectList?.length || 0,
         totalChapters: Object.keys(convexStats.chapters || {}).length,
-        totalSubtopics: Object.keys(convexStats.subtopics || {}).length,
         earliestYear: convexStats.yearRange?.min || new Date().getFullYear(),
         latestYear: convexStats.yearRange?.max || new Date().getFullYear(),
       };
@@ -387,10 +357,6 @@ export default function ExplorePage() {
                   <span className="font-semibold">{stats.totalChapters}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Subtopics:</span>
-                  <span className="font-semibold">{stats.totalSubtopics}</span>
-                </div>
-                <div className="flex justify-between">
                   <span className="text-muted-foreground">Year Range:</span>
                   <span className="font-semibold">{stats.earliestYear} - {stats.latestYear}</span>
                 </div>
@@ -423,15 +389,6 @@ export default function ExplorePage() {
                       className="rounded"
                     />
                     <span className="text-sm">Show Chapters</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={filters.showSubtopics}
-                      onChange={(e) => setFilters({ ...filters, showSubtopics: e.target.checked })}
-                      className="rounded"
-                    />
-                    <span className="text-sm">Show Subtopics</span>
                   </label>
                 </div>
                 <Button onClick={handleResetZoom} variant="secondary" size="sm" className="w-full">

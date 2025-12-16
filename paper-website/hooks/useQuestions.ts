@@ -1,4 +1,4 @@
-import { useQuery } from "convex/react";
+import { useQuery, usePaginatedQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
@@ -116,5 +116,43 @@ export function useQuestionCount(subject?: string, chapter?: string, year?: numb
   return {
     count: count || 0,
     loading: count === undefined,
+  };
+}
+
+export interface UsePaginatedQuestionsOptions {
+  subject?: string;
+  chapter?: string;
+  year?: number;
+  search?: string;
+  initialNumItems?: number;
+}
+
+/**
+ * Hook to fetch questions with pagination and filters
+ */
+export function usePaginatedQuestions({
+  subject,
+  chapter,
+  year,
+  search,
+  initialNumItems = 10,
+}: UsePaginatedQuestionsOptions) {
+  const { results, status, loadMore } = usePaginatedQuery(
+    api.questions.getPaginatedQuestions,
+    {
+      subject,
+      chapter,
+      year,
+      search,
+    },
+    { initialNumItems }
+  );
+
+  return {
+    questions: results,
+    status,
+    loadMore,
+    isLoading: status === "LoadingFirstPage",
+    isLoadingMore: status === "LoadingMore",
   };
 }

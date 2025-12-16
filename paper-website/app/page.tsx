@@ -8,39 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { BackgroundPaths } from "@/components/ui/background-paths";
-import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
+import SubjectVortex from "@/components/ui/subject-vortex";
 import NavigationDock from "@/components/navigation-dock";
 import DisplayCards from "@/components/ui/display-cards";
 import { CyberneticBentoGrid } from "@/components/ui/cybernetic-bento-grid";
 import { BookOpen, Target,  Zap, Brain, Trophy, CheckCircle2, Users, Star, ArrowRight, BarChart3, Filter,  Cpu, Database, Network, Settings, Calculator, Layers,  Sparkles, ChevronDown } from "lucide-react";
 
-/**
- * Sanitize a string to be used as an object key by replacing invalid characters
- * Must match the sanitization function in convex/questions.ts
- */
-function sanitizeKey(key: string): string {
-  return key
-    .replace(/‐/g, '-') // Replace en-dash (U+2010) with regular hyphen
-    .replace(/–/g, '-') // Replace en-dash (U+2013) with regular hyphen
-    .replace(/—/g, '-') // Replace em-dash (U+2014) with regular hyphen
-    .replace(/[\x00-\x1F\x7F-\x9F]/g, '') // Remove control characters
-    .replace(/[^\x20-\x7E]/g, '_'); // Replace any other non-ASCII printable characters with underscore
-}
 
-// Icon mapping for subjects
-const iconMap: Record<string, React.ElementType> = {
-  "⚡": Zap,
-  "🗂️": Layers,
-  "💻": Cpu,
-  "🗄️": Database,
-  "🌐": Network,
-  "🖥️": Settings,
-  "📐": Calculator,
-  "🔧": Settings,
-  "⚙️": Settings,
-  "📊": BarChart3,
-  "🎯": Target,
-};
 
 export default function Home() {
   const router = useRouter();
@@ -50,33 +24,10 @@ export default function Home() {
   // Calculate total question count
   const totalQuestions = useQuery(api.questions.getQuestionCount, {});
   // Fetch detailed stats for per-subject counts
-  const detailedStats = useQuery(api.questions.getDetailedStats);
 
-  const handleNavigate = (subject: string) => {
-    router.push(`/questions/${encodeURIComponent(subject)}`);
-  };
+ 
 
-  // Transform subjects to timeline data for display
-  const timelineData = (subjects || []).map((subject, index) => {
-    // Get actual question count for this subject (use sanitized key to match getDetailedStats)
-    const sanitizedSubject = sanitizeKey(subject);
-    const subjectCount = detailedStats?.subjects?.[sanitizedSubject] || 0;
-    
-    return {
-      id: index + 1,
-      title: subject.substring(0, 3).toUpperCase(),
-      fullTitle: subject,
-      date: `${subjectCount} Questions`,
-      content: subject,
-      category: "Computer Science",
-      icon: iconMap[subject.charAt(0)] || BookOpen,
-      relatedIds: [],
-      status: "completed" as const,
-      energy: Math.floor(60 + Math.random() * 40),
-      fileName: subject,
-      questionCount: subjectCount,
-    };
-  });
+  /* Removed timelineData transformation as it is no longer needed for SubjectVortex */
 
   return (
     <div className="min-h-screen bg-background">
@@ -261,12 +212,14 @@ export default function Home() {
               Choose Your Subject
             </h3>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-light">
-              Explore our comprehensive collection of Computer Science subjects in an interactive timeline
+              Explore our comprehensive collection of Computer Science subjects in a 3D interactive vortex.
             </p>
           </div>
-          <div className="h-screen w-full">
-            {timelineData.length > 0 && (
-              <RadialOrbitalTimeline timelineData={timelineData} onNavigate={handleNavigate} />
+          <div className="w-full flex justify-center">
+            {subjects && subjects.length > 0 ? (
+               <SubjectVortex subjects={subjects} />
+            ) : (
+               <div className="h-64 flex items-center justify-center text-muted-foreground">Loading subjects...</div>
             )}
           </div>
         </div>

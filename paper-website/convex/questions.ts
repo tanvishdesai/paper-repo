@@ -1,5 +1,6 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { paginationOptsValidator } from "convex/server";
 import { Doc } from "./_generated/dataModel";
 
 /**
@@ -50,11 +51,11 @@ export const getSimilarQuestions = query({
     // If subjectChapter is available, use index; otherwise query all questions
     const allSimilarQuestions = question.subjectChapter
       ? await ctx.db
-          .query("questions")
-          .withIndex("by_subject_chapter", (q) =>
-            q.eq("subjectChapter", question.subjectChapter!)
-          )
-          .collect()
+        .query("questions")
+        .withIndex("by_subject_chapter", (q) =>
+          q.eq("subjectChapter", question.subjectChapter!)
+        )
+        .collect()
       : await ctx.db.query("questions").collect();
 
     // Filter out current question and sort by year proximity
@@ -66,7 +67,7 @@ export const getSimilarQuestions = query({
       const aYear = a.year ?? 0;
       const bYear = b.year ?? 0;
       const questionYear = question.year ?? 0;
-      
+
       const diffA = Math.abs(aYear - questionYear);
       const diffB = Math.abs(bYear - questionYear);
       if (diffA !== diffB) return diffA - diffB;
@@ -125,23 +126,23 @@ export const getQuestions = query({
         .query("questions")
         .withIndex("by_subject", (q) => q.eq("subject", normalizedSubject))
         .collect();
-      
+
       // Also query all questions and filter for case-insensitive subject match
       // This handles edge cases where subject might have slight variations
       const allQuestions = await ctx.db.query("questions").collect();
-      const caseInsensitiveMatches = allQuestions.filter((q) => 
+      const caseInsensitiveMatches = allQuestions.filter((q) =>
         q.subject?.trim().toLowerCase() === normalizedSubject.toLowerCase()
       );
 
       // Combine and deduplicate by _id (use Map to avoid duplicates)
       const questionMap = new Map<string, Doc<"questions">>();
-      
+
       // Add indexed results first (most likely to be correct)
       indexedQuestions.forEach((q) => questionMap.set(q._id, q));
-      
+
       // Add case-insensitive matches (will only add if not already present)
       caseInsensitiveMatches.forEach((q) => questionMap.set(q._id, q));
-      
+
       questions = Array.from(questionMap.values());
     } else {
       // No subject filter - get all questions
@@ -160,7 +161,7 @@ export const getQuestions = query({
 
     if (args.search) {
       const searchLower = args.search.toLowerCase();
-      questions = questions.filter((q) => 
+      questions = questions.filter((q) =>
         q.question?.toLowerCase().includes(searchLower) ||
         q.explanation?.toLowerCase().includes(searchLower)
       );
@@ -214,23 +215,23 @@ export const getQuestionsByFilters = query({
         .query("questions")
         .withIndex("by_subject", (q) => q.eq("subject", normalizedSubject))
         .collect();
-      
+
       // Also query all questions and filter for case-insensitive subject match
       // This handles edge cases where subject might have slight variations
       const allQuestions = await ctx.db.query("questions").collect();
-      const caseInsensitiveMatches = allQuestions.filter((q) => 
+      const caseInsensitiveMatches = allQuestions.filter((q) =>
         q.subject?.trim().toLowerCase() === normalizedSubject.toLowerCase()
       );
 
       // Combine and deduplicate by _id (use Map to avoid duplicates)
       const questionMap = new Map<string, Doc<"questions">>();
-      
+
       // Add indexed results first (most likely to be correct)
       indexedQuestions.forEach((q) => questionMap.set(q._id, q));
-      
+
       // Add case-insensitive matches (will only add if not already present)
       caseInsensitiveMatches.forEach((q) => questionMap.set(q._id, q));
-      
+
       questions = Array.from(questionMap.values());
     } else {
       // No subject filter - get all questions
@@ -262,9 +263,9 @@ export const getSubjects = query({
         .map((q) => q.subject)
         .filter((subject): subject is string => {
           return subject !== undefined &&
-                 subject !== null &&
-                 subject !== "undefined" &&
-                 subject.trim() !== "";
+            subject !== null &&
+            subject !== "undefined" &&
+            subject.trim() !== "";
         })
     );
     return Array.from(subjectsSet).sort();
@@ -471,11 +472,11 @@ export const precomputeAllSimilarQuestions = mutation({
       // If subjectChapter is available, use index; otherwise query all questions
       const similar = question.subjectChapter
         ? await ctx.db
-            .query("questions")
-            .withIndex("by_subject_chapter", (q) =>
-              q.eq("subjectChapter", question.subjectChapter!)
-            )
-            .collect()
+          .query("questions")
+          .withIndex("by_subject_chapter", (q) =>
+            q.eq("subjectChapter", question.subjectChapter!)
+          )
+          .collect()
         : await ctx.db.query("questions").collect();
 
       const filtered = similar.filter(
@@ -486,7 +487,7 @@ export const precomputeAllSimilarQuestions = mutation({
         const aYear = a.year ?? 0;
         const bYear = b.year ?? 0;
         const questionYear = question.year ?? 0;
-        
+
         const diffA = Math.abs(aYear - questionYear);
         const diffB = Math.abs(bYear - questionYear);
         return diffA !== diffB ? diffA - diffB : bYear - aYear;
@@ -591,10 +592,10 @@ export const getDetailedStats = query({
     // Count by subject
     const subjects: Record<string, number> = {};
     const subjectList: string[] = [];
-    
+
     // Count by chapter (using sanitized keys)
     const chapters: Record<string, number> = {};
-    
+
     // Year range and year distribution
     let minYear: number | undefined = undefined;
     let maxYear: number | undefined = undefined;
@@ -650,7 +651,7 @@ export const getDetailedStats = query({
           item.subtopic === subtopic &&
           item.year === question.year
       );
-      
+
       if (existingItem) {
         existingItem.count++;
       } else {
@@ -699,7 +700,7 @@ export const getDetailedStats = query({
     // Use sanitized keys for object keys, but preserve original chapter names in arrays
     const subtopicsByChapter: Record<string, string[]> = {};
     const chapterNameMap = new Map<string, string>(); // Map sanitized -> original
-    
+
     // Build map of sanitized chapter keys to original chapter names
     for (const question of allQuestions) {
       if (question.chapter) {
@@ -709,7 +710,7 @@ export const getDetailedStats = query({
         }
       }
     }
-    
+
     // Populate subtopicsByChapter using sanitized keys
     for (const sanitizedChapter of Object.keys(chapters)) {
       const originalChapter = chapterNameMap.get(sanitizedChapter) || sanitizedChapter;
@@ -750,21 +751,21 @@ export const getDetailedStats = query({
 export const getSubjectBreakdown = query({
   handler: async (ctx) => {
     const questions = await ctx.db.query("questions").collect();
-    
+
     // Group by exact subject name
     const breakdown: Record<string, number> = {};
-    
+
     for (const question of questions) {
       if (question.subject) {
         breakdown[question.subject] = (breakdown[question.subject] || 0) + 1;
       }
     }
-    
+
     // Sort by count descending
     const sorted = Object.entries(breakdown)
       .map(([subject, count]) => ({ subject, count }))
       .sort((a, b) => b.count - a.count);
-    
+
     return sorted;
   },
 });
@@ -797,5 +798,85 @@ export const cleanupUndefinedSubjects = mutation({
       deletedCount,
       totalProcessed: questions.length,
     };
+  },
+});
+
+/**
+ * Get questions with pagination and answers, optimized for performance
+ */
+export const getPaginatedQuestions = query({
+  args: {
+    subject: v.optional(v.string()),
+    chapter: v.optional(v.string()),
+    year: v.optional(v.number()),
+    search: v.optional(v.string()),
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const normalizedSubject = args.subject?.trim();
+    let queryBuilder;
+
+    if (args.search) {
+      // 1. Use search index if search query is present
+      queryBuilder = ctx.db
+        .query("questions")
+        .withSearchIndex("search_content", (q) => {
+          let s = q.search("question", args.search!);
+          if (normalizedSubject) s = s.eq("subject", normalizedSubject);
+          if (args.chapter) s = s.eq("chapter", args.chapter);
+          if (args.year) s = s.eq("year", args.year);
+          return s;
+        });
+    } else {
+      // 2. Select the best standard index based on available filters
+      if (normalizedSubject && args.chapter && args.year) {
+        // Use subject+chapter index, filter year exactly
+        const subjectChapter = `${normalizedSubject}::${args.chapter}`;
+        queryBuilder = ctx.db
+          .query("questions")
+          .withIndex("by_subject_chapter", (q) =>
+            q.eq("subjectChapter", subjectChapter).eq("year", args.year!)
+          );
+      } else if (normalizedSubject && args.chapter) {
+        // Use subject+chapter index
+        const subjectChapter = `${normalizedSubject}::${args.chapter}`;
+        queryBuilder = ctx.db
+          .query("questions")
+          .withIndex("by_subject_chapter", (q) =>
+            q.eq("subjectChapter", subjectChapter)
+          );
+      } else if (normalizedSubject) {
+        // Use subject index
+        queryBuilder = ctx.db
+          .query("questions")
+          .withIndex("by_subject", (q) => q.eq("subject", normalizedSubject));
+      } else {
+        // No primary filter, scan all
+        queryBuilder = ctx.db.query("questions");
+      }
+
+      // Apply additional filters for non-search queries
+      if (args.year && !(normalizedSubject && args.chapter)) {
+        queryBuilder = queryBuilder.filter((q) => q.eq(q.field("year"), args.year));
+      }
+    }
+
+    // 3. Paginate
+    const results = await queryBuilder.paginate(args.paginationOpts);
+
+    // 4. Fetch answers for this page in parallel
+    const pageWithAnswers = await Promise.all(
+      results.page.map(async (question) => {
+        const answers = await ctx.db
+          .query("answers")
+          .withIndex("by_question", (q) => q.eq("questionId", question._id))
+          .collect();
+        // Sort by sortOrder
+        const sortedAnswers = answers.sort((a, b) => a.sortOrder - b.sortOrder);
+        return { ...question, answers: sortedAnswers };
+      })
+    );
+
+    return { ...results, page: pageWithAnswers };
   },
 });

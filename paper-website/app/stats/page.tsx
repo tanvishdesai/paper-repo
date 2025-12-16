@@ -19,78 +19,74 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  PieChart as RechartsPieChart,
-  Cell,
+  PieChart as   
   LineChart,
   Line,
   AreaChart,
   Area,
-  Pie
 } from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D', '#FFC658', '#FF7C7C'];
 
-interface PieLabelProps {
-  name: string;
-  percent: number;
-}
+
 
 export default function StatsPage() {
   // Fetch data from Convex
   const statsData = useQuery(api.questions.getDetailedStats);
+  const subjectsList = useQuery(api.questions.getSubjects);
 
   // Subject comparison state
   const [subject1, setSubject1] = useState<string>('');
   const [subject2, setSubject2] = useState<string>('');
-  const [selectedSubtopic1, setSelectedSubtopic1] = useState<string>('all');
-  const [selectedSubtopic2, setSelectedSubtopic2] = useState<string>('all');
+  const [selectedChapter1, setSelectedChapter1] = useState<string>('all');
+  const [selectedChapter2, setSelectedChapter2] = useState<string>('all');
 
   // --- delay rendering until we have statsData, to prevent changing hook order ---
-  const isLoading = !statsData;
+  const isLoading = !statsData || !subjectsList;
 
-  // Get subtopics for a specific subject - only defined after statsData is present
-  const getAvailableSubtopicsForSubject = useCallback((subject: string) => {
-    if (!subject || !statsData) return [];
+  // Get chapters for a specific subject - only defined after statsData is present
+  const getAvailableChaptersForSubject = useCallback((subject: string) => {
+    if (!subject || !statsData || !statsData.subjectComparisonData) return [];
 
-    const subtopics = new Set<string>();
+    const chapters = new Set<string>();
     statsData.subjectComparisonData.forEach(item => {
+      // item.subtopic currently holds the chapter data from the backend
       if (item.subject === subject && item.subtopic) {
-        subtopics.add(item.subtopic);
+        chapters.add(item.subtopic);
       }
     });
-    return Array.from(subtopics).sort();
+    return Array.from(chapters).sort();
   }, [statsData]);
 
-  // Reset selected subtopics when subjects change, only after data is ready
+  // Reset selected chapters when subjects change, only after data is ready
   useEffect(() => {
     if (!statsData) return;
     if (subject1) {
-      const availableSubtopics1 = getAvailableSubtopicsForSubject(subject1);
-      if (selectedSubtopic1 !== 'all' && !availableSubtopics1.includes(selectedSubtopic1)) {
-        setSelectedSubtopic1('all');
+      const availableChapters1 = getAvailableChaptersForSubject(subject1);
+      if (selectedChapter1 !== 'all' && !availableChapters1.includes(selectedChapter1)) {
+        setSelectedChapter1('all');
       }
     }
     if (subject2) {
-      const availableSubtopics2 = getAvailableSubtopicsForSubject(subject2);
-      if (selectedSubtopic2 !== 'all' && !availableSubtopics2.includes(selectedSubtopic2)) {
-        setSelectedSubtopic2('all');
+      const availableChapters2 = getAvailableChaptersForSubject(subject2);
+      if (selectedChapter2 !== 'all' && !availableChapters2.includes(selectedChapter2)) {
+        setSelectedChapter2('all');
       }
     }
-  }, [subject1, subject2, statsData, selectedSubtopic1, selectedSubtopic2, getAvailableSubtopicsForSubject]);
+  }, [subject1, subject2, statsData, selectedChapter1, selectedChapter2, getAvailableChaptersForSubject]);
 
-  // Process comparison data for the selected subjects and subtopic
+  // Process comparison data for the selected subjects and chapter
   const getComparisonChartData = useCallback(() => {
-    if (!subject1 || !subject2 || !statsData) return [];
+    if (!subject1 || !subject2 || !statsData || !statsData.subjectComparisonData) return [];
 
     const filteredData = statsData.subjectComparisonData.filter(item => {
       if (item.subject === subject1) {
-        // For subject1, check if it matches the selected subtopic for subject1
-        const matchesSubtopic1 = selectedSubtopic1 === 'all' || item.subtopic === selectedSubtopic1;
-        return matchesSubtopic1;
+        // For subject1, check if it matches the selected chapter for subject1
+        const matchesChapter1 = selectedChapter1 === 'all' || item.subtopic === selectedChapter1;
+        return matchesChapter1;
       } else if (item.subject === subject2) {
-        // For subject2, check if it matches the selected subtopic for subject2
-        const matchesSubtopic2 = selectedSubtopic2 === 'all' || item.subtopic === selectedSubtopic2;
-        return matchesSubtopic2;
+        // For subject2, check if it matches the selected chapter for subject2
+        const matchesChapter2 = selectedChapter2 === 'all' || item.subtopic === selectedChapter2;
+        return matchesChapter2;
       }
       return false; // Only include data for the two selected subjects
     });
@@ -115,7 +111,7 @@ export default function StatsPage() {
         [subject2]: subjects[subject2] || 0
       }))
       .sort((a, b) => a.year - b.year);
-  }, [statsData, subject1, subject2, selectedSubtopic1, selectedSubtopic2]);
+  }, [statsData, subject1, subject2, selectedChapter1, selectedChapter2]);
 
   if (isLoading) {
     // Always call hooks before this return.
@@ -125,6 +121,23 @@ export default function StatsPage() {
           <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
           <p className="text-muted-foreground">Loading statistics from Convex...</p>
         </div>
+      </div>
+    );
+  }
+
+  if (statsData.totalQuestions === 0) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center space-y-4">
+         <div className="h-20 w-20 rounded-2xl bg-muted flex items-center justify-center">
+            <BarChart3 className="h-10 w-10 text-muted-foreground" />
+         </div>
+         <h2 className="text-2xl font-bold">No Data Available</h2>
+         <p className="text-muted-foreground max-w-md text-center">
+           It looks like there are no questions in the database yet. Import some data to see statistics.
+         </p>
+         <Button asChild className="mt-4">
+            <Link href="/">Back to Home</Link>
+         </Button>
       </div>
     );
   }
@@ -188,7 +201,7 @@ export default function StatsPage() {
               <BookOpen className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{statsData.subjectDistribution.length}</div>
+              <div className="text-2xl font-bold">{statsData.subjectDistribution?.length || 0}</div>
               <p className="text-xs text-muted-foreground">Computer Science topics</p>
             </CardContent>
           </Card>
@@ -200,7 +213,7 @@ export default function StatsPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {Math.round(statsData.totalQuestions / statsData.yearDistribution.length)}
+                {Math.round(statsData.totalQuestions / (statsData.yearDistribution?.length || 1))}
               </div>
               <p className="text-xs text-muted-foreground">Per examination year</p>
             </CardContent>
@@ -217,7 +230,7 @@ export default function StatsPage() {
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={statsData.yearDistribution}>
+                <AreaChart data={statsData.yearDistribution || []}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="year" />
                   <YAxis />
@@ -236,7 +249,7 @@ export default function StatsPage() {
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={statsData.subjectDistribution}>
+                <BarChart data={statsData.subjectDistribution || []}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="subject" angle={-45} textAnchor="end" height={100} />
                   <YAxis />
@@ -247,81 +260,7 @@ export default function StatsPage() {
             </CardContent>
           </Card>
 
-          {/* Marks Distribution */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Marks Distribution</CardTitle>
-              <CardDescription>1-mark vs 2-mark questions</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {statsData.marksDistribution.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <RechartsPieChart>
-                    <Pie
-                      data={statsData.marksDistribution}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={(props) => {
-                        const { name, percent } = props as unknown as { name: string; percent: number };
-                        return `${name} (${(percent * 100).toFixed(0)}%)`;
-                      }}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="count"
-                    >
-                      {statsData.marksDistribution.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </RechartsPieChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="flex items-center justify-center h-[300px] text-muted-foreground">
-                  No marks data available
-                </div>
-              )}
-            </CardContent>
-          </Card>
 
-          {/* Theory vs Practical */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Theoretical vs Practical</CardTitle>
-              <CardDescription>Question type distribution</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {statsData.theoryPracticalDistribution.length > 0 ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <RechartsPieChart>
-                    <Pie
-                      data={statsData.theoryPracticalDistribution}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={(props) => {
-                        const { name, percent } = props as unknown as { name: string; percent: number };
-                        return `${name} (${(percent * 100).toFixed(0)}%)`;
-                      }}
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="count"
-                    >
-                      {statsData.theoryPracticalDistribution.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </RechartsPieChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="flex items-center justify-center h-[300px] text-muted-foreground">
-                  No theory/practical data available
-                </div>
-              )}
-            </CardContent>
-          </Card>
 
         </div>
 
@@ -338,7 +277,7 @@ export default function StatsPage() {
                     <SelectValue placeholder="Select subject 1" />
                   </SelectTrigger>
                   <SelectContent>
-                    {statsData.allSubjects.map((subject) => (
+                    {(subjectsList || statsData?.allSubjects || []).map((subject) => (
                       <SelectItem key={subject} value={subject}>
                         {subject}
                       </SelectItem>
@@ -354,7 +293,7 @@ export default function StatsPage() {
                     <SelectValue placeholder="Select subject 2" />
                   </SelectTrigger>
                   <SelectContent>
-                    {statsData.allSubjects.map((subject) => (
+                    {(subjectsList || statsData?.allSubjects || []).map((subject) => (
                       <SelectItem key={subject} value={subject}>
                         {subject}
                       </SelectItem>
@@ -364,20 +303,20 @@ export default function StatsPage() {
               </div>
 
               <div className="flex flex-col space-y-2">
-                <label className="text-sm font-medium">Subtopic for {subject1 || 'Subject 1'}</label>
+                <label className="text-sm font-medium">Chapter for {subject1 || 'Subject 1'}</label>
                 <Select
-                  value={selectedSubtopic1}
-                  onValueChange={setSelectedSubtopic1}
+                  value={selectedChapter1}
+                  onValueChange={setSelectedChapter1}
                   disabled={!subject1}
                 >
                   <SelectTrigger className="w-48">
-                    <SelectValue placeholder="All subtopics" />
+                    <SelectValue placeholder="All chapters" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All subtopics</SelectItem>
-                    {getAvailableSubtopicsForSubject(subject1).map((subtopic) => (
-                      <SelectItem key={subtopic} value={subtopic}>
-                        {subtopic}
+                    <SelectItem value="all">All chapters</SelectItem>
+                    {getAvailableChaptersForSubject(subject1).map((chapter) => (
+                      <SelectItem key={chapter} value={chapter}>
+                        {chapter}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -385,20 +324,20 @@ export default function StatsPage() {
               </div>
 
               <div className="flex flex-col space-y-2">
-                <label className="text-sm font-medium">Subtopic for {subject2 || 'Subject 2'}</label>
+                <label className="text-sm font-medium">Chapter for {subject2 || 'Subject 2'}</label>
                 <Select
-                  value={selectedSubtopic2}
-                  onValueChange={setSelectedSubtopic2}
+                  value={selectedChapter2}
+                  onValueChange={setSelectedChapter2}
                   disabled={!subject2}
                 >
                   <SelectTrigger className="w-48">
-                    <SelectValue placeholder="All subtopics" />
+                    <SelectValue placeholder="All chapters" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All subtopics</SelectItem>
-                    {getAvailableSubtopicsForSubject(subject2).map((subtopic) => (
-                      <SelectItem key={subtopic} value={subtopic}>
-                        {subtopic}
+                    <SelectItem value="all">All chapters</SelectItem>
+                    {getAvailableChaptersForSubject(subject2).map((chapter) => (
+                      <SelectItem key={chapter} value={chapter}>
+                        {chapter}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -420,14 +359,14 @@ export default function StatsPage() {
                     dataKey={subject1}
                     stroke="#8884d8"
                     strokeWidth={2}
-                    name={`${subject1}${selectedSubtopic1 !== 'all' ? ` (${selectedSubtopic1})` : ''}`}
+                    name={`${subject1}${selectedChapter1 !== 'all' ? ` (${selectedChapter1})` : ''}`}
                   />
                   <Line
                     type="monotone"
                     dataKey={subject2}
                     stroke="#82ca9d"
                     strokeWidth={2}
-                    name={`${subject2}${selectedSubtopic2 !== 'all' ? ` (${selectedSubtopic2})` : ''}`}
+                    name={`${subject2}${selectedChapter2 !== 'all' ? ` (${selectedChapter2})` : ''}`}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -439,42 +378,22 @@ export default function StatsPage() {
           </CardContent>
         </Card>
 
-        {/* Top Chapters and Subtopics */}
+        {/* Top Chapters */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <Card>
+          <Card className="col-span-2 lg:col-span-1">
             <CardHeader>
               <CardTitle>Top Chapters</CardTitle>
               <CardDescription>Most frequent chapters by question count</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {statsData.chapterDistribution.slice(0, 10).map((chapter, index) => (
+                {(statsData.chapterDistribution || []).slice(0, 10).map((chapter, index) => (
                   <div key={chapter.chapter} className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <Badge variant="outline">{index + 1}</Badge>
                       <span className="text-sm font-medium">{chapter.chapter}</span>
                     </div>
                     <Badge variant="secondary">{chapter.count}</Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Top Subtopics</CardTitle>
-              <CardDescription>Most frequent subtopics by question count</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {statsData.topSubtopics.slice(0, 10).map((subtopic, index) => (
-                  <div key={subtopic.subtopic} className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Badge variant="outline">{index + 1}</Badge>
-                      <span className="text-sm font-medium">{subtopic.subtopic}</span>
-                    </div>
-                    <Badge variant="secondary">{subtopic.count}</Badge>
                   </div>
                 ))}
               </div>
