@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   description: "Comprehensive question bank with 1000+ previous year GATE questions across all Computer Science subjects. Practice smart, excel in your exams.",
 };
 
+import SnowOverlay from "@/components/SnowOverlay";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,6 +34,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased font-sans`}
         style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
       >
+        <SnowOverlay />
         <ConvexClientProvider>
           <ThemeProvider
             attribute="class"

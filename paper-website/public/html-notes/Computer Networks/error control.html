@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS & IT: Error Control Cheat Sheet</title>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --secondary: #475569;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        aside h1 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li { margin-bottom: 0.5rem; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 3rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--text);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-top: 2rem;
+        }
+
+        p { margin-bottom: 1rem; color: #334155; }
+
+        /* Cards and Boxes */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .formula-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .note {
+            background: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        /* Comparison Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--surface);
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        /* Bits Grid for 2D Parity */
+        .bit-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 40px);
+            gap: 4px;
+            margin: 1rem 0;
+        }
+
+        .bit-cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .parity-cell {
+            background-color: #dbeafe;
+            border-color: #93c5fd;
+            color: var(--primary);
+        }
+
+        .error-cell {
+            background-color: #fee2e2;
+            border-color: #fca5a5;
+            color: #dc2626;
+            position: relative;
+        }
+        
+        .error-cell::after {
+            content: '!';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 8px;
+        }
+
+        /* Code Block */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+
+        .details-summary {
+            cursor: pointer;
+            padding: 0.5rem;
+            background: #f1f5f9;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; height: auto; overflow: auto; }
+            aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+            main { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h1>Comp. Networks<br><small style="font-size: 0.6em; color: #64748b;">Error Control</small></h1>
+        <nav>
+            <ul>
+                <li><a href="#introduction">1. Error Fundamentals</a></li>
+                <li><a href="#hamming-distance">2. Hamming Distance</a></li>
+                <li><a href="#parity">3. Simple & 2D Parity</a></li>
+                <li><a href="#crc">4. CRC (Cyclic Redundancy)</a></li>
+                <li><a href="#hamming-code">5. Hamming Code</a></li>
+                <li><a href="#comparison">6. Summary & Specs</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- Section 1: Introduction -->
+        <section id="introduction">
+            <h2>1. Error Fundamentals</h2>
+            <div class="card">
+                <p><strong>Definition:</strong> Error occurs when the received data is not identical to the sent data due to noise during transmission.</p>
+                <div class="formula-box">
+                    Corrupted Bits = Data Rate × Noise Duration
+                </div>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                            A[Sender] -->|Data + Redundancy| B(Channel + Noise)
+                            B -->|Corrupted Signal| C[Receiver]
+                            C --> D{Error Control}
+                            D -->|Yes| E[Discard/Request Retransmission]
+                            D -->|No| F[Accept Data]
+                    </div>
+                </div>
+            </div>
+
+            <h3>Types of Errors</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="card">
+                    <h4>Single-Bit Error</h4>
+                    <p>Only 1 bit in the data unit has changed (1 → 0 or 0 → 1).</p>
+                    <code style="background:#eee; padding:2px;">00000010</code> &rarr; <code style="background:#fee2e2; padding:2px;">00001010</code>
+                </div>
+                <div class="card">
+                    <h4>Burst Error</h4>
+                    <p>2 or more bits in the data unit have changed. More likely in serial transmission.</p>
+                    <code style="background:#eee; padding:2px;">01001010</code> &rarr; <code style="background:#fee2e2; padding:2px;">01101110</code>
+                </div>
+            </div>
+
+            <h3>Control Strategy</h3>
+            <table>
+                <tr>
+                    <th>Strategy</th>
+                    <th>Description</th>
+                    <th>Complexity</th>
+                </tr>
+                <tr>
+                    <td><strong>Error Detection</strong></td>
+                    <td>Only checks <em>if</em> an error occurred (Yes/No). Re-transmission is usually requested.</td>
+                    <td>Low</td>
+                </tr>
+                <tr>
+                    <td><strong>Error Correction</strong></td>
+                    <td>Determines the exact <em>number</em> and <em>location</em> of errors to fix them.</td>
+                    <td>High (Requires more redundancy)</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 2: Hamming Distance -->
+        <section id="hamming-distance">
+            <h2>2. Hamming Distance</h2>
+            <p>The Hamming Distance between two binary strings is the number of differences between corresponding bits. It is calculated using the <strong>XOR</strong> operation.</p>
+            
+            <div class="card">
+                <h4>Example Calculation</h4>
+                <pre>
+  1 0 1 0 1
+⊕ 1 1 1 1 0
+-----------
+  0 1 0 1 1  -> Number of 1s = 3
+Hamming Distance d(x,y) = 3
+                </pre>
+            </div>
+
+            <div class="note">
+                <strong>Minimum Hamming Distance (\(d_{min}\)):</strong> The smallest Hamming distance between all possible pairs of valid codewords in a code set. This value dictates the capability of the code.
+            </div>
+
+            <h3>The Golden Rules of Error Control</h3>
+            <div class="card" style="background: var(--primary-light);">
+                <p>To <strong>detect</strong> \(d\) errors, we need:</p>
+                <div class="formula-box" style="background:white;">\(d_{min} \ge d + 1\)</div>
+                
+                <p>To <strong>correct</strong> \(d\) errors, we need:</p>
+                <div class="formula-box" style="background:white;">\(d_{min} \ge 2d + 1\)</div>
+            </div>
+            <p style="font-size: 0.9em; color: #666;"><em>Example: To correct a single bit error (d=1), the code must have a minimum Hamming distance of 3.</em></p>
+        </section>
+
+        <!-- Section 3: Parity -->
+        <section id="parity">
+            <h2>3. Simple & 2D Parity</h2>
+            
+            <h3>Simple Parity Check (1D)</h3>
+            <p>One extra bit (parity bit) is added to the data.</p>
+            <ul>
+                <li><strong>Even Parity:</strong> Total number of 1s (including parity) must be Even.</li>
+                <li><strong>Odd Parity:</strong> Total number of 1s (including parity) must be Odd.</li>
+            </ul>
+            <div class="card">
+                <ul>
+                    <li>✅ Detects all single-bit errors.</li>
+                    <li>✅ Detects all odd-numbered errors (1, 3, 5 bits).</li>
+                    <li>❌ <strong>Cannot detect</strong> even number of errors (e.g., 2 bit flips cancel out).</li>
+                </ul>
+            </div>
+
+            <h3>2D Parity Check</h3>
+            <p>Data is organized into a matrix. Parity is calculated for each row and each column.</p>
+            
+            <div class="card">
+                <h4>Visualization (Even Parity)</h4>
+                <div class="bit-grid" style="grid-template-columns: repeat(6, 40px);">
+                    <!-- Row 1 -->
+                    <div class="bit-cell">0</div><div class="bit-cell">1</div><div class="bit-cell">0</div><div class="bit-cell">0</div><div class="bit-cell">1</div><div class="parity-cell">0</div>
+                    <!-- Row 2 -->
+                    <div class="bit-cell">0</div><div class="bit-cell">1</div><div class="bit-cell">0</div><div class="bit-cell">1</div><div class="bit-cell">0</div><div class="parity-cell">0</div>
+                    <!-- Row 3 -->
+                    <div class="bit-cell">1</div><div class="bit-cell">0</div><div class="bit-cell">0</div><div class="bit-cell">1</div><div class="bit-cell">0</div><div class="parity-cell">0</div>
+                    <!-- Row 4 -->
+                    <div class="bit-cell">1</div><div class="bit-cell">1</div><div class="bit-cell">1</div><div class="bit-cell">0</div><div class="bit-cell">1</div><div class="parity-cell">0</div>
+                    <!-- Column Parity Row -->
+                    <div class="parity-cell">0</div><div class="parity-cell">1</div><div class="parity-cell">1</div><div class="parity-cell">0</div><div class="parity-cell">0</div><div class="parity-cell">0</div>
+                </div>
+                <div class="note">
+                    <strong>Capabilities:</strong><br>
+                    - Detects & Corrects single bit error (intersection of bad row/col).<br>
+                    - Detects 2, 3 bit errors.<br>
+                    - <strong>Fails:</strong> Specific 4-bit rectangular error patterns where flips cancel out in both rows and columns.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: CRC -->
+        <section id="crc">
+            <h2>4. Cyclic Redundancy Check (CRC)</h2>
+            <p>A powerful error detection method based on binary division. It treats bits as coefficients of a polynomial.</p>
+            
+            <h3>Key Concepts</h3>
+            <ul>
+                <li><strong>\(d(x)\):</strong> Data word polynomial.</li>
+                <li><strong>\(g(x)\):</strong> Generator/Divisor polynomial.</li>
+                <li><strong>\(n\):</strong> Length of data word.</li>
+                <li><strong>\(k\):</strong> Length of generator (so degree is \(k-1\)).</li>
+            </ul>
+
+            <h3>The Algorithm</h3>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+                    A[Start: Data M] --> B[Append k-1 Zeros]
+                    B --> C[Divide by Generator G using Modulo-2]
+                    C --> D[Result: Remainder R]
+                    D --> E[Transmit: M + R]
+                    E --> F[Receiver: Divide Received by G]
+                    F --> G{Remainder == 0?}
+                    G -->|Yes| H[Accept]
+                    G -->|No| I[Reject]
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Example Walkthrough</h4>
+                <p><strong>Data:</strong> 1001001<br><strong>Generator:</strong> 1101 (\(x^3 + x^2 + 1\))</p>
+                
+                <details>
+                    <summary class="details-summary">Show Calculation (Sender Side)</summary>
+                    <p>1. Append \(k-1\) zeros (3 zeros) to data: <code>1001001000</code></p>
+                    <p>2. Perform Binary Division (XOR subtraction):</p>
+                    <pre>
+        1111110
+      _________
+1101 ) 1001001000
+       1101
+       ----
+        1000
+        1101
+        ----
+         1010
+         1101
+         ----
+          1111
+          1101
+          ----
+           0100
+           ... (continues)
+           ----
+            001
+                    </pre>
+                    <p><strong>Remainder (CRC):</strong> <code>001</code> (padded to 3 bits if needed)</p>
+                    <p><strong>Codeword Sent:</strong> <code>1001001</code> + <code>001</code> = <code>1001001001</code></p>
+                </details>
+            </div>
+
+            <h3>Generator Polynomial Properties</h3>
+            <ul style="list-style-type: circle;">
+                <li>The coefficient of \(x^0\) should be 1.</li>
+                <li>If \(g(x)\) has the factor \((x+1)\), it can detect all odd-numbered errors.</li>
+                <li>If \(g(x)\) contains more than one term, all single-bit errors are detected.</li>
+            </ul>
+        </section>
+
+        <!-- Section 5: Hamming Code -->
+        <section id="hamming-code">
+            <h2>5. Hamming Code</h2>
+            <p>A Linear Block Code used for <strong>Error Correction</strong>. It uses parity bits at specific positions (powers of 2) to identify the error location.</p>
+
+            <div class="formula-box">
+                Redundant Bits (r) Formula:<br>
+                \( m + r + 1 \le 2^r \)
+            </div>
+            <p><small>Where \(m\) = data bits, \(r\) = parity bits.</small></p>
+
+            <h3>Parity Bit Positions</h3>
+            <p>Parity bits are placed at indices \(1, 2, 4, 8, 16...\).</p>
+            <div class="bit-grid" style="grid-template-columns: repeat(11, 35px); margin-bottom: 2rem;">
+                <div class="parity-cell">P1</div>
+                <div class="parity-cell">P2</div>
+                <div class="bit-cell">D3</div>
+                <div class="parity-cell">P4</div>
+                <div class="bit-cell">D5</div>
+                <div class="bit-cell">D6</div>
+                <div class="bit-cell">D7</div>
+                <div class="parity-cell">P8</div>
+                <div class="bit-cell">D9</div>
+                <div class="bit-cell">D10</div>
+                <div class="bit-cell">D11</div>
+            </div>
+
+            <h3>Calculation Logic</h3>
+            <p>Each parity bit \(P_i\) checks specific bit positions where the binary representation of the position index has a 1 at the \(i\)-th location.</p>
+            <ul>
+                <li><strong>P1 (1):</strong> Checks 1, 3, 5, 7, 9, 11... (Last bit is 1)</li>
+                <li><strong>P2 (2):</strong> Checks 2, 3, 6, 7, 10, 11... (2nd last bit is 1)</li>
+                <li><strong>P4 (4):</strong> Checks 4, 5, 6, 7, 12... (3rd last bit is 1)</li>
+                <li><strong>P8 (8):</strong> Checks 8, 9, 10, 11... (4th last bit is 1)</li>
+            </ul>
+
+            <div class="card">
+                <h4>Correction Example</h4>
+                <p>Receiver calculates parities. If \(P_1=1, P_2=0, P_4=1\), then the error position is:</p>
+                <div class="formula-box">
+                    Binary: (P4 P2 P1) = 101<br>
+                    Decimal: 5
+                </div>
+                <p>The bit at position 5 is corrupted and must be flipped.</p>
+            </div>
+        </section>
+
+        <!-- Section 6: Summary -->
+        <section id="comparison">
+            <h2>6. Summary & Specs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Technique</th>
+                        <th>Type</th>
+                        <th>Hamming Dist Requirement</th>
+                        <th>Key Feature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Simple Parity</strong></td>
+                        <td>Detection</td>
+                        <td>\(d=2\)</td>
+                        <td>Cheap, detects odd errors only.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2D Parity</strong></td>
+                        <td>Detection+</td>
+                        <td>-</td>
+                        <td>Detects burst errors, corrects 1 bit.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CRC</strong></td>
+                        <td>Detection</td>
+                        <td>-</td>
+                        <td>Robust, uses polynomial division. Standard for LANs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hamming Code</strong></td>
+                        <td>Correction</td>
+                        <td>\(d=3\) (for 1 bit correction)</td>
+                        <td>Corrects single bit errors using overhead \(r\).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); color: #94a3b8; font-size: 0.8rem; text-align: center;">
+            Generated from Lecture Notes: Computer Networks - Error Control
+        </footer>
+    </main>
+
+</body>
+</html>

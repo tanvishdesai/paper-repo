@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS & IT: Data Structures & C Programming Cheat Sheet</title>
+    
+    <!-- Mermaid JS for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-code: #e1e4e8;
+            --bg-code: #1e1e1e;
+            --accent-yellow: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --sidebar-width: 280px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: var(--sidebar-width);
+            background: var(--bg-card);
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        aside h2 { font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--primary); font-weight: 800; }
+        aside ul { list-style: none; }
+        aside li { margin-bottom: 0.75rem; }
+        aside a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+        aside a:hover, aside a.active { color: var(--primary); background-color: #eff6ff; }
+
+        /* Main Content */
+        main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-main); }
+        .subtitle { color: var(--secondary); margin-bottom: 3rem; font-size: 1.1rem; }
+        
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        section h2 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1.5rem; 
+            border-bottom: 2px solid #e2e8f0; 
+            padding-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+        section h3 { font-size: 1.4rem; margin: 1.5rem 0 1rem; color: var(--primary); }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--bg-code);
+            color: var(--text-code);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent-yellow);
+        }
+        code { font-family: 'JetBrains Mono', monospace; color: #d73a49; background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        pre code { color: inherit; background: transparent; padding: 0; }
+        
+        /* Syntax Highlighting Sim */
+        .c-type { color: #d73a49; font-weight: bold; } /* int, float */
+        .c-func { color: #6f42c1; font-weight: bold; } /* main, printf */
+        .c-str { color: #032f62; } /* strings */
+        .c-com { color: #6a737d; font-style: italic; } /* comments */
+
+        /* Memory Visualization */
+        .memory-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .memory-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .mem-cell {
+            width: 80px;
+            height: 60px;
+            border: 2px solid var(--accent-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'JetBrains Mono', monospace;
+            background: #fff;
+        }
+        .mem-addr {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin-top: 5px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .mem-label {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .mem-arrow {
+            color: var(--accent-red);
+            font-size: 1.5rem;
+            margin-bottom: -10px;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #f1f5f9; font-weight: 600; color: var(--secondary); }
+        tr:hover { background-color: #f8fafc; }
+
+        /* Details */
+        details {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        summary { cursor: pointer; font-weight: 600; color: var(--primary); }
+        .details-content { margin-top: 1rem; padding-left: 1rem; border-left: 2px solid var(--primary); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            aside { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2>CS & IT Engineering</h2>
+        <ul>
+            <li><a href="#intro">1. Intro to Data Structures</a></li>
+            <li><a href="#basics">2. C Programming Basics</a></li>
+            <li><a href="#operators">3. Operators</a></li>
+            <li><a href="#functions">4. Functions & Recursion</a></li>
+            <li><a href="#arrays">5. Arrays</a></li>
+            <li><a href="#pointers">6. Pointers & Arithmetic</a></li>
+            <li><a href="#advanced">7. Advanced Concepts</a></li>
+        </ul>
+        <div style="margin-top: auto; font-size: 0.8rem; color: #94a3b8;">
+            Based on Lectures 01-06<br>
+            By Pankaj Sharma Sir
+        </div>
+    </aside>
+
+    <main>
+        <h1>Data Structures & C</h1>
+        <p class="subtitle">Comprehensive notes covering the fundamentals of Data Structures, Memory Management, Pointers, and Arrays.</p>
+
+        <!-- SECTION 1: INTRO -->
+        <section id="intro">
+            <h2>1. Introduction to Data Structures</h2>
+            <div class="card">
+                <h3>Definition</h3>
+                <p>A data structure is a particular way of organizing data in a computer so that it can be used effectively. It involves the data arrangement in memory.</p>
+            </div>
+            
+            <div class="card">
+                <h3>Classification</h3>
+                <div class="mermaid">
+                    graph TD
+                    DS[Data Structures] --> Linear
+                    DS --> NonLinear[Non-Linear]
+                    
+                    subgraph Linear [Linear Data Structures]
+                    L_Desc[Elements arranged sequentially<br>one after another]
+                    Arr[Arrays]
+                    LL[Linked List]
+                    Stack[Stack]
+                    Queue[Queue]
+                    end
+                    
+                    subgraph NonLinear [Non-Linear Data Structures]
+                    NL_Desc[Elements have hierarchy<br>More than 2 neighbors possible]
+                    Tree[Tree]
+                    Graph[Graph]
+                    end
+
+                    Linear --> Arr
+                    Linear --> LL
+                    Linear --> Stack
+                    Linear --> Queue
+
+                    NonLinear --> Tree
+                    NonLinear --> Graph
+                    
+                    Tree -.-> BST[Binary Search Tree]
+                    Tree -.-> AVL[AVL Tree]
+                    Tree -.-> Heap[Heap]
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: BASICS -->
+        <section id="basics">
+            <h2>2. C Programming Basics</h2>
+            
+            <div class="card">
+                <h3>Compilation Process</h3>
+                <p>How do English-like instructions become 0s and 1s?</p>
+                <div class="mermaid">
+                    flowchart LR
+                    Source[Source Code .c] --> Compiler[Compiler]
+                    Compiler --> Obj[Object Code .o]
+                    Obj --> Linker[Linker]
+                    Linker --> Exec[Executable .exe/a.out]
+                    Exec --> RAM[Loader -> RAM]
+                </div>
+                <ul>
+                    <li><strong>Compiler:</strong> Translates high-level code to machine code. Checks syntax errors.</li>
+                    <li><strong>Linker:</strong> Links built-in library code (like `printf` code from `stdio.h`) to your object code.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Data Types & Sizes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Keyword</th>
+                            <th>Format Specifier</th>
+                            <th>Approx Size</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Integer</td>
+                            <td><span class="c-type">int</span></td>
+                            <td><code>%d</code></td>
+                            <td>2 or 4 bytes</td>
+                            <td><code>int age = 10;</code></td>
+                        </tr>
+                        <tr>
+                            <td>Real (Decimal)</td>
+                            <td><span class="c-type">float</span></td>
+                            <td><code>%f</code></td>
+                            <td>4 bytes</td>
+                            <td><code>float g = 9.8;</code></td>
+                        </tr>
+                        <tr>
+                            <td>Character</td>
+                            <td><span class="c-type">char</span></td>
+                            <td><code>%c</code></td>
+                            <td>1 byte</td>
+                            <td><code>char ch = 'A';</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 3: OPERATORS -->
+        <section id="operators">
+            <h2>3. Operators</h2>
+
+            <div class="card">
+                <h3>Precedence & Associativity</h3>
+                <p>Decides the order of evaluation when multiple operators are present.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>Operators</th>
+                            <th>Associativity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 (Highest)</td>
+                            <td><code>( )</code>, <code>[ ]</code>, <code>-></code></td>
+                            <td>Left to Right</td>
+                        </tr>
+                        <tr>
+                            <td>2 (Unary)</td>
+                            <td><code>++</code>, <code>--</code>, <code>!</code>, <code>&</code>, <code>*</code>, <code>sizeof</code></td>
+                            <td><strong>Right to Left</strong></td>
+                        </tr>
+                        <tr>
+                            <td>3 (Arithmetic)</td>
+                            <td><code>*</code>, <code>/</code>, <code>%</code></td>
+                            <td>Left to Right</td>
+                        </tr>
+                        <tr>
+                            <td>4 (Arithmetic)</td>
+                            <td><code>+</code>, <code>-</code></td>
+                            <td>Left to Right</td>
+                        </tr>
+                        <tr>
+                            <td>5 (Relational)</td>
+                            <td><code><</code>, <code><=</code>, <code>></code>, <code>>=</code></td>
+                            <td>Left to Right</td>
+                        </tr>
+                        <tr>
+                            <td>6 (Equality)</td>
+                            <td><code>==</code>, <code>!=</code></td>
+                            <td>Left to Right</td>
+                        </tr>
+                        <tr>
+                            <td>...</td>
+                            <td>...</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td>(Lowest)</td>
+                            <td><code>=</code> (Assignment)</td>
+                            <td><strong>Right to Left</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>Integer vs Float Division</h3>
+                <pre><code><span class="c-type">int</span> a = 5/2;   <span class="c-com">// Result: 2 (Integer division truncates)</span>
+<span class="c-type">float</span> b = 5.0/2; <span class="c-com">// Result: 2.5 (One operand is float)</span>
+<span class="c-com">// Note: Modulo (%) only works with integers!</span></code></pre>
+            </div>
+
+            <div class="card">
+                <h3>Logical Short-Circuiting</h3>
+                <ul>
+                    <li><strong>AND (&&):</strong> If the first operand is False (0), the second is <strong>not evaluated</strong>. Result is 0.</li>
+                    <li><strong>OR (||):</strong> If the first operand is True (non-zero), the second is <strong>not evaluated</strong>. Result is 1.</li>
+                </ul>
+                <pre><code><span class="c-type">int</span> a = 10;
+<span class="c-type">int</span> b = 0 && (++a); 
+<span class="c-com">// a remains 10 because lhs was 0, rhs (++a) was skipped.</span></code></pre>
+            </div>
+        </section>
+
+        <!-- SECTION 4: FUNCTIONS -->
+        <section id="functions">
+            <h2>4. Functions</h2>
+            
+            <div class="card">
+                <h3>Architecture of a Function Call</h3>
+                <p>When a function is called, an <strong>Activation Record (Stack Frame)</strong> is created in the Stack memory.</p>
+                <div class="mermaid">
+                    graph BT
+                    subgraph Stack Memory
+                        direction BT
+                        MainFrame[Main Function Frame<br>a=10, b=20]
+                        FuncFrame[Add Function Frame<br>x=10, y=20, sum=30]
+                    end
+                    MainFrame -- Calls Add(a,b) --> FuncFrame
+                    FuncFrame -- Returns 30 --> MainFrame
+                </div>
+                <p><em>Note: Variables inside a function (local) are destroyed when the function returns.</em></p>
+            </div>
+
+            <div class="card">
+                <h3>Forward Declaration</h3>
+                <p>If you define a function <em>after</em> `main()`, you must declare it <em>before</em> `main()`. Otherwise, the compiler assumes the return type is `int` by default, which may cause errors if the function returns `float`.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: ARRAYS -->
+        <section id="arrays">
+            <h2>5. Arrays</h2>
+            <p>A collection of elements of the <strong>same type</strong> stored in <strong>contiguous</strong> memory locations.</p>
+            
+            <div class="card">
+                <h3>Memory Layout: 1D Array</h3>
+                <p><code>int a[4] = {10, 20, 30, 40};</code></p>
+                <div class="memory-container">
+                    <div class="memory-box">
+                        <span class="mem-label">a[0]</span>
+                        <div class="mem-cell">10</div>
+                        <span class="mem-addr">1000</span>
+                    </div>
+                    <div class="memory-box">
+                        <span class="mem-label">a[1]</span>
+                        <div class="mem-cell">20</div>
+                        <span class="mem-addr">1004</span>
+                    </div>
+                    <div class="memory-box">
+                        <span class="mem-label">a[2]</span>
+                        <div class="mem-cell">30</div>
+                        <span class="mem-addr">1008</span>
+                    </div>
+                    <div class="memory-box">
+                        <span class="mem-label">a[3]</span>
+                        <div class="mem-cell">40</div>
+                        <span class="mem-addr">1012</span>
+                    </div>
+                </div>
+                <p>Address of next element = Base Address + (Index × Size of Data Type).</p>
+            </div>
+
+            <div class="card">
+                <h3>Key Properties</h3>
+                <ul>
+                    <li><strong>Random Access:</strong> Any element can be accessed directly using the index.</li>
+                    <li><strong>Array Name:</strong> The name `a` acts as a constant pointer to the first element (base address).</li>
+                    <li><strong>Bounds:</strong> C does not check array boundaries. Accessing `a[5]` in an array of size 4 leads to Undefined Behavior (Garbage value).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 6: POINTERS -->
+        <section id="pointers">
+            <h2>6. Pointers & Arithmetic</h2>
+            
+            <div class="card">
+                <h3>The Basics</h3>
+                <p>A pointer is a variable that stores the memory address of another variable.</p>
+                <pre><code><span class="c-type">int</span> a = 10;
+<span class="c-type">int</span> *p = &a;  <span class="c-com">// p holds the address of a</span></code></pre>
+                
+                <div class="mermaid">
+                    graph LR
+                    subgraph Pointer P
+                    P_Val[Value: 2036]
+                    end
+                    subgraph Variable A
+                    A_Addr[Address: 2036]
+                    A_Val[Value: 10]
+                    end
+                    P_Val --> A_Addr
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Pointer Arithmetic</h3>
+                <p>If `p` points to integer (4 bytes) at address 1000:</p>
+                <ul>
+                    <li><code>p + 1</code> results in <strong>1004</strong> (moves 1 integer forward).</li>
+                    <li><code>*(p + 1)</code> accesses the value at that new address.</li>
+                </ul>
+                <div class="alert" style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1rem;">
+                    <strong>The "Mentos" Trick (Array/Pointer Equivalence):</strong><br>
+                    The compiler converts array syntax to pointer arithmetic internally.
+                    $$ a[i] \iff *(a + i) \iff *(i + a) \iff i[a] $$
+                    Yes, <code>2[a]</code> is valid C syntax and means the same as <code>a[2]</code>!
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>2D Arrays & Pointers</h3>
+                <p><code>int a[2][3];</code> (2 rows, 3 columns)</p>
+                <p>Row Major Order (stored linearly in memory):</p>
+                <div class="memory-container">
+                    <div class="memory-box" style="border: 2px dashed var(--primary); padding: 5px;">
+                        <span class="mem-label">Row 0</span>
+                        <div style="display:flex; gap:2px;">
+                            <div class="mem-cell" style="width:40px; font-size:0.8rem">0,0</div>
+                            <div class="mem-cell" style="width:40px; font-size:0.8rem">0,1</div>
+                            <div class="mem-cell" style="width:40px; font-size:0.8rem">0,2</div>
+                        </div>
+                    </div>
+                    <div class="memory-box" style="border: 2px dashed var(--accent-red); padding: 5px;">
+                        <span class="mem-label">Row 1</span>
+                        <div style="display:flex; gap:2px;">
+                            <div class="mem-cell" style="width:40px; font-size:0.8rem">1,0</div>
+                            <div class="mem-cell" style="width:40px; font-size:0.8rem">1,1</div>
+                            <div class="mem-cell" style="width:40px; font-size:0.8rem">1,2</div>
+                        </div>
+                    </div>
+                </div>
+                <ul>
+                    <li><code>a</code>: Pointer to the first row (whole 1D array of 3 ints).</li>
+                    <li><code>a[0]</code>: Pointer to the first integer of first row.</li>
+                    <li><code>*(*(a + i) + j)</code>: Value at <code>a[i][j]</code>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 7: ADVANCED -->
+        <section id="advanced">
+            <h2>7. Advanced Pointer Concepts</h2>
+
+            <div class="card">
+                <h3>Call by Value vs Call by Reference</h3>
+                
+                <details open>
+                    <summary>Code Comparison</summary>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <h4>Call by Value</h4>
+                            <pre><code><span class="c-type">void</span> swap(<span class="c-type">int</span> x, <span class="c-type">int</span> y) {
+    <span class="c-type">int</span> temp = x;
+    x = y; 
+    y = temp;
+}
+<span class="c-com">// No change in main() variables.</span>
+<span class="c-com">// Only copies were swapped.</span></code></pre>
+                        </div>
+                        <div>
+                            <h4>Call by Reference</h4>
+                            <pre><code><span class="c-type">void</span> swap(<span class="c-type">int</span> *x, <span class="c-type">int</span> *y) {
+    <span class="c-type">int</span> temp = *x;
+    *x = *y;
+    *y = temp;
+}
+<span class="c-com">// call: swap(&a, &b);</span>
+<span class="c-com">// Changes affect main() variables.</span></code></pre>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h3>Pointer to Array vs Array of Pointers</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Declaration</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>int *p[4];</code></td>
+                            <td><strong>Array of Pointers:</strong> An array size 4, where each element is a pointer to an int. (Precedence: `[]` > `*`).</td>
+                        </tr>
+                        <tr>
+                            <td><code>int (*p)[4];</code></td>
+                            <td><strong>Pointer to Array:</strong> A single pointer variable `p` that points to a complete array of 4 integers.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>Incrementing Pointers</h3>
+                <p>Assuming <code>int a[4];</code> and <code>ptr</code> points to it:</p>
+                <ul>
+                    <li><code>ptr + 1</code>: Address increases by 4 bytes (next integer).</li>
+                    <li><code>&a + 1</code>: Address increases by 16 bytes (skips the <strong>whole array</strong>).</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

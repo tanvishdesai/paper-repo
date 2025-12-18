@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Cheat Sheet: Finite Automata & Regular Languages</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid.js -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#e0e7ff',
+                primaryBorderColor: '#4338ca',
+                primaryTextColor: '#1e1b4b',
+                lineColor: '#4338ca',
+                secondaryColor: '#fef3c7',
+                tertiaryColor: '#fff'
+            }
+        });
+    </script>
+
+    <style>
+        :root {
+            --primary: #4338ca;
+            --primary-light: #e0e7ff;
+            --text: #1f2937;
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --border: #e5e7eb;
+            --code-bg: #1e1e1e;
+            --accent: #f59e0b;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 260px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b7280;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        h2 { font-size: 1.75rem; margin-top: 3rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.25rem; margin-top: 1.5rem; color: #374151; }
+
+        p { line-height: 1.6; color: #4b5563; }
+
+        /* Cards and Boxes */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .concept-box {
+            border-left: 4px solid var(--primary);
+            background: #f8fafc;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .tip-box {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .tip-title {
+            font-weight: 700;
+            color: #92400e;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.85em;
+            color: #c026d3;
+        }
+
+        /* Diagrams */
+        .mermaid {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Collapsible */
+        details {
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 0.5rem;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        summary::after {
+            content: '+'; 
+            font-size: 1.2rem;
+        }
+        
+        details[open] summary::after {
+            content: '-';
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .main-content { padding: 1.5rem; }
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag.reg { background: #dcfce7; color: #166534; }
+        .tag.nonreg { background: #fee2e2; color: #991b1b; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h2 style="font-size: 1.2rem; margin-top:0; border:none; color: var(--primary);">TOC: Automata</h2>
+        
+        <h3>Fundamentals</h3>
+        <a href="#basics" class="nav-link">Definitions & Basics</a>
+        <a href="#regex" class="nav-link">Regular Expressions</a>
+        
+        <h3>Finite Automata</h3>
+        <a href="#dfa" class="nav-link">DFA (Deterministic)</a>
+        <a href="#nfa" class="nav-link">NFA (Non-Deterministic)</a>
+        <a href="#conversion" class="nav-link">NFA to DFA</a>
+        <a href="#minimization" class="nav-link">Minimization</a>
+        
+        <h3>Machines & Grammars</h3>
+        <a href="#transducers" class="nav-link">Moore vs Mealy</a>
+        <a href="#grammars" class="nav-link">Regular Grammars</a>
+        
+        <h3>Properties</h3>
+        <a href="#pumping" class="nav-link">Pumping Lemma</a>
+        <a href="#closure" class="nav-link">Closure Properties</a>
+        <a href="#decidability" class="nav-link">Decidability</a>
+    </nav>
+
+    <!-- Content -->
+    <div class="main-content">
+        <h1>Finite Automata & Regular Languages</h1>
+        <p class="lead">A comprehensive cheat sheet covering the Chomsky Hierarchy Type-3 languages, machine models, conversions, and properties.</p>
+
+        <!-- Basics Section -->
+        <section id="basics">
+            <h2>1. Fundamentals</h2>
+            <div class="card">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div>
+                        <strong>Symbol</strong>
+                        <p>Atomic unit (e.g., \( a, b, 0, 1 \)).</p>
+                    </div>
+                    <div>
+                        <strong>Alphabet (\(\Sigma\))</strong>
+                        <p>Finite, non-empty set of symbols. e.g., \(\Sigma = \{0, 1\}\).</p>
+                    </div>
+                    <div>
+                        <strong>String</strong>
+                        <p>Finite sequence of symbols. Length \(|w|\). Empty string is \(\epsilon\) or \(\lambda\).</p>
+                    </div>
+                    <div>
+                        <strong>Language (\(L\))</strong>
+                        <p>Set of strings over \(\Sigma\). \(L \subseteq \Sigma^*\).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-box">
+                <strong>Powers of Alphabet:</strong>
+                <ul>
+                    <li>\(\Sigma^0 = \{\epsilon\}\)</li>
+                    <li>\(\Sigma^1 = \Sigma\)</li>
+                    <li>\(\Sigma^* = \Sigma^0 \cup \Sigma^1 \cup \Sigma^2 \dots\) (Kleene Star - set of all possible strings)</li>
+                    <li>\(\Sigma^+ = \Sigma^1 \cup \Sigma^2 \dots\) (Positive Closure - excludes \(\epsilon\))</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Regular Expressions -->
+        <section id="regex">
+            <h2>2. Regular Expressions (RE)</h2>
+            <p>Algebraic description of a Regular Language.</p>
+            
+            <div class="card">
+                <h3>Operators & Precedence</h3>
+                <ol>
+                    <li><strong>Kleene Star (\(*\)):</strong> Zero or more repetitions. (Highest)</li>
+                    <li><strong>Concatenation (\(\cdot\)):</strong> Sequence.</li>
+                    <li><strong>Union (\(+\) or \(|\)):</strong> Choice. (Lowest)</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3>Key Identities</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <ul>
+                            <li>\(\phi + R = R\)</li>
+                            <li>\(\phi \cdot R = R \cdot \phi = \phi\)</li>
+                            <li>\(\epsilon \cdot R = R \cdot \epsilon = R\)</li>
+                            <li>\(\epsilon^* = \epsilon\) and \(\phi^* = \epsilon\)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>\(R + R = R\) (Idempotent)</li>
+                            <li>\((R^*)^* = R^*\)</li>
+                            <li>\(R^+ = RR^* = R^*R\)</li>
+                            <li>\(R^* = R^+ + \epsilon\)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tip-box">
+                    <span class="tip-title">⚡ Arden's Theorem</span>
+                    If \(P\) and \(Q\) are REs over \(\Sigma\), and \(P\) does not contain \(\epsilon\), then the equation \(R = Q + RP\) has a unique solution \(R = QP^*\).
+                </div>
+            </div>
+        </section>
+
+        <!-- DFA -->
+        <section id="dfa">
+            <h2>3. Deterministic Finite Automata (DFA)</h2>
+            <p>A 5-tuple \((Q, \Sigma, \delta, q_0, F)\) where:</p>
+            <ul>
+                <li>\(Q\): Finite set of states.</li>
+                <li>\(\Sigma\): Input alphabet.</li>
+                <li>\(\delta\): Transition function \(Q \times \Sigma \rightarrow Q\) (Deterministic: Exactly one move per symbol).</li>
+                <li>\(q_0\): Start state.</li>
+                <li>\(F\): Set of final states.</li>
+            </ul>
+
+            <div class="mermaid">
+            graph LR
+                q0((q0)) -- a --> q1(((q1)))
+                q0 -- b --> q0
+                q1 -- a --> q1
+                q1 -- b --> q0
+                style q0 fill:#f9f,stroke:#333,stroke-width:2px
+                style q1 fill:#bbf,stroke:#333,stroke-width:4px
+            </div>
+            <p style="text-align:center; font-size: 0.9rem;"><em>Example: DFA accepting strings ending with 'a'.</em></p>
+
+            <div class="card">
+                <h3>State Complexity Cheat Sheet (Min DFA States)</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Language Description</th>
+                        <th>Min States</th>
+                    </tr>
+                    <tr>
+                        <td>Strings with length exactly \(n\)</td>
+                        <td>\(n + 2\) (Dead state needed)</td>
+                    </tr>
+                    <tr>
+                        <td>Strings with length \(\ge n\)</td>
+                        <td>\(n + 1\)</td>
+                    </tr>
+                    <tr>
+                        <td>Strings with length \(\le n\)</td>
+                        <td>\(n + 2\)</td>
+                    </tr>
+                    <tr>
+                        <td>Strings ending with string of length \(n\)</td>
+                        <td>\(n + 1\)</td>
+                    </tr>
+                    <tr>
+                        <td>\(k\)-th symbol from <strong>end</strong> is 'a'</td>
+                        <td>\(2^k\)</td>
+                    </tr>
+                    <tr>
+                        <td>\(k\)-th symbol from <strong>start</strong> is 'a'</td>
+                        <td>\(k+2\)</td>
+                    </tr>
+                    <tr>
+                        <td>Strings divisible by \(k\) (Modulo \(k\))</td>
+                        <td>\(k\)</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- NFA -->
+        <section id="nfa">
+            <h2>4. Non-Deterministic Finite Automata (NFA)</h2>
+            <p>Similar to DFA but \(\delta: Q \times \Sigma \rightarrow 2^Q\) (Power set of Q).</p>
+            <ul>
+                <li>Can have 0, 1, or multiple transitions for a symbol.</li>
+                <li>Can have \(\epsilon\)-moves (change state without reading input).</li>
+                <li>Accepted if <strong>at least one</strong> path leads to a final state.</li>
+            </ul>
+
+            <div class="tip-box">
+                <span class="tip-title">⚡ Equivalence</span>
+                Every NFA can be converted to an equivalent DFA. \(L_{NFA} = L_{DFA}\). However, the DFA might have up to \(2^n\) states.
+            </div>
+        </section>
+
+        <!-- Conversion -->
+        <section id="conversion">
+            <h2>5. NFA to DFA Conversion</h2>
+            <p>Uses the <strong>Subset Construction Algorithm</strong>.</p>
+            <div class="card">
+                <ol>
+                    <li>Start state of DFA = \(\epsilon\)-closure(Start state of NFA).</li>
+                    <li>For every new subset state created, find transitions for all alphabet symbols.</li>
+                    <li>Union of destinations becomes the new state.</li>
+                    <li>Final states of DFA = Any subset containing at least one final state from NFA.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Transducers -->
+        <section id="transducers">
+            <h2>6. Finite Automata with Output</h2>
+            <table class="comparison-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>Moore Machine</th>
+                    <th>Mealy Machine</th>
+                </tr>
+                <tr>
+                    <td><strong>Output Function</strong></td>
+                    <td>\(\lambda: Q \rightarrow \Delta\)</td>
+                    <td>\(\lambda: Q \times \Sigma \rightarrow \Delta\)</td>
+                </tr>
+                <tr>
+                    <td><strong>Dependency</strong></td>
+                    <td>Output depends only on <strong>State</strong>.</td>
+                    <td>Output depends on <strong>State</strong> AND <strong>Input</strong>.</td>
+                </tr>
+                <tr>
+                    <td><strong>Response</strong></td>
+                    <td>Slower (responds after state change).</td>
+                    <td>Faster (responds during transition).</td>
+                </tr>
+                <tr>
+                    <td><strong>Output Length</strong></td>
+                    <td>\(|Input| + 1\)</td>
+                    <td>\(|Input|\)</td>
+                </tr>
+            </table>
+            
+            <div style="display: flex; gap: 2rem; justify-content: center; margin-top: 1rem;">
+                <div style="text-align: center;">
+                    <strong>Moore Model</strong>
+                    <div class="mermaid">
+                    graph LR
+                        A((q0/0)) -- 1 --> B((q1/1))
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <strong>Mealy Model</strong>
+                    <div class="mermaid">
+                    graph LR
+                        A((q0)) -- 1 / 1 --> B((q1))
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Minimization -->
+        <section id="minimization">
+            <h2>7. Minimization of DFA</h2>
+            <p>Goal: Partition states into sets of equivalent states.</p>
+            <div class="concept-box">
+                <strong>Algorithm (Partition Refinement):</strong>
+                <ol>
+                    <li>Remove unreachable states.</li>
+                    <li>Divide states into two sets: Final (\(F\)) and Non-Final (\(Q-F\)).</li>
+                    <li>Iteratively refine partitions: Two states \(p, q\) are distinguishable if for some input \(a\), \(\delta(p,a)\) and \(\delta(q,a)\) land in different partitions.</li>
+                    <li>Stop when no further splits are possible.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Regular Grammars -->
+        <section id="grammars">
+            <h2>8. Regular Grammars</h2>
+            <p>Type-3 Grammars in Chomsky Hierarchy.</p>
+            <table class="comparison-table">
+                <tr>
+                    <th>Right Linear Grammar (RLG)</th>
+                    <th>Left Linear Grammar (LLG)</th>
+                </tr>
+                <tr>
+                    <td>\(A \rightarrow xB\) or \(A \rightarrow x\)</td>
+                    <td>\(A \rightarrow Bx\) or \(A \rightarrow x\)</td>
+                </tr>
+                <tr>
+                    <td>Variable is on the rightmost end.</td>
+                    <td>Variable is on the leftmost end.</td>
+                </tr>
+            </table>
+            <p><em>Note: A grammar cannot mix Left Linear and Right Linear productions.</em></p>
+        </section>
+
+        <!-- Pumping Lemma -->
+        <section id="pumping">
+            <h2>9. Pumping Lemma</h2>
+            <p>Used to prove that a language is <strong>NOT Regular</strong> (Proof by Contradiction).</p>
+            
+            <div class="card">
+                <strong>The Theorem:</strong>
+                <p>If \(L\) is regular, there exists a constant \(P\) (pumping length) such that any string \(w \in L\) with \(|w| \ge P\) can be split into \(w = xyz\) satisfying:</p>
+                <ol>
+                    <li>\(|xy| \le P\)</li>
+                    <li>\(|y| > 0\) (y cannot be empty)</li>
+                    <li>For all \(i \ge 0\), \(xy^iz \in L\)</li>
+                </ol>
+            </div>
+
+            <details>
+                <summary>Common Non-Regular Languages</summary>
+                <ul>
+                    <li>\(L = \{ a^n b^n \mid n \ge 0 \}\) (Requires memory/counting)</li>
+                    <li>\(L = \{ w w^R \mid w \in \{a,b\}^* \}\) (Palindrome with center marker)</li>
+                    <li>\(L = \{ a^p \mid p \text{ is prime} \}\)</li>
+                    <li>\(L = \{ a^{n^2} \mid n \ge 0 \}\)</li>
+                    <li>Balanced Parentheses</li>
+                </ul>
+            </details>
+        </section>
+
+        <!-- Closure Properties -->
+        <section id="closure">
+            <h2>10. Closure Properties</h2>
+            <p>If \(L_1\) and \(L_2\) are Regular, what about the result?</p>
+            
+            <table class="comparison-table" style="text-align: center;">
+                <tr>
+                    <th>Operation</th>
+                    <th>Closed?</th>
+                    <th>Comment</th>
+                </tr>
+                <tr>
+                    <td>Union (\(\cup\))</td>
+                    <td>✅ Yes</td>
+                    <td>Construct NFA with \(\epsilon\)-branch.</td>
+                </tr>
+                <tr>
+                    <td>Intersection (\(\cap\))</td>
+                    <td>✅ Yes</td>
+                    <td>Using Product Automata.</td>
+                </tr>
+                <tr>
+                    <td>Complement (\(\bar{L}\))</td>
+                    <td>✅ Yes</td>
+                    <td>Swap Final/Non-Final states in DFA.</td>
+                </tr>
+                <tr>
+                    <td>Concatenation</td>
+                    <td>✅ Yes</td>
+                    <td>Connect final of \(M_1\) to initial of \(M_2\).</td>
+                </tr>
+                <tr>
+                    <td>Kleene Star</td>
+                    <td>✅ Yes</td>
+                    <td>Loop back.</td>
+                </tr>
+                <tr>
+                    <td>Reversal</td>
+                    <td>✅ Yes</td>
+                    <td>Reverse arrows, swap initial/final.</td>
+                </tr>
+                <tr>
+                    <td>Homomorphism</td>
+                    <td>✅ Yes</td>
+                    <td>Substitution.</td>
+                </tr>
+                <tr>
+                    <td>Subset</td>
+                    <td>❌ No</td>
+                    <td>Subset of regular isn't necessarily regular.</td>
+                </tr>
+                <tr>
+                    <td>Infinite Union</td>
+                    <td>❌ No</td>
+                    <td>Union of infinite regular sets may not be regular.</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Decidability -->
+        <section id="decidability">
+            <h2>11. Decidability for Regular Languages</h2>
+            <div class="card">
+                <p>The following problems are <strong>Decidable</strong> for Regular Languages (i.e., an algorithm exists):</p>
+                <ul>
+                    <li><strong>Membership:</strong> Is \(w \in L\)? (Run w on DFA)</li>
+                    <li><strong>Emptiness:</strong> Is \(L = \phi\)? (Is any final state reachable?)</li>
+                    <li><strong>Finiteness:</strong> Is \(L\) finite? (Check for loops on path to final state)</li>
+                    <li><strong>Equivalence:</strong> Is \(L_1 = L_2\)? (Check if \((L_1 \cap \bar{L_2}) \cup (\bar{L_1} \cap L_2) = \phi\))</li>
+                    <li><strong>Subset:</strong> Is \(L_1 \subseteq L_2\)? (Check if \(L_1 \cap \bar{L_2} = \phi\))</li>
+                </ul>
+            </div>
+        </section>
+        
+        <footer>
+            <p style="margin-top: 4rem; text-align: center; color: #9ca3af; font-size: 0.9rem;">
+                Generated for Computer Science Students • Finite Automata
+            </p>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Cheat Sheet: MAC & Ethernet</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+            --code-text: #e0e0e0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 250px;
+            background: var(--card-bg);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        aside h1 { font-size: 1.2rem; font-weight: 700; margin-bottom: 2rem; color: var(--primary); }
+        aside nav a {
+            display: block;
+            padding: 0.5rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+        }
+        aside nav a:hover { background: #eff6ff; color: var(--primary); }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 4rem;
+            max-width: 1200px;
+            overflow-x: hidden;
+        }
+
+        h2 { font-size: 1.8rem; margin: 3rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); color: var(--text); }
+        h3 { font-size: 1.4rem; margin: 1.5rem 0 1rem; color: var(--secondary); }
+        h4 { font-size: 1.1rem; font-weight: 600; margin-top: 1rem; color: var(--primary); }
+
+        /* Cards & Layouts */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
+        th { background: #f1f5f9; font-weight: 600; }
+        
+        /* Interactive Frame Diagram */
+        .frame-visual {
+            display: flex;
+            margin: 2rem 0;
+            border: 1px solid #333;
+            border-radius: 6px;
+            overflow: hidden;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            cursor: default;
+        }
+        .frame-part {
+            padding: 10px 5px;
+            text-align: center;
+            border-right: 1px solid #fff;
+            color: white;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .frame-part:hover { transform: scaleY(1.1); z-index: 10; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .frame-part span { display: block; font-size: 0.7rem; opacity: 0.8; margin-top: 4px; }
+        
+        /* Code & Math */
+        .formula-box {
+            background: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Inter', sans-serif;
+        }
+        code { background: #f1f5f9; padding: 2px 4px; border-radius: 3px; font-family: 'Fira Code', monospace; font-size: 0.9em; color: #d63384; }
+        
+        /* Collapsible Sections */
+        details { margin: 1rem 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+        summary {
+            background: #f8fafc; padding: 0.75rem 1rem; cursor: pointer; font-weight: 600;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        summary:hover { background: #eff6ff; }
+        .details-content { padding: 1rem; border-top: 1px solid var(--border); background: white; }
+
+        /* Utility */
+        .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+
+        @media (max-width: 768px) {
+            aside { display: none; }
+            main { padding: 1rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .frame-visual { flex-direction: column; }
+            .frame-part { border-right: none; border-bottom: 1px solid #fff; }
+        }
+    </style>
+</head>
+<body>
+
+<aside>
+    <h1>CS Network Notes</h1>
+    <nav>
+        <a href="#intro">Overview & Classification</a>
+        <a href="#aloha">Random Access: ALOHA</a>
+        <a href="#csma">CSMA Variants</a>
+        <a href="#csmacd">CSMA/CD (Ethernet)</a>
+        <a href="#backoff">Back-off Algorithm</a>
+        <a href="#ethernet-frame">Ethernet Frame Format</a>
+        <a href="#efficiency">Efficiency & Throughput</a>
+        <a href="#controlled">Controlled Access</a>
+        <a href="#problems">Problem Solving (GATE)</a>
+    </nav>
+</aside>
+
+<main>
+    <header>
+        <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--text);">Medium Access Control (MAC)</h1>
+        <p style="color: var(--secondary); margin-top: 0.5rem;">Comprehensive notes on DLL sublayer protocols, Ethernet standards, and performance analysis. Based on lectures by Ankit Doyla Sir.</p>
+    </header>
+
+    <!-- Section 1: Classification -->
+    <section id="intro">
+        <h2>1. Protocol Classification</h2>
+        <div class="card">
+            <p>The <strong>Data Link Layer (DLL)</strong> is divided into Logical Link Control (LLC) and Medium Access Control (MAC). The MAC sublayer manages how multiple stations share a single communication medium (Broadcast Link).</p>
+            <div style="margin-top: 20px;">
+                <div class="mermaid">
+                graph TD
+                    MAP[Multiple Access Protocols]
+                    
+                    MAP --> RAP[Random Access]
+                    MAP --> CAP[Controlled Access]
+                    MAP --> CHAP[Channelization]
+                    
+                    RAP --> ALOHA[ALOHA]
+                    RAP --> CSMA[CSMA]
+                    RAP --> CSMACD[CSMA/CD]
+                    RAP --> CSMACA[CSMA/CA]
+                    
+                    ALOHA --> PURE[Pure ALOHA]
+                    ALOHA --> SLOT[Slotted ALOHA]
+                    
+                    CAP --> RES[Reservation]
+                    CAP --> POLL[Polling]
+                    CAP --> TOK[Token Passing]
+                    
+                    CHAP --> FDMA[FDMA]
+                    CHAP --> TDMA[TDMA]
+                    CHAP --> CDMA[CDMA]
+                    
+                    style RAP fill:#dbeafe,stroke:#2563eb
+                    style CAP fill:#dcfce7,stroke:#166534
+                    style CHAP fill:#fffbeb,stroke:#f59e0b
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: ALOHA -->
+    <section id="aloha">
+        <h2>2. ALOHA Protocols</h2>
+        <p>Developed at the University of Hawaii. No station is superior; any station can transmit when it has data.</p>
+        
+        <div class="grid-2">
+            <!-- Pure ALOHA -->
+            <div class="card">
+                <h3>Pure ALOHA</h3>
+                <ul>
+                    <li><strong>Logic:</strong> Send whenever data is ready.</li>
+                    <li><strong>Collision:</strong> Very high probability. If Ack not received after Time Out ($2 \times T_p$), wait random back-off time and retransmit.</li>
+                    <li><strong>Vulnerable Time:</strong> The interval where collision can occur.</li>
+                </ul>
+                <div class="formula-box">
+                    $$ Vulnerable \ Time = 2 \times T_f $$
+                    $$ Efficiency (\eta) = G \times e^{-2G} $$
+                    $$ Max \ \eta = 18.4\% \ (at \ G=0.5) $$
+                </div>
+                <p><small>Where $T_f$ is Frame Transmission Time, $G$ is traffic load.</small></p>
+            </div>
+
+            <!-- Slotted ALOHA -->
+            <div class="card">
+                <h3>Slotted ALOHA</h3>
+                <ul>
+                    <li><strong>Logic:</strong> Time is divided into discrete slots ($T_f$). Stations can only transmit at the <em>beginning</em> of a slot.</li>
+                    <li><strong>Synchronization:</strong> Required globally.</li>
+                    <li><strong>Advantage:</strong> Reduces vulnerable time by half.</li>
+                </ul>
+                <div class="formula-box">
+                    $$ Vulnerable \ Time = T_f $$
+                    $$ Efficiency (\eta) = G \times e^{-G} $$
+                    $$ Max \ \eta = 36.8\% \ (at \ G=1) $$
+                </div>
+                <p><small>Doubles the efficiency of Pure ALOHA.</small></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: CSMA -->
+    <section id="csma">
+        <h2>3. Carrier Sense Multiple Access (CSMA)</h2>
+        <p><em>"Listen before you speak."</em> Stations sense the carrier (medium) before transmitting to reduce collisions.</p>
+
+        <table style="margin-top: 1rem;">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Behavior when Channel is BUSY</th>
+                    <th>Behavior when Channel is IDLE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1-Persistent</strong></td>
+                    <td>Continuously sense until idle.</td>
+                    <td>Transmit immediately (Probability = 1). <br><span class="badge badge-red">High Collision Risk</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Non-Persistent</strong></td>
+                    <td>Wait random time, then sense again.</td>
+                    <td>Transmit immediately. <br><span class="badge badge-green">Better Efficiency, High Delays</span></td>
+                </tr>
+                <tr>
+                    <td><strong>P-Persistent</strong></td>
+                    <td>Continuously sense until idle.</td>
+                    <td>Transmit with prob $P$, wait next slot with prob $1-P$.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Section 4: CSMA/CD -->
+    <section id="csmacd">
+        <h2>4. CSMA/CD (Ethernet)</h2>
+        <div class="card">
+            <h3>Collision Detection Logic</h3>
+            <p>Used in wired Ethernet (IEEE 802.3). Stations monitor the channel <em>while</em> transmitting. If a collision is detected, transmission stops immediately, and a <strong>Jam Signal</strong> is sent.</p>
+            
+            <div class="mermaid">
+            flowchart LR
+                A[Start] --> B{Sense Channel}
+                B -- Busy --> B
+                B -- Idle --> C[Transmit & Listen]
+                C --> D{Collision?}
+                D -- No --> E[Success]
+                D -- Yes --> F[Send Jam Signal]
+                F --> G[Increment Attempts]
+                G --> H[Binary Exp Backoff]
+                H --> B
+            </div>
+
+            <div class="formula-box">
+                <h4>🛑 The Golden Rule of CSMA/CD</h4>
+                <p>To detect a collision, the transmission time ($T_t$) must be at least the round-trip propagation time ($RTT$).</p>
+                $$ T_t \ge 2 \times T_p $$
+                $$ \frac{Length}{Bandwidth} \ge 2 \times \frac{Distance}{Speed} $$
+                <p style="margin-top:10px;"><strong>Min Frame Size ($L$)</strong> formula:</p>
+                $$ L \ge 2 \times T_p \times B $$
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Backoff -->
+    <section id="backoff">
+        <h2>5. Binary Exponential Back-off</h2>
+        <p>Algorithm used to resolve contention after a collision.</p>
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li style="margin-bottom: 0.5rem;">👉 <strong>Step 1:</strong> Collision occurs (Attempt $n$).</li>
+            <li style="margin-bottom: 0.5rem;">👉 <strong>Step 2:</strong> Choose $K$ randomly from range $[0, 2^n - 1]$. <small>(Max $n=10$, Cap at 1023)</small>.</li>
+            <li style="margin-bottom: 0.5rem;">👉 <strong>Step 3:</strong> Wait time = $K \times \text{Slot Time}$.</li>
+            <li style="margin-bottom: 0.5rem;">👉 <strong>Note:</strong> Slot Time $\approx$ RTT. Max attempts = 15 or 16 (then packet is dropped/purged).</li>
+        </ul>
+        <div class="card" style="background: #fffbeb;">
+            <p><strong>Capture Effect:</strong> A station that wins a backoff race has a higher probability of winning the next one, potentially causing unfairness.</p>
+        </div>
+    </section>
+
+    <!-- Section 6: Ethernet Frame -->
+    <section id="ethernet-frame">
+        <h2>6. Ethernet Frame Format (IEEE 802.3)</h2>
+        <p>Standard Ethernet (10 Mbps) uses Manchester Encoding (Baud Rate = 2 $\times$ Bit Rate).</p>
+
+        <!-- Interactive Frame Visual -->
+        <div class="frame-visual">
+            <div class="frame-part" style="background: #64748b; flex: 7;">
+                Preamble
+                <span>7 Bytes</span>
+                <span>101010...</span>
+            </div>
+            <div class="frame-part" style="background: #475569; flex: 1;">
+                SFD
+                <span>1 Byte</span>
+                <span>10101011</span>
+            </div>
+            <div class="frame-part" style="background: #2563eb; flex: 6;">
+                Dest. MAC
+                <span>6 Bytes</span>
+            </div>
+            <div class="frame-part" style="background: #3b82f6; flex: 6;">
+                Source MAC
+                <span>6 Bytes</span>
+            </div>
+            <div class="frame-part" style="background: #f59e0b; flex: 2;">
+                Len
+                <span>2 Bytes</span>
+            </div>
+            <div class="frame-part" style="background: #10b981; flex: 15;">
+                Data / Payload
+                <span>46 - 1500 Bytes</span>
+            </div>
+            <div class="frame-part" style="background: #ef4444; flex: 4;">
+                CRC
+                <span>4 Bytes</span>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h4>Data Constraints</h4>
+                <ul>
+                    <li><strong>Min Data:</strong> 46 Bytes (Padding added if less).</li>
+                    <li><strong>Max Data:</strong> 1500 Bytes (MTU).</li>
+                    <li><strong>Min Frame Size:</strong> 64 Bytes ($6+6+2+46+4$).</li>
+                    <li><strong>Max Frame Size:</strong> 1518 Bytes.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>MAC Address (48-bit)</h4>
+                <ul>
+                    <li><strong>Unicast:</strong> 1st byte LSB is 0 (e.g., ...0).</li>
+                    <li><strong>Multicast:</strong> 1st byte LSB is 1 (e.g., ...1).</li>
+                    <li><strong>Broadcast:</strong> All bits 1 (FF:FF:FF:FF:FF:FF).</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Efficiency -->
+    <section id="efficiency">
+        <h2>7. Efficiency of CSMA/CD</h2>
+        <p>Efficiency depends on the ratio of Propagation Delay ($T_p$) to Transmission Delay ($T_t$), denoted as $a$.</p>
+        
+        <div class="formula-box" style="text-align: center; font-size: 1.2rem;">
+            $$ \eta = \frac{1}{1 + 6.44a} $$
+            <small>where $a = \frac{T_p}{T_t}$</small>
+        </div>
+
+        <div class="grid-2">
+            <div>
+                <strong>Efficiency increases if:</strong>
+                <ul>
+                    <li>Frame Size ($L$) ↑ (increases $T_t$)</li>
+                    <li>Bandwidth ($B$) ↓</li>
+                    <li>Distance ($d$) ↓ (decreases $T_p$)</li>
+                </ul>
+            </div>
+            <div>
+                <p>Ethernet is not suitable for satellite networks (High $T_p$) or very small packets.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 8: GATE Problems -->
+    <section id="problems">
+        <h2>8. Problem Solving (GATE Examples)</h2>
+        
+        <details>
+            <summary>Q1. Min Frame Size Calculation (GATE 2005)</summary>
+            <div class="details-content">
+                <p><strong>Given:</strong> Bandwidth $B = 1$ Gbps, Distance $d = 1$ km, Speed $v = 200,000$ km/s.<br>
+                <strong>Find:</strong> Minimum frame size in bits.</p>
+                <hr style="margin: 10px 0; border: 0; border-top: 1px dashed #ccc;">
+                <p><strong>Solution:</strong></p>
+                <p>$$ T_p = \frac{1 \text{ km}}{200,000 \text{ km/s}} = 5 \times 10^{-6} \text{ sec} $$</p>
+                <p>$$ L \ge 2 \times T_p \times B $$</p>
+                <p>$$ L \ge 2 \times (5 \times 10^{-6}) \times 10^9 $$</p>
+                <p>$$ L \ge 10,000 \text{ bits} $$</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Q2. Signal Speed Calculation (GATE 2015)</summary>
+            <div class="details-content">
+                <p><strong>Given:</strong> $B = 100$ Mbps, $d = 1$ km, Min Frame Size $L = 1250$ Bytes.<br>
+                <strong>Find:</strong> Signal Speed ($v$).</p>
+                <hr style="margin: 10px 0; border: 0; border-top: 1px dashed #ccc;">
+                <p><strong>Solution:</strong></p>
+                <p>Convert $L$ to bits: $1250 \times 8 = 10,000$ bits.</p>
+                <p>$$ L = 2 \times T_p \times B \implies T_p = \frac{L}{2B} $$</p>
+                <p>$$ T_p = \frac{10^4}{2 \times 10^8} = \frac{1}{2 \times 10^4} \text{ sec} $$</p>
+                <p>$$ v = \frac{d}{T_p} = \frac{1 \text{ km}}{1 / (20,000)} = 20,000 \text{ km/s} $$</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Q3. Efficiency of Polling</summary>
+            <div class="details-content">
+                <p><strong>Given:</strong> $T_{poll} = 80 \mu s$, Frame Size $= 1000$ Bytes, Capacity $= 10$ Mbps.<br>
+                <strong>Find:</strong> Max Throughput.</p>
+                <hr style="margin: 10px 0; border: 0; border-top: 1px dashed #ccc;">
+                <p><strong>Solution:</strong></p>
+                <p>$$ T_t = \frac{1000 \times 8}{10 \times 10^6} = 800 \mu s $$</p>
+                <p>$$ \eta = \frac{T_t}{T_{poll} + T_t} = \frac{800}{80 + 800} = \frac{800}{880} = \frac{10}{11} $$</p>
+                <p>$$ Throughput = \eta \times B = \frac{10}{11} \times 10 \text{ Mbps} = \frac{100}{11} \text{ Mbps} $$</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Q4. Maximum Stations in Slotted ALOHA</summary>
+            <div class="details-content">
+                <p><strong>Given:</strong> Probability $p=0.2$, Min Throughput required per host $= 0.16$.<br>
+                <strong>Find:</strong> Max number of hosts ($N$).</p>
+                <hr style="margin: 10px 0; border: 0; border-top: 1px dashed #ccc;">
+                <p><strong>Solution:</strong></p>
+                <p>Throughput per host = $p(1-p)^{N-1}$</p>
+                <p>$$ 0.16 = 0.2 \times (0.8)^{N-1} $$</p>
+                <p>$$ 0.8 = (0.8)^{N-1} \implies N-1 = 1 \implies N=2 $$</p>
+            </div>
+        </details>
+    </section>
+
+</main>
+
+</body>
+</html>

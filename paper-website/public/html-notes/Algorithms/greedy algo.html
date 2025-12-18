@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Algorithms: Greedy Method Cheat Sheet</title>
+    <!-- MathJax for Formulae -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-bg: #eff6ff;
+            --secondary: #475569;
+            --bg-color: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --sidebar-width: 280px;
+            --code-bg: #1e1e1e;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Inter, system-ui, -apple-system, sans-serif;
+            color: var(--text-color);
+            background-color: #f8fafc;
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: white;
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        nav h1 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.75rem; }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background: var(--primary-bg);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: var(--sidebar-width);
+            padding: 3rem 4rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Typography & Structure */
+        h2 {
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem;
+            color: #0f172a;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        p { margin-bottom: 1rem; color: #475569; }
+
+        /* Cards & Containers */
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateY(-2px); }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Interactive Details */
+        details {
+            background: var(--primary-bg);
+            border: 1px solid #dbeafe;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary);
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; }
+        
+        .details-content {
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #dbeafe;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        .keyword { color: #c678dd; }
+        .func { color: #61afef; }
+        .var { color: #e06c75; }
+        .comment { color: #7f848e; font-style: italic; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th { background: #f1f5f9; font-weight: 600; }
+
+        /* Tags and Badges */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .tag.purple { background: #ede9fe; color: var(--accent-purple); }
+        .tag.green { background: #d1fae5; color: var(--accent-green); }
+        .tag.orange { background: #ffedd5; color: var(--accent-orange); }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        
+        .math-block {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px dashed var(--border-color);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>CS Algorithms<br><span style="font-size:0.8rem; font-weight:400; color: #64748b;">Greedy Method</span></h1>
+    <ul>
+        <li><a href="#intro">1. Introduction</a></li>
+        <li><a href="#knapsack">2. Fractional Knapsack</a></li>
+        <li><a href="#jsd">3. Job Sequencing</a></li>
+        <li><a href="#huffman">4. Optimal Merge & Huffman</a></li>
+        <li><a href="#mcst">5. Minimum Spanning Trees</a></li>
+        <li><a href="#prim">6. Prim's Algorithm</a></li>
+        <li><a href="#kruskal">7. Kruskal's Algorithm</a></li>
+        <li><a href="#dijkstra">8. Dijkstra's Algorithm</a></li>
+        <li><a href="#summary">9. Complexity Summary</a></li>
+    </ul>
+</nav>
+
+<main>
+    <!-- Header -->
+    <header>
+        <div class="tag purple">Algorithm Design</div>
+        <div class="tag green">Optimization</div>
+        <h1 style="font-size: 3rem; margin-top: 1rem; line-height:1.2;">The Greedy Method</h1>
+        <p style="font-size: 1.2rem; margin-top: 1rem;">
+            A paradigm that builds up a solution piece by piece, always choosing the next piece that offers the most immediate benefit.
+        </p>
+    </header>
+
+    <!-- 1. Introduction -->
+    <section id="intro">
+        <h2>1. Introduction & Terminology</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Core Concept</h3>
+                <p>Greedy algorithms solve problems by making the <strong>locally optimal choice</strong> at each stage with the hope of finding a <strong>global optimum</strong>.</p>
+                <ul>
+                    <li><strong>Step-wise Decision:</strong> Decisions are made one by one.</li>
+                    <li><strong>Irrevocable:</strong> Once a decision is made, it is not changed (unlike Backtracking).</li>
+                    <li><strong>Constraint Satisfaction:</strong> Must satisfy problem limits.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Key Definitions</h3>
+                <ul style="padding-left: 1.2rem;">
+                    <li><strong>Feasible Solution:</strong> A subset of inputs that satisfies all constraints (e.g., total weight $\le$ capacity).</li>
+                    <li><strong>Optimal Solution:</strong> A feasible solution that maximizes or minimizes the <strong>Objective Function</strong> (e.g., Max Profit).</li>
+                    <li><strong>Objective Function:</strong> The value we want to optimize (Profit, Cost, Distance).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Control Abstraction</h3>
+            <div class="mermaid">
+                flowchart LR
+                    Start([Start]) --> Select[Select item x]
+                    Select --> Feasible{Feasible?}
+                    Feasible -- Yes --> Add[Add x to Solution]
+                    Feasible -- No --> Discard[Discard x]
+                    Add --> Done{More Input?}
+                    Discard --> Done
+                    Done -- Yes --> Select
+                    Done -- No --> Return([Return Solution])
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Fractional Knapsack -->
+    <section id="knapsack">
+        <h2>2. Fractional Knapsack Problem</h2>
+        <p>Given $n$ objects with weights $w_i$ and profits $p_i$, and a Knapsack capacity $M$. Maximize total profit.</p>
+        
+        <div class="math-block">
+            $$ \text{Maximize } \sum_{i=1}^n p_i x_i \quad \text{subject to} \quad \sum_{i=1}^n w_i x_i \le M $$
+            $$ \text{where } 0 \le x_i \le 1 \text{ (Fraction allowed)} $$
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Greedy Strategy</h3>
+                <p>To maximize profit, we should prioritize items with the highest <strong>Profit-to-Weight Ratio</strong> ($P_i/W_i$).</p>
+                <ol>
+                    <li>Calculate ratio $r_i = p_i / w_i$ for all items.</li>
+                    <li>Sort items in <strong>descending order</strong> of $r_i$.</li>
+                    <li>Take whole items while capacity remains.</li>
+                    <li>If remaining capacity < item weight, take a <strong>fraction</strong>.</li>
+                </ol>
+            </div>
+            <div class="card">
+                <h3>Analysis</h3>
+                <ul>
+                    <li><strong>Time Complexity:</strong> $O(n \log n)$ (dominated by sorting).</li>
+                    <li><strong>0/1 Knapsack:</strong> Greedy method <strong>fails</strong> for 0/1 Knapsack (where $x_i \in \{0,1\}$). That requires Dynamic Programming.</li>
+                </ul>
+            </div>
+        </div>
+
+        <details>
+            <summary>Example: n=3, M=20</summary>
+            <div class="details-content">
+                <table class="simple-table">
+                    <thead><tr><th>Item</th><th>Profit (P)</th><th>Weight (W)</th><th>Ratio (P/W)</th></tr></thead>
+                    <tbody>
+                        <tr><td>1</td><td>25</td><td>18</td><td>1.38</td></tr>
+                        <tr><td>2</td><td>24</td><td>15</td><td>1.6 (Highest)</td></tr>
+                        <tr><td>3</td><td>15</td><td>10</td><td>1.5</td></tr>
+                    </tbody>
+                </table>
+                <p><strong>Order:</strong> Item 2 $\to$ Item 3 $\to$ Item 1</p>
+                <ol>
+                    <li>Take Item 2 (W=15). Capacity left = 5. Profit = 24.</li>
+                    <li>Item 3 needs W=10. Only 5 left. Take fraction $5/10 = 0.5$. Profit added = $15 * 0.5 = 7.5$.</li>
+                    <li>Total Weight = 20. <strong>Total Profit = 24 + 7.5 = 31.5</strong></li>
+                </ol>
+            </div>
+        </details>
+    </section>
+
+    <!-- 3. Job Sequencing -->
+    <section id="jsd">
+        <h2>3. Job Sequencing with Deadlines</h2>
+        <p>Given $n$ jobs, each with a Deadline $d_i$ and Profit $p_i$. Each job takes 1 unit of time. Maximize profit by completing jobs before deadlines.</p>
+
+        <div class="card">
+            <h3>Algorithm Logic</h3>
+            <ol>
+                <li>Sort jobs in <strong>descending order of Profit</strong>.</li>
+                <li>Find the maximum deadline $d_{max}$. Create a time slot array of size $d_{max}$.</li>
+                <li>For each job, try to place it in the <strong>latest possible free slot</strong> (from $d_i$ down to 1).</li>
+                <li>If a slot is found, mark it occupied and add profit.</li>
+            </ol>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Example</h3>
+                <p><strong>Jobs (P, D):</strong> J1(100, 2), J2(19, 1), J3(27, 2), J4(25, 1), J5(15, 3)</p>
+                <p><strong>Sorted:</strong> J1, J3, J4, J2, J5</p>
+                <div class="mermaid">
+                    graph TD
+                    Slot1[Slot 1]
+                    Slot2[Slot 2]
+                    Slot3[Slot 3]
+                    
+                    J1[J1: P=100, D=2] -->|Fits| Slot2
+                    J3[J3: P=27, D=2] -->|Slot 2 busy, try 1| Slot1
+                    J4[J4: P=25, D=1] -->|Slot 1 busy| Reject
+                    J5[J5: P=15, D=3] -->|Fits| Slot3
+                </div>
+                <p><strong>Total Profit:</strong> 100 + 27 + 15 = 142</p>
+            </div>
+            <div class="card">
+                <h3>Complexity</h3>
+                <ul>
+                    <li>Sorting: $O(n \log n)$</li>
+                    <li>Slot Assignment: $O(n \cdot m)$ where $m$ is max deadline. Or $O(n^2)$ if $m \approx n$.</li>
+                    <li><strong>Optimization:</strong> Using Disjoint Set Union (DSU) to find slots reduces assignment to $O(n)$.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Optimal Merge & Huffman -->
+    <section id="huffman">
+        <h2>4. Optimal Merge Patterns & Huffman Coding</h2>
+        
+        <div class="card">
+            <h3>Optimal Merge Pattern</h3>
+            <p><strong>Problem:</strong> Merge $n$ sorted files with different record counts minimizing total record movements.</p>
+            <p><strong>Strategy:</strong> Always merge the two <strong>smallest</strong> files first.</p>
+            <pre><span class="keyword">while</span> (list.length > 1) {
+    min1 = extractMin(list);
+    min2 = extractMin(list);
+    cost = min1 + min2;
+    totalCost += cost;
+    insert(list, cost);
+}</pre>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Huffman Coding</h3>
+                <p>Used for lossless data compression. Assigns shorter binary codes to more frequent characters.</p>
+                <ul>
+                    <li><strong>Prefix Property:</strong> No code is a prefix of another (ensures unambiguous decoding).</li>
+                    <li><strong>Implementation:</strong> Uses a Min-Priority Queue (Min-Heap).</li>
+                    <li><strong>Complexity:</strong> $O(n \log n)$.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Visual Example</h3>
+                <div class="mermaid">
+                    graph TD
+                    A((55)) --- B((25))
+                    A --- C[A: 30]
+                    B --- D[B: 10]
+                    B --- E[C: 15]
+                </div>
+                <p><small>Combining frequencies 10 and 15 creates node 25. Then 25 combines with 30.</small></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. MCST -->
+    <section id="mcst">
+        <h2>5. Minimum Cost Spanning Trees (MCST)</h2>
+        <p>A spanning tree of a graph $G=(V,E)$ connects all vertices with minimum total edge weight and <strong>no cycles</strong>.</p>
+        
+        <div class="grid-2">
+            <div class="card" style="border-left: 4px solid var(--accent-orange);">
+                <h3>Properties</h3>
+                <ul>
+                    <li>Vertices: $n$</li>
+                    <li>Edges: $n-1$</li>
+                    <li>Cycles: 0</li>
+                    <li>If all weights are distinct, the MCST is <strong>unique</strong>.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Graph Representations</h3>
+                <ul>
+                    <li><strong>Adjacency Matrix:</strong> $O(n^2)$ space. Good for dense graphs.</li>
+                    <li><strong>Adjacency List:</strong> $O(n+e)$ space. Good for sparse graphs.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Prim's Algorithm -->
+    <section id="prim">
+        <h2>6. Prim's Algorithm</h2>
+        <p><strong>Strategy:</strong> Grow the tree from a starting vertex. At each step, add the cheapest edge connecting a tree vertex to a non-tree vertex.</p>
+
+        <div class="grid-2">
+            <div>
+                <h3>Pseudocode</h3>
+                <pre><code class="language-c">
+T = {start_vertex};
+while (T != V) {
+  find edge (u, v) with min weight
+  such that u in T and v not in T;
+  
+  add v to T;
+  add (u, v) to MST;
+}
+                </code></pre>
+            </div>
+            <div class="card">
+                <h3>Complexity</h3>
+                <ul>
+                    <li>Using Array/Matrix: $O(V^2)$</li>
+                    <li>Using Binary Heap + Adj List: $O(E \log V)$</li>
+                    <li>Using Fibonacci Heap: $O(E + V \log V)$</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Kruskal's Algorithm -->
+    <section id="kruskal">
+        <h2>7. Kruskal's Algorithm</h2>
+        <p><strong>Strategy:</strong> Sort all edges by weight. Add the smallest edge to the MST if it doesn't form a cycle.</p>
+
+        <div class="grid-2">
+            <div>
+                 <h3>Algorithm Flow</h3>
+                 <ol>
+                     <li>Sort edges by weight: $O(E \log E)$.</li>
+                     <li>Iterate through sorted edges.</li>
+                     <li>Use <strong>Union-Find (Disjoint Set)</strong> to check for cycles.</li>
+                     <li>If <code>Find(u) != Find(v)</code>, include edge and <code>Union(u, v)</code>.</li>
+                 </ol>
+            </div>
+            <div class="card">
+                <h3>Cycle Detection</h3>
+                <p>Essential part of Kruskal's. If adding an edge connects two vertices already in the same connected component, it forms a cycle.</p>
+                <div class="mermaid">
+                    graph LR
+                    1((1)) --- 2((2))
+                    2 --- 3((3))
+                    1 -.->|Cycle!| 3
+                </div>
+            </div>
+        </div>
+        <p><strong>Complexity:</strong> $O(E \log E)$ or $O(E \log V)$ (dominated by sorting).</p>
+    </section>
+
+    <!-- 8. Dijkstra -->
+    <section id="dijkstra">
+        <h2>8. Dijkstra's Algorithm (SSSP)</h2>
+        <p>Single Source Shortest Path. Finds the shortest path from a source node to all other nodes.</p>
+
+        <div class="card">
+            <h3>Relaxation Principle</h3>
+            <p>If we find a path to $v$ through $u$ that is shorter than the current known path to $v$, we update it.</p>
+            <div class="math-block">
+                $$ \text{If } d[u] + cost(u,v) < d[v] $$
+                $$ \text{then } d[v] = d[u] + cost(u,v) $$
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Important Notes</h3>
+                <ul>
+                    <li><strong>Greedy Choice:</strong> Always pick the unvisited vertex with the smallest distance.</li>
+                    <li><strong>Limitations:</strong> Does <strong>NOT</strong> work with negative edge weights (Use Bellman-Ford).</li>
+                    <li><strong>Time Complexity:</strong> $O(V^2)$ (Array) or $O((V+E)\log V)$ (Min-Heap).</li>
+                </ul>
+            </div>
+            <div class="mermaid">
+                graph TD
+                S((S:0)) -->|10| A((A:10))
+                S -->|5| B((B:5))
+                B -->|2| A
+                style A fill:#fff,stroke:#333
+                style B fill:#e6fffa,stroke:#000
+                style S fill:#e6fffa,stroke:#000
+            </div>
+        </div>
+        <p style="text-align: center; font-style: italic;">In diagram: Path S->A is 10. S->B->A is 5+2=7. 7 < 10, so Relax A.</p>
+    </section>
+
+    <!-- 9. Summary -->
+    <section id="summary">
+        <h2>9. Complexity & Formula Cheat Sheet</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Strategy</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Fractional Knapsack</td>
+                    <td>Sort by $P/W$</td>
+                    <td>$O(n \log n)$</td>
+                    <td>$O(1)$</td>
+                </tr>
+                <tr>
+                    <td>Job Sequencing</td>
+                    <td>Max Deadline Slots</td>
+                    <td>$O(n^2)$</td>
+                    <td>$O(n)$</td>
+                </tr>
+                <tr>
+                    <td>Huffman Coding</td>
+                    <td>Min Heap</td>
+                    <td>$O(n \log n)$</td>
+                    <td>$O(n)$</td>
+                </tr>
+                <tr>
+                    <td>Prim's MST</td>
+                    <td>Vertex-based</td>
+                    <td>$O(E \log V)$</td>
+                    <td>$O(V+E)$</td>
+                </tr>
+                <tr>
+                    <td>Kruskal's MST</td>
+                    <td>Edge-based + Union-Find</td>
+                    <td>$O(E \log E)$</td>
+                    <td>$O(V+E)$</td>
+                </tr>
+                <tr>
+                    <td>Dijkstra SSSP</td>
+                    <td>Relaxation + Min Heap</td>
+                    <td>$O((V+E) \log V)$</td>
+                    <td>$O(V)$</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card">
+            <h3>Special Formulas</h3>
+            <ul>
+                <li><strong>Cayley's Formula:</strong> A complete graph $K_n$ has $n^{n-2}$ spanning trees.</li>
+                <li><strong>Graph Edges:</strong>
+                    <ul>
+                        <li>Complete Undirected: $n(n-1)/2$</li>
+                        <li>Complete Directed: $n(n-1)$</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    // Simple Sticky Nav Highlighting
+    const sections = document.querySelectorAll('section');
+    const navLi = document.querySelectorAll('nav ul li a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLi.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href').includes(current)) {
+                a.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

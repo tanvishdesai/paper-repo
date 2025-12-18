@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Cheat Sheet: Machine Instructions & Addressing Modes</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { fontFamily: 'Inter', primaryColor: '#e0f2f1', edgeLabelBackground: '#ffffff' } });
+    </script>
+
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #ccfbf1;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --accent: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        nav h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+        nav a:hover, nav a.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 4rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        header { margin-bottom: 3rem; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+        header h2 { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 0.5rem; }
+        header p { color: var(--text-light); font-size: 1.1rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        h3 { font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--text); border-left: 4px solid var(--primary); padding-left: 1rem; }
+        h4 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; color: var(--text); font-weight: 600; }
+        p { margin-bottom: 1rem; }
+
+        /* Components */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); }
+
+        .definition {
+            background: var(--primary-light);
+            border: 1px solid var(--primary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        table { width: 100%; border-collapse: collapse; background: var(--card-bg); }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Code & Math */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Interactive Details */
+        details {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            background: #f8fafc;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::after { content: '+'; font-size: 1.2rem; color: var(--text-light); }
+        details[open] summary::after { content: '-'; }
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { grid-template-columns: 1fr; overflow: auto; }
+            nav { display: none; } /* Mobile menu implementation omitted for brevity */
+            main { padding: 1.5rem; }
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-right: 0.5rem;
+        }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>COA: Instructions & Addressing</h1>
+        <ul>
+            <li><a href="#intro">Fundamentals</a></li>
+            <li><a href="#instruction-format">Instruction Formats</a></li>
+            <li><a href="#isa-types">ISA Classifications</a></li>
+            <li><a href="#expanding-opcode">Expanding Opcode</a></li>
+            <li><a href="#addressing-modes">Addressing Modes</a></li>
+            <li><a href="#control-flow">Control Flow</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h2>Machine Instructions & Addressing Modes</h2>
+            <p>Comprehensive breakdown of Computer Organization, Instruction Set Architecture (ISA), and Data Access strategies.</p>
+        </header>
+
+        <!-- SECTION 1: FUNDAMENTALS -->
+        <section id="intro">
+            <h3>1. Fundamentals & Memory</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Basic Units</h4>
+                    <ul>
+                        <li><b>Bit (b):</b> 0 or 1.</li>
+                        <li><b>Byte (B):</b> Group of 8 bits.</li>
+                        <li><b>Word:</b> Number of bits processed simultaneously (e.g., 32-bit or 64-bit).</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Byte Ordering (Endianness)</h4>
+                    <p>How multi-byte data is stored in memory.</p>
+                    <div class="mermaid">
+                    graph TD
+                        subgraph Big Endian
+                        BE[MSB at Lowest Address]
+                        end
+                        subgraph Little Endian
+                        LE[LSB at Lowest Address]
+                        end
+                    </div>
+                </div>
+            </div>
+
+            <h4>Addressability</h4>
+            <div class="definition">
+                <p><b>Total Memory Capacity Formula:</b></p>
+                $$ \text{Capacity} = 2^{\text{Address Bits}} \times \text{Addressable Unit Size} $$
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Example (16-bit Address)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Byte Addressable</b></td>
+                            <td>Each address points to 1 Byte (8 bits).</td>
+                            <td>Capacity = \(2^{16}\) Bytes = 64 KB</td>
+                        </tr>
+                        <tr>
+                            <td><b>Word Addressable</b></td>
+                            <td>Each address points to 1 Word (e.g., 16 or 32 bits).</td>
+                            <td>Capacity = \(2^{16}\) Words = 64 KWords</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 2: INSTRUCTION FORMAT -->
+        <section id="instruction-format">
+            <h3>2. Instruction Format</h3>
+            <p>An instruction tells the processor what to do. It consists of groups of bits called <b>fields</b>.</p>
+
+            <div class="card" style="margin-bottom: 1.5rem; text-align:center;">
+                <h4>Standard Instruction Structure</h4>
+                <div style="display:flex; border: 2px solid var(--text); border-radius: 8px; overflow:hidden; font-family: monospace;">
+                    <div style="flex:1; background:#fee2e2; padding:1rem; border-right:1px solid #000;">Opcode</div>
+                    <div style="flex:1; background:#dbeafe; padding:1rem; border-right:1px solid #000;">Mode</div>
+                    <div style="flex:2; background:#dcfce7; padding:1rem;">Operand / Address</div>
+                </div>
+                <p style="margin-top:0.5rem; font-size:0.9rem; color:var(--text-light);">
+                    <b>Opcode:</b> Operation Code (e.g., ADD, MOV). n-bit opcode supports \(2^n\) operations.<br>
+                    <b>Mode:</b> Addressing Mode (How to find the operand).<br>
+                    <b>Address:</b> Register ID, Memory Address, or Immediate Value.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: ISA TYPES -->
+        <section id="isa-types">
+            <h3>3. ISA Classifications</h3>
+            <p>Architectures are classified by the number of operands explicitly specified in the instruction.</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4><span class="tag tag-red">0-Address</span> Stack CPU</h4>
+                    <p><b>Concept:</b> Operands are implicitly on the Top of Stack (TOS).</p>
+                    <p><b>Instructions:</b> <code>PUSH A</code>, <code>POP X</code>, <code>ADD</code>.</p>
+                    <p><b>Expression:</b> Reverse Polish Notation (Postfix).</p>
+                    <code>ADD</code> implies \( TOS \leftarrow TOS + TOS_{prev} \)
+                </div>
+                <div class="card">
+                    <h4><span class="tag tag-blue">1-Address</span> Accumulator</h4>
+                    <p><b>Concept:</b> One operand is always the Accumulator (AC).</p>
+                    <p><b>Instructions:</b> <code>LOAD A</code>, <code>STORE B</code>, <code>ADD X</code>.</p>
+                    <p><b>Logic:</b> \( AC \leftarrow AC + M[X] \)</p>
+                </div>
+                <div class="card">
+                    <h4><span class="tag tag-green">2/3-Address</span> GPR</h4>
+                    <p><b>Concept:</b> General Purpose Registers. Used in modern RISC/CISC.</p>
+                    <p><b>2-Addr:</b> <code>ADD R1, R2</code> implies \( R1 \leftarrow R1 + R2 \)</p>
+                    <p><b>3-Addr:</b> <code>ADD R1, R2, R3</code> implies \( R1 \leftarrow R2 + R3 \)</p>
+                </div>
+            </div>
+
+            <details>
+                <summary>Example: Evaluate X = (A + B) * (C + D)</summary>
+                <div class="details-content">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Stack (0-Addr)</th>
+                                    <th>Accumulator (1-Addr)</th>
+                                    <th>Register (2-Addr)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <pre>PUSH A
+PUSH B
+ADD
+PUSH C
+PUSH D
+ADD
+MUL
+POP X</pre>
+                                    </td>
+                                    <td>
+                                        <pre>LOAD A
+ADD B
+STORE T
+LOAD C
+ADD D
+MUL T
+STORE X</pre>
+                                    </td>
+                                    <td>
+                                        <pre>MOV R1, A
+ADD R1, B
+MOV R2, C
+ADD R2, D
+MUL R1, R2
+MOV X, R1</pre>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- SECTION 4: EXPANDING OPCODE -->
+        <section id="expanding-opcode">
+            <h3>4. Expanding Opcode Technique</h3>
+            <p>A technique to increase the instruction set size by trading address bits for opcode bits in fixed-length instructions.</p>
+
+            <div class="definition">
+                <h4>The Golden Rule</h4>
+                $$ \text{Total Ops} = \text{Fixed Ops} + (\text{Free Patterns} \times 2^{\text{Size of Freed Field}}) $$
+            </div>
+
+            <div class="card">
+                <h4>Algorithm to find Derived Instructions</h4>
+                <ol>
+                    <li><b>Step 1:</b> Calculate Max Operations possible for the largest instruction format (Primitive).</li>
+                    <li><b>Step 2:</b> Subtract the number of existing primitive instructions.</li>
+                    <li><b>Step 3:</b> Multiply the remainder by \(2^k\) (where \(k\) is the number of bits in the field being freed).</li>
+                </ol>
+            </div>
+
+            <details>
+                <summary>Example Calculation</summary>
+                <div class="details-content">
+                    <p><b>Scenario:</b> 16-bit instruction. Address field = 4 bits. </p>
+                    <p>Suppose we have <b>15</b> 3-Address instructions (Primitive). How many 2-Address instructions are possible?</p>
+                    <hr>
+                    <p><b>Format:</b> Opcode (4 bits) | R1 (4) | R2 (4) | R3 (4)</p>
+                    <p>Total Patterns with 4-bit opcode = \(2^4 = 16\).</p>
+                    <p>Used = 15.</p>
+                    <p>Free Patterns = \(16 - 15 = 1\).</p>
+                    <p>When moving from 3-Addr to 2-Addr, we free up one 4-bit field.</p>
+                    <p><b>2-Address Ops = </b> \( 1 \times 2^4 = 16 \).</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- SECTION 5: ADDRESSING MODES -->
+        <section id="addressing-modes">
+            <h3>5. Addressing Modes</h3>
+            <p>How the processor calculates the <b>Effective Address (EA)</b> of the operand.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mode</th>
+                            <th>Symbol</th>
+                            <th>Description & Formula</th>
+                            <th>Key Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Immediate</b></td>
+                            <td><code>#Value</code></td>
+                            <td>Operand is in the instruction.<br>No Memory Reference.</td>
+                            <td>Constants, Initialization.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Direct / Absolute</b></td>
+                            <td><code>[Addr]</code></td>
+                            <td>Instruction contains EA.<br>\( EA = \text{Address Field} \)</td>
+                            <td>Global Variables.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Indirect</b></td>
+                            <td><code>@Addr</code></td>
+                            <td>Instruction contains pointer to EA.<br>\( EA = M[\text{Address Field}] \)</td>
+                            <td>Pointers, Parameter Passing.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Register Direct</b></td>
+                            <td><code>R1</code></td>
+                            <td>Operand in Register.<br>\( EA = R \)</td>
+                            <td>Loop counters, Accumulator.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Register Indirect</b></td>
+                            <td><code>(R1)</code></td>
+                            <td>Register contains memory address.<br>\( EA = \text{Content}(R) \)</td>
+                            <td>Pointers (Faster than Mem Indirect).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Indexed</b></td>
+                            <td><code>X(R)</code></td>
+                            <td>Base + Index.<br>\( EA = \text{Base} + \text{Index Reg} \)</td>
+                            <td>Array Implementation.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Auto-Inc/Dec</b></td>
+                            <td><code>(R)+</code> / <code>-(R)</code></td>
+                            <td>Access then increment (or vice versa).</td>
+                            <td>Loops, Stacks, Block Move.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>PC Relative Addressing</h4>
+                    <p>Used for <b>Relocatable Code</b> and <b>Branching</b>.</p>
+                    <p>$$ EA = PC_{next} + \text{Offset} $$</p>
+                    <p class="tag tag-blue">Note</p> PC usually points to the <i>next</i> instruction during execution.
+                </div>
+                <div class="card">
+                    <h4>Base Register Addressing</h4>
+                    <p>Used for <b>Program Relocation</b> in memory.</p>
+                    <p>$$ EA = \text{Base Register} + \text{Offset} $$</p>
+                    <p>Allows moving entire program segments by changing just the Base Register.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: CONTROL FLOW -->
+        <section id="control-flow">
+            <h3>6. Program Control</h3>
+            <p>Instructions that change the flow of execution (Transfer of Control).</p>
+
+            <div class="mermaid">
+            graph LR
+                A[Branch Instructions] --> B[Unconditional]
+                A --> C[Conditional]
+                B --> D[JMP, CALL, RET]
+                C --> E[JZ Jump Zero]
+                C --> F[JNZ Jump Not Zero]
+                C --> G[JC Jump Carry]
+            </div>
+
+            <div class="card">
+                <h4>Relative Branching Calculation</h4>
+                <p>When calculating the target address for a branch:</p>
+                $$ \text{Target Addr} = \text{Current PC} + \text{Offset} $$
+                <ul>
+                    <li><b>Forward Jump:</b> Positive Offset.</li>
+                    <li><b>Backward Jump:</b> Negative Offset.</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-light);">
+            <p>Synthesized from Lecture Notes by <b>Vijay Agarwal Sir</b></p>
+            <p>Computer Organization and Architecture</p>
+        </footer>
+
+    </main>
+</body>
+</html>

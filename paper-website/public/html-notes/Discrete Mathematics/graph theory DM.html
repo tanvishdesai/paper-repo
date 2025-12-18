@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Graph Theory Cheat Sheet</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid.js for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f59e0b;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --sidebar-bg: #0f172a;
+            --sidebar-text: #e2e8f0;
+            --card-bg: #ffffff;
+            --code-bg: #1e293b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+            z-index: 1000;
+        }
+
+        aside h1 { font-size: 1.25rem; font-weight: 700; margin-bottom: 2rem; color: var(--secondary); letter-spacing: -0.5px; }
+        aside ul { list-style: none; }
+        aside li { margin-bottom: 0.5rem; }
+        aside a {
+            text-decoration: none;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        aside a:hover, aside a.active { background-color: rgba(255,255,255,0.1); color: #fff; transform: translateX(5px); }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            margin-left: 260px;
+            padding: 2rem 4rem;
+            max-width: 1400px;
+        }
+
+        header { margin-bottom: 3rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 1rem; }
+        header h2 { font-size: 2.5rem; font-weight: 800; color: var(--primary-dark); }
+        header p { color: #64748b; font-size: 1.1rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        h3 { font-size: 1.75rem; color: var(--sidebar-bg); margin-bottom: 1.5rem; border-left: 5px solid var(--secondary); padding-left: 1rem; }
+        h4 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; color: var(--primary); }
+
+        /* Cards & Containers */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: var(--primary); color: white; font-weight: 600; }
+        tr:hover { background-color: #f1f5f9; }
+
+        /* Formulas & Math */
+        .formula-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Diagrams & Visuals */
+        .visual-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px dashed #cbd5e1;
+            margin: 1rem 0;
+        }
+        
+        /* Code Blocks */
+        pre { background: var(--code-bg); color: #f8fafc; padding: 1rem; border-radius: 8px; overflow-x: auto; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
+
+        /* Utilities */
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; margin-right: 5px; }
+        .tag.blue { background: #dbeafe; color: #1e40af; }
+        .tag.red { background: #fee2e2; color: #991b1b; }
+        .tag.green { background: #dcfce7; color: #166534; }
+
+        details { background: #fff; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 1rem; }
+        summary { cursor: pointer; font-weight: 600; color: var(--primary); }
+
+        @media (max-width: 768px) {
+            aside { display: none; }
+            main { margin-left: 0; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<aside>
+    <h1>CS Graph Theory</h1>
+    <nav>
+        <ul>
+            <li><a href="#basics">Basics & Degrees</a></li>
+            <li><a href="#types">Types of Graphs</a></li>
+            <li><a href="#connectivity">Connectivity</a></li>
+            <li><a href="#operations">Operations & Iso</a></li>
+            <li><a href="#traversal">Euler & Hamilton</a></li>
+            <li><a href="#planarity">Planarity</a></li>
+            <li><a href="#coloring">Coloring</a></li>
+            <li><a href="#covering">Matching & Covering</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<main>
+    <header>
+        <h2>Graph Theory & Logic</h2>
+        <p>Comprehensive cheat sheet covering definitions, theorems, formulas, and visual proofs for CS Engineering.</p>
+    </header>
+
+    <!-- SECTION 1: BASICS -->
+    <section id="basics">
+        <h3>1. Fundamentals & Degree Sequence</h3>
+        <div class="grid-container">
+            <div class="card">
+                <h4>Handshaking Lemma</h4>
+                <p>The sum of degrees of all vertices is twice the number of edges.</p>
+                <div class="formula-box">
+                    $$ \sum_{v \in V} \deg(v) = 2|E| $$
+                </div>
+                <p><strong>Corollary:</strong> The number of odd degree vertices in any graph must be <strong>even</strong>.</p>
+            </div>
+            <div class="card">
+                <h4>Havel-Hakimi Algorithm</h4>
+                <p>Used to determine if a sequence of integers is <em>graphic</em> (can form a simple graph).</p>
+                <pre>
+1. Sort sequence (descending).
+2. Remove first element (k).
+3. Subtract 1 from next k elements.
+4. Repeat. 
+   - If negative number appears: Invalid.
+   - If all zeros: Valid.</pre>
+            </div>
+            <div class="card">
+                <h4>Simple Graph Constraints</h4>
+                <p>For a simple graph with $n$ vertices:</p>
+                <ul>
+                    <li>Max Degree: $n-1$</li>
+                    <li>Max Edges: $n(n-1)/2$</li>
+                    <li>Min Edges (Connected): $n-1$</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: TYPES OF GRAPHS -->
+    <section id="types">
+        <h3>2. Special Types of Graphs</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Graph Type</th>
+                    <th>Notation</th>
+                    <th>Vertices</th>
+                    <th>Edges ($|E|$)</th>
+                    <th>Properties</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Complete</td>
+                    <td>$K_n$</td>
+                    <td>$n$</td>
+                    <td>$n(n-1)/2$</td>
+                    <td>Regular ($n-1$), Every pair connected.</td>
+                </tr>
+                <tr>
+                    <td>Cycle</td>
+                    <td>$C_n$</td>
+                    <td>$n (\ge 3)$</td>
+                    <td>$n$</td>
+                    <td>2-Regular. Bipartite if $n$ is even.</td>
+                </tr>
+                <tr>
+                    <td>Wheel</td>
+                    <td>$W_n$</td>
+                    <td>$n$</td>
+                    <td>$2(n-1)$</td>
+                    <td>$C_{n-1}$ + Hub. Contains triangles.</td>
+                </tr>
+                <tr>
+                    <td>Bipartite</td>
+                    <td>$K_{m,n}$</td>
+                    <td>$m+n$</td>
+                    <td>$m \times n$</td>
+                    <td>No odd cycles. Max edges $\lfloor n^2/4 \rfloor$.</td>
+                </tr>
+                <tr>
+                    <td>Star</td>
+                    <td>$K_{1, n-1}$</td>
+                    <td>$n$</td>
+                    <td>$n-1$</td>
+                    <td>Tree, Center degree $n-1$, Leaves degree 1.</td>
+                </tr>
+                <tr>
+                    <td>Hypercube</td>
+                    <td>$Q_n$</td>
+                    <td>$2^n$</td>
+                    <td>$n \cdot 2^{n-1}$</td>
+                    <td>$n$-Regular. Bipartite.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- SECTION 3: CONNECTIVITY -->
+    <section id="connectivity">
+        <h3>3. Connectivity</h3>
+        <div class="grid-container">
+            <div class="card">
+                <h4>Vertex vs Edge Connectivity</h4>
+                <p><strong>Vertex Connectivity ($\kappa(G)$):</strong> Min vertices to remove to disconnect graph.</p>
+                <p><strong>Edge Connectivity ($\lambda(G)$):</strong> Min edges to remove to disconnect graph.</p>
+                <div class="formula-box">
+                    $$ \kappa(G) \le \lambda(G) \le \delta(G) $$
+                    <small>Where $\delta(G)$ is min degree.</small>
+                </div>
+            </div>
+            <div class="card">
+                <h4>Cut Sets</h4>
+                <ul>
+                    <li><strong>Cut Edge (Bridge):</strong> Removal increases components. Cannot be part of a cycle.</li>
+                    <li><strong>Cut Vertex (Articulation Point):</strong> Removal increases components.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Inequality Theorem</h4>
+                <p>For a graph with $n$ vertices and $k$ components, edges $e$ satisfy:</p>
+                <div class="formula-box">
+                    $$ n-k \le e \le \frac{(n-k)(n-k+1)}{2} $$
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: OPERATIONS & ISOMORPHISM -->
+    <section id="operations">
+        <h3>4. Operations & Isomorphism</h3>
+        <div class="grid-container">
+            <div class="card">
+                <h4>Isomorphism Conditions</h4>
+                <p>Two graphs $G_1$ and $G_2$ are isomorphic if:</p>
+                <ol>
+                    <li>Same number of vertices $|V_1| = |V_2|$</li>
+                    <li>Same number of edges $|E_1| = |E_2|$</li>
+                    <li>Same degree sequence</li>
+                    <li>Same cycle lengths (structural check)</li>
+                </ol>
+            </div>
+            <div class="card">
+                <h4>Complement Graph ($\bar{G}$)</h4>
+                <p>Edges present in $K_n$ but missing in $G$.</p>
+                <div class="formula-box">
+                    $$ |E(G)| + |E(\bar{G})| = \frac{n(n-1)}{2} $$
+                </div>
+                <p><strong>Self-Complementary:</strong> $G \cong \bar{G}$. Requires $n \equiv 0,1 \pmod 4$.</p>
+            </div>
+            <div class="card">
+                <h4>Graph Operations</h4>
+                <ul>
+                    <li><strong>Union ($G_1 \cup G_2$):</strong> $V = V_1 \cup V_2$, $E = E_1 \cup E_2$</li>
+                    <li><strong>Intersection ($G_1 \cap G_2$):</strong> Common vertices and edges.</li>
+                    <li><strong>Ring Sum ($G_1 \oplus G_2$):</strong> Edges in either, but not both ($E_1 \Delta E_2$). No common edges.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: TRAVERSAL -->
+    <section id="traversal">
+        <h3>5. Euler & Hamiltonian Graphs</h3>
+        
+        <div class="visual-block">
+            <div class="mermaid">
+            graph TD
+                A[Check Connectivity] --> B{Connected?}
+                B -- No --> C[Not Euler/Hamiltonian]
+                B -- Yes --> D{Check Degrees}
+                D -- All Even --> E[Euler Graph <br/>(Euler Circuit)]
+                D -- Exactly 2 Odd --> F[Semi-Eulerian <br/>(Euler Path)]
+                D -- >2 Odd --> G[Not Eulerian]
+                
+                H{Hamiltonian?}
+                H -- Definition --> I[Contains Cycle visiting<br/>every Vertex exactly once]
+                I --> J[NP-Complete Problem]
+                I --> K[Dirac's Theorem: deg >= n/2]
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Graph Type</th>
+                    <th>Eulerian?</th>
+                    <th>Hamiltonian?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>$K_n$</td>
+                    <td>If $n$ is odd ($n \ge 1$)</td>
+                    <td>Always ($n \ge 3$)</td>
+                </tr>
+                <tr>
+                    <td>$C_n$</td>
+                    <td>Always</td>
+                    <td>Always</td>
+                </tr>
+                <tr>
+                    <td>$W_n$</td>
+                    <td>Never (outer cycle + spokes mix degrees)</td>
+                    <td>Always</td>
+                </tr>
+                <tr>
+                    <td>$K_{m,n}$</td>
+                    <td>If $m, n$ are even</td>
+                    <td>If $m=n$ ($n \ge 2$)</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="formula-box">
+            <strong>Line Graph of Euler Graph:</strong> If $G$ is Eulerian, $L(G)$ is both Eulerian and Hamiltonian.
+        </div>
+    </section>
+
+    <!-- SECTION 6: PLANARITY -->
+    <section id="planarity">
+        <h3>6. Planarity</h3>
+        <div class="grid-container">
+            <div class="card">
+                <h4>Euler's Formula</h4>
+                <p>For a connected planar graph:</p>
+                <div class="formula-box">
+                    $$ v - e + r = 2 $$
+                </div>
+                <p>Where $r$ is regions (faces) including the infinite one.</p>
+                <p>Sum of degrees of regions: $\sum \deg(r_i) = 2e$</p>
+            </div>
+            <div class="card">
+                <h4>Inequalities (Necessary Conditions)</h4>
+                <p>If $G$ is planar ($v \ge 3$):</p>
+                <ol>
+                    <li>$$ e \le 3v - 6 $$</li>
+                    <li>If triangle-free (no $C_3$): $$ e \le 2v - 4 $$</li>
+                    <li>Min degree $\delta(G) \le 5$</li>
+                </ol>
+            </div>
+            <div class="card">
+                <h4>Kuratowski's Theorem</h4>
+                <p>A graph is <strong>non-planar</strong> if and only if it contains a subgraph homeomorphic to:</p>
+                <ul>
+                    <li>$K_5$ (Complete graph, 5 vertices)</li>
+                    <li>$K_{3,3}$ (Utility graph, bipartite)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <details>
+            <summary>Visualizing Non-Planar Graphs ($K_5$ & $K_{3,3}$)</summary>
+            <div style="display: flex; justify-content: space-around; padding: 20px;">
+                <!-- K5 SVG Approximation -->
+                <svg width="200" height="200" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="90" stroke="#ddd" stroke-width="2" fill="none"/>
+                    <!-- Vertices -->
+                    <circle cx="100" cy="10" r="5" fill="red"/>
+                    <circle cx="190" cy="80" r="5" fill="red"/>
+                    <circle cx="150" cy="180" r="5" fill="red"/>
+                    <circle cx="50" cy="180" r="5" fill="red"/>
+                    <circle cx="10" cy="80" r="5" fill="red"/>
+                    <!-- Edges (Pentagon) -->
+                    <path d="M100 10 L190 80 L150 180 L50 180 L10 80 Z" stroke="black" fill="none"/>
+                    <!-- Edges (Star) -->
+                    <path d="M100 10 L150 180 L10 80 L190 80 L50 180 Z" stroke="black" fill="none"/>
+                    <text x="70" y="200" font-family="sans-serif">K5 (Non-Planar)</text>
+                </svg>
+                
+                <!-- K3,3 SVG Approximation -->
+                <svg width="200" height="200" viewBox="0 0 200 200">
+                    <!-- Set A -->
+                    <circle cx="50" cy="30" r="5" fill="blue"/>
+                    <circle cx="50" cy="100" r="5" fill="blue"/>
+                    <circle cx="50" cy="170" r="5" fill="blue"/>
+                    <!-- Set B -->
+                    <circle cx="150" cy="30" r="5" fill="green"/>
+                    <circle cx="150" cy="100" r="5" fill="green"/>
+                    <circle cx="150" cy="170" r="5" fill="green"/>
+                    <!-- Edges -->
+                    <line x1="50" y1="30" x2="150" y2="30" stroke="black" opacity="0.3"/>
+                    <line x1="50" y1="30" x2="150" y2="100" stroke="black"/>
+                    <line x1="50" y1="30" x2="150" y2="170" stroke="black"/>
+                    
+                    <line x1="50" y1="100" x2="150" y2="30" stroke="black"/>
+                    <line x1="50" y1="100" x2="150" y2="100" stroke="black" opacity="0.3"/>
+                    <line x1="50" y1="100" x2="150" y2="170" stroke="black"/>
+                    
+                    <line x1="50" y1="170" x2="150" y2="30" stroke="black"/>
+                    <line x1="50" y1="170" x2="150" y2="100" stroke="black"/>
+                    <line x1="50" y1="170" x2="150" y2="170" stroke="black" opacity="0.3"/>
+                    <text x="60" y="200" font-family="sans-serif">K3,3 (Non-Planar)</text>
+                </svg>
+            </div>
+        </details>
+    </section>
+
+    <!-- SECTION 7: COLORING -->
+    <section id="coloring">
+        <h3>7. Graph Coloring</h3>
+        <p><strong>Chromatic Number $\chi(G)$:</strong> Min colors needed such that no two adjacent vertices share a color.</p>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h4>Common Values</h4>
+                <ul>
+                    <li>$K_n \to n$</li>
+                    <li>$C_n \to$ 2 (if $n$ even), 3 (if $n$ odd)</li>
+                    <li>$W_n \to$ 3 (if rim even), 4 (if rim odd)</li>
+                    <li>Bipartite $\to 2$</li>
+                    <li>Planar Graph $\to \le 4$ (4-color theorem)</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Polynomials (Introduction)</h4>
+                <p>Ways to color graph with $\lambda$ colors: $P(G, \lambda)$.</p>
+                <p>For Tree: $\lambda(\lambda-1)^{n-1}$</p>
+                <p>For $K_n$: $\lambda(\lambda-1)...(\lambda-n+1)$</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: COVERING & MATCHING -->
+    <section id="covering">
+        <h3>8. Independence, Matching & Covering</h3>
+        <p>Definitions relating to sets of Vertices (V) and Edges (E).</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concept</th>
+                    <th>Symbol</th>
+                    <th>Definition</th>
+                    <th>Relationship</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Vertex Covering</strong></td>
+                    <td>$\alpha$ or $\beta$</td>
+                    <td>Min vertices to cover all edges.</td>
+                    <td rowspan="2">$\alpha + \beta = n$ <br/><small>(Gallai Identity for Vertices)</small></td>
+                </tr>
+                <tr>
+                    <td><strong>Independent Set</strong></td>
+                    <td>$\beta$ or $\alpha$</td>
+                    <td>Max vertices with no edges between them.</td>
+                </tr>
+                <tr>
+                    <td><strong>Edge Covering</strong></td>
+                    <td>$\rho$ or $\alpha'$</td>
+                    <td>Min edges to cover all vertices.</td>
+                    <td rowspan="2">$m + \rho = n$ <br/><small>(If no isolated vertices)</small></td>
+                </tr>
+                <tr>
+                    <td><strong>Matching</strong></td>
+                    <td>$m$ or $\beta'$</td>
+                    <td>Max edges with no common vertices.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="grid-container">
+            <div class="card">
+                <h4>Definitions</h4>
+                <ul>
+                    <li><strong>Maximal:</strong> Cannot add more items (local max).</li>
+                    <li><strong>Maximum:</strong> Largest possible set in the graph (global max).</li>
+                    <li><strong>Minimal:</strong> Cannot remove items (local min).</li>
+                    <li><strong>Minimum:</strong> Smallest possible set (global min).</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Matching in Special Graphs</h4>
+                <p>Matching Number $m(G)$:</p>
+                <ul>
+                    <li>$K_n \to \lfloor n/2 \rfloor$</li>
+                    <li>$C_n \to \lfloor n/2 \rfloor$</li>
+                    <li>$K_{m,n} \to \min(m, n)$</li>
+                </ul>
+                <p><strong>Perfect Matching:</strong> Matches all vertices (Requires $|V|$ even).</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    // Smooth scrolling for sidebar links
+    document.querySelectorAll('aside a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

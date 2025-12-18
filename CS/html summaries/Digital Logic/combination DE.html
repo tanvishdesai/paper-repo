@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combinational Circuits Cheat Sheet</title>
+    <!-- MathJax for Logic Equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --sidebar-width: 280px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: var(--sidebar-width);
+            background: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        nav h1 {
+            font-size: 1.25rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: var(--sidebar-width);
+            padding: 3rem 4rem;
+            flex: 1;
+            max-width: 1200px;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 1.5rem;
+        }
+
+        header h2 { font-size: 2.5rem; color: var(--text); margin-bottom: 0.5rem; }
+        header p { color: #64748b; font-size: 1.1rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        
+        h3 {
+            font-size: 1.75rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            color: #334155;
+            margin: 1.5rem 0 1rem 0;
+            border-left: 4px solid var(--accent);
+            padding-left: 0.75rem;
+        }
+
+        /* Cards and Containers */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        th { background-color: #f1f5f9; color: #475569; font-weight: 600; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Code and Formulas */
+        .formula {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        /* Collapsible Details */
+        details {
+            margin: 1rem 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 1rem;
+            background: #f8fafc;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary);
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        summary::after { content: '+'; font-size: 1.25rem; }
+        details[open] summary::after { content: '-'; }
+        
+        .details-content { padding: 1.5rem; background: white; }
+
+        /* Diagrams */
+        .diagram-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            border: 1px dashed #cbd5e1;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>CS & IT Engineering</h1>
+    <a href="#basics">1. Combinational Basics</a>
+    <a href="#arithmetic">2. Arithmetic Circuits</a>
+    <a href="#parallel-adder">3. Parallel & LACA</a>
+    <a href="#comparators">4. Comparators</a>
+    <a href="#mux">5. Multiplexers (MUX)</a>
+    <a href="#decoder">6. Decoders & DeMux</a>
+    <a href="#encoder">7. Encoders</a>
+</nav>
+
+<main>
+    <header>
+        <h2>Digital Logic: Combinational Circuits</h2>
+        <p>Comprehensive study guide covering Arithmetic Circuits, MUX, Decoders, Encoders, and their implementations.</p>
+    </header>
+
+    <!-- SECTION 1: BASICS -->
+    <section id="basics">
+        <h3>1. Basics of Combinational Circuits</h3>
+        <p>A combinational circuit is a memoryless digital logic circuit whose output depends only on the current combination of inputs.</p>
+        
+        <div class="grid-2">
+            <div class="card">
+                <h4>Characteristics</h4>
+                <ul>
+                    <li><strong>Memory:</strong> None (No feedback path).</li>
+                    <li><strong>Clock:</strong> Not required (Static circuit).</li>
+                    <li><strong>Building Blocks:</strong> Logic Gates (AND, OR, NOT, NAND, NOR, XOR, XNOR).</li>
+                    <li><strong>Analysis:</strong> Truth Table \(\rightarrow\) Boolean Expression \(\rightarrow\) Circuit.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Design Steps</h4>
+                <ol>
+                    <li>Identify number of Inputs and Outputs.</li>
+                    <li>Create the Truth Table.</li>
+                    <li>Derive Boolean Expressions (K-Map).</li>
+                    <li>Minimize Expressions.</li>
+                    <li>Draw Logic Diagram.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: ARITHMETIC CIRCUITS -->
+    <section id="arithmetic">
+        <h3>2. Arithmetic Circuits</h3>
+        <p>Fundamental circuits for binary addition and subtraction.</p>
+
+        <!-- Half Adder -->
+        <details>
+            <summary>Half Adder (HA)</summary>
+            <div class="details-content">
+                <div class="grid-2">
+                    <div>
+                        <p>Adds two single bits ($A, B$). Produces Sum ($S$) and Carry ($C$).</p>
+                        <br>
+                        <strong>Equations:</strong>
+                        <div class="formula">
+                            $$ S = A \oplus B = \bar{A}B + A\bar{B} $$
+                            $$ C = A \cdot B $$
+                        </div>
+                        <strong>Gate Requirements:</strong>
+                        <ul>
+                            <li>Min NAND Gates: 5</li>
+                            <li>Min NOR Gates: 5</li>
+                        </ul>
+                    </div>
+                    <div class="diagram-container">
+                        <div class="mermaid">
+                            graph LR
+                            A((A)) --> XOR
+                            B((B)) --> XOR
+                            A --> AND
+                            B --> AND
+                            XOR[XOR] --> S((Sum))
+                            AND[AND] --> C((Carry))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- Full Adder -->
+        <details>
+            <summary>Full Adder (FA)</summary>
+            <div class="details-content">
+                <div class="grid-2">
+                    <div>
+                        <p>Adds three single bits ($A, B, C_{in}$). Needed for cascading adders.</p>
+                        <br>
+                        <strong>Equations:</strong>
+                        <div class="formula">
+                            $$ S = A \oplus B \oplus C_{in} $$
+                            $$ C_{out} = AB + BC_{in} + AC_{in} $$
+                            $$ C_{out} = (A \oplus B)C_{in} + AB $$
+                        </div>
+                        <strong>Gate Requirements:</strong>
+                        <ul>
+                            <li>Implemented using 2 Half Adders + 1 OR Gate.</li>
+                            <li>Min NAND/NOR Gates: 9</li>
+                        </ul>
+                    </div>
+                    <div class="diagram-container">
+                        <div class="mermaid">
+                            graph LR
+                            subgraph HA1 [Half Adder 1]
+                                X1[XOR]
+                                A1[AND]
+                            end
+                            subgraph HA2 [Half Adder 2]
+                                X2[XOR]
+                                A2[AND]
+                            end
+                            I1((A)) --> X1
+                            I2((B)) --> X1
+                            I1 --> A1
+                            I2 --> A1
+                            
+                            X1 --> X2
+                            Cin((Cin)) --> X2
+                            
+                            X1 --> A2
+                            Cin --> A2
+                            
+                            X2 --> Sum((Sum))
+                            A1 --> OR1[OR]
+                            A2 --> OR1
+                            OR1 --> Cout((Cout))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- Subtractors -->
+        <div class="card" style="margin-top: 2rem;">
+            <h4>Subtractors Comparison</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Circuit</th>
+                        <th>Difference ($D$)</th>
+                        <th>Borrow ($B_{out}$)</th>
+                        <th>Components</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Half Subtractor</strong></td>
+                        <td>$A \oplus B$</td>
+                        <td>$\bar{A}B$</td>
+                        <td>1 XOR, 1 AND, 1 NOT</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Full Subtractor</strong></td>
+                        <td>$A \oplus B \oplus C$</td>
+                        <td>$\bar{A}B + (\overline{A \oplus B})C$ <br>or $\bar{A}B + \bar{A}C + BC$</td>
+                        <td>2 HS + 1 OR</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECTION 3: PARALLEL ADDER -->
+    <section id="parallel-adder">
+        <h3>3. Parallel & Look Ahead Carry Adder</h3>
+        
+        <h4>Ripple Carry Adder (RCA)</h4>
+        <p>Cascading $n$ Full Adders to add two $n$-bit numbers. The carry ripples from LSB to MSB.</p>
+        <div class="diagram-container">
+            <div class="mermaid">
+                graph LR
+                FA0[FA0] -->|C1| FA1[FA1]
+                FA1 -->|C2| FA2[FA2]
+                FA2 -->|C3| FA3[FA3]
+                FA3 --> C4((Cout))
+                style FA0 fill:#f9f,stroke:#333
+                style FA1 fill:#f9f,stroke:#333
+                style FA2 fill:#f9f,stroke:#333
+                style FA3 fill:#f9f,stroke:#333
+            </div>
+        </div>
+
+        <div class="formula">
+            <strong>Worst Case Delay ($T_{RCA}$):</strong><br>
+            $$ T = (n-1)T_{carry} + \max(T_{sum}, T_{carry}) $$
+            <br>
+            If using HA decomposition internally:<br>
+            $$ T \approx 2n \times T_{gate} \quad \text{(Linear Growth } O(n)\text{)} $$
+        </div>
+
+        <h4>Look Ahead Carry Adder (LACA)</h4>
+        <p>Overcomes the delay of RCA by calculating carry signals in advance using Carry Generate ($G$) and Carry Propagate ($P$) logic.</p>
+        
+        <div class="grid-2">
+            <div>
+                <strong>Terms:</strong>
+                <ul>
+                    <li>$P_i = A_i \oplus B_i$ (Carry Propagate)</li>
+                    <li>$G_i = A_i \cdot B_i$ (Carry Generate)</li>
+                </ul>
+                <br>
+                <strong>Carry Equations:</strong>
+                <ul>
+                    <li>$C_{i+1} = G_i + P_i C_i$</li>
+                    <li>$C_1 = G_0 + P_0 C_0$</li>
+                    <li>$C_2 = G_1 + P_1 G_0 + P_1 P_0 C_0$</li>
+                </ul>
+            </div>
+            <div>
+                <strong>Advantages:</strong>
+                <ul>
+                    <li><span class="badge badge-green">Speed</span> Constant delay $O(1)$ theoretically (typically 2-level gate delay for Carry Block).</li>
+                    <li><span class="badge badge-red">Complexity</span> Hardware complexity increases exponentially with $n$.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: COMPARATORS -->
+    <section id="comparators">
+        <h3>4. Magnitude Comparators</h3>
+        <p>Circuits that compare two binary numbers $A$ and $B$.</p>
+
+        <div class="card">
+            <h4>1-Bit Comparator</h4>
+            <div class="grid-2">
+                <div>
+                    <strong>Logic Expressions:</strong>
+                    <ul>
+                        <li>$A > B \Rightarrow X = A\bar{B}$</li>
+                        <li>$A < B \Rightarrow Y = \bar{A}B$</li>
+                        <li>$A = B \Rightarrow Z = A \odot B$ (XNOR)</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Conditions count for n-bits:</strong>
+                    <ul>
+                        <li>Total combinations: $2^{2n}$</li>
+                        <li>Equal cases: $2^n$</li>
+                        <li>Greater/Less cases: $\frac{2^{2n} - 2^n}{2}$</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h4>Cascading for N-bits</h4>
+        <p>To compare Higher Order bits, we check lower order only if higher order bits are equal.</p>
+        <div class="formula">
+            $$(A>B)_{total} = (A_n > B_n) + (A_n = B_n)(A_{n-1} > B_{n-1}) + \dots $$
+        </div>
+    </section>
+
+    <!-- SECTION 5: MULTIPLEXERS -->
+    <section id="mux">
+        <h3>5. Multiplexers (MUX)</h3>
+        <p>Also known as "Data Selector". It selects one of the $2^n$ inputs and routes it to the single output based on $n$ select lines.</p>
+
+        <div class="grid-2">
+            <div class="card">
+                <h4>Properties</h4>
+                <ul>
+                    <li><strong>Formula:</strong> $2^n \times 1$ MUX has $n$ select lines.</li>
+                    <li><strong>Equation (4x1):</strong> $$Y = \bar{S}_1\bar{S}_0 I_0 + \bar{S}_1 S_0 I_1 + S_1\bar{S}_0 I_2 + S_1 S_0 I_3$$</li>
+                    <li><strong>Universal Logic:</strong> Can implement any Boolean function.</li>
+                </ul>
+            </div>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TB
+                    I0 --> Mux
+                    I1 --> Mux
+                    I2 --> Mux
+                    I3 --> Mux
+                    Sel[Select Lines S1, S0] --> Mux
+                    Mux{4x1 MUX} --> Y
+                </div>
+            </div>
+        </div>
+
+        <h4>Implementation Methods</h4>
+        <p>Implementing function $f(A,B,C) = \sum m(0, 1, 4, 7)$ using MUX.</p>
+        
+        <table>
+            <tr>
+                <th>Method</th>
+                <th>MUX Size</th>
+                <th>Select Lines</th>
+                <th>Procedure</th>
+            </tr>
+            <tr>
+                <td><strong>Type 1</strong></td>
+                <td>$2^n \times 1$</td>
+                <td>$n$ (All vars)</td>
+                <td>Connect Logic 1 to minterms, Logic 0 to maxterms.</td>
+            </tr>
+            <tr>
+                <td><strong>Type 2</strong></td>
+                <td>$2^{n-1} \times 1$</td>
+                <td>$n-1$ vars</td>
+                <td>Use the remaining variable (and its complement) as Data Inputs. (Implementation Table).</td>
+            </tr>
+        </table>
+
+        <h4>MUX Tree (Cascading)</h4>
+        <p>To design a $16 \times 1$ MUX using $4 \times 1$ MUXes:</p>
+        <div class="formula">
+            $$ \text{Formula: } \frac{N}{n} + \frac{\text{Result}}{n} + \dots $$
+            $$ \frac{16}{4} = 4 \rightarrow \frac{4}{4} = 1 \implies \text{Total } 4 + 1 = 5 \text{ MUXes} $$
+        </div>
+    </section>
+
+    <!-- SECTION 6: DECODERS -->
+    <section id="decoder">
+        <h3>6. Decoders & De-Multiplexers</h3>
+        
+        <div class="grid-2">
+            <div>
+                <h4>Decoder ($n \times 2^n$)</h4>
+                <p>Decodes $n$ inputs to activate one of $2^n$ outputs (Minterms).</p>
+                <ul>
+                    <li><strong>Active High:</strong> Output is 1 for selected code (AND gates).</li>
+                    <li><strong>Active Low:</strong> Output is 0 for selected code (NAND gates).</li>
+                    <li><strong>Use Case:</strong> Memory addressing, Function implementation (Decoder + OR gate).</li>
+                </ul>
+            </div>
+            <div>
+                <h4>De-Multiplexer ($1 \times 2^n$)</h4>
+                <p>Data Distributor. Routes 1 input to one of $2^n$ outputs.</p>
+                <ul>
+                    <li>Structurally identical to a Decoder with an Enable input acting as the Data input.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h4>Logic Implementation</h4>
+        <div class="formula">
+            To implement $f(A,B,C) = \sum m(1, 3, 7)$: <br>
+            1. Use a $3 \times 8$ Decoder. <br>
+            2. Take outputs 1, 3, and 7. <br>
+            3. Connect them to an <strong>OR</strong> gate.
+        </div>
+    </section>
+
+    <!-- SECTION 7: ENCODERS -->
+    <section id="encoder">
+        <h3>7. Encoders</h3>
+        <p>Converts $2^n$ (or fewer) input lines into an $n$-bit code. Opposite of a decoder.</p>
+
+        <h4>Priority Encoder</h4>
+        <p>Standard encoders fail if multiple inputs are active. Priority encoders output the code for the highest priority active input.</p>
+        
+        <div class="card">
+            <h4>Code Converters</h4>
+            <p>Encoders can design converters like Binary to Gray, BCD to Excess-3, etc.</p>
+            <ul>
+                <li><strong>Binary to Gray:</strong> $G_n = B_n$, $G_i = B_{i+1} \oplus B_i$</li>
+                <li><strong>Excess-3:</strong> BCD + 0011 (3). Self-complementing code.</li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COA Cheat Sheet: Architecture, Memory & Bus</title>
+    <!-- Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid JS for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #0f766e;
+            --secondary: #0e7490;
+            --accent: #f59e0b;
+            --bg-gray: #f3f4f6;
+        }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #1f2937; line-height: 1.6; }
+        .math-display { overflow-x: auto; overflow-y: hidden; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* Card Styles */
+        .concept-card {
+            background: white;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .concept-card:hover { transform: translateY(-2px); }
+
+        /* Table Styles */
+        table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+        th, td { border: 1px solid #e5e7eb; padding: 0.75rem; text-align: left; }
+        th { background-color: #f9fafb; font-weight: 600; color: #374151; }
+        
+        /* Sticky Sidebar */
+        .sidebar { position: sticky; top: 1rem; max-height: 90vh; overflow-y: auto; }
+
+        /* Code Block */
+        pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Header -->
+        <header class="mb-10 text-center border-b-2 border-teal-700 pb-6">
+            <h1 class="text-4xl font-extrabold text-teal-900 tracking-tight">Computer Organization & Architecture</h1>
+            <p class="mt-2 text-lg text-gray-600">Comprehensive Cheat Sheet: Introduction, Instruction Cycle, Memory & System Bus</p>
+            <div class="mt-4 flex justify-center gap-4 text-sm font-medium">
+                <span class="px-3 py-1 bg-teal-100 text-teal-800 rounded-full">Gate Wallah Notes Source</span>
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full">Updated 2025</span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Navigation Sidebar -->
+            <aside class="hidden lg:block col-span-1">
+                <nav class="sidebar p-4 bg-white rounded-lg shadow-sm">
+                    <h3 class="font-bold text-gray-900 mb-4 uppercase tracking-wider text-sm">Table of Contents</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#intro" class="hover:text-teal-600 flex items-center"><span class="w-2 h-2 bg-teal-500 rounded-full mr-2"></span>Introduction (CO vs CA)</a></li>
+                        <li><a href="#components" class="hover:text-teal-600 flex items-center"><span class="w-2 h-2 bg-teal-500 rounded-full mr-2"></span>Computer Components & Registers</a></li>
+                        <li><a href="#bus" class="hover:text-teal-600 flex items-center"><span class="w-2 h-2 bg-teal-500 rounded-full mr-2"></span>System Bus Architecture</a></li>
+                        <li><a href="#memory" class="hover:text-teal-600 flex items-center"><span class="w-2 h-2 bg-teal-500 rounded-full mr-2"></span>Memory Organization</a></li>
+                        <li><a href="#instruction" class="hover:text-teal-600 flex items-center"><span class="w-2 h-2 bg-teal-500 rounded-full mr-2"></span>Instruction Cycle</a></li>
+                        <li><a href="#interrupts" class="hover:text-teal-600 flex items-center"><span class="w-2 h-2 bg-teal-500 rounded-full mr-2"></span>Interrupts</a></li>
+                        <li><a href="#practice" class="hover:text-teal-600 flex items-center"><span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>Solved Problems</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="col-span-1 lg:col-span-3 space-y-12">
+
+                <!-- Section 1: Introduction -->
+                <section id="intro">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-8 border-teal-500 pl-4">1. Introduction to COA</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="concept-card p-6 rounded-lg">
+                            <h3 class="font-bold text-lg mb-2">Computer Architecture (CA)</h3>
+                            <p class="text-sm text-gray-600 italic mb-2">"What the programmer sees"</p>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>Attributes visible to the programmer.</li>
+                                <li>Instruction Set Architecture (ISA).</li>
+                                <li>Data types, Addressing modes.</li>
+                                <li><strong>Example:</strong> Intel x86 family share the same architecture.</li>
+                            </ul>
+                        </div>
+                        <div class="concept-card p-6 rounded-lg border-l-blue-600">
+                            <h3 class="font-bold text-lg mb-2">Computer Organization (CO)</h3>
+                            <p class="text-sm text-gray-600 italic mb-2">"How features are implemented"</p>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>Operational units and interconnections.</li>
+                                <li>Hardware implementation details transparent to the programmer.</li>
+                                <li>Memory technology, Control signals, Interfaces.</li>
+                                <li><strong>Example:</strong> Intel 80286 vs 80386 have different organization but same architecture.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-gray-800 mb-4">Von Neumann Architecture</h3>
+                        <div class="mermaid">
+                            graph LR
+                                MEM[Main Memory<br/>Instructions & Data]
+                                CPU[CPU]
+                                BUS[System Bus]
+                                IO[Input/Output]
+
+                                MEM <--> BUS
+                                BUS <--> CPU
+                                BUS <--> IO
+                                
+                                style MEM fill:#e0f2fe,stroke:#0284c7
+                                style CPU fill:#dcfce7,stroke:#16a34a
+                        </div>
+                        <p class="text-sm mt-2"><strong>Stored Program Concept:</strong> Memory holds both instructions and data. The CPU fetches instructions one by one.</p>
+                    </div>
+                </section>
+
+                <!-- Section 2: Components -->
+                <section id="components">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-8 border-teal-500 pl-4">2. Computer Components</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                        <!-- Register List -->
+                        <div class="p-4 bg-white border border-gray-200 rounded shadow-sm">
+                            <span class="text-xs font-bold text-teal-600 uppercase">Crucial</span>
+                            <h4 class="font-bold">PC (Program Counter)</h4>
+                            <p class="text-sm mt-1">Holds the address of the <strong>next</strong> instruction to be fetched/executed.</p>
+                        </div>
+                        <div class="p-4 bg-white border border-gray-200 rounded shadow-sm">
+                            <span class="text-xs font-bold text-teal-600 uppercase">Memory Access</span>
+                            <h4 class="font-bold">MAR (Memory Address Register)</h4>
+                            <p class="text-sm mt-1">Holds the memory address for the current Read or Write operation. Connected to Address Bus.</p>
+                        </div>
+                        <div class="p-4 bg-white border border-gray-200 rounded shadow-sm">
+                            <span class="text-xs font-bold text-teal-600 uppercase">Data Buffer</span>
+                            <h4 class="font-bold">MBR / MDR (Memory Buffer Register)</h4>
+                            <p class="text-sm mt-1">Holds the data/instruction being transferred to/from memory. Connected to Data Bus.</p>
+                        </div>
+                        <div class="p-4 bg-white border border-gray-200 rounded shadow-sm">
+                            <span class="text-xs font-bold text-purple-600 uppercase">Execution</span>
+                            <h4 class="font-bold">IR (Instruction Register)</h4>
+                            <p class="text-sm mt-1">Holds the instruction <strong>currently being executed</strong>. (Format is defined here).</p>
+                        </div>
+                        <div class="p-4 bg-white border border-gray-200 rounded shadow-sm">
+                            <span class="text-xs font-bold text-purple-600 uppercase">ALU</span>
+                            <h4 class="font-bold">AC (Accumulator)</h4>
+                            <p class="text-sm mt-1">Holds temporary ALU results or the first operand of an operation.</p>
+                        </div>
+                         <div class="p-4 bg-white border border-gray-200 rounded shadow-sm">
+                            <span class="text-xs font-bold text-gray-500 uppercase">System</span>
+                            <h4 class="font-bold">PSW (Program Status Word)</h4>
+                            <p class="text-sm mt-1">Flag register: Carry, Parity, Sign, Zero, Overflow.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: System Bus -->
+                <section id="bus">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-8 border-teal-500 pl-4">3. System Bus Architecture</h2>
+                    
+                    <div class="mb-6">
+                        <p class="mb-4">The System Bus connects CPU, Memory, and I/O. It consists of three lines:</p>
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr>
+                                    <th>Bus Type</th>
+                                    <th>Direction</th>
+                                    <th>Function</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-bold text-teal-700">Address Bus</td>
+                                    <td>Unidirectional (CPU → Memory/IO)</td>
+                                    <td>Carries the address of the memory location to access. Width determines Max Memory Capacity.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold text-blue-700">Data Bus</td>
+                                    <td>Bidirectional</td>
+                                    <td>Carries actual instructions and data. Width determines Word Length / Performance.</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold text-red-700">Control Bus</td>
+                                    <td>Mixed (Collectively Bidirectional)</td>
+                                    <td>Carries signals like READ ($\overline{RD}$), WRITE ($\overline{WR}$), Interrupts.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Multiplexing Concept -->
+                    <div class="bg-gray-100 p-5 rounded-lg border-l-4 border-orange-500">
+                        <h4 class="font-bold text-lg">Pin Multiplexing (e.g., 8085 AD0-AD7)</h4>
+                        <p class="text-sm mb-2">Address and Data lines are often combined to save hardware pins (Time Multiplexed).</p>
+                        <ul class="list-disc list-inside text-sm">
+                            <li><strong>ALE (Address Latch Enable) = 1:</strong> Lines carry Address.</li>
+                            <li><strong>ALE = 0:</strong> Lines carry Data.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Section 4: Memory Organization -->
+                <section id="memory">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-8 border-teal-500 pl-4">4. Memory Concepts</h2>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Formula Block -->
+                        <div>
+                            <div class="bg-teal-50 p-6 rounded-lg mb-6">
+                                <h3 class="font-bold text-teal-900 mb-2">The Golden Formula</h3>
+                                <div class="text-2xl text-center my-4 font-mono">
+                                    $$ Capacity = 2^n \times m $$
+                                </div>
+                                <ul class="text-sm space-y-2">
+                                    <li><strong>n:</strong> Number of Address Lines.</li>
+                                    <li><strong>m:</strong> Number of Data Lines (Cell Size).</li>
+                                    <li><strong>Total Cells:</strong> $$2^n$$</li>
+                                </ul>
+                            </div>
+                            
+                            <h3 class="font-bold text-gray-800 mb-2">Powers of 2 Reference</h3>
+                            <div class="grid grid-cols-2 text-xs font-mono bg-white p-3 border rounded">
+                                <div>$2^{10} = 1K$ (Kilo)</div>
+                                <div>$2^{20} = 1M$ (Mega)</div>
+                                <div>$2^{30} = 1G$ (Giga)</div>
+                                <div>$2^{40} = 1T$ (Tera)</div>
+                            </div>
+                        </div>
+
+                        <!-- Byte vs Word Addressable -->
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-4">Addressing Modes</h3>
+                            <div class="space-y-4">
+                                <div class="concept-card p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-bold text-teal-700">Byte Addressable (Default)</h4>
+                                        <span class="text-xs bg-gray-200 px-2 py-1 rounded">1 Cell = 8 bits</span>
+                                    </div>
+                                    <p class="text-sm">Every 8 bits (1 Byte) has a unique address. Standard in most modern systems.</p>
+                                </div>
+                                <div class="concept-card p-4 border-l-blue-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-bold text-blue-700">Word Addressable</h4>
+                                        <span class="text-xs bg-gray-200 px-2 py-1 rounded">1 Cell = Word Size</span>
+                                    </div>
+                                    <p class="text-sm">Address points to a "Word" (e.g., 16-bit, 32-bit). If Word = 32-bit, address increment skips 4 bytes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 5: Instruction Cycle -->
+                <section id="instruction">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-8 border-teal-500 pl-4">5. Instruction Cycle</h2>
+                    
+                    <div class="mermaid text-center mb-8">
+                        stateDiagram-v2
+                            direction LR
+                            [*] --> Fetch
+                            Fetch --> Decode
+                            Decode --> Execute
+                            Execute --> InterruptCheck
+                            InterruptCheck --> Fetch: No Interrupt
+                            InterruptCheck --> ProcessInterrupt: Interrupt Exists
+                            ProcessInterrupt --> Fetch
+                            
+                            state Fetch {
+                                IAC --> IF
+                                note right of IF: MEM -> CPU (IR)<br/>PC Incremented
+                            }
+                            state Execute {
+                                ALU_Operation --> Result_Storage
+                            }
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Fetch Cycle Detail -->
+                        <div class="bg-white p-5 rounded shadow border-t-4 border-green-500">
+                            <h3 class="font-bold text-lg mb-3">Phase 1: Fetch Cycle</h3>
+                            <p class="text-sm mb-3">Objective: Bring instruction from Memory to CPU (IR).</p>
+                            <ol class="list-decimal list-inside text-sm space-y-1 font-mono bg-gray-50 p-3 rounded">
+                                <li>PC → MAR</li>
+                                <li>Memory[MAR] → MBR</li>
+                                <li>MBR → IR</li>
+                                <li>PC + 1 → PC</li>
+                            </ol>
+                        </div>
+
+                        <!-- Interrupt Cycle Detail -->
+                        <div class="bg-white p-5 rounded shadow border-t-4 border-red-500">
+                            <h3 class="font-bold text-lg mb-3">Phase 3: Interrupt Cycle</h3>
+                            <p class="text-sm mb-3">Occurs <strong>after</strong> Execute cycle completed, before next Fetch.</p>
+                            <ul class="list-disc list-inside text-sm space-y-2">
+                                <li>Used to handle external requests (I/O).</li>
+                                <li><strong>Context Switch:</strong> Current PC is pushed to <strong>Stack</strong> (Return Address).</li>
+                                <li>PC is loaded with address of ISR (Interrupt Service Routine).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 6: Solved Problems -->
+                <section id="practice">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-8 border-accent pl-4">6. Solved Problems</h2>
+
+                    <div class="space-y-4">
+                        
+                        <!-- Problem 1 -->
+                        <details class="bg-white border rounded-lg p-4 group">
+                            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-gray-800">
+                                <span>Q1: Calculate Address Lines for 4GB RAM (Word Addressable)</span>
+                                <span class="transition group-open:rotate-180">▼</span>
+                            </summary>
+                            <div class="mt-4 text-sm text-gray-600 border-t pt-4">
+                                <p class="mb-2"><strong>Given:</strong> Memory = 4GB, Word Size = 16-bit (2 Bytes).</p>
+                                <p class="mb-2"><strong>Solution:</strong></p>
+                                <div class="bg-gray-100 p-3 rounded font-mono">
+                                    Memory Size = 4GB = $2^{32}$ Bytes<br>
+                                    Word Size = 2 Bytes<br>
+                                    Number of Words = Total Capacity / Word Size<br>
+                                    $$ \frac{4GB}{2B} = 2G \text{ Words} $$<br>
+                                    $$ 2G = 2^1 \times 2^{30} = 2^{31} $$<br>
+                                    <strong>Address Lines = 31 bits</strong>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- Problem 2 -->
+                        <details class="bg-white border rounded-lg p-4 group">
+                            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-gray-800">
+                                <span>Q2: PC Value after Instruction Fetch (Byte vs Word)</span>
+                                <span class="transition group-open:rotate-180">▼</span>
+                            </summary>
+                            <div class="mt-4 text-sm text-gray-600 border-t pt-4">
+                                <p class="mb-2"><strong>Scenario:</strong> PC starts at 1000. Instruction size is 32-bit.</p>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-blue-50 p-3 rounded">
+                                        <strong class="block mb-1 text-blue-800">Case A: Byte Addressable</strong>
+                                        <p>1 Word = 4 Bytes.</p>
+                                        <p>PC increments by number of bytes.</p>
+                                        <p>Next PC = $1000 + 4 = 1004$</p>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded">
+                                        <strong class="block mb-1 text-green-800">Case B: Word Addressable</strong>
+                                        <p>1 Cell = 1 Word.</p>
+                                        <p>PC increments by 1 (logical index).</p>
+                                        <p>Next PC = $1000 + 1 = 1001$</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- Problem 3 -->
+                        <details class="bg-white border rounded-lg p-4 group">
+                            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-gray-800">
+                                <span>Q3: Return Address on Stack during Interrupt</span>
+                                <span class="transition group-open:rotate-180">▼</span>
+                            </summary>
+                            <div class="mt-4 text-sm text-gray-600 border-t pt-4">
+                                <p class="mb-2"><strong>Scenario:</strong> Instruction $I_5$ is executing (Size 2 words). $I_5$ is stored at address 1008 (Decimal). Memory is Word Addressable.</p>
+                                <div class="bg-gray-100 p-3 rounded font-mono">
+                                    <p>1. Fetch $I_5$ starts at 1008.</p>
+                                    <p>2. During Fetch, PC updates to next instruction address.</p>
+                                    <p>3. Next Instruction ($I_6$) is at $1008 + 2 = 1010$.</p>
+                                    <p>4. Interrupt is serviced <strong>after</strong> execution of $I_5$.</p>
+                                    <p>5. <strong>Value pushed to Stack (Return Address) = 1010.</strong></p>
+                                </div>
+                            </div>
+                        </details>
+
+                    </div>
+                </section>
+
+            </main>
+        </div>
+
+        <footer class="mt-20 border-t pt-6 text-center text-gray-500 text-sm">
+            <p>Generated for Computer Science Students • Based on Lecture Notes 01-05</p>
+        </footer>
+    </div>
+
+</body>
+</html>

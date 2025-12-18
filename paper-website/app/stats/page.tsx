@@ -19,7 +19,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  PieChart as   
   LineChart,
   Line,
   AreaChart,

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Cheat Sheet: File Systems, Disk Management & Threads</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#e0e7ff',
+                primaryTextColor: '#1e1b4b',
+                primaryBorderColor: '#4338ca',
+                lineColor: '#4338ca',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#ffffff'
+            }
+        });
+    </script>
+
+    <style>
+        :root {
+            --primary: #4338ca;       /* Indigo 700 */
+            --primary-light: #e0e7ff; /* Indigo 100 */
+            --secondary: #0f172a;     /* Slate 900 */
+            --bg: #f8fafc;            /* Slate 50 */
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --accent: #ef4444;        /* Red 500 */
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--secondary);
+            margin: 0;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 260px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .brand {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links { list-style: none; padding: 0; margin: 0; }
+        .nav-links li { margin-bottom: 0.5rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1, h2, h3 { color: var(--secondary); margin-top: 0; }
+        h1 { font-size: 2.5rem; letter-spacing: -0.02em; margin-bottom: 1rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem; }
+        h2 { font-size: 1.75rem; margin-top: 3rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        h2::before { content: '#'; color: var(--primary); opacity: 0.5; }
+        h3 { font-size: 1.25rem; margin-top: 2rem; color: var(--primary); }
+
+        /* Cards & Layout */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+        /* Visualizations */
+        .mermaid { margin: 2rem 0; text-align: center; background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto;}
+        
+        /* Math & Code */
+        .formula-box {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: #d946ef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+        th, td { border: 1px solid var(--border); padding: 0.75rem 1rem; text-align: left; }
+        th { background: #f8fafc; font-weight: 600; color: var(--secondary); }
+        tr:nth-child(even) { background: #fcfcfc; }
+
+        /* Utility */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-green { background: #dcfce7; color: #15803d; }
+        .badge-red { background: #fee2e2; color: #b91c1c; }
+        .badge-blue { background: #dbeafe; color: #1d4ed8; }
+
+        details {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; }
+        details[open] summary { border-bottom: 1px solid var(--border); }
+        .details-content { padding: 1rem; background: white; border-radius: 0 0 8px 8px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="brand">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            CS: OS & FS
+        </div>
+        <ul class="nav-links">
+            <li><a href="#intro">Overview</a></li>
+            <li><a href="#disk-structure">Disk Geometry & I/O</a></li>
+            <li><a href="#logical-fs">Logical File System</a></li>
+            <li><a href="#allocation">Allocation Methods</a></li>
+            <li><a href="#inode">Inode & FAT</a></li>
+            <li><a href="#scheduling">Disk Scheduling</a></li>
+            <li><a href="#threads">Threads & Concurrency</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        <section id="intro">
+            <h1>File System & Device Management</h1>
+            <p class="lead">Comprehensive notes on Disk Architecture, File System Implementation, Disk Scheduling Algorithms, and Multithreading Concepts.</p>
+            
+            <div class="card" style="border-left: 4px solid var(--accent);">
+                <h3>Quick Recap: Working Set Strategy (Memory)</h3>
+                <p>Before diving into FS, recall the <strong>Working Set Model</strong> from Memory Management:</p>
+                <ul>
+                    <li><strong>Goal:</strong> Prevent thrashing by keeping the "locality of reference" pages in frames.</li>
+                    <li><strong>Working Set Window (\(\Delta\)):</strong> Time window to examine page references.</li>
+                    <li><strong>Formula:</strong> \(D = \sum WSS_i\). If \(D > M\) (Total Frames), system trashes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- DISK STRUCTURE -->
+        <section id="disk-structure">
+            <h2>1. Disk Physical Structure & Geometry</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Hierarchy</h3>
+                    <div class="mermaid">
+                        graph TD
+                            D[Hard Disk] --> P[Platters]
+                            P --> S[Surfaces]
+                            S --> T[Tracks]
+                            T --> Sec[Sectors]
+                            Sec --> B[Bytes/Data]
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Important Definitions</h3>
+                    <ul>
+                        <li><strong>Platter:</strong> Circular disk, magnetic material. 2 surfaces per platter.</li>
+                        <li><strong>Track:</strong> Concentric circles on a surface.</li>
+                        <li><strong>Cylinder:</strong> Set of all tracks at the same arm position across all platters.</li>
+                        <li><strong>Sector:</strong> Smallest unit of data transfer (typically 512B or 4KB).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <h3>Disk Capacity Formula</h3>
+                $$ \text{Capacity} = \text{Heads} \times \text{Tracks/Surface} \times \text{Sectors/Track} \times \text{Bytes/Sector} $$
+            </div>
+
+            <h3>Disk Access Time Analysis</h3>
+            <p>The time required to read/write data depends on three mechanical factors:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Definition</th>
+                        <th>Time Estimate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Seek Time</strong></td>
+                        <td>Time to move the R/W head to the correct track (cylinder).</td>
+                        <td>3ms - 10ms (Slowest)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Rotational Latency</strong></td>
+                        <td>Time for the desired sector to rotate under the head.</td>
+                        <td>Avg = \( \frac{1}{2} \times \text{Time for 1 rotation} \)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Transfer Time</strong></td>
+                        <td>Time to actually read the bits from the surface.</td>
+                        <td>\( \frac{\text{Data Size}}{\text{Transfer Rate}} \)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="formula-box">
+                $$ \text{Total Access Time} = \text{Seek Time} + \text{Rotational Latency} + \text{Transfer Time} $$
+            </div>
+        </section>
+
+        <!-- LOGICAL FS -->
+        <section id="logical-fs">
+            <h2>2. Logical File System</h2>
+
+            <h3>The Layered File System</h3>
+            <div class="mermaid">
+                graph BT
+                    HW[Hardware / Devices] --> IO[I/O Control]
+                    IO --> Basic[Basic File System]
+                    Basic --> Org[File Organization Module]
+                    Org --> Logical[Logical File System]
+                    Logical --> App[Application Programs]
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Directory Structures</h3>
+                    <ul>
+                        <li><strong>Single-Level:</strong> All files in one folder. Naming conflicts!</li>
+                        <li><strong>Two-Level:</strong> User File Directory (UFD) inside Master File Directory (MFD).</li>
+                        <li><strong>Tree-Structured:</strong> Standard hierarchy. Subdirectories allowed.</li>
+                        <li><strong>Acyclic Graph:</strong> Allows shared files (links/aliases). No cycles.</li>
+                        <li><strong>General Graph:</strong> Allows cycles. Needs Garbage Collection.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>File Control Block (FCB)</h3>
+                    <p>Also known as the <strong>Inode</strong> in Unix. Contains metadata:</p>
+                    <ul>
+                        <li>File Permissions</li>
+                        <li>Dates (Create, Access, Write)</li>
+                        <li>Owner/Group ID</li>
+                        <li>Size</li>
+                        <li><strong>Pointers to Data Blocks</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALLOCATION METHODS -->
+        <section id="allocation">
+            <h2>3. Allocation Methods</h2>
+            <p>How do we assign disk blocks to files?</p>
+
+            <details open>
+                <summary>Method 1: Contiguous Allocation</summary>
+                <div class="details-content">
+                    <p>File occupies a set of contiguous blocks on the disk.</p>
+                    <ul>
+                        <li><strong>Directory Entry:</strong> Start Address, Length.</li>
+                        <li><strong>Pros:</strong> Excellent Read Performance (1 seek), Simple.</li>
+                        <li><strong>Cons:</strong> External Fragmentation, Growing files is difficult.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>Method 2: Linked Allocation</summary>
+                <div class="details-content">
+                    <p>Each block contains a pointer to the next block. Scattered anywhere.</p>
+                    <ul>
+                        <li><strong>Directory Entry:</strong> Start Pointer, End Pointer.</li>
+                        <li><strong>Pros:</strong> No External Fragmentation, File size can grow easily.</li>
+                        <li><strong>Cons:</strong> Slow Sequential Access (lots of seeks), No Random Access, Reliability (link breakage).</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>Method 3: Indexed Allocation</summary>
+                <div class="details-content">
+                    <p>Brings all pointers together into one block: the <strong>Index Block</strong>.</p>
+                    <ul>
+                        <li><strong>Directory Entry:</strong> Address of Index Block.</li>
+                        <li><strong>Pros:</strong> Supports Random Access, No External Fragmentation.</li>
+                        <li><strong>Cons:</strong> Overhead of Index Block (wasted space for small files).</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- INODE & FAT -->
+        <section id="inode">
+            <h2>4. Unix Inode & FAT</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Unix Inode Structure</h3>
+                    <p>Hybrid approach to handle small and very large files efficiently.</p>
+                    <div class="mermaid">
+                        graph LR
+                            Inode[Inode]
+                            Direct[12 Direct Ptrs]
+                            Single[1 Single Indirect]
+                            Double[1 Double Indirect]
+                            Triple[1 Triple Indirect]
+                            
+                            Inode --> Direct
+                            Inode --> Single
+                            Inode --> Double
+                            Inode --> Triple
+                            
+                            Direct --> Data1[Data Block]
+                            Single --> Index1[Index Block] --> Data2[Data Block]
+                            Double --> Index2[Index Block] --> Index3[Index Block] --> Data3[Data Block]
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>FAT (File Allocation Table)</h3>
+                    <p>Used in DOS/Windows. A table acts as a Linked List index.</p>
+                    <ul>
+                        <li><strong>Structure:</strong> One entry per disk block.</li>
+                        <li><strong>Content:</strong> Entry \(i\) contains the index of the <em>next</em> block in the file.</li>
+                        <li><strong>End of File:</strong> Marked with a special value (e.g., -1 or EOF).</li>
+                        <li><strong>Drawback:</strong> Entire table must be loaded into RAM for performance.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <h3>Max File Size Calculation (Unix Inode)</h3>
+                <p>Given: Block Size (\(B\)), Address Size (\(A\)).<br>
+                Number of addresses per block \(N = B / A\).</p>
+                $$ \text{Max Size} = \underbrace{12 \times B}_{\text{Direct}} + \underbrace{N \times B}_{\text{Single}} + \underbrace{N^2 \times B}_{\text{Double}} + \underbrace{N^3 \times B}_{\text{Triple}} $$
+            </div>
+        </section>
+
+        <!-- SCHEDULING -->
+        <section id="scheduling">
+            <h2>5. Disk Scheduling Algorithms</h2>
+            <p>Goal: Minimize Seek Time (Head Movement).</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th width="15%">Algo</th>
+                        <th width="30%">Description</th>
+                        <th>Pros/Cons</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>FCFS</strong></td>
+                        <td>First Come First Serve. Process requests in order.</td>
+                        <td><span class="badge badge-green">Fair</span> <span class="badge badge-red">Slow/High Seek</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SSTF</strong></td>
+                        <td>Shortest Seek Time First. Pick closest request to current head.</td>
+                        <td><span class="badge badge-green">Low Avg Seek</span> <span class="badge badge-red">Starvation</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>SCAN</strong></td>
+                        <td>Elevator. Move end-to-end, servicing requests. Reverse at end.</td>
+                        <td><span class="badge badge-green">Good Throughput</span> <span class="badge badge-blue">Long wait for ends</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>C-SCAN</strong></td>
+                        <td>Circular SCAN. Move one way only. Return to start immediately without servicing.</td>
+                        <td><span class="badge badge-green">Uniform Wait Time</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>LOOK</strong></td>
+                        <td>Like SCAN, but only goes as far as the last request (doesn't hit end).</td>
+                        <td><span class="badge badge-green">Saves unnecessary movement</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>C-LOOK</strong></td>
+                        <td>Like C-SCAN, but only goes to last request, then jumps to first request.</td>
+                        <td><span class="badge badge-green">Most Practical</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card">
+                <h3>Visualization Logic</h3>
+                <p>Imagine the Disk Queue: <code>98, 183, 37, 122, 14, 124, 65, 67</code>. Head at <code>53</code>.</p>
+                <div class="mermaid">
+                    graph TD
+                        subgraph FCFS
+                        S53((53)) --> N98(98) --> N183(183) --> N37(37)
+                        end
+                        subgraph SSTF
+                        S_53((53)) --> N65(65) --> N67(67) --> N37(37)
+                        end
+                </div>
+                <p><em>SSTF creates a "zig-zag" locally, while SCAN sweeps smoothly.</em></p>
+            </div>
+        </section>
+
+        <!-- THREADS -->
+        <section id="threads">
+            <h2>6. Threads & Multithreading</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Process vs. Thread</h3>
+                    <p>A <strong>Thread</strong> is a Light-Weight Process (LWP). It is a basic unit of CPU utilization.</p>
+                    <div class="mermaid">
+                        graph TD
+                            subgraph Process Memory
+                            Code[Code - SHARED]
+                            Data[Data - SHARED]
+                            Files[Files - SHARED]
+                            T1[Thread 1 Stack/Regs]
+                            T2[Thread 2 Stack/Regs]
+                            T3[Thread 3 Stack/Regs]
+                            end
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Benefits of Multithreading</h3>
+                    <ol>
+                        <li><strong>Responsiveness:</strong> UI stays active even if one thread blocks.</li>
+                        <li><strong>Resource Sharing:</strong> Threads share memory/code by default (efficient).</li>
+                        <li><strong>Economy:</strong> Context switching threads is cheaper than processes.</li>
+                        <li><strong>Scalability:</strong> Utilizing Multicore Architectures.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h3>User vs. Kernel Level Threads</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>User-Level Threads (ULT)</th>
+                        <th>Kernel-Level Threads (KLT)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Management</strong></td>
+                        <td>User Library (Pthreads, Java)</td>
+                        <td>OS Kernel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Speed</strong></td>
+                        <td>Fast (No System Calls)</td>
+                        <td>Slower (System Calls required)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blocking</strong></td>
+                        <td>If one thread blocks, <strong>entire process blocks</strong>.</td>
+                        <td>Independent. If one blocks, others run.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kernel View</strong></td>
+                        <td>Kernel sees 1 Process.</td>
+                        <td>Kernel sees individual threads.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card">
+                <h3>Multithreading Models</h3>
+                <ul>
+                    <li><strong>Many-to-One:</strong> Many ULT mapped to 1 KLT. (Solaris Green Threads). Efficient but no true parallelism.</li>
+                    <li><strong>One-to-One:</strong> 1 ULT mapped to 1 KLT. (Linux, Windows). True concurrency, higher overhead.</li>
+                    <li><strong>Many-to-Many:</strong> Multiplexing many ULTs to a smaller/equal number of KLTs.</li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Simple scroll spy for sidebar
+        const sections = document.querySelectorAll('section');
+        const navLi = document.querySelectorAll('.sidebar .nav-links li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLi.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -8,7 +8,8 @@ import {
   Code,
   Key,
   SunMoon,
-  GraduationCap
+  GraduationCap,
+  FileText,
 } from 'lucide-react';
 
 import { Dock, DockIcon, DockItem, DockLabel } from '@/components/ui/dock';
@@ -38,6 +39,13 @@ const NavigationDock = () => {
         <BarChart3 className='h-full w-full text-neutral-600 dark:text-neutral-300' />
       ),
       href: '/stats',
+    },
+    {
+      title: 'Notes',
+      icon: (
+        <FileText className='h-full w-full text-neutral-600 dark:text-neutral-300' />
+      ),
+      href: '/notes',
     },
     {
       title: 'API Docs',

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Calculus Ultimate Cheat Sheet | GATE Engineering Math</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid.js -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose'
+        });
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --sidebar-bg: #020617;
+            --accent-primary: #facc15; /* Yellow from slides */
+            --accent-secondary: #38bdf8; /* Cyan from slides */
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --success: #4ade80;
+            --danger: #f87171;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .sidebar h1 {
+            font-size: 1.2rem;
+            color: var(--accent-primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--accent-secondary);
+            color: var(--bg-color);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+            width: calc(100% - 250px);
+        }
+
+        .header-section {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
+        }
+
+        .header-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Grid Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-secondary);
+        }
+
+        .card h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Theorems Styling */
+        .theorem-box {
+            border-left: 4px solid var(--accent-primary);
+            background: rgba(250, 204, 21, 0.05);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .theorem-title {
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .formula {
+            background-color: #000;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            font-size: 1.1rem;
+        }
+
+        /* Interactive Elements */
+        details {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        summary {
+            font-weight: 600;
+            color: var(--accent-secondary);
+        }
+
+        details[open] {
+            padding-bottom: 1rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+
+        /* Utilities */
+        .highlight {
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .tag.scalar { background: #3730a3; color: #c7d2fe; }
+        .tag.vector { background: #064e3b; color: #6ee7b7; }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; width: 100%; padding: 1rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="sidebar">
+        <h1>GATE Calculus</h1>
+        <a href="#basics" class="nav-link">1. Vector Operators</a>
+        <a href="#derivatives" class="nav-link">2. Derivatives & Normals</a>
+        <a href="#integrals" class="nav-link">3. Integral Types</a>
+        <a href="#theorems" class="nav-link">4. The Big Three Theorems</a>
+        <a href="#green" class="nav-link highlight">↳ Green's Theorem</a>
+        <a href="#stokes" class="nav-link highlight">↳ Stokes' Theorem</a>
+        <a href="#gauss" class="nav-link highlight">↳ Gauss Divergence</a>
+        <a href="#problems" class="nav-link">5. Standard Problems</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <div class="header-section">
+            <h2>Engineering Mathematics: Vector Calculus</h2>
+            <p>Comprehensive Cheat Sheet based on Lecture Series 1-6. Covering Gradient, Divergence, Curl, and Integral Theorems.</p>
+        </div>
+
+        <!-- Section 1: Basics -->
+        <section id="basics">
+            <h2 style="margin-bottom: 1rem; color: var(--text-primary);">1. The "Del" Operator & Basic Operations</h2>
+            <div class="grid-3">
+                <!-- Gradient -->
+                <div class="card">
+                    <h3><span class="tag scalar">SCALAR</span> to <span class="tag vector">VECTOR</span>Gradient ($\nabla \phi$)</h3>
+                    <p>Represents the rate of change. Points in the direction of steepest ascent.</p>
+                    <div class="formula">
+                        $$ \nabla \phi = \frac{\partial \phi}{\partial x}\hat{i} + \frac{\partial \phi}{\partial y}\hat{j} + \frac{\partial \phi}{\partial z}\hat{k} $$
+                    </div>
+                    <ul>
+                        <li>$\phi(x,y,z) = c$ represents a <strong>Level Surface</strong>.</li>
+                        <li>$\nabla \phi$ is the <strong>Normal Vector</strong> to that surface.</li>
+                    </ul>
+                </div>
+
+                <!-- Divergence -->
+                <div class="card">
+                    <h3><span class="tag vector">VECTOR</span> to <span class="tag scalar">SCALAR</span>Divergence ($\nabla \cdot \vec{F}$)</h3>
+                    <p>Measures "outward flux" per unit volume. How much a field spreads out.</p>
+                    <div class="formula">
+                        $$ \text{div } \vec{F} = \frac{\partial F_1}{\partial x} + \frac{\partial F_2}{\partial y} + \frac{\partial F_3}{\partial z} $$
+                    </div>
+                    <details>
+                        <summary>Physical Meaning</summary>
+                        <ul>
+                            <li><strong>Positive:</strong> Source (Fluid expanding)</li>
+                            <li><strong>Negative:</strong> Sink (Fluid compressing)</li>
+                            <li><strong>Zero:</strong> Solenoidal (Incompressible)</li>
+                        </ul>
+                    </details>
+                </div>
+
+                <!-- Curl -->
+                <div class="card">
+                    <h3><span class="tag vector">VECTOR</span> to <span class="tag vector">VECTOR</span>Curl ($\nabla \times \vec{F}$)</h3>
+                    <p>Measures rotation or circulation of the field.</p>
+                    <div class="formula">
+                        $$ \nabla \times \vec{F} = \begin{vmatrix} \hat{i} & \hat{j} & \hat{k} \\ \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\ F_1 & F_2 & F_3 \end{vmatrix} $$
+                    </div>
+                    <p class="highlight" style="margin-top: 0.5rem;">If $\nabla \times \vec{F} = 0$, field is IRROTATIONAL (Conservative).</p>
+                </div>
+            </div>
+
+            <!-- Solenoidal vs Irrotational Diagram -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>Field Classifications</h3>
+                <div class="mermaid">
+                    flowchart LR
+                        A[Vector Field F] --> B{Div F = 0?}
+                        A --> C{Curl F = 0?}
+                        B -- Yes --> D[SOLENOIDAL]
+                        B -- No --> E[Compressible/Expansive]
+                        C -- Yes --> F[IRROTATIONAL]
+                        C -- No --> G[Rotational]
+                        F --> H[Conservative Field]
+                        H --> I[Scalar Potential exists]
+                        D --> J[Flux In = Flux Out]
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Derivatives -->
+        <section id="derivatives">
+            <h2 style="margin-bottom: 1rem; border-top: 1px solid var(--border-color); padding-top: 2rem;">2. Derivatives & Geometry</h2>
+            <div class="grid-2">
+                <!-- Directional Derivative -->
+                <div class="card">
+                    <h3>Directional Derivative (D.D.)</h3>
+                    <p>Rate of change of $\phi$ at point $P$ in direction of vector $\vec{a}$.</p>
+                    <div class="formula">
+                        $$ D.D. = \nabla \phi \cdot \hat{a} $$
+                        $$ \text{where } \hat{a} = \frac{\vec{a}}{|\vec{a}|} $$
+                    </div>
+                    <p><strong>Max Value:</strong> $|\nabla \phi|$ (in direction of normal).</p>
+                </div>
+
+                <!-- Normals and Tangents -->
+                <div class="card">
+                    <h3>Geometric Vectors</h3>
+                    <table style="font-size: 0.9rem;">
+                        <tr>
+                            <td><strong>Normal to Surface ($\vec{N}$)</strong></td>
+                            <td>$$ \nabla \phi $$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unit Normal ($\hat{n}$)</strong></td>
+                            <td>$$ \frac{\nabla \phi}{|\nabla \phi|} $$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tangent to Curve ($\vec{T}$)</strong></td>
+                            <td>$$ \frac{d\vec{r}}{dt} \text{ where } \vec{r}(t) \text{ is param.} $$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Angle betw. Surfaces</strong></td>
+                            <td>$$ \cos \theta = \frac{\nabla \phi_1 \cdot \nabla \phi_2}{|\nabla \phi_1| |\nabla \phi_2|} $$</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Integrals -->
+        <section id="integrals">
+            <h2 style="margin-bottom: 1rem; border-top: 1px solid var(--border-color); padding-top: 2rem;">3. Integral Calculus Types</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Line Integral (1D)</h3>
+                    <p>Work done by force $\vec{F}$ moving along curve $C$.</p>
+                    <div class="formula">
+                        $$ W = \int_C \vec{F} \cdot d\vec{r} $$
+                    </div>
+                    <p>If $\vec{F} = F_1\hat{i} + F_2\hat{j} + F_3\hat{k}$:</p>
+                    $$ \int (F_1 dx + F_2 dy + F_3 dz) $$
+                    <p style="font-size: 0.8rem; color: var(--success); margin-top: 0.5rem;">If Conservative, depends only on endpoints.</p>
+                </div>
+                <div class="card">
+                    <h3>Surface Integral (2D)</h3>
+                    <p>Flux of $\vec{F}$ passing through surface $S$.</p>
+                    <div class="formula">
+                        $$ \Phi = \iint_S \vec{F} \cdot \hat{n} ds $$
+                    </div>
+                    <p><strong>Projection Method:</strong></p>
+                    $$ ds = \frac{dx dy}{|\hat{n} \cdot \hat{k}|} \text{ (on xy-plane)} $$
+                </div>
+                <div class="card">
+                    <h3>Volume Integral (3D)</h3>
+                    <p>Integration over a 3D region $V$.</p>
+                    <div class="formula">
+                        $$ \iiint_V f(x,y,z) dx dy dz $$
+                    </div>
+                    <p>Used often with Divergence Theorem.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Theorems -->
+        <section id="theorems">
+            <h2 style="margin-bottom: 1rem; border-top: 1px solid var(--border-color); padding-top: 2rem; color: var(--accent-primary);">4. The Big Three Theorems</h2>
+            <p style="margin-bottom: 2rem;">These theorems convert integrals to easier forms (usually increasing dimension by 1 but simplifying the boundary).</p>
+            
+            <div class="grid-3">
+                 <!-- Green's Theorem -->
+                 <div class="card" id="green" style="border-color: var(--success);">
+                    <h3>Green's Theorem</h3>
+                    <span class="tag">2D Plane</span> <span class="tag">Closed Curve</span>
+                    <p>Relates line integral to double integral over region $R$.</p>
+                    <div class="theorem-box">
+                        $$ \oint_C (M dx + N dy) = \iint_R \left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right) dx dy $$
+                    </div>
+                    <p style="font-size:0.85rem;"><strong>Condition:</strong> $C$ is closed, planar, counter-clockwise.</p>
+                    <p style="font-size:0.85rem;"><strong>Area Application:</strong> Area $= \frac{1}{2}\oint (x dy - y dx)$.</p>
+                </div>
+
+                <!-- Stokes' Theorem -->
+                <div class="card" id="stokes" style="border-color: var(--accent-secondary);">
+                    <h3>Stokes' Theorem</h3>
+                    <span class="tag">3D Space</span> <span class="tag">Open Surface</span>
+                    <p>Relates line integral to surface integral of Curl.</p>
+                    <div class="theorem-box">
+                        $$ \oint_C \vec{F} \cdot d\vec{r} = \iint_S (\nabla \times \vec{F}) \cdot \hat{n} ds $$
+                    </div>
+                    <p style="font-size:0.85rem;"><strong>Interpretation:</strong> Sum of "microscopic" rotations = macroscopic circulation on boundary.</p>
+                </div>
+
+                <!-- Gauss Divergence -->
+                <div class="card" id="gauss" style="border-color: var(--danger);">
+                    <h3>Gauss Divergence Theorem</h3>
+                    <span class="tag">3D Space</span> <span class="tag">Closed Surface</span>
+                    <p>Relates surface integral (flux) to volume integral of Divergence.</p>
+                    <div class="theorem-box">
+                        $$ \oiint_S \vec{F} \cdot \hat{n} ds = \iiint_V (\nabla \cdot \vec{F}) dv $$
+                    </div>
+                    <p style="font-size:0.85rem;"><strong>Use when:</strong> Calculating flux over a closed object (Sphere, Cube).</p>
+                </div>
+            </div>
+
+            <!-- Theorem Decision Flowchart -->
+            <div class="card">
+                <h3>Which Theorem to Use?</h3>
+                <div class="mermaid">
+                    graph TD
+                        Start[Problem asks for Integral] --> Q1{Is it a Closed Path/Surface?}
+                        Q1 -- No --> Direct[Direct Integration]
+                        Q1 -- Yes --> Q2{Type of Integral?}
+                        Q2 -- Line Integral --> Q3{2D or 3D?}
+                        Q3 -- 2D Plane --> Green[Green's Theorem]
+                        Q3 -- 3D Space --> Stokes[Stokes' Theorem]
+                        Q2 -- Surface Integral --> Gauss[Gauss Divergence Theorem]
+                        Gauss --> Vol[Convert to Volume Integral of Div F]
+                        Green --> Area[Convert to Double Integral over Region]
+                        Stokes --> Curl[Convert to Surface Integral of Curl]
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Problems -->
+        <section id="problems">
+            <h2 style="margin-bottom: 1rem; border-top: 1px solid var(--border-color); padding-top: 2rem;">5. Standard Problem Archetypes</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Case 1: Flux through a Sphere</h3>
+                    <p>Given $\vec{F} = x\hat{i} + y\hat{j} + z\hat{k}$ over sphere $x^2+y^2+z^2=a^2$.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Identify Closed Surface $\to$ Use <strong>Gauss Divergence</strong>.</li>
+                        <li>Calculate $\nabla \cdot \vec{F} = 1+1+1 = 3$.</li>
+                        <li>Integral becomes $\iiint 3 dv = 3 \times \text{Volume}$.</li>
+                        <li>Result: $3 \times \frac{4}{3}\pi a^3 = 4\pi a^3$.</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>Case 2: Work Done (Conservative)</h3>
+                    <p>Find work done moving particle from $(0,0,0)$ to $(1,1,1)$ in field $\vec{F}$.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Check Curl: Is $\nabla \times \vec{F} = 0$?</li>
+                        <li>If <strong>Yes</strong>: Path doesn't matter.
+                            <ul>
+                                <li>Find Potential $\phi$ such that $\vec{F} = \nabla \phi$.</li>
+                                <li>Work $= \phi(B) - \phi(A)$.</li>
+                            </ul>
+                        </li>
+                        <li>If <strong>No</strong>: Parameterize the path (e.g., let $x=t, y=t^2, z=t^3$) and integrate directly.</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>Case 3: Surface Integral via Projection</h3>
+                    <p>Evaluate $\iint \vec{F} \cdot \hat{n} ds$ on plane $x+y+z=1$ in 1st octant.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Find $\hat{n} = \frac{\nabla \phi}{|\nabla \phi|} = \frac{\hat{i}+\hat{j}+\hat{k}}{\sqrt{3}}$.</li>
+                        <li>Project onto $xy$-plane ($z=0$): $ds = \frac{dx dy}{|\hat{n} \cdot \hat{k}|} = \frac{dx dy}{1/\sqrt{3}} = \sqrt{3} dx dy$.</li>
+                        <li>Substitute $z = 1-x-y$ into $\vec{F}$.</li>
+                        <li>Evaluate double integral over triangle in $xy$-plane.</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>Case 4: Green's Theorem (Triangle/Rectangle)</h3>
+                    <p>$\oint (xy + y^2) dx + x^2 dy$ over triangle boundaries.</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Identify $M = xy+y^2, N = x^2$.</li>
+                        <li>Calculate $\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y} = 2x - (x+2y) = x-2y$.</li>
+                        <li>Set up double integral $\iint (x-2y) dx dy$.</li>
+                        <li>Determine limits based on triangle vertices.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <footer style="margin-top: 4rem; text-align: center; color: var(--text-secondary); font-size: 0.8rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            Generated for Engineering Mathematics • Based on Lecture Notes
+        </footer>
+    </main>
+
+</body>
+</html>

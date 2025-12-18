@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Transport Layer: TCP & UDP Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#e0e7ff',
+                edgeLabelBackground: '#ffffff',
+                tertiaryColor: '#f1f5f9'
+            }
+        });
+    </script>
+
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --accent-udp: #f59e0b;
+            --accent-tcp: #0ea5e9;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .sidebar h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-top: 2rem;
+            font-weight: 700;
+        }
+
+        /* Cards & Boxes */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th { background-color: #f1f5f9; font-weight: 600; }
+
+        /* TCP Header Visualization */
+        .packet-header {
+            display: grid;
+            grid-template-columns: repeat(32, 1fr);
+            gap: 1px;
+            background: #cbd5e1;
+            border: 1px solid #94a3b8;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            margin: 1rem 0;
+        }
+        .field {
+            background: #fff;
+            padding: 8px 4px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .field span { font-weight: bold; color: var(--primary-dark); }
+        .field small { color: var(--text-muted); font-size: 0.65rem; }
+        
+        .col-16 { grid-column: span 16; }
+        .col-32 { grid-column: span 32; }
+        .col-4 { grid-column: span 4; }
+        .col-6 { grid-column: span 6; }
+        .col-1 { grid-column: span 1; }
+
+        /* Code & Formulas */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #d946ef;
+        }
+        
+        .formula-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 1rem 0;
+        }
+
+        /* Collapsible Details */
+        details {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        details[open] summary { border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; padding-bottom: 0.5rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .content { padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .packet-header { display: flex; flex-direction: column; }
+            .field { border-bottom: 1px solid #cbd5e1; }
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag-tcp { background: #e0f2fe; color: #0369a1; }
+        .tag-udp { background: #fef3c7; color: #b45309; }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h1>CS Networking:<br>Transport Layer</h1>
+        <a href="#overview" class="nav-link">1. Overview & UDP</a>
+        <a href="#tcp-header" class="nav-link">2. TCP Header</a>
+        <a href="#connection" class="nav-link">3. Connection Management</a>
+        <a href="#state-machine" class="nav-link">4. State Transition</a>
+        <a href="#flow-control" class="nav-link">5. Flow Control</a>
+        <a href="#error-control" class="nav-link">6. Error Control</a>
+        <a href="#timers" class="nav-link">7. Timers & RTT</a>
+        <a href="#congestion" class="nav-link">8. Congestion Control</a>
+        <a href="#traffic" class="nav-link">9. Traffic Shaping</a>
+    </nav>
+
+    <main class="content">
+        
+        <!-- SECTION 1: OVERVIEW & UDP -->
+        <section id="overview">
+            <h2>1. Transport Layer Overview & UDP</h2>
+            <div class="card">
+                <p><strong>Responsibility:</strong> Process-to-process delivery of the entire message using port numbers (16-bit).</p>
+                <ul>
+                    <li><strong>Multiplexing:</strong> Gathering data from multiple app processes at sender.</li>
+                    <li><strong>Demultiplexing:</strong> Delivering data to correct app process at receiver.</li>
+                </ul>
+            </div>
+
+            <h3>UDP (User Datagram Protocol)</h3>
+            <div class="grid-2">
+                <div class="card" style="border-top: 4px solid var(--accent-udp);">
+                    <h4>Characteristics</h4>
+                    <ul>
+                        <li><span class="tag tag-udp">Unreliable</span> Connectionless, No Flow/Error Control.</li>
+                        <li><strong>Header:</strong> Fixed 8 Bytes.</li>
+                        <li><strong>Use Cases:</strong> DNS, SNMP, RIP, Streaming (Real-time), Multicasting.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>UDP Header (8 Bytes)</h4>
+                    <table style="text-align: center; font-family: 'JetBrains Mono', monospace;">
+                        <tr>
+                            <td style="width:50%">Source Port (16)</td>
+                            <td style="width:50%">Dest Port (16)</td>
+                        </tr>
+                        <tr>
+                            <td>Length (16)</td>
+                            <td>Checksum (16)</td>
+                        </tr>
+                    </table>
+                    <small>Length includes Header + Data. Min value = 8.</small>
+                </div>
+            </div>
+            
+            <details>
+                <summary>Why use UDP if it's unreliable?</summary>
+                <p>UDP avoids the overhead of connection establishment (3-way handshake) and maintaining state. It is preferred for applications where speed is critical (Voice over IP, Gaming) or where a lost packet is better ignored than retransmitted late.</p>
+            </details>
+        </section>
+
+        <!-- SECTION 2: TCP HEADER -->
+        <section id="tcp-header">
+            <h2>2. TCP Header Structure</h2>
+            <p><span class="tag tag-tcp">TCP</span> is Connection-oriented, Reliable, Byte-stream, and Full Duplex.</p>
+            
+            <div class="card">
+                <div class="packet-header">
+                    <!-- Row 1 -->
+                    <div class="field col-16"><span>Source Port</span><small>16 bits</small></div>
+                    <div class="field col-16"><span>Destination Port</span><small>16 bits</small></div>
+                    <!-- Row 2 -->
+                    <div class="field col-32"><span>Sequence Number</span><small>32 bits (Byte number of 1st byte in segment)</small></div>
+                    <!-- Row 3 -->
+                    <div class="field col-32"><span>Acknowledgment Number</span><small>32 bits (Next expected byte)</small></div>
+                    <!-- Row 4 -->
+                    <div class="field col-4"><span>HLEN</span><small>4</small></div>
+                    <div class="field col-6"><span>Rsrvd</span><small>6</small></div>
+                    <div class="field col-1"><span>U</span></div>
+                    <div class="field col-1"><span>A</span></div>
+                    <div class="field col-1"><span>P</span></div>
+                    <div class="field col-1"><span>R</span></div>
+                    <div class="field col-1"><span>S</span></div>
+                    <div class="field col-1"><span>F</span></div>
+                    <div class="field col-16"><span>Window Size</span><small>16 bits (Flow Control)</small></div>
+                    <!-- Row 5 -->
+                    <div class="field col-16"><span>Checksum</span><small>16 bits</small></div>
+                    <div class="field col-16"><span>Urgent Pointer</span><small>16 bits (Valid if URG=1)</small></div>
+                    <!-- Row 6 -->
+                    <div class="field col-32"><span>Options & Padding</span><small>0 - 40 Bytes</small></div>
+                </div>
+                <div class="formula-box">
+                    Header Size Formula: HLEN value × 4 Bytes<br>
+                    Min Header: 20 Bytes (HLEN = 5)<br>
+                    Max Header: 60 Bytes (HLEN = 15)
+                </div>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h4>Flags</h4>
+                    <ul style="font-size: 0.85em;">
+                        <li><code>SYN</code>: Synchronize seq numbers (Connect).</li>
+                        <li><code>ACK</code>: Acknowledgment valid.</li>
+                        <li><code>FIN</code>: Terminate connection.</li>
+                        <li><code>RST</code>: Reset connection.</li>
+                        <li><code>PSH</code>: Push data (no buffering).</li>
+                        <li><code>URG</code>: Urgent pointer valid.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Wrap Around Time (WAT)</h4>
+                    <p>Time until Sequence Numbers (32-bit) repeat.</p>
+                    $$ WAT = \frac{2^{32}}{\text{Bandwidth (Bps)}} $$
+                </div>
+                <div class="card">
+                    <h4>Pseudo Header</h4>
+                    <p>Used for Checksum calculation. Includes Source IP, Dest IP, Protocol, TCP Length.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CONNECTION MANAGEMENT -->
+        <section id="connection">
+            <h2>3. Connection Management</h2>
+            
+            <div class="grid-2">
+                <!-- 3-Way Handshake -->
+                <div class="card">
+                    <h3>Establishment (3-Way Handshake)</h3>
+                    <div class="mermaid">
+                        sequenceDiagram
+                            participant Client
+                            participant Server
+                            Client->>Server: SYN=1, Seq=x
+                            Server->>Client: SYN=1, ACK=1, Seq=y, Ack=x+1
+                            Client->>Server: ACK=1, Seq=x+1, Ack=y+1
+                            Note over Client, Server: Connection Established
+                    </div>
+                    <p><small>Note: SYN consumes 1 seq number. Pure ACK consumes 0.</small></p>
+                </div>
+
+                <!-- 4-Way Termination -->
+                <div class="card">
+                    <h3>Termination (4-Way Handshake)</h3>
+                    <div class="mermaid">
+                        sequenceDiagram
+                            participant Client
+                            participant Server
+                            Client->>Server: FIN=1, Seq=u
+                            Server->>Client: ACK=1, Ack=u+1
+                            Note right of Server: Server sends remaining data
+                            Server->>Client: FIN=1, Seq=v
+                            Client->>Server: ACK=1, Ack=v+1
+                            Note left of Client: Time Wait (2*MSL)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: STATE TRANSITION -->
+        <section id="state-machine">
+            <h2>4. TCP State Transition</h2>
+            <div class="card">
+                <div class="mermaid">
+                    stateDiagram-v2
+                        CLOSED --> SYN_SENT: App Active Open (Send SYN)
+                        CLOSED --> LISTEN: App Passive Open
+                        LISTEN --> SYN_RCVD: Rcv SYN, Send SYN+ACK
+                        SYN_SENT --> ESTABLISHED: Rcv SYN+ACK, Send ACK
+                        SYN_RCVD --> ESTABLISHED: Rcv ACK
+                        
+                        state ESTABLISHED {
+                            [*] --> DataTransfer
+                        }
+
+                        ESTABLISHED --> FIN_WAIT_1: App Close (Send FIN)
+                        ESTABLISHED --> CLOSE_WAIT: Rcv FIN (Send ACK)
+                        
+                        FIN_WAIT_1 --> FIN_WAIT_2: Rcv ACK
+                        FIN_WAIT_2 --> TIME_WAIT: Rcv FIN (Send ACK)
+                        
+                        CLOSE_WAIT --> LAST_ACK: App Close (Send FIN)
+                        LAST_ACK --> CLOSED: Rcv ACK
+                        
+                        TIME_WAIT --> CLOSED: Wait 2MSL
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: FLOW CONTROL -->
+        <section id="flow-control">
+            <h2>5. Flow Control & Window Management</h2>
+            <p>Prevents sender from overwhelming the receiver using a <strong>Sliding Window Protocol</strong>. The window size is determined by the receiver (Advertised Window, $W_R$).</p>
+
+            <div class="formula-box">
+                $$ \text{Effective Window} = \min(W_C, W_R) $$
+                Where \(W_C\) is Congestion Window and \(W_R\) is Receiver Window.
+            </div>
+
+            <div class="card">
+                <h3>Silly Window Syndrome</h3>
+                <p>Happens when data is exchanged in very small segments (e.g., 1 byte data + 40 bytes header), causing huge overhead.</p>
+                <table style="width:100%">
+                    <tr>
+                        <th>Sender Side Solution</th>
+                        <th>Receiver Side Solution</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Nagle's Algorithm</strong><br>Accumulate data until:<br>1. A full MSS is available OR<br>2. An ACK is received for previous data.</td>
+                        <td><strong>Clark's Solution</strong><br>Advertise Window Size = 0 until:<br>1. Buffer has space for MSS OR<br>2. Buffer is 50% empty.</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 6: ERROR CONTROL -->
+        <section id="error-control">
+            <h2>6. Error Control</h2>
+            <p>Ensures reliability using Sequence Numbers, ACKs, and Retransmission.</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Retransmission Triggers</h4>
+                    <ol>
+                        <li><strong>RTO Timer Expiry:</strong> Indicates severe congestion.
+                            <ul>
+                                <li>Action: Threshold = \(W_C / 2\), \(W_C = 1\), Slow Start.</li>
+                            </ul>
+                        </li>
+                        <li><strong>3 Duplicate ACKs (Fast Retransmit):</strong> Indicates mild congestion (packet loss).
+                            <ul>
+                                <li>Action: Retransmit missing segment immediately without waiting for timer.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="card">
+                    <h4>ACK Types</h4>
+                    <ul>
+                        <li><strong>Cumulative ACK:</strong> "I have received everything up to N-1, expecting N".</li>
+                        <li><strong>Selective ACK (SACK):</strong> Explicitly lists received blocks (Optional).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: TIMERS -->
+        <section id="timers">
+            <h2>7. Timer Management</h2>
+            <div class="card">
+                <div class="mermaid">
+                    graph LR
+                        A[Timers] --> B[Retransmission<br>RTO]
+                        A --> C[Persistence<br>Avoid Deadlock]
+                        A --> D[Keep Alive<br>Idle Check]
+                        A --> E[Time Wait<br>2*MSL]
+                        
+                        B --> B1[Jacobson's Alg]
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>RTT Estimation (Jacobson)</h4>
+                    <p>$$ \text{NewRTT} = (1-\alpha) \cdot \text{OldRTT} + \alpha \cdot \text{SampleRTT} $$</p>
+                    <p>Typically \(\alpha = 0.125\).</p>
+                </div>
+                <div class="card">
+                    <h4>Karn's Algorithm</h4>
+                    <p>Do not update RTT for retransmitted segments (ambiguity). Double the RTO (Exponential Backoff) on timeout.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: CONGESTION CONTROL -->
+        <section id="congestion">
+            <h2>8. Congestion Control</h2>
+            <p>Sender maintains a Congestion Window (\(W_C\)).</p>
+            
+            <div class="card">
+                <div class="mermaid">
+                    xychart-beta
+                        title Congestion Window Growth
+                        x-axis [1, 2, 3, 4, 5, 6, 7, 8]
+                        y-axis "Window Size (MSS)" 0 --> 16
+                        line [1, 2, 4, 8, 9, 10, 11, 1]
+                </div>
+                <p class="text-muted"><small>Graph depicts: Slow Start (Exp) -> Threshold (8) -> Avoidance (Linear) -> Timeout -> Reset to 1.</small></p>
+            </div>
+
+            <table style="width:100%">
+                <tr>
+                    <th>Phase</th>
+                    <th>Behavior</th>
+                    <th>Condition</th>
+                </tr>
+                <tr>
+                    <td><strong>Slow Start</strong></td>
+                    <td>Exponential Growth (\(W_C = W_C \times 2\) per RTT)</td>
+                    <td>\(W_C < \text{Threshold}\)</td>
+                </tr>
+                <tr>
+                    <td><strong>Congestion Avoidance</strong></td>
+                    <td>Additive Growth (\(W_C = W_C + 1\) per RTT)</td>
+                    <td>\(W_C \ge \text{Threshold}\)</td>
+                </tr>
+                <tr>
+                    <td><strong>Congestion Detection</strong></td>
+                    <td>Multiplicative Decrease</td>
+                    <td>Timeout or 3-Dup ACKs</td>
+                </tr>
+            </table>
+
+            <div class="formula-box">
+                <strong>New Threshold</strong> = Current Window Size / 2<br>
+                <strong>Timeout?</strong> Set \(W_C = 1\), start Slow Start.<br>
+                <strong>3-Dup ACKs?</strong> Set \(W_C = \text{Threshold}\), start Congestion Avoidance (Fast Recovery).
+            </div>
+        </section>
+
+        <!-- SECTION 9: TRAFFIC SHAPING -->
+        <section id="traffic">
+            <h2>9. Traffic Shaping</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Leaky Bucket</h3>
+                    <p><strong>Concept:</strong> Turns bursty traffic into constant rate.</p>
+                    <p><strong>Mechanism:</strong> Input rate varies, output rate is constant. If bucket is full, packets are dropped.</p>
+                    <p><strong>Con:</strong> Cannot handle bursty data (idle time is wasted).</p>
+                </div>
+                <div class="card">
+                    <h3>Token Bucket</h3>
+                    <p><strong>Concept:</strong> Allows bursty traffic up to a limit.</p>
+                    <p><strong>Mechanism:</strong> Tokens generated at fixed rate. To send a packet, capture a token. Can send burst if tokens accumulated.</p>
+                    <p><strong>Formula:</strong> \( C + \rho \cdot t = M \cdot t \)<br>
+                    (Where \(C\)=Capacity, \(\rho\)=Token Rate, \(M\)=Max Burst Rate)</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="background:var(--code-bg); color:white; padding:2rem; text-align:center; margin-top:4rem;">
+        <p>CS Transport Layer Cheat Sheet | Generated for Students</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS: Transaction & Concurrency Control | Cheat Sheet</title>
+    
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #334155;
+            --text-heading: #0f172a;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            background: var(--secondary);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        nav h1 { font-size: 1.25rem; margin-bottom: 2rem; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; }
+        
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.8rem; }
+        nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: block;
+        }
+        nav a:hover, nav a.active { color: white; font-weight: 500; translate: 5px 0; }
+
+        /* Main Content */
+        main {
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header { margin-bottom: 3rem; }
+        header h2 { font-size: 2.5rem; color: var(--text-heading); letter-spacing: -0.05rem; }
+        header p { font-size: 1.1rem; color: #64748b; margin-top: 0.5rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        
+        h3 { 
+            font-size: 1.75rem; 
+            color: var(--primary); 
+            margin-bottom: 1.5rem; 
+            border-left: 5px solid var(--accent); 
+            padding-left: 1rem; 
+        }
+        
+        h4 { font-size: 1.25rem; color: var(--text-heading); margin: 1.5rem 0 0.8rem 0; font-weight: 700; }
+
+        /* Cards & Visuals */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+
+        /* Diagrams */
+        .mermaid { text-align: center; background: white; padding: 1rem; border-radius: 8px; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: white; }
+        th, td { padding: 0.75rem; border: 1px solid var(--border); text-align: left; }
+        th { background: #f1f5f9; color: var(--text-heading); font-weight: 600; }
+        tr:nth-child(even) { background: #f8fafc; }
+
+        /* Code & Tags */
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.9em; color: #d946ef; }
+        pre { background: var(--code-bg); color: var(--code-text); padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+        
+        .tag { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-right: 0.5rem; }
+        .tag.red { background: #fee2e2; color: #991b1b; }
+        .tag.green { background: #dcfce7; color: #166534; }
+        .tag.blue { background: #dbeafe; color: #1e40af; }
+
+        /* Collapsible */
+        details { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 1rem; margin-bottom: 1rem; }
+        summary { cursor: pointer; font-weight: 600; color: var(--primary); padding: 0.5rem 0; }
+        details[open] summary { border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; }
+
+        /* Footer */
+        footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: #94a3b8; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            body { grid-template-columns: 1fr; }
+            nav { display: none; }
+            main { padding: 1.5rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav>
+        <h1>DBMS: Transactions</h1>
+        <ul>
+            <li><a href="#intro">Transaction Basics</a></li>
+            <li><a href="#acid">ACID Properties</a></li>
+            <li><a href="#states">Transaction States</a></li>
+            <li><a href="#schedules">Schedules</a></li>
+            <li><a href="#serializability">Serializability</a></li>
+            <li><a href="#testing">Conflict Testing (Precedence)</a></li>
+            <li><a href="#anomalies">Concurrency Problems</a></li>
+            <li><a href="#recoverability">Recoverability</a></li>
+            <li><a href="#locking">Lock-Based Protocols</a></li>
+            <li><a href="#timestamp">Timestamp Protocols</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <main>
+        <header id="intro">
+            <span class="tag blue">CS Cheatsheet</span>
+            <h2>Transaction & Concurrency Control</h2>
+            <p>A comprehensive synthesis of lecture notes covering ACID properties, Serializability, Concurrency Anomalies, and Protocols (2PL & Timestamp Ordering).</p>
+        </header>
+
+        <!-- Section 1: Basics & ACID -->
+        <section id="acid">
+            <h3>1. Transaction & ACID Properties</h3>
+            <p>A <strong>Transaction</strong> is a unit of program execution that accesses and possibly updates various data items. It is a logical unit of work.</p>
+            
+            <div class="card">
+                <h4>The ACID Paradigm</h4>
+                <div class="grid-2">
+                    <div>
+                        <ul style="list-style: none;">
+                            <li><strong style="color:var(--primary)">A</strong>tomicity</li>
+                            <li><strong style="color:var(--primary)">C</strong>onsistency</li>
+                            <li><strong style="color:var(--primary)">I</strong>solation</li>
+                            <li><strong style="color:var(--primary)">D</strong>urability</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <small>
+                            <strong>Atomicity:</strong> All or nothing. If it fails, rollback.<br>
+                            <strong>Consistency:</strong> Database remains consistent before and after transaction (e.g., sum of accounts).<br>
+                            <strong>Isolation:</strong> Transactions execute as if they are alone. handled by <em>Concurrency Control</em>.<br>
+                            <strong>Durability:</strong> Updates persist even after system failure. Handled by <em>Recovery Manager</em>.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Transaction States -->
+        <section id="states">
+            <h3>2. Transaction States</h3>
+            <p>A transaction goes through specific states during its lifecycle. Failure leads to Abort/Rollback.</p>
+            <div class="mermaid">
+                stateDiagram-v2
+                    [*] --> Active
+                    Active --> PartiallyCommitted : Read/Write Done
+                    Active --> Failed : Error
+                    PartiallyCommitted --> Failed : Error
+                    PartiallyCommitted --> Committed : Success
+                    Failed --> Aborted : Rollback
+                    Aborted --> [*] : Restart/Kill
+                    Committed --> [*]
+            </div>
+        </section>
+
+        <!-- Section 3: Schedules -->
+        <section id="schedules">
+            <h3>3. Schedules</h3>
+            <p>A <strong>Schedule</strong> is the order of execution of operations from multiple transactions.</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Serial Schedule</h4>
+                    <p>Transactions are executed one after another (no interleaving).</p>
+                    <p>If $N$ transactions: $N!$ possible serial schedules.</p>
+                    <p><span class="tag green">Always Consistent</span></p>
+                    <p><span class="tag red">Low Concurrency</span></p>
+                </div>
+                <div class="card">
+                    <h4>Non-Serial (Concurrent)</h4>
+                    <p>Operations are interleaved to improve throughput and CPU utilization.</p>
+                    <p>Total Schedules = $\frac{(N_1 + N_2 + ...)!}{N_1! N_2! ...}$</p>
+                    <p><span class="tag red">May be Inconsistent</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Serializability -->
+        <section id="serializability">
+            <h3>4. Serializability</h3>
+            <p>A concurrent schedule is <strong>Serializable</strong> if it is equivalent to <em>some</em> serial schedule.</p>
+
+            <div class="mermaid">
+                graph TD
+                    A[All Schedules]
+                    B[Serializable]
+                    C[View Serializable]
+                    D[Conflict Serializable]
+                    A --> B
+                    B --> C
+                    C --> D
+                    style D fill:#dcfce7,stroke:#166534,stroke-width:2px
+            </div>
+            
+            <div class="card">
+                <h4>1. Conflict Serializability</h4>
+                <p>Most important for exams. Two schedules are conflict equivalent if the order of <strong>Conflicting Operations</strong> is the same.</p>
+                <p><strong>Conflict Pair:</strong> Operations on the <strong>same data item</strong> by <strong>different transactions</strong> where at least one is a <strong>WRITE</strong>.</p>
+                <ul>
+                    <li>Read(X) - Write(X) <span class="tag red">Conflict</span></li>
+                    <li>Write(X) - Write(X) <span class="tag red">Conflict</span></li>
+                    <li>Read(X) - Read(X) <span class="tag green">No Conflict</span></li>
+                </ul>
+            </div>
+
+            <div class="card" id="testing">
+                <h4>Testing: Precedence Graph Method</h4>
+                <p>Create a graph $G(V, E)$ where Nodes = Transactions.</p>
+                <ol>
+                    <li>Draw edge $T_i \to T_j$ if $T_i$ performs an operation that conflicts with $T_j$ and $T_i$ comes first.</li>
+                    <li><strong>Rule:</strong> If the graph has <strong>NO CYCLE (DAG)</strong>, the schedule is Conflict Serializable.</li>
+                    <li><strong>Ordering:</strong> The Topological Sort of the graph gives the equivalent Serial Schedule.</li>
+                </ol>
+                <div class="mermaid">
+                    graph LR
+                    T1((T1)) -- R(A) then W(A) --> T2((T2))
+                    T2 -- W(B) then R(B) --> T3((T3))
+                    T3 -- Cycle --> T1
+                    style T1 stroke:#f00,stroke-width:2px
+                    style T2 stroke:#f00,stroke-width:2px
+                    style T3 stroke:#f00,stroke-width:2px
+                </div>
+                <p align="center"><em>Example: A cycle implies NOT Conflict Serializable.</em></p>
+            </div>
+
+            <div class="card">
+                <h4>2. View Serializability</h4>
+                <p>Weaker than Conflict Serializability. Used when Blind Writes exist.</p>
+                <p>Check equivalence based on:</p>
+                <ol>
+                    <li><strong>Initial Read:</strong> Who reads the initial value of X?</li>
+                    <li><strong>Updated Read:</strong> Who reads the value written by whom? ($W_i(X) \to R_j(X)$)</li>
+                    <li><strong>Final Write:</strong> Who performs the last write on X?</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Section 5: Concurrency Problems -->
+        <section id="anomalies">
+            <h3>5. Concurrency Problems</h3>
+            <p>Issues arising when isolation is violated.</p>
+            <table>
+                <tr>
+                    <th>Problem</th>
+                    <th>Description</th>
+                    <th>Scenario</th>
+                </tr>
+                <tr>
+                    <td><strong>Dirty Read (WR)</strong></td>
+                    <td>Reading uncommitted data.</td>
+                    <td>$T_1$ writes A, $T_2$ reads A, $T_1$ fails/rollbacks. $T_2$ has invalid data.</td>
+                </tr>
+                <tr>
+                    <td><strong>Unrepeatable Read (RW)</strong></td>
+                    <td>Reading different values for same item.</td>
+                    <td>$T_1$ reads A. $T_2$ updates A. $T_1$ reads A again (different value).</td>
+                </tr>
+                <tr>
+                    <td><strong>Lost Update (WW)</strong></td>
+                    <td>Overwriting updates.</td>
+                    <td>$T_1$ writes A. $T_2$ writes A (blindly) overwriting $T_1$'s work.</td>
+                </tr>
+                <tr>
+                    <td><strong>Phantom Read</strong></td>
+                    <td>Variable number of rows.</td>
+                    <td>$T_1$ reads range. $T_2$ inserts new row in range. $T_1$ reads again (count changes).</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 6: Recoverability -->
+        <section id="recoverability">
+            <h3>6. Recoverability</h3>
+            <p>Can the system recover to a consistent state if a transaction fails?</p>
+            
+            <div class="mermaid">
+                graph TD
+                subgraph "Schedule Hierarchy"
+                A[All Schedules]
+                B[Recoverable]
+                C[Cascadeless]
+                D[Strict]
+                A --> B
+                B --> C
+                C --> D
+                end
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Recoverable</h4>
+                    <p>If $T_j$ reads data written by $T_i$, then $T_i$ must commit <strong>before</strong> $T_j$ commits.</p>
+                    <p><em>Issue:</em> May lead to Cascading Rollback.</p>
+                </div>
+                <div class="card">
+                    <h4>Cascadeless (ACA)</h4>
+                    <p>Avoids cascading rollbacks. $T_j$ can only read data written by $T_i$ <strong>after</strong> $T_i$ has committed.</p>
+                    <p>No Dirty Reads.</p>
+                </div>
+                <div class="card">
+                    <h4>Strict</h4>
+                    <p>If $T_i$ writes X, $T_j$ cannot Read <strong>OR</strong> Write X until $T_i$ commits/aborts.</p>
+                    <p>Used in practical systems (Strict 2PL).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Locking Protocols -->
+        <section id="locking">
+            <h3>7. Lock-Based Protocols</h3>
+            <p><strong>Modes:</strong> Shared (S) for Read, Exclusive (X) for Write.</p>
+            
+            <div class="card">
+                <h4>2-Phase Locking (2PL)</h4>
+                <p>Transaction has two phases. Guarantees <strong>Conflict Serializability</strong>.</p>
+                <ol>
+                    <li><strong>Growing Phase:</strong> Acquire locks. Cannot release.</li>
+                    <li><strong>Lock Point:</strong> Max locks acquired.</li>
+                    <li><strong>Shrinking Phase:</strong> Release locks. Cannot acquire.</li>
+                </ol>
+            </div>
+
+            <h4>Variations of 2PL</h4>
+            <table>
+                <tr>
+                    <th>Protocol</th>
+                    <th>Description</th>
+                    <th>Pros/Cons</th>
+                </tr>
+                <tr>
+                    <td><strong>Basic 2PL</strong></td>
+                    <td>Standard grow/shrink rules.</td>
+                    <td>Ensures Serializability. Suffer from Deadlock & Cascading Rollback.</td>
+                </tr>
+                <tr>
+                    <td><strong>Strict 2PL</strong></td>
+                    <td>Release all <strong>Exclusive (X)</strong> locks only after Commit/Abort.</td>
+                    <td>Ensures Recoverability & No Cascading Rollback.</td>
+                </tr>
+                <tr>
+                    <td><strong>Rigorous 2PL</strong></td>
+                    <td>Release <strong>ALL</strong> locks (S & X) only after Commit/Abort.</td>
+                    <td>Easier implementation. Lower concurrency.</td>
+                </tr>
+                <tr>
+                    <td><strong>Conservative 2PL</strong></td>
+                    <td>Acquire ALL locks before execution starts.</td>
+                    <td><span class="tag green">Deadlock Free</span>. High overhead.</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 8: Timestamp Protocols -->
+        <section id="timestamp">
+            <h3>8. Timestamp Ordering Protocol (TO)</h3>
+            <p>Uses timestamps ($TS$) to determine serializability order (Older $\to$ Younger). No Deadlocks, but Starvation possible.</p>
+            
+            <div class="card">
+                <h4>Variables</h4>
+                <ul>
+                    <li>$TS(T_i)$: Timestamp of transaction.</li>
+                    <li>$RTS(Q)$: Largest timestamp of any transaction that executed Read(Q).</li>
+                    <li>$WTS(Q)$: Largest timestamp of any transaction that executed Write(Q).</li>
+                </ul>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Rule 1: $T_i$ requests Read(Q)</h4>
+                    <p>If $TS(T_i) < WTS(Q)$:</p>
+                    <p class="tag red">Reject & Rollback</p>
+                    <p><small>(You are too old, value changed by younger)</small></p>
+                    <hr>
+                    <p>Else: <strong>Execute Read</strong></p>
+                    <p>$RTS(Q) = \max(RTS(Q), TS(T_i))$</p>
+                </div>
+                <div class="card">
+                    <h4>Rule 2: $T_i$ requests Write(Q)</h4>
+                    <p>If $TS(T_i) < RTS(Q)$ OR $TS(T_i) < WTS(Q)$:</p>
+                    <p class="tag red">Reject & Rollback</p>
+                    <p><small>(Value read/written by younger transaction)</small></p>
+                    <hr>
+                    <p>Else: <strong>Execute Write</strong></p>
+                    <p>$WTS(Q) = TS(T_i)$</p>
+                </div>
+            </div>
+
+            <details>
+                <summary>Thomas Write Rule (Optimization)</summary>
+                <p>A modification to standard TO for better concurrency (View Serializable).</p>
+                <p><strong>Scenario:</strong> $T_i$ wants to Write(Q), but $TS(T_i) < WTS(Q)$.</p>
+                <p>Standard TO: Rollback.</p>
+                <p><strong>Thomas Rule:</strong> Ignore the write (it's an "Obsolete Write" because a younger transaction already overwrote it). <strong>Continue $T_i$.</strong></p>
+            </details>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Generated for Computer Science Students | Based on Lecture Notes</p>
+    </footer>
+
+</body>
+</html>

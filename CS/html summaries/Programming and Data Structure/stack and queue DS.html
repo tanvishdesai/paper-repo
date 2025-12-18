@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures: Stacks & Queues | CS Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Mermaid JS for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-purple: #818cf8;
+            --accent-green: #34d399;
+            --accent-orange: #fbbf24;
+            --accent-red: #f87171;
+            --border: #475569;
+            --code-bg: #000000;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links { list-style: none; }
+        .nav-links li { margin-bottom: 0.5rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--bg-tertiary);
+            color: var(--text-main);
+            padding-left: 1rem;
+            border-left: 3px solid var(--accent-purple);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 3rem 4rem;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        header { margin-bottom: 4rem; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+        header h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(to right, var(--accent-blue), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+        header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        section h2 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem; border-left: 5px solid var(--accent-green); padding-left: 1rem; }
+        section h3 { font-size: 1.4rem; margin: 2rem 0 1rem; color: var(--accent-blue); }
+
+        /* Cards & Grid */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-3px); border-color: var(--accent-purple); }
+        .card h4 { color: var(--accent-orange); margin-bottom: 0.5rem; font-family: 'JetBrains Mono', monospace; }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            margin: 1rem 0;
+        }
+        code { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #e2e8f0; }
+        .keyword { color: var(--accent-purple); }
+        .func { color: var(--accent-blue); }
+        .var { color: var(--accent-orange); }
+        .comment { color: #64748b; font-style: italic; }
+
+        /* Interactive Elements */
+        details {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        summary { font-weight: 600; color: var(--accent-green); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; }
+        details[open] summary { margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--accent-blue); background: var(--bg-tertiary); }
+        tr:hover { background: var(--bg-tertiary); }
+
+        /* Badges */
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-right: 0.5rem; }
+        .badge.comp { background: rgba(52, 211, 153, 0.1); color: var(--accent-green); border: 1px solid var(--accent-green); }
+        .badge.warn { background: rgba(251, 191, 36, 0.1); color: var(--accent-orange); border: 1px solid var(--accent-orange); }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="sidebar">
+        <h2>CS & IT: <br>Stacks & Queues</h2>
+        <ul class="nav-links">
+            <li><a href="#stack-fundamentals">1. Stack Fundamentals</a></li>
+            <li><a href="#stack-permutations">2. Stack Permutations</a></li>
+            <li><a href="#expression-handling">3. Expressions (Infix/Postfix)</a></li>
+            <li><a href="#queue-fundamentals">4. Queue Fundamentals</a></li>
+            <li><a href="#circular-queue">5. Circular Queue</a></li>
+            <li><a href="#interconversions">6. Stack/Queue Conversions</a></li>
+            <li><a href="#priority-queue">7. Priority Queue</a></li>
+            <li><a href="#summary">8. Quick Summary</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header>
+            <span class="badge comp">Chapter 4</span>
+            <h1>Stack & Queues</h1>
+            <p>Comprehensive Engineering Notes based on Lectures 01-06 by Pankaj Sharma Sir.</p>
+        </header>
+
+        <!-- Section 1: Stack Fundamentals -->
+        <section id="stack-fundamentals">
+            <h2>1. Stack Fundamentals</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Concept</h4>
+                    <p>A <strong>Linear Data Structure</strong> that follows the <strong>LIFO</strong> (Last In First Out) principle. The element inserted last is the first one to be deleted.</p>
+                    <p><strong>Analogy:</strong> A stack of plates or coins.</p>
+                    <hr style="border-color: var(--border); margin: 1rem 0;">
+                    <p><strong>Key Pointer:</strong> <code class="var">TOP</code></p>
+                    <ul>
+                        <li><code class="var">TOP</code> stores the index of the most recently added element.</li>
+                        <li>Insertion/Deletion only happens at the <code class="var">TOP</code> end.</li>
+                    </ul>
+                </div>
+                <div class="mermaid">
+                    graph TD
+                    subgraph Stack Visual
+                    direction BT
+                    C[Data 3 (TOP)]
+                    B[Data 2]
+                    A[Data 1]
+                    end
+                    Action[Push/Pop] --> C
+                </div>
+            </div>
+
+            <h3>Operations & Complexity</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Description</th>
+                        <th>Condition Check</th>
+                        <th>Time Complexity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code class="func">Push(x)</code></td>
+                        <td>Insert element <code>x</code></td>
+                        <td>Check <strong>Overflow</strong>: <code>TOP == SIZE - 1</code></td>
+                        <td><span class="badge comp">O(1)</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="func">Pop()</code></td>
+                        <td>Remove top element</td>
+                        <td>Check <strong>Underflow</strong>: <code>TOP == -1</code></td>
+                        <td><span class="badge comp">O(1)</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="func">Peek()</code></td>
+                        <td>View top element</td>
+                        <td>Check <code>TOP == -1</code></td>
+                        <td><span class="badge comp">O(1)</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <details>
+                <summary>Implementation Code (C-Style)</summary>
+                <pre><code><span class="keyword">#define</span> SIZE 10
+<span class="keyword">int</span> STACK[SIZE];
+<span class="keyword">int</span> TOP = -1;
+
+<span class="keyword">void</span> <span class="func">Push</span>(<span class="keyword">int</span> x) {
+    <span class="keyword">if</span> (TOP == SIZE - 1) {
+        printf(<span class="var">"Overflow"</span>); 
+        <span class="keyword">return</span>;
+    }
+    STACK[++TOP] = x;  <span class="comment">// Increment then Insert</span>
+}
+
+<span class="keyword">int</span> <span class="func">Pop</span>() {
+    <span class="keyword">if</span> (TOP == -1) {
+        printf(<span class="var">"Underflow"</span>); 
+        <span class="keyword">return</span> INT_MIN;
+    }
+    <span class="keyword">return</span> STACK[TOP--]; <span class="comment">// Return then Decrement</span>
+}</code></pre>
+            </details>
+        </section>
+
+        <!-- Section 2: Stack Permutations -->
+        <section id="stack-permutations">
+            <h2>2. Stack Permutations & Catalan Numbers</h2>
+            <div class="card">
+                <p>If the input sequence is $(1, 2, 3, \dots, n)$ (pushed in increasing order), the number of valid output permutations achievable using a stack is given by the <strong>Catalan Number</strong>.</p>
+                <div style="font-size: 1.5rem; text-align: center; margin: 1.5rem 0; color: var(--accent-orange);">
+                    $$ C_n = \frac{1}{n+1} \binom{2n}{n} = \frac{(2n)!}{(n+1)!n!} $$
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <h4>Examples</h4>
+                        <ul>
+                            <li><strong>n = 3:</strong> Input (1, 2, 3). Total Permutations = $3! = 6$. Valid Stack Permutations = $5$.</li>
+                            <li><strong>Invalid Sequence:</strong> <code>3, 1, 2</code> (Because if 3 is popped first, 1 and 2 are in stack. 2 is above 1, so 2 must be popped before 1).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Rule of Thumb</h4>
+                        <p class="comment">"For a sequence to be impossible, there must exist indices i < j < k such that output[k] < output[i] < output[j]."</p>
+                        <p>Simpler check: If you pop a large number $X$, all numbers smaller than $X$ that haven't appeared yet must appear in <strong>descending</strong> order.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Expression Handling -->
+        <section id="expression-handling">
+            <h2>3. Expression Handling</h2>
+            <p>One of the primary applications of Stacks is parsing arithmetic expressions.</p>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h4>Infix</h4>
+                    <code class="var">A + B</code>
+                    <p>Operator between operands. Human readable.</p>
+                </div>
+                <div class="card">
+                    <h4>Prefix (Polish)</h4>
+                    <code class="var">+ A B</code>
+                    <p>Operator before operands. Parsed Right to Left.</p>
+                </div>
+                <div class="card">
+                    <h4>Postfix (Reverse Polish)</h4>
+                    <code class="var">A B +</code>
+                    <p>Operator after operands. Parsed Left to Right. <strong>Used by Compilers.</strong></p>
+                </div>
+            </div>
+
+            <h3>Infix to Postfix Conversion Algorithm</h3>
+            <p><strong>Goal:</strong> Respect Precedence (BODMAS rules adapted) and Associativity.</p>
+            <div class="mermaid">
+                flowchart LR
+                    Start(Scan Symbol) --> Check{Type?}
+                    Check -- Operand --> Output[Print to Output]
+                    Check -- "(" --> PushStack[Push to Stack]
+                    Check -- ")" --> PopUntil[Pop to Output until '(']
+                    Check -- Operator --> Compare{Precedence?}
+                    Compare -- Higher than Top --> PushStack
+                    Compare -- Lower/Equal --> PopStack[Pop Top to Output] --> Compare
+            </div>
+
+            <details open>
+                <summary>Example Trace: A + B * C</summary>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Stack</th>
+                            <th>Output (Postfix)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>A</td><td>Empty</td><td>A</td></tr>
+                        <tr><td>+</td><td>+</td><td>A</td></tr>
+                        <tr><td>B</td><td>+</td><td>A B</td></tr>
+                        <tr><td>*</td><td>+ *</td><td>A B</td></tr>
+                        <tr><td>C</td><td>+ *</td><td>A B C</td></tr>
+                        <tr><td>End</td><td>Empty</td><td>A B C * +</td></tr>
+                    </tbody>
+                </table>
+            </details>
+
+            <h3>Applications</h3>
+            <ul>
+                <li><strong>Balanced Parentheses Checking:</strong> Push for opening <code>( { [</code>, Pop for matching closing <code>) } ]</code>. Stack must be empty at end.</li>
+                <li><strong>Expression Evaluation:</strong> To evaluate Postfix, push operands. When operator found, pop two, calculate, push result.</li>
+            </ul>
+        </section>
+
+        <!-- Section 4: Queue Fundamentals -->
+        <section id="queue-fundamentals">
+            <h2>4. Queue Fundamentals</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Concept</h4>
+                    <p>A Linear Data Structure following <strong>FIFO</strong> (First In First Out).</p>
+                    <p><strong>Analogy:</strong> A line of people at a ticket counter.</p>
+                    <hr style="border-color: var(--border); margin: 1rem 0;">
+                    <ul>
+                        <li><code class="var">Rear</code>: Insertion end (Enqueue).</li>
+                        <li><code class="var">Front</code>: Deletion end (Dequeue).</li>
+                    </ul>
+                </div>
+                <div class="mermaid">
+                    graph LR
+                    Input(Enqueue) --> Rear
+                    subgraph Queue
+                    A[10] --- B[20] --- C[30]
+                    end
+                    Front --> Output(Dequeue)
+                </div>
+            </div>
+
+            <h3 style="margin-top:2rem">The "False Overflow" Problem</h3>
+            <p>In a linear array implementation, if we delete elements, <code>Front</code> moves forward. Even if empty spaces exist at the beginning (indices 0, 1...), we cannot insert new elements if <code>Rear</code> has reached <code>SIZE-1</code>. This is memory wastage.</p>
+            <div class="card" style="border-color: var(--accent-red); background: rgba(248, 113, 113, 0.05);">
+                <strong>Solution:</strong> Circular Queue.
+            </div>
+        </section>
+
+        <!-- Section 5: Circular Queue -->
+        <section id="circular-queue">
+            <h2>5. Circular Queue</h2>
+            <p>We treat the array as a loop. Next position after <code>SIZE-1</code> is <code>0</code>.</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Logic Formulas</h4>
+                    <ul>
+                        <li><strong>Next Position:</strong> <code>(Index + 1) % SIZE</code></li>
+                        <li><strong>Full Condition:</strong> <code>(Rear + 1) % SIZE == Front</code></li>
+                        <li><strong>Empty Condition:</strong> <code>Front == -1</code></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Operations</h4>
+                    <p><code class="func">Enqueue(x)</code>: Move Rear circularly, then insert.</p>
+                    <p><code class="func">Dequeue()</code>: Store Front element, move Front circularly.</p>
+                </div>
+            </div>
+
+            <details>
+                <summary>Circular Queue Code Snippet</summary>
+                <pre><code><span class="keyword">void</span> <span class="func">CQ_Enqueue</span>(<span class="keyword">int</span> x) {
+    <span class="keyword">if</span> ((Rear + 1) % SIZE == Front) {
+        printf(<span class="var">"Overflow"</span>);
+        <span class="keyword">return</span>;
+    }
+    <span class="keyword">if</span> (Front == -1) Front = Rear = 0; <span class="comment">// First element</span>
+    <span class="keyword">else</span> Rear = (Rear + 1) % SIZE;
+    
+    Queue[Rear] = x;
+}</code></pre>
+            </details>
+        </section>
+
+        <!-- Section 6: Interconversions -->
+        <section id="interconversions">
+            <h2>6. Data Structure Interconversion</h2>
+            <p>Common interview questions involving implementing one structure using another.</p>
+
+            <h3>Queue using Stacks</h3>
+            <div class="mermaid">
+                graph LR
+                    Input --> S1[Stack 1: Input]
+                    S1 -- Transfer Logic --> S2[Stack 2: Output]
+                    S2 --> Output
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Enqueue Cost</th>
+                        <th>Dequeue Cost</th>
+                        <th>Logic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Make Enqueue Costly</strong></td>
+                        <td>O(N)</td>
+                        <td>O(1)</td>
+                        <td>Move all S1 to S2, push x to S1, move back S2 to S1.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Make Dequeue Costly</strong></td>
+                        <td>O(1)</td>
+                        <td>O(N) (Amortized O(1))</td>
+                        <td>Push to S1. To pop: if S2 empty, move all S1 to S2, then pop S2.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Stack using Queues</h3>
+            <ul>
+                <li>Requires 2 Queues ($Q_1, Q_2$).</li>
+                <li><strong>Push Costly:</strong> Enqueue to $Q_2$, move all $Q_1$ to $Q_2$, swap names. Cost: $O(N)$.</li>
+                <li><strong>Pop Costly:</strong> Leave one element in $Q_1$ by moving $N-1$ elements to $Q_2$. Cost: $O(N)$.</li>
+            </ul>
+        </section>
+
+        <!-- Section 7: Priority Queue -->
+        <section id="priority-queue">
+            <h2>7. Priority Queue</h2>
+            <p>A queue where each element has a priority. Elements are processed based on priority, not just arrival time.</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Representation</h4>
+                    <p>Can be implemented using:</p>
+                    <ol>
+                        <li><strong>Array/Linked List:</strong> Simple but slow ($O(N)$ insertion or deletion).</li>
+                        <li><strong>Heap (Binary Heap):</strong> Efficient ($O(\log N)$ for both).</li>
+                    </ol>
+                </div>
+                <div class="card">
+                    <h4>Types</h4>
+                    <ul>
+                        <li><strong>Ascending PQ:</strong> Smallest number = Highest Priority.</li>
+                        <li><strong>Descending PQ:</strong> Largest number = Highest Priority.</li>
+                    </ul>
+                </div>
+            </div>
+            <p><strong>Applications:</strong> CPU Scheduling (Process management), Dijkstra's Shortest Path Algorithm.</p>
+        </section>
+
+        <!-- Summary -->
+        <section id="summary">
+            <h2>8. Quick Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Stack</th>
+                        <th>Linear Queue</th>
+                        <th>Circular Queue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Principle</strong></td>
+                        <td>LIFO</td>
+                        <td>FIFO</td>
+                        <td>FIFO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Insertion</strong></td>
+                        <td>Push (Top)</td>
+                        <td>Enqueue (Rear)</td>
+                        <td>Enqueue ((Rear+1)%N)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Deletion</strong></td>
+                        <td>Pop (Top)</td>
+                        <td>Dequeue (Front)</td>
+                        <td>Dequeue ((Front+1)%N)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Empty Check</strong></td>
+                        <td>TOP == -1</td>
+                        <td>Front == -1</td>
+                        <td>Front == -1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Full Check</strong></td>
+                        <td>TOP == SIZE - 1</td>
+                        <td>Rear == SIZE - 1</td>
+                        <td>(Rear + 1) % SIZE == Front</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</body>
+</html>

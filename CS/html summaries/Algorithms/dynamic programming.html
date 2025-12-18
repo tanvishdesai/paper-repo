@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Programming Algorithm Master Sheet</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Mermaid.js for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; color: #1f2937; scroll-behavior: smooth; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Card Styles */
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; transition: transform 0.2s; }
+        .card:hover { border-color: #fbbf24; }
+        
+        .math-block { background-color: #f8fafc; border-left: 4px solid #fbbf24; padding: 1rem; margin: 1rem 0; border-radius: 0 8px 8px 0; overflow-x: auto;}
+        
+        h1, h2, h3 { color: #111827; }
+        .text-accent { color: #d97706; }
+        .bg-accent { background-color: #fbbf24; }
+        .bg-accent-subtle { background-color: #fef3c7; }
+
+        /* Sticky Sidebar */
+        .sticky-sidebar { position: sticky; top: 2rem; max-height: 90vh; overflow-y: auto; }
+
+        code { background-color: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.875em; color: #db2777; }
+        pre code { background-color: transparent; color: #e2e8f0; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header -->
+    <header class="max-w-7xl mx-auto mb-10 text-center">
+        <div class="inline-block px-4 py-1 rounded-full bg-yellow-100 text-yellow-800 text-xs font-bold uppercase tracking-wide mb-2">CS & IT Engineering</div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Algorithm Design: <span class="text-accent">Dynamic Programming</span></h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive cheat sheet covering Principles of Optimality, Multistage Graphs, TSP, Floyd-Warshall, Knapsack, LCS, MCM, and Bellman-Ford.</p>
+    </header>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
+        
+        <!-- Navigation Sidebar -->
+        <aside class="hidden md:block col-span-3">
+            <nav class="sticky-sidebar card p-6">
+                <h3 class="font-bold text-gray-400 uppercase text-xs tracking-wider mb-4">Table of Contents</h3>
+                <ul class="space-y-3 text-sm font-medium text-gray-600" id="nav-list">
+                    <li><a href="#intro" class="hover:text-accent flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-accent"></span> Introduction & Principles</a></li>
+                    <li><a href="#fibonacci" class="hover:text-accent">Fibonacci (Memoization vs Tabulation)</a></li>
+                    <li><a href="#multistage" class="hover:text-accent">Multistage Graphs</a></li>
+                    <li><a href="#tsp" class="hover:text-accent">Traveling Salesperson (TSP)</a></li>
+                    <li><a href="#floyd" class="hover:text-accent">Floyd-Warshall (APSP)</a></li>
+                    <li><a href="#knapsack" class="hover:text-accent">0/1 Knapsack Problem</a></li>
+                    <li><a href="#lcs" class="hover:text-accent">Longest Common Subsequence</a></li>
+                    <li><a href="#mcm" class="hover:text-accent">Matrix Chain Multiplication</a></li>
+                    <li><a href="#sos" class="hover:text-accent">Sum of Subsets</a></li>
+                    <li><a href="#bellman" class="hover:text-accent">Bellman-Ford Algorithm</a></li>
+                    <li><a href="#complexity" class="hover:text-accent">Complexity Summary</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="col-span-1 md:col-span-9 space-y-10">
+
+            <!-- 1. Introduction -->
+            <section id="intro" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-6 border-b pb-2">1. The Elements of Dynamic Programming</h2>
+                <p class="mb-4">Dynamic Programming (DP) is an optimization technique used to solve problems by breaking them down into simpler subproblems. Unlike Divide & Conquer, DP subproblems <strong>overlap</strong>.</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                        <h4 class="font-bold text-blue-900 mb-2">1. Optimal Substructure</h4>
+                        <p class="text-sm text-blue-800">A problem has optimal substructure if an optimal solution can be constructed from optimal solutions of its subproblems. (Principle of Optimality).</p>
+                    </div>
+                    <div class="bg-purple-50 p-5 rounded-lg border-l-4 border-purple-500">
+                        <h4 class="font-bold text-purple-900 mb-2">2. Overlapping Subproblems</h4>
+                        <p class="text-sm text-purple-800">The problem can be broken down into subproblems which are reused several times. DP stores these results to avoid re-computation.</p>
+                    </div>
+                </div>
+
+                <h3 class="font-bold text-lg mb-3">DP Implementation Strategies</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 border rounded-lg">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3">Feature</th>
+                                <th class="px-6 py-3">Memoization (Top-Down)</th>
+                                <th class="px-6 py-3">Tabulation (Bottom-Up)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b">
+                                <td class="px-6 py-4 font-bold">Approach</td>
+                                <td class="px-6 py-4">Recursive. Solves subproblems only when needed.</td>
+                                <td class="px-6 py-4">Iterative. Solves <em>all</em> subproblems starting from the smallest.</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b">
+                                <td class="px-6 py-4 font-bold">Storage</td>
+                                <td class="px-6 py-4">Caches result in table after computing.</td>
+                                <td class="px-6 py-4">Fills table based on previous entries.</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="px-6 py-4 font-bold">Pros/Cons</td>
+                                <td class="px-6 py-4">Good if not all subproblems need solving. High recursion overhead.</td>
+                                <td class="px-6 py-4">No recursion overhead. Efficient if all subproblems must be visited.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. Fibonacci -->
+            <section id="fibonacci" class="card p-6 md:p-10">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">2. Fibonacci Sequence</h2>
+                    <span class="text-xs font-mono bg-gray-200 px-2 py-1 rounded">Basics</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-4">The classic example showing why naive recursion is bad and how DP optimizes it.</p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold text-red-500 mb-2">Naive Recursion</h4>
+                        <p class="text-xs mb-2">Recomputes same values repeatedly.</p>
+                        <div class="math-block">
+                            $$T(n) = O(2^n)$$
+                        </div>
+                        <div class="mermaid">
+                            graph TD
+                            F5[F5] --> F4[F4]
+                            F5 --> F3[F3]
+                            F4 --> F3b[F3]
+                            F4 --> F2[F2]
+                            style F3 fill:#fca5a5,stroke:#b91c1c
+                            style F3b fill:#fca5a5,stroke:#b91c1c
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-green-600 mb-2">DP (Tabulation)</h4>
+                        <p class="text-xs mb-2">Linear scan, storing results.</p>
+                        <div class="math-block">
+                            $$T(n) = O(n)$$
+                        </div>
+                        <div class="bg-gray-800 text-gray-100 rounded p-4 font-mono text-xs">
+                            F[0] = 0; F[1] = 1;<br>
+                            for i = 2 to n:<br>
+                            &nbsp;&nbsp;F[i] = F[i-1] + F[i-2];<br>
+                            return F[n];
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Multistage Graphs -->
+            <section id="multistage" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-4">3. Multistage Graphs</h2>
+                <p class="mb-4">Finding the shortest path from source \(s\) to sink \(t\) in a graph partitioned into \(k\) stages where edges only go from stage \(i\) to \(i+1\).</p>
+                
+                <div class="math-block text-lg">
+                    $$Cost(i, j) = \min_{k \in V_{i+1}} \{ c(j, k) + Cost(i+1, k) \}$$
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-1/2">
+                        <h4 class="font-bold mb-2">Backward Approach</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                            <li>Start from the destination (sink).</li>
+                            <li>Compute cost to reach sink from previous stage vertices.</li>
+                            <li>Work backwards to source.</li>
+                            <li><strong>Time Complexity:</strong> \(O(n^2)\) or \(O(|V| + |E|)\)</li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-1/2 flex items-center justify-center bg-gray-50 rounded p-4">
+                        <div class="mermaid">
+                            graph LR
+                            subgraph Stage 1
+                            S((1))
+                            end
+                            subgraph Stage 2
+                            A((2))
+                            B((3))
+                            end
+                            subgraph Stage 3
+                            C((4))
+                            D((5))
+                            end
+                            subgraph Stage 4
+                            T((6))
+                            end
+                            S --> A & B
+                            A --> C & D
+                            B --> C & D
+                            C --> T
+                            D --> T
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. TSP -->
+            <section id="tsp" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-4">4. Traveling Salesperson Problem (TSP)</h2>
+                <p class="mb-4 text-sm">Find the minimum cost tour starting at city 1, visiting every other city exactly once, and returning to 1.</p>
+                
+                <div class="bg-gray-900 text-white p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto">
+                    Algorithm: Held-Karp (Dynamic Programming)
+                </div>
+
+                <div class="math-block">
+                    $$g(i, S) = \min_{k \in S} \{ c(i, k) + g(k, S - \{k\}) \}$$
+                </div>
+                <ul class="text-sm text-gray-700 mb-4 list-disc list-inside">
+                    <li>\(g(i, S)\): Cost of path starting at vertex \(i\), visiting all vertices in set \(S\), and terminating at vertex 1.</li>
+                    <li>Base Case: \(g(i, \emptyset) = c(i, 1)\)</li>
+                </ul>
+
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div class="p-4 bg-red-50 rounded border border-red-100">
+                        <div class="text-xs text-gray-500 uppercase">Brute Force</div>
+                        <div class="text-xl font-bold text-red-600">\(O(n!)\)</div>
+                    </div>
+                    <div class="p-4 bg-green-50 rounded border border-green-100">
+                        <div class="text-xs text-gray-500 uppercase">DP (Held-Karp)</div>
+                        <div class="text-xl font-bold text-green-600">\(O(n^2 2^n)\)</div>
+                        <div class="text-xs text-gray-400">Exponential Space & Time</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Floyd-Warshall -->
+            <section id="floyd" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-4">5. All-Pairs Shortest Paths (Floyd-Warshall)</h2>
+                <p class="mb-4">Computes shortest paths between every pair of vertices. Works with negative edges (but no negative cycles).</p>
+
+                <h3 class="font-bold text-gray-800">The Recurrence (Vertex \(k\) as intermediate)</h3>
+                <p class="text-sm text-gray-600 mt-1">Let \(A^k[i, j]\) be the shortest path from \(i\) to \(j\) using only vertices \(\{1, ..., k\}\) as intermediates.</p>
+                
+                <div class="math-block">
+                    $$A^k[i, j] = \min ( \underbrace{A^{k-1}[i, j]}_{\text{Don't use } k}, \underbrace{A^{k-1}[i, k] + A^{k-1}[k, j]}_{\text{Use } k} )$$
+                </div>
+
+                <div class="bg-gray-800 text-gray-100 rounded p-4 font-mono text-sm mt-4">
+                    for k from 1 to n:<br>
+                    &nbsp;&nbsp;for i from 1 to n:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for j from 1 to n:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[i,j] = min(A[i,j], A[i,k] + A[k,j])
+                </div>
+                
+                <div class="mt-4 flex gap-4 text-sm">
+                    <span class="px-3 py-1 bg-gray-100 rounded"><strong>Time:</strong> \(O(n^3)\)</span>
+                    <span class="px-3 py-1 bg-gray-100 rounded"><strong>Space:</strong> \(O(n^2)\)</span>
+                    <span class="px-3 py-1 bg-yellow-100 rounded text-yellow-800">Used for Transitive Closure</span>
+                </div>
+            </section>
+
+            <!-- 6. 0/1 Knapsack -->
+            <section id="knapsack" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-4">6. 0/1 Knapsack Problem</h2>
+                <p class="mb-2">Given items with weights \(w_i\) and profits \(p_i\), maximize total profit such that total weight \(\le M\). Items cannot be broken (0 or 1).</p>
+                
+                <div class="math-block">
+                    $$V[i, w] = \begin{cases} 
+                    V[i-1, w] & \text{if } w_i > w \\
+                    \max(V[i-1, w], \quad V[i-1, w-w_i] + p_i) & \text{if } w_i \le w 
+                    \end{cases}$$
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div>
+                        <h4 class="font-bold mb-2 text-sm uppercase text-gray-500">Logic Table Construction</h4>
+                        <table class="w-full text-center border text-xs font-mono">
+                            <tr class="bg-gray-100"><td>i \ w</td><td>0</td><td>1</td><td>...</td><td>M</td></tr>
+                            <tr><td>0</td><td>0</td><td>0</td><td>...</td><td>0</td></tr>
+                            <tr><td>1</td><td>0</td><td class="bg-accent-subtle">...</td><td>...</td><td>...</td></tr>
+                            <tr><td>n</td><td>0</td><td>...</td><td>...</td><td><strong>Max</strong></td></tr>
+                        </table>
+                    </div>
+                    <div>
+                         <h4 class="font-bold mb-2 text-sm uppercase text-gray-500">Complexity</h4>
+                         <ul class="list-none space-y-2 text-sm">
+                             <li><strong>Time:</strong> \(O(n \times M)\) <span class="text-xs text-gray-500">(Pseudo-polynomial)</span></li>
+                             <li><strong>Space:</strong> \(O(n \times M)\)</li>
+                         </ul>
+                         <p class="mt-4 text-xs text-red-500">Greedy method fails for 0/1 Knapsack (works only for Fractional Knapsack).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. LCS -->
+            <section id="lcs" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-4">7. Longest Common Subsequence (LCS)</h2>
+                <p class="mb-4 text-sm">Find the longest subsequence present in both strings \(X\) (len \(n\)) and \(Y\) (len \(m\)). Order matters, continuity does not.</p>
+                
+                <div class="math-block">
+                    $$L[i, j] = \begin{cases} 
+                    0 & \text{if } i=0 \text{ or } j=0 \\
+                    1 + L[i-1, j-1] & \text{if } X[i] == Y[j] \\
+                    \max(L[i-1, j], L[i, j-1]) & \text{if } X[i] \neq Y[j]
+                    \end{cases}$$
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-center mt-6">
+                    <div class="w-full md:w-1/2">
+                         <h4 class="font-bold mb-2">Visual Logic</h4>
+                         <div class="mermaid">
+                             graph TD
+                             Cell[Cell i, j]
+                             Match{Match?}
+                             Diag[1 + Diagonal]
+                             Max[Max(Top, Left)]
+                             
+                             Cell --> Match
+                             Match -- Yes --> Diag
+                             Match -- No --> Max
+                             
+                             style Diag fill:#bbf7d0
+                             style Max fill:#fed7aa
+                         </div>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <h4 class="font-bold">Applications</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-600 mt-2">
+                            <li>Diff utilities (file comparison)</li>
+                            <li>DNA Sequencing (Genomics)</li>
+                            <li>Plagiarism detection</li>
+                        </ul>
+                        <div class="mt-4 bg-gray-100 p-2 rounded text-center font-mono text-sm">
+                            Time: O(nm) | Space: O(nm)
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Matrix Chain Multiplication -->
+            <section id="mcm" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-4">8. Matrix Chain Multiplication (MCM)</h2>
+                <p class="mb-4 text-sm">Given a sequence of matrices, find the most efficient way to parenthesize them to minimize the number of scalar multiplications.</p>
+                <p class="text-xs text-gray-500 mb-2">Matrix \(A_i\) has dimensions \(p_{i-1} \times p_i\).</p>
+
+                <div class="math-block">
+                    $$m[i, j] = \begin{cases} 
+                    0 & \text{if } i=j \\
+                    \min_{i \le k < j} \{ m[i, k] + m[k+1, j] + p_{i-1}p_kp_j \} & \text{if } i < j
+                    \end{cases}$$
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-sm mb-2">Filling the Table</h4>
+                        <p class="text-sm text-gray-600">The table is filled diagonally based on <strong>chain length</strong> (\(L\)).</p>
+                        <ul class="text-xs font-mono mt-2 space-y-1 text-gray-500">
+                            <li>L=1: (A1), (A2)... Cost 0</li>
+                            <li>L=2: (A1A2), (A2A3)...</li>
+                            <li>L=3: (A1A2A3)...</li>
+                            <li>...</li>
+                            <li>L=n: Final Answer</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded border">
+                        <span class="text-sm font-bold">Complexity</span>
+                        <div class="text-xl font-bold text-accent">\(O(n^3)\)</div>
+                        <p class="text-xs mt-1">Number of parenthesizations follows <strong>Catalan Numbers</strong> \(\Omega(4^n/n^{3/2})\).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Sum of Subsets -->
+            <section id="sos" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-4">9. Sum of Subsets (Subset Sum)</h2>
+                <p class="mb-4">Given a set of integers and a target sum \(M\), determine if any subset sums up to \(M\).</p>
+                
+                <div class="math-block">
+                    $$Subset(i, j) = Subset(i-1, j) \lor Subset(i-1, j - A[i])$$
+                </div>
+                <p class="text-sm text-gray-600 mb-2">Can we get sum \(j\) using first \(i\) items? Either we don't include item \(i\) (look up), or we include item \(i\) (look up and left by value \(A[i]\)).</p>
+
+                <div class="flex gap-4 mt-4">
+                     <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-xs font-bold">NP-Complete Problem</span>
+                     <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded text-xs font-bold">DP Solution: \(O(n \times M)\)</span>
+                </div>
+            </section>
+
+            <!-- 10. Bellman-Ford -->
+            <section id="bellman" class="card p-6 md:p-10">
+                <h2 class="text-2xl font-bold mb-4">10. Bellman-Ford Algorithm</h2>
+                <p class="mb-4 text-sm">Single Source Shortest Path algorithm that handles <strong>negative edge weights</strong>. It can also detect negative weight cycles.</p>
+
+                <div class="bg-gray-800 text-gray-100 rounded p-4 font-mono text-sm mb-4">
+                    1. Initialize dist[s] = 0, others = ∞<br>
+                    2. Repeat (V-1) times:<br>
+                    &nbsp;&nbsp;&nbsp;For each edge (u, v) with weight w:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if dist[u] + w < dist[v]:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist[v] = dist[u] + w (Relaxation)<br>
+                    3. Check for negative cycles (Run relaxation once more)
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="border p-4 rounded">
+                        <h4 class="font-bold text-sm">vs Dijkstra</h4>
+                        <p class="text-xs text-gray-600 mt-1">Dijkstra (Greedy) fails with negative edges. Bellman-Ford (DP-ish) works but is slower.</p>
+                    </div>
+                    <div class="border p-4 rounded">
+                        <h4 class="font-bold text-sm">Complexity</h4>
+                        <p class="text-xl font-bold">\(O(V \times E)\)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. Complexity Summary -->
+            <section id="complexity" class="mb-20">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">Complexity Cheat Sheet</h2>
+                <div class="overflow-x-auto shadow-lg rounded-lg">
+                    <table class="w-full text-sm text-left text-gray-600">
+                        <thead class="text-xs text-white uppercase bg-gray-800">
+                            <tr>
+                                <th class="px-6 py-4">Algorithm</th>
+                                <th class="px-6 py-4">Time Complexity</th>
+                                <th class="px-6 py-4">Space Complexity</th>
+                                <th class="px-6 py-4">Technique</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900">Fibonacci (DP)</td>
+                                <td class="px-6 py-4">\(O(n)\)</td>
+                                <td class="px-6 py-4">\(O(1)\) or \(O(n)\)</td>
+                                <td class="px-6 py-4">Tabulation</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900">Multistage Graph</td>
+                                <td class="px-6 py-4">\(O(V+E)\) or \(O(n^2)\)</td>
+                                <td class="px-6 py-4">\(O(n)\)</td>
+                                <td class="px-6 py-4">Shortest Path</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900">0/1 Knapsack</td>
+                                <td class="px-6 py-4">\(O(n \cdot W)\)</td>
+                                <td class="px-6 py-4">\(O(n \cdot W)\)</td>
+                                <td class="px-6 py-4">Pseudo-Polynomial</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900">LCS</td>
+                                <td class="px-6 py-4">\(O(n \cdot m)\)</td>
+                                <td class="px-6 py-4">\(O(n \cdot m)\)</td>
+                                <td class="px-6 py-4">String Manipulation</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900">Matrix Chain Mult.</td>
+                                <td class="px-6 py-4">\(O(n^3)\)</td>
+                                <td class="px-6 py-4">\(O(n^2)\)</td>
+                                <td class="px-6 py-4">Parenthesization</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900">Floyd-Warshall</td>
+                                <td class="px-6 py-4">\(O(n^3)\)</td>
+                                <td class="px-6 py-4">\(O(n^2)\)</td>
+                                <td class="px-6 py-4">All-Pairs Shortest Path</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900">Bellman-Ford</td>
+                                <td class="px-6 py-4">\(O(V \cdot E)\)</td>
+                                <td class="px-6 py-4">\(O(V)\)</td>
+                                <td class="px-6 py-4">Single Source (Neg Edges)</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="px-6 py-4 font-medium text-gray-900">TSP (Held-Karp)</td>
+                                <td class="px-6 py-4">\(O(n^2 2^n)\)</td>
+                                <td class="px-6 py-4">\(O(n 2^n)\)</td>
+                                <td class="px-6 py-4">Bitmask DP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="text-center py-10 text-gray-500 text-sm mt-10 border-t">
+        <p>Generated from Lecture Notes 01-05 (Dynamic Programming)</p>
+    </footer>
+
+    <script>
+        // Simple active state for sidebar
+        const navLinks = document.querySelectorAll('#nav-list a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('text-accent', 'font-bold');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('text-accent', 'font-bold');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

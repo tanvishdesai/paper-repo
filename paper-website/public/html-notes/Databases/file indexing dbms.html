@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS: File Organization & Indexing Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid.js for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#e0f2fe',
+                edgeLabelBackground: '#ffffff',
+                tertiaryColor: '#f1f5f9'
+            }
+        });
+    </script>
+
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #334155;
+            --text-heading: #0f172a;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --accent: #f43f5e;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        nav h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        nav ul { list-style: none; padding: 0; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        nav a:hover { background: #f1f5f9; color: var(--primary); }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 { color: var(--text-heading); }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+        h2 { 
+            margin-top: 3rem; 
+            padding-bottom: 0.5rem; 
+            border-bottom: 2px solid var(--border);
+            font-size: 1.75rem;
+        }
+        h3 { margin-top: 1.5rem; font-size: 1.25rem; }
+
+        /* Cards & Boxes */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .formula-box {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .deep-dive {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        .deep-dive summary {
+            background: #f8fafc;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .deep-dive summary::after { content: '+'; font-size: 1.2rem; }
+        .deep-dive[open] summary::after { content: '-'; }
+        .deep-dive-content { padding: 1.5rem; background: var(--surface); border-top: 1px solid var(--border); }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-weight: 600; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Visualizations */
+        .mermaid {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .tag.blue { background: #e0f2fe; color: #0369a1; }
+        .tag.green { background: #dcfce7; color: #15803d; }
+        .tag.red { background: #ffe4e6; color: #be123c; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            main { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav>
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#file-org">1. File Organization</a></li>
+            <li><a href="#indexing-basics">2. Indexing Basics</a></li>
+            <li><a href="#index-types">3. Types of Indexes</a></li>
+            <li><a href="#multilevel">4. Multi-level Indexing</a></li>
+            <li><a href="#btrees">5. B-Trees</a></li>
+            <li><a href="#bplustrees">6. B+ Trees</a></li>
+            <li><a href="#comparison">7. Comparison & Summary</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <header>
+            <span class="tag blue">CS Database Management</span>
+            <h1>File Organization & Indexing</h1>
+            <p>A comprehensive guide to storage strategies, indexing efficiency, and tree-based data structures.</p>
+        </header>
+
+        <!-- Section 1: File Org -->
+        <section id="file-org">
+            <h2>1. File Organization & Blocks</h2>
+            <p>Database records are mapped onto disk blocks. The efficiency of a database is often measured by the number of <strong>I/O Block Accesses</strong> required to fetch data.</p>
+
+            <div class="mermaid">
+                graph LR
+                A[Database] --> B[Files]
+                B --> C[Blocks]
+                C --> D[Records]
+                D --> E[Fields]
+            </div>
+
+            <div class="card">
+                <h3>Blocking Factor (\(B_f\))</h3>
+                <p>The average number of records that can fit in a single block.</p>
+                <div class="formula-box">
+                    $$ B_f = \left\lfloor \frac{\text{Block Size } (B)}{\text{Record Size } (R)} \right\rfloor $$
+                </div>
+            </div>
+
+            <h3>Spanned vs. Unspanned Organization</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Unspanned (Preferred for Fixed Length)</th>
+                        <th>Spanned (Preferred for Variable Length)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Storage</strong></td>
+                        <td>Record <strong>cannot</strong> span across blocks.</td>
+                        <td>Record <strong>can</strong> span across blocks.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fragmentation</strong></td>
+                        <td>Causes <strong>Internal Fragmentation</strong> (wasted space).</td>
+                        <td>No fragmentation (space utilized fully).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>I/O Cost</strong></td>
+                        <td>Lower I/O (1 block fetch per record usually).</td>
+                        <td>Higher I/O (May need 2 block fetches for 1 record).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>File Access Methods</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Unordered (Heap) File:</strong> Records placed in insertion order. 
+                        <br><em>Search Cost:</em> Linear \(O(B)\) worst case, \(O(B/2)\) average.
+                    </li>
+                    <li><strong>Ordered (Sorted) File:</strong> Records sorted by a key. 
+                        <br><em>Search Cost:</em> Binary Search \(O(\log_2 B)\).
+                        <br><em>Drawback:</em> Insertion is expensive (requires file reorganization).
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 2: Indexing Basics -->
+        <section id="indexing-basics">
+            <h2>2. Indexing Fundamentals</h2>
+            <p>Indexing creates a separate auxiliary file to speed up data access, trading storage space for speed (reduced I/O).</p>
+
+            <div class="formula-box">
+                <strong>Index Record Structure:</strong> <br>
+                $$ \text{Index Entry Size} = \text{Search Key Size} (V) + \text{Block Pointer Size} (P) $$
+            </div>
+
+            <div class="mermaid">
+                graph LR
+                IndexFile[Index File<br>Sorted small file] -->|Pointer| DataBlock[Data Block<br>Actual Record]
+                DataBlock -->|Data| CPU
+            </div>
+
+            <h3>Dense vs. Sparse Index</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Dense Index</th>
+                        <th>Sparse Index</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Entries</strong></td>
+                        <td>One index entry for <strong>every</strong> search key in DB.</td>
+                        <td>One index entry for <strong>each block</strong> of data.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Size</strong></td>
+                        <td>Larger file size.</td>
+                        <td>Smaller file size.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Speed</strong></td>
+                        <td>Faster search (direct lookup).</td>
+                        <td>Slightly slower (find block -> scan block).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Requirement</strong></td>
+                        <td>Can be built on ordered or unordered files.</td>
+                        <td><strong>Must</strong> be built on an <strong>Ordered Field</strong>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 3: Types of Indexes -->
+        <section id="index-types">
+            <h2>3. Types of Indexes</h2>
+            <p>Indexes are classified based on the field they are built upon and the ordering of the data file.</p>
+
+            <div class="mermaid">
+                graph TD
+                Root[Index Types]
+                Root --> Ordered[Ordered Field]
+                Root --> Unordered[Unordered Field]
+                
+                Ordered --> PI[Primary Index<br>(Key + Ordered)]
+                Ordered --> CI[Clustering Index<br>(Non-Key + Ordered)]
+                
+                Unordered --> SI[Secondary Index<br>(Key/Non-Key + Unordered)]
+            </div>
+
+            <div class="deep-dive">
+                <summary>Detailed Breakdown of Index Types</summary>
+                <div class="deep-dive-content">
+                    <h4>1. Primary Index (PI)</h4>
+                    <ul>
+                        <li>Built on <strong>Ordering Key</strong> field.</li>
+                        <li>Usually <strong>Sparse</strong> (One entry per block using Anchor Record).</li>
+                        <li>Only 1 PI possible per file.</li>
+                    </ul>
+
+                    <h4>2. Clustering Index (CI)</h4>
+                    <ul>
+                        <li>Built on <strong>Ordering Non-Key</strong> field (records physically sorted by non-unique field).</li>
+                        <li>Usually <strong>Sparse</strong> (One entry per distinct value/cluster).</li>
+                        <li>Only 1 CI possible per file.</li>
+                    </ul>
+
+                    <h4>3. Secondary Index (SI)</h4>
+                    <ul>
+                        <li>Built on <strong>Unordered</strong> fields (Key or Non-Key).</li>
+                        <li>Must be <strong>Dense</strong> (Because data file is not sorted by this field, we can't predict location).</li>
+                        <li>Multiple Secondary Indexes are possible.</li>
+                        <li>Used often for non-primary search keys (e.g., searching Employee by Name where ID is primary).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Multi-level Indexing -->
+        <section id="multilevel">
+            <h2>4. Multi-level Indexing</h2>
+            <p>When an index file itself becomes too large to fit in memory, we create a <strong>sparse index on top of the index</strong>.</p>
+            
+            <div class="formula-box">
+                <strong>Access Cost:</strong><br>
+                $$ \text{Cost} = n + 1 $$
+                <small>Where \(n\) is the number of index levels. 1 access for data block.</small>
+            </div>
+
+            <ul>
+                <li><strong>Base Level (Level 1):</strong> The original index file.</li>
+                <li><strong>Outer Indexes:</strong> Sparse indexes pointing to the level below.</li>
+                <li>This process repeats until the top-level index fits into a single block.</li>
+                <li>This is the concept behind <strong>ISAM</strong> (Indexed Sequential Access Method) and <strong>B-Trees</strong>.</li>
+            </ul>
+        </section>
+
+        <!-- Section 5: B-Trees -->
+        <section id="btrees">
+            <h2>5. B-Trees (Balanced Trees)</h2>
+            <p>A dynamic multi-level indexing structure that remains balanced (all leaf nodes at the same level). Suitable for disk-based storage.</p>
+
+            <div class="card">
+                <h3>Parameters (Order \(P\))</h3>
+                <ul>
+                    <li><strong>\(P\):</strong> Max number of Block Pointers (Children).</li>
+                    <li><strong>\(P-1\):</strong> Max number of Search Keys per node.</li>
+                    <li>Nodes contain: \( [ P_1, K_1, R_1, P_2, K_2, R_2, ... P_q ] \) where \(R\) is Record Pointer.</li>
+                </ul>
+            </div>
+
+            <div class="formula-box">
+                <strong>Order Calculation Formula:</strong><br>
+                $$ P \times S_P + (P-1) \times (S_K + S_R) \le \text{Block Size} $$
+                <br>
+                Where:
+                <ul>
+                    <li>\(S_P\): Size of Block Pointer</li>
+                    <li>\(S_K\): Size of Key</li>
+                    <li>\(S_R\): Size of Record Pointer</li>
+                </ul>
+            </div>
+
+            <h3>Node Constraints (Order \(P\))</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Node Type</th>
+                        <th>Min Keys</th>
+                        <th>Max Keys</th>
+                        <th>Min Children</th>
+                        <th>Max Children</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Root</strong></td>
+                        <td>1</td>
+                        <td>\(P-1\)</td>
+                        <td>2</td>
+                        <td>\(P\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Internal</strong></td>
+                        <td>\(\lceil P/2 \rceil - 1\)</td>
+                        <td>\(P-1\)</td>
+                        <td>\(\lceil P/2 \rceil\)</td>
+                        <td>\(P\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Leaf</strong></td>
+                        <td>\(\lceil P/2 \rceil - 1\)</td>
+                        <td>\(P-1\)</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 6: B+ Trees -->
+        <section id="bplustrees">
+            <h2>6. B+ Trees</h2>
+            <p>An improvement over B-Trees. <strong>Internal nodes serve only as an index</strong> (routing), while <strong>all data/records are at the Leaf nodes</strong>.</p>
+
+            <div class="mermaid">
+                graph TD
+                subgraph Internal Node
+                I1[Key 10 | Key 20] 
+                end
+                subgraph Leaf Nodes
+                L1[Key 5 | Data] --> L2[Key 10 | Data]
+                L2 --> L3[Key 15 | Data]
+                L3 --> L4[Key 20 | Data]
+                end
+                I1 --> L1
+                I1 --> L2
+                I1 --> L4
+                L1 -.-> L2
+                L2 -.-> L3
+                L3 -.-> L4
+            </div>
+
+            <h3>Key Differences</h3>
+            <div class="deep-dive">
+                <summary>B-Tree vs. B+ Tree Comparison</summary>
+                <div class="deep-dive-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>B-Tree</th>
+                                <th>B+ Tree</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Data Pointers</strong></td>
+                                <td>In Internal AND Leaf nodes.</td>
+                                <td><strong>Only</strong> in Leaf nodes.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Key Duplication</strong></td>
+                                <td>Keys are unique (appear once).</td>
+                                <td>Keys in internal nodes are repeated in leaves.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Leaf Linking</strong></td>
+                                <td>No links between leaves.</td>
+                                <td>Leaves linked (Linked List) for fast sequential access.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Range Query</strong></td>
+                                <td>Slower (Must traverse tree up/down).</td>
+                                <td><strong>Very Fast</strong> (Find start, then follow links).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tree Height</strong></td>
+                                <td>Higher (Record pointers consume space in internal nodes).</td>
+                                <td>Lower (More keys fit in internal nodes = higher fanout).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <strong>B+ Tree Order Calculations:</strong><br>
+                <em>Internal Node (No Record Pointers):</em>
+                $$ P \times S_P + (P-1) \times S_K \le \text{Block Size} $$
+                <em>Leaf Node (Contains Data Pointers):</em>
+                $$ (P_{leaf}-1)(S_K + S_R) + S_P \le \text{Block Size} $$
+            </div>
+        </section>
+
+        <!-- Section 7: Summary -->
+        <section id="comparison">
+            <h2>7. Summary & Key Takeaways</h2>
+            <div class="card">
+                <ul>
+                    <li><span class="tag green">Optimization</span> <strong>Unspanned</strong> organization is preferred for Fixed Length records (easier addressing).</li>
+                    <li><span class="tag green">Default</span> <strong>B+ Trees</strong> are the industry standard for DB indexing due to efficient range queries and lower tree height.</li>
+                    <li><span class="tag red">Constraint</span> At most <strong>one</strong> Primary or Clustering index is possible per file (since data can only be physically sorted one way).</li>
+                    <li><span class="tag blue">Calculation</span> Always use \(\lceil P/2 \rceil\) for minimum children calculation in trees.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Simple script to handle deep link smoothness
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

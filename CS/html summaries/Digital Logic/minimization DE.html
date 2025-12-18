@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Logic Minimization Cheat Sheet</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Mermaid.js -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <!-- MathJax -->
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --secondary: #475569;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: #1e293b;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: none; /* Hidden on small screens */
+        }
+
+        @media(min-width: 1024px) {
+            nav { display: block; }
+            main { margin-left: 260px; }
+        }
+
+        nav h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        nav a {
+            display: block;
+            text-decoration: none;
+            color: #334155;
+            font-size: 0.95rem;
+            padding: 0.4rem 0;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: var(--primary); font-weight: 600; }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.75rem; color: #1e293b; margin-top: 2.5rem; margin-bottom: 1rem; border-left: 4px solid var(--primary); padding-left: 0.75rem; }
+        h3 { font-size: 1.25rem; color: #334155; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .subtitle { color: var(--secondary); font-size: 1.1rem; }
+
+        /* Cards & Sections */
+        .section-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Tables */
+        .table-container { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            margin: 1rem 0;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th { background-color: var(--primary-light); color: var(--primary); font-weight: 600; }
+        tr:hover { background-color: #f1f5f9; }
+
+        /* Formulas & Code */
+        .formula-box {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .code-inline {
+            background: #f1f5f9;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            color: #d946ef;
+        }
+
+        /* K-Map Specifics */
+        .kmap-wrapper {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .kmap-container {
+            position: relative;
+        }
+
+        .kmap-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 50px);
+            grid-template-rows: repeat(4, 50px);
+            border: 2px solid #333;
+        }
+
+        .kmap-cell {
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .kmap-labels {
+            position: absolute;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+        
+        .kmap-top { top: -20px; left: 0; width: 100%; display: flex; justify-content: space-around; }
+        .kmap-left { left: -25px; top: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-around; }
+
+        /* Logic Highlights */
+        .highlight-red { color: var(--danger); font-weight: bold; }
+        .highlight-green { color: var(--success); font-weight: bold; }
+        .highlight-blue { color: var(--primary); font-weight: bold; }
+
+        .tip-box {
+            background-color: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+        }
+
+        details {
+            background: var(--bg);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+        summary { font-weight: 600; color: var(--secondary); }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav>
+        <div style="font-weight: 800; font-size: 1.2rem; color: var(--primary); margin-bottom: 2rem;">CS Essentials</div>
+        <a href="#boolean-algebra">Boolean Algebra</a>
+        <a href="#theorems">Key Theorems</a>
+        <a href="#canonical-forms">Canonical Forms</a>
+        <a href="#logic-gates">Logic Gates</a>
+        <a href="#k-maps">K-Maps</a>
+        <a href="#implicants">PI, EPI, & RPI</a>
+    </nav>
+
+    <!-- Content -->
+    <main>
+        <header>
+            <h1>Digital Logic Minimization</h1>
+            <p class="subtitle">Comprehensive guide to Boolean Algebra, K-Maps, Logic Gates, and Optimization Techniques.</p>
+        </header>
+
+        <!-- Section 1: Boolean Algebra -->
+        <section id="boolean-algebra">
+            <h2>1. Boolean Algebra Fundamentals</h2>
+            <div class="section-card">
+                <p>Boolean algebra is the mathematical foundation of digital circuits. It operates on binary variables (0 and 1).</p>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Law Name</th>
+                                <th>Expression (AND form)</th>
+                                <th>Expression (OR form)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Annulment</strong></td>
+                                <td>$A \cdot 0 = 0$</td>
+                                <td>$A + 1 = 1$</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Identity</strong></td>
+                                <td>$A \cdot 1 = A$</td>
+                                <td>$A + 0 = A$</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Idempotent</strong></td>
+                                <td>$A \cdot A = A$</td>
+                                <td>$A + A = A$</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Complement</strong></td>
+                                <td>$A \cdot \bar{A} = 0$</td>
+                                <td>$A + \bar{A} = 1$</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Double Negation</strong></td>
+                                <td colspan="2">$\overline{\overline{A}} = A$</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Absorption</strong></td>
+                                <td>$A(A+B) = A$</td>
+                                <td>$A + AB = A$</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tip-box">
+                    <strong>💡 Important Reduction:</strong> <br>
+                    $A + \bar{A}B = A + B$ <br>
+                    Logic: The $\bar{A}$ is redundant because if A is 1, the term is 1. If A is 0, the second term becomes $1 \cdot B$.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Theorems -->
+        <section id="theorems">
+            <h2>2. Critical Minimization Theorems</h2>
+            
+            <div class="section-card">
+                <h3>De Morgan's Law</h3>
+                <p>Crucial for converting between NAND/NOR logic.</p>
+                <div class="formula-box">
+                    $\overline{A \cdot B} = \bar{A} + \bar{B}$ <br>
+                    $\overline{A + B} = \bar{A} \cdot \bar{B}$
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Consensus Theorem</h3>
+                <p>Used to eliminate redundant terms. The term that lacks the complemented variable is the consensus (redundant) term.</p>
+                <div class="formula-box">
+                    $AB + \bar{A}C + BC = AB + \bar{A}C$
+                </div>
+                <p><strong>Identification:</strong> Look for 3 variables where each appears twice, and one variable is complemented. The term <em>without</em> the complemented variable ($BC$) is redundant.</p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Term 1: AB]
+                        B[Term 2: A'C]
+                        C[Redundant: BC]
+                        A --- C
+                        B --- C
+                        style C stroke:#f00,stroke-width:2px,stroke-dasharray: 5 5
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Transpose Theorem</h3>
+                <div class="formula-box">
+                    $(A + B)(A + C) = A + BC$
+                </div>
+                <div class="formula-box">
+                    $(A + B)(\bar{A} + C) = AC + \bar{A}B$
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Canonical Forms -->
+        <section id="canonical-forms">
+            <h2>3. Standard Canonical Forms</h2>
+            <div class="section-card">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Sum of Products (SOP)</th>
+                                <th>Product of Sums (POS)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Basic Unit</strong></td>
+                                <td>Minterm ($m$)</td>
+                                <td>Maxterm ($M$)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Logic Level</strong></td>
+                                <td>Active High (1)</td>
+                                <td>Active Low (0)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Representation</strong></td>
+                                <td>$F = \sum m(1, 3, 5)$</td>
+                                <td>$F = \Pi M(0, 2, 4)$</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Literal Mapping</strong></td>
+                                <td>$A=1, \bar{A}=0$</td>
+                                <td>$A=0, \bar{A}=1$</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Relationship</strong></td>
+                                <td colspan="2">$\sum m(list) = \Pi M(missing \ values)$</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Logic Gates -->
+        <section id="logic-gates">
+            <h2>4. Logic Gates & Realization</h2>
+            
+            <div class="section-card">
+                <h3>XOR & XNOR Properties</h3>
+                <p>Essential for arithmetic circuits and parity checkers.</p>
+                <ul>
+                    <li><strong>XOR ($\oplus$):</strong> Output 1 if inputs are different. (Odd function)</li>
+                    <li><strong>XNOR ($\odot$):</strong> Output 1 if inputs are same. (Even function)</li>
+                </ul>
+                <div class="formula-box">
+                    $A \oplus A = 0$ &nbsp;|&nbsp; $A \oplus \bar{A} = 1$ &nbsp;|&nbsp; $A \oplus 0 = A$ &nbsp;|&nbsp; $A \oplus 1 = \bar{A}$
+                </div>
+                <div class="tip-box">
+                    <strong>Controlled Inverter:</strong> An XOR gate with one input tied to logic '1' acts as an inverter for the other input.
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3>Universal Gates</h3>
+                <p>Any Boolean function can be implemented using only <strong>NAND</strong> or only <strong>NOR</strong> gates.</p>
+                <ul>
+                    <li><strong>NAND:</strong> AND followed by NOT. Bubble at output.</li>
+                    <li><strong>NOR:</strong> OR followed by NOT. Bubble at output.</li>
+                </ul>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        subgraph Realization
+                        A[Function] --> B{Gate Type?}
+                        B -- NAND Only --> C[SOP Form preferred]
+                        B -- NOR Only --> D[POS Form preferred]
+                        end
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: K-Maps -->
+        <section id="k-maps">
+            <h2>5. Karnaugh Maps (K-Maps)</h2>
+            <div class="section-card">
+                <p>A graphical method to minimize Boolean functions. Uses <strong>Gray Code</strong> ordering (00, 01, 11, 10) so adjacent cells differ by only 1 bit.</p>
+                
+                <h3>The "CJ Baba Rule"</h3>
+                <div class="tip-box">
+                    <strong style="color:var(--primary)">Golden Rule:</strong> Always form the <strong>largest possible group</strong> ($2^n$).
+                    <br>
+                    Larger Group = Fewer Literals in the final expression.
+                    <ul>
+                        <li>1 cell group = n variables</li>
+                        <li>2 cell group (Pair) = n-1 variables</li>
+                        <li>4 cell group (Quad) = n-2 variables</li>
+                        <li>8 cell group (Octet) = n-3 variables</li>
+                    </ul>
+                </div>
+
+                <h3>4-Variable K-Map Template</h3>
+                <div class="kmap-wrapper">
+                    <div class="kmap-container">
+                        <div class="kmap-top">
+                            <span>00</span><span>01</span><span>11</span><span>10</span>
+                        </div>
+                        <div class="kmap-left">
+                            <span>00</span><span>01</span><span>11</span><span>10</span>
+                        </div>
+                        <div class="kmap-labels" style="top: -30px; left: -30px;">AB \ CD</div>
+                        <div class="kmap-grid">
+                            <div class="kmap-cell">0</div><div class="kmap-cell">1</div><div class="kmap-cell">3</div><div class="kmap-cell">2</div>
+                            <div class="kmap-cell">4</div><div class="kmap-cell">5</div><div class="kmap-cell">7</div><div class="kmap-cell">6</div>
+                            <div class="kmap-cell">12</div><div class="kmap-cell">13</div><div class="kmap-cell">15</div><div class="kmap-cell">14</div>
+                            <div class="kmap-cell">8</div><div class="kmap-cell">9</div><div class="kmap-cell">11</div><div class="kmap-cell">10</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Don't Care Conditions ($\phi$ or X)</h3>
+                <p>Input combinations that never occur or output states that don't matter.</p>
+                <ul>
+                    <li>Can be treated as <strong>0 or 1</strong> to help form larger groups.</li>
+                    <li>Do <strong>not</strong> need to be covered if they don't help enlarge a group of 1s.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: Implicants -->
+        <section id="implicants">
+            <h2>6. Classification of Implicants</h2>
+            <div class="section-card">
+                <p>When analyzing a K-Map, groups are classified as follows:</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Term</th>
+                                <th>Definition</th>
+                                <th>Visual Clue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Implicant (I)</strong></td>
+                                <td>Any single minterm (1) or valid group of 1s (pair, quad, etc.).</td>
+                                <td>Any rectangle of 1s.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prime Implicant (PI)</strong></td>
+                                <td>A group that is <strong>not fully contained</strong> within a larger group. It is "maximal."</td>
+                                <td>The biggest possible circles you can draw.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Essential Prime Implicant (EPI)</strong></td>
+                                <td>A PI that contains at least one '1' that is <strong>not covered by any other PI</strong>.</td>
+                                <td>A circle containing a '1' that has no other circle overlapping it. <strong>Must</strong> appear in final answer.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Redundant Prime Implicant (RPI)</strong></td>
+                                <td>A PI whose 1s are all covered by other EPIs.</td>
+                                <td>Needed for logic cover but not unique.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Selective Prime Implicant (SPI)</strong></td>
+                                <td>PIs that are not essential but needed to cover remaining 1s.</td>
+                                <td>Usually creates multiple valid solutions.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Implicant Hierarchy</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        I[Implicants (All 1s)] --> PI[Prime Implicants (Maximal Groups)]
+                        PI --> EPI[Essential (Contains Unique 1s)]
+                        PI --> NonEPI[Non-Essential]
+                        NonEPI --> RPI[Redundant (Fully Covered by EPIs)]
+                        NonEPI --> SPI[Selective (Needed to complete cover)]
+                        
+                        style EPI fill:#d1fae5,stroke:#10b981,stroke-width:2px
+                        style RPI fill:#fee2e2,stroke:#ef4444,stroke-width:2px
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    $\text{Total Groups Possible} = \text{Prime Implicants}$ <br>
+                    $\text{Final Function} = \sum(\text{EPI}) + \sum(\text{Minimal SPIs})$
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 7: Quiz Highlights -->
+        <section id="quiz">
+            <h2>7. Common Edge Cases</h2>
+            <div class="section-card">
+                <ul>
+                    <li><strong>Number of Functions:</strong> For $n$ variables, there are $2^{2^n}$ possible boolean functions.</li>
+                    <li><strong>Minterms/Maxterms Count:</strong> For $n$ variables, there are $2^n$ minterms and $2^n$ maxterms.</li>
+                    <li><strong>Two-Way Switch:</strong> This is an example of <strong>XOR</strong> logic (staircase switch).</li>
+                    <li><strong>Static Hazard:</strong> Occurs in a circuit when adjacent 1s in a K-Map are not grouped together (Redundant grouping fixes this).</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

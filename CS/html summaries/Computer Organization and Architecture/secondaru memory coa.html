@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COA Cheat Sheet: Secondary Memory & I/O</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --accent: #059669;
+            --danger: #dc2626;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            height: calc(100vh - 4rem);
+            overflow-y: auto;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .sidebar h3 { margin-top: 0; color: var(--secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .nav-link { display: block; padding: 0.5rem 0; color: var(--text); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; border-left: 2px solid transparent; padding-left: 10px;}
+        .nav-link:hover, .nav-link.active { color: var(--primary); border-left-color: var(--primary); font-weight: 600; }
+
+        /* Main Content */
+        main { display: flex; flex-direction: column; gap: 2rem; }
+
+        header { margin-bottom: 1rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem; }
+        h1 { color: var(--primary-dark); margin: 0; font-size: 2.5rem; letter-spacing: -0.05rem; }
+        h2 { color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-top: 2rem; }
+        h3 { color: var(--text); margin-top: 1.5rem; }
+
+        /* Cards & Sections */
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { padding: 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+        th { background-color: #f1f5f9; font-weight: 600; color: var(--primary-dark); }
+        tr:hover { background-color: #f8fafc; }
+
+        /* Math Formulas */
+        .formula-box {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 4px;
+        }
+
+        /* Collapsible */
+        details {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+        }
+        summary { cursor: pointer; font-weight: 600; color: var(--primary); padding: 0.5rem 0; outline: none; }
+        details[open] summary { border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; }
+
+        /* Code Blocks */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--danger);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 0.75em;
+            font-weight: 700;
+            border-radius: 999px;
+            margin-right: 0.5rem;
+        }
+        .tag-green { background: #d1fae5; color: #065f46; }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { display: none; } /* Could convert to hamburger menu */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="sidebar">
+        <h3>Contents</h3>
+        <a href="#cache-update" class="nav-link">Cache Updating Techniques</a>
+        <a href="#disk-structure" class="nav-link">Disk Structure & Design</a>
+        <a href="#disk-access" class="nav-link">Disk Access Time</a>
+        <a href="#disk-addressing" class="nav-link">Disk Addressing (CHS)</a>
+        <a href="#io-interface" class="nav-link">I/O Interface Fundamentals</a>
+        <a href="#io-modes" class="nav-link">Modes of Transfer</a>
+        <a href="#dma" class="nav-link">Direct Memory Access (DMA)</a>
+    </nav>
+
+    <main>
+        <header>
+            <span class="tag tag-blue">COA Lecture Notes</span>
+            <h1>Secondary Memory & I/O Interface</h1>
+            <p style="color: var(--secondary); margin-top: 0.5rem;">Comprehensive guide to Cache Consistency, Magnetic Disk Architecture, Addressing, and I/O Data Transfer Modes.</p>
+        </header>
+
+        <!-- CACHE UPDATING TECHNIQUES -->
+        <section id="cache-update" class="card">
+            <h2>1. Cache Updating Techniques</h2>
+            <p>When the CPU performs operations, we must ensure consistency between Cache Memory (CM) and Main Memory (MM). This is the <strong>Cache Coherence</strong> problem.</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                    <h3>Write Through (WT)</h3>
+                    <p>Update both Cache and Main Memory simultaneously.</p>
+                    <ul>
+                        <li><span class="tag tag-green">Pro</span> Simple, High Consistency.</li>
+                        <li><span class="tag tag-red">Con</span> Slow (Speed limited by MM).</li>
+                        <li><span class="tag tag-blue">Access</span> Read Miss: Read Allocate. Write Miss: No Write Allocate (typically).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Write Back (WB)</h3>
+                    <p>Update only Cache. Update MM only when the block is replaced.</p>
+                    <ul>
+                        <li><span class="tag tag-green">Pro</span> Fast (Updates happen at Cache speed).</li>
+                        <li><span class="tag tag-red">Con</span> Complex hardware (Dirty Bit).</li>
+                        <li><span class="tag tag-blue">Hardware</span> Requires <strong>Dirty Bit</strong> (Modified Bit).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                flowchart LR
+                    subgraph WB [Write Back Logic]
+                    A[Block Replacement?] --> B{Dirty Bit == 1?}
+                    B -- Yes --> C[Write Back to MM]
+                    C --> D[Replace Block]
+                    B -- No --> D
+                    end
+                </div>
+            </div>
+
+            <h3>Performance Formulas</h3>
+            <div class="formula-box">
+                <strong>Simultaneous Access:</strong><br>
+                $$ T_{avg\_read} = h_r \cdot T_c + (1-h_r) \cdot T_m $$
+                $$ T_{avg\_write(WT)} = T_m \quad \text{(Assuming simultaneous update)} $$
+                <br>
+                <strong>Write Back Average Access:</strong><br>
+                $$ T_{avg} = h \cdot T_c + (1-h) \cdot [\%_{dirty} \cdot (T_{wb} + T_{new}) + \%_{clean} \cdot T_{new}] $$
+                <small>Where \(T_{wb}\) is time to write back dirty block, \(T_{new}\) is time to fetch new block.</small>
+            </div>
+        </section>
+
+        <!-- DISK STRUCTURE -->
+        <section id="disk-structure" class="card">
+            <h2>2. Disk Structure & Design</h2>
+            <p>Magnetic disks are the bulk secondary storage. They are electromechanical devices.</p>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph TD
+                    A[Disk Drive] --> B[Platters]
+                    B --> C[Surfaces]
+                    C --> D[Tracks]
+                    D --> E[Sectors]
+                    E --> F[Data + Header + CRC]
+                    
+                    style A fill:#e0f2fe,stroke:#2563eb
+                    style D fill:#dcfce7,stroke:#059669
+                    style E fill:#fef9c3,stroke:#d97706
+                </div>
+            </div>
+
+            <h3>Hierarchy Definitions</h3>
+            <ul>
+                <li><strong>Platter:</strong> Circular magnetic plate. Has 2 surfaces (Upper/Lower).</li>
+                <li><strong>Cylinder:</strong> The set of tracks at the same arm position across all surfaces. This reduces seek time for large files.</li>
+                <li><strong>Track:</strong> Concentric circles on a surface.</li>
+                <li><strong>Sector:</strong> Smallest addressable unit (typically 512 bytes or 4KB).</li>
+            </ul>
+
+            <div class="formula-box">
+                $$ Capacity = \#Cylinders \times \#Heads \times \#Sectors/Track \times SectorSize $$
+            </div>
+        </section>
+
+        <!-- DISK ACCESS TIME -->
+        <section id="disk-access" class="card">
+            <h2>3. Disk Access Time</h2>
+            <p>The total time to read/write data is the sum of three delays.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Definition</th>
+                        <th>Formula/Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Seek Time (ST)</strong></td>
+                        <td>Time to move the R/W head to the desired <strong>Track</strong>.</td>
+                        <td>Depends on hardware/distance.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rotational Latency (RL)</strong></td>
+                        <td>Time to rotate the disk so the desired <strong>Sector</strong> is under the head.</td>
+                        <td>$$ Avg\ RL = \frac{1}{2} \times \frac{60}{RPM} $$</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transfer Time (TT)</strong></td>
+                        <td>Time to actually read/write the data.</td>
+                        <td>$$ TT = \frac{DataSize}{TransferRate} $$</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="formula-box">
+                $$ Total\ Access\ Time = Seek\ Time + Rotational\ Latency + Transfer\ Time + Overhead $$
+                <br>
+                $$ Data\ Transfer\ Rate = \#Bytes/Track \times \#Rotations/sec $$
+            </div>
+
+            <details>
+                <summary>Example Calculation: Transfer Rate</summary>
+                <p><strong>Given:</strong> 3600 RPM, Track Capacity = 4KB.</p>
+                <ol>
+                    <li>Convert RPM to RPS: \(3600 / 60 = 60\) rotations per second.</li>
+                    <li>In 1 second, 60 tracks are passed.</li>
+                    <li>Rate = \(4KB \times 60 = 240 KB/sec\).</li>
+                </ol>
+            </details>
+        </section>
+
+        <!-- DISK ADDRESSING -->
+        <section id="disk-addressing" class="card">
+            <h2>4. Disk Addressing (CHS)</h2>
+            <p>Addressing scheme: <code>&lt; Cylinder, Head (Surface), Sector &gt;</code>. Addressing starts from Outer Cylinder (0), Top Surface (0), First Sector (0).</p>
+
+            <div class="formula-box">
+                <strong>Calculate Sector Number (Linear Address) from &lt;C, H, S&gt;:</strong><br>
+                $$ Sector\# = S + (H \times ST) + (C \times ST \times TC) $$
+                <br>
+                <small>
+                    Where:<br>
+                    \(S\): Given Sector<br>
+                    \(H\): Given Head/Surface<br>
+                    \(C\): Given Cylinder<br>
+                    \(ST\): Sectors per Track<br>
+                    \(TC\): Tracks per Cylinder (Number of Surfaces)
+                </small>
+            </div>
+
+            <details>
+                <summary>Why Cylinders?</summary>
+                <p>Storing files cylinder-wise (vertical slice) is faster than surface-wise. It minimizes <strong>Seek Time</strong> because the head assembly doesn't need to move to switch between surfaces of the same cylinder.</p>
+            </details>
+        </section>
+
+        <!-- IO INTERFACE -->
+        <section id="io-interface" class="card">
+            <h2>5. I/O Interface Fundamentals</h2>
+            <p>I/O devices (electromagnetic) are much slower than the CPU (electronic). An <strong>Interface Module</strong> is required to synchronize them.</p>
+            
+            <h3>Functions of I/O Interface</h3>
+            <ol>
+                <li><strong>Data Buffering:</strong> Smoothing out speed mismatches.</li>
+                <li><strong>Control & Timing:</strong> Coordinating traffic between CPU and external devices.</li>
+                <li><strong>Error Detection:</strong> Parity bits, peripheral status.</li>
+                <li><strong>Data Format Conversion:</strong> Serial (device) to Parallel (bus).</li>
+            </ol>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph LR
+                    CPU[CPU] <--> Bus[System Bus]
+                    Bus <--> Interface[I/O Interface]
+                    Interface <--> Buffer[Data Buffer]
+                    Buffer <--> Device[I/O Device]
+                </div>
+            </div>
+        </section>
+
+        <!-- MODES OF TRANSFER -->
+        <section id="io-modes" class="card">
+            <h2>6. Modes of Transfer</h2>
+            <p>How data moves between I/O and Memory/CPU.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Mechanism</th>
+                        <th>CPU Involvement</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Programmed I/O</strong></td>
+                        <td>CPU polls device status register constantly (Busy Waiting).</td>
+                        <td><span class="tag tag-red">High</span> (CPU is stuck waiting)</td>
+                        <td>Slow devices, simple systems.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interrupt-Driven I/O</strong></td>
+                        <td>Device interrupts CPU when ready.</td>
+                        <td><span class="tag tag-blue">Medium</span> (Context switching overhead)</td>
+                        <td>Keyboards, slow network packets.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DMA</strong></td>
+                        <td>Dedicated hardware handles transfer directly to memory.</td>
+                        <td><span class="tag tag-green">Low</span> (Only initialization)</td>
+                        <td>Disks, High-speed Graphics.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- DMA -->
+        <section id="dma" class="card">
+            <h2>7. Direct Memory Access (DMA)</h2>
+            <p>Allows I/O devices to access memory directly without CPU intervention. The CPU acts as the "Master" initially, then delegates control to the DMA Controller.</p>
+
+            <h3>DMA Operation Sequence</h3>
+            <div class="diagram-container">
+                <div class="mermaid">
+                sequenceDiagram
+                    participant CPU
+                    participant DMAC as DMA Controller
+                    participant IO as I/O Device
+                    
+                    CPU->>DMAC: Initialize (Count, Address, Control)
+                    IO->>DMAC: Request (DMA REQ)
+                    DMAC->>CPU: Hold Request (HOLD)
+                    CPU->>DMAC: Hold Acknowledge (HLDA)
+                    Note over CPU, DMAC: CPU relinquishes System Bus
+                    DMAC->>IO: DMA ACK
+                    IO->>DMAC: Data Transfer
+                    DMAC->>Memory: Write Data
+                    Note over DMAC: Until Count = 0
+                    DMAC->>CPU: Interrupt (Finished)
+                </div>
+            </div>
+
+            <h3>DMA Transfer Modes</h3>
+            <ul>
+                <li><strong>Burst Mode:</strong> DMA takes control of the bus and transfers the <em>entire block</em> of data before releasing it. CPU is blocked for a long duration.</li>
+                <li><strong>Cycle Stealing:</strong> DMA "steals" one bus cycle to transfer one word/byte, then returns control. CPU is slowed down but not blocked indefinitely.</li>
+                <li><strong>Interleaving:</strong> DMA uses the bus only when the CPU is not using it (e.g., during internal ALU operations). Transparent to CPU.</li>
+            </ul>
+
+            <div class="formula-box">
+                <strong>Percentage CPU Blocked:</strong><br>
+                $$ \% Blocked = \frac{TransferTime}{PreparationTime + TransferTime} \times 100 $$
+            </div>
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>

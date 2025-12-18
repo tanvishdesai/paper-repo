@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Point Representation & IEEE 754 | Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #ccfbf1;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --accent-sign: #ef4444;
+            --accent-exp: #3b82f6;
+            --accent-mant: #22c55e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar h2 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--primary); }
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 0.75rem; }
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover { color: var(--primary); font-weight: 600; }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--text); }
+        h2 { font-size: 1.8rem; margin: 2.5rem 0 1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; color: var(--text); }
+        h3 { font-size: 1.4rem; margin: 1.5rem 0 0.75rem; color: var(--primary); }
+        p { margin-bottom: 1rem; }
+
+        /* Cards & Boxes */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .note {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Bit Visualization */
+        .bit-viz {
+            display: flex;
+            width: 100%;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+        }
+        .bit-box {
+            padding: 10px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .bit-s { background-color: var(--accent-sign); flex: 1; border-radius: 4px 0 0 4px; }
+        .bit-e { background-color: var(--accent-exp); flex: 8; }
+        .bit-m { background-color: var(--accent-mant); flex: 23; border-radius: 0 4px 4px 0; }
+        .bit-label { font-size: 0.75rem; opacity: 0.9; margin-bottom: 4px; }
+        .bit-val { font-weight: bold; font-size: 1.1rem; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background-color: var(--text); color: white; font-weight: 600; }
+        tr:last-child td { border-bottom: none; }
+        
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 1rem 0;
+        }
+
+        /* Collapsible Details */
+        details {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        summary { cursor: pointer; font-weight: 600; color: var(--primary); }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; padding: 1rem; }
+            .main-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2>Contents</h2>
+        <ul>
+            <li><a href="#intro">Introduction & Motivation</a></li>
+            <li><a href="#structure">The Representation Structure</a></li>
+            <li><a href="#normalization">Normalization & Biasing</a></li>
+            <li><a href="#ieee754">IEEE 754 Standards</a></li>
+            <li><a href="#arithmetic">Floating Point Arithmetic</a></li>
+            <li><a href="#endianness">Byte Ordering (Endianness)</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h1>Floating Point Representation</h1>
+        <p class="lead">A comprehensive guide to understanding how computers represent real numbers using the IEEE 754 standard, including storage formats, arithmetic operations, and hardware implementation.</p>
+
+        <!-- SECTION 1: INTRO -->
+        <section id="intro">
+            <h2>1. Introduction & Motivation</h2>
+            <div class="card">
+                <h3>Why Floating Point?</h3>
+                <p>Standard fixed-point 16-bit integer representations (like 2's complement) have a limited range ($ -32,768 $ to $ +32,767 $). They cannot represent:</p>
+                <ul>
+                    <li><strong>Very large numbers</strong> (e.g., Avogadro's constant $ 6.022 \times 10^{23} $).</li>
+                    <li><strong>Very small fractions</strong> (e.g., atomic radius $ 0.5 \times 10^{-10} $).</li>
+                </ul>
+                <p>Floating point allows the "point" to float, trading precision for a vastly larger dynamic range.</p>
+            </div>
+
+            <div class="note">
+                <strong>Key Concept:</strong> Floating point is essentially scientific notation in binary: 
+                $$ V = (-1)^S \times M \times 2^E $$
+            </div>
+        </section>
+
+        <!-- SECTION 2: STRUCTURE -->
+        <section id="structure">
+            <h2>2. The Representation Structure</h2>
+            <p>A floating point number is divided into three distinct fields:</p>
+            
+            <div class="bit-viz">
+                <div class="bit-box bit-s">
+                    <span class="bit-label">Sign (S)</span>
+                    <span class="bit-val">1 Bit</span>
+                </div>
+                <div class="bit-box bit-e">
+                    <span class="bit-label">Biased Exponent (E)</span>
+                    <span class="bit-val">k Bits</span>
+                </div>
+                <div class="bit-box bit-m">
+                    <span class="bit-label">Mantissa (M)</span>
+                    <span class="bit-val">n Bits</span>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Symbol</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sign</td>
+                        <td>S</td>
+                        <td>0 for Positive (+), 1 for Negative (-)</td>
+                    </tr>
+                    <tr>
+                        <td>Exponent</td>
+                        <td>E</td>
+                        <td>Determines the range. Stored as <strong>Biased Exponent</strong> (no sign bit).</td>
+                    </tr>
+                    <tr>
+                        <td>Mantissa</td>
+                        <td>M</td>
+                        <td>Determines the precision (significant digits).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION 3: NORMALIZATION & BIASING -->
+        <section id="normalization">
+            <h2>3. Normalization & Biasing</h2>
+
+            <h3>Normalization</h3>
+            <p>To ensure a unique representation for every number, we normalize the mantissa.</p>
+            <div class="card" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4>Explicit Normalization</h4>
+                    <p>Format: $ 0.1xxxx \times 2^E $</p>
+                    <p>The bit after the point <strong>must</strong> be 1. It is stored explicitly.</p>
+                </div>
+                <div>
+                    <h4>Implicit Normalization (IEEE Standard)</h4>
+                    <p>Format: $ 1.xxxxx \times 2^E $</p>
+                    <p>The leading '1' is <strong>implied</strong> and not stored, saving 1 bit of memory for extra precision.</p>
+                </div>
+            </div>
+
+            <h3>Biased Exponent</h3>
+            <p>We do not use 2's complement for the exponent. Instead, we use a <strong>Bias</strong>. This converts negative exponents into positive unsigned integers, making comparison of floating point numbers easier (lexicographical sort).</p>
+            
+            <div class="note">
+                <strong>Formulas:</strong><br>
+                $$ E_{stored} = E_{actual} + Bias $$
+                $$ E_{actual} = E_{stored} - Bias $$
+                <br>
+                <strong>Bias Value (IEEE 754):</strong> $$ Bias = 2^{k-1} - 1 $$
+                (Where $k$ is the number of exponent bits)
+            </div>
+        </section>
+
+        <!-- SECTION 4: IEEE 754 -->
+        <section id="ieee754">
+            <h2>4. IEEE 754 Standards</h2>
+            <p>The two most common formats used in modern computing.</p>
+
+            <div class="bit-viz">
+                <div class="bit-box bit-s" style="flex: 1">S</div>
+                <div class="bit-box bit-e" style="flex: 8">Exponent (8 bits)</div>
+                <div class="bit-box bit-m" style="flex: 23">Mantissa (23 bits)</div>
+            </div>
+            <p style="text-align: center; font-size: 0.9rem; margin-top: -1rem; margin-bottom: 2rem;">Single Precision (32-bit)</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Single Precision (32-bit)</th>
+                        <th>Double Precision (64-bit)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sign Bit</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>Exponent Bits (k)</td>
+                        <td>8</td>
+                        <td>11</td>
+                    </tr>
+                    <tr>
+                        <td>Mantissa Bits</td>
+                        <td>23</td>
+                        <td>52</td>
+                    </tr>
+                    <tr>
+                        <td>Bias ($2^{k-1}-1$)</td>
+                        <td>127</td>
+                        <td>1023</td>
+                    </tr>
+                    <tr>
+                        <td>Range (Approx)</td>
+                        <td>$ \approx 10^{-38} \to 10^{+38} $</td>
+                        <td>$ \approx 10^{-308} \to 10^{+308} $</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Special Values Comparison</h3>
+            <p>The exponents of all 0s and all 1s are reserved for special cases.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Exponent (E)</th>
+                        <th>Mantissa (M)</th>
+                        <th>Value Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Zero</strong></td>
+                        <td>0 (All 0s)</td>
+                        <td>0 (All 0s)</td>
+                        <td>$ \pm 0 $</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Denormalized</strong></td>
+                        <td>0 (All 0s)</td>
+                        <td>Non-zero</td>
+                        <td>$ (-1)^S \times 0.M \times 2^{1-Bias} $</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Normalized</strong></td>
+                        <td>1 to 254 (Max-1)</td>
+                        <td>Any</td>
+                        <td>$ (-1)^S \times 1.M \times 2^{E-Bias} $</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Infinity</strong></td>
+                        <td>255 (All 1s)</td>
+                        <td>0 (All 0s)</td>
+                        <td>$ \pm \infty $ (Overflow/Div by 0)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NaN</strong></td>
+                        <td>255 (All 1s)</td>
+                        <td>Non-zero</td>
+                        <td>Not a Number (e.g., $\sqrt{-1}$)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <details>
+                <summary>Example: Converting Decimal 13.5 to IEEE 754 (Single)</summary>
+                <div style="margin-top: 10px;">
+                    <ol>
+                        <li><strong>Convert to Binary:</strong> $ 13.5_{10} = 1101.1_2 $</li>
+                        <li><strong>Normalize:</strong> Shift decimal left by 3: $ 1.1011 \times 2^3 $</li>
+                        <li><strong>Identify Components:</strong>
+                            <ul>
+                                <li>Sign: Positive $\rightarrow 0$</li>
+                                <li>Mantissa (stored): 1011000... (drop leading 1, pad to 23 bits)</li>
+                                <li>Actual Exponent: 3</li>
+                            </ul>
+                        </li>
+                        <li><strong>Calculate Biased Exponent:</strong> $ E = 3 + 127 = 130 $
+                            <br>Binary of 130: $ 10000010_2 $
+                        </li>
+                        <li><strong>Assemble:</strong>
+                            <br>
+                            <code style="background:var(--code-bg); color:white; padding: 2px 5px;">0 10000010 10110000000000000000000</code>
+                        </li>
+                        <li><strong>Hex:</strong> $ 41580000_{16} $</li>
+                    </ol>
+                </div>
+            </details>
+        </section>
+
+        <!-- SECTION 5: ARITHMETIC -->
+        <section id="arithmetic">
+            <h2>5. Floating Point Arithmetic</h2>
+            <p>Floating point math is complex because the binary points must be aligned before addition/subtraction, and results must be renormalized.</p>
+
+            <h3>Addition / Subtraction Algorithm</h3>
+            <div class="mermaid">
+                graph TD
+                A[Start] --> B[Check for Zeros]
+                B --> C[Compare Exponents]
+                C --> D[Shift Mantissa of Smaller Number Right]
+                D --> E{Exponents Equal?}
+                E -- No --> D
+                E -- Yes --> F[Add/Sub Mantissas]
+                F --> G[Normalize Result]
+                G --> H[Check Overflow/Underflow]
+                H --> I[Round Result]
+                I --> J[End]
+            </div>
+
+            <div class="card">
+                <h4>Multiplication Rules</h4>
+                <ol>
+                    <li><strong>Add Exponents:</strong> $ E_{new} = E_1 + E_2 - Bias $ (Subtract bias once because it's added twice).</li>
+                    <li><strong>Multiply Mantissas:</strong> $ 1.M_1 \times 1.M_2 $.</li>
+                    <li><strong>Normalize:</strong> Shift result if necessary and adjust exponent.</li>
+                    <li><strong>Sign:</strong> XOR the sign bits ($ S_{result} = S_1 \oplus S_2 $).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- SECTION 6: ENDIANNESS -->
+        <section id="endianness">
+            <h2>6. Byte Ordering (Endianness)</h2>
+            <p>When storing multi-byte data (like a 32-bit/4-byte Float) in memory, the order of bytes matters.</p>
+            <p>Example Data: <code>0x11223344</code> (Stored at address 100)</p>
+
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                <div class="card" style="flex: 1; min-width: 250px;">
+                    <h3>Big Endian</h3>
+                    <p><strong>"Most Significant Byte First"</strong></p>
+                    <p>Reads left-to-right (human readable).</p>
+                    <table>
+                        <tr><th>Address</th><th>Value</th></tr>
+                        <tr><td>100</td><td>11 (MSB)</td></tr>
+                        <tr><td>101</td><td>22</td></tr>
+                        <tr><td>102</td><td>33</td></tr>
+                        <tr><td>103</td><td>44 (LSB)</td></tr>
+                    </table>
+                </div>
+
+                <div class="card" style="flex: 1; min-width: 250px;">
+                    <h3>Little Endian</h3>
+                    <p><strong>"Least Significant Byte First"</strong></p>
+                    <p>Default in most Intel/x86 processors.</p>
+                    <table>
+                        <tr><th>Address</th><th>Value</th></tr>
+                        <tr><td>100</td><td>44 (LSB)</td></tr>
+                        <tr><td>101</td><td>33</td></tr>
+                        <tr><td>102</td><td>22</td></tr>
+                        <tr><td>103</td><td>11 (MSB)</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

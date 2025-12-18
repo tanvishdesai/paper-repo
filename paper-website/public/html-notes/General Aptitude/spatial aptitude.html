@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE Spatial Aptitude Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #f97316; /* Orange for GATE vibe */
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --success: #10b981;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 260px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            position: fixed;
+            height: 100vh;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--secondary); }
+        
+        .nav-links { list-style: none; padding: 0; margin-top: 2rem; }
+        .nav-links li { margin-bottom: 0.8rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-main); }
+        h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.3rem; margin-top: 2rem; color: var(--text-main); font-weight: 600; }
+        
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
+
+        /* Cards & Sections */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+        /* Concept Tags */
+        .tag {
+            display: inline-block;
+            background: #e0f2fe;
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Interactive Playground */
+        .playground {
+            background: #1e293b;
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .playground input {
+            padding: 0.8rem;
+            width: 80%;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .reflection-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .reflection-box {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            min-width: 200px;
+        }
+
+        .mirror-text {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'JetBrains Mono', monospace;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        /* Specific Transforms */
+        .transform-mirror { transform: scaleX(-1); color: var(--secondary); }
+        .transform-water { transform: scaleY(-1); color: var(--primary); }
+
+        /* Shape Visuals */
+        .shape-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+        }
+        .shape-item {
+            border: 2px solid var(--text-muted);
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Summary Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border); }
+        th { background-color: #f1f5f9; font-weight: 600; }
+
+        /* Code Block */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; padding: 1rem; }
+            .main-content { margin-left: 0; padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="sidebar">
+        <div class="logo">GATE <span>Spatial</span></div>
+        <p style="font-size: 0.8rem; color: #64748b;">Based on Lecture Notes by<br>Amulya Ratan Sir</p>
+        <ul class="nav-links">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#venn">Set Theory & Venn</a></li>
+            <li><a href="#grouping">Grouping & Classification</a></li>
+            <li><a href="#mirror-water">Mirror & Water Images</a></li>
+            <li><a href="#folding">Paper Folding</a></li>
+            <li><a href="#cutting">Paper Cutting</a></li>
+            <li><a href="#strategies">Solving Strategies</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <div id="overview">
+            <h1>Spatial Aptitude Cheat Sheet</h1>
+            <p class="subtitle">A high-density technical summary for GATE General Aptitude (GA). Covers visualization, pattern recognition, and geometric transformation logic.</p>
+        </div>
+
+        <!-- Section 1: Set Theory (Venn Diagrams) -->
+        <section id="venn">
+            <h2>1. Logical Venn Diagrams</h2>
+            <div class="card">
+                <span class="tag">Formula Reference</span>
+                <p>While often categorized under logical reasoning, set theory forms the basis for grouping questions. For 3 overlapping sets ($A, B, C$):</p>
+                
+                $$ n(A \cup B \cup C) = n(A) + n(B) + n(C) - n(A \cap B) - n(B \cap C) - n(C \cap A) + n(A \cap B \cap C) $$
+                
+                <div class="grid-2">
+                    <div>
+                        <h3>Visual Representation</h3>
+                        <div class="mermaid">
+                        venn
+                            A((Art))
+                            B((Music))
+                            C((Dance))
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Key Terms</h3>
+                        <ul>
+                            <li><strong>Exactly One:</strong> $n(A) - n(A \cap B) - n(A \cap C) + 2n(A \cap B \cap C)$ (conceptually removing overlaps).</li>
+                            <li><strong>Exactly Two:</strong> Sum of regions where only 2 circles overlap.</li>
+                            <li><strong>At least One:</strong> Union of all sets ($A \cup B \cup C$).</li>
+                            <li><strong>None:</strong> Total Population - Union.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Grouping & Classification -->
+        <section id="grouping">
+            <h2>2. Classification & Grouping</h2>
+            <p>The goal is to analyze a set of geometric figures and identify patterns or "The Odd One Out".</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Grouping Logic</h3>
+                    <p>Group figures into classes (usually 3 groups of 3 figures). Look for:</p>
+                    <table style="font-size: 0.9rem;">
+                        <tr>
+                            <th>Criterion</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Components</strong></td>
+                            <td>Triangle within a Circle vs. Square within Square.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Number of Lines</strong></td>
+                            <td>3 lines (Triangle, Arrow) vs. 4 lines (Square, Rectangle).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shading</strong></td>
+                            <td>Fully shaded, half shaded, unshaded.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Orientation</strong></td>
+                            <td>Rotated 45°, 90°, or 180°.</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>Odd One Out</h3>
+                    <p>Identify the figure that breaks the established pattern.</p>
+                    <div class="shape-grid">
+                        <div class="shape-item">A</div>
+                        <div class="shape-item">B</div>
+                        <div class="shape-item" style="color: var(--secondary); border-color: var(--secondary);">C</div>
+                        <div class="shape-item">D</div>
+                    </div>
+                    <p style="font-size: 0.8rem; margin-top:0.5rem;"><em>Example Logic:</em> A, B, and D rotate Clockwise. C rotates Anti-Clockwise.</p>
+                    <p style="font-size: 0.8rem;"><em>Pro Tip:</em> Always check rotation direction (CW vs ACW) and the number of internal elements first.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Mirror & Water Images -->
+        <section id="mirror-water">
+            <h2>3. Mirror & Water Images</h2>
+            <div class="card playground">
+                <h3>Live Simulator</h3>
+                <p>Type below to see the transformation logic in action.</p>
+                <input type="text" id="simulatorInput" value="GATE2025" oninput="updateReflection()">
+                
+                <div class="reflection-container">
+                    <div class="reflection-box">
+                        <div style="text-transform: uppercase; font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px;">Original</div>
+                        <div id="originalOutput" class="mirror-text">GATE2025</div>
+                    </div>
+                    
+                    <div class="reflection-box">
+                        <div style="text-transform: uppercase; font-size: 0.8rem; color: var(--secondary); margin-bottom: 10px;">Mirror Image (Lateral)</div>
+                        <!-- Scale X -1 reflects horizontally -->
+                        <div id="mirrorOutput" class="mirror-text transform-mirror">GATE2025</div>
+                        <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 5px;">L &harr; R Inversion</div>
+                    </div>
+
+                    <div class="reflection-box">
+                        <div style="text-transform: uppercase; font-size: 0.8rem; color: var(--primary); margin-bottom: 10px;">Water Image (Vertical)</div>
+                        <!-- Scale Y -1 reflects vertically -->
+                        <div id="waterOutput" class="mirror-text transform-water">GATE2025</div>
+                        <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 5px;">Top &harr; Bottom Inversion</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Mirror Image Rules</h3>
+                    <ul>
+                        <li><strong>Axis:</strong> Vertical ($Y$-axis).</li>
+                        <li><strong>Concept:</strong> Left becomes Right, Right becomes Left. Top and Bottom remain unchanged.</li>
+                        <li><strong>Symmetrical Letters (Unchanged):</strong> A, H, I, M, O, T, U, V, W, X, Y.</li>
+                        <li><strong>Tricky Numbers:</strong> Note how '2', '5', and '7' flip.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Water Image Rules</h3>
+                    <ul>
+                        <li><strong>Axis:</strong> Horizontal ($X$-axis).</li>
+                        <li><strong>Concept:</strong> Top becomes Bottom, Bottom becomes Top. Left and Right remain unchanged.</li>
+                        <li><strong>Symmetrical Letters (Unchanged):</strong> C, D, E, H, I, K, O, X.</li>
+                        <li><strong>Tip:</strong> Visualize the object flipping downwards over an edge.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Paper Folding -->
+        <section id="folding">
+            <h2>4. Paper Folding (Transparent Sheet)</h2>
+            <div class="card">
+                <div class="grid-2">
+                    <div>
+                        <p><strong>The Concept:</strong> A square transparent sheet with a pattern is folded along a dotted line. The pattern on the folded half is "mirrored" onto the stationary half.</p>
+                        <h3>Strategy:</h3>
+                        <ol>
+                            <li>Identify the <strong>Fold Line</strong> (Dotted line).</li>
+                            <li>Identify the <strong>Stationary Side</strong> (The side that remains in the final options).</li>
+                            <li>Treat the Fold Line as a <strong>Mirror</strong>.</li>
+                            <li>Reflect the pattern from the moving side onto the stationary side.</li>
+                            <li><strong>Superimpose</strong> the reflected pattern on the existing stationary pattern.</li>
+                        </ol>
+                    </div>
+                    <div style="display:flex; align-items:center; justify-content:center;">
+                        <svg width="200" height="200" viewBox="0 0 100 100" style="border:1px solid #ccc; background:white;">
+                            <!-- Dotted Fold Line -->
+                            <line x1="50" y1="0" x2="50" y2="100" stroke="#999" stroke-width="2" stroke-dasharray="4"/>
+                            
+                            <!-- Left Side (Moving) -->
+                            <polygon points="20,20 40,20 30,40" fill="none" stroke="var(--secondary)" stroke-width="2"/>
+                            
+                            <!-- Right Side (Stationary) -->
+                            <circle cx="70" cy="30" r="10" fill="none" stroke="var(--primary)" stroke-width="2"/>
+
+                            <!-- Arrow indicating fold -->
+                            <path d="M 30 80 Q 50 60 70 80" fill="none" stroke="#ccc" marker-end="url(#arrow)" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Paper Cutting -->
+        <section id="cutting">
+            <h2>5. Paper Cutting & Unfolding</h2>
+            <p>This is the reverse of folding. A paper is folded multiple times, cut, and then unfolded.</p>
+
+            <div class="mermaid">
+            graph LR
+                A[Start: Cut Folded Paper] --> B[Identify Last Fold]
+                B --> C[Unfold = Reflect Pattern]
+                C --> D[Mirror Axis = Fold Line]
+                D --> E{More Folds?}
+                E -- Yes --> B
+                E -- No --> F[Final Pattern]
+            </div>
+
+            <div class="card">
+                <h3>The "Reverse" Method</h3>
+                <p>Work backwards from the final figure ($Z$) to the first ($X$).</p>
+                <ul>
+                    <li><strong>Step 1:</strong> Look at the final cut ($Z$).</li>
+                    <li><strong>Step 2:</strong> Unfold ONCE. Imagine a mirror at the fold line. The cut is duplicated symmetrically across this line.</li>
+                    <li><strong>Step 3:</strong> Repeat for previous folds until the paper is fully open.</li>
+                </ul>
+                <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid #f59e0b; color: #78350f;">
+                    <strong>Shortcut:</strong> If a paper is folded into 4 quadrants ($2$ folds), a single cut usually results in <strong>4</strong> symmetrical shapes in the final answer (unless the cut is on the fold line itself).
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Strategies -->
+        <section id="strategies">
+            <h2>6. General Solving Strategies</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>1. Elimination</h3>
+                    <p>Don't look for the right answer immediately. Look for the <strong>wrong</strong> ones. If a rotation is wrong in Option A, cross it out immediately.</p>
+                </div>
+                <div class="card">
+                    <h3>2. Reference Point</h3>
+                    <p>Pick <strong>one</strong> specific element (e.g., a dot or an arrow) within a complex figure and track ONLY its movement/rotation across the sequence.</p>
+                </div>
+                <div class="card">
+                    <h3>3. Axis Visualization</h3>
+                    <p>For mirror images, physically place your pen vertically on the screen. For water images, place it horizontally. Use this as a mental anchor.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer style="margin-top: 4rem; border-top: 1px solid var(--border); padding-top: 2rem; color: var(--text-muted); text-align: center;">
+            <p>Cheat sheet generated for GATE Exam Preparation.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        function updateReflection() {
+            const input = document.getElementById('simulatorInput').value;
+            // Update text content
+            document.getElementById('originalOutput').innerText = input || " ";
+            document.getElementById('mirrorOutput').innerText = input || " ";
+            document.getElementById('waterOutput').innerText = input || " ";
+        }
+        
+        // Navigation Active State
+        const sections = document.querySelectorAll("section");
+        const navLi = document.querySelectorAll(".nav-links a");
+
+        window.onscroll = () => {
+            var current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLi.forEach((a) => {
+                a.classList.remove("active");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("active");
+                }
+            });
+        };
+    </script>
+</body>
+</html>

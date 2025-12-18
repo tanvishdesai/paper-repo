@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complex Analysis Cheat Sheet | GATE Engineering Mathematics</title>
+    
+    <!-- MathJax for Latex Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --secondary: #475569;
+            --accent: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: none; /* Hidden on mobile */
+        }
+
+        @media(min-width: 1024px) {
+            .sidebar { display: block; }
+            main { margin-left: 250px; }
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            margin: 1.5rem 0 0.5rem 1rem;
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 { font-size: 2.5rem; color: var(--text); font-weight: 800; letter-spacing: -0.025em; }
+        h2 { font-size: 1.75rem; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-light); color: var(--primary); }
+        h3 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; color: var(--secondary); font-weight: 600; }
+        p { margin-bottom: 1rem; }
+
+        /* Component: Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        /* Component: Formula Box */
+        .formula-box {
+            background: #fafafa;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        /* Component: Warning/Note */
+        .note {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            gap: 0.75rem;
+            align-items: start;
+        }
+        .note-icon { font-size: 1.25rem; }
+
+        /* Component: Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { padding: 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+        th { background: var(--bg); font-weight: 600; color: var(--secondary); }
+        tr:last-child td { border-bottom: none; }
+
+        /* Visualization Containers */
+        .viz-container {
+            display: flex;
+            justify-content: center;
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+            margin: 1.5rem 0;
+        }
+
+        /* Code Blocks */
+        code {
+            background: var(--bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.875em;
+            color: var(--primary);
+        }
+
+        /* SVG Styles */
+        svg text { font-family: var(--font-main); font-size: 12px; }
+        .axis { stroke: var(--secondary); stroke-width: 2; }
+        .grid { stroke: #e2e8f0; stroke-dasharray: 4; }
+        .vector { stroke: var(--primary); stroke-width: 2; marker-end: url(#arrow); }
+        .contour { fill: rgba(37, 99, 235, 0.1); stroke: var(--primary); stroke-width: 2; }
+        .pole { fill: var(--danger); }
+        
+        /* Collapsible */
+        details {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem 0;
+            border: 1px solid var(--border);
+        }
+        summary { cursor: pointer; font-weight: 600; color: var(--primary); padding: 0.5rem 0; }
+        details[open] { background: var(--card-bg); }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Sidebar -->
+    <nav class="sidebar">
+        <h3 style="margin-top:0; color: var(--text);">Complex Analysis</h3>
+        <p style="font-size: 0.8rem; color: var(--secondary);">GATE Mathematics</p>
+        
+        <div class="nav-title">Fundamentals</div>
+        <a href="#complex-basics" class="nav-link">Forms & Roots</a>
+        <a href="#de-moivre" class="nav-link">De Moivre's Theorem</a>
+        
+        <div class="nav-title">Calculus</div>
+        <a href="#analyticity" class="nav-link">C-R Equations</a>
+        <a href="#harmonic" class="nav-link">Harmonic Functions</a>
+        
+        <div class="nav-title">Integration</div>
+        <a href="#cauchy-thm" class="nav-link">Cauchy's Theorem</a>
+        <a href="#cauchy-formula" class="nav-link">Integral Formula</a>
+        
+        <div class="nav-title">Residues</div>
+        <a href="#residue-calc" class="nav-link">Calculating Residue</a>
+        <a href="#residue-thm" class="nav-link">Residue Theorem</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <header>
+            <h1>Complex Analysis Cheat Sheet</h1>
+            <p>A comprehensive summary of Complex Variables, Analytic Functions, and Residue Theory for GATE Engineering Mathematics.</p>
+        </header>
+
+        <!-- Section 1: Fundamentals -->
+        <section id="complex-basics">
+            <h2>1. Complex Fundamentals</h2>
+            
+            <div class="card">
+                <h3>Representation Forms</h3>
+                <p>A complex number $z$ can be represented in three primary forms. Understanding the conversion between them is critical for solving rotation and power problems.</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Form</th>
+                            <th>Expression</th>
+                            <th>Key Components</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cartesian</strong></td>
+                            <td>$z = x + iy$</td>
+                            <td>$x = \text{Re}(z)$, $y = \text{Im}(z)$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Polar</strong></td>
+                            <td>$z = r(\cos\theta + i\sin\theta)$</td>
+                            <td>$r = |z| = \sqrt{x^2+y^2}$<br>$\theta = \tan^{-1}(y/x)$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Euler (Exponential)</strong></td>
+                            <td>$z = re^{i\theta}$</td>
+                            <td>Best for multiplication and powers.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="viz-container">
+                <svg width="400" height="250" viewBox="-50 -50 350 250">
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#2563eb" />
+                        </marker>
+                    </defs>
+                    <!-- Grid -->
+                    <line x1="0" y1="200" x2="300" y2="200" class="axis" /> <!-- X Axis -->
+                    <line x1="0" y1="200" x2="0" y2="0" class="axis" /> <!-- Y Axis -->
+                    <text x="280" y="220" fill="#475569">Re(z)</text>
+                    <text x="10" y="20" fill="#475569">Im(z)</text>
+                    
+                    <!-- Vector -->
+                    <line x1="0" y1="200" x2="200" y2="50" class="vector" />
+                    <circle cx="200" cy="50" r="4" fill="#2563eb" />
+                    <text x="210" y="50" font-weight="bold">z = x + iy</text>
+                    
+                    <!-- Components -->
+                    <line x1="200" y1="50" x2="200" y2="200" stroke="#94a3b8" stroke-dasharray="4" />
+                    <line x1="200" y1="50" x2="0" y2="50" stroke="#94a3b8" stroke-dasharray="4" />
+                    <text x="100" y="220">x</text>
+                    <text x="-20" y="125">y</text>
+                    
+                    <!-- Polar -->
+                    <path d="M40,200 A40,40 0 0,0 35,175" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                    <text x="50" y="190" fill="#f59e0b">θ</text>
+                    <text x="100" y="120" fill="#2563eb">r</text>
+                </svg>
+            </div>
+
+            <div class="card" id="de-moivre">
+                <h3>De Moivre's Theorem & Roots</h3>
+                <div class="formula-box">
+                    $$ (\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta) $$
+                </div>
+                
+                <h4>Finding $n$-th Roots of Unity ($z^n = 1$)</h4>
+                <p>The roots form a regular polygon inscribed in the unit circle.</p>
+                <div class="formula-box">
+                    $$ z_k = \cos\left(\frac{2k\pi}{n}\right) + i\sin\left(\frac{2k\pi}{n}\right) = e^{i\frac{2k\pi}{n}} $$
+                    <small>where $k = 0, 1, ..., n-1$</small>
+                </div>
+                
+                <div class="note">
+                    <span class="note-icon">💡</span>
+                    <div>
+                        <strong>Quick Tip: Cube Roots of Unity ($1, \omega, \omega^2$)</strong><br>
+                        $1 + \omega + \omega^2 = 0$ and $\omega^3 = 1$.<br>
+                        $\omega = \frac{-1 + i\sqrt{3}}{2}$, $\omega^2 = \frac{-1 - i\sqrt{3}}{2}$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Analytic Functions -->
+        <section id="analyticity">
+            <h2>2. Analytic Functions & C-R Equations</h2>
+            <p>A function $f(z) = u(x,y) + iv(x,y)$ is <strong>Analytic</strong> if it is differentiable at every point in a domain.</p>
+
+            <div class="card">
+                <h3>Cauchy-Riemann (C-R) Equations</h3>
+                <p>For $f(z)$ to be analytic, it <strong>MUST</strong> satisfy these partial differential equations:</p>
+                
+                <div class="formula-box" style="display: flex; justify-content: space-around;">
+                    <div>$$ \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} $$</div>
+                    <div>$$ \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x} $$</div>
+                </div>
+                
+                <div class="mermaid">
+                graph LR
+                    A[Is f(z) Analytic?] --> B{Partial Derivatives Continuous?}
+                    B -- No --> C[Not Analytic]
+                    B -- Yes --> D{Satisfies C-R Eqns?}
+                    D -- No --> C
+                    D -- Yes --> E[Analytic Function]
+                </div>
+            </div>
+
+            <div class="card" id="harmonic">
+                <h3>Harmonic Functions & Conjugates</h3>
+                <p>If $f(z) = u + iv$ is analytic, both $u$ and $v$ satisfy Laplace's Equation ($\nabla^2 \phi = 0$).</p>
+                <div class="formula-box">
+                    $$ \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 $$
+                </div>
+
+                <details>
+                    <summary>How to find Conjugate $v(x,y)$ if $u(x,y)$ is given?</summary>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Recall differential: $dv = \frac{\partial v}{\partial x}dx + \frac{\partial v}{\partial y}dy$</li>
+                        <li>Use C-R Equations to replace $v$ terms with $u$ terms:<br>
+                            $dv = -\frac{\partial u}{\partial y}dx + \frac{\partial u}{\partial x}dy$
+                        </li>
+                        <li>This is an exact differential equation $M dx + N dy$. Integrate it:
+                            $$ v = \int_{y=const} M dx + \int (\text{terms of N free from x}) dy + C $$
+                        </li>
+                    </ol>
+                </details>
+            </div>
+        </section>
+
+        <!-- Section 3: Integration -->
+        <section id="cauchy-thm">
+            <h2>3. Complex Integration</h2>
+            
+            <div class="card">
+                <h3>Cauchy's Integral Theorem</h3>
+                <p>If $f(z)$ is analytic everywhere inside and on a simple closed contour $C$, then:</p>
+                <div class="formula-box" style="border-left-color: var(--success);">
+                    $$ \oint_C f(z) dz = 0 $$
+                </div>
+                <p><strong>Implication:</strong> If there are no poles (singularities) inside the circle/contour, the integral is zero.</p>
+            </div>
+
+            <div class="card" id="cauchy-formula">
+                <h3>Cauchy's Integral Formula (CIF)</h3>
+                <p>If $f(z)$ is analytic inside and on $C$, and $z_0$ is any point <strong>inside</strong> $C$:</p>
+                
+                <div class="viz-container" style="padding: 1rem;">
+                    <svg width="300" height="200" viewBox="0 0 300 200">
+                        <!-- Contour -->
+                        <path d="M50,100 C50,50 100,20 150,20 C200,20 250,50 250,100 C250,150 200,180 150,180 C100,180 50,150 50,100" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" stroke-width="2"/>
+                        <text x="255" y="100" fill="#10b981">C</text>
+                        <!-- Arrow -->
+                        <path d="M150,20 L160,25 L150,30" fill="#10b981"/>
+                        <!-- Pole -->
+                        <circle cx="150" cy="100" r="4" class="pole"/>
+                        <text x="160" y="105" font-weight="bold">z₀ (Pole)</text>
+                    </svg>
+                </div>
+
+                <div class="formula-box">
+                    $$ \oint_C \frac{f(z)}{z - z_0} dz = 2\pi i f(z_0) $$
+                </div>
+                
+                <h4>Generalized for n-th Derivative (Higher Order Pole)</h4>
+                <div class="formula-box">
+                    $$ \oint_C \frac{f(z)}{(z - z_0)^{n+1}} dz = \frac{2\pi i}{n!} f^{(n)}(z_0) $$
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Residues -->
+        <section id="residue-calc">
+            <h2>4. Residue Theory</h2>
+            <p>If a function has a singularity at $z=z_0$, the coefficient of $\frac{1}{z-z_0}$ in its Laurent Series is the Residue.</p>
+
+            <div class="card">
+                <h3>Formulas to Calculate Residue</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h4>Simple Pole (Order 1)</h4>
+                        <div class="formula-box">
+                            $$ \text{Res}(z_0) = \lim_{z \to z_0} (z-z_0)f(z) $$
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Pole of Order $n$</h4>
+                        <div class="formula-box">
+                            $$ \text{Res}(z_0) = \frac{1}{(n-1)!} \lim_{z \to z_0} \frac{d^{n-1}}{dz^{n-1}} [(z-z_0)^n f(z)] $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="residue-thm">
+                <h3>Cauchy's Residue Theorem</h3>
+                <p>The most powerful tool for integration. It works for multiple singularities inside a contour.</p>
+                
+                <div class="formula-box" style="border-left-color: var(--accent); background-color: #fff8eb;">
+                    $$ \oint_C f(z) dz = 2\pi i \times [\sum \text{Residues inside } C] $$
+                </div>
+
+                <div class="note">
+                    <span class="note-icon">⚠️</span>
+                    <div>
+                        <strong>Warning:</strong> Only calculate residues for poles that lie <strong>INSIDE</strong> the given contour. If a pole is outside, its contribution is 0.
+                    </div>
+                </div>
+
+                <h4>Example Logic:</h4>
+                <div class="mermaid">
+                graph TD
+                    A[Integral f(z) over C] --> B{Identify Poles}
+                    B --> C[Check: Which Poles are inside C?]
+                    C --> D[Poles z1, z2 inside]
+                    C --> E[Pole z3 outside]
+                    E --> F[Ignore z3]
+                    D --> G[Calculate Res(z1) + Res(z2)]
+                    G --> H[Result = 2πi * Sum]
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Summary Table -->
+        <section>
+            <h2>Summary Cheat Table</h2>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Formula / Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>$f(z)$ Analytic inside C</td>
+                            <td>$\oint f(z) dz = 0$</td>
+                        </tr>
+                        <tr>
+                            <td>Simple Pole at $z_0$</td>
+                            <td>$\oint \frac{f(z)}{z-z_0} dz = 2\pi i f(z_0)$</td>
+                        </tr>
+                        <tr>
+                            <td>Pole order $n+1$</td>
+                            <td>$\oint \frac{f(z)}{(z-z_0)^{n+1}} dz = \frac{2\pi i}{n!} f^{(n)}(z_0)$</td>
+                        </tr>
+                        <tr>
+                            <td>Multiple Poles</td>
+                            <td>$2\pi i (R_1 + R_2 + \dots)$</td>
+                        </tr>
+                        <tr>
+                            <td>C-R Cartesian</td>
+                            <td>$u_x = v_y, \quad u_y = -v_x$</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability & Statistics for GATE | Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax for LaTeX Rendering -->
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --border: #334155;
+            --code-bg: #0d1117;
+            --success: #22c55e;
+            --warning: #eab308;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        nav h1 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-primary);
+            background-color: rgba(56, 189, 248, 0.1);
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 260px;
+            padding: 2rem 4rem;
+            flex: 1;
+            max-width: 1200px;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Cards & Sections */
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Formulas */
+        .formula {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--warning);
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: auto;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--accent);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            background-color: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+
+        /* Utility */
+        code {
+            background-color: rgba(255,255,255,0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+            color: var(--accent);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .tag-disc { background: rgba(234, 179, 8, 0.2); color: var(--warning); }
+        .tag-cont { background: rgba(34, 197, 94, 0.2); color: var(--success); }
+
+        details {
+            background-color: rgba(255,255,255,0.02);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+        
+        details[open] summary {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            nav { display: none; }
+            main { margin-left: 0; padding: 1rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>GATE Prob & Stats</h1>
+        <ul>
+            <li><a href="#intro">Fundamentals</a></li>
+            <li><a href="#conditional">Conditional & Bayes</a></li>
+            <li><a href="#random-vars">Random Variables</a></li>
+            <li><a href="#averages">Statistical Averages</a></li>
+            <li><a href="#discrete">Discrete Distributions</a></li>
+            <li><a href="#continuous">Continuous Distributions</a></li>
+            <li><a href="#calculus">Calculus & Integration</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="intro">
+            <h1>Probability & Statistics: The Core</h1>
+            <p>A comprehensive summary of Random Variables, Distributions, and Statistical Averages for GATE Engineering Mathematics.</p>
+
+            <div class="card">
+                <h2>1. Fundamentals</h2>
+                <div class="grid-2">
+                    <div>
+                        <h3>Basic Definitions</h3>
+                        <ul>
+                            <li><strong>Random Experiment ($\Omega$):</strong> Process with uncertain outcomes (e.g., Tossing a coin).</li>
+                            <li><strong>Sample Space ($S$):</strong> Set of all possible outcomes.</li>
+                            <li><strong>Event ($E$):</strong> Subset of Sample Space.</li>
+                        </ul>
+                        <div class="formula">
+                            $$P(E) = \frac{\text{No. of Favorable Outcomes } n(E)}{\text{Total Outcomes } n(S)}$$
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Axioms</h3>
+                        <ul>
+                            <li>$0 \leq P(E) \leq 1$</li>
+                            <li>$P(S) = 1$ (Total Probability)</li>
+                            <li>$P(A \cup B) = P(A) + P(B) - P(A \cap B)$</li>
+                            <li>For mutually exclusive events: $P(A \cap B) = 0$</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conditional">
+            <div class="card">
+                <h2>2. Conditional Probability & Bayes' Theorem</h2>
+                
+                <h3>Conditional Probability</h3>
+                <p>The probability of event A occurring given that event B has already occurred.</p>
+                <div class="formula">
+                    $$P(A|B) = \frac{P(A \cap B)}{P(B)}$$
+                </div>
+                <p><strong>Independence:</strong> Two events are independent if $P(A \cap B) = P(A) \cdot P(B)$. In this case, $P(A|B) = P(A)$.</p>
+
+                <h3>Bayes' Theorem (Reverse Probability)</h3>
+                <p>Used when finding the probability of a "cause" given an "effect". Often visualized using Tree Diagrams.</p>
+                
+                <div class="diagram-container">
+                    <pre class="mermaid">
+                    graph LR
+                        Start((Start)) --> E1[Event E1]
+                        Start --> E2[Event E2]
+                        E1 -- P(A|E1) --> A1[Outcome A]
+                        E2 -- P(A|E2) --> A2[Outcome A]
+                        
+                        style Start fill:#fff,stroke:#333,color:#000
+                        style A1 fill:#22c55e,stroke:#333,color:#000
+                        style A2 fill:#22c55e,stroke:#333,color:#000
+                    </pre>
+                </div>
+
+                <div class="formula">
+                    $$P(E_i|A) = \frac{P(A|E_i) \cdot P(E_i)}{\sum_{j=1}^{n} P(A|E_j) \cdot P(E_j)}$$
+                </div>
+            </div>
+        </section>
+
+        <section id="random-vars">
+            <div class="card">
+                <h2>3. Random Variables (RV)</h2>
+                <p>A mathematical function that maps outcomes of a random experiment to real numbers.</p>
+                
+                <div class="diagram-container">
+                    <pre class="mermaid">
+                    graph TD
+                        RV[Random Variable X]
+                        RV --> Discrete[Discrete RV]
+                        RV --> Continuous[Continuous RV]
+                        Discrete -->|Countable| PMF[PMF: P x=k]
+                        Continuous -->|Interval| PDF[PDF: f x]
+                        
+                        style Discrete fill:#eab308,color:#000
+                        style Continuous fill:#22c55e,color:#000
+                    </pre>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Discrete RV <span class="tag tag-disc">Countable</span></th>
+                            <th>Continuous RV <span class="tag tag-cont">Interval</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Function</strong></td>
+                            <td>Probability Mass Function (PMF): $P(X=x)$</td>
+                            <td>Probability Density Function (PDF): $f(x)$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Validity</strong></td>
+                            <td>$\sum P(x_i) = 1$</td>
+                            <td>$\int_{-\infty}^{\infty} f(x) dx = 1$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Probability at point</strong></td>
+                            <td>Can be non-zero</td>
+                            <td>$P(X=c) = 0$ (Area of line is 0)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>CDF $F(x)$</strong></td>
+                            <td>Step/Staircase Function</td>
+                            <td>Continuous Function</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="averages">
+            <div class="card">
+                <h2>4. Statistical Averages</h2>
+                
+                <div class="grid-2">
+                    <div>
+                        <h3>Mean / Expectation ($\mu$ or $E[X]$)</h3>
+                        <p>The center of gravity/mass of the distribution.</p>
+                        <ul>
+                            <li><strong>Discrete:</strong> $\sum x_i \cdot P(x_i)$</li>
+                            <li><strong>Continuous:</strong> $\int_{-\infty}^{\infty} x \cdot f(x) dx$</li>
+                        </ul>
+                        <details>
+                            <summary>Properties of E[X]</summary>
+                            <ul>
+                                <li>$E[k] = k$</li>
+                                <li>$E[aX + b] = aE[X] + b$</li>
+                                <li>$E[X + Y] = E[X] + E[Y]$</li>
+                                <li>If Indep: $E[XY] = E[X]E[Y]$</li>
+                            </ul>
+                        </details>
+                    </div>
+                    <div>
+                        <h3>Variance ($\sigma^2$ or $V(X)$)</h3>
+                        <p>Measure of spread/dispersion around the mean.</p>
+                        <div class="formula">
+                            $$V(X) = E[X^2] - (E[X])^2$$
+                        </div>
+                        <p><strong>Standard Deviation:</strong> $\sigma = \sqrt{V(X)}$</p>
+                        <details>
+                            <summary>Properties of V(X)</summary>
+                            <ul>
+                                <li>$V(c) = 0$</li>
+                                <li>$V(aX + b) = a^2 V(X)$</li>
+                                <li>$V(-X) = V(X)$</li>
+                                <li>If Indep: $V(X \pm Y) = V(X) + V(Y)$</li>
+                            </ul>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="discrete">
+            <div class="card">
+                <h2>5. Discrete Distributions</h2>
+                
+                <h3>Bernoulli Distribution</h3>
+                <p>Single trial with two outcomes: Success ($p$) or Failure ($q=1-p$).</p>
+                <hr>
+
+                <h3>Binomial Distribution ($n, p$)</h3>
+                <p>Number of successes in $n$ independent Bernoulli trials.</p>
+                <div class="formula">
+                    $$P(X=r) = \binom{n}{r} p^r q^{n-r}$$
+                </div>
+                <ul>
+                    <li><strong>Mean:</strong> $np$</li>
+                    <li><strong>Variance:</strong> $npq$</li>
+                    <li><strong>Mode:</strong> $(n+1)p$ (Check integer vs non-integer)</li>
+                </ul>
+                <hr>
+
+                <h3>Poisson Distribution ($\lambda$)</h3>
+                <p>Modeling rare events over a fixed interval (Time/Space). Limiting case of Binomial where $n \to \infty, p \to 0$.</p>
+                <div class="formula">
+                    $$P(X=k) = \frac{e^{-\lambda} \lambda^k}{k!}$$
+                </div>
+                <ul>
+                    <li><strong>Parameter:</strong> $\lambda$ (Average rate)</li>
+                    <li><strong>Mean:</strong> $\lambda$</li>
+                    <li><strong>Variance:</strong> $\lambda$</li>
+                    <li>Only distribution where Mean = Variance.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="continuous">
+            <div class="card">
+                <h2>6. Continuous Distributions</h2>
+
+                <h3>Uniform Distribution $U[a, b]$</h3>
+                <p>Constant probability density over an interval.</p>
+                <div class="grid-2">
+                    <div>
+                        <p><strong>PDF:</strong> $f(x) = \frac{1}{b-a}$ for $a \le x \le b$</p>
+                        <p><strong>Mean:</strong> $\frac{a+b}{2}$</p>
+                    </div>
+                    <div>
+                        <p><strong>Variance:</strong> $\frac{(b-a)^2}{12}$</p>
+                    </div>
+                </div>
+                <hr>
+
+                <h3>Exponential Distribution</h3>
+                <p>Time between events in a Poisson process. (Memoryless property).</p>
+                <div class="formula">
+                    $$f(x) = \lambda e^{-\lambda x}, \quad x \ge 0$$
+                </div>
+                <ul>
+                    <li><strong>Mean:</strong> $1/\lambda$</li>
+                    <li><strong>Variance:</strong> $1/\lambda^2$</li>
+                    <li><strong>CDF:</strong> $P(X \le x) = 1 - e^{-\lambda x}$</li>
+                </ul>
+                <hr>
+
+                <h3>Normal (Gaussian) Distribution $N(\mu, \sigma^2)$</h3>
+                <p>Bell-shaped curve. Symmetric about the mean.</p>
+                <div class="formula">
+                    $$f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$$
+                </div>
+                
+                <div class="diagram-container">
+                    <!-- Conceptual Bell Curve shape using Mermaid (Abstract) -->
+                    <pre class="mermaid">
+                    xychart-beta
+                        title "Standard Normal Distribution Z ~ N(0,1)"
+                        x-axis "Z-Score" [-3, -2, -1, 0, 1, 2, 3]
+                        y-axis "Density" 0 --> 0.4
+                        line [0.004, 0.05, 0.24, 0.39, 0.24, 0.05, 0.004]
+                    </pre>
+                </div>
+
+                <ul>
+                    <li><strong>Symmetry:</strong> Mean = Median = Mode.</li>
+                    <li><strong>Total Area:</strong> 1. Area right of mean = 0.5.</li>
+                    <li><strong>Standard Normal ($Z$):</strong> Let $Z = \frac{X-\mu}{\sigma}$. Then $Z \sim N(0, 1)$.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="calculus">
+            <div class="card">
+                <h2>7. Calculus Tricks for Probability</h2>
+                <p>Useful for solving Continuous Random Variable problems.</p>
+                
+                <h3>Integration Shortcuts</h3>
+                <div class="formula">
+                    $$\int_{0}^{\infty} e^{-ax} dx = \frac{1}{a}$$
+                </div>
+                
+                <h3>Gamma Function</h3>
+                <p>Useful for integrals of form $\int_{0}^{\infty} x^n e^{-x} dx$.</p>
+                <div class="formula">
+                    $$\Gamma(n) = (n-1)! \quad \text{(for integer n)}$$
+                    $$\Gamma(1/2) = \sqrt{\pi}$$
+                </div>
+
+                <h3>Compound Functions</h3>
+                <p>If dealing with $|x|$, split the integral:</p>
+                <div class="formula">
+                    $$\int_{-\infty}^{\infty} f(|x|) dx = \int_{-\infty}^{0} f(-x) dx + \int_{0}^{\infty} f(x) dx$$
+                </div>
+                <p>If $f(x)$ is even, $= 2 \int_{0}^{\infty} f(x) dx$.</p>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

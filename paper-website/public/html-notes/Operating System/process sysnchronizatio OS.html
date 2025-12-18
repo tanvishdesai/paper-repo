@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Synchronization Ultimate Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (via CDN for single file requirement) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Mermaid.js -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; color: #1f2937; }
+        code { font-family: 'JetBrains Mono', monospace; }
+        .sidebar { position: sticky; top: 1rem; height: calc(100vh - 2rem); overflow-y: auto; }
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid #e5e7eb; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .mermaid { display: flex; justify-content: center; background: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #e5e7eb; }
+        .math-block { overflow-x: auto; padding: 0.5rem 0; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        details > summary { list-style: none; cursor: pointer; transition: all 0.2s; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] > summary { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="p-4 lg:p-8">
+
+<div class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Navigation Sidebar -->
+    <aside class="hidden lg:block lg:col-span-3 sidebar glass-panel rounded-xl p-6">
+        <h1 class="text-2xl font-bold text-indigo-700 mb-2">Process Sync</h1>
+        <p class="text-xs text-gray-500 mb-6 font-mono">CS & IT ENGINEERING • OS</p>
+        
+        <nav class="space-y-1 text-sm font-medium text-gray-600">
+            <a href="#intro" class="block py-2 px-3 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition">1. Introduction & Need</a>
+            <a href="#cs-problem" class="block py-2 px-3 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition">2. Critical Section Problem</a>
+            <a href="#solutions-sw" class="block py-2 px-3 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition">3. Software Solutions</a>
+            <a href="#solutions-hw" class="block py-2 px-3 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition">4. Hardware Solutions</a>
+            <a href="#semaphores" class="block py-2 px-3 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition">5. Semaphores</a>
+            <a href="#ipc-problems" class="block py-2 px-3 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition">6. Classical IPC Problems</a>
+            <a href="#concurrency" class="block py-2 px-3 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg transition">7. Concurrency Constructs</a>
+        </nav>
+
+        <div class="mt-8 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+            <h3 class="font-bold text-indigo-800 text-xs uppercase mb-2">Formula Quick Ref</h3>
+            <div class="text-xs font-mono">
+                $$S_{cur} = S_{init} + V_{ops} - P_{ops}$$
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="col-span-1 lg:col-span-9 space-y-8">
+
+        <!-- 1. Introduction -->
+        <section id="intro" class="glass-panel rounded-xl p-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-3xl font-bold text-gray-900">1. Introduction & The Need for Synchronization</h2>
+                <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold uppercase tracking-wide">Fundamentals</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="prose prose-sm">
+                    <p><strong>Synchronization</strong> is the coordination of processes in an IPC (Inter-Process Communication) environment to ensure order and prevent data inconsistency.</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Independent Processes:</strong> No shared state. Execution of one does not affect another.</li>
+                        <li><strong>Cooperating Processes:</strong> Share resources (memory, variables). Execution of one affects others.</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                    <h4 class="font-bold text-sm text-gray-700 mb-2">Consequences of Lack of Sync:</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start"><span class="mr-2">❌</span> <strong>Inconsistency:</strong> Shared data becomes corrupted (Race Condition).</li>
+                        <li class="flex items-start"><span class="mr-2">📉</span> <strong>Data Loss:</strong> Updates are overwritten.</li>
+                        <li class="flex items-start"><span class="mr-2">🔒</span> <strong>Deadlock:</strong> Processes wait indefinitely for each other.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-6">
+                <h3 class="text-lg font-semibold mb-4">Race Condition Visualization</h3>
+                <div class="mermaid">
+                    sequenceDiagram
+                        participant P1 as Process 1
+                        participant Mem as Shared Memory (Count=5)
+                        participant P2 as Process 2
+                        
+                        Note over P1, P2: Goal: Both increment Count
+                        P1->>Mem: Read Count (5)
+                        P1->>P1: Increment (Local=6)
+                        Note right of P1: Context Switch occurs here!
+                        P2->>Mem: Read Count (5)
+                        P2->>P2: Increment (Local=6)
+                        P2->>Mem: Write Count (6)
+                        Note left of P1: P1 resumes
+                        P1->>Mem: Write Count (6)
+                        Note over Mem: Final Value: 6 (Should be 7) -> Inconsistent!
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Critical Section Problem -->
+        <section id="cs-problem" class="glass-panel rounded-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">2. The Critical Section (CS) Problem</h2>
+            <p class="text-gray-600 mb-6">A system of $n$ processes must share resources. The segment of code where a process accesses shared resources is called the <strong>Critical Section</strong>.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="p-4 border-l-4 border-indigo-500 bg-indigo-50 rounded-r-lg">
+                    <h4 class="font-bold text-indigo-900">1. Mutual Exclusion (Primary)</h4>
+                    <p class="text-sm text-indigo-800 mt-1">If process $P_i$ is executing in its CS, no other processes can be executing in their CS.</p>
+                </div>
+                <div class="p-4 border-l-4 border-purple-500 bg-purple-50 rounded-r-lg">
+                    <h4 class="font-bold text-purple-900">2. Progress (Primary)</h4>
+                    <p class="text-sm text-purple-800 mt-1">If no process is in CS, only processes <em>not</em> in Remainder Section can decide who enters next. Selection cannot be postponed indefinitely.</p>
+                </div>
+                <div class="p-4 border-l-4 border-teal-500 bg-teal-50 rounded-r-lg">
+                    <h4 class="font-bold text-teal-900">3. Bounded Waiting (Optional)</h4>
+                    <p class="text-sm text-teal-800 mt-1">There exists a bound on the number of times other processes enter CS after a request is made by a process.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 rounded-lg p-4 font-mono text-sm text-gray-300">
+                <span class="text-purple-400">do</span> {<br>
+                &nbsp;&nbsp;<span class="text-yellow-400">&lt;Entry Section&gt;</span> <span class="text-gray-500">// Request permission</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">CRITICAL SECTION</span> <span class="text-gray-500">// Access shared resource</span><br>
+                &nbsp;&nbsp;<span class="text-yellow-400">&lt;Exit Section&gt;</span> <span class="text-gray-500">// Notify exit</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;REMAINDER SECTION<br>
+                } <span class="text-purple-400">while</span> (true);
+            </div>
+        </section>
+
+        <!-- 3. Software Solutions -->
+        <section id="solutions-sw" class="glass-panel rounded-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">3. Software Solutions (2 Processes)</h2>
+            
+            <div class="space-y-6">
+                <!-- Lock Variable -->
+                <details class="group border border-red-200 rounded-lg bg-red-50 open:bg-white open:ring-1 open:ring-red-200 transition-all">
+                    <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer text-red-800">
+                        <span>Attempt 1: Lock Variable</span>
+                        <span class="text-xs bg-red-200 text-red-800 px-2 py-1 rounded">Fails Mutual Exclusion</span>
+                    </summary>
+                    <div class="p-4 border-t border-red-100 text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <pre><code class="language-c">while(lock != 0); // Busy Wait
+lock = 1;         // Set Lock
+// Critical Section
+lock = 0;         // Release</code></pre>
+                            <div>
+                                <p class="mb-2"><strong>Why it fails:</strong> The check <code>lock != 0</code> and set <code>lock = 1</code> are not atomic.</p>
+                                <p>If P1 reads lock as 0, gets preempted, then P2 reads lock as 0, both enter CS.</p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Strict Alternation -->
+                <details class="group border border-yellow-200 rounded-lg bg-yellow-50 open:bg-white open:ring-1 open:ring-yellow-200 transition-all">
+                    <summary class="flex items-center justify-between p-4 font-semibold cursor-pointer text-yellow-800">
+                        <span>Attempt 2: Strict Alternation (Turn Variable)</span>
+                        <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-1 rounded">Fails Progress</span>
+                    </summary>
+                    <div class="p-4 border-t border-yellow-100 text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h5 class="font-bold mb-1">Process 0</h5>
+                                <pre><code class="language-c">while(turn != 0);
+// CS
+turn = 1;</code></pre>
+                            </div>
+                            <div>
+                                <h5 class="font-bold mb-1">Process 1</h5>
+                                <pre><code class="language-c">while(turn != 1);
+// CS
+turn = 0;</code></pre>
+                            </div>
+                        </div>
+                        <p class="mt-2"><strong>Why it fails:</strong> Enforces strict order $P_0 \to P_1 \to P_0$. If $P_0$ doesn't want to enter, $P_1$ is blocked indefinitely (Violation of Progress).</p>
+                    </div>
+                </details>
+
+                <!-- Peterson's Solution -->
+                <div class="border border-green-200 rounded-lg bg-white shadow-sm">
+                    <div class="p-4 border-b border-gray-100 bg-green-50 flex justify-between items-center rounded-t-lg">
+                        <h3 class="font-bold text-green-900">✅ Peterson's Solution</h3>
+                        <span class="text-xs text-green-700">Satisfies ME, Progress, Bounded Wait</span>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-sm mb-4 text-gray-600">Combines the concepts of <code>turn</code> (Strict Alternation) and <code>flag[]</code> (Interest). It assumes LOAD and STORE instructions are atomic.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h5 class="font-bold text-xs uppercase text-gray-500 mb-2">Algorithm for Process i</h5>
+                                <pre><code class="language-c">void enter_region(int i) {
+    int j = 1 - i; // The other process
+    flag[i] = TRUE; // I am interested
+    turn = j;       // I offer turn to you
+    
+    // Wait if other is interested AND it's their turn
+    while (flag[j] == TRUE && turn == j); 
+}
+
+void leave_region(int i) {
+    flag[i] = FALSE; // I am done
+}</code></pre>
+                            </div>
+                            <div class="text-sm space-y-2">
+                                <h5 class="font-bold">Logic Analysis:</h5>
+                                <ul class="list-decimal pl-4 space-y-1">
+                                    <li><strong>Mutual Exclusion:</strong> Both can't pass the while loop because <code>turn</code> can only be 0 or 1 at a specific instant.</li>
+                                    <li><strong>Progress:</strong> If P1 is not interested (<code>flag[1]==F</code>), P0 enters immediately.</li>
+                                    <li><strong>Bounded Wait:</strong> P0 will enter at most after one entry of P1.</li>
+                                </ul>
+                                <div class="mt-4 p-2 bg-yellow-50 text-yellow-800 text-xs rounded border border-yellow-200">
+                                    ⚠️ <strong>Note:</strong> Only works for 2 processes. Based on Busy Waiting (wastes CPU cycles).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Hardware Solutions -->
+        <section id="solutions-hw" class="glass-panel rounded-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">4. Hardware Support</h2>
+            <p class="mb-4 text-gray-600">Hardware provides special <strong>Atomic Instructions</strong> that execute non-preemptively (in one bus cycle).</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- TSL -->
+                <div class="border rounded-lg p-4 bg-white">
+                    <h3 class="font-bold text-gray-800 mb-2">Test and Set Lock (TSL)</h3>
+                    <p class="text-sm text-gray-600 mb-2">Reads a word from memory and writes '1' (TRUE) to it atomically.</p>
+                    <pre><code class="language-c">boolean TSL(boolean *target) {
+    boolean rv = *target;
+    *target = TRUE;
+    return rv;
+}
+
+// Usage
+while (TSL(&lock)); // Spin
+// CS
+lock = FALSE;</code></pre>
+                </div>
+
+                <!-- Swap -->
+                <div class="border rounded-lg p-4 bg-white">
+                    <h3 class="font-bold text-gray-800 mb-2">Swap Instruction</h3>
+                    <p class="text-sm text-gray-600 mb-2">Swaps contents of two memory words atomically.</p>
+                    <pre><code class="language-c">void Swap(bool *a, bool *b) {
+    bool temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Usage
+key = TRUE;
+while (key == TRUE) Swap(&lock, &key);
+// CS
+lock = FALSE;</code></pre>
+                </div>
+            </div>
+            
+            <div class="mt-4 p-3 rounded-lg bg-gray-100 border-l-4 border-gray-500">
+                <p class="text-sm"><strong>Priority Inversion:</strong> A side effect of busy-waiting hardware locks. A low-priority process holds the lock, pre-empted by a high-priority process which then spins waiting for the lock. The CPU is wasted spinning, and the low-priority process never gets CPU to release the lock.</p>
+            </div>
+        </section>
+
+        <!-- 5. Semaphores -->
+        <section id="semaphores" class="glass-panel rounded-xl p-8">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-bold text-gray-900">5. Semaphores</h2>
+                <div class="text-sm font-mono bg-blue-100 text-blue-800 px-3 py-1 rounded">OS Primitive</div>
+            </div>
+            
+            <p class="mb-6 text-gray-600">A synchronization tool that provides a more sophisticated way (than locks) for process synchronization. It is an integer variable accessed only via two atomic operations.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <!-- Wait Operation -->
+                <div class="bg-red-50 p-5 rounded-xl border border-red-100">
+                    <h3 class="font-bold text-red-700 mb-2">Wait (P / Down)</h3>
+                    <p class="text-xs text-gray-500 mb-2">Used to acquire a resource.</p>
+                    <pre><code class="language-c">wait(S) {
+    S.value--;
+    if (S.value < 0) {
+        add process to S.queue;
+        block(); // Sleep
+    }
+}</code></pre>
+                </div>
+                
+                <!-- Signal Operation -->
+                <div class="bg-green-50 p-5 rounded-xl border border-green-100">
+                    <h3 class="font-bold text-green-700 mb-2">Signal (V / Up)</h3>
+                    <p class="text-xs text-gray-500 mb-2">Used to release a resource.</p>
+                    <pre><code class="language-c">signal(S) {
+    S.value++;
+    if (S.value <= 0) {
+        remove P from S.queue;
+        wakeup(P); // Ready
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <h3 class="font-bold text-gray-800 mb-4">Types of Semaphores</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3">Type</th>
+                            <th class="px-6 py-3">Range</th>
+                            <th class="px-6 py-3">Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-bold">Binary Semaphore (Mutex)</td>
+                            <td class="px-6 py-4 font-mono">0, 1</td>
+                            <td class="px-6 py-4">Solving Critical Section, Mutual Exclusion.</td>
+                        </tr>
+                        <tr class="bg-white border-b">
+                            <td class="px-6 py-4 font-bold">Counting Semaphore</td>
+                            <td class="px-6 py-4 font-mono">Any Integer</td>
+                            <td class="px-6 py-4">Resource Management (e.g., 5 printers).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-6 bg-indigo-900 text-white p-4 rounded-lg shadow-lg">
+                <h4 class="font-bold text-indigo-300 mb-2">⧉ Calculation Trick</h4>
+                <p class="text-sm mb-2">If $S$ is initialized to $N$, and we perform $P$ (wait) operations $x$ times and $V$ (signal) operations $y$ times:</p>
+                <div class="text-xl font-mono text-center my-4">Current Value = $N - x + y$</div>
+                <ul class="text-xs space-y-1 text-indigo-200">
+                    <li>If Value $> 0$: Number of available resources.</li>
+                    <li>If Value $\le 0$: Magnitude is the number of blocked processes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 6. Classical IPC Problems -->
+        <section id="ipc-problems" class="glass-panel rounded-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">6. Classical IPC Problems</h2>
+
+            <!-- Producer Consumer -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-indigo-600 mb-4 flex items-center">
+                    <span class="bg-indigo-100 p-1 rounded mr-2">1</span> Producer-Consumer (Bounded Buffer)
+                </h3>
+                <p class="text-sm text-gray-600 mb-4">Producer puts items in buffer, Consumer takes them. Buffer size $N$.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-800 text-gray-300 rounded p-4 text-xs font-mono">
+                        <strong>Shared Variables:</strong><br>
+                        Semaphore mutex = 1;<br>
+                        Semaphore empty = N;<br>
+                        Semaphore full = 0;
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-white border p-3 rounded">
+                            <strong class="text-indigo-600">Producer</strong>
+                            <pre><code class="language-c text-xs">while(true) {
+ item = produce();
+ wait(empty);
+ wait(mutex);
+ // add item
+ signal(mutex);
+ signal(full);
+}</code></pre>
+                        </div>
+                        <div class="bg-white border p-3 rounded">
+                            <strong class="text-indigo-600">Consumer</strong>
+                            <pre><code class="language-c text-xs">while(true) {
+ wait(full);
+ wait(mutex);
+ // remove item
+ signal(mutex);
+ signal(empty);
+ consume(item);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Readers Writers -->
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-indigo-600 mb-4 flex items-center">
+                    <span class="bg-indigo-100 p-1 rounded mr-2">2</span> Readers-Writers Problem
+                </h3>
+                <p class="text-sm text-gray-600 mb-4">Multiple readers can read simultaneously. Writer needs exclusive access (no readers, no other writers).</p>
+                
+                <div class="mermaid">
+                    graph TD
+                    W[Writer] -- Requires --> Mutex[DB Lock]
+                    R1[Reader 1] -- Requires --> Mutex
+                    R2[Reader 2] -- Requires --> Mutex
+                    R1 -. Concurrent .- R2
+                    W -. Exclusive .- R1
+                </div>
+
+                <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-900">
+                    <strong>Logic:</strong> First reader acquires the lock for all readers. Last reader releases it.
+                    <br><code>if (read_count == 1) wait(wrt);</code>
+                </div>
+            </div>
+
+            <!-- Dining Philosophers -->
+            <div>
+                <h3 class="text-xl font-bold text-indigo-600 mb-4 flex items-center">
+                    <span class="bg-indigo-100 p-1 rounded mr-2">3</span> Dining Philosophers
+                </h3>
+                <p class="text-sm text-gray-600 mb-2">5 philosophers sit at a table. 5 forks. Need 2 forks to eat.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h5 class="font-bold text-sm mb-2">Deadlock Scenario:</h5>
+                        <p class="text-xs text-gray-500">If everyone picks up the left fork simultaneously, everyone waits for the right fork forever.</p>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-sm mb-2">Solutions:</h5>
+                        <ul class="text-xs text-gray-600 list-disc pl-4 space-y-1">
+                            <li>Allow at most 4 philosophers at the table.</li>
+                            <li>Pick up forks only if both are available (Critical Section).</li>
+                            <li><strong>Asymmetry:</strong> Odd philosophers pick Left then Right; Even pick Right then Left.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Concurrency Constructs -->
+        <section id="concurrency" class="glass-panel rounded-xl p-8 mb-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">7. Concurrency & Precedence</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-4">Constructs</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white border rounded p-3">
+                            <code class="text-purple-600 font-bold">Fork L;</code>
+                            <p class="text-xs mt-1">Creates a new process starting at label L.</p>
+                        </div>
+                        <div class="bg-white border rounded p-3">
+                            <code class="text-purple-600 font-bold">Join N;</code>
+                            <p class="text-xs mt-1">Allows $N$ processes to merge. The first $N-1$ processes terminate/wait. The $N^{th}$ process continues.</p>
+                        </div>
+                        <div class="bg-white border rounded p-3">
+                            <code class="text-purple-600 font-bold">Parbegin / Parend</code>
+                            <p class="text-xs mt-1">Executes statements between them concurrently.</p>
+                            <pre><code class="text-xs mt-2">parbegin 
+  S1; 
+  S2; 
+parend</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-4">Precedence Graph Example</h3>
+                    <div class="mermaid">
+                        graph TD
+                        S1 --> S2
+                        S1 --> S3
+                        S2 --> S4
+                        S3 --> S5
+                        S4 --> S6
+                        S5 --> S6
+                        S6 --> S7
+                    </div>
+                    <div class="text-xs text-center text-gray-500 mt-2">
+                        Equivalent to: <code>S1; parbegin S2; S3; parend; ...</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t">
+                <h3 class="font-bold text-gray-800 mb-2">Bernstein's Conditions</h3>
+                <p class="text-sm text-gray-600 mb-4">Two processes $P_1$ and $P_2$ can execute concurrently (in parallel) if:</p>
+                <div class="math-block bg-white p-4 rounded border text-center text-sm">
+                    $$ R(P_1) \cap W(P_2) = \emptyset $$
+                    $$ W(P_1) \cap R(P_2) = \emptyset $$
+                    $$ W(P_1) \cap W(P_2) = \emptyset $$
+                </div>
+                <p class="text-xs text-gray-400 mt-2 text-center">Where R is Read Set and W is Write Set.</p>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>

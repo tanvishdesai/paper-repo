@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Cheat Sheet: IPv4 Addressing & Subnetting</title>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+            --accent: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        aside h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        aside nav a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        aside nav a:hover, aside nav a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem 4rem;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.5rem; color: var(--text); margin-bottom: 0.5rem; }
+        h2 { font-size: 1.8rem; color: var(--primary-dark); margin-top: 3rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.4rem; color: var(--secondary); margin-top: 2rem; margin-bottom: 0.75rem; }
+        p { margin-bottom: 1rem; }
+
+        /* Cards & Visuals */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .concept-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-amber { background: #fef3c7; color: #92400e; }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th { background: #f1f5f9; font-weight: 600; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            margin-bottom: 1.5rem;
+        }
+
+        code { font-family: monospace; color: var(--primary); background: #eff6ff; padding: 0.2rem 0.4rem; border-radius: 4px; }
+        pre code { color: inherit; background: transparent; padding: 0; }
+
+        /* Interactive Elements */
+        details {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            background: #f8fafc;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; }
+        
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* Diagrams */
+        .mermaid {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        /* Utility */
+        .highlight { border-left: 4px solid var(--accent); padding-left: 1rem; background: #fffbeb; padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; }
+        .flex-row { display: flex; gap: 2rem; align-items: flex-start; }
+        .stat-val { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; height: auto; overflow: auto; }
+            aside { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+            main { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<aside>
+    <h3>Table of Contents</h3>
+    <nav>
+        <a href="#intro">1. Fundamentals</a>
+        <a href="#classful">2. Classful Addressing</a>
+        <a href="#subnetting">3. Subnetting</a>
+        <a href="#cidr">4. Classless (CIDR)</a>
+        <a href="#supernetting">5. Supernetting</a>
+        <a href="#routing">6. Routing Logic</a>
+    </nav>
+</aside>
+
+<main>
+    <header>
+        <h1>IPv4 Addressing & Subnetting</h1>
+        <p>Comprehensive guide to Computer Networks addressing architecture, from Classful basics to advanced CIDR and Routing logic.</p>
+    </header>
+
+    <!-- SECTION 1: FUNDAMENTALS -->
+    <section id="intro">
+        <h2>1. IP Fundamentals</h2>
+        <div class="card-grid">
+            <div class="card">
+                <span class="concept-tag tag-blue">Definition</span>
+                <h3>IPv4 Structure</h3>
+                <p>A <strong>32-bit</strong> logical address usually represented in <strong>Dotted Decimal Notation</strong> (e.g., <code>192.168.1.1</code>).</p>
+                <ul>
+                    <li><strong>Total Addresses:</strong> \(2^{32} \approx 4 \text{ Billion}\)</li>
+                    <li><strong>Structure:</strong> Network ID (NID) + Host ID (HID)</li>
+                    <li><strong>Management:</strong> IANA (Internet Assigned Numbers Authority)</li>
+                </ul>
+            </div>
+            <div class="card">
+                <span class="concept-tag tag-green">Communication</span>
+                <h3>Types of Transmission</h3>
+                <ul>
+                    <li><strong>Unicast:</strong> One-to-One (Source \(\to\) Destination).</li>
+                    <li><strong>Broadcast:</strong> One-to-All.
+                        <ul>
+                            <li><em>Limited Broadcast (LBA):</em> <code>255.255.255.255</code> (Local network only).</li>
+                            <li><em>Direct Broadcast (DBA):</em> Host bits set to 1 (Target specific network).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Multicast:</strong> One-to-Many (Specific Group, Class D).</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="highlight">
+            <strong>Key Rule:</strong> An IP address with all 0s in the Host ID is the <strong>Network ID</strong>. An IP address with all 1s in the Host ID is the <strong>Direct Broadcast Address</strong>. Neither can be assigned to a specific host (computer).
+        </div>
+    </section>
+
+    <!-- SECTION 2: CLASSFUL ADDRESSING -->
+    <section id="classful">
+        <h2>2. Classful Addressing</h2>
+        <p>The original Internet addressing architecture divided the address space into 5 classes.</p>
+
+        <div class="mermaid">
+        graph TD
+            IP[IPv4 Address Space]
+            IP --> A[Class A: 0-127]
+            IP --> B[Class B: 128-191]
+            IP --> C[Class C: 192-223]
+            IP --> D[Class D: 224-239]
+            IP --> E[Class E: 240-255]
+            
+            A -->|NID: 8 bits| A_detail[Large Orgs]
+            B -->|NID: 16 bits| B_detail[Medium Orgs]
+            C -->|NID: 24 bits| C_detail[Small Orgs]
+            D --> D_detail[Multicasting]
+            E --> E_detail[Research/Future]
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Leading Bits</th>
+                        <th>Range (1st Octet)</th>
+                        <th>Format (N=Net, H=Host)</th>
+                        <th>Default Mask</th>
+                        <th>Networks</th>
+                        <th>Hosts per Network</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>A</strong></td>
+                        <td>0</td>
+                        <td>1 - 126</td>
+                        <td>N.H.H.H</td>
+                        <td>255.0.0.0 (/8)</td>
+                        <td>\(2^7 - 2 = 126\)</td>
+                        <td>\(2^{24} - 2 \approx 16M\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>B</strong></td>
+                        <td>10</td>
+                        <td>128 - 191</td>
+                        <td>N.N.H.H</td>
+                        <td>255.255.0.0 (/16)</td>
+                        <td>\(2^{14} \approx 16K\)</td>
+                        <td>\(2^{16} - 2 = 65,534\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C</strong></td>
+                        <td>110</td>
+                        <td>192 - 223</td>
+                        <td>N.N.N.H</td>
+                        <td>255.255.255.0 (/24)</td>
+                        <td>\(2^{21} \approx 2M\)</td>
+                        <td>\(2^8 - 2 = 254\)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <details>
+            <summary>Special Reserved Addresses</summary>
+            <div class="details-content">
+                <ul>
+                    <li><strong>127.x.x.x (Loopback):</strong> Used for self-connectivity testing. Packet never leaves the NIC. Cannot be a source or destination on the wire.</li>
+                    <li><strong>0.0.0.0:</strong> Used as source IP during bootstrap (DHCP Request) when IP is unknown.</li>
+                    <li><strong>255.255.255.255:</strong> Limited Broadcast Address (Current Network).</li>
+                </ul>
+            </div>
+        </details>
+    </section>
+
+    <!-- SECTION 3: SUBNETTING -->
+    <section id="subnetting">
+        <h2>3. Subnetting</h2>
+        <p>The practice of dividing a single large network into smaller sub-networks (subnets) to reduce broadcast traffic and improve security.</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3>The Mechanism</h3>
+                <p>We borrow bits from the <strong>Host ID</strong> part to create a <strong>Subnet ID</strong>.</p>
+                <div class="mermaid">
+                block-beta
+                    columns 3
+                    block:nid
+                        NID
+                    end
+                    block:new
+                        SID
+                        HID
+                    end
+                    nid -- "Old Structure" --> NID_Label
+                    new -- "New Structure" --> New_Label
+                </div>
+                <p><strong>Subnet Mask (SM):</strong> 1s represent Network+Subnet, 0s represent Host.</p>
+            </div>
+            <div class="card">
+                <h3>Formulas</h3>
+                <ul>
+                    <li><strong>Subnets:</strong> \(2^S\) (where S = bits borrowed)</li>
+                    <li><strong>Hosts per Subnet:</strong> \(2^H - 2\) (where H = remaining host bits)</li>
+                    <li><strong>Block Size (Magic Number):</strong> Total IPs per subnet. Calculated as \(256 - \text{Mask Value}\) (in the interesting octet).</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>Example Calculation (Class C)</h3>
+        <p>IP: <code>200.200.200.0</code>, Borrow 3 bits for subnetting.</p>
+        <pre>
+Default Mask: 255.255.255.0  (/24)
+New Mask:     255.255.255.224 (/27) -> 11100000 in last octet
+
+Number of Subnets: 2^3 = 8
+Hosts per Subnet:  2^5 - 2 = 30
+Block Size:        2^5 = 32
+
+Subnet 1: 200.200.200.0   to 200.200.200.31
+Subnet 2: 200.200.200.32  to 200.200.200.63
+...
+        </pre>
+
+        <div class="highlight">
+            <strong>AD Rule (Quick Check):</strong> If calculating ranges, start with the NID. Add the Block Size to find the next NID. The address immediately before the next NID is the Broadcast Address of the current subnet.
+        </div>
+    </section>
+
+    <!-- SECTION 4: CIDR -->
+    <section id="cidr">
+        <h2>4. Classless Addressing (CIDR)</h2>
+        <p><strong>CIDR (Classless Inter-Domain Routing)</strong> eliminates fixed classes. Addresses are represented as <code>A.B.C.D/n</code>, where <code>n</code> is the prefix length (Network Bits).</p>
+
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Notation</th>
+                    <th>Subnet Mask</th>
+                    <th>Block Size</th>
+                </tr>
+                <tr>
+                    <td>/24</td>
+                    <td>255.255.255.0</td>
+                    <td>256 IPs</td>
+                </tr>
+                <tr>
+                    <td>/25</td>
+                    <td>255.255.255.128</td>
+                    <td>128 IPs</td>
+                </tr>
+                <tr>
+                    <td>/26</td>
+                    <td>255.255.255.192</td>
+                    <td>64 IPs</td>
+                </tr>
+                <tr>
+                    <td>/30</td>
+                    <td>255.255.255.252</td>
+                    <td>4 IPs (Often used for Point-to-Point)</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>CIDR Rules</h3>
+        <ol>
+            <li>IP addresses in a block must be <strong>contiguous</strong>.</li>
+            <li>Block size must be a <strong>power of 2</strong> ($2^k$).</li>
+            <li>First IP address must be divisible by the size of the block.</li>
+        </ol>
+    </section>
+
+    <!-- SECTION 5: SUPERNETTING -->
+    <section id="supernetting">
+        <h2>5. Supernetting (Aggregation)</h2>
+        <p>Combining small networks into a larger one to reduce routing table size (Route Aggregation). It is the inverse of subnetting.</p>
+
+        <div class="mermaid">
+        graph LR
+            A[Network 1: /24] --> R[Router]
+            B[Network 2: /24] --> R
+            C[Network 3: /24] --> R
+            D[Network 4: /24] --> R
+            R -->|Advertises| E[Supernet: /22]
+        </div>
+
+        <div class="card">
+            <h3>How to Calculate Supernet Mask</h3>
+            <p><strong>Example:</strong> Combine 4 Class C networks: <code>200.1.0.0</code>, <code>200.1.1.0</code>, <code>200.1.2.0</code>, <code>200.1.3.0</code>.</p>
+            <ol>
+                <li>Check if contiguous: Yes.</li>
+                <li>Check count: 4 networks (\(2^2\)). Valid.</li>
+                <li><strong>Logic:</strong> We are merging, so we move the mask bit to the <strong>left</strong> by \(\log_2(\text{count})\).</li>
+                <li>Original Mask: /24. Shift left by 2 bits (\(\log_2 4\)).</li>
+                <li><strong>Supernet Mask:</strong> /22 (255.255.252.0).</li>
+                <li><strong>Supernet ID:</strong> 200.1.0.0/22.</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- SECTION 6: ROUTING -->
+    <section id="routing">
+        <h2>6. Routing Logic</h2>
+        <p>When a router receives a packet, it consults its routing table to decide where to forward it.</p>
+
+        <div class="highlight">
+            <strong>The Golden Rule: Longest Prefix Match</strong><br>
+            If a destination IP matches multiple entries in the routing table, the router chooses the entry with the <strong>longest mask</strong> (most specific match).
+        </div>
+
+        <h3>Routing Decision Flowchart</h3>
+        <div class="mermaid">
+        graph TD
+            Start[Packet Arrives] --> Extract[Extract Destination IP]
+            Extract --> ApplyMask1[Apply Mask of Entry 1]
+            ApplyMask1 --> Match1{Matches NID?}
+            Match1 -- Yes --> Save1[Candidate 1]
+            Match1 -- No --> Next1[Next Entry]
+            
+            Save1 --> ApplyMask2[Apply Mask of Entry 2]
+            ApplyMask2 --> Match2{Matches NID?}
+            Match2 -- Yes --> Save2[Candidate 2]
+            
+            Save2 --> Compare[Compare Candidates]
+            Compare --> Select[Select Entry with HIGHEST /n]
+            Select --> Forward[Forward Packet]
+        </div>
+
+        <h3>Example</h3>
+        <p><strong>Destination IP:</strong> <code>10.1.1.5</code></p>
+        <table>
+            <tr>
+                <th>Entry</th>
+                <th>Network</th>
+                <th>Mask</th>
+                <th>Match?</th>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>10.0.0.0</td>
+                <td>/8</td>
+                <td>✅ Matches (10...)</td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>10.1.0.0</td>
+                <td>/16</td>
+                <td>✅ Matches (10.1...)</td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td>10.1.1.0</td>
+                <td>/24</td>
+                <td>✅ Matches (10.1.1...)</td>
+            </tr>
+        </table>
+        <p><strong>Result:</strong> Router chooses <strong>Entry C</strong> (/24 is longer than /16 and /8).</p>
+    </section>
+
+</main>
+
+</body>
+</html>

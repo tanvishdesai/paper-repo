@@ -148,7 +148,7 @@ export default function QuestionsPage() {
             searchQuery={searchQuery}
           />
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-6 max-w-3xl mx-auto">
             {allQuestions.map((question) => (
               <QuestionCard
                 key={question._id}

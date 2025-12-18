@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures: Tree & Heap Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4338ca;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+            --code-text: #e0e0e0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        nav h1 { font-size: 1.25rem; font-weight: 800; margin-bottom: 2rem; color: var(--primary-dark); }
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.75rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.25rem 0;
+        }
+        nav a:hover, nav a.active { color: var(--primary); font-weight: 600; }
+
+        /* Main Content */
+        main { padding: 3rem 4rem; max-width: 1200px; margin: 0 auto; }
+
+        h1.title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text); }
+        .subtitle { color: var(--text-light); font-size: 1.1rem; margin-bottom: 3rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 4rem; }
+        h2 { font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--text); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.25rem; margin: 1.5rem 0 1rem; color: var(--primary-dark); }
+        p { margin-bottom: 1rem; }
+
+        /* Cards & Visuals */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .highlight-box {
+            background: #eef2ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--surface); border-radius: 8px; overflow: hidden; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-weight: 600; color: var(--text); }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        /* Interactive Details */
+        details {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        details summary {
+            padding: 1rem;
+            background: #f8fafc;
+            cursor: pointer;
+            font-weight: 600;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        details summary:hover { background: #f1f5f9; }
+        details > div { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* Diagrams */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+        }
+
+        /* Math overrides */
+        mjx-container { font-size: 1.1em !important; }
+
+        @media (max-width: 768px) {
+            body { grid-template-columns: 1fr; }
+            nav { display: none; } /* Simplified for mobile example */
+            main { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h1>CS: Tree Data Structures</h1>
+        <ul>
+            <li><a href="#fundamentals">Fundamentals & Terminology</a></li>
+            <li><a href="#binary-trees">Binary Trees Properties</a></li>
+            <li><a href="#traversals">Tree Traversals</a></li>
+            <li><a href="#bst">Binary Search Trees (BST)</a></li>
+            <li><a href="#avl">AVL Trees</a></li>
+            <li><a href="#heaps">Heaps & Priority Queues</a></li>
+            <li><a href="#counting">Counting Trees (Catalan)</a></li>
+            <li><a href="#expression">Expression Trees</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <main>
+        <h1 class="title">Tree Data Structures</h1>
+        <p class="subtitle">Comprehensive lecture notes covering Binary Trees, BSTs, AVL Trees, Heaps, and Traversals.</p>
+
+        <!-- Fundamentals -->
+        <section id="fundamentals">
+            <h2>1. Fundamentals & Terminology</h2>
+            <div class="card">
+                <p>A tree is a non-linear data structure representing a hierarchical organization (e.g., Folder structure, Organization chart).</p>
+                <div class="diagram-container">
+                    <pre class="mermaid">
+                    graph TD
+                        A((Root)) --> B((Child))
+                        A --> C((Child))
+                        B --> D((Leaf))
+                        B --> E((Leaf))
+                        C --> F((Leaf))
+                        style A fill:#eef2ff,stroke:#6366f1,stroke-width:2px
+                        style D fill:#ecfdf5,stroke:#10b981
+                        style E fill:#ecfdf5,stroke:#10b981
+                        style F fill:#ecfdf5,stroke:#10b981
+                    </pre>
+                </div>
+                <ul>
+                    <li><strong>Root:</strong> The top-most node (no parent).</li>
+                    <li><strong>Leaf:</strong> Node with no children (Degree = 0).</li>
+                    <li><strong>Internal Node:</strong> Node with at least one child.</li>
+                    <li><strong>Sibling:</strong> Nodes sharing the same parent.</li>
+                    <li><strong>Degree of Node:</strong> Number of children.</li>
+                    <li><strong>Depth/Level:</strong> Distance from Root to Node (Root is Level 0).</li>
+                    <li><strong>Height of Node:</strong> Longest path from Node to a Leaf (Leaf height = 0).</li>
+                    <li><strong>Height of Tree:</strong> Height of the Root node.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Binary Trees -->
+        <section id="binary-trees">
+            <h2>2. Binary Trees</h2>
+            <div class="highlight-box">
+                <strong>Definition:</strong> A tree where every node has at most 2 children (Left and Right).
+            </div>
+
+            <h3>Types of Binary Trees</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Definition</th>
+                        <th>Key Property</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Full / Strict</strong></td>
+                        <td>Every node has either 0 or 2 children.</td>
+                        <td>No node has degree 1.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complete (CBT)</strong></td>
+                        <td>All levels filled completely, except possibly the last (filled left-to-right).</td>
+                        <td>Representable as an array without gaps.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Perfect</strong></td>
+                        <td>All internal nodes have 2 children; all leaves are at the same level.</td>
+                        <td>Total nodes = \(2^{h+1} - 1\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Skewed</strong></td>
+                        <td>Every node has only one child (Left or Right).</td>
+                        <td>Height \(\approx\) Number of nodes.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Important Formulas</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Max nodes</strong> in Binary Tree of height \(h\): $$N_{max} = 2^{h+1} - 1$$</li>
+                    <li><strong>Min nodes</strong> in Binary Tree of height \(h\): $$N_{min} = h + 1$$</li>
+                    <li><strong>Relationship (Full Binary Tree):</strong> Leaf Nodes (\(L\)) = Internal Nodes (\(I\)) + 1.</li>
+                    <li><strong>K-ary Tree Relationship:</strong> $$L = (K-1)I + 1$$</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Traversals -->
+        <section id="traversals">
+            <h2>3. Tree Traversals</h2>
+            <p>Traversing involves visiting every node in the tree exactly once.</p>
+
+            <div class="diagram-container">
+                <pre class="mermaid">
+                graph TD
+                    A((1)) --> B((2))
+                    A --> C((3))
+                    B --> D((4))
+                    B --> E((5))
+                    C --> F((6))
+                    C --> G((7))
+                </pre>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div class="card">
+                    <h3>Preorder (Root, L, R)</h3>
+                    <p><code>1, 2, 4, 5, 3, 6, 7</code></p>
+                    <pre>
+void pre(node *p) {
+  if(!p) return;
+  print(p->data);
+  pre(p->left);
+  pre(p->right);
+}</pre>
+                </div>
+                <div class="card">
+                    <h3>Inorder (L, Root, R)</h3>
+                    <p><code>4, 2, 5, 1, 6, 3, 7</code></p>
+                    <pre>
+void in(node *p) {
+  if(!p) return;
+  in(p->left);
+  print(p->data);
+  in(p->right);
+}</pre>
+                </div>
+                <div class="card">
+                    <h3>Postorder (L, R, Root)</h3>
+                    <p><code>4, 5, 2, 6, 7, 3, 1</code></p>
+                    <pre>
+void post(node *p) {
+  if(!p) return;
+  post(p->left);
+  post(p->right);
+  print(p->data);
+}</pre>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Tree Reconstruction Rules:</strong>
+                <ul>
+                    <li>Inorder + Preorder \(\rightarrow\) Unique Tree \(\checkmark\)</li>
+                    <li>Inorder + Postorder \(\rightarrow\) Unique Tree \(\checkmark\)</li>
+                    <li>Preorder + Postorder \(\rightarrow\) <strong>NOT</strong> Unique (unless it's a full binary tree).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- BST -->
+        <section id="bst">
+            <h2>4. Binary Search Trees (BST)</h2>
+            <p>A binary tree where for every node <code>X</code>:
+                <br> Values in Left Subtree < <code>X</code> < Values in Right Subtree.
+            </p>
+
+            <h3>Key Operations</h3>
+            <ul>
+                <li><strong>Search:</strong> Compare key with root. If less, go left; if greater, go right. Cost: \(O(h)\).</li>
+                <li><strong>Insertion:</strong> Always happens at a leaf position. Cost: \(O(h)\).</li>
+                <li><strong>Deletion:</strong>
+                    <ul>
+                        <li>Leaf node: Just remove.</li>
+                        <li>1 Child: Replace node with its child.</li>
+                        <li>2 Children: Replace node with <strong>Inorder Predecessor</strong> (Max of Left Subtree) OR <strong>Inorder Successor</strong> (Min of Right Subtree).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="highlight-box">
+                <strong>Crucial Property:</strong> The Inorder traversal of a BST always yields the keys in <strong>sorted ascending order</strong>.
+            </div>
+        </section>
+
+        <!-- AVL -->
+        <section id="avl">
+            <h2>5. AVL Trees</h2>
+            <p>A self-balancing Binary Search Tree. For every node, the height difference between left and right subtrees (Balance Factor) is at most 1.</p>
+            $$BF = Height(Left) - Height(Right) \in \{-1, 0, 1\}$$
+
+            <h3>Rotations</h3>
+            <p>Rotations fix imbalance after insertion/deletion.</p>
+            
+            <details open>
+                <summary>Visualizing Rotations</summary>
+                <div class="diagram-container">
+                    <pre class="mermaid">
+                    graph TD
+                        subgraph "LL Imbalance -> Right Rotate"
+                        A((30)) --> B((20))
+                        B --> C((10))
+                        arrow1[Rotate Right]:::hidden
+                        B2((20)) --> C2((10))
+                        B2 --> A2((30))
+                        end
+                        classDef hidden display:none;
+                    </pre>
+                </div>
+                <ul>
+                    <li><strong>LL Rotation:</strong> Single Right Rotation.</li>
+                    <li><strong>RR Rotation:</strong> Single Left Rotation.</li>
+                    <li><strong>LR Rotation:</strong> Left Rotation on Child, then Right on Root (Double).</li>
+                    <li><strong>RL Rotation:</strong> Right Rotation on Child, then Left on Root (Double).</li>
+                </ul>
+            </details>
+
+            <h3>Min Nodes for Height h</h3>
+            <p>To create the "sparest" AVL tree (max height for min nodes), we follow the recurrence:</p>
+            $$N(h) = N(h-1) + N(h-2) + 1$$
+            <p><em>This relates closely to Fibonacci numbers.</em></p>
+        </section>
+
+        <!-- Heaps -->
+        <section id="heaps">
+            <h2>6. Heaps</h2>
+            <p>A Heap is a <strong>Complete Binary Tree (CBT)</strong> satisfying the heap property.</p>
+            
+            <div style="display: flex; gap: 2rem;">
+                <div class="card" style="flex: 1;">
+                    <h3>Max-Heap</h3>
+                    Root \(\ge\) Children.
+                    Max element is at the root.
+                </div>
+                <div class="card" style="flex: 1;">
+                    <h3>Min-Heap</h3>
+                    Root \(\le\) Children.
+                    Min element is at the root.
+                </div>
+            </div>
+
+            <h3>Array Representation (1-based index)</h3>
+            <p>For a node at index \(i\):</p>
+            <ul>
+                <li>Left Child: \(2i\)</li>
+                <li>Right Child: \(2i + 1\)</li>
+                <li>Parent: \(\lfloor i/2 \rfloor\)</li>
+            </ul>
+
+            <h3>Operations</h3>
+            <table>
+                <tr>
+                    <th>Operation</th>
+                    <th>Complexity</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Find Max (Max-Heap)</td>
+                    <td>\(O(1)\)</td>
+                    <td>Return <code>A[1]</code>.</td>
+                </tr>
+                <tr>
+                    <td>Insert</td>
+                    <td>\(O(\log n)\)</td>
+                    <td>Add at end, then "Bubble Up" (Up-Heapify).</td>
+                </tr>
+                <tr>
+                    <td>Delete Max</td>
+                    <td>\(O(\log n)\)</td>
+                    <td>Replace Root with last element, then "Bubble Down" (Heapify).</td>
+                </tr>
+                <tr>
+                    <td>Build Heap</td>
+                    <td>\(O(n)\)</td>
+                    <td>Tight bound is linear, not \(n \log n\).</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Counting -->
+        <section id="counting">
+            <h2>7. Counting Trees</h2>
+            <p>How many structurally unique binary trees can be formed with \(n\) nodes?</p>
+            <div class="highlight-box">
+                <h3>Catalan Number</h3>
+                $$T(n) = \frac{1}{n+1} \binom{2n}{n} = \frac{(2n)!}{(n+1)!n!}$$
+            </div>
+            
+            <div class="card">
+                <h4>Scenarios:</h4>
+                <ul>
+                    <li><strong>Unlabeled Binary Trees:</strong> Catalan Number.</li>
+                    <li><strong>Labeled Binary Trees:</strong> Catalan Number \(\times n!\).</li>
+                    <li><strong>Binary Search Trees (BST) with n distinct keys:</strong> Catalan Number (Structure dictates position).</li>
+                </ul>
+                <p>Example for \(n=3\): \(\frac{1}{4}\binom{6}{3} = \frac{20}{4} = 5\) trees.</p>
+            </div>
+        </section>
+
+        <!-- Expression Trees -->
+        <section id="expression">
+            <h2>8. Expression Trees</h2>
+            <p>Leaves are operands, internal nodes are operators.</p>
+            <div class="diagram-container">
+                <pre class="mermaid">
+                graph TD
+                    plus((+)) --> a((a))
+                    plus --> mult(( * ))
+                    mult --> b((b))
+                    mult --> c((c))
+                </pre>
+            </div>
+            <p>Expression: \(a + (b \times c)\)</p>
+            <ul>
+                <li><strong>Inorder Traversal:</strong> Infix Expression.</li>
+                <li><strong>Preorder Traversal:</strong> Prefix Expression (Polish Notation).</li>
+                <li><strong>Postorder Traversal:</strong> Postfix Expression (Reverse Polish).</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <script>
+        // Smooth scrolling for sidebar links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

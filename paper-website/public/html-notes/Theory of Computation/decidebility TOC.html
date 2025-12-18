@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOC: Decidability & Grammars Cheat Sheet</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --bg: #f8f9fa;
+            --text: #1f2937;
+            --card-bg: #ffffff;
+            --primary: #3b82f6; /* Blue */
+            --secondary: #6366f1; /* Indigo */
+            --success: #10b981; /* Green */
+            --danger: #ef4444; /* Red */
+            --warning: #f59e0b; /* Amber */
+            --border: #e5e7eb;
+            --code-bg: #1e1e1e;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            background: #111827;
+            color: white;
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #9ca3af; margin-top: 2rem; margin-bottom: 1rem; }
+        
+        nav ul { list-style: none; padding: 0; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a {
+            color: #d1d5db;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        nav a:hover, nav a.active { background: #374151; color: white; transform: translateX(5px); }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            margin-left: 250px;
+            padding: 2rem 3rem;
+            max-width: 1400px;
+        }
+
+        /* Sections */
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        
+        .section-header {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .section-header h2 { font-size: 2rem; margin: 0; color: var(--text); }
+        .badge { font-size: 0.8rem; background: var(--primary); color: white; padding: 0.25rem 0.75rem; border-radius: 999px; }
+
+        /* Grid Layouts */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        
+        @media (max-width: 1024px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.2s;
+        }
+        .card:hover { border-color: var(--primary); }
+        .card h3 { margin-top: 0; font-size: 1.25rem; color: var(--secondary); display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Tables */
+        .table-container { overflow-x: auto; border-radius: 0.5rem; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f3f4f6; font-weight: 600; position: sticky; top: 0; }
+        tr:last-child td { border-bottom: none; }
+        .status-d { color: var(--success); font-weight: bold; background: rgba(16, 185, 129, 0.1); text-align: center; border-radius: 4px;}
+        .status-ud { color: var(--danger); font-weight: bold; background: rgba(239, 68, 68, 0.1); text-align: center; border-radius: 4px; }
+        .status-sdud { color: var(--warning); font-weight: bold; background: rgba(245, 158, 11, 0.1); text-align: center; border-radius: 4px; }
+
+        /* Logic Comparison Blocks */
+        .logic-block { display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem; background: #f9fafb; border-radius: 0.5rem; border-left: 4px solid #ccc; }
+        .logic-block.decidable { border-color: var(--success); }
+        .logic-block.sdud { border-color: var(--warning); }
+        .logic-block.nr { border-color: var(--danger); }
+        .logic-title { font-weight: bold; display: flex; justify-content: space-between; }
+        
+        /* Venn Diagram CSS */
+        .venn-container { position: relative; width: 100%; height: 300px; display: flex; justify-content: center; align-items: center; }
+        .venn-circle {
+            border-radius: 50%;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 2px solid;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        .venn-circle:hover { background: rgba(255, 255, 255, 0.6); z-index: 10; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        
+        /* Reducibility Box */
+        .reducibility-box { background: #1e293b; color: white; padding: 1.5rem; border-radius: 0.75rem; font-family: 'Fira Code', monospace; }
+        .reducibility-box .arrow { color: var(--warning); }
+
+        /* Details Summary */
+        details { margin-bottom: 0.5rem; background: #f9fafb; border-radius: 0.5rem; }
+        summary { padding: 0.75rem; cursor: pointer; font-weight: 600; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; }
+        details[open] { background: white; border: 1px solid var(--border); }
+        .details-content { padding: 1rem; border-top: 1px solid var(--border); }
+
+        code { background: #f3f4f6; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #d63384; }
+
+        @media (max-width: 768px) {
+            nav { display: none; }
+            main { margin-left: 0; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h1>TOC Notes</h1>
+        <p style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 2rem;">Based on Lectures by Deva Sir</p>
+        
+        <h2>Core Concepts</h2>
+        <ul>
+            <li><a href="#basics">Decidability Basics</a></li>
+            <li><a href="#properties">Decision Properties</a></li>
+            <li><a href="#hierarchy">The Hierarchy</a></li>
+        </ul>
+
+        <h2>Advanced</h2>
+        <ul>
+            <li><a href="#reducibility">Reducibility</a></li>
+            <li><a href="#cfg">Context Free Grammars</a></li>
+            <li><a href="#rice">Rice's Theorem</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Intro -->
+        <header style="margin-bottom: 3rem;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Decidability & Computation</h1>
+            <p style="font-size: 1.1rem; color: #4b5563; max-width: 800px;">
+                A comprehensive reference for Decidable languages, Undecidable problems, Reducibility, and Context Free Grammar simplifications.
+            </p>
+        </header>
+
+        <!-- Section 1: Decidability Basics -->
+        <section id="basics">
+            <div class="section-header">
+                <h2>1. Decidability Classifications</h2>
+                <span class="badge">Fundamental</span>
+            </div>
+
+            <div class="grid-3">
+                <!-- Decidable -->
+                <div class="card">
+                    <h3><span style="color: var(--success)">●</span> Decidable (D)</h3>
+                    <p>Also known as <strong>Recursive Language</strong>.</p>
+                    <div class="logic-block decidable">
+                        <div class="logic-title"><span>Yes Case</span> <span>Logic Exists ✓</span></div>
+                        <div class="logic-title"><span>No Case</span> <span>Logic Exists ✓</span></div>
+                    </div>
+                    <ul style="margin-top: 1rem; padding-left: 1.2rem;">
+                        <li><strong>Machine:</strong> Halting Turing Machine (HTM) exists.</li>
+                        <li><strong>Behavior:</strong> Always halts (Accepts or Rejects).</li>
+                        <li><strong>Example:</strong> Finite Automata Membership.</li>
+                    </ul>
+                </div>
+
+                <!-- SDUD -->
+                <div class="card">
+                    <h3><span style="color: var(--warning)">●</span> SDUD</h3>
+                    <p><strong>Semi-Decidable Undecidable</strong> (REL but not Recursive).</p>
+                    <div class="logic-block sdud">
+                        <div class="logic-title"><span>Yes Case</span> <span>Logic Exists ✓</span></div>
+                        <div class="logic-title"><span>No Case</span> <span>No Logic ✗</span></div>
+                    </div>
+                    <ul style="margin-top: 1rem; padding-left: 1.2rem;">
+                        <li><strong>Machine:</strong> Standard TM exists, but no HTM.</li>
+                        <li><strong>Behavior:</strong> May loop forever on "No" inputs.</li>
+                        <li><strong>Example:</strong> Halting Problem ($A_{TM}$).</li>
+                    </ul>
+                </div>
+
+                <!-- Not REL -->
+                <div class="card">
+                    <h3><span style="color: var(--danger)">●</span> NR (Not REL)</h3>
+                    <p><strong>Not Recursively Enumerable</strong>.</p>
+                    <div class="logic-block nr">
+                        <div class="logic-title"><span>Yes Case</span> <span>No Logic ✗</span></div>
+                        <div class="logic-title"><span>No Case</span> <span>No Logic ✗</span></div>
+                    </div>
+                    <ul style="margin-top: 1rem; padding-left: 1.2rem;">
+                        <li><strong>Machine:</strong> No Turing Machine exists.</li>
+                        <li><strong>Behavior:</strong> Completely unrecognizable.</li>
+                        <li><strong>Example:</strong> Complement of Halting Problem ($\overline{HP}$).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3>Summary of Complements</h3>
+                <div class="mermaid">
+                    graph LR
+                    A[Decidable Language] -->|Complement| B[Decidable]
+                    C[SDUD Language] -->|Complement| D[Not REL]
+                    E[Not REL Language] -->|Complement| F[SDUD or Not REL]
+                    style A fill:#d1fae5,stroke:#10b981
+                    style B fill:#d1fae5,stroke:#10b981
+                    style C fill:#fef3c7,stroke:#f59e0b
+                    style D fill:#fee2e2,stroke:#ef4444
+                    style E fill:#fee2e2,stroke:#ef4444
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Decision Properties Matrix -->
+        <section id="properties">
+            <div class="section-header">
+                <h2>2. The Master Decision Table</h2>
+                <span class="badge">Memorize This</span>
+            </div>
+            <p>Which problems can be solved by an algorithm for a specific machine?</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>FA / Reg</th>
+                            <th>DPDA / DCFL</th>
+                            <th>PDA / CFL</th>
+                            <th>LBA / CSL</th>
+                            <th>TM / REC</th>
+                            <th>TM / REL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Membership</strong> <br><small>Is $w \in L(M)$?</small></td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D (CYK)</td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D</td>
+                            <td class="status-sdud">UD (SD)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Emptiness</strong> <br><small>Is $L(M) = \emptyset$?</small></td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Finiteness</strong> <br><small>Is $L(M)$ finite?</small></td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Totality</strong> <br><small>Is $L(M) = \Sigma^*$?</small></td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Equivalence</strong> <br><small>Is $L(M_1) = L(M_2)$?</small></td>
+                            <td class="status-d">D</td>
+                            <td class="status-d">D</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Disjointness</strong> <br><small>Is $L_1 \cap L_2 = \emptyset$?</small></td>
+                            <td class="status-d">D</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ambiguity</strong> <br><small>Is G ambiguous?</small></td>
+                            <td class="status-d">N/A</td>
+                            <td class="status-d">N/A</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                            <td class="status-ud">UD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280;">
+                <strong>Note:</strong> DCFL Equivalence is Decidable, but Subset/Containment ($L_1 \subseteq L_2$) is Undecidable for DCFL and above.
+            </p>
+        </section>
+
+        <!-- Section 3: Reducibility -->
+        <section id="reducibility">
+            <div class="section-header">
+                <h2>3. Reducibility ($A \le B$)</h2>
+                <span class="badge">Logic Tool</span>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>The Concept</h3>
+                    <p>If Problem A reduces to Problem B ($A \le B$), then <strong>B is at least as hard as A</strong>.</p>
+                    <p><em>Analogy:</em> Delhi $\le$ India. If you can conquer India, you have automatically conquered Delhi.</p>
+                    
+                    <div class="reducibility-box" style="margin-top: 1rem;">
+                        <p>1. If $A \le B$ and B is <strong>Decidable</strong> <span class="arrow">→</span> A is <strong>Decidable</strong>.</p>
+                        <p>2. If $A \le B$ and A is <strong>Undecidable</strong> <span class="arrow">→</span> B is <strong>Undecidable</strong>.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Common Reductions</h3>
+                    <div class="mermaid">
+                        graph TD
+                            ATM[Halting Problem <br> (Undecidable)] -->|Reduces To| ETM[Emptiness for TM]
+                            ATM -->|Reduces To| REGTM[Regularity for TM]
+                            ETM -->|Implies| Harder[Harder Problem is UD]
+                            style ATM fill:#fee2e2,stroke:#ef4444
+                            style ETM fill:#fee2e2,stroke:#ef4444
+                            style Harder fill:#fff,stroke:#333,stroke-dasharray: 5 5
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: CFG Simplification & Normal Forms -->
+        <section id="cfg">
+            <div class="section-header">
+                <h2>4. Context Free Grammars (CFG)</h2>
+            </div>
+
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>Simplification Process</h3>
+                <p>Order matters! If you change the order, previously removed issues might return.</p>
+                <div class="mermaid">
+                    graph LR
+                    A[Raw CFG] --> B[Eliminate Null Prod <br> A -> ε]
+                    B --> C[Eliminate Unit Prod <br> A -> B]
+                    C --> D[Eliminate Useless Symbols]
+                    D --> E[Simplified CFG]
+                    style B fill:#dbeafe,stroke:#3b82f6
+                    style C fill:#dbeafe,stroke:#3b82f6
+                    style D fill:#dbeafe,stroke:#3b82f6
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <!-- CNF -->
+                <div class="card">
+                    <h3>CNF (Chomsky Normal Form)</h3>
+                    <p>Every production is of the form:</p>
+                    <div style="background: #e5e7eb; padding: 1rem; border-radius: 0.5rem; text-align: center; font-family: 'Fira Code'; font-size: 1.2rem;">
+                        A → BC <br>
+                        A → a
+                    </div>
+                    <ul style="margin-top: 1rem;">
+                        <li>Restricted to exactly 2 variables or 1 terminal.</li>
+                        <li><strong>Derivation Steps:</strong> To generate a string of length $|w| = n$:</li>
+                        <li style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">Steps = $2n - 1$</li>
+                    </ul>
+                </div>
+
+                <!-- GNF -->
+                <div class="card">
+                    <h3>GNF (Greibach Normal Form)</h3>
+                    <p>Every production is of the form:</p>
+                    <div style="background: #e5e7eb; padding: 1rem; border-radius: 0.5rem; text-align: center; font-family: 'Fira Code'; font-size: 1.2rem;">
+                        A → aα <br>
+                        <small>(α is string of variables)</small>
+                    </div>
+                    <ul style="margin-top: 1rem;">
+                        <li>Starts with a terminal, followed by any number of variables.</li>
+                        <li>Used for PDA construction (Pushdown Automata).</li>
+                        <li><strong>Derivation Steps:</strong> To generate a string of length $|w| = n$:</li>
+                        <li style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">Steps = $n$</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Rice's Theorem & Hierarchy -->
+        <section id="rice">
+            <div class="section-header">
+                <h2>5. Rice's Theorem & Hierarchy</h2>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Rice's Theorem</h3>
+                    <p>
+                        "Any <strong>non-trivial property</strong> of the language recognized by a Turing Machine (RE Language) is <strong>Undecidable</strong>."
+                    </p>
+                    <hr style="border:0; border-top:1px solid #eee; margin: 1rem 0;">
+                    <p><strong>Property ($P$):</strong> A subset of REL languages.</p>
+                    <p><strong>Trivial:</strong> $P = \emptyset$ (None) or $P = \text{All REL}$.</p>
+                    <p><strong>Example:</strong> "Does $L(M)$ contain the string '101'?" is non-trivial, thus Undecidable.</p>
+                </div>
+
+                <div class="card" style="display:flex; justify-content:center; align-items:center;">
+                    <!-- CSS Venn Diagram for Hierarchy -->
+                     <div class="venn-container">
+                        <div class="venn-circle" style="width: 280px; height: 280px; border-color: #ef4444; background: rgba(239, 68, 68, 0.05); color: #ef4444;">
+                            REL (Type 0)
+                        </div>
+                        <div class="venn-circle" style="width: 220px; height: 220px; border-color: #f59e0b; background: rgba(245, 158, 11, 0.05); color: #f59e0b;">
+                            Recursive
+                        </div>
+                        <div class="venn-circle" style="width: 170px; height: 170px; border-color: #3b82f6; background: rgba(59, 130, 246, 0.05); color: #3b82f6;">
+                            CSL (Type 1)
+                        </div>
+                        <div class="venn-circle" style="width: 120px; height: 120px; border-color: #8b5cf6; background: rgba(139, 92, 246, 0.05); color: #8b5cf6;">
+                            CFL (Type 2)
+                        </div>
+                        <div class="venn-circle" style="width: 70px; height: 70px; border-color: #10b981; background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                            Reg (Type 3)
+                        </div>
+                     </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 1.5rem;">
+                <h3>Countability</h3>
+                <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; list-style: none; padding: 0;">
+                    <li><strong>Countable Sets:</strong> Finite sets, Natural Numbers ($\mathbb{N}$), Integers ($\mathbb{Z}$), $\Sigma^*$, Set of all TMs, Set of all C Programs.</li>
+                    <li><strong>Uncountable Sets:</strong> Real Numbers ($\mathbb{R}$), Power Set of Sigma Star ($2^{\Sigma^*}$), Set of all Languages.</li>
+                </ul>
+                <p style="text-align: center; margin-top: 1rem; font-weight: bold; color: var(--danger);">
+                    Conclusion: There are more Languages than Turing Machines. Therefore, some languages are not recognized by any machine (Not REL).
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

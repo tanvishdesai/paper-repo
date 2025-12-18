@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Algorithms: Heaps, OBST, & Sets | Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax for Formula Rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --code-bg: #1e293b;
+            --code-text: #f8fafc;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            height: 100vh;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            position: fixed;
+            padding: 2rem 1rem;
+            overflow-y: auto;
+            top: 0; left: 0;
+        }
+
+        nav h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        nav a:hover, nav a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 250px;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text); }
+        h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.4rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--secondary); }
+        h4 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; font-weight: 700; }
+
+        .subtitle { color: var(--secondary); font-size: 1.1rem; margin-bottom: 2rem; }
+
+        /* Cards and Sections */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+        /* Code and Math */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #e2e8f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--primary-dark);
+        }
+        pre code { background: transparent; color: inherit; padding: 0; }
+
+        .math-block {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid var(--border); padding: 0.75rem; text-align: left; }
+        th { background-color: #f1f5f9; font-weight: 600; }
+
+        /* Utility */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .tag-green { background: #d1fae5; color: #065f46; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+
+        details {
+            background: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+        summary { font-weight: 600; color: var(--secondary); outline: none; }
+        details[open] { background: #e2e8f0; }
+        
+        .diagram-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            nav { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h3>Course Material</h3>
+    <ul>
+        <li><a href="#heaps">Binary Heaps</a></li>
+        <li><a href="#heap-ops">Heap Operations</a></li>
+        <li><a href="#build-heap">Building a Heap</a></li>
+        <li><a href="#heap-sort">Heap Sort</a></li>
+        <li><a href="#obst">Optimal BST</a></li>
+        <li><a href="#recurrence">Recurrences</a></li>
+        <li><a href="#sets">Disjoint Sets</a></li>
+    </ul>
+    
+    <div style="margin-top: 2rem; padding: 1rem; background: #e0f2fe; border-radius: 8px;">
+        <small style="color: #0369a1; font-weight: bold;">Instructor</small><br>
+        <small>Dr. Khaleel Khan</small>
+    </div>
+</nav>
+
+<main>
+    <h1>Algorithm Design & Analysis</h1>
+    <p class="subtitle">Lecture Notes: Heaps, DP (OBST), Sets, and Recurrences</p>
+
+    <!-- SECTION: HEAPS -->
+    <section id="heaps">
+        <h2>1. Binary Heaps</h2>
+        <div class="card">
+            <p>A <strong>Heap</strong> is a complete binary tree where the value at each node satisfies a specific order property relative to its children.</p>
+            <div class="grid-2">
+                <div>
+                    <h4>Properties</h4>
+                    <ul>
+                        <li><strong>Structure:</strong> Complete Binary Tree (filled level-by-level, left-to-right).</li>
+                        <li><strong>Max-Heap:</strong> $A[parent] \ge A[child]$. Root is the maximum.</li>
+                        <li><strong>Min-Heap:</strong> $A[parent] \le A[child]$. Root is the minimum.</li>
+                        <li><strong>NOT a BST:</strong> No relationship between left and right siblings.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Array Representation</h4>
+                    <p>For a node at index $i$ (1-based indexing):</p>
+                    <ul>
+                        <li><strong>Left Child:</strong> $2i$</li>
+                        <li><strong>Right Child:</strong> $2i + 1$</li>
+                        <li><strong>Parent:</strong> $\lfloor i/2 \rfloor$</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h4>Max-Heap Visualization</h4>
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph TD
+                    A((95)) --- B((80))
+                    A --- C((75))
+                    B --- D((40))
+                    B --- E((45))
+                    C --- F((35))
+                    C --- G((50))
+                    style A fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 10px; font-family: 'JetBrains Mono'">Array: [95, 80, 75, 40, 45, 35, 50]</p>
+        </div>
+    </section>
+
+    <!-- SECTION: HEAP OPERATIONS -->
+    <section id="heap-ops">
+        <h2>2. Operations</h2>
+        
+        <div class="grid-2">
+            <div class="card">
+                <h3>Insertion</h3>
+                <ol>
+                    <li>Insert element at the next available leaf position (end of array).</li>
+                    <li>Compare with parent. If order is violated, swap.</li>
+                    <li>Repeat upwards until property is restored.</li>
+                </ol>
+                <div class="math-block">
+                    Time Complexity: $O(\log n)$ (Height of tree)
+                </div>
+            </div>
+            <div class="card">
+                <h3>Deletion (Extract Max)</h3>
+                <ol>
+                    <li>Remove root (max element).</li>
+                    <li>Move the last element (leaf) to the root.</li>
+                    <li>Perform <code>Adjust</code> (Heapify Down) to fix property.</li>
+                </ol>
+                <div class="math-block">
+                    Time Complexity: $O(\log n)$
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Algorithm: Heapify (Adjust)</h3>
+            <p>Used to fix a heap violation at node $i$ assuming subtrees are already heaps.</p>
+            <pre><code class="language-c">procedure ADJUST(A, i, n)
+    item = A[i]; j = 2*i;
+    while(j <= n) {
+        // Point to larger child
+        if (j < n and A[j] < A[j+1]) j = j+1;
+        
+        if (item >= A[j]) break; // Position found
+        
+        A[j/2] = A[j]; // Move child up
+        j = 2*j;
+    }
+    A[j/2] = item;
+end</code></pre>
+        </div>
+    </section>
+
+    <!-- SECTION: BUILD HEAP -->
+    <section id="build-heap">
+        <h2>3. Construction (Build Heap)</h2>
+        <p>Converting an arbitrary array into a Max-Heap.</p>
+
+        <div class="grid-2">
+            <div class="card">
+                <h4>Method 1: Repeated Insertion</h4>
+                <p>Start with empty heap, insert elements one by one.</p>
+                <p><strong>Worst Case:</strong> Input is sorted ascending.</p>
+                <div class="math-block">
+                    $O(n \log n)$
+                </div>
+            </div>
+
+            <div class="card" style="border-color: var(--primary);">
+                <h4>Method 2: Heapify (Bottom-Up)</h4>
+                <p>Treat array as complete tree. Call <code>ADJUST</code> starting from the last internal node down to the root.</p>
+                <div class="math-block">
+                    $T(n) = \sum_{i=\lfloor n/2 \rfloor}^{1} \text{Adjust}(i)$
+                </div>
+                <div class="tag tag-green">Optimized: $O(n)$</div>
+            </div>
+        </div>
+
+        <details>
+            <summary>Why is Bottom-Up Build Heap O(n)? (Click to Expand)</summary>
+            <p style="margin-top: 1rem;">
+                The cost depends on the height $h$ of the node. There are fewer nodes at greater heights.
+                <br>
+                $$ T(n) = \sum_{h=0}^{\log n} \lceil \frac{n}{2^{h+1}} \rceil O(h) $$
+                Using the summation series $\sum_{i=0}^{\infty} \frac{i}{2^i} = 2$:
+                $$ T(n) \le n \sum_{i=0}^{\infty} \frac{i}{2^i} = n(2) = O(n) $$
+                <br>
+                <em>Intuition:</em> Most nodes are leaves (height 0) and take 0 time. Only the root takes $\log n$ time.
+            </p>
+        </details>
+    </section>
+
+    <!-- SECTION: HEAP SORT -->
+    <section id="heap-sort">
+        <h2>4. Heap Sort</h2>
+        <div class="card">
+            <div class="grid-2">
+                <div>
+                    <h4>Procedure</h4>
+                    <ol>
+                        <li><strong>Build Max Heap:</strong> Convert input array. <span class="tag tag-blue">$O(n)$</span></li>
+                        <li><strong>Extract Max $n-1$ times:</strong>
+                            <ul>
+                                <li>Swap Root with last element.</li>
+                                <li>Reduce heap size by 1.</li>
+                                <li><code>Heapify</code> root.</li>
+                            </ul>
+                            <span class="tag tag-blue">$(n-1) \times \log n$</span>
+                        </li>
+                    </ol>
+                </div>
+                <div>
+                    <h4>Complexity Analysis</h4>
+                    <ul>
+                        <li><strong>Total Time:</strong> $O(n \log n)$</li>
+                        <li><strong>Space:</strong> $O(1)$ (In-place)</li>
+                        <li><strong>Stability:</strong> Unstable</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: OBST -->
+    <section id="obst">
+        <h2>5. Optimal Binary Search Tree (OBST)</h2>
+        <p>Constructing a BST to minimize the expected search cost given probabilities for keys (successful) and intervals between keys (unsuccessful).</p>
+
+        <div class="card">
+            <h3>The Cost Function</h3>
+            <p>Given identifiers $(a_1, \dots, a_n)$ with probabilities $(p_1, \dots, p_n)$ and dummy/failure nodes $(E_0, \dots, E_n)$ with probabilities $(q_0, \dots, q_n)$.</p>
+            <div class="math-block">
+                $$ Cost(T) = \sum_{i=1}^{n} p_i \cdot level(a_i) + \sum_{i=0}^{n} q_i \cdot (level(E_i) - 1) $$
+            </div>
+            <p><em>Note: Root is at level 1.</em></p>
+        </div>
+
+        <div class="card">
+            <h3>Dynamic Programming Solution</h3>
+            <p>Let $C(i, j)$ be the cost of the optimal BST containing keys $a_{i+1} \dots a_j$.</p>
+            <div class="math-block">
+                $$ C(i, j) = \min_{i < k \le j} \{ C(i, k-1) + C(k, j) \} + w(i, j) $$
+            </div>
+            <ul>
+                <li>$w(i, j)$: Sum of all $p$ and $q$ probabilities in the range.</li>
+                <li>Base Case: $C(i, i) = 0$ (Empty tree, just dummy node cost usually handled via init).</li>
+                <li><strong>Time Complexity:</strong> $O(n^3)$</li>
+                <li><strong>Number of possible BSTs:</strong> Catalan Number $\frac{1}{n+1}{2n \choose n}$.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECTION: RECURRENCES -->
+    <section id="recurrence">
+        <h2>6. Solving Recurrences</h2>
+        
+        <div class="grid-2">
+            <div class="card">
+                <h3>Recursion Tree Method</h3>
+                <p>Visualize the work done at each level of the recursion.</p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                    graph TD
+                        Root[n] --> L[n/2]
+                        Root --> R[n/2]
+                        L --> LL[n/4]
+                        L --> LR[n/4]
+                        R --> RL[n/4]
+                        R --> RR[n/4]
+                        style Root fill:#fff,stroke:#333
+                    </div>
+                </div>
+                <p><strong>Example:</strong> $T(n) = 2T(n/2) + n$</p>
+                <ul>
+                    <li>Level 0 cost: $n$</li>
+                    <li>Level 1 cost: $n/2 + n/2 = n$</li>
+                    <li>Level 2 cost: $4 \times (n/4) = n$</li>
+                    <li>Total: $n \times (\text{Height}) = n \log n$</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>Common Patterns (Master Theorem Scope)</h3>
+                <table style="font-size: 0.9rem">
+                    <tr>
+                        <th>Recurrence</th>
+                        <th>Complexity</th>
+                        <th>Remark</th>
+                    </tr>
+                    <tr>
+                        <td>$T(n) = 2T(n/2) + n$</td>
+                        <td>$O(n \log n)$</td>
+                        <td>Merge Sort</td>
+                    </tr>
+                    <tr>
+                        <td>$T(n) = T(n/2) + 1$</td>
+                        <td>$O(\log n)$</td>
+                        <td>Binary Search</td>
+                    </tr>
+                    <tr>
+                        <td>$T(n) = 2T(n/2) + 1$</td>
+                        <td>$O(n)$</td>
+                        <td>Traversals</td>
+                    </tr>
+                    <tr>
+                        <td>$T(n) = T(n-1) + 1$</td>
+                        <td>$O(n)$</td>
+                        <td>Linear Scan</td>
+                    </tr>
+                    <tr>
+                        <td>$T(n) = 3T(n/4) + n^2$</td>
+                        <td>$O(n^2)$</td>
+                        <td>Root dominates</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: SETS -->
+    <section id="sets">
+        <h2>7. Disjoint Set Data Structure</h2>
+        <p>Used to manage partition of a set into disjoint subsets. Supports <code>Union</code> and <code>Find</code>.</p>
+
+        <div class="card">
+            <h3>Array Representation</h3>
+            <p>Assume elements $1 \dots n$. Array $P[1 \dots n]$ stores the parent of $i$.</p>
+            <ul>
+                <li>If $P[i] < 0$ (or specific value like -1), $i$ is a root. Magnitude can store size/rank.</li>
+                <li>If $P[i] > 0$, $P[i]$ is the index of the parent.</li>
+            </ul>
+            
+            <table style="width: 50%; margin: 1rem auto; text-align: center;">
+                <tr>
+                    <th>Index (i)</th>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <th>Parent (P)</th>
+                    <td>-1</td>
+                    <td>1</td>
+                    <td>-1</td>
+                    <td>3</td>
+                </tr>
+            </table>
+            <p style="text-align: center; font-size: 0.9rem;">Represents sets $\{1, 2\}$ (1 is root) and $\{3, 4\}$ (3 is root).</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Operations</h3>
+                <pre><code class="language-c">Find(i):
+    while(P[i] >= 0) i = P[i];
+    return i;
+    // Time: O(n) (skewed tree)
+
+Union(i, j):
+    P[i] = j; // Make j parent of i
+    // Time: O(1)</code></pre>
+            </div>
+            <div class="card">
+                <h3>Application: Kruskal's Algorithm</h3>
+                <p>Used to find Minimum Spanning Tree (MST).</p>
+                <ol>
+                    <li>Sort edges by weight (or build Min-Heap).</li>
+                    <li>Iterate through edges $(u, v)$.</li>
+                    <li>If <code>Find(u) != Find(v)</code>, add edge and <code>Union(u, v)</code>.</li>
+                </ol>
+                <div class="math-block">Time: $O(E \log E)$ or $O(E \log V)$</div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>

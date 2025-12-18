@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Engineering: Hashing Cheat Sheet</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+        :root {
+            --bg-primary: #0f1115;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-gold: #d29922;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --border: #30363d;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 250px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: none; /* Hidden on mobile by default */
+        }
+
+        aside h3 { color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px; }
+        aside ul { list-style: none; }
+        aside li { margin-bottom: 0.5rem; }
+        aside a { color: var(--text-primary); text-decoration: none; font-size: 0.95rem; display: block; padding: 0.5rem; border-radius: 6px; transition: all 0.2s; }
+        aside a:hover { background: var(--bg-tertiary); color: var(--accent-blue); }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header { margin-bottom: 3rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .meta { color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.9rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        h2 { font-size: 1.8rem; margin-bottom: 1.5rem; padding-left: 1rem; border-left: 4px solid var(--accent-gold); color: var(--text-primary); }
+        h3 { font-size: 1.4rem; margin: 1.5rem 0 1rem; color: var(--accent-blue); }
+        p { margin-bottom: 1rem; color: #c9d1d9; }
+
+        /* Cards & Containers */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .card { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
+        
+        /* Math & Formulas */
+        .formula-box {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-green);
+            margin: 1rem 0;
+            font-family: var(--font-mono);
+            text-align: center;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-secondary); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; }
+        tr:hover { background: var(--bg-tertiary); }
+
+        /* Code & Algorithms */
+        code { background: rgba(110,118,129,0.4); padding: 0.2em 0.4em; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85em; color: var(--accent-gold); }
+        .algo-step { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.5rem; }
+        .step-num { color: var(--accent-secondary); font-family: var(--font-mono); font-weight: bold; }
+
+        /* Diagrams */
+        .mermaid { background: var(--bg-secondary); padding: 1rem; border-radius: 8px; text-align: center; margin: 1.5rem 0; }
+
+        /* Visualizations */
+        .hash-table-viz {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+        .slot-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            width: 120px;
+        }
+        .slot {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+        }
+        .slot.occupied { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .slot.collision { border-color: var(--accent-red); background: rgba(248, 81, 73, 0.1); }
+        .slot-idx { color: var(--text-secondary); font-size: 0.8rem; }
+        .mapping-arrow { color: var(--accent-gold); font-size: 2rem; }
+
+        /* Utilities */
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .tag.good { background: rgba(63, 185, 80, 0.2); color: var(--accent-green); }
+        .tag.bad { background: rgba(248, 81, 73, 0.2); color: var(--accent-red); }
+        .highlight { color: var(--accent-gold); font-weight: bold; }
+
+        @media (min-width: 1024px) { aside { display: block; } }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } main { padding: 1.5rem; } }
+    </style>
+</head>
+<body>
+
+<aside>
+    <h3>Contents</h3>
+    <ul>
+        <li><a href="#intro">Introduction & Complexity</a></li>
+        <li><a href="#hash-functions">The Hash Function</a></li>
+        <li><a href="#collisions">Collision Resolution</a></li>
+        <li><a href="#linear-probing">Linear Probing</a></li>
+        <li><a href="#quadratic-probing">Quadratic Probing</a></li>
+        <li><a href="#double-hashing">Double Hashing</a></li>
+        <li><a href="#separate-chaining">Separate Chaining</a></li>
+        <li><a href="#comparison">Comparison & Summary</a></li>
+    </ul>
+</aside>
+
+<main>
+    <header>
+        <h1>Hashing & Data Structures</h1>
+        <div class="meta">
+            <span>Chapter 07</span> • 
+            <span>CS & IT Engineering</span> • 
+            <span>Based on Lectures 01 & 02 by Pankaj Sharma Sir</span>
+        </div>
+    </header>
+
+    <!-- SECTION 1: INTRODUCTION -->
+    <section id="intro">
+        <h2>1. Introduction to Hashing</h2>
+        <div class="grid-2">
+            <div>
+                <p>Hashing is a technique used to uniquely identify a specific object from a group of similar objects. It is designed to solve the problem of finding data in <strong>constant time</strong>.</p>
+                <h3>Why Hashing?</h3>
+                <p>Comparing Search Complexities for \(n\) elements:</p>
+                <ul>
+                    <li><strong>Array/Linked List:</strong> \(O(n)\) (Linear Search)</li>
+                    <li><strong>BST / Balanced Tree (AVL):</strong> \(O(\log n)\)</li>
+                    <li><strong>Hashing:</strong> \(O(1)\) <span class="tag good">Ideal</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>The Challenge</h3>
+                <p>If we have a universe of keys \(U\) (e.g., \(2^{20} \approx 10^6\)), creating a Direct Address Table of size \(2^{20}\) is memory inefficient if we only store 50 items.</p>
+                <div class="mermaid">
+                    graph LR
+                    K[Key Space] -->|Map| H[Hash Function]
+                    H -->|Index| T[Table Slot]
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: HASH FUNCTIONS -->
+    <section id="hash-functions">
+        <h2>2. The Hash Function</h2>
+        <p>A function \(h(k)\) that maps a large key \(k\) to a small integer index in the range \([0, m-1]\), where \(m\) is the table size.</p>
+        
+        <div class="formula-box">
+            \[ h(k) = k \mod m \]
+        </div>
+
+        <div class="grid-2">
+            <div>
+                <h3>Properties of a Good Hash Function</h3>
+                <ol>
+                    <li><strong>Efficient:</strong> Easy and fast to compute.</li>
+                    <li><strong>Uniform Distribution:</strong> It should distribute keys uniformly across the table to minimize collisions.</li>
+                </ol>
+            </div>
+            <div>
+                <h3>Example</h3>
+                <p>Let \(m = 10\). Keys: 12, 11, 18.</p>
+                <ul>
+                    <li>\(h(12) = 12 \mod 10 = 2\)</li>
+                    <li>\(h(11) = 11 \mod 10 = 1\)</li>
+                    <li>\(h(18) = 18 \mod 10 = 8\)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: COLLISIONS -->
+    <section id="collisions">
+        <h2>3. Collision Resolution Techniques (CRT)</h2>
+        <p>A <strong>Collision</strong> occurs when two distinct keys map to the same index: \(h(k_1) = h(k_2)\). Since we cannot store two values in one slot, we need a resolution strategy.</p>
+
+        <div class="mermaid">
+            graph TD
+            A[Collision Resolution] --> B[Open Addressing]
+            A --> C[Closed Addressing]
+            B --> D[Linear Probing]
+            B --> E[Quadratic Probing]
+            B --> F[Double Hashing]
+            C --> G[Separate Chaining]
+            style A fill:#21262d,stroke:#d29922
+            style B fill:#161b22,stroke:#58a6ff
+            style C fill:#161b22,stroke:#58a6ff
+        </div>
+    </section>
+
+    <!-- SECTION 4: LINEAR PROBING -->
+    <section id="linear-probing">
+        <h2>4. Linear Probing (Open Addressing)</h2>
+        <p>If the calculated hash slot is occupied, check the <strong>next</strong> slot linearly until an empty one is found.</p>
+
+        <div class="formula-box">
+            \[ H(k, i) = (h(k) + i) \mod m \]
+        </div>
+        <p class="meta">Where \(i = 0, 1, 2, \dots\) is the probe number.</p>
+
+        <div class="grid-2">
+            <div>
+                <h3>Example Walkthrough</h3>
+                <p><strong>Table Size \(m=10\), Hash \(h(k) = k \mod 10\)</strong></p>
+                <ul>
+                    <li>Insert 4: \(h(4)=4\). Slot 4 empty. <span class="tag good">Insert</span></li>
+                    <li>Insert 14: \(h(14)=4\). <span class="tag bad">Collision</span>. Try \(i=1\): \((4+1)\%10 = 5\). Empty. <span class="tag good">Insert</span></li>
+                    <li>Insert 24: \(h(24)=4\). <span class="tag bad">Collision</span>. Try \(i=1 \to 5\) (Occupied). Try \(i=2 \to 6\). Empty. <span class="tag good">Insert</span></li>
+                </ul>
+                <br>
+                <h3>Problem: Primary Clustering</h3>
+                <p>Long runs of occupied slots build up, increasing the average search time. Any key that hashes into a cluster will lengthen it.</p>
+            </div>
+            <div class="hash-table-viz">
+                <div class="slot-stack">
+                    <div class="slot"><span class="slot-idx">0</span></div>
+                    <div class="slot"><span class="slot-idx">1</span></div>
+                    <div class="slot"><span class="slot-idx">2</span></div>
+                    <div class="slot"><span class="slot-idx">3</span></div>
+                    <div class="slot occupied"><span class="slot-idx">4</span> 4</div>
+                    <div class="slot occupied"><span class="slot-idx">5</span> 14</div>
+                    <div class="slot occupied"><span class="slot-idx">6</span> 24</div>
+                    <div class="slot"><span class="slot-idx">7</span></div>
+                    <div class="slot"><span class="slot-idx">8</span></div>
+                    <div class="slot"><span class="slot-idx">9</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Deletion Issue</h3>
+            <p><strong>Deletion is tricky.</strong> If we simply remove 26 from a cluster, searching for a subsequent element (e.g., 14) might fail because the search stops at the empty slot. 
+            <br><strong>Solution:</strong> We must <strong>Re-hash</strong> remaining keys in the cluster after a deletion.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 5: QUADRATIC PROBING -->
+    <section id="quadratic-probing">
+        <h2>5. Quadratic Probing</h2>
+        <p>To reduce primary clustering, we look for slots at quadratic intervals ($1^2, 2^2, 3^2 \dots$) rather than linear ($1, 2, 3 \dots$).</p>
+
+        <div class="formula-box">
+            \[ H(k, i) = (h(k) + i^2) \mod m \]
+        </div>
+
+        <div class="grid-2">
+            <div>
+                <h3>Mechanism</h3>
+                <p>If \(h(k) = L\) is full:</p>
+                <ul>
+                    <li>\(i=1\): Check \((L + 1^2) \mod m\)</li>
+                    <li>\(i=2\): Check \((L + 2^2) \mod m\)</li>
+                    <li>\(i=3\): Check \((L + 3^2) \mod m\)</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Problem: Secondary Clustering</h3>
+                <p>Although it solves primary clustering, keys hashing to the <strong>same initial position</strong> will follow the exact same probe sequence.</p>
+                <p><em>Example:</em> If \(h(k_1) = h(k_2)\), both will try \(L+1\), then \(L+4\), then \(L+9\)...</p>
+            </div>
+        </div>
+        
+        <p><strong>Example Constraint (Slide Data):</strong> \(m=11\). <br>Keys: 24, 17, 32, 2, 13, 50, 30, 61. <br>
+        Even with 50% free slots, specific probe sequences might fail to find an empty spot if the table size and probe step aren't co-prime or carefully chosen.</p>
+    </section>
+
+    <!-- SECTION 6: DOUBLE HASHING -->
+    <section id="double-hashing">
+        <h2>6. Double Hashing</h2>
+        <p>Uses a second hash function to calculate the probe step size. This eliminates secondary clustering because the step size depends on the key itself.</p>
+
+        <div class="formula-box">
+            \[ H(k, i) = (h_1(k) + i \cdot h_2(k)) \mod m \]
+        </div>
+
+        <div class="grid-2">
+            <div>
+                <h3>The Functions</h3>
+                <ul>
+                    <li><strong>Primary:</strong> \(h_1(k) = k \mod m\)</li>
+                    <li><strong>Secondary:</strong> \(h_2(k) = C - (k \mod C)\) (typically)</li>
+                </ul>
+                <div class="card" style="margin-top: 1rem; border-color: var(--accent-red);">
+                    <strong style="color: var(--accent-red)">CRITICAL RULE:</strong>
+                    <p>\(h_2(k)\) must <strong>never evaluate to 0</strong>. If it does, \(i \cdot 0 = 0\), and the algorithm loops on the same index infinitely.</p>
+                </div>
+            </div>
+            <div>
+                <h3>Example Walkthrough</h3>
+                <p>\(m=11\). Let \(h_1(k) = k \mod 11\) and \(h_2(k) = 7 - (k \mod 7)\).</p>
+                <p><strong>Insert 30:</strong></p>
+                <ol>
+                    <li>\(h_1(30) = 8\) (Assume occupied)</li>
+                    <li>Calculate Step: \(h_2(30) = 7 - (30 \mod 7) = 7 - 2 = 5\)</li>
+                    <li>Probe 1: \((8 + 1 \cdot 5) \mod 11 = 13 \mod 11 = 2\)</li>
+                    <li>Probe 2: \((8 + 2 \cdot 5) \mod 11 = 18 \mod 11 = 7\)</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: SEPARATE CHAINING -->
+    <section id="separate-chaining">
+        <h2>7. Separate Chaining (Closed Addressing)</h2>
+        <p>Instead of finding a new slot, each slot in the table contains a pointer to a linked list (or chain). All colliding keys are appended to this list.</p>
+
+        <div class="grid-2">
+            <div class="mermaid">
+                graph LR
+                Slot0[0] --> Null1[NULL]
+                Slot1[1] --> NodeA[400] --> NodeB[500] --> Null2[NULL]
+                Slot2[2] --> Null3[NULL]
+                Slot5[5] --> NodeC[635] --> NodeD[425] --> Null4[NULL]
+            </div>
+            <div>
+                <h3>Load Factor (\(\lambda\))</h3>
+                <div class="formula-box">
+                    \[ \lambda = \frac{n}{m} \]
+                </div>
+                <ul>
+                    <li>\(n\): Number of keys</li>
+                    <li>\(m\): Table size</li>
+                </ul>
+                <p>If \(\lambda > 1\), it means there are more keys than slots. Separate Chaining handles this gracefully, while Open Addressing fails (requires resizing).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: COMPARISON -->
+    <section id="comparison">
+        <h2>8. Summary & Comparison</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Technique</th>
+                    <th>Formula</th>
+                    <th>Pros</th>
+                    <th>Cons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Linear Probing</strong></td>
+                    <td>\((h(k)+i)\%m\)</td>
+                    <td>Easy to implement, cache friendly.</td>
+                    <td><span class="tag bad">Primary Clustering</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Quad. Probing</strong></td>
+                    <td>\((h(k)+i^2)\%m\)</td>
+                    <td>Avoids primary clustering.</td>
+                    <td><span class="tag bad">Secondary Clustering</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Double Hashing</strong></td>
+                    <td>\((h_1(k) + i \cdot h_2(k))\%m\)</td>
+                    <td>Uniform distribution, no clustering.</td>
+                    <td>Computationally expensive (2 hashes).</td>
+                </tr>
+                <tr>
+                    <td><strong>Sep. Chaining</strong></td>
+                    <td>Linked Lists</td>
+                    <td>Handles \(\lambda > 1\), simple deletion.</td>
+                    <td>Extra memory (pointers), cache unfriendly.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Conclusion</h3>
+        <ul>
+            <li>Use <strong>Open Addressing</strong> when key size is known and \(\lambda \le 1\).</li>
+            <li>Use <strong>Separate Chaining</strong> when deletions are frequent or number of keys is unknown (\(\lambda > 1\)).</li>
+        </ul>
+    </section>
+
+</main>
+
+</body>
+</html>

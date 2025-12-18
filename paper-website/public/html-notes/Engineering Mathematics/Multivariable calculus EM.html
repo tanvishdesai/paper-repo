@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multivariable Calculus Cheat Sheet | GATE/Engineering Math</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- MathJax for Formulas -->
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #6366f1;
+            --accent: #f43f5e;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sidebar: #1e293b;
+            --text-main: #334155;
+            --text-heading: #0f172a;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --code-bg: #f1f5f9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-sidebar);
+            color: white;
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        .sidebar h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links { list-style: none; }
+        .nav-links li { margin-bottom: 0.5rem; }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            margin-left: 250px;
+            padding: 2rem 3rem;
+            max-width: 1200px;
+        }
+
+        .header-section {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+        .header-section h2 { font-size: 2.5rem; color: var(--text-heading); font-weight: 800; }
+        .header-section p { font-size: 1.1rem; color: var(--secondary); margin-top: 0.5rem; }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--text-heading);
+            border-left: 5px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Concepts & Formulas */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .formula-box {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .key-point {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Collapsible Examples */
+        details {
+            background-color: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        details summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            background-color: #f1f5f9;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details summary::after {
+            content: '+';
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        details[open] summary::after { content: '-'; }
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* SVG & Visuals */
+        .visual-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        th { background-color: #f1f5f9; font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h1>GATE Math<br><span style="font-size:0.8em; color:var(--secondary)">Calculus</span></h1>
+        <ul class="nav-links">
+            <li><a href="#double-integration">Double Integration</a></li>
+            <li><a href="#limits-strips">Limits & Strips</a></li>
+            <li><a href="#change-order">Change of Order</a></li>
+            <li><a href="#curve-length">Length of Curve</a></li>
+            <li><a href="#maxima-minima">Maxima & Minima</a></li>
+            <li><a href="#examples">Solved Examples</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <header class="header-section">
+            <span class="key-point">Engineering Mathematics</span>
+            <h2>Multivariable Calculus</h2>
+            <p>Comprehensive notes on Double Integrals, Order Change, Curve Lengths, and Optimization of Two Variables.</p>
+        </header>
+
+        <!-- Double Integration -->
+        <section id="double-integration" class="card">
+            <h3>Double Integration Concept</h3>
+            <p>The double integral represents the <strong>volume</strong> under the surface $z = f(x,y)$ over a region $R$ in the $xy$-plane.</p>
+            
+            <div class="formula-box">
+                $$ Volume = \iint_R f(x,y) \, dx \, dy $$
+                $$ Area = \iint_R 1 \, dx \, dy $$
+            </div>
+
+            <div class="concept-grid">
+                <div>
+                    <h4>Integration Process</h4>
+                    <p>It involves two independent variables ($x, y$) and one dependent variable ($z$). Integration is performed sequentially:</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li><strong>Inner Integral:</strong> Integrate with respect to the variable strip chosen (limits are functions).</li>
+                        <li><strong>Outer Integral:</strong> Integrate with respect to the remaining variable (limits are constants).</li>
+                    </ol>
+                </div>
+                <div class="visual-container">
+                   <svg width="200" height="150" viewBox="0 0 200 150">
+                       <!-- Axes -->
+                       <line x1="20" y1="130" x2="180" y2="130" stroke="black" stroke-width="2" marker-end="url(#arrow)" />
+                       <line x1="20" y1="130" x2="20" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)" />
+                       <text x="180" y="145" font-family="sans-serif" font-size="12">x</text>
+                       <text x="10" y="20" font-family="sans-serif" font-size="12">y</text>
+                       <!-- Region -->
+                       <path d="M50,130 Q80,50 150,80 L150,130 Z" fill="#e0f2fe" stroke="#3b82f6" stroke-width="2"/>
+                       <!-- Strip -->
+                       <rect x="90" y="80" width="10" height="50" fill="#f43f5e" opacity="0.6"/>
+                       <text x="105" y="90" font-size="10" fill="#f43f5e">dy (Vertical)</text>
+                   </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Limits and Strips -->
+        <section id="limits-strips" class="card">
+            <h3>Finding Limits: Vertical vs Horizontal Strips</h3>
+            <p>The order of integration ($dy dx$ or $dx dy$) determines how you define the limits.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Vertical Strip ($dy \, dx$)</th>
+                        <th>Horizontal Strip ($dx \, dy$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Inner Limit</strong></td>
+                        <td>Variable $y$ goes from $y_1 = f_1(x)$ to $y_2 = f_2(x)$ (Bottom to Top)</td>
+                        <td>Variable $x$ goes from $x_1 = g_1(y)$ to $x_2 = g_2(y)$ (Left to Right)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Outer Limit</strong></td>
+                        <td>Constant $x$ goes from $a$ to $b$ (Left to Right scan)</td>
+                        <td>Constant $y$ goes from $c$ to $d$ (Bottom to Top scan)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Integral Form</strong></td>
+                        <td>$$ \int_{a}^{b} \left[ \int_{f_1(x)}^{f_2(x)} f(x,y) \, dy \right] dx $$</td>
+                        <td>$$ \int_{c}^{d} \left[ \int_{g_1(y)}^{g_2(y)} f(x,y) \, dx \right] dy $$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Change of Order -->
+        <section id="change-order" class="card">
+            <h3>Change of Order of Integration</h3>
+            <p>Sometimes an integral is impossible to solve in the given order (e.g., $\int e^{x^2} dx$). We must change the order ($dy dx \to dx dy$) to solve it.</p>
+            
+            <div class="mermaid">
+            graph LR
+                A[Start: Given Integral] --> B[Step 1: Plot the Limits]
+                B --> C[Step 2: Identify Current Strip]
+                C --> D[Step 3: Draw NEW Strip (Rotate 90°)]
+                D --> E[Step 4: Find New Limits]
+                E --> F[Evaluate New Integral]
+                style D fill:#f43f5e,color:white
+            </div>
+
+            <details>
+                <summary>Example: $\int_0^1 \int_y^1 e^{x^2} dx dy$ (Why we need this)</summary>
+                <div class="details-content">
+                    <p><strong>Problem:</strong> $\int e^{x^2} dx$ has no elementary antiderivative. We cannot integrate $x$ first.</p>
+                    <p><strong>Limits:</strong> Inner: $x=y$ to $x=1$. Outer: $y=0$ to $y=1$.</p>
+                    <p><strong>Region:</strong> Triangle bounded by $y=0$ (x-axis), $x=1$ (vertical line), and $y=x$ (diagonal).</p>
+                    <p><strong>Change Strip:</strong> Originally Horizontal ($x$ varies). Change to Vertical ($y$ varies first).</p>
+                    <p><strong>New Limits:</strong>
+                        <br>Vertical strip starts at $y=0$ and ends at $y=x$.
+                        <br>Then $x$ runs from $0$ to $1$.
+                    </p>
+                    <p><strong>New Integral:</strong> $$ \int_0^1 \left[ \int_0^x e^{x^2} dy \right] dx $$</p>
+                    <p><strong>Solve:</strong> $\int_0^x dy = y |_0^x = x$.
+                    <br>Integral becomes $\int_0^1 x e^{x^2} dx$.
+                    <br>Let $x^2 = t \implies 2xdx = dt$. Answer: $\frac{1}{2}(e-1)$.</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- Length of Curves -->
+        <section id="curve-length" class="card">
+            <h3>Length of Curve (Arc Length)</h3>
+            <p>Calculates the length of a segment of a curve using integration.</p>
+
+            <div class="concept-grid">
+                <div>
+                    <h4>Case 1: Cartesian Form ($y = f(x)$)</h4>
+                    <div class="formula-box">
+                        $$ L = \int_{x_1}^{x_2} \sqrt{1 + \left(\frac{dy}{dx}\right)^2} \, dx $$
+                    </div>
+                    <p><em>Use when y is given as a function of x.</em></p>
+                </div>
+                <div>
+                    <h4>Case 2: Parametric Form ($x=f(t), y=g(t)$)</h4>
+                    <div class="formula-box">
+                        $$ L = \int_{t_1}^{t_2} \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2} \, dt $$
+                    </div>
+                    <p><em>Example: Cycloid, Circle, Ellipse.</em></p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--secondary);">
+                <strong>Note:</strong> For $x = f(y)$, swap variables: $L = \int \sqrt{1 + (dx/dy)^2} \, dy$.
+            </p>
+        </section>
+
+        <!-- Maxima and Minima -->
+        <section id="maxima-minima" class="card">
+            <h3>Maxima and Minima (Two Variables)</h3>
+            <p>To find local extrema for $z = f(x,y)$.</p>
+
+            <h4>1. Standard Notation</h4>
+            <ul style="display: flex; gap: 2rem; list-style: none; margin-bottom: 1.5rem; background: var(--code-bg); padding: 1rem; border-radius: 8px;">
+                <li>$p = \frac{\partial f}{\partial x}$</li>
+                <li>$q = \frac{\partial f}{\partial y}$</li>
+                <li>$r = \frac{\partial^2 f}{\partial x^2}$</li>
+                <li>$s = \frac{\partial^2 f}{\partial x \partial y}$</li>
+                <li>$t = \frac{\partial^2 f}{\partial y^2}$</li>
+            </ul>
+
+            <h4>2. The Algorithm</h4>
+            <ol>
+                <li>Find <strong>Stationary Points</strong>: Solve $p = 0$ and $q = 0$.</li>
+                <li>Calculate Discriminant: $\Delta = rt - s^2$ at these points.</li>
+                <li>Apply the Test Condition.</li>
+            </ol>
+
+            <div class="mermaid">
+            flowchart TD
+                A[Calculate rt - s^2] --> B{Value > 0?}
+                B -- Yes --> C{Value of r?}
+                C -- r < 0 --> D[Local MAXIMUM]
+                C -- r > 0 --> E[Local MINIMUM]
+                B -- No --> F{Value < 0?}
+                F -- Yes --> G[SADDLE POINT]
+                F -- No (Equal 0) --> H[Undecided / Further Invest.]
+                
+                style D fill:#10b981,stroke:#059669,color:white
+                style E fill:#3b82f6,stroke:#2563eb,color:white
+                style G fill:#f43f5e,stroke:#e11d48,color:white
+            </div>
+
+            <div class="formula-box" style="margin-top: 1.5rem;">
+                <strong>Lagrange's Method (Constrained Optimization):</strong><br>
+                For finding extrema of $f(x,y)$ subject to constraint $\phi(x,y) = 0$:<br>
+                Form function $F(x,y,\lambda) = f(x,y) + \lambda \phi(x,y)$ and solve $\nabla F = 0$.
+            </div>
+        </section>
+
+        <!-- Solved Examples -->
+        <section id="examples" class="card">
+            <h3>Solved Illustrations</h3>
+
+            <details>
+                <summary>Q1: Value of $\int \int xy \, dx \, dy$ over region $x+2y=2, x=0, y=0$</summary>
+                <div class="details-content">
+                    <p><strong>Region:</strong> Triangle with vertices $(0,0), (2,0), (0,1)$.</p>
+                    <p><strong>Using Horizontal Strip:</strong></p>
+                    <ul>
+                        <li>Inner Limit ($x$): $0$ to $2-2y$.</li>
+                        <li>Outer Limit ($y$): $0$ to $1$.</li>
+                    </ul>
+                    <p><strong>Integral:</strong>
+                    $$ \int_0^1 \left[ \int_0^{2-2y} x \, dx \right] y \, dy $$
+                    $$ = \int_0^1 y \left[ \frac{x^2}{2} \right]_0^{2-2y} dy $$
+                    $$ = \int_0^1 y \frac{(2-2y)^2}{2} dy $$
+                    Evaluate to get result: <strong>1/6</strong>.
+                    </p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Q2: Change Order: $\int_0^{\pi} \int_0^x \frac{\sin y}{\pi - y} dy dx$</summary>
+                <div class="details-content">
+                    <p><strong>Original Limits:</strong> $y: 0 \to x$, $x: 0 \to \pi$. (Vertical Strip).</p>
+                    <p><strong>Integrand:</strong> $\frac{\sin y}{\pi - y}$ is constant w.r.t $x$.</p>
+                    <p><strong>New Limits (Horizontal Strip):</strong>
+                        <br> $x$ goes from $y$ to $\pi$.
+                        <br> $y$ goes from $0$ to $\pi$.
+                    </p>
+                    <p><strong>New Integral:</strong>
+                    $$ \int_0^{\pi} \frac{\sin y}{\pi - y} \left[ \int_y^{\pi} dx \right] dy $$
+                    $$ = \int_0^{\pi} \frac{\sin y}{\pi - y} (\pi - y) \, dy $$
+                    $$ = \int_0^{\pi} \sin y \, dy = [-\cos y]_0^{\pi} = -(-1) - (-1) = 2 $$
+                    </p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Q3: Maxima/Minima of $f(x,y) = x^2 - y^2$ at (0,0)</summary>
+                <div class="details-content">
+                    <p><strong>Derivatives:</strong>
+                        <br> $p = 2x, q = -2y$. Stationary point at $(0,0)$.
+                        <br> $r = 2, s = 0, t = -2$.
+                    </p>
+                    <p><strong>Discriminant:</strong>
+                        <br> $rt - s^2 = (2)(-2) - 0 = -4$.
+                    </p>
+                    <p><strong>Conclusion:</strong>
+                        <br> Since $rt - s^2 < 0$, it is a <strong>Saddle Point</strong>. (Neither max nor min).
+                    </p>
+                </div>
+            </details>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

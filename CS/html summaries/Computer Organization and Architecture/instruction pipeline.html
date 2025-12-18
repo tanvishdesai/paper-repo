@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Cheat Sheet: Instruction Pipelining</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#e0e7ff',
+                primaryTextColor: '#1e1b4b',
+                primaryBorderColor: '#4338ca',
+                lineColor: '#6366f1',
+                secondaryColor: '#f0fdf4',
+                tertiaryColor: '#fff1f2'
+            }
+        });
+    </script>
+
+    <style>
+        :root {
+            --primary: #4338ca;
+            --primary-light: #e0e7ff;
+            --secondary: #059669;
+            --accent: #db2777;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --code-bg: #1e1b4b;
+            --code-text: #a5b4fc;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        nav h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.5rem 0;
+            color: #334155;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Definitions & Key Terms */
+        .term {
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* Formulas */
+        .formula-box {
+            background: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Collapsible Details */
+        details {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 0.5rem;
+            color: var(--primary);
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-hazard {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+        .tag-yellow { background: #fef3c7; color: #92400e; }
+        .tag-green { background: #dcfce7; color: #166534; }
+
+        @media (max-width: 768px) {
+            body { grid-template-columns: 1fr; }
+            nav { display: none; } /* Simplified for mobile */
+            main { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h1>Instruction Pipelining</h1>
+        <a href="#overview">Overview</a>
+        <a href="#metrics">Performance Metrics</a>
+        <a href="#stages">Pipeline Stages (RISC)</a>
+        <a href="#hazards">Pipeline Hazards</a>
+        <a href="#data-hazards">Data Hazards & Solutions</a>
+        <a href="#control-hazards">Control Hazards</a>
+        <a href="#formulas">Formula Cheat Sheet</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <header id="overview">
+            <h1>Instruction Pipelining Cheat Sheet</h1>
+            <p>A comprehensive guide to improving system performance by overlapping instruction execution. Includes RISC architecture, Performance Evaluation, and Hazard Handling.</p>
+        </header>
+
+        <!-- Concept -->
+        <section class="card">
+            <h2>1. The Concept</h2>
+            <div class="grid-2">
+                <div>
+                    <p><strong>Pipelining</strong> is a technique where multiple instructions are overlapped in execution. It is analogous to an assembly line.</p>
+                    <p>Rather than finishing one instruction completely before starting the next (Sequential), we break execution into <span class="term">Stages</span> (Segments).</p>
+                    <br>
+                    <ul>
+                        <li><strong>Input:</strong> New instruction enters at one end.</li>
+                        <li><strong>Throughput:</strong> Rate at which instructions exit the pipeline.</li>
+                        <li><strong>Clock:</strong> All stages operate under a common synchronized clock.</li>
+                    </ul>
+                </div>
+                <div class="mermaid">
+                    graph LR
+                    A[Input] --> B[Stage 1]
+                    B -->|Buffer| C[Stage 2]
+                    C -->|Buffer| D[Stage 3]
+                    D -->|Buffer| E[Stage 4]
+                    E --> F[Output]
+                    style B fill:#e0e7ff,stroke:#4338ca
+                    style C fill:#e0e7ff,stroke:#4338ca
+                    style D fill:#e0e7ff,stroke:#4338ca
+                    style E fill:#e0e7ff,stroke:#4338ca
+                </div>
+            </div>
+        </section>
+
+        <!-- Metrics -->
+        <section id="metrics">
+            <h2>2. Performance Evaluation</h2>
+            
+            <div class="card">
+                <h3>Cycle Time (\(t_p\))</h3>
+                <p>The clock cycle time is determined by the slowest stage in the pipeline.</p>
+                
+                <div class="grid-2">
+                    <div class="formula-box">
+                        <p><strong>Uniform Delay:</strong></p>
+                        $$ t_p = \text{Stage Delay} + \text{Buffer Delay} $$
+                    </div>
+                    <div class="formula-box">
+                        <p><strong>Non-Uniform Delay:</strong></p>
+                        $$ t_p = \max(\text{Stage Delays}) + \text{Buffer Delay} $$
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Execution Time (ET)</h3>
+                <p>Time to execute \(n\) instructions with \(k\) stages.</p>
+                
+                <div class="grid-2">
+                    <div>
+                        <h4>Non-Pipelined</h4>
+                        $$ ET_{non-pipe} = n \times t_n $$
+                        <small>Where \(t_n\) is time for 1 instruction (sum of all stages).</small>
+                    </div>
+                    <div>
+                        <h4>Pipelined</h4>
+                        $$ ET_{pipe} = [k + (n-1)] \times t_p $$
+                        <small>First instruction takes \(k\) cycles, remaining \(n-1\) take 1 cycle each.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Speedup (S) & CPI</h3>
+                <div class="formula-box">
+                    $$ S = \frac{ET_{non-pipe}}{ET_{pipe}} = \frac{n \times t_n}{[k + (n-1)] \times t_p} $$
+                </div>
+                <ul>
+                    <li><strong>Ideal Speedup:</strong> When \(n\) is very large (infinite), \(S_{ideal} = \frac{t_n}{t_p}\).</li>
+                    <li><strong>Perfectly Balanced Stages:</strong> \(t_n = k \times t_p\), so Max Speedup \(= k\).</li>
+                    <li><strong>Ideal CPI:</strong> Cycles Per Instruction in a pipeline = 1.</li>
+                    <li><strong>Actual CPI:</strong> \(1 + \text{Stalls per Instruction}\).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- RISC Stages -->
+        <section id="stages" class="card">
+            <h2>3. Classic 5-Stage RISC Pipeline</h2>
+            <div class="mermaid">
+                gantt
+                title Instruction Execution Overlap
+                dateFormat s
+                axisFormat %s
+                
+                section Instr 1
+                IF :a1, 0, 1
+                ID :a2, 1, 2
+                EX :a3, 2, 3
+                MA :a4, 3, 4
+                WB :a5, 4, 5
+                
+                section Instr 2
+                IF :b1, 1, 2
+                ID :b2, 2, 3
+                EX :b3, 3, 4
+                MA :b4, 4, 5
+                WB :b5, 5, 6
+                
+                section Instr 3
+                IF :c1, 2, 3
+                ID :c2, 3, 4
+                EX :c3, 4, 5
+                MA :c4, 5, 6
+                WB :c5, 6, 7
+            </div>
+            <table>
+                <tr>
+                    <th>Stage</th>
+                    <th>Full Name</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>IF</strong></td>
+                    <td>Instruction Fetch</td>
+                    <td>Read instruction from memory (I-Cache).</td>
+                </tr>
+                <tr>
+                    <td><strong>ID</strong></td>
+                    <td>Instruction Decode</td>
+                    <td>Decode opcode and read operands from Register File.</td>
+                </tr>
+                <tr>
+                    <td><strong>EX</strong></td>
+                    <td>Execution</td>
+                    <td>ALU operations (Add, Sub) or Address Calculation.</td>
+                </tr>
+                <tr>
+                    <td><strong>MA</strong></td>
+                    <td>Memory Access</td>
+                    <td>Read/Write data from Data Memory (Load/Store).</td>
+                </tr>
+                <tr>
+                    <td><strong>WB</strong></td>
+                    <td>Write Back</td>
+                    <td>Write result back to Register File.</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Hazards -->
+        <section id="hazards">
+            <h2>4. Pipeline Hazards</h2>
+            <p>Hazards prevent the next instruction from executing during its designated clock cycle. They cause <span class="term">Stalls</span> (Bubbles).</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3><span class="tag-hazard tag-red">Structural Hazard</span></h3>
+                    <p><strong>Cause:</strong> Hardware Resource Conflict. Two instructions try to use the same resource at the same time.</p>
+                    <p><em>Example:</em> IF stage and MA stage both trying to access Main Memory in the same cycle.</p>
+                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid var(--border);">
+                    <p><strong>Solution:</strong></p>
+                    <ul>
+                        <li><strong>Resource Replication:</strong> Separate Instruction Cache (I-Cache) and Data Cache (D-Cache).</li>
+                        <li><strong>Renaming:</strong> Memory interleaving.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3><span class="tag-hazard tag-yellow">Control Hazard</span></h3>
+                    <p><strong>Cause:</strong> Branch Instructions. The pipeline decision depends on the result of a previous instruction (Jump/Branch), changing the PC (Program Counter).</p>
+                    <p><em>Effect:</em> Instructions fetched after the branch might need to be flushed.</p>
+                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid var(--border);">
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li><strong>Prediction:</strong> Static (Always Taken/Not Taken) or Dynamic (Branch Prediction Buffer).</li>
+                        <li><strong>Delayed Branch:</strong> Compiler rearranges safe instructions into the "delay slot" after the branch.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Hazards -->
+        <section id="data-hazards" class="card">
+            <h2>5. Data Hazards</h2>
+            <p>Occur when instructions depend on the results of previous instructions that haven't finished yet.</p>
+
+            <h3>Types of Dependencies</h3>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Hazard?</th>
+                </tr>
+                <tr>
+                    <td>RAW</td>
+                    <td>Read After Write</td>
+                    <td>J reads before I writes (True Dependency). J gets old data.</td>
+                    <td><span class="tag-hazard tag-red">YES</span></td>
+                </tr>
+                <tr>
+                    <td>WAR</td>
+                    <td>Write After Read</td>
+                    <td>J writes before I reads (Anti-Dependency). I gets new data (wrong).</td>
+                    <td>Rare*</td>
+                </tr>
+                <tr>
+                    <td>WAW</td>
+                    <td>Write After Write</td>
+                    <td>J writes before I writes (Output Dependency). Final value is wrong.</td>
+                    <td>Rare*</td>
+                </tr>
+            </table>
+            <small>*WAR and WAW usually solved by Register Renaming and occur mostly in Out-of-Order execution processors.</small>
+
+            <br>
+            
+            <h3>Solution: Operand Forwarding (Bypassing)</h3>
+            <p>Instead of waiting for the value to be written to the Register File (WB stage), hardware routes the data directly from the ALU output (EX stage) or Memory output (MA stage) to the input of the next instruction.</p>
+
+            <div class="mermaid">
+                sequenceDiagram
+                    participant I1 as Instruction 1 (ADD)
+                    participant I2 as Instruction 2 (SUB)
+                    
+                    Note over I1, I2: Without Forwarding (Stall needed)
+                    I1->>I1: EX (Result Ready)
+                    I1->>I1: MA
+                    I1->>I1: WB (Write to Reg)
+                    I2->>I2: ID (Read Reg - STALL)
+                    
+                    Note over I1, I2: With Forwarding
+                    I1->>I1: EX (Result calculated)
+                    I1-->>I2: Hardware Forwarding Path
+                    I2->>I2: EX (Uses forwarded result)
+            </div>
+
+            <details>
+                <summary><strong>Advanced Concept: Split-Phase Register Access</strong></summary>
+                <p>To reduce stalls further, the Register File can be designed to write in the <strong>first half</strong> of the clock cycle and read in the <strong>second half</strong>.</p>
+                <p>This allows WB (Write Back) of Instruction 1 and ID (Instruction Decode/Read) of Instruction 2 to happen in the same cycle without a hazard.</p>
+            </details>
+        </section>
+
+        <!-- Formulas Summary -->
+        <section id="formulas" class="card">
+            <h2>6. Formula Cheat Sheet</h2>
+            <table style="width: 100%;">
+                <tr>
+                    <td><strong>Execution Time (Pipeline)</strong></td>
+                    <td>\( ET_{pipe} = (k + n - 1) \times t_p \)</td>
+                </tr>
+                <tr>
+                    <td><strong>Cycle Time (\(t_p\))</strong></td>
+                    <td>\( \max(\text{Stage Delays}) + \text{Buffer Delay} \)</td>
+                </tr>
+                <tr>
+                    <td><strong>Ideal Speedup</strong></td>
+                    <td>\( S = k \) (Number of stages)</td>
+                </tr>
+                <tr>
+                    <td><strong>Throughput</strong></td>
+                    <td>\( \frac{1}{t_p} \) (Instructions per second)</td>
+                </tr>
+                <tr>
+                    <td><strong>Efficiency</strong></td>
+                    <td>\( \frac{S}{k} \)</td>
+                </tr>
+                <tr>
+                    <td><strong>CPI with Stalls</strong></td>
+                    <td>\( 1 + \text{Average Stalls per Instruction} \)</td>
+                </tr>
+                <tr>
+                    <td><strong>Branch Penalty</strong></td>
+                    <td>If target known at stage \(k\): Penalty = \(k - 1\) cycles</td>
+                </tr>
+            </table>
+        </section>
+
+    </main>
+</body>
+</html>

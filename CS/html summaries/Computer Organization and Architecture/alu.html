@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COA Cheat Sheet: ALU & Control Unit</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { primaryColor: '#008080', edgeLabelBackground:'#fff' } });
+    </script>
+
+    <style>
+        :root {
+            --primary: #008080; /* Teal from slides */
+            --primary-dark: #005a5a;
+            --secondary: #2d3436;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+            --code-bg: #f1f3f5;
+            --accent: #e17055;
+            --border: #dfe6e9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background: var(--secondary);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        nav h1 { font-size: 1.2rem; margin-bottom: 2rem; color: var(--primary); font-weight: 700; letter-spacing: -0.5px; }
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.8rem; }
+        nav a { text-decoration: none; color: #b2bec3; font-size: 0.95rem; transition: 0.2s; display: block; padding: 0.5rem; border-radius: 6px; }
+        nav a:hover, nav a.active { color: white; background: rgba(255,255,255,0.1); transform: translateX(5px); }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            overflow-x: hidden;
+        }
+
+        h2 { font-size: 2rem; color: var(--secondary); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary); }
+        h3 { font-size: 1.4rem; color: var(--primary-dark); margin: 2rem 0 1rem 0; }
+        h4 { font-size: 1.1rem; font-weight: 700; margin-top: 1rem; }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; }
+        th { background-color: var(--code-bg); color: var(--primary-dark); font-weight: 600; }
+        tr:hover { background-color: #fafafa; }
+
+        /* Code & RTL */
+        .rtl { font-family: 'Fira Code', monospace; background: var(--secondary); color: #00cec9; padding: 1rem; border-radius: 8px; margin: 1rem 0; font-size: 0.9rem; }
+        .keyword { color: #fab1a0; }
+        .signal { color: #81ecec; }
+
+        /* Visualizations */
+        .bit-structure {
+            display: flex;
+            margin: 2rem 0;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .bit-field {
+            padding: 1rem;
+            text-align: center;
+            border-right: 1px solid var(--secondary);
+            background: white;
+            flex-grow: 1;
+        }
+        .bit-field:last-child { border-right: none; }
+        .bit-label { font-weight: bold; display: block; color: var(--primary-dark); }
+        .bit-size { font-size: 0.8rem; color: #636e72; font-family: 'Fira Code', monospace; }
+
+        /* Collapsible */
+        details { background: var(--code-bg); padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        summary { cursor: pointer; font-weight: 600; color: var(--primary-dark); }
+        details[open] summary { margin-bottom: 1rem; border-bottom: 1px solid #ccc; padding-bottom: 0.5rem; }
+
+        /* Formulas */
+        .formula-box {
+            background: #e0f7fa;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: relative; }
+            main { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h1>COA Cheat Sheet</h1>
+        <ul>
+            <li><a href="#overview">Overview & Components</a></li>
+            <li><a href="#bus-system">Common Bus System</a></li>
+            <li><a href="#instruction-cycle">Instruction Cycle</a></li>
+            <li><a href="#control-unit">Control Unit Design</a></li>
+            <li><a href="#micro-formats">Micro-Instruction Formats</a></li>
+            <li><a href="#performance">CPU Performance</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- 1. Overview -->
+        <section id="overview" class="card">
+            <h2>1. System Overview</h2>
+            <p>The Computer Organization & Architecture (COA) focuses on the structural relationships and functional operations of the computer system.</p>
+            
+            <h3>Core Components</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background:var(--code-bg); padding:1rem; border-radius:8px;">
+                    <h4>CPU</h4>
+                    <p>The brain. Contains Registers, ALU, and Control Unit.</p>
+                </div>
+                <div style="background:var(--code-bg); padding:1rem; border-radius:8px;">
+                    <h4>Registers</h4>
+                    <p>High-speed temporary storage (Flip-Flops). E.g., PC, IR, MAR, MBR, AC.</p>
+                </div>
+                <div style="background:var(--code-bg); padding:1rem; border-radius:8px;">
+                    <h4>ALU</h4>
+                    <p>Hardware unit for Arithmetic (Add, Sub) and Logical (AND, OR) operations.</p>
+                </div>
+                <div style="background:var(--code-bg); padding:1rem; border-radius:8px;">
+                    <h4>Control Unit</h4>
+                    <p>The supervisor. Generates timing and control signals to coordinate operations.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top:2rem;">Key Registers</h3>
+            <table>
+                <tr>
+                    <th>Register</th>
+                    <th>Full Name</th>
+                    <th>Function</th>
+                </tr>
+                <tr><td>PC</td><td>Program Counter</td><td>Holds address of the <strong>next</strong> instruction.</td></tr>
+                <tr><td>IR</td><td>Instruction Register</td><td>Holds the instruction currently being executed.</td></tr>
+                <tr><td>MAR</td><td>Memory Address Register</td><td>Connected to Address Bus. Specifies location for Read/Write.</td></tr>
+                <tr><td>MBR/MDR</td><td>Memory Buffer Register</td><td>Connected to Data Bus. Holds data read from or written to memory.</td></tr>
+                <tr><td>AC</td><td>Accumulator</td><td>General purpose register for ALU operations.</td></tr>
+            </table>
+        </section>
+
+        <!-- 2. Common Bus System -->
+        <section id="bus-system" class="card">
+            <h2>2. Common Bus System</h2>
+            <p>Instead of connecting every component to every other component ($20$ components $\approx 200+$ connections), we use a <strong>Common Bus</strong>.</p>
+
+            <div class="formula-box">
+                <h4>Multiplexer (MUX) Logic</h4>
+                <p>The bus is constructed using Multiplexers.</p>
+                <ul>
+                    <li>If we have <strong>k</strong> registers of <strong>n</strong> bits each:</li>
+                    <li><strong>Number of MUX needed:</strong> $n$ (one for each bit position).</li>
+                    <li><strong>Size of each MUX:</strong> $k \times 1$ (k inputs selected by select lines).</li>
+                    <li><strong>Number of Select Lines:</strong> $S = \lceil \log_2 k \rceil$.</li>
+                </ul>
+            </div>
+
+            <div class="mermaid">
+            graph TD
+                subgraph "Logic Flow"
+                R[Registers A, B, C, D] -->|Inputs| M[Multiplexers]
+                S[Select Lines S1, S0] -->|Control| M
+                M -->|Output| B[Common Bus]
+                B -->|Load| Dest[Destination Register]
+                end
+            </div>
+
+            <h3>Data Transfer Micro-operation</h3>
+            <p>To transfer data from Register A to Register B ($R_A \to R_B$):</p>
+            <ol>
+                <li><strong>Select Register A:</strong> Set MUX Select lines to index of A.</li>
+                <li><strong>Place on Bus:</strong> Content of A appears on the Bus.</li>
+                <li><strong>Load Register B:</strong> Activate the <code>Load (LD)</code> or <code>R_in</code> signal of Register B.</li>
+            </ol>
+        </section>
+
+        <!-- 3. Instruction Cycle -->
+        <section id="instruction-cycle" class="card">
+            <h2>3. Instruction Cycle</h2>
+            <p>The operational sequence of the CPU: <strong>Fetch $\to$ Decode $\to$ Execute $\to$ Interrupt</strong>.</p>
+
+            <div class="mermaid">
+            stateDiagram-v2
+                [*] --> Fetch
+                Fetch --> Decode
+                Decode --> Execute
+                Execute --> InterruptCheck
+                InterruptCheck --> Fetch : No Interrupt
+                InterruptCheck --> InterruptCycle : Yes Interrupt
+                InterruptCycle --> Fetch
+            </div>
+
+            <h3>RTL: Register Transfer Language</h3>
+            <p>Standard micro-operations for the basic cycles.</p>
+
+            <details open>
+                <summary>Fetch Cycle (Hardware Flow)</summary>
+                <div class="rtl">
+                    T1: PC &rarr; MAR<br>
+                    T2: M[MAR] &rarr; MBR;  PC + 1 &rarr; PC<br>
+                    T3: MBR &rarr; IR
+                </div>
+                <p style="font-size:0.9rem; color:#666;">Note: Fetching instruction from memory to IR and incrementing PC.</p>
+            </details>
+
+            <details>
+                <summary>Indirect Cycle (Operand Fetch)</summary>
+                <div class="rtl">
+                    T1: IR(Address) &rarr; MAR<br>
+                    T2: M[MAR] &rarr; MBR<br>
+                    T3: MBR &rarr; IR(Address)
+                </div>
+                <p style="font-size:0.9rem; color:#666;">Used when the address in instruction points to another address (pointer).</p>
+            </details>
+
+            <details>
+                <summary>Interrupt Cycle</summary>
+                <div class="rtl">
+                    T1: PC &rarr; MBR<br>
+                    T2: SP &rarr; MAR;  Vector_Address &rarr; PC<br>
+                    T3: MBR &rarr; Memory[MAR]
+                </div>
+                <p style="font-size:0.9rem; color:#666;">Saving return address (PC) to Stack and loading Interrupt Service Routine address.</p>
+            </details>
+        </section>
+
+        <!-- 4. Control Unit Design -->
+        <section id="control-unit" class="card">
+            <h2>4. Control Unit Design</h2>
+            <p>The Control Unit (CU) generates control signals to activate micro-operations. There are two main approaches.</p>
+
+            <h3>Comparison: Hardwired vs. Micro-programmed</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Hardwired CU</th>
+                        <th>Micro-programmed CU</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Implementation</strong></td>
+                        <td>Logic Gates, Flip-flops, Decoders (Hardware).</td>
+                        <td>Control Memory (ROM) storing micro-instructions (Software/Firmware).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Speed</strong></td>
+                        <td><strong>Fastest</strong> (Direct circuit execution).</td>
+                        <td>Slower (Memory access time).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flexibility</strong></td>
+                        <td>Rigid. Hard to modify.</td>
+                        <td>Flexible. Easy to update code.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Design Complexity</strong></td>
+                        <td>Complex for large instruction sets.</td>
+                        <td>Systematic and simpler.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Architecture</strong></td>
+                        <td>Used in <strong>RISC</strong>.</td>
+                        <td>Used in <strong>CISC</strong>.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Hardwired Logic Design</h3>
+            <p>Control signals are expressed as Boolean functions of Instruction Decodes (I) and Timing Signals (T).</p>
+            <div class="formula-box">
+                $$ \text{Signal}_{Ain} = T_1 \cdot I_1 + T_2 \cdot I_3 + \dots $$
+                <p>This implies the signal $A_{in}$ is active during time $T_1$ for instruction $I_1$ OR time $T_2$ for instruction $I_3$.</p>
+            </div>
+        </section>
+
+        <!-- 5. Micro-Instruction Formats -->
+        <section id="micro-formats" class="card">
+            <h2>5. Micro-Instruction Formats</h2>
+            <p>In a Micro-programmed CU, control information is stored in words. The format determines how control signals are encoded.</p>
+
+            <h3>Control Word Structure</h3>
+            <div class="bit-structure">
+                <div class="bit-field">
+                    <span class="bit-label">Condition</span>
+                    <span class="bit-size">Select Branch Logic</span>
+                </div>
+                <div class="bit-field">
+                    <span class="bit-label">Branch Address</span>
+                    <span class="bit-size">Next Address (CAR)</span>
+                </div>
+                <div class="bit-field" style="background:#e0f7fa;">
+                    <span class="bit-label">Control Field</span>
+                    <span class="bit-size">The Control Signals</span>
+                </div>
+            </div>
+
+            <h3>Horizontal vs. Vertical Micro-programming</h3>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h4>Horizontal (Decoded)</h4>
+                    <ul>
+                        <li><strong>1 bit per control signal.</strong></li>
+                        <li>No external decoder needed.</li>
+                        <li>Long control words (High bit count).</li>
+                        <li>Allows high parallelism.</li>
+                        <li><strong>Example:</strong> 50 Control Signals $\to$ 50 bits.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Vertical (Encoded)</h4>
+                    <ul>
+                        <li><strong>Encoded bits.</strong> Requires Decoder.</li>
+                        <li>Shorter control words.</li>
+                        <li>Slower (Decoding delay).</li>
+                        <li>Low parallelism.</li>
+                        <li><strong>Example:</strong> 50 Control Signals $\to \lceil \log_2 50 \rceil = 6$ bits.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <h4>Calculation: Control Memory Size</h4>
+                $$ \text{Size} = 2^{\text{CAR Size}} \times \text{Control Word Width} $$
+                <p>If CAR is 10 bits, Control Memory has $2^{10} = 1024$ words.</p>
+            </div>
+        </section>
+
+        <!-- 6. Performance -->
+        <section id="performance" class="card">
+            <h2>6. Performance Metrics</h2>
+            <p>Quantifying the speed of a processor.</p>
+
+            <h3>Key Formulas</h3>
+            
+            <div class="formula-box">
+                $$ \text{Cycle Time } (\tau) = \frac{1}{\text{Clock Frequency}} $$
+            </div>
+
+            <div class="formula-box">
+                $$ \text{Execution Time (ET)} = \text{Instruction Count (IC)} \times \text{CPI} \times \text{Cycle Time} $$
+                <p><strong>CPI:</strong> Cycles Per Instruction (Average).</p>
+            </div>
+
+            <div class="formula-box">
+                $$ \text{MIPS} = \frac{\text{Clock Rate}}{\text{CPI} \times 10^6} $$
+                <p>Million Instructions Per Second.</p>
+            </div>
+
+            <h3>Example Calculation</h3>
+            <div style="background:var(--code-bg); padding:1.5rem; border-radius:8px;">
+                <p><strong>Given:</strong> 100 Instructions. Each takes 6 cycles. Processor 1 GHz.</p>
+                <hr style="margin:1rem 0; border:0; border-top:1px solid #ccc;">
+                <p>1. <strong>Cycle Time:</strong> $1 / 10^9 \text{ Hz} = 1 \text{ ns}$</p>
+                <p>2. <strong>Total Cycles:</strong> $100 \times 6 = 600$ cycles</p>
+                <p>3. <strong>Execution Time:</strong> $600 \times 1 \text{ ns} = 600 \text{ ns}$</p>
+            </div>
+
+            <h3 style="margin-top:2rem;">Speedup / Gain</h3>
+            <p>When comparing two designs (Old vs New):</p>
+            <div class="formula-box">
+                $$ \text{Speedup} = \frac{\text{Performance}_{\text{new}}}{\text{Performance}_{\text{old}}} = \frac{\text{Execution Time}_{\text{old}}}{\text{Execution Time}_{\text{new}}} $$
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align:center; padding: 2rem; color: #b2bec3; font-size: 0.8rem;">
+            Generated from Lecture Notes 01-05 | Computer Organization & Architecture
+        </footer>
+
+    </main>
+
+</body>
+</html>

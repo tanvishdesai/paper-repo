@@ -6,13 +6,20 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, Loader2, Bot, User } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import { Send, Loader2, Bot, User, Lightbulb, ListOrdered, BookOpen } from 'lucide-react';
 import { Doc } from '@/convex/_generated/dataModel';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
+  isJson?: boolean;
+  structuredData?: {
+    explanation: string;
+    steps: string[];
+    key_concepts: string[];
+  };
 }
 
 interface ChatDialogProps {
@@ -81,11 +88,28 @@ export function ChatDialog({ isOpen, onClose, question }: ChatDialogProps) {
       }
 
       const data = await response.json();
+      const rawContent = data.response;
+      
+      // Try to parse JSON response
+      let structuredData = null;
+      let isJson = false;
+      try {
+        // Attempt to clean markdown if present (e.g. ```json ... ```)
+        const cleanContent = rawContent.replace(/```json\n?|\n?```/g, "").trim();
+        structuredData = JSON.parse(cleanContent);
+        if (structuredData.explanation && structuredData.steps) {
+             isJson = true;
+        }
+      } catch (e) {
+        // Not JSON, continue as text
+      }
 
       const assistantMessage: Message = {
         role: 'assistant',
-        content: data.response,
+        content: rawContent,
         timestamp: new Date(),
+        isJson,
+        structuredData
       };
 
       setMessages(prev => [...prev, assistantMessage]);
@@ -166,19 +190,70 @@ Please explain step by step, starting from the very basics.`;
                   </div>
                 )}
                 <div
-                  className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                  className={`max-w-[85%] rounded-lg px-4 py-2 ${
                     message.role === 'user'
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-muted'
                   }`}
                 >
-                  <div className="text-sm leading-relaxed prose prose-sm prose-slate max-w-none prose-p:my-2 prose-headings:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-1 prose-pre:my-2 prose-code:text-xs prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded">
-                    {message.role === 'assistant' ? (
-                      <ReactMarkdown>{message.content}</ReactMarkdown>
+                    {message.role === 'assistant' && message.isJson && message.structuredData ? (
+                        <div className="space-y-4 py-1">
+                            {/* Summary Section */}
+                            <div className="flex gap-2 items-start">
+                                <Lightbulb className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <h4 className="font-semibold text-sm mb-1">Explanation</h4>
+                                    <div className="text-sm text-foreground/90 prose prose-sm prose-slate max-w-none prose-p:my-1 prose-headings:my-1 prose-strong:text-foreground">
+                                      <ReactMarkdown>{message.structuredData.explanation}</ReactMarkdown>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* Steps Section */}
+                            <div className="flex gap-2 items-start bg-background/50 p-3 rounded-md">
+                                <ListOrdered className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                                <div className="w-full">
+                                    <h4 className="font-semibold text-sm mb-2">Step-by-Step Guide</h4>
+                                    <ol className="list-none space-y-2 m-0 p-0 text-sm">
+                                        {message.structuredData.steps.map((step, i) => (
+                                            <li key={i} className="flex gap-2 relative pl-1">
+                                                <span className="font-mono text-xs text-muted-foreground mt-0.5">{i + 1}.</span>
+                                                <div className="text-foreground/90 prose prose-sm prose-slate max-w-none prose-p:my-0 prose-strong:text-foreground">
+                                                  <ReactMarkdown>{step}</ReactMarkdown>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ol>
+                                </div>
+                            </div>
+
+                            {/* Key Concepts Section */}
+                            {message.structuredData.key_concepts && message.structuredData.key_concepts.length > 0 && (
+                                <div className="flex gap-2 items-start pt-1">
+                                    <BookOpen className="h-4 w-4 text-blue-500 flex-shrink-0 mt-1" />
+                                    <div>
+                                        <h4 className="font-semibold text-xs mb-2 uppercase tracking-wide text-muted-foreground">Key Concepts</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {message.structuredData.key_concepts.map((concept, i) => (
+                                                <Badge key={i} variant="secondary" className="text-xs">
+                                                    {concept}
+                                                </Badge>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     ) : (
-                      <div className="whitespace-pre-wrap">{message.content}</div>
+                      <div className="text-sm leading-relaxed prose prose-sm prose-slate max-w-none prose-p:my-2 prose-headings:my-2 prose-ul:my-2 prose-ol:my-2 prose-li:my-1 prose-pre:my-2 prose-code:text-xs prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded">
+                        {message.role === 'assistant' ? (
+                          <ReactMarkdown>{message.content}</ReactMarkdown>
+                        ) : (
+                          <div className="whitespace-pre-wrap">{message.content}</div>
+                        )}
+                      </div>
                     )}
-                  </div>
+                  
                   <div className="text-xs opacity-70 mt-1">
                     {formatTime(message.timestamp)}
                   </div>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE Verbal Aptitude: Cheat Sheet</title>
+    <!-- Fonts & Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Mermaid JS for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 260px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        aside h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li { margin-bottom: 0.5rem; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            display: block;
+            padding: 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 260px;
+            padding: 2rem 3rem;
+            flex: 1;
+            max-width: 1200px;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .subtitle { color: var(--text-light); font-size: 1.1rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+
+        h2 { 
+            font-size: 1.75rem; 
+            color: var(--text); 
+            border-left: 5px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 { font-size: 1.25rem; margin-top: 1.5rem; color: var(--primary-dark); }
+
+        /* Cards & Rules */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .rule-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .rule-card strong { color: var(--primary); }
+
+        /* Comparison Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin: 1rem 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th { background: #f1f5f9; font-weight: 600; }
+
+        /* Examples Correct/Incorrect */
+        .example {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            background: #f8fafc;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .example.correct { border-left: 4px solid var(--success); }
+        .example.wrong { border-left: 4px solid var(--danger); text-decoration: line-through; opacity: 0.7; }
+        
+        .icon-check { color: var(--success); }
+        .icon-cross { color: var(--danger); }
+
+        /* Diagrams */
+        .mermaid-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            aside { display: none; }
+            main { margin-left: 0; padding: 1rem; }
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #e0e7ff;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<aside>
+    <h2><i class="fas fa-graduation-cap"></i> GATE Verbal</h2>
+    <nav>
+        <ul>
+            <li><a href="#pronouns" class="active">Pronouns</a></li>
+            <li><a href="#adjectives">Adjectives & Degrees</a></li>
+            <li><a href="#adverbs">Adverbs & Placement</a></li>
+            <li><a href="#sva">Subject-Verb Agreement</a></li>
+            <li><a href="#conditionals">Conditionals (If-Clauses)</a></li>
+            <li><a href="#prepositions">Prepositions</a></li>
+            <li><a href="#reasoning">Critical Reasoning</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<main>
+    <header>
+        <span class="tag">GATE 2025</span>
+        <h1>Verbal Aptitude Cheat Sheet</h1>
+        <div class="subtitle">Comprehensive notes on Vocabulary, Grammar Rules, and Common Errors.</div>
+    </header>
+
+    <!-- SECTION 1: PRONOUNS -->
+    <section id="pronouns">
+        <h2>1. Pronouns & Relative Clauses</h2>
+        <div class="mermaid-container">
+            <div class="mermaid">
+                flowchart LR
+                    A[Relative Pronoun] --> B{Object Type?}
+                    B -->|Humans| C[Who / Whom]
+                    B -->|Infants/Objects/Animals| D[Which]
+                    B -->|Selection| E[Which]
+                    B -->|Restrictive/All types| F[That]
+            </div>
+        </div>
+
+        <div class="card-grid">
+            <div class="rule-card">
+                <h3>Who vs. Whom</h3>
+                <p><strong>Objective Case Omission:</strong> The relative pronoun in the objective case is generally omitted.</p>
+                <div class="example wrong"><i class="fas fa-times icon-cross"></i> The student whom you wanted to punish...</div>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> The student you wanted to punish...</div>
+            </div>
+
+            <div class="rule-card">
+                <h3>Usage of 'Which'</h3>
+                <ul>
+                    <li><strong>Infants, Objects, Small Animals:</strong> "This is the baby <em>which</em> was lost."</li>
+                    <li><strong>Selection:</strong> "Which of these watches do you want?"</li>
+                    <li><strong>Referring to a Situation:</strong> "He was drunk, <em>which</em> was not true."</li>
+                </ul>
+            </div>
+
+            <div class="rule-card">
+                <h3>Usage of 'That'</h3>
+                <p>Used for persons or things (singular or plural). Mandatory after "The same", "All", "Nothing", "Only".</p>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> This is the girl <strong>that</strong> failed the exam.</div>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> The weather of Hyderabad is better than <strong>that of</strong> Mumbai.</div>
+            </div>
+
+            <div class="rule-card">
+                <h3>Reciprocal Pronouns</h3>
+                <table class="comparison-table">
+                    <tr><th>Pronoun</th><th>Usage</th></tr>
+                    <tr><td>Each Other</td><td>Two persons/things</td></tr>
+                    <tr><td>One Another</td><td>More than two</td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: ADJECTIVES -->
+    <section id="adjectives">
+        <h2>2. Adjectives & Degrees of Comparison</h2>
+        
+        <div class="rule-card">
+            <h3>Standard Progression</h3>
+            <p>$$ \text{Positive (as...as)} \rightarrow \text{Comparative (er...than)} \rightarrow \text{Superlative (the...est)} $$</p>
+            <p><em>Rule:</em> If selecting between two of the same kind, use "the better of".</p>
+            <div class="example correct"><i class="fas fa-check icon-check"></i> She is <strong>the better of</strong> the two sisters.</div>
+        </div>
+
+        <h3>Critical Rules & Exceptions</h3>
+        <div class="card-grid">
+            <div class="rule-card">
+                <h4>1. Two qualities in one person</h4>
+                <p>Use <strong>more</strong> instead of <strong>-er</strong>.</p>
+                <div class="example wrong"><i class="fas fa-times icon-cross"></i> Rekha is wiser than intelligent.</div>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> Rekha is <strong>more wise</strong> than intelligent.</div>
+            </div>
+
+            <div class="rule-card">
+                <h4>2. Comparison with Group (Any Other)</h4>
+                <p>When comparing one item to others in the same group, "other" is mandatory.</p>
+                <div class="example wrong"><i class="fas fa-times icon-cross"></i> Gold is more precious than any metal.</div>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> Gold is more precious than <strong>any other</strong> metal.</div>
+            </div>
+
+            <div class="rule-card">
+                <h4>3. Latin Adjectives (The 'OR' ending)</h4>
+                <p>Followed by <strong>TO</strong>, not <em>THAN</em>.</p>
+                <p><em>Words:</em> Superior, Senior, Junior, Inferior, Prior, Anterior, Prefer.</p>
+                <div class="example wrong"><i class="fas fa-times icon-cross"></i> He is senior than me.</div>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> He is senior <strong>to</strong> me.</div>
+            </div>
+
+            <div class="rule-card">
+                <h4>4. Non-Gradable Adjectives</h4>
+                <p>Cannot be Comparative or Superlative.</p>
+                <p><em>Words:</em> Unique, Universal, Round, Perfect, Dead, Complete, Empty.</p>
+                <div class="example wrong"><i class="fas fa-times icon-cross"></i> Most unique.</div>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> Unique.</div>
+            </div>
+        </div>
+
+        <h3>Confusing Pairs</h3>
+        <table class="comparison-table">
+            <tr>
+                <th>Word A</th>
+                <th>Word B</th>
+                <th>Differentiation</th>
+            </tr>
+            <tr>
+                <td><strong>Farther</strong><br>Physical Distance</td>
+                <td><strong>Further</strong><br>In addition to / Abstract</td>
+                <td>"Farther form home" vs "Further discussion".</td>
+            </tr>
+            <tr>
+                <td><strong>Few / Fewer</strong><br>Countable Nouns</td>
+                <td><strong>Little / Less</strong><br>Uncountable Nouns</td>
+                <td>"Few books" vs "Little water".<br>Note: "A few" is positive, "Few" (no article) is negative.</td>
+            </tr>
+            <tr>
+                <td><strong>The Rich</strong><br>Plural Noun (Rich people)</td>
+                <td><strong>Rich</strong><br>Adjective</td>
+                <td>"The rich <strong>hate</strong> the poor" (Plural verb).</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- SECTION 3: ADVERBS -->
+    <section id="adverbs">
+        <h2>3. Adverbs</h2>
+        <div class="mermaid-container">
+            <div class="mermaid">
+                graph TD
+                    A[Adverb Position] 
+                    A --> B[Just/Only]
+                    B --> C[Placed immediately BEFORE the word modified]
+                    A --> D[Frequency Often/Always]
+                    D --> E[Between Auxiliary and Main Verb]
+            </div>
+        </div>
+
+        <div class="card-grid">
+            <div class="rule-card">
+                <h3>Placement Rule</h3>
+                <div class="example wrong"><i class="fas fa-times icon-cross"></i> I have told him often...</div>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> I have <strong>often</strong> told him...</div>
+                <hr>
+                <div class="example wrong"><i class="fas fa-times icon-cross"></i> I only solved two problems. (Ambiguous)</div>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> I solved <strong>only</strong> two problems.</div>
+            </div>
+
+            <div class="rule-card">
+                <h3>Hard vs. Hardly</h3>
+                <ul>
+                    <li><strong>Hard:</strong> Diligently/Tough (Adjective or Adverb). <em>"He works hard."</em></li>
+                    <li><strong>Hardly:</strong> Scarcely/Barely (Negative Adverb). <em>"He hardly works."</em></li>
+                </ul>
+            </div>
+
+            <div class="rule-card">
+                <h3>Inversion Rule</h3>
+                <p><strong>Scarcely/Hardly</strong> followed by "when".<br>
+                <strong>No sooner</strong> followed by "than".</p>
+                <p>$$ \text{No sooner} + \text{Had/Did} + \text{Sub} + \text{Verb} $$</p>
+                <div class="example correct"><i class="fas fa-check icon-check"></i> No sooner <strong>had</strong> I reached... <strong>than</strong> the train left.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: SVA -->
+    <section id="sva">
+        <h2>4. Subject-Verb Agreement (SVA)</h2>
+        <p class="subtitle">The Golden Rules of Singular vs. Plural</p>
+
+        <div class="mermaid-container">
+            <div class="mermaid">
+                graph TD
+                    A[Subject Structure] --> B{Joined by AND}
+                    B -->|Different entities| C(Plural Verb)
+                    B -->|Same Idea/Person| D(Singular Verb)
+                    A --> E{Many/Each/Every}
+                    E -->|Many a + Sing Noun| F(Singular Verb)
+                    E -->|A great many + Plural| G(Plural Verb)
+                    A --> H{Or / Nor / But also}
+                    H --> I(Verb agrees with NEAREST Subject)
+            </div>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Construction</th>
+                    <th>Verb Type</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Article Rule</strong> (The X and Y)</td>
+                    <td>Singular</td>
+                    <td>"The District Magistrate and Collector <strong>is</strong> on leave." (One person holding two posts).</td>
+                </tr>
+                <tr>
+                    <td><strong>Article Rule</strong> (The X and The Y)</td>
+                    <td>Plural</td>
+                    <td>"The Secretary and <strong>the</strong> President <strong>have</strong> been given..." (Two people).</td>
+                </tr>
+                <tr>
+                    <td><strong>Unified Idea</strong></td>
+                    <td>Singular</td>
+                    <td>"Bread and milk <strong>is</strong> good." / "Slow and steady <strong>wins</strong>."</td>
+                </tr>
+                <tr>
+                    <td><strong>Each / Every</strong></td>
+                    <td>Singular</td>
+                    <td>"Every boy and girl <strong>was</strong> present."</td>
+                </tr>
+                <tr>
+                    <td><strong>Many a...</strong></td>
+                    <td>Singular</td>
+                    <td>"Many a scientist <strong>is</strong> attending."</td>
+                </tr>
+                <tr>
+                    <td><strong>A number of / A lot of</strong></td>
+                    <td>Plural (if number)</td>
+                    <td>"A lot of people <strong>were</strong> present."</td>
+                </tr>
+                <tr>
+                    <td><strong>Majority</strong></td>
+                    <td>Depends</td>
+                    <td>Alone: Singular ("The majority believes").<br>With noun: Plural ("The majority of students <strong>were</strong>").</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- SECTION 5: CONDITIONALS -->
+    <section id="conditionals">
+        <h2>5. Conditionals (If-Clauses)</h2>
+        
+        <div class="rule-card">
+            <p>The verb in the main clause depends entirely on the tense used in the 'If' clause.</p>
+            <table class="comparison-table">
+                <tr>
+                    <th>Type</th>
+                    <th>If Clause (Condition)</th>
+                    <th>Main Clause (Result)</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><strong>Real/Future</strong></td>
+                    <td>Present Simple</td>
+                    <td>Future (Will + V1)</td>
+                    <td>"If he <strong>comes</strong>, I <strong>will give</strong> books."</td>
+                </tr>
+                <tr>
+                    <td><strong>Hypothetical</strong></td>
+                    <td>Past Simple</td>
+                    <td>Would + V1</td>
+                    <td>"If she <strong>came</strong>, I <strong>would give</strong>."</td>
+                </tr>
+                <tr>
+                    <td><strong>Past Impossible</strong></td>
+                    <td>Past Perfect (Had + V3)</td>
+                    <td>Would + Have + V3</td>
+                    <td>"If she <strong>had come</strong>, I <strong>would have given</strong>."</td>
+                </tr>
+                <tr>
+                    <td><strong>Pure Imagination</strong></td>
+                    <td>Were (always)</td>
+                    <td>Would + V1</td>
+                    <td>"If I <strong>were</strong> a bird, I <strong>would fly</strong>."</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECTION 6: PREPOSITIONS -->
+    <section id="prepositions">
+        <h2>6. Prepositions</h2>
+        
+        <div class="card-grid">
+            <div class="rule-card">
+                <h3>Movement & Position</h3>
+                <ul>
+                    <li><strong>In:</strong> Static/Rest. <em>"She is in the garden."</em></li>
+                    <li><strong>Into:</strong> Motion. <em>"He walked into the garden."</em></li>
+                    <li><strong>On:</strong> Rest. <em>"Sat on a stone."</em></li>
+                    <li><strong>Upon:</strong> Motion. <em>"Tiger sprang upon the goat."</em></li>
+                </ul>
+            </div>
+            
+            <div class="rule-card">
+                <h3>Time & Groups</h3>
+                <ul>
+                    <li><strong>In (Time):</strong> End of a period (Future). <em>"Return in a month."</em></li>
+                    <li><strong>Within:</strong> Before end of period. <em>"Return within a month."</em></li>
+                    <li><strong>Between:</strong> Two persons/things.</li>
+                    <li><strong>Among:</strong> More than two.</li>
+                </ul>
+            </div>
+
+            <div class="rule-card">
+                <h3>Gerunds after Prepositions</h3>
+                <p>Certain words + preposition are followed by <strong>V-ing</strong>.</p>
+                <ul>
+                    <li>Refrain <strong>from hurting</strong></li>
+                    <li>Bent <strong>upon doing</strong></li>
+                    <li>Adverse <strong>to playing</strong></li>
+                    <li>Succeed <strong>in doing</strong></li>
+                    <li>Insist <strong>on going</strong></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: CRITICAL REASONING -->
+    <section id="reasoning">
+        <h2>7. Critical Reasoning & Practice Logic</h2>
+        <div class="rule-card">
+            <h3>Inference Rules</h3>
+            <p>Based on lecture examples (Rabies, Tourism passages):</p>
+            <ol>
+                <li><strong>Strict Scope:</strong> Do not assume outside knowledge. If the text says "70% vaccination reduces cases," you cannot infer "Stray dogs are the main source worldwide" unless explicitly stated.</li>
+                <li><strong>Quantity Words:</strong> Pay attention to "Most", "Some", "All", "A few".</li>
+                <li><strong>Causality:</strong> "A leads to B" does not mean "B is the only outcome of A".</li>
+            </ol>
+            <div class="example correct">
+                <strong>Text:</strong> "inoculating 70% of pets... can lead to reduction in rabies."<br>
+                <strong>Valid Inference:</strong> The number of people currently infected is high (implied by the need for reduction).
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    // Simple Sticky Nav Highlighting
+    const sections = document.querySelectorAll("section");
+    const navLi = document.querySelectorAll("nav ul li a");
+
+    window.onscroll = () => {
+        var current = "";
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            if (scrollY >= sectionTop - 100) {
+                current = section.getAttribute("id");
+            }
+        });
+
+        navLi.forEach((a) => {
+            a.classList.remove("active");
+            if (a.getAttribute("href").includes(current)) {
+                a.classList.add("active");
+            }
+        });
+    };
+</script>
+
+</body>
+</html>

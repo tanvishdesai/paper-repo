@@ -12,9 +12,33 @@ export async function POST(request: NextRequest) {
 
     // For the first message, use generateContent
     if (messages.length === 1) {
-      const result = await model.generateContent(messages[0].content);
+      const systemPrompt = `
+      You are a helpful AI tutor for students preparing for exams.
+      Your goal is to explain the solution to a question in a clear, novice-friendly way.
+      
+      CRITICAL: You must respond in valid JSON format ONLY. Do not wrap the JSON in markdown code blocks.
+      You can use markdown formatting (bold, italics, inline code, latex) within the string values.
+      DO NOT use HTML tags (like <ul>, <li>, <b>, etc.). Use standard Markdown for lists (- item) and formatting.
+      
+      The JSON object must have this structure:
+      {
+        "explanation": "A concise summary of the explanation (2-3 sentences max).",
+        "steps": ["Step 1 explanation", "Step 2 explanation", "Step 3 explanation"],
+        "key_concepts": ["Concept 1", "Concept 2"]
+      }
+      
+      If the user's message is just a request for help, treat it as "Please explain this question".
+      `;
+
+      const fullPrompt = `${systemPrompt}\n\nUser Question: ${messages[0].content}`;
+
+      const result = await model.generateContent(fullPrompt);
       const response = await result.response;
-      const text = response.text();
+      let text = response.text();
+
+      // Clean up potential markdown formatting if model ignores instruction
+      text = text.replace(/```json\n?|\n?```/g, "").trim();
+
       return NextResponse.json({ response: text });
     }
 
@@ -37,7 +61,7 @@ export async function POST(request: NextRequest) {
 
     // Try fallback model if the first one fails
     try {
-      const fallbackModel = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
+      const fallbackModel = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
       if (messages.length === 1) {
         const result = await fallbackModel.generateContent(messages[0].content);

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS & IT Algorithms Cheat Sheet | Graph & Sorting</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'dark', 
+            securityLevel: 'loose',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #0f111a;
+            --sidebar-bg: #161b22;
+            --card-bg: #1c2128;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent-glow: rgba(88, 166, 255, 0.15);
+            --border: #30363d;
+            --success: #3fb950;
+            --warning: #d29922;
+            --danger: #f85149;
+            --code-bg: #0d1117;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        nav h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        nav a {
+            display: block;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        nav a:hover {
+            background: var(--card-bg);
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 260px;
+            padding: 3rem 4rem;
+            flex: 1;
+            max-width: 1400px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--accent), #a371f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 4rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Cards & Layout */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        /* Code & Pre */
+        pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(255,255,255,0.1);
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--accent);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .tag.blue { background: rgba(88, 166, 255, 0.2); color: #58a6ff; }
+        .tag.green { background: rgba(63, 185, 80, 0.2); color: #3fb950; }
+        .tag.red { background: rgba(248, 81, 73, 0.2); color: #f85149; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th { background: rgba(255,255,255,0.05); color: var(--accent); }
+        tr:last-child td { border-bottom: none; }
+
+        /* Details/Summary */
+        details {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; }
+        details[open] summary { border-bottom: 1px solid var(--border); }
+        .details-content { padding: 1rem; }
+
+        /* Diagrams */
+        .diagram-container {
+            background: var(--bg-color);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="padding: 0 0.75rem;">
+            <span style="font-weight: 800; font-size: 1.2rem; color: var(--accent);">CS ALGO</span>
+        </div>
+        
+        <h3>Graph Algorithms</h3>
+        <a href="#graph-traversal">DFS & BFS</a>
+        <a href="#bellman-ford">Bellman-Ford</a>
+        <a href="#topological">Topological Sort</a>
+        <a href="#components">Components & Bridges</a>
+        
+        <h3>Sorting Methods</h3>
+        <a href="#sorting-basics">Sorting Taxonomy</a>
+        <a href="#elementary-sorts">Elementary Sorts</a>
+        <a href="#complex-sorts">Advanced Sorts</a>
+        <a href="#complexity-master">Master Table</a>
+    </nav>
+
+    <main>
+        <h1>Graph Algorithms & Sorting</h1>
+        <p class="subtitle">Comprehensive engineering notes on Graph Theory, Traversal, Shortest Paths, and Sorting Techniques.</p>
+
+        <!-- SECTION 1: GRAPH TRAVERSAL -->
+        <h2 id="graph-traversal">1. Graph Traversal</h2>
+        
+        <div class="grid-2">
+            <div class="card">
+                <h3>Depth First Search (DFS)</h3>
+                <p>Explores as deep as possible along each branch before backtracking. Uses a <strong>Stack</strong> (LIFO).</p>
+                <ul>
+                    <li><strong>Time Complexity:</strong> \(O(V + E)\) (Adj List), \(O(V^2)\) (Adj Matrix)</li>
+                    <li><strong>Key Metric:</strong> Discovery time \(d[u]\) and Finish time \(f[u]\).</li>
+                </ul>
+                <div class="diagram-container">
+                    <pre class="mermaid">
+                    graph TD
+                        A((S)) --> B((A))
+                        A --> C((B))
+                        B --> D((C))
+                        D --> E((D))
+                        style A stroke:#58a6ff,stroke-width:2px
+                        style E stroke:#f85149,stroke-width:2px
+                    </pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Breadth First Search (BFS)</h3>
+                <p>Explores all neighbor nodes at the present depth before moving to nodes at the next depth level. Uses a <strong>Queue</strong> (FIFO).</p>
+                <ul>
+                    <li><strong>Time Complexity:</strong> \(O(V + E)\)</li>
+                    <li><strong>Application:</strong> Shortest Path in unweighted graphs.</li>
+                </ul>
+                <div class="diagram-container">
+                    <pre class="mermaid">
+                    graph TD
+                        A((S)) --> B((1))
+                        A --> C((1))
+                        B --> D((2))
+                        C --> E((2))
+                        style A stroke:#58a6ff,stroke-width:2px
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <h3>Edge Classification (Directed Graphs)</h3>
+        <p>When running DFS on a directed graph, edges fall into four categories based on the relationship between nodes \(u\) and \(v\):</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Edge Type</th>
+                    <th>Visual</th>
+                    <th>Condition</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Tree Edge</strong></td>
+                    <td>\(u \rightarrow v\)</td>
+                    <td>Normal visit</td>
+                    <td>Edge in the DFS forest (Child).</td>
+                </tr>
+                <tr>
+                    <td><strong>Back Edge</strong></td>
+                    <td>\(u \dashrightarrow v\)</td>
+                    <td>\(v\) is ancestor of \(u\)</td>
+                    <td>Connects to an ancestor. <strong>Implies a Cycle.</strong> Interval \([d[u], f[u]] \subset [d[v], f[v]]\).</td>
+                </tr>
+                <tr>
+                    <td><strong>Forward Edge</strong></td>
+                    <td>\(u \rightarrow v\)</td>
+                    <td>\(v\) is descendant</td>
+                    <td>Connects to a non-child descendant. Interval \([d[v], f[v]] \subset [d[u], f[u]]\).</td>
+                </tr>
+                <tr>
+                    <td><strong>Cross Edge</strong></td>
+                    <td>\(u \rightarrow v\)</td>
+                    <td>No relation</td>
+                    <td>Connects "sideways". Intervals are disjoint.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECTION 2: BELLMAN FORD -->
+        <h2 id="bellman-ford">2. Bellman-Ford Algorithm</h2>
+        <p>Single Source Shortest Path (SSSP) algorithm that handles <strong>negative edge weights</strong> (unlike Dijkstra).</p>
+
+        <div class="card">
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <span class="tag blue">Algorithm</span>
+                    <span class="tag red">Negative Cycles</span>
+                </div>
+                <code>Time: O(VE)</code>
+            </div>
+            
+            <h3>Core Logic: Relaxation</h3>
+            <p>We relax all edges \(|V|-1\) times. If we can still relax an edge on the \(|V|\)-th iteration, a negative weight cycle exists.</p>
+            
+            <div style="background: rgba(88, 166, 255, 0.1); padding: 1rem; border-radius: 6px; margin: 1rem 0; border-left: 3px solid var(--accent);">
+                <strong>Relaxation Equation:</strong><br>
+                If \( d[u] + w(u, v) < d[v] \)<br>
+                Then \( d[v] = d[u] + w(u, v) \)
+            </div>
+
+            <details>
+                <summary>Pseudocode Step-by-Step</summary>
+                <div class="details-content">
+<pre>
+Bellman-Ford(G, w, s):
+  Initialize-Single-Source(G, s)
+  
+  // Relax all edges |V| - 1 times
+  for i = 1 to |V| - 1:
+      for each edge (u, v) in E:
+          Relax(u, v, w)
+
+  // Check for negative weight cycles
+  for each edge (u, v) in E:
+      if d[v] > d[u] + w(u, v):
+          return FALSE (Negative Cycle Detected)
+          
+  return TRUE
+</pre>
+                </div>
+            </details>
+        </div>
+
+        <!-- SECTION 3: ADVANCED GRAPH CONCEPTS -->
+        <h2 id="topological">3. Advanced Graph Concepts</h2>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Topological Sort</h3>
+                <p>Linear ordering of vertices in a Directed Acyclic Graph (DAG) such that for every edge \(u \to v\), \(u\) comes before \(v\).</p>
+                <ul>
+                    <li><strong>Method:</strong> Run DFS. Upon finishing a node (turning it black/dead), push it to a stack (or list front).</li>
+                    <li><strong>Formula:</strong> Sort by decreasing Finishing Time \(f[u]\).</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Connected Components</h3>
+                <ul>
+                    <li><strong>SCC (Strongly Connected):</strong> Maximal set of vertices in a directed graph where every pair is mutually reachable (\(u \leftrightarrow v\)).</li>
+                    <li><strong>SCC Property:</strong> The graph of SCCs forms a DAG.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 id="components" style="margin-top: 2rem;">Articulation Points & Bridges</h3>
+        <p>Critical vulnerabilities in network structures.</p>
+        
+        <table style="margin-top: 1rem;">
+            <tr>
+                <th style="width: 50%;">Articulation Point (Cut Vertex)</th>
+                <th>Biconnected Component</th>
+            </tr>
+            <tr>
+                <td>A vertex which, if removed (along with incident edges), increases the number of connected components.</td>
+                <td>A maximal subgraph that contains no articulation points (cannot be disconnected by removing a single vertex).</td>
+            </tr>
+            <tr>
+                <td><small>Detected via DFS: Root with >1 child OR non-root \(u\) with child \(v\) having no back-edge to ancestor of \(u\).</small></td>
+                <td><small>Graph edges partitioned into biconnected components.</small></td>
+            </tr>
+        </table>
+
+        <!-- SECTION 4: SORTING BASICS -->
+        <h2 id="sorting-basics">4. Sorting Taxonomy</h2>
+
+        <div class="grid-3">
+            <div class="card">
+                <h4>In-Place vs Out-of-Place</h4>
+                <p><strong>In-Place:</strong> Uses constant extra space \(O(1)\) (e.g., Bubble, Insertion, Heap).</p>
+                <p><strong>Out-of-Place:</strong> Requires extra memory (e.g., Merge Sort \(O(n)\)).</p>
+            </div>
+            <div class="card">
+                <h4>Stable vs Unstable</h4>
+                <p><strong>Stable:</strong> Preserves relative order of equal elements.</p>
+                <div class="diagram-container" style="padding: 0.5rem;">
+                   <code style="background:transparent; color: var(--text-primary);">
+                       Input: [2a, 2b, 1]<br>
+                       Stable: [1, 2a, 2b]<br>
+                       Unstable: [1, 2b, 2a]
+                   </code>
+                </div>
+            </div>
+            <div class="card">
+                <h4>Inversions</h4>
+                <p>Pair \((i, j)\) is an inversion if \(i < j\) and \(A[i] > A[j]\).</p>
+                <p>Measure of "unsortedness". Max inversions = \(n(n-1)/2\).</p>
+            </div>
+        </div>
+
+        <!-- SECTION 5: SORTING ALGOS -->
+        <h2 id="elementary-sorts">5. Sorting Algorithms</h2>
+
+        <details>
+            <summary>Bubble Sort <span class="tag red" style="margin-left:auto">O(n²)</span></summary>
+            <div class="details-content">
+                <p>Repeatedly swaps adjacent elements if they are in wrong order. "Bubbles" largest element to the end.</p>
+                <ul>
+                    <li><strong>Optimization:</strong> Use a `flag`. If no swaps occur in a pass, break (Best Case \(O(n)\)).</li>
+                    <li><strong>Analysis:</strong> Comparisons \(\approx n^2/2\), Swaps \(\approx n^2/2\) (worst).</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Selection Sort <span class="tag red" style="margin-left:auto">O(n²)</span></summary>
+            <div class="details-content">
+                <p>Finds the minimum element in the unsorted part and puts it at the beginning.</p>
+                <ul>
+                    <li><strong>Key Feature:</strong> Minimizes swaps! Makes exactly \(O(n)\) swaps in all cases. Good when writing to memory is expensive.</li>
+                    <li><strong>Stability:</strong> Generally Unstable.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Insertion Sort <span class="tag red" style="margin-left:auto">O(n²)</span></summary>
+            <div class="details-content">
+                <p>Builds sorted array one item at a time. Takes element, shifts larger elements right, inserts into correct gap.</p>
+                <ul>
+                    <li><strong>Best Case:</strong> \(O(n)\) (Already sorted).</li>
+                    <li><strong>Use Case:</strong> Very efficient for small datasets or <strong>nearly sorted</strong> data (number of inversions \(d\) is small -> \(O(n+d)\)).</li>
+                    <li><strong>Online:</strong> Can sort data as it is received.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>Radix Sort <span class="tag blue" style="margin-left:auto">O(d(n+b))</span></summary>
+            <div class="details-content">
+                <p>Non-comparison based. Sorts digit by digit from least significant to most significant (LSD).</p>
+                <ul>
+                    <li>\(d\): Number of digits (bits).</li>
+                    <li>\(b\): Base (e.g., 10 or 2).</li>
+                    <li>Uses a stable subroutine (like Counting Sort) for each digit.</li>
+                </ul>
+            </div>
+        </details>
+
+        <!-- SECTION 6: MASTER TABLE -->
+        <h2 id="complexity-master">6. Complexity Master Table</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Best Time</th>
+                    <th>Avg Time</th>
+                    <th>Worst Time</th>
+                    <th>Space</th>
+                    <th>Stable?</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Bubble Sort</strong></td>
+                    <td>\(O(n)\)</td>
+                    <td>\(O(n^2)\)</td>
+                    <td>\(O(n^2)\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>✅ Yes</td>
+                    <td>Slowest. Detects sorted list.</td>
+                </tr>
+                <tr>
+                    <td><strong>Selection Sort</strong></td>
+                    <td>\(O(n^2)\)</td>
+                    <td>\(O(n^2)\)</td>
+                    <td>\(O(n^2)\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>❌ No</td>
+                    <td>Min swaps \(O(n)\).</td>
+                </tr>
+                <tr>
+                    <td><strong>Insertion Sort</strong></td>
+                    <td>\(O(n)\)</td>
+                    <td>\(O(n^2)\)</td>
+                    <td>\(O(n^2)\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>✅ Yes</td>
+                    <td>Fast for "almost sorted". Online.</td>
+                </tr>
+                <tr>
+                    <td><strong>Merge Sort</strong></td>
+                    <td>\(O(n \log n)\)</td>
+                    <td>\(O(n \log n)\)</td>
+                    <td>\(O(n \log n)\)</td>
+                    <td>\(O(n)\)</td>
+                    <td>✅ Yes</td>
+                    <td>Ext. Sorting, predictable.</td>
+                </tr>
+                <tr>
+                    <td><strong>Quick Sort</strong></td>
+                    <td>\(O(n \log n)\)</td>
+                    <td>\(O(n \log n)\)</td>
+                    <td>\(O(n^2)\)</td>
+                    <td>\(O(\log n)\)</td>
+                    <td>❌ No</td>
+                    <td>Fastest in practice (cache locality).</td>
+                </tr>
+                <tr>
+                    <td><strong>Heap Sort</strong></td>
+                    <td>\(O(n \log n)\)</td>
+                    <td>\(O(n \log n)\)</td>
+                    <td>\(O(n \log n)\)</td>
+                    <td>\(O(1)\)</td>
+                    <td>❌ No</td>
+                    <td>Not stable, decent worst case.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card" style="margin-top: 2rem; border-color: var(--warning);">
+            <h3>💡 Professor's Notes</h3>
+            <ul>
+                <li><strong>Cycle Detection:</strong> Use DFS. Back-edge = Cycle.</li>
+                <li><strong>Shortest Path:</strong>
+                    <ul>
+                        <li>Unweighted? Use <strong>BFS</strong>.</li>
+                        <li>Positive weights? Use <strong>Dijkstra</strong>.</li>
+                        <li>Negative weights? Use <strong>Bellman-Ford</strong>.</li>
+                        <li>DAG? Use <strong>Topological Sort + Relaxation</strong> \(O(V+E)\).</li>
+                    </ul>
+                </li>
+                <li><strong>Minimum Swaps to Sort:</strong> Selection Sort performs minimum swaps \(O(n)\). Sorting an array with minimum swaps generally involves following cycles in permutation decomposition.</li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

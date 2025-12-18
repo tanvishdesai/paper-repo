@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS Memory Management | Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#e0e7ff',
+                primaryTextColor: '#1e1b4b',
+                primaryBorderColor: '#4338ca',
+                lineColor: '#374151',
+                secondaryColor: '#fef3c7',
+                tertiaryColor: '#fff'
+            }
+        });
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sidebar: #1e293b;
+            --text-main: #334155;
+            --text-heading: #0f172a;
+            --text-sidebar: #e2e8f0;
+            --accent: #4f46e5;
+            --accent-light: #e0e7ff;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background-color: var(--bg-sidebar);
+            color: var(--text-sidebar);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            flex-shrink: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #fff;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+        }
+
+        nav ul { list-style: none; }
+        
+        nav a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #94a3b8;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #334155;
+            color: #fff;
+        }
+
+        nav .sub-item {
+            padding-left: 2rem;
+            font-size: 0.85rem;
+        }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            padding: 3rem 4rem;
+            max-width: 1400px;
+            overflow-x: hidden;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        header h2 {
+            font-size: 2.5rem;
+            color: var(--text-heading);
+            margin-bottom: 0.5rem;
+        }
+
+        header p { color: #64748b; font-size: 1.1rem; }
+
+        /* Sections */
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        
+        h3 {
+            font-size: 1.75rem;
+            color: var(--text-heading);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        h3::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 1.75rem;
+            background-color: var(--accent);
+            border-radius: 3px;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            color: var(--text-heading);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        /* Cards & Grids */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card.highlight { border-left: 4px solid var(--accent); }
+        .card.warning { border-left: 4px solid var(--warning); }
+        .card.danger { border-left: 4px solid var(--danger); }
+
+        /* Comparisons */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th { background-color: #f1f5f9; font-weight: 600; }
+
+        /* Code & Formulas */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #be185d;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .formula-box {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin: 1rem 0;
+        }
+
+        /* Diagrams */
+        .mermaid {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+
+        /* Details/Deep Dive */
+        details {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        details summary {
+            padding: 1rem;
+            cursor: pointer;
+            background-color: #f8fafc;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        details summary:hover { background-color: #f1f5f9; }
+        
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .badge-green { background: #d1fae5; color: #065f46; }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+
+        @media (max-width: 1024px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            nav { display: none; } /* Simplified for mobile */
+            main { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav>
+        <h1>CS Engineering<br><span style="font-size:0.8em; font-weight:400; color:#94a3b8;">Memory Management</span></h1>
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#binding">Loading & Linking</a></li>
+            <li><a href="#contiguous">Contiguous Allocation</a></li>
+            <li><a href="#paging">Paging & Hardware</a></li>
+            <li><a href="#tlb">TLB & Performance</a></li>
+            <li><a href="#multilevel">Advanced Paging</a></li>
+            <li><a href="#segmentation">Segmentation</a></li>
+            <li><a href="#virtual">Virtual Memory</a></li>
+            <li><a href="#replacement">Page Replacement</a></li>
+            <li><a href="#thrashing">Thrashing</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <header id="intro">
+            <h2>Operating Systems: Memory Management</h2>
+            <p>Comprehensive notes on Address Binding, Paging, Segmentation, and Virtual Memory. Synthesized from Lecture Series 1-12.</p>
+        </header>
+
+        <!-- Section 1: Basics -->
+        <section id="basics">
+            <h3>1. Memory Basics & Abstract View</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Logical vs. Physical Address Space</h4>
+                    <ul>
+                        <li><strong>Logical Address (Virtual):</strong> Generated by the CPU. Used by the program.</li>
+                        <li><strong>Physical Address:</strong> Actual location in the Main Memory (RAM).</li>
+                        <li><strong>MMU (Memory Management Unit):</strong> Hardware device that maps logical to physical addresses at run-time.</li>
+                    </ul>
+                </div>
+                <div class="card highlight">
+                    <h4>Definitions</h4>
+                    <ul>
+                        <li><strong>Word:</strong> Basic unit of data (e.g., 4 Bytes).</li>
+                        <li><strong>Addressability:</strong> No. of wires needed to address memory. $N = 2^n$ (n bits).</li>
+                        <li><strong>Goal:</strong> Efficient utilization (minimize wastage) and Protection (isolation).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Loading & Binding -->
+        <section id="binding">
+            <h3>2. Loading, Linking & Binding</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Loading Techniques</h4>
+                    <p><strong>Static Loading:</strong> Entire program loaded into memory before execution. <span class="badge badge-red">Inefficient</span></p>
+                    <p><strong>Dynamic Loading:</strong> Routine loaded only when called. Better space utilization. <span class="badge badge-green">Efficient</span></p>
+                </div>
+                <div class="card">
+                    <h4>Linking Techniques</h4>
+                    <p><strong>Static Linking:</strong> Libraries combined by linker into binary image. Larger size.</p>
+                    <p><strong>Dynamic Linking:</strong> Linking postponed until execution time. Shared libraries (.dll, .so). Saves disk/memory.</p>
+                </div>
+            </div>
+
+            <h4>Address Binding Timeline</h4>
+            <div class="mermaid">
+                flowchart LR
+                A[Source Code] -->|Compile Time| B[Object Module]
+                B -->|Load Time| C[Load Module]
+                C -->|Execution Time| D[In-Memory Image]
+                
+                style A fill:#f9fafb,stroke:#333
+                style D fill:#d1fae5,stroke:#10b981
+            </div>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Flexibility</th>
+                </tr>
+                <tr>
+                    <td><strong>Compile Time</strong></td>
+                    <td>Absolute code generated. Must know memory location beforehand.</td>
+                    <td>Low (Recompile if location changes)</td>
+                </tr>
+                <tr>
+                    <td><strong>Load Time</strong></td>
+                    <td>Compiler generates relocatable code. Binding happens at load.</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td><strong>Execution Time</strong></td>
+                    <td>Binding delayed until run time. Needs hardware support (Base/Limit registers).</td>
+                    <td>High (Enables Virtual Memory)</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 3: Contiguous Allocation -->
+        <section id="contiguous">
+            <h3>3. Contiguous Memory Allocation</h3>
+            
+            <div class="grid-2">
+                <div class="card warning">
+                    <h4>Fragmentation</h4>
+                    <ul>
+                        <li><strong>Internal Fragmentation:</strong> Allocated memory is slightly larger than requested memory. Difference is wasted <em>inside</em> the partition.</li>
+                        <li><strong>External Fragmentation:</strong> Total free memory is enough for a request, but it's not contiguous.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Compaction</h4>
+                    <p>Technique to solve External Fragmentation by shuffling memory contents to place all free memory together. <br><em>Only possible if relocation is dynamic (Run-time). Expensive.</em></p>
+                </div>
+            </div>
+
+            <h4>Partitioning Strategies</h4>
+            <details open>
+                <summary>Fixed Partitioning (MFT) vs Variable Partitioning (MVT)</summary>
+                <div class="details-content">
+                    <div class="grid-2">
+                        <div>
+                            <strong>Fixed (Static) Partitioning</strong>
+                            <ul>
+                                <li>Memory divided into fixed-sized partitions.</li>
+                                <li>Degree of multiprogramming is limited by partition count.</li>
+                                <li>Suffers from <strong>Internal Fragmentation</strong>.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>Variable (Dynamic) Partitioning</strong>
+                            <ul>
+                                <li>Partitions created dynamically to fit process size exactly.</li>
+                                <li>No Internal Fragmentation.</li>
+                                <li>Suffers from <strong>External Fragmentation</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <h4>Allocation Algorithms</h4>
+            <table class="comparison-table">
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Strategy</th>
+                    <th>Pros/Cons</th>
+                </tr>
+                <tr>
+                    <td><strong>First Fit</strong></td>
+                    <td>Allocate the first hole that is big enough.</td>
+                    <td>Fastest.</td>
+                </tr>
+                <tr>
+                    <td><strong>Best Fit</strong></td>
+                    <td>Allocate the smallest hole that is big enough.</td>
+                    <td>Produces smallest leftover hole. Slow (must search list).</td>
+                </tr>
+                <tr>
+                    <td><strong>Worst Fit</strong></td>
+                    <td>Allocate the largest hole.</td>
+                    <td>Produces largest leftover hole (potentially usable). Slow.</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 4: Paging -->
+        <section id="paging">
+            <h3>4. Paging</h3>
+            <p>A non-contiguous allocation scheme. Physical memory is divided into fixed-size blocks called <strong>Frames</strong>. Logical memory is divided into blocks called <strong>Pages</strong>.</p>
+
+            <div class="formula-box">
+                $$ \text{Page Size} = \text{Frame Size} $$
+            </div>
+
+            <h4>Address Translation Architecture</h4>
+            <p>CPU generates Logical Address (LA) split into:</p>
+            <ul>
+                <li><strong>p (Page Number):</strong> Index into Page Table.</li>
+                <li><strong>d (Page Offset):</strong> Displacement within the page.</li>
+            </ul>
+
+            <div class="mermaid">
+                graph LR
+                CPU[CPU] -- "p | d" --> MMU
+                MMU -- "Lookup p" --> PT[Page Table]
+                PT -- "Returns f" --> ADD[Combine f | d]
+                ADD --> PHY[Physical Memory]
+                
+                style PT fill:#fff,stroke:#333,stroke-dasharray: 5 5
+            </div>
+
+            <div class="card highlight">
+                <h4>Key Formulas</h4>
+                <ul>
+                    <li>If $LAS = 2^m$ bytes and Page Size = $2^n$ bytes:</li>
+                    <li><strong>Page Number (p) bits:</strong> $m - n$</li>
+                    <li><strong>Offset (d) bits:</strong> $n$</li>
+                    <li><strong>Number of Pages:</strong> $2^{m-n}$</li>
+                    <li><strong>Page Table Size:</strong> $\text{No. of Pages} \times \text{Entry Size (PTE)}$</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: TLB & Performance -->
+        <section id="tlb">
+            <h3>5. Translation Lookaside Buffer (TLB)</h3>
+            <p>The Page Table is stored in main memory. This means every data access requires <strong>two</strong> memory accesses (one for PT, one for Data). The TLB is a fast associative hardware cache to solve this.</p>
+
+            <h4>Effective Memory Access Time (EMAT)</h4>
+            <div class="formula-box">
+                $$ EMAT = H(c + m) + (1-H)(c + 2m) $$
+            </div>
+            <p style="text-align: center; font-size: 0.9em; color: #666;">Where H = Hit Ratio, c = TLB Access Time, m = Main Memory Access Time.</p>
+
+            <div class="mermaid">
+                flowchart TD
+                A[Start: Logical Address] --> B{Search TLB}
+                B -- Hit --> C[Get Frame Number]
+                B -- Miss --> D{Search Page Table}
+                D -- Found --> E[Update TLB]
+                E --> C
+                C --> F[Access Physical Memory]
+            </div>
+        </section>
+
+        <!-- Section 6: Advanced Paging -->
+        <section id="multilevel">
+            <h3>6. Advanced Paging Structures</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Multi-Level Paging</h4>
+                    <p>Used when the Page Table is too large to fit contiguously in memory. We page the page table.</p>
+                    <ul>
+                        <li><strong>Goal:</strong> Avoid allocating contiguous memory for PT.</li>
+                        <li><strong>Cost:</strong> More memory accesses per request (e.g., 2-level = 3 accesses).</li>
+                        <li><strong>Outer PT:</strong> Fits in 1 frame usually.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Inverted Page Table</h4>
+                    <p>One entry for each <em>physical frame</em> of memory, not each logical page.</p>
+                    <ul>
+                        <li><strong>Size:</strong> Proportional to Physical Memory (RAM), not Logical Address Space.</li>
+                        <li><strong>Cons:</strong> Hard to search (requires Hashing). Shared pages difficult.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4>Hashed Page Table</h4>
+            <p>Common in address spaces > 32 bits. The Virtual Page Number is hashed into a page table. Each entry contains a linked list of elements.</p>
+        </section>
+
+        <!-- Section 7: Segmentation -->
+        <section id="segmentation">
+            <h3>7. Segmentation</h3>
+            <p>A memory management scheme that supports the <strong>user view</strong> of memory. A program is a collection of segments (Main, Stack, Symbol Table, etc.).</p>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Logical Address</h4>
+                    <p><strong>< Segment-Number, Offset ></strong></p>
+                    <p>Map defined by <strong>Segment Table</strong>.</p>
+                </div>
+                <div class="card">
+                    <h4>Segment Table Entry (STE)</h4>
+                    <ul>
+                        <li><strong>Base:</strong> Starting physical address.</li>
+                        <li><strong>Limit:</strong> Length of the segment.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card danger" style="margin-top: 1rem;">
+                <h4>Protection</h4>
+                <p>Hardware must check: <code>if (offset < limit)</code>. If false, TRAP (Addressing Error).</p>
+            </div>
+        </section>
+
+        <!-- Section 8: Virtual Memory -->
+        <section id="virtual">
+            <h3>8. Virtual Memory & Demand Paging</h3>
+            <p>Separation of user logical memory from physical memory. Allows execution of processes that are not completely in memory. Logical Address Space > Physical Address Space.</p>
+
+            <h4>Demand Paging</h4>
+            <p>Bring a page into memory only when it is needed. Less I/O, less memory needed, faster response.</p>
+            
+            <div class="card highlight">
+                <h4>Page Fault Handling Steps</h4>
+                <ol>
+                    <li>Reference to page is invalid or not in memory (Trap to OS).</li>
+                    <li>OS checks internal table: Invalid ref $\to$ Abort. Just not in memory $\to$ Continue.</li>
+                    <li>Find a free frame.</li>
+                    <li>Swap page into frame from disk.</li>
+                    <li>Reset tables (Valid bit = 1).</li>
+                    <li>Restart instruction.</li>
+                </ol>
+            </div>
+            
+            <div class="formula-box">
+                $$ EMAT = (1-p) \times ma + p \times (\text{Page Fault Service Time}) $$
+            </div>
+            <p style="text-align: center; font-size: 0.9em;">Where $p$ is Page Fault Rate ($0 \le p \le 1$).</p>
+        </section>
+
+        <!-- Section 9: Page Replacement -->
+        <section id="replacement">
+            <h3>9. Page Replacement Algorithms</h3>
+            <p>When a page fault occurs and memory is full, we must victimize a page.</p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Description</th>
+                    <th>Note</th>
+                </tr>
+                <tr>
+                    <td><strong>FIFO</strong></td>
+                    <td>Replace oldest page.</td>
+                    <td>Suffers from <strong>Belady's Anomaly</strong> (More frames $\ne$ fewer faults).</td>
+                </tr>
+                <tr>
+                    <td><strong>Optimal (OPT)</strong></td>
+                    <td>Replace page that will not be used for longest time.</td>
+                    <td>Impossible to implement (requires future knowledge). Used as benchmark.</td>
+                </tr>
+                <tr>
+                    <td><strong>LRU</strong></td>
+                    <td>Replace page that has not been used for longest time.</td>
+                    <td>Good approximation of OPT. Uses Stack or Counters. No Belady's Anomaly.</td>
+                </tr>
+                <tr>
+                    <td><strong>Second Chance</strong></td>
+                    <td>FIFO + Reference Bit. Give page a second chance if Ref Bit = 1.</td>
+                    <td>Clock Algorithm implementation.</td>
+                </tr>
+            </table>
+
+            <div class="card">
+                <h4>Belady's Anomaly</h4>
+                <p>Specifically in FIFO: Increasing the number of page frames results in an <strong>increase</strong> in the number of page faults for certain access patterns.</p>
+            </div>
+        </section>
+
+        <!-- Section 10: Thrashing -->
+        <section id="thrashing">
+            <h3>10. Thrashing</h3>
+            <p>A process is thrashing if it is spending more time paging (swapping in/out) than executing.</p>
+            
+            <div class="grid-2">
+                <div class="card danger">
+                    <h4>Cause</h4>
+                    <p>Degree of Multiprogramming is too high. Total memory demand exceeds physical memory. CPU utilization drops drastically.</p>
+                </div>
+                <div class="card highlight">
+                    <h4>Working Set Model</h4>
+                    <p>Based on <strong>Locality of Reference</strong>. The OS tracks the "working set" of pages a process is currently using. If sum of working sets > total memory, suspend a process.</p>
+                </div>
+            </div>
+
+            <div class="mermaid">
+                graph TD
+                A[High Degree of Multiprogramming] --> B[Low CPU Utilization]
+                B --> C[OS Increases Multiprogramming]
+                C --> D[More Page Faults]
+                D --> E[Thrashing]
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

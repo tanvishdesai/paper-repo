@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differential Equations Cheat Sheet | Engineering Mathematics</title>
+    
+    <!-- MathJax for rendering equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Mermaid for diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --accent: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--card-bg);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            display: none; /* Hidden on mobile */
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar { display: block; }
+        }
+
+        .sidebar h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-top: 3rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3 {
+            color: var(--primary);
+            margin-top: 1.5rem;
+        }
+
+        /* Cards and Sections */
+        .concept-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            font-family: 'Times New Roman', serif;
+        }
+
+        /* Method Selector (Flowchart Container) */
+        .flowchart-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* Collapsible Details */
+        details {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        details summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        details summary::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        details[open] summary::after {
+            content: '-';
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--border);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .details-content {
+            padding: 1rem;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-yellow { background: #fef3c7; color: #92400e; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h3>Contents</h3>
+        <a href="#basics" class="nav-link">Basics & Fundamentals</a>
+        <a href="#first-order" class="nav-link">First Order ODEs</a>
+        <a href="#higher-order" class="nav-link">Higher Order Linear ODEs</a>
+        <a href="#cauchy-euler" class="nav-link">Cauchy-Euler Equations</a>
+        <a href="#pde" class="nav-link">Partial Differential Equations</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h1>Engineering Mathematics Cheat Sheet</h1>
+            <p>Differential Equations & Partial Differential Equations | GATE Syllabus</p>
+            <div style="margin-top: 1rem;">
+                <span class="tag tag-blue">ODEs</span>
+                <span class="tag tag-green">PDEs</span>
+                <span class="tag tag-yellow">Linear Algebra</span>
+            </div>
+        </header>
+
+        <!-- Basics Section -->
+        <section id="basics">
+            <h2>1. Fundamentals</h2>
+            <div class="concept-card">
+                <h3>Order vs. Degree</h3>
+                <p><strong>Order:</strong> The order of the highest derivative present in the equation.</p>
+                <p><strong>Degree:</strong> The power of the highest derivative, provided the equation is a polynomial in derivatives (no radicals or fractions on derivatives).</p>
+                
+                <div class="formula-box">
+                    Example: \( \left( \frac{d^2y}{dx^2} \right)^{3/2} = 4 + \left(\frac{dy}{dx}\right)^{1/2} \)
+                </div>
+                <details>
+                    <summary>How to find Degree</summary>
+                    <div class="details-content">
+                        1. Remove radicals/fractions on derivatives. <br>
+                        2. Square both sides to clear the 1/2 power: \( \dots = (4 + y')^2 \)<br>
+                        3. Order is 2. Degree is the power of \(y''\) after clearing.
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- First Order Section -->
+        <section id="first-order">
+            <h2>2. First Order Differential Equations</h2>
+            <p>General Form: \( \frac{dy}{dx} = f(x, y) \)</p>
+
+            <!-- Decision Flowchart -->
+            <div class="flowchart-container">
+                <div class="mermaid">
+                graph TD
+                    A[Start: dy/dx = f] --> B{Separable?}
+                    B -- Yes --> C[Integrate f]
+                    B -- No --> D{Homogeneous?}
+                    D -- Yes --> E[Put y = vx]
+                    D -- No --> F{Linear?}
+                    F -- Yes --> G[Integrating Factor]
+                    F -- No --> H{Exact?}
+                    H -- Yes --> I[Solution Formula]
+                    H -- No --> J[Reducible to Linear/Exact]
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3>A. Variable Separable</h3>
+                <p>Can you write it as \( g(y) dy = h(x) dx \)?</p>
+                <p><strong>Method:</strong> Integrate both sides: \( \int g(y) dy = \int h(x) dx + C \)</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>B. Homogeneous Equations</h3>
+                <p>Function \( f(x,y) \) is homogeneous if \( f(kx, ky) = k^n f(x,y) \).</p>
+                <p><strong>Form:</strong> \( \frac{dy}{dx} = \frac{g(x,y)}{h(x,y)} \) where g and h are same degree.</p>
+                <p><strong>Method:</strong> Substitute \( y = vx \), then \( \frac{dy}{dx} = v + x\frac{dv}{dx} \). Result becomes separable.</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>C. Linear Differential Equation (LDE)</h3>
+                <p><strong>Standard Form:</strong> \( \frac{dy}{dx} + P(x)y = Q(x) \)</p>
+                <div class="formula-box">
+                    Integrating Factor (I.F.): \( e^{\int P dx} \) <br>
+                    Solution: \( y \cdot (\text{I.F.}) = \int Q \cdot (\text{I.F.}) dx + C \)
+                </div>
+                <details>
+                    <summary>Bernoulli's Equation (Reducible to Linear)</summary>
+                    <div class="details-content">
+                        Form: \( \frac{dy}{dx} + Py = Qy^n \) <br>
+                        1. Divide by \( y^n \). <br>
+                        2. Substitute \( v = y^{1-n} \). <br>
+                        3. Equation becomes Linear in \( v \).
+                    </div>
+                </details>
+            </div>
+
+            <div class="concept-card">
+                <h3>D. Exact Differential Equations</h3>
+                <p><strong>Form:</strong> \( M(x,y)dx + N(x,y)dy = 0 \)</p>
+                <p><strong>Condition:</strong> \( \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x} \)</p>
+                <div class="formula-box">
+                    Solution: \( \int_{y=\text{const}} M dx + \int (\text{terms of N free from x}) dy = C \)
+                </div>
+            </div>
+        </section>
+
+        <!-- Higher Order Section -->
+        <section id="higher-order">
+            <h2>3. Higher Order Linear ODEs</h2>
+            <p><strong>Form:</strong> \( \frac{d^ny}{dx^n} + k_1 \frac{d^{n-1}y}{dx^{n-1}} + \dots + k_n y = X(x) \) (Constant Coefficients)</p>
+            <p><strong>Complete Solution:</strong> \( y = \text{Complementary Function (CF)} + \text{Particular Integral (PI)} \)</p>
+
+            <h3>I. Complementary Function (CF)</h3>
+            <p>Solve Auxiliary Equation: \( D^n + k_1 D^{n-1} + \dots + k_n = 0 \)</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roots Nature</th>
+                        <th>Roots</th>
+                        <th>Complementary Function (CF)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Real & Distinct</td>
+                        <td>\( m_1, m_2 \)</td>
+                        <td>\( c_1 e^{m_1 x} + c_2 e^{m_2 x} \)</td>
+                    </tr>
+                    <tr>
+                        <td>Real & Equal</td>
+                        <td>\( m, m \)</td>
+                        <td>\( (c_1 + c_2 x) e^{mx} \)</td>
+                    </tr>
+                    <tr>
+                        <td>Complex Pair</td>
+                        <td>\( \alpha \pm i\beta \)</td>
+                        <td>\( e^{\alpha x} (c_1 \cos \beta x + c_2 \sin \beta x) \)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>II. Particular Integral (PI)</h3>
+            <p>Formula: \( \text{PI} = \frac{1}{f(D)} X(x) \)</p>
+            <div class="flowchart-container">
+                <div class="mermaid">
+                graph LR
+                    A[Type of X] --> B{e^ax}
+                    A --> C{sin/cos ax}
+                    A --> D{x^m}
+                    B --> B1[Put D = a]
+                    C --> C1[Put D^2 = -a^2]
+                    D --> D1[Expand (1+f(D))^-1]
+                </div>
+            </div>
+
+            <details>
+                <summary>Detailed Cases for PI</summary>
+                <div class="details-content">
+                    <ul>
+                        <li><strong>\( X = e^{ax} \):</strong> Put \( D = a \). If \( f(a)=0 \), PI \( = x \frac{1}{f'(a)} e^{ax} \).</li>
+                        <li><strong>\( X = \sin(ax+b) \):</strong> Put \( D^2 = -a^2 \). If denominator zero, differentiate wrt D and multiply by x.</li>
+                        <li><strong>\( X = x^m \):</strong> Convert to \( [1 + \phi(D)]^{-1} \) and expand using binomial theorem.</li>
+                        <li><strong>\( X = e^{ax} V(x) \):</strong> \( \frac{1}{f(D)} e^{ax}V = e^{ax} \frac{1}{f(D+a)} V \).</li>
+                    </ul>
+                </div>
+            </details>
+
+            <h3>III. Variation of Parameters</h3>
+            <p>Used for finding PI when standard methods fail (e.g., \( X = \tan x \)).</p>
+            <div class="formula-box">
+                \( \text{PI} = -y_1 \int \frac{y_2 X}{W} dx + y_2 \int \frac{y_1 X}{W} dx \) <br>
+                Where \( W \) (Wronskian) = \( \begin{vmatrix} y_1 & y_2 \\ y_1' & y_2' \end{vmatrix} \)
+            </div>
+        </section>
+
+        <!-- Cauchy Euler Section -->
+        <section id="cauchy-euler">
+            <h2>4. Cauchy-Euler Equation</h2>
+            <p>Linear DE with variable coefficients.</p>
+            <p><strong>Form:</strong> \( x^2 \frac{d^2y}{dx^2} + ax \frac{dy}{dx} + by = Q(x) \)</p>
+            <p><strong>Transformation:</strong></p>
+            <ul>
+                <li>Put \( x = e^t \) or \( t = \ln x \).</li>
+                <li>\( x \frac{dy}{dx} \rightarrow D_t y \)</li>
+                <li>\( x^2 \frac{d^2y}{dx^2} \rightarrow D_t(D_t - 1) y \)</li>
+            </ul>
+            <p>This converts it into a Linear DE with <strong>constant coefficients</strong>.</p>
+        </section>
+
+        <!-- PDE Section -->
+        <section id="pde">
+            <h2>5. Partial Differential Equations (PDE)</h2>
+            
+            <div class="concept-card">
+                <h3>Classification of 2nd Order PDE</h3>
+                <p>Standard Form: \( A \frac{\partial^2 u}{\partial x^2} + B \frac{\partial^2 u}{\partial x \partial y} + C \frac{\partial^2 u}{\partial y^2} + \dots = 0 \)</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition (\( B^2 - 4AC \))</th>
+                            <th>Type</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>\( < 0 \)</td>
+                            <td>Elliptic</td>
+                            <td>Laplace Eqn</td>
+                        </tr>
+                        <tr>
+                            <td>\( = 0 \)</td>
+                            <td>Parabolic</td>
+                            <td>Heat Eqn</td>
+                        </tr>
+                        <tr>
+                            <td>\( > 0 \)</td>
+                            <td>Hyperbolic</td>
+                            <td>Wave Eqn</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="concept-card">
+                <h3>Method of Separation of Variables</h3>
+                <p>Assume solution \( u(x,t) = X(x) \cdot T(t) \).</p>
+                <p>Substitute back into PDE to separate terms of \( x \) and \( t \).</p>
+                <div class="formula-box">
+                    <strong>1D Wave Equation:</strong> \( \frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2 u}{\partial x^2} \) <br>
+                    <strong>1D Heat Equation:</strong> \( \frac{\partial u}{\partial t} = c^2 \frac{\partial^2 u}{\partial x^2} \) <br>
+                    <strong>2D Laplace Equation:</strong> \( \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 \)
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

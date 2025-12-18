@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE Verbal Aptitude: Parts of Speech Cheat Sheet</title>
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-red: #f87171;
+            --accent-yellow: #facc15;
+            --accent-purple: #c084fc;
+            --border-color: #475569;
+            --sidebar-width: 280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: var(--sidebar-width);
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        nav h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        nav p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        nav a.sub-item {
+            padding-left: 1.5rem;
+            font-size: 0.85rem;
+            border-left: 1px solid var(--border-color);
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            color: var(--text-primary);
+            margin-top: 3rem;
+        }
+        
+        h2:first-child { margin-top: 0; }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--accent-blue);
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        p { margin-bottom: 1rem; color: #cbd5e1; }
+
+        /* Cards & Containers */
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Concept Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-right: 0.5rem;
+        }
+        .tag.noun { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); }
+        .tag.verb { background: rgba(74, 222, 128, 0.2); color: var(--accent-green); }
+        .tag.adj { background: rgba(250, 204, 21, 0.2); color: var(--accent-yellow); }
+        .tag.warn { background: rgba(248, 113, 113, 0.2); color: var(--accent-red); }
+
+        /* Code & Examples */
+        .example-block {
+            background-color: var(--bg-primary);
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--border-color);
+        }
+
+        .correct {
+            color: var(--accent-green);
+            display: flex;
+            gap: 10px;
+        }
+        .correct::before { content: "✓"; }
+        
+        .incorrect {
+            color: var(--accent-red);
+            text-decoration: line-through;
+            text-decoration-color: var(--text-secondary);
+            display: flex;
+            gap: 10px;
+            opacity: 0.8;
+        }
+        .incorrect::before { content: "✕"; text-decoration: none; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            color: var(--accent-blue);
+            font-weight: 600;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        /* Mermaid Diagrams */
+        .mermaid {
+            background-color: var(--bg-primary);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        /* Collapsible details */
+        details {
+            background-color: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        summary {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        details[open] {
+            padding-bottom: 1rem;
+        }
+        details p {
+            margin-top: 1rem;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>GATE Verbal Aptitude</h1>
+        <p>Parts of Speech Cheat Sheet</p>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#nouns">Nouns</a>
+                <a href="#noun-rules" class="sub-item">18 Golden Rules</a>
+                <a href="#noun-possessive" class="sub-item">Possessives</a>
+            </li>
+            <li><a href="#pronouns">Pronouns</a>
+                <a href="#pronoun-order" class="sub-item">Order (231 vs 123)</a>
+                <a href="#pronoun-relative" class="sub-item">Relative Pronouns</a>
+            </li>
+            <li><a href="#adjectives">Adjectives</a>
+                <a href="#adj-degrees" class="sub-item">Degrees</a>
+                <a href="#adj-rules" class="sub-item">Usage Rules</a>
+                <a href="#adj-quantifiers" class="sub-item">Quantifiers</a>
+            </li>
+            <li><a href="#conditionals">Conditionals (Bonus)</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Overview Section -->
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>A sentence is a group of words making complete sense, containing a Subject (doer) and a Predicate (action/state). The building blocks are the 8 Parts of Speech.</p>
+            
+            <div class="card">
+                <div class="mermaid">
+                    mindmap
+                      root((Parts of Speech))
+                        Noun(Naming Word)
+                            ::tag(noun)
+                            Identity/Name
+                        Pronoun(Substitute)
+                            ::tag(noun)
+                            Replaces Noun
+                        Adjective(Modifier)
+                            ::tag(adj)
+                            Describes Noun/Pronoun
+                        Verb(Action/State)
+                            ::tag(verb)
+                            Doing/Being
+                        Adverb(Modifier)
+                            Modifies Verb/Adj/Adverb
+                        Preposition(Relator)
+                            Shows relationship
+                        Conjunction(Connector)
+                            Joins words/clauses
+                        Interjection(Emotion)
+                            Sudden feeling
+                </div>
+            </div>
+        </section>
+
+        <!-- Nouns Section -->
+        <section id="nouns">
+            <h2>Nouns</h2>
+            <p>Words used to name a person, place, thing, or idea. Five categories: Common, Proper, Collective, Abstract, Material.</p>
+
+            <h3 id="noun-rules">Core Rules of Nouns</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Rule 1: Proper as Common</h4>
+                    <p>A proper noun becomes a common noun when pluralized or preceded by an article.</p>
+                    <div class="example-block">
+                        <div class="correct">There are two <b>Hitlers</b> in this house.</div>
+                        <div class="correct">Kalidas is <b>the Shakespeare</b> of India.</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Rule 2: Collective Nouns</h4>
+                    <p>Generally take a <b>singular</b> verb. Exception: If there is division/disagreement, use <b>plural</b>.</p>
+                    <div class="example-block">
+                        <div class="correct">The group <b>consists</b> of five members.</div>
+                        <div class="correct">The committee <b>have taken</b> their seats. (Individual action)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Singular vs. Plural Logic</h3>
+                <p>Nouns behave differently regarding countability and verb agreement.</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Examples</th>
+                            <th>Verb Agreement</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Abstract as Collective</b></td>
+                            <td>Youth</td>
+                            <td>Plural</td>
+                            <td>"Youth <b>are</b> the pillars of the nation."</td>
+                        </tr>
+                        <tr>
+                            <td><b>Material Nouns</b></td>
+                            <td>Brick, Stone, Wood</td>
+                            <td>Singular</td>
+                            <td>No plural form used for mass matter. <br>Correct: "Made of brick and stone."</td>
+                        </tr>
+                        <tr>
+                            <td><b>Singular Only</b></td>
+                            <td>Advice, Grain, Hair, Information, Scenery</td>
+                            <td>Singular</td>
+                            <td>Never say "informations".</td>
+                        </tr>
+                        <tr>
+                            <td><b>Plural Only</b></td>
+                            <td>Scissors, Biceps, Trousers, Earnings</td>
+                            <td>Plural</td>
+                            <td>"My trousers <b>are</b> new."</td>
+                        </tr>
+                        <tr>
+                            <td><b>Deceptive Plural</b></td>
+                            <td>News, Physics, Economics, Summons</td>
+                            <td>Singular</td>
+                            <td>Looks plural (ends in s) but is singular. <br>"Physics <b>is</b> difficult."</td>
+                        </tr>
+                        <tr>
+                            <td><b>Deceptive Singular</b></td>
+                            <td>Cattle, Police, People</td>
+                            <td>Plural</td>
+                            <td>Looks singular but is plural. <br>"Cattle <b>are</b> grazing."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h4>Rule 9: Plural Amount = Singular Unit</h4>
+                <p>When a plural noun represents a specific amount, distance, or weight as a whole, use a singular verb.</p>
+                <div class="example-block">
+                    <div class="incorrect">Ten thousand rupees are a large amount.</div>
+                    <div class="correct">Ten thousand rupees <b>is</b> a large amount.</div>
+                </div>
+            </div>
+
+            <h3 id="noun-possessive">Possessive Case (Apostrophe)</h3>
+            <div class="mermaid">
+                flowchart LR
+                    A{Object Type}
+                    A -->|Living| B[Use 's]
+                    A -->|Non-Living| C[Use 'of']
+                    A -->|Personified| B
+                    A -->|Plural ending in s| D[Use only ']
+                    
+                    B --> E[Men's Club]
+                    C --> F[Leg of the table]
+                    D --> G[Girls' hostel]
+            </div>
+            <ul>
+                <li><b>Compound Nouns:</b> Add apostrophe to the <i>last</i> word. (e.g., <i>Commander in chief's office</i>).</li>
+                <li><b>Joint Possession:</b> Add to the last noun only. (e.g., <i>Amar and Anil's visit</i>).</li>
+                <li><b>Personified Objects:</b> Treated as living. (e.g., <i>Death's icy hands</i>, <i>Moon's beauty</i>).</li>
+            </ul>
+        </section>
+
+        <!-- Pronouns Section -->
+        <section id="pronouns">
+            <h2>Pronouns</h2>
+
+            <h3 id="pronoun-order">Sequence of Pronouns</h3>
+            <p>When multiple pronouns are used in a single sentence, the order matters based on the context.</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4><span class="tag noun">2-3-1</span> Positive Idea</h4>
+                    <p>For general statements, praise, or awards.</p>
+                    <ol>
+                        <li>Second Person (You)</li>
+                        <li>Third Person (He/She/They)</li>
+                        <li>First Person (I/We)</li>
+                    </ol>
+                    <div class="example-block">
+                        <div class="correct"><b>You, he and I</b> will be awarded.</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4><span class="tag warn">1-2-3</span> Negative Idea</h4>
+                    <p>For confessing faults, punishment, or negative acts.</p>
+                    <ol>
+                        <li>First Person (I/We)</li>
+                        <li>Second Person (You)</li>
+                        <li>Third Person (He/She/They)</li>
+                    </ol>
+                    <div class="example-block">
+                        <div class="correct"><b>I, you and he</b> will be punished.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Key Rules</h3>
+            <div class="card">
+                <details open>
+                    <summary>Subject-Verb Agreement Logic</summary>
+                    <br>
+                    <p><b>1. "And" Rule:</b> Two nouns joined by "and" = Plural. <br><i>Exception:</i> If they refer to the same person/thing = Singular.</p>
+                    <div class="example-block">
+                        <div class="correct">The account officer and treasurer (one person) should be careful in <b>his</b> work.</div>
+                    </div>
+
+                    <p><b>2. "Each/Every" Rule:</b> Preceded by Each/Every = Singular.</p>
+                    <div class="example-block">
+                        <div class="correct">Every student and every teacher took <b>his or her</b> seat.</div>
+                    </div>
+
+                    <p><b>3. "Either...or / Neither...nor" Rule:</b> Follow the noun nearest to the verb.</p>
+                    <div class="example-block">
+                        <div class="correct">Either the manager or his subordinates failed in <b>their</b> duties.</div>
+                    </div>
+                </details>
+
+                <details>
+                    <summary>Specific Pronoun Usage</summary>
+                    <br>
+                    <ul>
+                        <li><b>It:</b> Used for time, distance, weather, or emphasis. (e.g., "It is raining", "It is 10 o'clock").</li>
+                        <li><b>One:</b> Possessive is "one's". (e.g., "One should do <b>one's</b> duties").</li>
+                        <li><b>Relative Pronouns:</b> 
+                            <ul>
+                                <li><i>Who:</i> Subject (The manager <b>who</b> abused...)</li>
+                                <li><i>Whom:</i> Object (The student <b>whom</b> you wanted...) - often omitted.</li>
+                                <li><i>That:</i> For persons/things, essential clauses.</li>
+                                <li><i>Which:</i> Infants, objects, selection (Which of these...).</li>
+                            </ul>
+                        </li>
+                        <li><b>Reciprocal:</b>
+                            <ul>
+                                <li><i>Each other:</i> Two people.</li>
+                                <li><i>One another:</i> More than two.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </details>
+            </div>
+        </section>
+
+        <!-- Adjectives Section -->
+        <section id="adjectives">
+            <h2>Adjectives</h2>
+            <p>Modifiers that describe nouns. They have three degrees of comparison.</p>
+
+            <h3 id="adj-degrees">Degrees of Comparison</h3>
+            <div class="mermaid">
+                graph LR
+                    P[Positive] -->|ER / More| C[Comparative]
+                    C -->|EST / Most| S[Superlative]
+                    
+                    subgraph Usage
+                    P --- id1(No comparison / as...as)
+                    C --- id2(1 vs 1 / than / to)
+                    S --- id3(1 vs Many / the...est)
+                    end
+            </div>
+
+            <h3 id="adj-rules">Critical Adjective Rules</h3>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Double Comparatives</h4>
+                    <p>Comparing two qualities in the <b>same person</b>.</p>
+                    <p>Use <b>more</b> instead of <i>-er</i>.</p>
+                    <div class="example-block">
+                        <div class="incorrect">Rekha is wiser than intelligent.</div>
+                        <div class="correct">Rekha is <b>more wise</b> than intelligent.</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>The "Any Other" Rule</h4>
+                    <p>When comparing one item to a group it belongs to, use "any other".</p>
+                    <div class="example-block">
+                        <div class="incorrect">Gold is more precious than any metal.</div>
+                        <div class="correct">Gold is more precious than <b>any other</b> metal.</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Latin Comparatives (The "OR" ending)</h4>
+                    <p>Words ending in <b>-or</b> (Superior, Junior, Senior, Inferior, Prior) take <b>to</b>, not <i>than</i>.</p>
+                    <div class="example-block">
+                        <div class="incorrect">He is senior than me.</div>
+                        <div class="correct">He is senior <b>to</b> me.</div>
+                        <div class="correct">This is <b>preferable to</b> that.</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Absolute Adjectives</h4>
+                    <p>Qualities that cannot be graded. Do not use "more" or "most".</p>
+                    <p class="tag warn">Unique, Perfect, Round, Chief, Universal, Dead, Empty</p>
+                    <div class="example-block">
+                        <div class="incorrect">This is the most unique idea.</div>
+                        <div class="correct">This is a <b>unique</b> idea.</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 id="adj-quantifiers">Confusing Quantifiers</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Word</th>
+                        <th>Usage</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Few</b></td>
+                        <td>Countable (Plural)</td>
+                        <td>Hardly any (Negative)</td>
+                    </tr>
+                    <tr>
+                        <td><b>A Few</b></td>
+                        <td>Countable (Plural)</td>
+                        <td>Some (Positive)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Little</b></td>
+                        <td>Uncountable (Singular)</td>
+                        <td>Hardly any (Negative)</td>
+                    </tr>
+                    <tr>
+                        <td><b>A Little</b></td>
+                        <td>Uncountable (Singular)</td>
+                        <td>Some (Positive)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Farther</b></td>
+                        <td>Distance</td>
+                        <td>Physical distance</td>
+                    </tr>
+                    <tr>
+                        <td><b>Further</b></td>
+                        <td>Addition</td>
+                        <td>"In addition to"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card">
+                <h4>Sensation Verbs</h4>
+                <p>Verbs related to senses (look, seem, taste, smell, sound) are followed by <b>Adjectives</b>, not Adverbs.</p>
+                <div class="example-block">
+                    <div class="incorrect">The soup smells deliciously.</div>
+                    <div class="correct">The soup smells <b>delicious</b>.</div>
+                    <div class="correct">He feels <b>bad</b>.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bonus Conditionals -->
+        <section id="conditionals">
+            <h2>Conditionals (Bonus)</h2>
+            <p>Structure for If-clauses based on probability.</p>
+            <div class="mermaid">
+                flowchart TD
+                    A[If Clause] --> B{Type}
+                    B -->|Present Tense| C[Main: Future (Will)]
+                    B -->|Past Tense| D[Main: Would + Verb]
+                    B -->|Past Perfect| E[Main: Would Have + V3]
+                    B -->|Hypothetical/Desire| F[Use 'Were' for all subjects]
+
+                    F --> G["If I were a bird..."]
+            </div>
+            <div class="example-block">
+                <div class="correct"><b>No sooner</b> had I reached... <b>than</b> the train left.</div>
+                <div class="correct"><b>Scarcely/Hardly</b> had I reached... <b>when</b> the train left.</div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

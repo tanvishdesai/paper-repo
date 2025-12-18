@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS Deadlock Cheat Sheet</title>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --card-bg: #2d2d2d;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-primary: #ffc107; /* Chalk Yellow */
+            --accent-secondary: #4caf50; /* Chalk Green */
+            --accent-tertiary: #f48fb1; /* Chalk Pink */
+            --border-color: #404040;
+            --sidebar-width: 260px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: #181818;
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        nav h2 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.8rem; }
+        
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: block;
+            padding: 4px 0;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-primary);
+            font-weight: 600;
+            border-left: 3px solid var(--accent-primary);
+            padding-left: 10px;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 { color: var(--text-main); margin-bottom: 1rem; }
+        h1 { font-size: 2.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 2rem; }
+        h2 { font-size: 1.8rem; color: var(--accent-primary); margin-top: 3rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        h3 { font-size: 1.3rem; color: var(--accent-secondary); margin-top: 1.5rem; }
+
+        p { margin-bottom: 1rem; color: #ccc; }
+        
+        /* Interactive Cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-color: var(--accent-tertiary);
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: var(--accent-tertiary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #444;
+            color: white;
+        }
+
+        /* Comparison Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th { background: #333; color: var(--accent-primary); }
+        tr:last-child td { border-bottom: none; }
+
+        /* Code/Algo Blocks */
+        pre {
+            background: #111;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-secondary);
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Fira Code', monospace;
+            color: #d4d4d4;
+        }
+
+        .note {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .warning {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; padding: 1rem; position: relative; border-bottom: 1px solid var(--border-color); }
+            main { padding: 1.5rem; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+        
+        details {
+            background: #252525;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--accent-primary);
+        }
+
+        .mjx-chtml { color: white !important; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>CS & IT Engineering</h1>
+    <h2>Operating Systems: Deadlock</h2>
+    <ul>
+        <li><a href="#intro">1. Introduction & Model</a></li>
+        <li><a href="#conditions">2. Characterization (Necessary Conditions)</a></li>
+        <li><a href="#rag">3. Resource Allocation Graph</a></li>
+        <li><a href="#handling">4. Handling Strategies</a></li>
+        <li><a href="#prevention">5. Deadlock Prevention</a></li>
+        <li><a href="#avoidance">6. Avoidance (Banker's Algo)</a></li>
+        <li><a href="#detection">7. Detection & Recovery</a></li>
+        <li><a href="#formulas">8. Exam Formulas (Math)</a></li>
+    </ul>
+</nav>
+
+<main>
+
+    <!-- Header -->
+    <header id="intro">
+        <h1>Deadlock in Operating Systems</h1>
+        <p class="note"><strong>Definition:</strong> A situation where a set of processes are blocked because each process is holding a resource and waiting for another resource acquired by some other process. It is an "infinite blocking" caused by a circular dependency.</p>
+        
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-title">Deadlock vs. Starvation</div>
+                <ul>
+                    <li><strong>Deadlock:</strong> Infinite blocking. Circular wait involved. No progress possible.</li>
+                    <li><strong>Starvation:</strong> Indefinite blocking. Low priority process waits while high priority proceeds. Progress is happening for others.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-title">System Model</div>
+                <p>Resources ($R_1, R_2... R_m$) and Processes ($P_1, P_2... P_n$).</p>
+                <div class="mermaid">
+                stateDiagram-v2
+                    direction LR
+                    Request --> Use: OS Grants
+                    Request --> Blocked: OS Denies
+                    Blocked --> Request: Retry/Wait
+                    Use --> Release: Task Done
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Characterization -->
+    <section id="conditions">
+        <h2>2. Deadlock Characterization</h2>
+        <p>Deadlock can arise <strong>if and only if</strong> these 4 necessary conditions hold simultaneously (Coffman Conditions).</p>
+        
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-title">1. Mutual Exclusion <span class="tag">Resource</span></div>
+                <p>At least one resource must be held in a non-shareable mode. (e.g., Printer, Tape Drive). If another process requests it, it must wait.</p>
+            </div>
+            <div class="card">
+                <div class="card-title">2. Hold and Wait <span class="tag">Process</span></div>
+                <p>A process must be holding at least one resource and waiting to acquire additional resources held by other processes.</p>
+            </div>
+            <div class="card">
+                <div class="card-title">3. No Preemption <span class="tag">System</span></div>
+                <p>Resources cannot be forcibly taken from a process. A resource can be released only voluntarily by the process holding it.</p>
+            </div>
+            <div class="card">
+                <div class="card-title">4. Circular Wait <span class="tag">Cycle</span></div>
+                <p>A set of processes $\{P_0, P_1, ... P_n\}$ exists such that $P_0$ waits for $P_1$, $P_1$ waits for $P_2$, ..., and $P_n$ waits for $P_0$.</p>
+            </div>
+        </div>
+        <div class="mermaid">
+            graph LR
+            P1((P1)) -- Waits for --> R2[Resource 2]
+            R2 -- Held by --> P2((P2))
+            P2 -- Waits for --> R1[Resource 1]
+            R1 -- Held by --> P1
+            style P1 fill:#f48fb1,stroke:#333,color:black
+            style P2 fill:#f48fb1,stroke:#333,color:black
+            style R1 fill:#4caf50,stroke:#333,color:black
+            style R2 fill:#4caf50,stroke:#333,color:black
+        </div>
+    </section>
+
+    <!-- RAG -->
+    <section id="rag">
+        <h2>3. Resource Allocation Graph (RAG)</h2>
+        <p>A directed graph used to model the state of the system.</p>
+        <ul>
+            <li><strong>Vertices ($V$):</strong> Processes (Circles) and Resources (Rectangles).</li>
+            <li><strong>Edges ($E$):</strong>
+                <ul>
+                    <li><strong>Request Edge ($P_i \to R_j$):</strong> Process asks for resource.</li>
+                    <li><strong>Assignment Edge ($R_j \to P_i$):</strong> Resource assigned to process.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Resource Type</th>
+                    <th>Cycle Presence</th>
+                    <th>Conclusion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Single Instance</td>
+                    <td>Cycle detected</td>
+                    <td><strong>DEADLOCK</strong> (Necessary & Sufficient)</td>
+                </tr>
+                <tr>
+                    <td>Multi-Instance</td>
+                    <td>Cycle detected</td>
+                    <td><strong>MAYBE</strong> (Necessary but not Sufficient)</td>
+                </tr>
+                <tr>
+                    <td>Any</td>
+                    <td>No Cycle</td>
+                    <td><strong>NO DEADLOCK</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Strategies -->
+    <section id="handling">
+        <h2>4. Handling Strategies</h2>
+        <div class="grid-container">
+            <div class="card" style="border-left: 4px solid var(--accent-tertiary)">
+                <div class="card-title">1. Deadlock Ignorance (Ostrich Algorithm)</div>
+                <p>Pretend the problem doesn't exist. Used by <strong>Windows & UNIX</strong>. Why? Deadlocks are rare, and prevention is expensive.</p>
+            </div>
+            <div class="card" style="border-left: 4px solid var(--accent-primary)">
+                <div class="card-title">2. Deadlock Prevention</div>
+                <p>Design system to invalidate at least one of the 4 necessary conditions. <strong>(Proactive)</strong></p>
+            </div>
+            <div class="card" style="border-left: 4px solid var(--accent-secondary)">
+                <div class="card-title">3. Deadlock Avoidance</div>
+                <p>Allow requests only if the system remains in a "Safe State". Requires future knowledge (Max Need). <strong>(Banker's Algo)</strong></p>
+            </div>
+            <div class="card" style="border-left: 4px solid white">
+                <div class="card-title">4. Detection & Recovery</div>
+                <p>Let deadlock occur, detect it via graph/algo, and recover (kill process/preempt resource). <strong>(Reactive)</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prevention -->
+    <section id="prevention">
+        <h2>5. Deadlock Prevention</h2>
+        <p>Ensure deadlock <em>never</em> occurs by breaking one of the conditions.</p>
+        
+        <details>
+            <summary>Attacking Mutual Exclusion</summary>
+            <p><strong>Method:</strong> Make resources shareable (e.g., Read-only files).<br>
+            <strong>Problem:</strong> Not possible for all resources (e.g., Printers, Mutex locks intrinsic property is non-sharing).</p>
+        </details>
+
+        <details open>
+            <summary>Attacking Hold and Wait</summary>
+            <p><strong>Strategy 1:</strong> Request ALL resources before execution starts.<br>
+            <em>Cons:</em> Low resource utilization, Starvation.</p>
+            <p><strong>Strategy 2:</strong> To request a new resource, release all currently held resources first.</p>
+        </details>
+
+        <details>
+            <summary>Attacking No Preemption</summary>
+            <p>If a process requests a resource that is not available:<br>
+            1. Release all currently held resources.<br>
+            2. Preempt resources from the waiting process (if applicable).</p>
+        </details>
+
+        <details open>
+            <summary>Attacking Circular Wait (Most Practical)</summary>
+            <p><strong>Method:</strong> Assign a unique numerical number to each resource type. Require processes to request resources in <strong>increasing order</strong> of enumeration.</p>
+            <p class="note">$$ \text{If } P_i \text{ holds } R_a \text{ and requests } R_b, \text{ then } F(R_b) > F(R_a) $$</p>
+        </details>
+    </section>
+
+    <!-- Avoidance -->
+    <section id="avoidance">
+        <h2>6. Deadlock Avoidance (Banker's Algorithm)</h2>
+        <p>Requires <strong>A Priori Information</strong> (Max Need). The OS runs the <em>Safety Algorithm</em> to check if granting a request leads to an Unsafe State.</p>
+
+        <h3>Data Structures</h3>
+        <ul>
+            <li>\(n\): Number of processes, \(m\): Number of resource types.</li>
+            <li><strong>Available \([m]\):</strong> Resources currently free.</li>
+            <li><strong>Max \([n \times m]\):</strong> Max demand of each process.</li>
+            <li><strong>Allocation \([n \times m]\):</strong> Currently allocated.</li>
+            <li><strong>Need \([n \times m]\):</strong> Remaining need.</li>
+        </ul>
+        <div class="note" style="text-align: center; font-size: 1.2rem;">
+            $$ Need[i,j] = Max[i,j] - Allocation[i,j] $$
+        </div>
+
+        <h3>Safety Algorithm Steps</h3>
+        <ol>
+            <li>Initialize Work = Available, Finish[i] = false.</li>
+            <li>Find a process \(P_i\) such that:
+                <ul>
+                    <li>\(Finish[i] == false\)</li>
+                    <li>\(Need_i \le Work\)</li>
+                </ul>
+            </li>
+            <li>If found:
+                <ul>
+                    <li>Assume \(P_i\) finishes. Release its resources.</li>
+                    <li>\(Work = Work + Allocation_i\)</li>
+                    <li>\(Finish[i] = true\)</li>
+                    <li>Repeat step 2.</li>
+                </ul>
+            </li>
+            <li>If all \(Finish[i] == true\), System is <strong>SAFE</strong>. If not, <strong>UNSAFE</strong>.</li>
+        </ol>
+
+        <details>
+            <summary>Resource Request Algorithm (When Pi asks for Request)</summary>
+            <ol>
+                <li>If \(Request_i > Need_i\) -> Error (Process exceeded claim).</li>
+                <li>If \(Request_i > Available\) -> Wait.</li>
+                <li><strong>Pretend</strong> to allocate:
+                    <ul>
+                        <li>\(Available = Available - Request_i\)</li>
+                        <li>\(Allocation_i = Allocation_i + Request_i\)</li>
+                        <li>\(Need_i = Need_i - Request_i\)</li>
+                    </ul>
+                </li>
+                <li>Run Safety Algorithm. If Safe -> Grant. If Unsafe -> Rollback & Wait.</li>
+            </ol>
+        </details>
+    </section>
+
+    <!-- Detection & Recovery -->
+    <section id="detection">
+        <h2>7. Detection & Recovery</h2>
+        
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-title">Detection</div>
+                <p><strong>Single Instance:</strong> Construct a <em>Wait-for Graph</em> (Remove resource nodes, collapse edges $P_i \to R \to P_j$ into $P_i \to P_j$). If Cycle $\exists \to$ Deadlock.</p>
+                <p><strong>Multi-Instance:</strong> Use an algorithm similar to Banker's, but use \(Request\) instead of \(Need\). If processes remain unfinished $\to$ Deadlock.</p>
+            </div>
+            <div class="card">
+                <div class="card-title">Recovery</div>
+                <ul>
+                    <li><strong>Process Termination:</strong>
+                        <ul>
+                            <li>Abort all deadlocked processes.</li>
+                            <li>Abort one at a time (based on priority, cost, progress) until cycle eliminates.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Resource Preemption:</strong>
+                        <ul>
+                            <li>Select Victim (Cost minimization).</li>
+                            <li>Rollback (Return to safe state).</li>
+                            <li>Starvation (Ensure same victim isn't picked always).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exam Formulas -->
+    <section id="formulas">
+        <h2>8. Exam Formulas (Deadlock Freedom)</h2>
+        <p>Common question type: "What is the minimum number of units of resource R required to ensure NO deadlock?"</p>
+
+        <div class="card">
+            <h3>Variables</h3>
+            <ul>
+                <li>\(N\): Number of Processes</li>
+                <li>\(K\): Max Need per Process (copies of resource R)</li>
+                <li>\(R\): Total Resources available</li>
+            </ul>
+        </div>
+
+        <div class="grid-container" style="margin-top: 1rem;">
+            <div class="card" style="border-color: #f44336;">
+                <div class="card-title" style="color: #f44336;">Deadlock Condition</div>
+                <p>Deadlock is possible if total resources are less than the sum of "Max Need - 1" for everyone.</p>
+                $$ R < N(K-1) + 1 $$
+                <p><em>(Worst case: Everyone holds K-1 and waits for 1)</em></p>
+            </div>
+            
+            <div class="card" style="border-color: #4caf50;">
+                <div class="card-title" style="color: #4caf50;">Deadlock Freedom (Safe)</div>
+                <p>The system is guaranteed deadlock-free if:</p>
+                $$ R \ge N(K-1) + 1 $$
+            </div>
+        </div>
+
+        <h3>General Formula (Different Needs)</h3>
+        <p>If processes have different max needs ($Max_1, Max_2, ... Max_n$):</p>
+        <p class="note">
+            $$ \text{Deadlock Free if: } R \ge \left( \sum_{i=1}^{n} (Max_i - 1) \right) + 1 $$
+        </p>
+    </section>
+
+</main>
+
+<script>
+    // Simple script to handle navigation active state
+    const sections = document.querySelectorAll('section, header');
+    const navLi = document.querySelectorAll('nav ul li a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLi.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href').includes(current)) {
+                a.classList.add('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>

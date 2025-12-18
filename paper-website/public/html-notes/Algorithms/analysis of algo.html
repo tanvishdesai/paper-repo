@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS & IT: Analysis of Algorithms Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <!-- Prism Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #4f46e5;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-links li { margin-bottom: 0.5rem; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 3rem 4rem;
+            flex: 1;
+            max-width: 1400px;
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text); }
+        h2 { font-size: 1.8rem; margin-top: 3rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; color: var(--text); }
+        h3 { font-size: 1.4rem; margin-top: 2rem; color: var(--secondary); }
+        p { line-height: 1.6; color: var(--text); }
+
+        /* Cards & Boxes */
+        .concept-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .concept-card:hover { transform: translateY(-2px); }
+
+        .definition-box {
+            border-left: 4px solid var(--accent);
+            background: #fffbeb;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .math-block {
+            font-family: 'Fira Code', monospace;
+            background: #f1f5f9;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th { background-color: #f8fafc; font-weight: 600; color: var(--text-light); }
+
+        /* Diagrams */
+        .diagram-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Collapsible */
+        details {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        details summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            background: #f8fafc;
+        }
+
+        details[open] summary { border-bottom: 1px solid var(--border); }
+        
+        .details-content { padding: 1.5rem; }
+
+        /* Code Blocks */
+        pre { border-radius: 8px !important; margin: 1.5rem 0 !important; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 1.5rem; }
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="sidebar">
+        <h2>Algo Analysis</h2>
+        <ul class="nav-links">
+            <li><a href="#intro">1. Fundamentals</a></li>
+            <li><a href="#asymptotic">2. Asymptotic Notations</a></li>
+            <li><a href="#growth">3. Growth Rates</a></li>
+            <li><a href="#loops">4. Analyzing Loops</a></li>
+            <li><a href="#recursion">5. Recursive Analysis</a></li>
+            <li><a href="#space">6. Space Complexity</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <main class="main-content">
+        <div class="header-section">
+            <span class="tag tag-blue">CS & IT Engineering</span>
+            <h1>Analysis of Algorithms</h1>
+            <p class="text-light">Comprehensive notes covering Algorithm Lifecycle, Asymptotic Notations, Time/Space Complexity, and Recurrence Relations. Based on Lectures 01-10.</p>
+        </div>
+
+        <!-- Section 1: Introduction -->
+        <section id="intro">
+            <h2>1. Fundamentals of Algorithms</h2>
+            
+            <div class="concept-card">
+                <h3>Definition & Characteristics</h3>
+                <p>An algorithm is a finite set of steps/statements to solve a specific problem. It corresponds to an abstract machine processing logic.</p>
+                <ul>
+                    <li><strong>Input:</strong> Zero or more inputs.</li>
+                    <li><strong>Output:</strong> At least one output.</li>
+                    <li><strong>Definiteness:</strong> Each instruction is clear and unambiguous.</li>
+                    <li><strong>Finiteness:</strong> Must terminate after a finite number of steps.</li>
+                    <li><strong>Effectiveness:</strong> Operations must be basic enough to be carried out.</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph LR
+                        A[Problem Definition] --> B[Design Algorithm]
+                        B --> C[Analysis]
+                        C --> D{Efficient?}
+                        D -- No --> B
+                        D -- Yes --> E[Implementation/Code]
+                        E --> F[Testing]
+                </div>
+            </div>
+
+            <h3>Types of Analysis</h3>
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Priori Analysis</th>
+                    <th>Posteriori Analysis</th>
+                </tr>
+                <tr>
+                    <td><strong>Nature</strong></td>
+                    <td>Theoretical / Mathematical</td>
+                    <td>Empirical / Experimental</td>
+                </tr>
+                <tr>
+                    <td><strong>Hardware</strong></td>
+                    <td><span class="tag tag-green">Independent</span></td>
+                    <td><span class="tag tag-red">Dependent</span> (CPU, RAM affect it)</td>
+                </tr>
+                <tr>
+                    <td><strong>Metric</strong></td>
+                    <td>Time Function \( f(n) \), Space Function \( S(n) \)</td>
+                    <td>Watch time (seconds), Bytes used</td>
+                </tr>
+                <tr>
+                    <td><strong>Usage</strong></td>
+                    <td>Used by Designers/Architects</td>
+                    <td>Used by Testers/Profilers</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Section 2: Asymptotic Notations -->
+        <section id="asymptotic">
+            <h2>2. Asymptotic Notations (ASN)</h2>
+            <p>ASN is the mathematical tool used in Priori Analysis to represent the bounding behavior of a function as input size \( n \to \infty \).</p>
+
+            <div class="concept-card">
+                <h3>1. Big Oh (O) - Upper Bound (Worst Case)</h3>
+                <div class="definition-box">
+                    \( f(n) = O(g(n)) \) iff there exist constants \( c > 0 \) and \( n_0 \ge 1 \) such that:
+                    <br>
+                    $$ f(n) \le c \cdot g(n) \quad \forall n \ge n_0 $$
+                </div>
+                <p><strong>Meaning:</strong> \( f(n) \) grows no faster than \( g(n) \). It describes the "ceiling" of resource usage.</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>2. Big Omega (\(\Omega\)) - Lower Bound (Best Case)</h3>
+                <div class="definition-box">
+                    \( f(n) = \Omega(g(n)) \) iff there exist constants \( c > 0 \) and \( n_0 \ge 1 \) such that:
+                    <br>
+                    $$ f(n) \ge c \cdot g(n) \quad \forall n \ge n_0 $$
+                </div>
+                <p><strong>Meaning:</strong> \( f(n) \) grows at least as fast as \( g(n) \). It describes the "floor" of resource usage.</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>3. Theta (\(\Theta\)) - Tight Bound (Average/Exact)</h3>
+                <div class="definition-box">
+                    \( f(n) = \Theta(g(n)) \) iff there exist constants \( c_1, c_2 > 0 \) and \( n_0 \ge 1 \) such that:
+                    <br>
+                    $$ c_1 \cdot g(n) \le f(n) \le c_2 \cdot g(n) \quad \forall n \ge n_0 $$
+                </div>
+                <p><strong>Meaning:</strong> \( f(n) \) grows at the same rate as \( g(n) \).</p>
+            </div>
+
+            <details>
+                <summary>Click to see Little Notations (Small \(o\) and \(\omega\))</summary>
+                <div class="details-content">
+                    <h4>Small oh (\(o\)) - Loose Upper Bound</h4>
+                    <p>Strictly less than. \( f(n) < c \cdot g(n) \). Example: \( n = o(n^2) \) is True, but \( n = o(n) \) is False.</p>
+                    
+                    <h4>Small omega (\(\omega\)) - Loose Lower Bound</h4>
+                    <p>Strictly greater than. \( f(n) > c \cdot g(n) \). Example: \( n^2 = \omega(n) \) is True.</p>
+                </div>
+            </details>
+
+            <h3>Properties of ASN</h3>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+                        A[Properties] --> B[Reflexive]
+                        A --> C[Symmetric]
+                        A --> D[Transitive]
+                        B --> B1["f(n) = O(f(n))"]
+                        C --> C1["f(n)=Θ(g(n)) ⇔ g(n)=Θ(f(n))"]
+                        D --> D1["If f=O(g) & g=O(h) → f=O(h)"]
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Growth Rates -->
+        <section id="growth">
+            <h2>3. Growth Rates & Dominance</h2>
+            <p>To analyze algorithms, we compare the rate of growth of functions. The hierarchy of complexity is crucial for solving problems.</p>
+
+            <div class="definition-box" style="text-align: center; font-size: 1.1rem;">
+                <strong>The Dominance Chain:</strong><br><br>
+                \( 1 < \log(\log n) < \log n < \sqrt{n} < n < n \log n < n^2 < n^3 < \dots < 2^n < n! < n^n \)
+            </div>
+
+            <h3>Key Comparisons</h3>
+            <ul>
+                <li><strong>Logarithms:</strong> \( \log_a n \) and \( \log_b n \) are asymptotically the same (\( \Theta \)) because they differ only by a constant multiplier.</li>
+                <li><strong>Polynomials:</strong> For \( a_k n^k + \dots \), the term with the highest power \( k \) dominates. Lower order terms are ignored.</li>
+                <li><strong>Exponentials:</strong> \( 2^n \) is significantly faster growing than \( n^{100} \) for large \( n \). Note: \( 2^n \ne O(2^{n+1}) \) is incorrect; actually \( 2^{n+1} = 2 \cdot 2^n = O(2^n) \). However, \( 2^{2n} = 4^n \neq O(2^n) \).</li>
+            </ul>
+
+            <div class="concept-card">
+                <h4>Helpful Math Identities</h4>
+                <ul>
+                    <li>\( \log(ab) = \log a + \log b \)</li>
+                    <li>\( a^{\log_b n} = n^{\log_b a} \) (Swap property)</li>
+                    <li>Sum of 1 to n: \( \frac{n(n+1)}{2} = \Theta(n^2) \)</li>
+                    <li>Sum of Geometric Series (\(r > 1\)): \( \frac{a(r^n - 1)}{r-1} = \Theta(r^n) \) (Last term dominates)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 4: Analyzing Loops -->
+        <section id="loops">
+            <h2>4. Analyzing Non-Recursive Algorithms (Loops)</h2>
+            
+            <div class="concept-card">
+                <h3>General Rules</h3>
+                <ol>
+                    <li><strong>Simple Loops:</strong> Determine the number of iterations.</li>
+                    <li><strong>Nested Loops:</strong> Multiply the complexities (if independent) or sum the series (if dependent).</li>
+                    <li><strong>Consecutive Loops:</strong> Take the maximum (Add complexities).</li>
+                </ol>
+            </div>
+
+            <h3>Common Patterns</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <!-- Pattern 1 -->
+                <div class="concept-card">
+                    <h4>Linear Loop</h4>
+                    <pre><code class="language-c">for(i=1; i<=n; i++) {
+    // const work
+}</code></pre>
+                    <p><strong>Complexity:</strong> \( O(n) \)</p>
+                </div>
+
+                <!-- Pattern 2 -->
+                <div class="concept-card">
+                    <h4>Logarithmic Loop (Multiply/Divide)</h4>
+                    <pre><code class="language-c">for(i=1; i<=n; i = i*2) {
+    // const work
+}</code></pre>
+                    <p><strong>Complexity:</strong> \( O(\log_2 n) \)</p>
+                </div>
+
+                <!-- Pattern 3 -->
+                <div class="concept-card">
+                    <h4>Dependent Nested Loop</h4>
+                    <pre><code class="language-c">for(i=1; i<=n; i++) {
+   for(j=1; j<=i; j++) {
+      // work
+   }
+}</code></pre>
+                    <p>Executes \( 1 + 2 + 3 + \dots + n \).</p>
+                    <p><strong>Complexity:</strong> \( O(n^2) \)</p>
+                </div>
+
+                <!-- Pattern 4 -->
+                <div class="concept-card">
+                    <h4>Root Loop</h4>
+                    <pre><code class="language-c">for(i=1; i*i <= n; i++) {
+    // const work
+}</code></pre>
+                    <p>Stops when \( i^2 = n \implies i = \sqrt{n} \).</p>
+                    <p><strong>Complexity:</strong> \( O(\sqrt{n}) \)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Recursive Analysis -->
+        <section id="recursion">
+            <h2>5. Analyzing Recursive Algorithms</h2>
+            <p>Time complexity for recursion is derived by solving <strong>Recurrence Relations</strong>.</p>
+            
+            <div class="concept-card">
+                <h3>Method 1: Substitution / Recursion Tree</h3>
+                <p>Example: \( T(n) = 2T(n/2) + n \) (Merge Sort structure)</p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                            Root(n) --> L(n/2)
+                            Root --> R(n/2)
+                            L --> L1(n/4)
+                            L --> L2(n/4)
+                            R --> R1(n/4)
+                            R --> R2(n/4)
+                    </div>
+                </div>
+                <p>Total work = (Work per level) × (Number of levels).</p>
+                <p>Work per level is \( cn \). Height is \( \log_2 n \).</p>
+                <p><strong>Result:</strong> \( O(n \log n) \)</p>
+            </div>
+
+            <div class="concept-card">
+                <h3>Method 2: Master Theorem (Quick Ref)</h3>
+                <p>For recurrences of form \( T(n) = aT(n/b) + f(n) \):</p>
+                <ul>
+                    <li>Compare \( n^{\log_b a} \) with \( f(n) \).</li>
+                    <li><strong>Case 1:</strong> If \( n^{\log_b a} > f(n) \), then \( T(n) = \Theta(n^{\log_b a}) \).</li>
+                    <li><strong>Case 2:</strong> If \( n^{\log_b a} = f(n) \), then \( T(n) = \Theta(n^{\log_b a} \log n) \).</li>
+                    <li><strong>Case 3:</strong> If \( n^{\log_b a} < f(n) \), then \( T(n) = \Theta(f(n)) \) (provided regularity condition holds).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: Space Complexity -->
+        <section id="space">
+            <h2>6. Space Complexity</h2>
+            <div class="definition-box">
+                <strong>Space Complexity</strong> = Input Space (to store data) + Auxiliary Space (extra space used by algo).
+            </div>
+
+            <div class="concept-card">
+                <h3>Memory Stack in Recursion</h3>
+                <p>Recursive algorithms use the system stack to store activation records (local variables, return address) for each function call.</p>
+                <ul>
+                    <li><strong>Formula:</strong> \( \text{Space} \propto \text{Max Depth of Recursion Tree} \).</li>
+                </ul>
+                <p><strong>Example:</strong></p>
+                <pre><code class="language-c">void test(n) {
+    if (n <= 0) return;
+    test(n-1);
+}</code></pre>
+                <p>Input size: \( O(1) \). Auxiliary Space: \( O(n) \) (Depth of stack).</p>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Time Complexity</th>
+                    <th>Space Complexity (Aux)</th>
+                </tr>
+                <tr>
+                    <td>Linear Search</td>
+                    <td>\( O(n) \)</td>
+                    <td>\( O(1) \)</td>
+                </tr>
+                <tr>
+                    <td>Binary Search (Iterative)</td>
+                    <td>\( O(\log n) \)</td>
+                    <td>\( O(1) \)</td>
+                </tr>
+                <tr>
+                    <td>Binary Search (Recursive)</td>
+                    <td>\( O(\log n) \)</td>
+                    <td>\( O(\log n) \) (Stack)</td>
+                </tr>
+                <tr>
+                    <td>Merge Sort</td>
+                    <td>\( O(n \log n) \)</td>
+                    <td>\( O(n) \)</td>
+                </tr>
+            </table>
+        </section>
+
+        <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-light);">
+            <p>Generated based on Dr. Khaleel Khan's "Analysis of Algorithms" Lectures 1-10.</p>
+        </footer>
+
+    </main>
+</body>
+</html>

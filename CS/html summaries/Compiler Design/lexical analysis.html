@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compiler Design: Lexical & Syntax Analysis Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #e0e7ff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --border: #e5e7eb;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        nav h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 3rem;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.25rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+        h2 { font-size: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem; border-left: 4px solid var(--primary); padding-left: 1rem; color: var(--text); }
+        h3 { font-size: 1.1rem; margin-top: 1.5rem; font-weight: 600; color: var(--text); }
+
+        p { line-height: 1.6; color: #374151; margin-bottom: 1rem; }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: var(--primary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* Comparisons */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Collapsible details */
+        details {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        details[open] summary {
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag.lex { background: #d1fae5; color: #065f46; }
+        .tag.syn { background: #dbeafe; color: #1e40af; }
+        .tag.sem { background: #fce7f3; color: #9d174d; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; height: auto; }
+            nav { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+            main { padding: 1rem; }
+            .comparison-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h3>Compiler Design Cheat Sheet</h3>
+        <a href="#overview">Overview & Phases</a>
+        <a href="#lexical">1. Lexical Analysis</a>
+        <a href="#syntax">2. Syntax Analysis (Basics)</a>
+        <a href="#cfg">3. Context Free Grammars</a>
+        <a href="#parsing-types">4. Parsing Hierarchy</a>
+        <a href="#top-down">5. Top-Down (LL)</a>
+        <a href="#bottom-up">6. Bottom-Up (LR)</a>
+        <a href="#precedence">7. Operator Precedence</a>
+    </nav>
+
+    <main>
+        <header id="overview">
+            <h1>Compiler Design</h1>
+            <p>Lexical Analysis and Syntax Analysis Summary. From source code to parse trees.</p>
+        </header>
+
+        <!-- SECTION 1: PHASES -->
+        <section class="card">
+            <h2>The Compilation Process</h2>
+            <p>A compiler translates High-Level Language (HLL) to Low-Level Language (Assembly/Machine Code).</p>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph LR
+                    A[Source Code] --> B(Preprocessor)
+                    B --> C[Pure HLL]
+                    C --> D(Compiler)
+                    D --> E[Assembly Code]
+                    E --> F(Assembler)
+                    F --> G[Machine Code]
+                    G --> H(Linker/Loader)
+                    H --> I[Executable]
+                </div>
+            </div>
+
+            <h3>The 7 Phases of a Compiler</h3>
+            <p>All phases interact with the <strong>Symbol Table</strong> and <strong>Error Handler</strong>.</p>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+                    Input[Character Stream] --> LA[1. Lexical Analysis]
+                    LA -- Token Stream --> SA[2. Syntax Analysis]
+                    SA -- Parse Tree --> SEA[3. Semantic Analysis]
+                    SEA -- Annotated Tree --> ICG[4. Intermediate Code Gen]
+                    ICG -- Intermediate Code --> ICO[5. Code Optimization]
+                    ICO -- Optimized Code --> CG[6. Code Generation]
+                    CG -- Target Assembly --> ACO[7. Target Code Opt]
+                    
+                    style LA fill:#d1fae5,stroke:#065f46
+                    style SA fill:#dbeafe,stroke:#1e40af
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: LEXICAL ANALYSIS -->
+        <section id="lexical" class="card">
+            <h2>1. Lexical Analysis (Scanner)</h2>
+            <p><span class="tag lex">Input: Character Stream</span> &rarr; <span class="tag lex">Output: Token Stream</span></p>
+            
+            <div class="comparison-grid">
+                <div>
+                    <h3>Core Functions</h3>
+                    <ul>
+                        <li>Reads the program character by character.</li>
+                        <li>Strips <strong>White Spaces</strong> and <strong>Comments</strong>.</li>
+                        <li>Groups characters into <strong>Lexemes</strong>.</li>
+                        <li>Generates <strong>Tokens</strong> based on patterns (RegEx).</li>
+                        <li>Uses <strong>Maximal Munch</strong> (Longest Prefix Rule).</li>
+                        <li>Reports Lexical Errors (e.g., invalid characters).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Terminology</h3>
+                    <ul>
+                        <li><strong>Token:</strong> Logical unit (e.g., `id`, `number`, `keyword`).</li>
+                        <li><strong>Lexeme:</strong> Actual character sequence (e.g., `count`, `123`, `if`).</li>
+                        <li><strong>Pattern:</strong> Rule describing the token (e.g., `[a-zA-Z]+`).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Example</h3>
+            <pre><code>printf("Hello %d", x);</code></pre>
+            <p><strong>Tokens Generated (5):</strong> <code>printf</code>, <code>(</code>, <code>"Hello %d"</code>, <code>,</code>, <code>x</code>, <code>)</code>, <code>;</code></p>
+        </section>
+
+        <!-- SECTION 3: SYNTAX ANALYSIS -->
+        <section id="syntax" class="card">
+            <h2>2. Syntax Analysis (Parser)</h2>
+            <p><span class="tag syn">Input: Token Stream</span> &rarr; <span class="tag syn">Output: Parse Tree</span></p>
+            <p>Verifies that the sequence of tokens forms a valid sentence in the language using a Context Free Grammar (CFG).</p>
+
+            <details>
+                <summary><strong>Types of Errors Detected</strong></summary>
+                <ul>
+                    <li><strong>Lexical:</strong> Spelling of keywords, illegal chars. (Detected by Scanner)</li>
+                    <li><strong>Syntax:</strong> Missing semicolon, unbalanced parenthesis, structure mismatch. (Detected by Parser)</li>
+                    <li><strong>Semantic:</strong> Type mismatch, undeclared variable, scope resolution. (Detected by Semantic Analyzer)</li>
+                </ul>
+            </details>
+        </section>
+
+        <!-- SECTION 4: CFG -->
+        <section id="cfg" class="card">
+            <h2>3. Context Free Grammar (CFG)</h2>
+            <p>Defined as $G = (V, T, P, S)$.</p>
+            <ul>
+                <li>$V$: Non-terminals (Variables) - Uppercase letters.</li>
+                <li>$T$: Terminals - Lowercase, symbols.</li>
+                <li>$P$: Production Rules ($LHS \to RHS$).</li>
+                <li>$S$: Start Symbol.</li>
+            </ul>
+
+            <h3>Derivation Types</h3>
+            <div class="comparison-grid">
+                <div>
+                    <strong>Left Most Derivation (LMD)</strong>
+                    <p>Always replace the leftmost non-terminal first.</p>
+                    <code>Used by Top-Down Parsers (LL)</code>
+                </div>
+                <div>
+                    <strong>Right Most Derivation (RMD)</strong>
+                    <p>Always replace the rightmost non-terminal first.</p>
+                    <code>Reverse RMD is used by Bottom-Up Parsers (LR)</code>
+                </div>
+            </div>
+
+            <h3>Ambiguity</h3>
+            <p>A grammar is <strong>ambiguous</strong> if there exists a string $w$ such that:</p>
+            <ul>
+                <li>It has > 1 Left Most Derivations.</li>
+                <li>It has > 1 Right Most Derivations.</li>
+                <li>It has > 1 Parse Trees.</li>
+            </ul>
+            <p class="warning" style="background: #fff3cd; padding: 0.5rem; border-radius: 4px;">Ambiguous grammars are generally bad for parsing. We convert them to unambiguous grammars.</p>
+
+            <h3>Grammar Transformations</h3>
+            <details>
+                <summary><strong>1. Elimination of Left Recursion</strong></summary>
+                <p>Problem: $A \to A\alpha \mid \beta$ causes infinite loops in Top-Down parsers.</p>
+                <p><strong>Solution:</strong></p>
+                <p>$$A \to \beta A'$$</p>
+                <p>$$A' \to \alpha A' \mid \epsilon$$</p>
+            </details>
+            
+            <details>
+                <summary><strong>2. Left Factoring</strong></summary>
+                <p>Problem: $A \to \alpha \beta_1 \mid \alpha \beta_2$. The parser doesn't know which path to take.</p>
+                <p><strong>Solution:</strong></p>
+                <p>$$A \to \alpha A'$$</p>
+                <p>$$A' \to \beta_1 \mid \beta_2$$</p>
+            </details>
+        </section>
+
+        <!-- SECTION 5: PARSING HIERARCHY -->
+        <section id="parsing-types" class="card">
+            <h2>4. Parser Hierarchy</h2>
+            <p>Visualizing the power of different parsing techniques.</p>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+                    subgraph All_CFG
+                        subgraph Unambiguous
+                            subgraph LR1[LR 1 / CLR 1]
+                                subgraph LALR1[LALR 1]
+                                    subgraph SLR1[SLR 1]
+                                        subgraph LR0[LR 0]
+                                        end
+                                    end
+                                end
+                            end
+                            subgraph LL1[LL 1]
+                            end
+                        end
+                    end
+                    LL1 --- LR1
+                    style LR1 fill:#fce7f3
+                    style LL1 fill:#d1fae5
+                </div>
+            </div>
+            <ul>
+                <li><strong>LL(1):</strong> Top-Down. Weakest but simplest.</li>
+                <li><strong>LR(0) $\subset$ SLR(1) $\subset$ LALR(1) $\subset$ CLR(1):</strong> Bottom-Up.</li>
+                <li><strong>CLR(1):</strong> Most powerful deterministic parser (Canonical LR).</li>
+                <li><strong>LALR(1):</strong> Used by YACC/Bison (Good trade-off between power and table size).</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 6: TOP DOWN PARSING -->
+        <section id="top-down" class="card">
+            <h2>5. Top-Down Parsing (LL)</h2>
+            <p>Constructs parse tree from Root to Leaves. Uses <strong>LMD</strong>.</p>
+            
+            <h3>FIRST and FOLLOW Sets</h3>
+            <p>Required to construct the parsing table.</p>
+            <ul>
+                <li><strong>FIRST($\alpha$):</strong> Set of terminals that begin strings derived from $\alpha$.</li>
+                <li><strong>FOLLOW($A$):</strong> Set of terminals that can appear immediately to the right of $A$. <br><em>Note: $ will always be in Follow(Start Symbol).</em></li>
+            </ul>
+
+            <h3>LL(1) Grammar Rules</h3>
+            <p>A Grammar is LL(1) if its parsing table has <strong>no multiple entries</strong> (no conflicts).</p>
+            <p><strong>Shortcuts to identify NOT LL(1):</strong></p>
+            <ol>
+                <li>If G is Ambiguous &rarr; Not LL(1).</li>
+                <li>If G has Left Recursion &rarr; Not LL(1).</li>
+                <li>If G has Common Prefix (needs Left Factoring) &rarr; Not LL(1).</li>
+            </ol>
+        </section>
+
+        <!-- SECTION 7: BOTTOM UP PARSING -->
+        <section id="bottom-up" class="card">
+            <h2>6. Bottom-Up Parsing (LR)</h2>
+            <p>Constructs parse tree from Leaves to Root. Uses <strong>Reverse RMD</strong>. Known as "Shift-Reduce" parsing.</p>
+
+            <h3>The 4 LR Parsers</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parser</th>
+                        <th>Item Structure</th>
+                        <th>Lookahead?</th>
+                        <th>Power</th>
+                        <th>Table Size</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>LR(0)</strong></td>
+                        <td>$A \to \alpha \cdot \beta$</td>
+                        <td>No</td>
+                        <td>Lowest</td>
+                        <td>Small (States)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SLR(1)</strong></td>
+                        <td>$A \to \alpha \cdot \beta$</td>
+                        <td>Uses Follow(A)</td>
+                        <td>Low</td>
+                        <td>Small</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LALR(1)</strong></td>
+                        <td>$A \to \alpha \cdot \beta, \{a\}$</td>
+                        <td>Yes (Merged States)</td>
+                        <td>High</td>
+                        <td>Small</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CLR(1)</strong></td>
+                        <td>$A \to \alpha \cdot \beta, \{a\}$</td>
+                        <td>Yes (Exact)</td>
+                        <td>Highest</td>
+                        <td>Large</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Conflicts</h3>
+            <p>Occur when a cell in the parse table has multiple actions.</p>
+            <ul>
+                <li><strong>SR (Shift-Reduce):</strong> Should I shift the next symbol or reduce the current handle?</li>
+                <li><strong>RR (Reduce-Reduce):</strong> Multiple productions can reduce the current handle.</li>
+            </ul>
+
+            <h3>Conflict Resolution in Parsers</h3>
+            <ul>
+                <li><strong>LR(0):</strong> Reduce is placed in entire row. Very prone to SR/RR.</li>
+                <li><strong>SLR(1):</strong> Reduce $A \to \alpha$ is placed only in $Follow(A)$. Solves many LR(0) conflicts.</li>
+                <li><strong>CLR(1):</strong> Uses lookaheads carried in items. Solves most conflicts.</li>
+                <li><strong>LALR(1):</strong> Merges states of CLR with same core items. Can introduce RR conflicts (never SR).</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 8: OPERATOR PRECEDENCE -->
+        <section id="precedence" class="card">
+            <h2>7. Operator Precedence Parsing</h2>
+            <p>A specialized bottom-up parser for mathematical expressions.</p>
+            <ul>
+                <li>Only works for <strong>Operator Grammars</strong> (No $\epsilon$-transitions, no two adjacent non-terminals like $A \to BC$).</li>
+                <li>Uses Precedence Relations:
+                    <ul>
+                        <li>$\lessdot$ (Yields precedence)</li>
+                        <li>$\doteq$ (Equal precedence)</li>
+                        <li>$\gtrdot$ (Takes precedence)</li>
+                    </ul>
+                </li>
+                <li>Based on Associativity and Precedence of operators.</li>
+                <li><strong>Parsing Logic:</strong> Scan input, find handle between $\lessdot$ and $\gtrdot$, reduce.</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>Generated for Computer Science Engineering Students • Compiler Design</p>
+        </footer>
+    </main>
+
+</body>
+</html>

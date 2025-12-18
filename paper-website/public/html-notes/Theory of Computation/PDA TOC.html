@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push Down Automata (PDA) & CFL - Cheat Sheet</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --accent: #f59e0b;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        nav h1 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        nav ul { list-style: none; padding: 0; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        nav a:hover { background: #eff6ff; color: var(--primary); }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            padding: 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        h3 { color: var(--primary); margin-top: 2rem; }
+
+        /* Cards & Sections */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Comparison Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--surface);
+        }
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        th { background: #f1f5f9; color: var(--secondary); }
+        
+        /* Language Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .badge.reg { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .badge.dcfl { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+        .badge.cfl { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+        .badge.not-cfl { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Interactive Elements */
+        details {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--surface);
+        }
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--border);
+        }
+        details[open] summary { border-bottom: 1px solid var(--border); }
+        .details-content { padding: 1rem; }
+
+        /* Diagrams */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        /* Formulas */
+        .formula {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1rem;
+            background: #fff;
+            padding: 0.5rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: static; }
+            main { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>PDA & CFL Notes</h1>
+    <ul>
+        <li><a href="#hierarchy">1. Hierarchy & Basics</a></li>
+        <li><a href="#cfg">2. Context Free Grammars</a></li>
+        <li><a href="#pda-intro">3. Push Down Automata</a></li>
+        <li><a href="#dpda-npda">4. DPDA vs NPDA</a></li>
+        <li><a href="#languages">5. Common Languages</a></li>
+        <li><a href="#closure">6. Closure Properties</a></li>
+        <li><a href="#decidability">7. Decidability</a></li>
+        <li><a href="#algorithms">8. Normal Forms & Algorithms</a></li>
+    </ul>
+</nav>
+
+<main>
+    <!-- Section 1: Hierarchy -->
+    <section id="hierarchy">
+        <h2>1. Chomsky Hierarchy & Concepts</h2>
+        <div class="card">
+            <h3>Language Hierarchy</h3>
+            <p>The relationship between language classes is strictly hierarchical:</p>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+                    subgraph All Languages
+                        subgraph "Context Sensitive (CSL)"
+                            subgraph "Context Free (CFL)"
+                                subgraph "Deterministic CFL (DCFL)"
+                                    subgraph "Regular Languages"
+                                        RL[Finite Automata]
+                                    end
+                                    DCFL[DPDA]
+                                end
+                                CFL[PDA / NPDA]
+                            end
+                            CSL[Linear Bounded Automata]
+                        end
+                    end
+                    RL --> DCFL
+                    DCFL --> CFL
+                    CFL --> CSL
+                </div>
+            </div>
+            <ul>
+                <li><strong>Regular:</strong> Can be recognized by Finite Automata (DFA/NFA) with \(O(1)\) memory.</li>
+                <li><strong>DCFL:</strong> Recognized by Deterministic PDA. No ambiguity allowed.</li>
+                <li><strong>CFL:</strong> Recognized by Non-deterministic PDA. Can handle ambiguity. Uses a Stack.</li>
+                <li><strong>Not CFL:</strong> Requires 2 or more stacks, or context-dependent checks (e.g., \(a^nb^nc^n\)).</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 2: CFG -->
+    <section id="cfg">
+        <h2>2. Context Free Grammars (CFG)</h2>
+        <div class="card">
+            <p>A CFG is defined as a 4-tuple \(G = (V, T, P, S)\):</p>
+            <ul>
+                <li>\(V\): Set of Variables (Non-terminals)</li>
+                <li>\(T\): Set of Terminals</li>
+                <li>\(P\): Production Rules of form \(A \to \alpha\), where \(A \in V\) and \(\alpha \in (V \cup T)^*\)</li>
+                <li>\(S\): Start Symbol</li>
+            </ul>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph LR
+                    A[Source Code] --> B[Lexical Analysis]
+                    B -->|Tokens| C[Syntax Analysis]
+                    C -->|Parse Tree| D[Semantic Analysis]
+                    style C fill:#f9f,stroke:#333,stroke-width:2px
+                </div>
+            </div>
+            <p><em>Note: CFGs define the <strong>Syntax</strong> (structure) of programming languages.</em></p>
+
+            <details>
+                <summary>Derivations & Ambiguity</summary>
+                <div class="details-content">
+                    <p><strong>Left Most Derivation (LMD):</strong> Always replace the leftmost non-terminal.</p>
+                    <p><strong>Right Most Derivation (RMD):</strong> Always replace the rightmost non-terminal.</p>
+                    <p><strong>Ambiguity:</strong> A grammar is ambiguous if a string \(w\) has:</p>
+                    <ul>
+                        <li>More than 1 Parse Tree</li>
+                        <li>More than 1 LMD</li>
+                        <li>More than 1 RMD</li>
+                    </ul>
+                    <p><strong>Inherently Ambiguous Language:</strong> If <em>all</em> grammars generating language \(L\) are ambiguous.</p>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- Section 3: PDA -->
+    <section id="pda-intro">
+        <h2>3. Push Down Automata (PDA)</h2>
+        <div class="card">
+            <p class="formula">$$PDA \cong \text{Finite Automata} + 1 \text{ Stack}$$</p>
+            <p><strong>Formal Definition (7-tuple):</strong> \(M = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)\)</p>
+            <ul>
+                <li>\(\Gamma\): Stack Alphabet</li>
+                <li>\(Z_0\): Initial Stack Symbol</li>
+                <li>\(\delta\): Transition Function \(\delta: Q \times (\Sigma \cup \{\epsilon\}) \times \Gamma \to P(Q \times \Gamma^*)\)</li>
+            </ul>
+
+            <h3>Stack Operations Logic</h3>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    stateDiagram-v2
+                    [*] --> q0
+                    q0 --> q0: a, Z0 / aZ0 (PUSH)
+                    q0 --> q1: b, a / ε (POP)
+                    q1 --> q1: b, a / ε (POP)
+                    q1 --> q2: ε, Z0 / Z0 (SKIP/Accept)
+                </div>
+            </div>
+            <p><strong>Notation:</strong> <code>Input, TopOfStack / PushToStack</code></p>
+            <ul>
+                <li><code>a, Z0 / aZ0</code>: Read 'a', if Top is 'Z0', Push 'a'. (Stack becomes aZ0)</li>
+                <li><code>b, a / ε</code>: Read 'b', if Top is 'a', Pop 'a'.</li>
+                <li><code>ε, Z0 / Z0</code>: Without reading input (epsilon move), check if Top is Z0, keep it (Skip).</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 4: DPDA vs NPDA -->
+    <section id="dpda-npda">
+        <h2>4. Deterministic vs Non-Deterministic PDA</h2>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>DPDA (Deterministic)</th>
+                        <th>NPDA (Non-Deterministic)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Determinism</strong></td>
+                        <td>At most 1 move possible for any configuration.</td>
+                        <td>Multiple moves allowed.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transition Constraints</strong></td>
+                        <td>If \(\delta(q, a, X)\) exists, then \(\delta(q, \epsilon, X)\) must NOT exist.</td>
+                        <td>No constraints.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Power</strong></td>
+                        <td>Accepts DCFL (subset of CFL).</td>
+                        <td>Accepts all CFL.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acceptance</strong></td>
+                        <td>Accepted by Final State \(\neq\) Empty Stack.</td>
+                        <td>Final State \(\cong\) Empty Stack.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prefix Property</strong></td>
+                        <td>To accept by Empty Stack, \(L\) must have prefix property.</td>
+                        <td>N/A</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p><strong>Prefix Property:</strong> A language \(L\) has the prefix property if no string in \(L\) is a proper prefix of another string in \(L\). <br>Example: \(L = \{a, aa\}\) does NOT satisfy prefix property. DPDA via Empty Stack cannot accept it.</p>
+        </div>
+    </section>
+
+    <!-- Section 5: Language Classification -->
+    <section id="languages">
+        <h2>5. Common Languages Map</h2>
+        <p>A quick reference to classify common patterns.</p>
+        
+        <div class="card">
+            <h3>Regular Languages</h3>
+            <p><span class="badge reg">Regular</span></p>
+            <ul>
+                <li>\(a^n b^m\) (No dependency between n and m)</li>
+                <li>\(w w^R\) where \(|w| < 100\) (Finite languages)</li>
+                <li>\(a^* b^*\)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Deterministic Context Free (DCFL)</h3>
+            <p><span class="badge dcfl">DCFL</span> but not Regular</p>
+            <ul>
+                <li>\(L = \{ a^n b^n \mid n \ge 1 \}\) (Stack pushes 'a's, pops on 'b's)</li>
+                <li>\(L = \{ a^n b^{2n} \mid n \ge 1 \}\) (Push 2 'a's or Pop 1 for 2)</li>
+                <li>\(L = \{ w c w^R \mid w \in \{a,b\}^* \}\) (The 'c' acts as a clear midpoint marker)</li>
+                <li>\(L = \{ a^n b^m \mid n \neq m \}\) (Requires determinism to check equality then reject/accept)</li>
+                <li>\(L = \{ a^n b^n c^m \cup a^n b^m c^m \}\) is <strong>NOT</strong> DCFL (Ambiguity in structure).</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Context Free (CFL)</h3>
+            <p><span class="badge cfl">CFL</span> but not DCFL</p>
+            <ul>
+                <li>\(L = \{ w w^R \mid w \in \{a,b\}^* \}\) (Even palindromes without marker. Non-determinism needed to guess midpoint)</li>
+                <li>\(L = \{ a^n b^n \} \cup \{ a^n b^{2n} \}\) (Union of DCFLs is not always DCFL)</li>
+                <li>\(L = \{ a^n b^k c^k \mid n,k \ge 0 \} \cup \{ a^n b^n c^k \mid n,k \ge 0 \}\) (Commonly cited inherently ambiguous language)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Not Context Free</h3>
+            <p><span class="badge not-cfl">Not CFL</span> (Requires Context Sensitive / Turing)</p>
+            <ul>
+                <li>\(L = \{ a^n b^n c^n \}\) (Requires comparing 3 groups; stack can only compare 2)</li>
+                <li>\(L = \{ w w \mid w \in \{a,b\}^* \}\) (Copy language)</li>
+                <li>\(L = \{ a^p \mid p \text{ is prime} \}\)</li>
+                <li>\(L = \{ a^{n^2} \}\)</li>
+                <li>\(L = \{ a^n b^n c^n d^n \}\)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 6: Closure Properties -->
+    <section id="closure">
+        <h2>6. Closure Properties</h2>
+        <div class="card">
+            <p><strong>Memorization Key:</strong> Regular languages are the most closed. DCFLs are picky. CFLs hate Intersection and Complement.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Regular</th>
+                        <th>DCFL</th>
+                        <th>CFL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Union</strong></td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Intersection</strong></td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td>❌ No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complement</strong></td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Concatenation</strong></td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kleene Star</strong></td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Intersection w/ Regular</strong></td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reversal</strong></td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prefix / Suffix</strong></td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><em>Important Logic:</em> \( \text{CFL} \cap \text{CFL} \) is NOT necessarily CFL (e.g., \(a^nb^nc^m \cap a^mb^nc^n = a^nb^nc^n\)).</p>
+        </div>
+    </section>
+
+    <!-- Section 7: Decidability -->
+    <section id="decidability">
+        <h2>7. Decidability Table</h2>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Regular (DFA)</th>
+                        <th>DCFL (DPDA)</th>
+                        <th>CFL (PDA)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Membership</strong> \((w \in L?)\)</td>
+                        <td>✅ Decidable</td>
+                        <td>✅ Decidable</td>
+                        <td>✅ Decidable (CYK Algo)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Emptiness</strong> \((L = \phi?)\)</td>
+                        <td>✅ Decidable</td>
+                        <td>✅ Decidable</td>
+                        <td>✅ Decidable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Finiteness</strong></td>
+                        <td>✅ Decidable</td>
+                        <td>✅ Decidable</td>
+                        <td>✅ Decidable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Equivalence</strong> \((L_1 = L_2?)\)</td>
+                        <td>✅ Decidable</td>
+                        <td>✅ Decidable</td>
+                        <td>❌ Undecidable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Universality</strong> \((L = \Sigma^*?)\)</td>
+                        <td>✅ Decidable</td>
+                        <td>❌ Undecidable</td>
+                        <td>❌ Undecidable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Regularity</strong> \((L \text{ is Regular?})\)</td>
+                        <td>✅ Decidable</td>
+                        <td>✅ Decidable</td>
+                        <td>❌ Undecidable</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="algorithms">
+        <h2>8. Algorithms & Simplification</h2>
+        <div class="card">
+            <h3>Simplifying CFGs</h3>
+            <ol>
+                <li><strong>Eliminate \(\epsilon\)-productions:</strong> Remove \(A \to \epsilon\).</li>
+                <li><strong>Eliminate Unit Productions:</strong> Remove \(A \to B\).</li>
+                <li><strong>Eliminate Useless Symbols:</strong> Remove non-reachable or non-generating symbols.</li>
+            </ol>
+            
+            <h3>Normal Forms</h3>
+            <ul>
+                <li><strong>CNF (Chomsky Normal Form):</strong> Rules are \(A \to BC\) or \(A \to a\). Parse tree is a binary tree. Height is \(O(\log |w|)\).</li>
+                <li><strong>GNF (Greibach Normal Form):</strong> Rules are \(A \to a\alpha\) where \(a\) is terminal and \(\alpha\) is non-terminal string. Useful for converting CFG to PDA.</li>
+            </ul>
+
+            <h3>CYK Algorithm</h3>
+            <p>Used to check membership for CFLs. Requires grammar in CNF. Time Complexity: \(O(n^3)\) where \(n = |w|\).</p>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE General Aptitude: Quantitative Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid.js -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4338ca;
+            --secondary: #ec4899;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --sidebar-width: 280px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 2rem;
+            overflow-y: auto;
+            display: none; /* Hidden on mobile by default */
+        }
+
+        .sidebar h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .sidebar ul { list-style: none; }
+        .sidebar li { margin-bottom: 0.5rem; }
+        
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.25rem 0;
+        }
+
+        .sidebar a:hover { color: var(--primary); }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.05rem; margin-bottom: 0.5rem; }
+        .subtitle { color: var(--text-light); font-size: 1.1rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 4rem; }
+        
+        h2 { 
+            font-size: 1.8rem; 
+            margin-bottom: 1.5rem; 
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 { font-size: 1.3rem; margin: 1.5rem 0 1rem; }
+
+        /* Cards & Layouts */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+        /* Formula Box */
+        .formula-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--surface); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background-color: #f1f5f9; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; }
+
+        /* Interactive Details */
+        details {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            background-color: #f8fafc;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; }
+        
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* Utility */
+        .badge { 
+            display: inline-block; 
+            padding: 0.25em 0.6em; 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            border-radius: 9999px; 
+            background: var(--secondary); 
+            color: white; 
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar { display: block; }
+        }
+
+        @media (max-width: 768px) {
+            .main-content { padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#number-system">1. Number System</a></li>
+            <li><a href="#arithmetic">2. Arithmetic & Percentage</a></li>
+            <li><a href="#profit-loss">3. Profit, Loss & Discount</a></li>
+            <li><a href="#time-work">4. Time & Work</a></li>
+            <li><a href="#tsd">5. Time, Speed & Distance</a></li>
+            <li><a href="#counting">6. Permutation & Combination</a></li>
+            <li><a href="#clock-calendar">7. Clocks & Calendars</a></li>
+            <li><a href="#mensuration">8. Mensuration & DI</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <h1>Quantitative Aptitude <span class="badge">GATE</span></h1>
+            <p class="subtitle">Comprehensive Cheat Sheet for General Aptitude covering Arithmetic, Algebra, Geometry, and Data Interpretation.</p>
+        </header>
+
+        <!-- NUMBER SYSTEM -->
+        <section id="number-system">
+            <h2>1. Number System & Calculations</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Classification</h3>
+                    <div class="mermaid">
+                        graph TD
+                        R[Real Numbers] --> Rat[Rational p/q]
+                        R --> Irr[Irrational]
+                        Rat --> Int[Integers]
+                        Rat --> Frac[Fractions]
+                        Int --> Whole
+                        Whole --> Nat[Natural 1,2,3...]
+                        Nat --> P[Prime]
+                        Nat --> C[Composite]
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Unit Digit Cyclicity</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Numbers</th>
+                                <th>Cycle Length</th>
+                                <th>Pattern</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0, 1, 5, 6</td>
+                                <td>1</td>
+                                <td>Same as digit</td>
+                            </tr>
+                            <tr>
+                                <td>4, 9</td>
+                                <td>2</td>
+                                <td>4: 4,6 | 9: 9,1</td>
+                            </tr>
+                            <tr>
+                                <td>2, 3, 7, 8</td>
+                                <td>4</td>
+                                <td>2: 2,4,8,6 | 3: 3,9,7,1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br>
+            <details>
+                <summary>Trailing Zeroes & Divisibility</summary>
+                <div class="details-content">
+                    <p><strong>Trailing Zeroes in n!:</strong> Count the number of 5s in prime factorization.</p>
+                    <div class="formula-box">
+                        $$ Number\ of\ Zeroes = \lfloor \frac{n}{5} \rfloor + \lfloor \frac{n}{25} \rfloor + \lfloor \frac{n}{125} \rfloor + ... $$
+                    </div>
+                    <p><strong>Sum of N Natural Numbers:</strong> $$ \sum n = \frac{n(n+1)}{2} $$</p>
+                    <p><strong>Average of Natural Numbers:</strong> $$ \frac{n+1}{2} $$</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- PERCENTAGE & ARITHMETIC -->
+        <section id="arithmetic">
+            <h2>2. Percentage & Averages</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Important Fractions</h3>
+                    <div class="grid-3" style="text-align: center; font-family: monospace;">
+                        <div>1/2 = 50%</div>
+                        <div>1/3 = 33.33%</div>
+                        <div>1/4 = 25%</div>
+                        <div>1/5 = 20%</div>
+                        <div>1/6 = 16.66%</div>
+                        <div>1/8 = 12.5%</div>
+                        <div>1/9 = 11.11%</div>
+                        <div>1/11 = 9.09%</div>
+                        <div>3/8 = 37.5%</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Successive Change</h3>
+                    <p>For two successive changes of $a\%$ and $b\%$:</p>
+                    <div class="formula-box">
+                        $$ Net\% = a + b + \frac{a \times b}{100} $$
+                    </div>
+                    <p><em>Note: Use positive for increase, negative for decrease.</em></p>
+                </div>
+            </div>
+            
+            <div class="formula-box" style="margin-top: 1rem;">
+                <strong>Average Speed:</strong> If distances are equal, $$ S_{avg} = \frac{2xy}{x+y} $$
+            </div>
+        </section>
+
+        <!-- PROFIT LOSS -->
+        <section id="profit-loss">
+            <h2>3. Profit, Loss & Discount</h2>
+            <div class="card">
+                <h3>Core Concepts Flow</h3>
+                <div class="mermaid">
+                    graph LR
+                    CP[Cost Price] -- Profit/Loss % --> SP[Selling Price]
+                    MP[Marked Price] -- Discount % --> SP
+                    CP -- Markup % --> MP
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 1rem;">
+                <div class="card">
+                    <h3>Formulas</h3>
+                    <ul>
+                        <li>$$ Profit\% = \frac{SP-CP}{CP} \times 100 $$</li>
+                        <li>$$ Loss\% = \frac{CP-SP}{CP} \times 100 $$</li>
+                        <li>$$ Discount\% = \frac{MP-SP}{MP} \times 100 $$</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Dishonest Dealer</h3>
+                    <p>If a dealer uses false weight (e.g., 900g instead of 1kg):</p>
+                    <div class="formula-box">
+                        $$ Profit\% = \frac{Error}{True\ Value - Error} \times 100 $$
+                    </div>
+                    <p>Example: Uses 900g for 1kg $$ \frac{100}{900} \times 100 = 11.11\% $$</p>
+                </div>
+            </div>
+            
+            <details>
+                <summary>Rule of Alligation (Mixtures)</summary>
+                <div class="details-content">
+                    <p>Used when mixing two ingredients to get a target average price.</p>
+                    <div class="mermaid">
+                        graph TD
+                        A[Price of Cheaper (C)]
+                        B[Price of Dearer (D)]
+                        M[Mean Price (M)]
+                        A --> M
+                        B --> M
+                        M --> Res1["D - M"]
+                        M --> Res2["M - C"]
+                        style Res1 fill:#eff6ff
+                        style Res2 fill:#eff6ff
+                    </div>
+                    <p><strong>Ratio (Cheaper : Dearer) = (D - M) : (M - C)</strong></p>
+                </div>
+            </details>
+        </section>
+
+        <!-- TIME & WORK -->
+        <section id="time-work">
+            <h2>4. Time & Work</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>The LCM Method</h3>
+                    <p>To solve work problems without fractions:</p>
+                    <ol>
+                        <li>Assume <strong>Total Work</strong> = LCM of days taken by individuals.</li>
+                        <li>Calculate <strong>Efficiency</strong> (Work/Day) for each person.</li>
+                        <li>$$ Time = \frac{Total\ Work}{Total\ Efficiency} $$</li>
+                    </ol>
+                </div>
+                <div class="card">
+                    <h3>Chain Rule (MDH)</h3>
+                    <p>Comparing two scenarios:</p>
+                    <div class="formula-box">
+                        $$ \frac{M_1 D_1 H_1}{W_1} = \frac{M_2 D_2 H_2}{W_2} $$
+                    </div>
+                    <small>M=Men, D=Days, H=Hours, W=Work</small>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1rem;">
+                <h3>Pipes & Cisterns</h3>
+                <ul>
+                    <li><strong>Inlet Pipe:</strong> Positive Efficiency (+)</li>
+                    <li><strong>Outlet Pipe:</strong> Negative Efficiency (-)</li>
+                    <li>Net Work = (Inlet Eff - Outlet Eff) × Time</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TSD -->
+        <section id="tsd">
+            <h2>5. Time, Speed & Distance</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Relative Speed</h3>
+                    <div class="mermaid">
+                        graph TD
+                        A[Relative Speed]
+                        B[Opposite Direction]
+                        C[Same Direction]
+                        A --> B
+                        A --> C
+                        B -->|Add Speeds| D["S1 + S2"]
+                        C -->|Subtract Speeds| E["|S1 - S2|"]
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Boats & Streams</h3>
+                    <p>Let $B$ = Boat Speed, $S$ = Stream Speed</p>
+                    <ul>
+                        <li><strong>Downstream (with flow):</strong> $$ D = B + S $$</li>
+                        <li><strong>Upstream (against flow):</strong> $$ U = B - S $$</li>
+                        <li>$$ B = \frac{D+U}{2}, \quad S = \frac{D-U}{2} $$</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="formula-box">
+                <strong>Trains crossing objects:</strong>
+                <ul>
+                    <li>Crossing Pole/Man: Distance = Length of Train ($L_T$)</li>
+                    <li>Crossing Platform/Bridge: Distance = $L_T + L_{Platform}$</li>
+                    <li>Crossing Another Train: Distance = $L_{T1} + L_{T2}$ (Always add lengths)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- COUNTING -->
+        <section id="counting">
+            <h2>6. Permutations & Combinations</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Factorial Basics</h3>
+                    <ul>
+                        <li>$n! = n \times (n-1) \times ... \times 1$</li>
+                        <li>$0! = 1$</li>
+                        <li>$5! = 120$</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Arrangements (Permutation)</h3>
+                    <p>Arranging $r$ items from $n$ distinct items:</p>
+                    <div class="formula-box">$$ ^nP_r = \frac{n!}{(n-r)!} $$</div>
+                    <p><strong>Circular Arrangement:</strong> $(n-1)!$</p>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 1rem;">
+                <h3>Selection (Combination)</h3>
+                <p>Selecting $r$ items from $n$ distinct items (Order doesn't matter):</p>
+                <div class="formula-box">$$ ^nC_r = \frac{n!}{r!(n-r)!} $$</div>
+            </div>
+        </section>
+
+        <!-- CLOCKS & CALENDARS -->
+        <section id="clock-calendar">
+            <h2>7. Clocks & Calendars</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Clocks: Angle Formula</h3>
+                    <p>Angle $\theta$ between Hour ($H$) and Minute ($M$) hand:</p>
+                    <div class="formula-box">
+                        $$ \theta = |30H - \frac{11}{2}M| $$
+                    </div>
+                    <ul>
+                        <li><strong>Coincide (0°):</strong> 11 times in 12 hrs.</li>
+                        <li><strong>Opposite (180°):</strong> 11 times in 12 hrs.</li>
+                        <li><strong>Right Angle (90°):</strong> 22 times in 12 hrs.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Calendars: Odd Days</h3>
+                    <p><strong>Odd Days = Remainder of Days / 7</strong></p>
+                    <table style="font-size: 0.9rem;">
+                        <tr><td>Normal Year (365)</td><td>1 Odd Day</td></tr>
+                        <tr><td>Leap Year (366)</td><td>2 Odd Days</td></tr>
+                        <tr><td>100 Years</td><td>5 Odd Days</td></tr>
+                        <tr><td>400 Years</td><td>0 Odd Days</td></tr>
+                    </table>
+                    <p><em>Leap Year Rule:</em> Divisible by 4 (but for centuries, must be divisible by 400).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENSURATION -->
+        <section id="mensuration">
+            <h2>8. Mensuration & Data Interpretation</h2>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <h3>2D Areas</h3>
+                    <ul>
+                        <li><strong>Circle:</strong> $\pi r^2$</li>
+                        <li><strong>Sector:</strong> $\frac{\theta}{360} \times \pi r^2$</li>
+                        <li><strong>Trapezium:</strong> $\frac{1}{2}(a+b)h$</li>
+                        <li><strong>Equilateral $\Delta$:</strong> $\frac{\sqrt{3}}{4}a^2$</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>3D Volumes</h3>
+                    <ul>
+                        <li><strong>Cylinder:</strong> $\pi r^2 h$</li>
+                        <li><strong>Cone:</strong> $\frac{1}{3} \pi r^2 h$</li>
+                        <li><strong>Sphere:</strong> $\frac{4}{3} \pi r^3$</li>
+                        <li><strong>Hemisphere:</strong> $\frac{2}{3} \pi r^3$</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Surface Areas (Total)</h3>
+                    <ul>
+                        <li><strong>Cylinder:</strong> $2\pi r(h+r)$</li>
+                        <li><strong>Cone:</strong> $\pi r(l+r)$</li>
+                        <li><strong>Sphere:</strong> $4\pi r^2$</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h3>Data Interpretation Types</h3>
+                <ul>
+                    <li><strong>Pie Chart:</strong> Values in degrees ($Total = 360^{\circ}$) or Percentages ($Total = 100\%$). Conversion: $1\% = 3.6^{\circ}$.</li>
+                    <li><strong>Bar/Line Graph:</strong> Look for trends (slope) and absolute values.</li>
+                    <li><strong>Table:</strong> Often involves comparing ratios or percentages across rows/columns.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Smooth scrolling for sidebar links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Engineering: Logic & Quantifiers Cheat Sheet</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: #1e293b;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            height: calc(100vh - 4rem);
+            overflow-y: auto;
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+
+        .nav-link:hover {
+            background-color: #eff6ff;
+            color: var(--primary);
+            padding-left: 0.75rem;
+        }
+
+        /* Main Content */
+        .content {
+            min-width: 0; /* Prevents flex/grid overflow */
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3 {
+            color: var(--primary-dark);
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tables */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #f8fafc; }
+
+        /* Code & Math */
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            color: #db2777;
+        }
+
+        .formula-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Logic Gates / Truth Table Styles */
+        .tt-true { color: var(--accent-green); font-weight: bold; }
+        .tt-false { color: var(--accent-red); font-weight: bold; }
+
+        /* Visualizations */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        /* Collapsible Details */
+        details {
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary);
+            padding: 0.5rem;
+        }
+
+        summary:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Comparison Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag-green { background: #d1fae5; color: #065f46; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="nav-title">Contents</div>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#intro" class="nav-link">Introduction</a></li>
+                <li class="nav-item"><a href="#prop-logic" class="nav-link">1. Propositional Logic</a></li>
+                <li class="nav-item"><a href="#implication" class="nav-link">2. The Implication (\(\rightarrow\))</a></li>
+                <li class="nav-item"><a href="#equivalence" class="nav-link">3. Logical Equivalence</a></li>
+                <li class="nav-item"><a href="#inference" class="nav-link">4. Inference Rules</a></li>
+                <li class="nav-item"><a href="#predicate" class="nav-link">5. Predicate Logic</a></li>
+                <li class="nav-item"><a href="#nested" class="nav-link">6. Nested Quantifiers</a></li>
+                <li class="nav-item"><a href="#cycle-method" class="nav-link">7. The Cycle Method (Visual)</a></li>
+                <li class="nav-item"><a href="#proofs" class="nav-link">8. Proofs & Validity</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header id="intro">
+                <div class="tag tag-blue">CS & IT Engineering</div>
+                <h1>Discrete Mathematics: Logic & Quantifiers</h1>
+                <p class="subtitle">Comprehensive Cheat Sheet based on Lecture Notes by <strong>Satish Yadav Sir</strong></p>
+                <p>Covering Propositional Logic, Inference Rules, First Order Logic, and Nested Quantifiers.</p>
+            </header>
+
+            <!-- SECTION 1: PROPOSITIONAL LOGIC -->
+            <section id="prop-logic">
+                <h2>1. Propositional Logic Basics</h2>
+                <div class="card">
+                    <h3>Definitions</h3>
+                    <ul>
+                        <li><strong>Proposition:</strong> A declarative statement that is either True (T) or False (F), but not both.</li>
+                        <li><strong>Simple Statement:</strong> Cannot be broken down further (e.g., "5 > 3").</li>
+                        <li><strong>Compound Statement:</strong> Formed by combining simple statements using logical connectives.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Logical Connectives Table</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Connective</th>
+                                    <th>Symbol</th>
+                                    <th>Example</th>
+                                    <th>Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Negation</td>
+                                    <td>\(\neg p\)</td>
+                                    <td>Not \(p\)</td>
+                                    <td>Opposite truth value</td>
+                                </tr>
+                                <tr>
+                                    <td>Conjunction</td>
+                                    <td>\(p \land q\)</td>
+                                    <td>\(p\) AND \(q\)</td>
+                                    <td>True only if <strong>both</strong> are True</td>
+                                </tr>
+                                <tr>
+                                    <td>Disjunction</td>
+                                    <td>\(p \lor q\)</td>
+                                    <td>\(p\) OR \(q\)</td>
+                                    <td>True if <strong>at least one</strong> is True (Inclusive OR)</td>
+                                </tr>
+                                <tr>
+                                    <td>Exclusive OR</td>
+                                    <td>\(p \oplus q\)</td>
+                                    <td>Either \(p\) or \(q\)</td>
+                                    <td>True if exactly one is True (Not both)</td>
+                                </tr>
+                                <tr>
+                                    <td>Implication</td>
+                                    <td>\(p \to q\)</td>
+                                    <td>If \(p\) then \(q\)</td>
+                                    <td>False only if \(p=T\) and \(q=F\)</td>
+                                </tr>
+                                <tr>
+                                    <td>Bi-conditional</td>
+                                    <td>\(p \leftrightarrow q\)</td>
+                                    <td>\(p\) iff \(q\)</td>
+                                    <td>True if \(p\) and \(q\) have the <strong>same</strong> value</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Classification of Compound Propositions</h3>
+                    <div class="grid-2">
+                        <div>
+                            <h4><span class="tag tag-green">Tautology (Valid)</span></h4>
+                            <p>A formula that is always <strong>True</strong> regardless of the truth values of its variables.</p>
+                            <p class="formula-box">\(p \lor \neg p \equiv T\)</p>
+                        </div>
+                        <div>
+                            <h4><span class="tag tag-red">Contradiction</span></h4>
+                            <p>A formula that is always <strong>False</strong>.</p>
+                            <p class="formula-box">\(p \land \neg p \equiv F\)</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <h4><span class="tag tag-blue">Contingency (Satisfiable)</span></h4>
+                        <p>Neither a tautology nor a contradiction. It is true for at least one assignment.</p>
+                        <p><em>Note: All Valid formulas are Satisfiable, but not all Satisfiable formulas are Valid.</em></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: IMPLICATION -->
+            <section id="implication">
+                <h2>2. The Implication (\(\rightarrow\))</h2>
+                <p>The statement \(p \to q\) is the most critical concept in logic reasoning.</p>
+
+                <div class="card">
+                    <h3>Equivalent English Phrasings</h3>
+                    <div class="grid-2">
+                        <ul>
+                            <li>If \(p\), then \(q\)</li>
+                            <li>\(q\) if \(p\)</li>
+                            <li>\(p\) only if \(q\)</li>
+                            <li>\(p\) implies \(q\)</li>
+                        </ul>
+                        <ul>
+                            <li>\(q\) when \(p\)</li>
+                            <li>\(q\) whenever \(p\)</li>
+                            <li>\(q\) follows from \(p\)</li>
+                            <li>\(q\) unless \(\neg p\)</li>
+                        </ul>
+                    </div>
+                    <div class="formula-box" style="text-align: center;">
+                        <strong>Key Equivalence:</strong> \(p \to q \equiv \neg p \lor q\)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Variations of \(p \to q\)</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Formula</th>
+                                    <th>Equivalence Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Original</strong></td>
+                                    <td>\(p \to q\)</td>
+                                    <td>Equivalent to Contrapositive</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Converse</strong></td>
+                                    <td>\(q \to p\)</td>
+                                    <td>Not equivalent to Original</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Inverse</strong></td>
+                                    <td>\(\neg p \to \neg q\)</td>
+                                    <td>Equivalent to Converse</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Contrapositive</strong></td>
+                                    <td>\(\neg q \to \neg p\)</td>
+                                    <td><strong>Equivalent to Original</strong> (\(p \to q \equiv \neg q \to \neg p\))</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: LOGICAL EQUIVALENCE -->
+            <section id="equivalence">
+                <h2>3. Logical Equivalence Laws</h2>
+                <p>Two formulas \(A\) and \(B\) are logically equivalent (\(A \equiv B\)) if they have the same truth values in all scenarios.</p>
+
+                <div class="card">
+                    <h3>Important Laws</h3>
+                    <div class="grid-2">
+                        <div>
+                            <strong>De Morgan's Laws</strong>
+                            <p>\(\neg (p \land q) \equiv \neg p \lor \neg q\)</p>
+                            <p>\(\neg (p \lor q) \equiv \neg p \land \neg q\)</p>
+                        </div>
+                        <div>
+                            <strong>Distributive Laws</strong>
+                            <p>\(p \land (q \lor r) \equiv (p \land q) \lor (p \land r)\)</p>
+                            <p>\(p \lor (q \land r) \equiv (p \lor q) \land (p \lor r)\)</p>
+                        </div>
+                        <div>
+                            <strong>Absorption Laws</strong>
+                            <p>\(p \lor (p \land q) \equiv p\)</p>
+                            <p>\(p \land (p \lor q) \equiv p\)</p>
+                        </div>
+                        <div>
+                            <strong>Implication Laws</strong>
+                            <p>\(p \to q \equiv \neg p \lor q\)</p>
+                            <p>\(p \to q \equiv \neg q \to \neg p\)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: INFERENCE RULES -->
+            <section id="inference">
+                <h2>4. Inference Rules</h2>
+                <p>Used to derive a conclusion from a set of premises. An argument is <strong>Valid</strong> if whenever premises are true, the conclusion is true.</p>
+
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Premises] --> B{Inference Rule}
+                        B --> C[Conclusion]
+                        subgraph Validity Check
+                        D[Assume Premises are TRUE] --> E[Check if Conclusion MUST be TRUE]
+                        end
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Standard Rules</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rule Name</th>
+                                    <th>Premises</th>
+                                    <th>Conclusion</th>
+                                    <th>Logic</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Modus Ponens</strong></td>
+                                    <td>\(p \to q\), \(p\)</td>
+                                    <td>\(\therefore q\)</td>
+                                    <td>If \(p\) implies \(q\), and we have \(p\), we get \(q\).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Modus Tollens</strong></td>
+                                    <td>\(p \to q\), \(\neg q\)</td>
+                                    <td>\(\therefore \neg p\)</td>
+                                    <td>If \(p\) implies \(q\), and \(q\) is false, \(p\) must be false.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hypothetical Syllogism</strong></td>
+                                    <td>\(p \to q\), \(q \to r\)</td>
+                                    <td>\(\therefore p \to r\)</td>
+                                    <td>Chaining implications.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Disjunctive Syllogism</strong></td>
+                                    <td>\(p \lor q\), \(\neg p\)</td>
+                                    <td>\(\therefore q\)</td>
+                                    <td>Elimination.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Resolution</strong></td>
+                                    <td>\(p \lor q\), \(\neg p \lor r\)</td>
+                                    <td>\(\therefore q \lor r\)</td>
+                                    <td>Canceling out \(p\) and \(\neg p\).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: PREDICATE LOGIC -->
+            <section id="predicate">
+                <h2>5. Predicate Logic & Quantifiers</h2>
+                <p>Extends propositional logic by dealing with predicates \(P(x)\) and quantifiers over a domain \(D\).</p>
+
+                <div class="card">
+                    <h3>Quantifiers</h3>
+                    <div class="grid-2">
+                        <div>
+                            <h4>Universal Quantifier (\(\forall\))</h4>
+                            <p><strong>"For all", "For every"</strong></p>
+                            <p>Notation: \(\forall x P(x)\)</p>
+                            <p>True if \(P(x)\) is true for <strong>every</strong> \(x\) in Domain.</p>
+                            <p><em>Analogy: Conjunction (\(\land\)) of all elements.</em></p>
+                        </div>
+                        <div>
+                            <h4>Existential Quantifier (\(\exists\))</h4>
+                            <p><strong>"There exists", "For some"</strong></p>
+                            <p>Notation: \(\exists x P(x)\)</p>
+                            <p>True if \(P(x)\) is true for <strong>at least one</strong> \(x\) in Domain.</p>
+                            <p><em>Analogy: Disjunction (\(\lor\)) of all elements.</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Negation of Quantifiers (De Morgan's for Logic)</h3>
+                    <p class="formula-box">\(\neg [\forall x P(x)] \equiv \exists x [\neg P(x)]\)</p>
+                    <p class="formula-box">\(\neg [\exists x P(x)] \equiv \forall x [\neg P(x)]\)</p>
+                    <p><em>Example:</em> "Not all birds can fly" \(\equiv\) "There exists a bird that cannot fly".</p>
+                </div>
+            </section>
+
+            <!-- SECTION 6: NESTED QUANTIFIERS -->
+            <section id="nested">
+                <h2>6. Nested Quantifiers</h2>
+                <p>When multiple quantifiers appear, the order matters. Let Domain \(D = \{1, 2, 3\}\).</p>
+
+                <div class="card">
+                    <h3>Order of Operations</h3>
+                    <table style="width:100%">
+                        <tr>
+                            <td>\(\forall x \forall y P(x,y)\)</td>
+                            <td>\(\equiv \forall y \forall x P(x,y)\)</td>
+                            <td>Order <strong>doesn't</strong> matter. All pairs must be True.</td>
+                        </tr>
+                        <tr>
+                            <td>\(\exists x \exists y P(x,y)\)</td>
+                            <td>\(\equiv \exists y \exists x P(x,y)\)</td>
+                            <td>Order <strong>doesn't</strong> matter. At least one pair must be True.</td>
+                        </tr>
+                        <tr>
+                            <td>\(\forall x \exists y P(x,y)\)</td>
+                            <td>\(\not\equiv \exists y \forall x P(x,y)\)</td>
+                            <td><span class="tag tag-red">Order Matters!</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 7: CYCLE METHOD -->
+            <section id="cycle-method">
+                <h2>7. The Cycle Method (Game Interpretation)</h2>
+                <p>Visualizing nested quantifiers using Bipartite Graphs/Matching. Imagine \(x\) on the Left, \(y\) on the Right.</p>
+
+                <div class="grid-2">
+                    <!-- Case 1 -->
+                    <div class="card">
+                        <h4>Case 1: \(\forall x \exists y P(x,y)\)</h4>
+                        <p>For every \(x\) on left, we must find at least one \(y\) on right.</p>
+                        <div class="mermaid">
+                            graph LR
+                            subgraph X
+                            x1((x1))
+                            x2((x2))
+                            end
+                            subgraph Y
+                            y1((y1))
+                            y2((y2))
+                            end
+                            x1 -->|True| y1
+                            x2 -->|True| y2
+                            style x1 fill:#d1fae5
+                            style x2 fill:#d1fae5
+                        </div>
+                        <p><em>"Everyone has someone they like."</em> (Dependent choice)</p>
+                    </div>
+
+                    <!-- Case 2 -->
+                    <div class="card">
+                        <h4>Case 2: \(\exists y \forall x P(x,y)\)</h4>
+                        <p>There is one specific \(y\) on right that works for ALL \(x\).</p>
+                        <div class="mermaid">
+                            graph LR
+                            subgraph X
+                            x1((x1))
+                            x2((x2))
+                            end
+                            subgraph Y
+                            y1((y1))
+                            y2((y2))
+                            end
+                            x1 -->|True| y1
+                            x2 -->|True| y1
+                            style y1 fill:#fcd34d
+                        </div>
+                        <p><em>"There is someone whom everyone likes."</em> (Fixed choice)</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Hierarchy of Strength</h3>
+                    <p>From Strongest to Weakest:</p>
+                    <div class="mermaid">
+                        graph TD
+                        A[∀x ∀y P] --> B[∃y ∀x P]
+                        B --> C[∀x ∃y P]
+                        C --> D[∃x ∃y P]
+                        style A fill:#bfdbfe
+                        style D fill:#e5e7eb
+                    </div>
+                    <p><em>Note: Implications flow down. If A is true, B is true. If D is false, C is false.</em></p>
+                </div>
+            </section>
+
+            <!-- SECTION 8: PROOFS -->
+            <section id="proofs">
+                <h2>8. Proof Strategies & Rules</h2>
+                
+                <div class="card">
+                    <h3>Inference with Quantifiers</h3>
+                    <ul>
+                        <li><strong>Universal Instantiation (UI):</strong> If \(\forall x P(x)\) is true, then \(P(c)\) is true for any specific \(c\).</li>
+                        <li><strong>Universal Generalization (UG):</strong> If \(P(c)\) is true for an arbitrary \(c\), then \(\forall x P(x)\) is true.</li>
+                        <li><strong>Existential Instantiation (EI):</strong> If \(\exists x P(x)\) is true, then \(P(c)\) is true for some specific (new) constant \(c\).</li>
+                        <li><strong>Existential Generalization (EG):</strong> If \(P(c)\) is true for some \(c\), then \(\exists x P(x)\) is true.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Negation of Implications with Quantifiers</h3>
+                    <p>Statement: \(\forall x [P(x) \to Q(x)]\)</p>
+                    <p>Negation: \(\neg \forall x [P(x) \to Q(x)]\)</p>
+                    <p>\(\equiv \exists x \neg [P(x) \to Q(x)]\)</p>
+                    <p>\(\equiv \exists x [P(x) \land \neg Q(x)]\)</p>
+                    <p><em>Example: "All students pass" negated is "There exists a student who did NOT pass".</em></p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures: Arrays Cheat Sheet</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --sidebar-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --border: #334155;
+            --code-bg: #020617;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --danger: #f87171;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar */
+        aside {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        aside h2 {
+            font-size: 1.25rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.75rem; }
+        
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-primary);
+            background: var(--accent-glow);
+            border-left: 3px solid var(--accent);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 250px;
+            padding: 3rem;
+            width: calc(100% - 250px);
+            max-width: 1400px;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .instructor-tag {
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Sections */
+        section { margin-bottom: 4rem; scroll-margin-top: 4rem; }
+        
+        h2 {
+            font-size: 1.8rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Cards & Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        /* Formulas */
+        .formula-box {
+            background: var(--code-bg);
+            border: 1px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .formula-label {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--accent);
+            color: #000;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .variable { color: var(--warning); }
+        .keyword { color: var(--accent); }
+        .comment { color: #64748b; font-style: italic; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th { background: rgba(56, 189, 248, 0.1); color: var(--accent); }
+        
+        /* Interactive Details */
+        details {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--accent);
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+        }
+
+        details[open] summary::after { content: '-'; }
+
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            aside { display: none; }
+            main { margin-left: 0; width: 100%; padding: 1.5rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside>
+        <h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            CS Notes
+        </h2>
+        <nav>
+            <ul>
+                <li><a href="#intro">Fundamentals</a></li>
+                <li><a href="#1d-arrays">1D Arrays</a></li>
+                <li><a href="#2d-arrays">2D Arrays (RMO/CMO)</a></li>
+                <li><a href="#nd-arrays">N-D Arrays</a></li>
+                <li><a href="#special-matrices">Special Matrices</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <header>
+            <h1>Arrays & Memory Addressing</h1>
+            <p class="instructor-tag">Instructor: Pankaj Sharma Sir</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">Comprehensive guide to Array Data Structures, Address Calculation (1D, 2D, 3D), Row/Column Major Order, and Special Matrices.</p>
+        </header>
+
+        <!-- Section 1: Fundamentals -->
+        <section id="intro">
+            <h2>1. Fundamentals of Data Structures</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Classification</h3>
+                    <div class="mermaid">
+                        graph TD
+                            DS[Data Structure]
+                            L[Linear DS]
+                            NL[Non-Linear DS]
+                            
+                            DS --> L
+                            DS --> NL
+                            
+                            L --> Arr[Arrays]
+                            L --> LL[Linked List]
+                            L --> Stk[Stack]
+                            L --> Q[Queue]
+                            
+                            NL --> Tree
+                            NL --> Graph
+                            
+                            style L fill:#1e293b,stroke:#38bdf8
+                            style NL fill:#1e293b,stroke:#f87171
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Array Properties</h3>
+                    <ul>
+                        <li>✅ <strong>Contiguous Memory:</strong> Elements stored one after another.</li>
+                        <li>✅ <strong>Homogeneous:</strong> Stores similar types of elements.</li>
+                        <li>✅ <strong>Relative Addressing:</strong> Access via Base Address + Offset.</li>
+                        <li>✅ <strong>Random Access:</strong> $O(1)$ access time.</li>
+                        <li>⚠️ <strong>Fixed Size:</strong> Static memory allocation.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: 1D Arrays -->
+        <section id="1d-arrays">
+            <h2>2. One-Dimensional (1D) Arrays</h2>
+            <p>Maps a logical index to a physical memory address.</p>
+            
+            <div class="formula-box">
+                <span class="formula-label">Address Calculation Formula</span>
+                $$Address(A[i]) = B.A + (i - LB) \times w$$
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Variables Definition</h4>
+                    <ul style="list-style: none; margin-top: 1rem;">
+                        <li><span class="keyword">B.A</span>: Base Address (Address of 1st element)</li>
+                        <li><span class="variable">i</span>: Index of element to find</li>
+                        <li><span class="variable">LB</span>: Lower Bound (Start index, usually 0 or 1)</li>
+                        <li><span class="variable">w</span>: Width/Size of each element (in bytes)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Example: Negative Indexing</h4>
+                    <p>Given $A[-5 \dots 5]$, $w=2$ bytes, $B.A=1000$. Find $Addr(A[1])$.</p>
+                    <hr style="border-color: var(--border); margin: 0.5rem 0;">
+                    <p>$\text{LB} = -5$</p>
+                    <p>$\text{Elements before } A[1] = 1 - (-5) = 6$</p>
+                    <p>$Addr = 1000 + [1 - (-5)] \times 2$</p>
+                    <p>$Addr = 1000 + 6 \times 2 = \mathbf{1012}$</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: 2D Arrays -->
+        <section id="2d-arrays">
+            <h2>3. Two-Dimensional (2D) Arrays</h2>
+            <p>Memory is linear (1D). To store a 2D grid, we must flatten it. There are two standard methods:</p>
+
+            <div class="grid-2">
+                <!-- Row Major Order -->
+                <div class="card">
+                    <h3 style="color: var(--success); margin-top:0;">Row Major Order (RMO)</h3>
+                    <p>Elements are stored row by row (Row 0, then Row 1, etc.). Standard in C/C++.</p>
+                    
+                    <div class="mermaid">
+                        graph LR
+                        subgraph Matrix
+                        r0[Row 0]
+                        r1[Row 1]
+                        r2[Row 2]
+                        end
+                        
+                        subgraph Memory
+                        m1[Row 0] --> m2[Row 1] --> m3[Row 2]
+                        end
+                        
+                        r0 -.-> m1
+                        r1 -.-> m2
+                        r2 -.-> m3
+                    </div>
+
+                    <div class="formula-box" style="border-color: var(--success);">
+                        <span class="formula-label" style="background: var(--success);">RMO Formula</span>
+                        $$Addr(A[i][j]) = B.A + [(i - L_r) \times N_c + (j - L_c)] \times w$$
+                    </div>
+                    <p><small>where $N_c$ is Number of Columns per row.</small></p>
+                </div>
+
+                <!-- Column Major Order -->
+                <div class="card">
+                    <h3 style="color: var(--warning); margin-top:0;">Column Major Order (CMO)</h3>
+                    <p>Elements are stored column by column. Standard in Matlab/Fortran.</p>
+                    
+                    <div class="mermaid">
+                        graph LR
+                        subgraph Matrix
+                        c0[Col 0]
+                        c1[Col 1]
+                        c2[Col 2]
+                        end
+                        
+                        subgraph Memory
+                        m1[Col 0] --> m2[Col 1] --> m3[Col 2]
+                        end
+                        
+                        c0 -.-> m1
+                        c1 -.-> m2
+                        c2 -.-> m3
+                    </div>
+
+                    <div class="formula-box" style="border-color: var(--warning);">
+                        <span class="formula-label" style="background: var(--warning);">CMO Formula</span>
+                        $$Addr(A[i][j]) = B.A + [(j - L_c) \times N_r + (i - L_r)] \times w$$
+                    </div>
+                    <p><small>where $N_r$ is Number of Rows per column.</small></p>
+                </div>
+            </div>
+
+            <details>
+                <summary>How to calculate Number of Rows ($N_r$) and Columns ($N_c$)</summary>
+                <div class="details-content">
+                    <p>If Array is defined as $A[LB_r \dots UB_r][LB_c \dots UB_c]$:</p>
+                    <ul>
+                        <li>Number of Rows ($N_r$) = $UB_r - LB_r + 1$</li>
+                        <li>Number of Columns ($N_c$) = $UB_c - LB_c + 1$</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- Section 4: N-D Arrays -->
+        <section id="nd-arrays">
+            <h2>4. N-Dimensional Arrays</h2>
+            <p>Generalizing the concept to 3D and beyond.</p>
+            
+            <div class="card">
+                <h3>3D Array Address (Row Major)</h3>
+                <p>For $A[L_1 \dots U_1][L_2 \dots U_2][L_3 \dots U_3]$ with dimensions size $S_1, S_2, S_3$.</p>
+                <p>To access $A[i][j][k]$:</p>
+                
+                <div class="formula-box">
+                    $$Addr = B.A + [ (i-L_1) \cdot S_2 \cdot S_3 + (j-L_2) \cdot S_3 + (k-L_3) ] \times w$$
+                </div>
+                <p><strong>Logic:</strong> Skip full 2D planes ($S_2 \times S_3$) for index $i$, skip full rows ($S_3$) for index $j$, then add offset $k$.</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Special Matrices -->
+        <section id="special-matrices">
+            <h2>5. Special Matrices & Optimization</h2>
+            <p>Mapping specific patterns (Triangular, Diagonal) to 1D arrays to save memory (avoid storing zeros).</p>
+
+            <!-- Lower Triangular Matrix -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>Lower Triangular Matrix (LTM)</h3>
+                <div class="grid-2">
+                    <div>
+                        <p><strong>Definition:</strong> $A_{ij} = 0$ if $i < j$. Non-zero elements are on and below the main diagonal.</p>
+                        <p><strong>Total Non-Zero Elements:</strong> $\frac{n(n+1)}{2}$</p>
+                    </div>
+                    <div style="font-family: monospace; line-height: 1.2;">
+                        [ a11  0    0   0 ]<br>
+                        [ a21 a22   0   0 ]<br>
+                        [ a31 a32 a33   0 ]<br>
+                        [ a41 a42 a43 a44 ]
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <span class="formula-label">LTM Row Major Formula</span>
+                    $$Addr(A_{ij}) = B.A + \left[ \frac{(i)(i-1)}{2} + (j-1) \right] \times w$$
+                </div>
+                <p class="comment">*Assuming 1-based indexing for derivation. Logic: Sum of AP (1 + 2 + ... + i-1) rows filled completely before current row.</p>
+            </div>
+
+            <!-- Upper Triangular Matrix -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>Upper Triangular Matrix (UTM)</h3>
+                <div class="grid-2">
+                    <div>
+                        <p><strong>Definition:</strong> $A_{ij} = 0$ if $i > j$. Non-zero elements are on and above the main diagonal.</p>
+                    </div>
+                    <div style="font-family: monospace; line-height: 1.2;">
+                        [ a11 a12 a13 a14 ]<br>
+                        [  0  a22 a23 a24 ]<br>
+                        [  0   0  a33 a34 ]<br>
+                        [  0   0   0  a44 ]
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <span class="formula-label">UTM Row Major Formula</span>
+                    $$Addr(A_{ij}) = B.A + \left[ (i-1)N - \frac{(i-1)(i-2)}{2} + (j-i) \right] \times w$$
+                </div>
+                <p><strong>Logic:</strong> Total elements in full rows minus the "empty" triangle at the start of previous rows.</p>
+            </div>
+
+            <!-- Tri-diagonal Matrix -->
+            <div class="card">
+                <h3>Tri-diagonal Matrix</h3>
+                <p>Non-zero elements exist only on Main Diagonal ($i=j$), Sub-diagonal ($i=j+1$), and Super-diagonal ($i=j-1$).</p>
+                <p><strong>Condition:</strong> $|i - j| \le 1$</p>
+                <p><strong>Total Elements:</strong> $3n - 2$</p>
+                
+                <div class="formula-box">
+                    <span class="formula-label">Tri-diagonal Mapping</span>
+                    $$Addr(A_{ij}) = B.A + [ 2(i-1) + (j-i+1) ] \times w$$
+                </div>
+                <p class="comment">Logic: Each row $i$ (except first/last) contributes 3 elements. We calculate offset based on filled rows.</p>
+            </div>
+        </section>
+
+        <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-secondary);">
+            <p>Based on Lecture Notes by <strong>Pankaj Sharma Sir</strong> | CS & IT Engineering</p>
+            <p>&copy; 2025 Computer Science Cheat Sheets</p>
+        </footer>
+    </main>
+
+    <script>
+        // Simple script to handle smooth scrolling offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

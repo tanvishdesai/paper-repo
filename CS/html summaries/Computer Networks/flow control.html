@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS401: Flow Control & ARQ Protocols Cheat Sheet</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-yellow: #f59e0b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            color: var(--text);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem;
+            color: var(--secondary);
+        }
+
+        p { margin-bottom: 1rem; }
+
+        /* Cards & Boxes */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .formula-box {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: auto;
+        }
+
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .comparison-table tr:hover { background-color: #f8fafc; }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .tag-green { background: #dcfce7; color: #166534; }
+        .tag-red { background: #fee2e2; color: #991b1b; }
+        .tag-blue { background: #dbeafe; color: #1e40af; }
+
+        /* Collapsible */
+        details {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            background: #f8fafc;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+
+        details[open] summary::after { content: '-'; }
+
+        details[open] summary { border-bottom: 1px solid var(--border); }
+
+        .details-content { padding: 1.5rem; background: var(--surface); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 1.5rem; }
+        }
+        
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <h1>Networks: Flow Control</h1>
+        <a href="#overview" class="nav-link">Overview & Delays</a>
+        <a href="#stop-wait" class="nav-link">Stop & Wait (ARQ)</a>
+        <a href="#sliding-window" class="nav-link">Sliding Window Concept</a>
+        <a href="#gbn" class="nav-link">Go-Back-N (GBN)</a>
+        <a href="#sr" class="nav-link">Selective Repeat (SR)</a>
+        <a href="#comparison" class="nav-link">Summary Table</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Header -->
+        <header id="overview">
+            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary);">Flow Control & Error Control</h1>
+            <p class="subtitle" style="font-size: 1.1rem; color: var(--secondary);">Comprehensive notes on Data Link Layer flow control mechanisms, delays, and ARQ protocols.</p>
+        </header>
+
+        <!-- Section 1: Delays & Basics -->
+        <section>
+            <h2>1. Network Performance Primitives</h2>
+            
+            <div class="card">
+                <h3>Four Types of Delay</h3>
+                <p>Total Time = Transmission + Propagation + Queuing + Processing</p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                    graph LR
+                        A[Packet Created] --> B(Processing Delay)
+                        B --> C(Queuing Delay)
+                        C --> D(Transmission Delay)
+                        D --> E[Propagation Delay]
+                        E --> F[Destination]
+                        style D fill:#dbeafe,stroke:#1e40af
+                        style E fill:#dbeafe,stroke:#1e40af
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="card">
+                    <h4><span class="tag tag-blue">Td</span> Transmission Delay</h4>
+                    <p>Time to push packet bits onto the link.</p>
+                    <div class="formula-box">
+                        $$T_d = \frac{L}{B}$$
+                    </div>
+                    <ul>
+                        <li>\(L\): Packet Length (bits)</li>
+                        <li>\(B\): Bandwidth (bits/sec)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4><span class="tag tag-blue">Pd</span> Propagation Delay</h4>
+                    <p>Time for one bit to travel from sender to receiver.</p>
+                    <div class="formula-box">
+                        $$P_d = \frac{d}{v}$$
+                    </div>
+                    <ul>
+                        <li>\(d\): Distance (meters)</li>
+                        <li>\(v\): Velocity (m/s)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Key Insight: Efficiency Ratio (a)</strong><br>
+                The factor \(a\) defines how many packets can fit on the link during one propagation time.
+                $$ a = \frac{P_d}{T_d} = \frac{\text{Propagation Time}}{\text{Transmission Time}} $$
+            </div>
+        </section>
+
+        <!-- Section 2: Stop and Wait -->
+        <section id="stop-wait">
+            <h2>2. Stop & Wait Protocol</h2>
+            <p>The simplest flow control. Sender sends one frame, stops, and waits for Acknowledgement (ACK).</p>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                sequenceDiagram
+                    participant Sender
+                    participant Receiver
+                    Note over Sender: Td (Transmission)
+                    Sender->>Receiver: Frame 0
+                    Note over Receiver: Processing
+                    Receiver-->>Sender: ACK 1
+                    Note over Sender: RTT (Round Trip Time)
+                    Sender->>Receiver: Frame 1
+                </div>
+            </div>
+
+            <h3>Stop & Wait ARQ (Automatic Repeat Request)</h3>
+            <p>Adds Error Control to Stop & Wait using <strong>Timeouts</strong> and <strong>Sequence Numbers</strong>.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <details>
+                    <summary>Problem: Lost Data</summary>
+                    <div class="details-content">
+                        Sender waits for ACK. If timer expires (Time Out), sender retransmits the frame.
+                    </div>
+                </details>
+                <details>
+                    <summary>Problem: Lost ACK</summary>
+                    <div class="details-content">
+                        Sender times out and retransmits. Receiver detects duplicate using Sequence No (0 or 1) and discards it, resending ACK.
+                    </div>
+                </details>
+                <details>
+                    <summary>Problem: Delayed ACK</summary>
+                    <div class="details-content">
+                        If ACK arrives after timeout, sender has already retransmitted. Receiver handles duplicate. Sender ignores late duplicate ACK.
+                    </div>
+                </details>
+            </div>
+
+            <h3>Performance Analysis</h3>
+            <div class="formula-box">
+                Efficiency (\(\eta\)) = \(\frac{\text{Useful Time}}{\text{Total Cycle Time}} = \frac{T_d}{T_d + 2P_d} = \frac{1}{1 + 2a}\)
+            </div>
+            
+            <div class="card">
+                <h4>Throughput</h4>
+                <p>$$ \text{Throughput} = \eta \times \text{Bandwidth} $$</p>
+                <p><strong>Note:</strong> Stop & Wait is very inefficient for links with high propagation delay (e.g., Satellites) because the link sits idle most of the time.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Sliding Window -->
+        <section id="sliding-window">
+            <h2>3. Concept of Pipelining (Sliding Window)</h2>
+            <p>To improve efficiency, we allow the sender to have multiple unacknowledged packets "in flight".</p>
+            
+            <div class="highlight-box">
+                <strong>Window Size (N):</strong> The number of packets sent before waiting for an ACK.<br>
+                For 100% Utilization: $$ N \ge 1 + 2a $$
+            </div>
+        </section>
+
+        <!-- Section 4: Go-Back-N -->
+        <section id="gbn">
+            <h2>4. Go-Back-N (GBN) ARQ</h2>
+            <p>Uses <strong>Cumulative ACKs</strong>. If Frame \(k\) is lost, all frames \(>k\) are discarded by receiver. Sender retransmits everything from \(k\).</p>
+
+            <div class="card">
+                <h4>Protocol Characteristics</h4>
+                <ul>
+                    <li><strong>Sender Window (\(W_s\)):</strong> Size \(N\) (where \(N > 1\)).</li>
+                    <li><strong>Receiver Window (\(W_r\)):</strong> Always <strong>1</strong>. Receiver expects packets strictly in order.</li>
+                    <li><strong>Acknowledgement:</strong> Cumulative (ACK \(n\) means "I expect \(n\), have received up to \(n-1\)").</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                sequenceDiagram
+                    participant S as Sender (Ws=3)
+                    participant R as Receiver (Wr=1)
+                    S->>R: Pkt 0
+                    S->>R: Pkt 1 (LOST) X
+                    S->>R: Pkt 2
+                    R-->>S: ACK 1 (Exp 1)
+                    Note right of R: Discard Pkt 2 (Out of order)
+                    Note left of S: Timeout for Pkt 1
+                    S->>R: Retransmit Pkt 1
+                    S->>R: Retransmit Pkt 2
+                </div>
+            </div>
+
+            <h3>Sequence Number Requirements</h3>
+            <p>To avoid ambiguity between new frames and retransmissions:</p>
+            <div class="formula-box">
+                Available Sequence Numbers \(\ge W_s + W_r\) <br>
+                Since \(W_r = 1\), \(\text{Seq} \ge N + 1\)
+            </div>
+            <p>If \(k\) bits are used for sequence numbers: \(W_s \le 2^k - 1\).</p>
+
+            <h3>Efficiency</h3>
+            <div class="formula-box">
+                $$ \eta = \frac{N}{1+2a} $$
+            </div>
+        </section>
+
+        <!-- Section 5: Selective Repeat -->
+        <section id="sr">
+            <h2>5. Selective Repeat (SR) ARQ</h2>
+            <p>Receiver buffers out-of-order packets. Sender only retransmits the specific lost packet. Uses <strong>Independent ACKs</strong> (or Negative ACKs).</p>
+
+            <div class="card">
+                <h4>Protocol Characteristics</h4>
+                <ul>
+                    <li><strong>Sender Window (\(W_s\)):</strong> Size \(N\).</li>
+                    <li><strong>Receiver Window (\(W_r\)):</strong> Size \(N\) (Same as sender).</li>
+                    <li><strong>Logic:</strong> Searching and Sorting required at receiver to reorder buffered packets.</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                sequenceDiagram
+                    participant S as Sender (Ws=3)
+                    participant R as Receiver (Wr=3)
+                    S->>R: Pkt 0
+                    S->>R: Pkt 1 (LOST) X
+                    S->>R: Pkt 2
+                    R-->>S: ACK 0
+                    Note right of R: Buffer Pkt 2, Send NAK 1
+                    S->>R: Retransmit Pkt 1
+                    Note right of R: Deliver 0, 1, 2
+                </div>
+            </div>
+
+            <h3>Sequence Number Requirements</h3>
+            <p>To ensure no overlap between windows:</p>
+            <div class="formula-box">
+                Available Sequence Numbers \(\ge W_s + W_r\) <br>
+                Since \(W_s = W_r = N\), \(\text{Seq} \ge 2N\)
+            </div>
+            <p>If \(k\) bits are used for sequence numbers: \(W_s \le 2^{k-1}\).</p>
+        </section>
+
+        <!-- Section 6: Comparison Summary -->
+        <section id="comparison">
+            <h2>6. Protocol Comparison Cheat Sheet</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Stop & Wait</th>
+                        <th>Go-Back-N</th>
+                        <th>Selective Repeat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sender Window (\(W_s\))</strong></td>
+                        <td>1</td>
+                        <td>\(N\)</td>
+                        <td>\(N\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Receiver Window (\(W_r\))</strong></td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>\(N\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Efficiency</strong></td>
+                        <td>\(\frac{1}{1+2a}\)</td>
+                        <td>\(\frac{N}{1+2a}\)</td>
+                        <td>\(\frac{N}{1+2a}\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Retransmission</strong></td>
+                        <td>Single Packet</td>
+                        <td>Entire Window (High Traffic)</td>
+                        <td>Selective (Complex Logic)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sequence No. Size (for window N)</strong></td>
+                        <td>Min 2 (1 bit)</td>
+                        <td>\(N+1\)</td>
+                        <td>\(2N\)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ACK Type</strong></td>
+                        <td>Independent</td>
+                        <td>Cumulative</td>
+                        <td>Independent</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complexity</strong></td>
+                        <td>Low</td>
+                        <td>Medium</td>
+                        <td>High (Sorting/Searching)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</body>
+</html>

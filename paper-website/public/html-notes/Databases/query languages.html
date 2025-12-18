@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Query Languages: The Ultimate Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --accent: #0f172a;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--accent);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links { list-style: none; }
+        .nav-links li { margin-bottom: 0.5rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 3rem 4rem;
+            scroll-behavior: smooth;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent); }
+        h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.4rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--primary-dark); }
+        p { margin-bottom: 1rem; color: #334155; }
+
+        /* Cards & Concepts */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .card h4 { color: var(--primary); margin-bottom: 0.5rem; }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        code { font-family: 'Fira Code', monospace; color: var(--primary); background: #eff6ff; padding: 2px 4px; border-radius: 4px; }
+        pre code { color: inherit; background: transparent; padding: 0; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background-color: #f1f5f9; font-weight: 600; }
+
+        /* Visualizations */
+        .diagram-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Collapsible Sections */
+        details {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            background: #f8fafc;
+            user-select: none;
+        }
+        details[open] summary { border-bottom: 1px solid var(--border); }
+        .details-content { padding: 1rem; }
+
+        /* Utility */
+        .badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .badge-ra { background: #dbeafe; color: #1e40af; }
+        .badge-sql { background: #dcfce7; color: #166534; }
+        .alert { padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid; }
+        .alert-warning { background: #fffbeb; border-color: var(--warning); color: #92400e; }
+        
+        /* MathJax adjustments */
+        mjx-container { font-size: 110% !important; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+            .main-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="logo">CS: Query Languages</div>
+        <ul class="nav-links">
+            <li><a href="#intro">Overview & Comparison</a></li>
+            <li><a href="#ra-basics">Relational Algebra Basics</a></li>
+            <li><a href="#joins">Joins & Outer Joins</a></li>
+            <li><a href="#division">The Division Operator</a></li>
+            <li><a href="#sql-anatomy">SQL Anatomy & Execution</a></li>
+            <li><a href="#aggregation">Aggregation & Grouping</a></li>
+            <li><a href="#nulls">The NULL Trap</a></li>
+            <li><a href="#nested">Nested Queries</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Header -->
+        <header id="intro">
+            <h1>Query Languages</h1>
+            <p class="lead">A comprehensive synthesis of Relational Algebra (Procedural) and SQL (Declarative). Understanding the mathematical foundation and practical implementation of database queries.</p>
+            
+            <div class="card" style="border-left: 4px solid var(--primary);">
+                <h4>Two Sides of the Coin</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <span class="badge badge-ra">Relational Algebra (RA)</span>
+                        <p><strong>Procedural:</strong> Specifies <em>how</em> to get the data.</p>
+                        <p>Theoretical foundation. Operations on sets/relations.</p>
+                    </div>
+                    <div>
+                        <span class="badge badge-sql">SQL</span>
+                        <p><strong>Declarative:</strong> Specifies <em>what</em> data is needed.</p>
+                        <p>Practical implementation. Works on Multisets (Bags).</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Relational Algebra -->
+        <section id="ra-basics">
+            <h2>Relational Algebra Operators</h2>
+            <p>Operators take one or two relations as input and produce a new relation as output.</p>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+                    A[Relational Algebra] --> B[Basic Operators]
+                    A --> C[Derived Operators]
+                    B --> B1[Selection &sigma;]
+                    B --> B2[Projection &pi;]
+                    B --> B3[Cross Product &times;]
+                    B --> B4[Union &cup;]
+                    B --> B5[Set Difference -]
+                    B --> B6[Rename &rho;]
+                    C --> C1[Intersection &cap;]
+                    C --> C2[Join &bowtie;]
+                    C --> C3[Division /]
+                </div>
+            </div>
+
+            <div class="concept-grid">
+                <div class="card">
+                    <h4>Selection (\(\sigma\))</h4>
+                    <p><strong>Horizontal Filtering.</strong> Selects rows satisfying a condition.</p>
+                    <p>$$ \sigma_{condition}(R) $$</p>
+                    <p><em>Example:</em> \(\sigma_{age>18}(Student)\)</p>
+                </div>
+                <div class="card">
+                    <h4>Projection (\(\pi\))</h4>
+                    <p><strong>Vertical Filtering.</strong> Selects specific columns. Removes duplicates in RA (Set Theory).</p>
+                    <p>$$ \pi_{col1, col2}(R) $$</p>
+                    <p><em>Example:</em> \(\pi_{name}(Student)\)</p>
+                </div>
+                <div class="card">
+                    <h4>Cross Product (\(\times\))</h4>
+                    <p>Combines every row of R with every row of S.</p>
+                    <p>Degree: \(Deg(R) + Deg(S)\)</p>
+                    <p>Cardinality: \(|R| \times |S|\)</p>
+                </div>
+            </div>
+
+            <details>
+                <summary>Deep Dive: Set Operations Requirements</summary>
+                <div class="details-content">
+                    <p>For <strong>Union (\(\cup\))</strong>, <strong>Intersection (\(\cap\))</strong>, and <strong>Difference (-)</strong>, relations must be <strong>Union Compatible</strong>:</p>
+                    <ol>
+                        <li>Same Arity (Number of attributes).</li>
+                        <li>Corresponding attributes must have the same domain (data type).</li>
+                    </ol>
+                    <div class="alert alert-warning" style="margin-top:10px;">
+                        <strong>Note:</strong> Intersection can be derived: \(R \cap S = R - (R - S)\).
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- Joins -->
+        <section id="joins">
+            <h2>Joins & Connections</h2>
+            <p>Joins reconstruct information from decomposed tables. They are essentially a Cross Product followed by a Selection.</p>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                    classDiagram
+                    class CrossProduct {
+                        R x S
+                        All combinations
+                    }
+                    class InnerJoin {
+                        R ⋈ S
+                        Matches Only
+                    }
+                    class LeftOuter {
+                        R ⟕ S
+                        Matches + Dangling R
+                    }
+                    class FullOuter {
+                        R ⟗ S
+                        Matches + All Dangling
+                    }
+                    
+                    CrossProduct <|-- InnerJoin : Selection
+                    InnerJoin <|-- LeftOuter : + Nulls for S
+                    InnerJoin <|-- FullOuter : + Nulls for R & S
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Join Type</th>
+                        <th>Symbol</th>
+                        <th>Description</th>
+                        <th>Handling Mismatches</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Natural Join</td>
+                        <td>\(R \bowtie S\)</td>
+                        <td>Equi-join on common attributes. Removes duplicate columns.</td>
+                        <td>Discards mismatched rows (Dangling Tuples).</td>
+                    </tr>
+                    <tr>
+                        <td>Theta Join</td>
+                        <td>\(R \bowtie_{\theta} S\)</td>
+                        <td>Join based on arbitrary condition \(\theta\) (e.g., \(>\), \(<\)).</td>
+                        <td>Discards mismatches.</td>
+                    </tr>
+                    <tr>
+                        <td>Left Outer</td>
+                        <td>\(R \_ \bowtie S\)</td>
+                        <td>Preserves all tuples from Left table.</td>
+                        <td>Pads with NULL for right table.</td>
+                    </tr>
+                    <tr>
+                        <td>Right Outer</td>
+                        <td>\(R \bowtie\_ S\)</td>
+                        <td>Preserves all tuples from Right table.</td>
+                        <td>Pads with NULL for left table.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Division -->
+        <section id="division">
+            <h2>The Division Operator (/)</h2>
+            <p>Used for queries involving <strong>"for all"</strong> or <strong>"every"</strong>. (e.g., "Find students enrolled in ALL courses").</p>
+            
+            <div class="card">
+                <h4>Formula Derivation</h4>
+                <p>$$ R(A, B) \div S(B) $$</p>
+                <p>Result is a relation with attributes \(A\).</p>
+                <p><strong>Logic:</strong></p>
+                <ol>
+                    <li>Find all potential candidates: \(\pi_A(R)\).</li>
+                    <li>Find candidates that are missing at least one mapping to S:
+                        $$ \pi_A ( (\pi_A(R) \times S) - R ) $$
+                    </li>
+                    <li>Subtract the "bad" candidates from all candidates:
+                        $$ \pi_A(R) - \pi_A ( (\pi_A(R) \times S) - R ) $$
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- SQL Anatomy -->
+        <section id="sql-anatomy">
+            <h2>SQL Anatomy & Execution Order</h2>
+            <p>SQL is declarative. You write in a specific order, but the engine executes in a logical order.</p>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+                    subgraph "Lexical Order (How you write)"
+                    L1[SELECT] --> L2[FROM]
+                    L2 --> L3[WHERE]
+                    L3 --> L4[GROUP BY]
+                    L4 --> L5[HAVING]
+                    L5 --> L6[ORDER BY]
+                    end
+
+                    subgraph "Logical Execution Order (How it runs)"
+                    E1[FROM / JOIN] -->|Cartesian Product| E2[WHERE]
+                    E2 -->|Filter Rows| E3[GROUP BY]
+                    E3 -->|Create Groups| E4[HAVING]
+                    E4 -->|Filter Groups| E5[SELECT]
+                    E5 -->|Project Columns| E6[DISTINCT]
+                    E6 -->|Remove Duplicates| E7[ORDER BY]
+                    end
+                    
+                    L1 -.-> E5
+                    L2 -.-> E1
+                    L3 -.-> E2
+                </div>
+            </div>
+
+            <pre><code class="language-sql">-- Typical Structure
+SELECT DISTINCT S.Name, AVG(M.Score)
+FROM Students S 
+JOIN Marks M ON S.ID = M.StudentID
+WHERE S.City = 'New York'
+GROUP BY S.Name
+HAVING AVG(M.Score) > 80
+ORDER BY S.Name ASC;</code></pre>
+        </section>
+
+        <!-- Aggregation -->
+        <section id="aggregation">
+            <h2>Aggregation & Grouping</h2>
+            <p>Aggregates (`COUNT`, `SUM`, `AVG`, `MIN`, `MAX`) take a collection of values and return a single value.</p>
+
+            <div class="concept-grid">
+                <div class="card">
+                    <h4>WHERE vs. HAVING</h4>
+                    <ul>
+                        <li><strong>WHERE:</strong> Filters individual <em>rows</em>. Cannot use aggregates (e.g., `WHERE sum(x) > 5` is Illegal).</li>
+                        <li><strong>HAVING:</strong> Filters <em>groups</em>. Applied after `GROUP BY`. Can use aggregates.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>GROUP BY Rule</h4>
+                    <p>If `GROUP BY` is used, the `SELECT` clause can only contain:</p>
+                    <ol>
+                        <li>Attributes listed in `GROUP BY`.</li>
+                        <li>Aggregate functions.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- NULLs -->
+        <section id="nulls">
+            <h2>The NULL Trap</h2>
+            <p>NULL is not zero. NULL is not empty string. NULL is <strong>Unknown</strong> or <strong>Non-existent</strong>.</p>
+
+            <div class="alert alert-warning">
+                <h4>Critical Behaviors</h4>
+                <ul>
+                    <li><strong>Arithmetic:</strong> `5 + NULL = NULL`</li>
+                    <li><strong>Comparison:</strong> `5 > NULL` is <strong>UNKNOWN</strong> (treated as False in WHERE).</li>
+                    <li><strong>Equality:</strong> `NULL = NULL` is <strong>UNKNOWN</strong>. Use `IS NULL` or `IS NOT NULL`.</li>
+                    <li><strong>Aggregation:</strong> `SUM`, `AVG`, `MIN`, `MAX` <strong>ignore</strong> NULLs.</li>
+                    <li><strong>COUNT:</strong> `COUNT(*)` counts rows (including NULLs). `COUNT(column)` ignores NULLs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Nested Queries -->
+        <section id="nested">
+            <h2>Nested Queries (Subqueries)</h2>
+            
+            <div class="concept-grid">
+                <div class="card">
+                    <h4>Independent Subquery</h4>
+                    <p>Inner query runs once. Result passed to outer query.</p>
+                    <p><em>Execution:</em> Bottom-up.</p>
+                    <pre><code class="language-sql">SELECT * FROM R 
+WHERE R.id IN (SELECT id FROM S)</code></pre>
+                </div>
+                <div class="card">
+                    <h4>Correlated Subquery</h4>
+                    <p>Inner query relies on a value from the outer query row.</p>
+                    <p><em>Execution:</em> Top-down (Nested Loop). For every row in Outer, execute Inner.</p>
+                    <pre><code class="language-sql">SELECT * FROM Emp E1
+WHERE salary > (SELECT AVG(salary) 
+                FROM Emp E2 
+                WHERE E2.Dept = E1.Dept)</code></pre>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Special Operators</h4>
+                <ul>
+                    <li><code>ANY</code>: Logical OR. `x > ANY(10, 20)` means `x > 10` OR `x > 20`.</li>
+                    <li><code>ALL</code>: Logical AND. `x > ALL(10, 20)` means `x > 10` AND `x > 20`.</li>
+                    <li><code>EXISTS</code>: Returns TRUE if the subquery returns <strong>at least one row</strong>.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

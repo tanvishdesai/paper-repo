@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE Verbal Aptitude Cheat Sheet</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-color: #fbbf24; /* Warning yellow from slides */
+            --accent-hover: #f59e0b;
+            --border-color: #334155;
+            --code-bg: #0f172a;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h1 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-color);
+            background-color: rgba(251, 191, 36, 0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem;
+            max-width: 100%;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-box {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1rem;
+            border-left: 3px solid var(--accent-color);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .option {
+            background: var(--bg-primary);
+            padding: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .option:hover {
+            border-color: var(--text-secondary);
+        }
+
+        /* Logic & Rules */
+        .rule-block {
+            background-color: #262c38;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        .rule-title {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: #e2e8f0;
+        }
+
+        /* Details/Summary */
+        details {
+            margin-top: 1rem;
+        }
+
+        summary {
+            cursor: pointer;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        summary:hover {
+            text-decoration: underline;
+        }
+
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                height: auto;
+                position: relative;
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav class="sidebar">
+        <h1>GATE Verbal</h1>
+        <p>Reading Comprehension & Grammar</p>
+        <p style="font-size: 0.75rem; opacity: 0.7;">Based on Lecture by Ashutosh Sir</p>
+        
+        <ul class="nav-links">
+            <li><a href="#grammar">Grammar & Syntax</a></li>
+            <li><a href="#vocabulary">Vocabulary & Idioms</a></li>
+            <li><a href="#inference">Critical Inference</a></li>
+            <li><a href="#parajumble">Sentence Sequencing</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        
+        <!-- Section 1: Grammar -->
+        <section id="grammar">
+            <h2>1. Grammar & Usage</h2>
+            <p>Core rules focusing on Subject-Verb agreement, Conditionals, and Prepositions.</p>
+
+            <div class="card">
+                <h3>Subject-Verb Agreement (Nested Clauses)</h3>
+                <div class="question-box">
+                    "The strategies that the company [.....] to sell its products [.....] house-to-house marketing."
+                </div>
+                <div class="rule-block">
+                    <div class="rule-title">Structural Analysis</div>
+                    <div class="mermaid">
+                        graph TD
+                        A[Sentence Start] --> B{The Strategies}
+                        B -- Plural Subject --> D[Require Plural Verb: 'include']
+                        A --> C{that the company...}
+                        C -- Singular Subject 'Company' --> E[Requires Singular Verb: 'uses']
+                        E --> F[Full Sentence]
+                        D --> F
+                    </div>
+                </div>
+                <details open>
+                    <summary>Show Answer & Explanation</summary>
+                    <div class="explanation">
+                        <p><strong>Correct: uses, include</strong></p>
+                        <ol>
+                            <li><strong>Clause 1:</strong> "that the company..." → Company is singular, so it <em>uses</em>.</li>
+                            <li><strong>Main Clause:</strong> "The strategies..." → Strategies is plural, so they <em>include</em>.</li>
+                        </ol>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h3>The Third Conditional (Past Unreal)</h3>
+                <div class="question-box">
+                    "If the athlete <strong>had wanted</strong> to come first in the race, he [.....] several hours every day."
+                </div>
+                <div class="options">
+                    <div class="option">should practice</div>
+                    <div class="option correct">should have practiced</div>
+                    <div class="option">practiced</div>
+                    <div class="option">should be practicing</div>
+                </div>
+                <div class="rule-block">
+                    <div class="rule-title">Formula</div>
+                    <p>$$ \text{If} + \text{Past Perfect (had + V3)} \rightarrow \text{Modal Perfect (would/should/could + have + V3)} $$</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Prepositions & Articles</h3>
+                <div class="question-box">
+                    1. "Mount Everest is [.....] peak in the world."<br>
+                    2. "The boat arrived [.....]"
+                </div>
+                <details>
+                    <summary>Key Takeaways</summary>
+                    <div class="explanation">
+                        <ul>
+                            <li><strong>Superlatives:</strong> Always use the definite article 'the' before superlatives. <br><em>Correct: "The highest"</em></li>
+                            <li><strong>Prepositions of Location:</strong> 'At' is used for specific points or locations (like a dock/station). 'In' is used for enclosed spaces/countries. <br><em>Correct: "The boat arrived At"</em></li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- Section 2: Vocabulary -->
+        <section id="vocabulary">
+            <h2>2. Vocabulary & Idioms</h2>
+            
+            <div class="card">
+                <h3>Idiomatic Expressions</h3>
+                <table>
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 1px solid var(--border-color);">
+                            <th style="padding: 10px;">Phrase</th>
+                            <th style="padding: 10px;">Context</th>
+                            <th style="padding: 10px;">Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--accent-color);">"The rest is history"</td>
+                            <td>Cricket World Cup 1983 Victory</td>
+                            <td>The events following are <strong>well known</strong> to everyone.</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--accent-color);">"Sharp tongue"</td>
+                            <td>Personality description</td>
+                            <td>Speaking in a way that is <strong>hurtful</strong> or severe.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>Homophones & Contextual Fillers</h3>
+                <div class="question-box">
+                    "By giving him the last [piece/peace] of the cake, you will ensure lasting [piece/peace] in our house."
+                </div>
+                <div class="rule-block">
+                    <ul>
+                        <li><strong>Piece:</strong> A portion of an object.</li>
+                        <li><strong>Peace:</strong> Tranquility, freedom from disturbance.</li>
+                    </ul>
+                    <p style="margin-top:10px;"><strong>Answer:</strong> piece, peace</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Contextual Contrast</h3>
+                <div class="question-box">
+                    "Even though there is a vast scope for [.....], its tourism has remained a [.....] area."
+                </div>
+                <p>The phrase "Even though" indicates a contrast between the two blanks (Positive Potential vs. Negative Reality).</p>
+                <div class="options">
+                    <div class="option correct">improvement, neglected</div>
+                    <div class="option">rejection, approved</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Critical Inference -->
+        <section id="inference">
+            <h2>3. Critical Inference</h2>
+            <p>Deducing implicit meaning from text. Remember: Inferences must be based <strong>strictly</strong> on the provided text, not outside knowledge.</p>
+
+            <div class="card">
+                <h3>Case Study: Historical Bias</h3>
+                <p><strong>Text:</strong> "Indian history written by British historians was well documented but not impartial. Subservient to the glory of the Union Jack. Later Indian scholars presented a contrary picture."</p>
+                <div class="rule-block">
+                    <div class="mermaid">
+                        graph LR
+                        A[British Historians] -->|Output| B(Well Documented)
+                        A -->|Bias| C(Not Impartial / Biased)
+                        C -->|Goal| D[Serve Union Jack]
+                        E[Indian Scholars] -->|Reaction| F[Contrary Picture]
+                    </div>
+                </div>
+                <p><strong>Inference:</strong> The history was well documented and researched but was sometimes biased.</p>
+            </div>
+
+            <div class="card">
+                <h3>Case Study: Rabies Control</h3>
+                <div class="question-box">
+                    "Rabies in India is a concern. Inoculating 70% of pets and stray dogs can lead to a significant reduction in infections."
+                </div>
+                <div class="options">
+                    <div class="option correct">The number of people in India infected is high.</div>
+                    <div class="option">Rabies can be eradicated (Too extreme).</div>
+                    <div class="option">Strays are the main source worldwide (Out of scope).</div>
+                </div>
+                <details>
+                    <summary>Why is A correct?</summary>
+                    <div class="explanation">
+                        The text states the number is "overwhelming" and a "source of concern". Thus, it is valid to infer the number is high. "Eradicated" is incorrect because the text only promises a "reduction".
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h3>Case Study: Arts Funding Logic</h3>
+                <div class="question-box">
+                    Artists wrote to CM for funds -> No increase in Budget -> Artists anguished but optimistic.
+                </div>
+                <div class="rule-block">
+                    <strong>Valid Inferences:</strong>
+                    <ul>
+                        <li>(i) Artists expected funding to increase (Implied by their request and subsequent anguish).</li>
+                        <li>(ii) CM was receptive? <strong>False/Unknown</strong> (He didn't give the money).</li>
+                        <li>(iv) Schools are giving less importance to arts? <strong>True</strong> (Text explicitly mentions "gradual sidelining").</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem; color: var(--accent-color);">Note: Slide marks (i), (ii), and (iv) as correct answer C, though strictly logically (ii) is weak.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Para-jumbles -->
+        <section id="parajumble">
+            <h2>4. Sentence Sequencing (Para-jumbles)</h2>
+            <p><strong>Technique:</strong> Identify the First Sentence (Intro) -> Look for Chronology/Connectors -> Identify the Conclusion.</p>
+
+            <div class="card">
+                <h3>The Diwali Sequence</h3>
+                <p><strong>Task:</strong> Arrange sentences between (1) Morning and (6) Beautiful Houses.</p>
+                
+                <div class="mermaid">
+                    %%{init: {'theme': 'dark'}}%%
+                    sequenceDiagram
+                        participant T as Time
+                        participant A as Activity
+                        
+                        Note over T: 1. Morning
+                        T->>A: Family rises early
+                        
+                        Note over T: 5. Day
+                        T->>A: Visit relatives / Exchange gifts
+                        
+                        Note over T: 2. Day
+                        T->>A: Family enjoys this
+                        
+                        Note over T: 4. Sunset
+                        T->>A: Lamps are lit / Rituals
+                        
+                        Note over T: 3. Night
+                        T->>A: Fireworks
+                        
+                        Note over T: 6. End
+                        T->>A: Houses look pretty
+                </div>
+                <div class="rule-block">
+                    <div class="rule-title">Correct Sequence</div>
+                    <p style="font-size: 1.25rem; font-weight: bold; letter-spacing: 2px;">5 - 2 - 4 - 3</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>

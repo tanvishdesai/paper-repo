@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS: ER Model & Relational Mapping Cheat Sheet</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { fontFamily: 'Inter', fontSize: '14px'} });
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --accent-primary: #2563eb; /* Blue */
+            --accent-secondary: #7c3aed; /* Purple */
+            --accent-success: #10b981; /* Green */
+            --accent-danger: #ef4444; /* Red */
+            --bg-sidebar: #f8fafc;
+            --border-color: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .sidebar h1 { font-size: 1.25rem; font-weight: 700; margin-bottom: 2rem; color: var(--accent-primary); }
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .nav-link:hover, .nav-link.active { background: #e0f2fe; color: var(--accent-primary); font-weight: 600; }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            overflow-x: hidden;
+        }
+
+        h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; color: var(--text-main); }
+        h3 { font-size: 1.4rem; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--text-main); }
+        h4 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; color: var(--accent-secondary); font-weight: 600; }
+        p { margin-bottom: 1rem; color: var(--text-muted); }
+
+        /* Cards and Boxes */
+        .concept-box {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .highlight-box {
+            background-color: #eff6ff; /* Light blue */
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .warning-box {
+            background-color: #fef2f2;
+            border-left: 4px solid var(--accent-danger);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+        th { background: var(--bg-sidebar); font-weight: 600; color: var(--text-main); }
+        
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        code { font-family: 'JetBrains Mono', monospace; background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em; color: var(--accent-secondary); }
+        pre code { background: transparent; color: inherit; padding: 0; }
+
+        /* Collapsible Sections */
+        details {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            background: #fafafa;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 0.5rem;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        summary::after { content: '+'; font-size: 1.2rem; }
+        details[open] summary::after { content: '-'; }
+        details[open] summary { border-bottom: 1px solid var(--border-color); margin-bottom: 0.5rem; }
+        
+        /* Visualizations */
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-right: 0.5rem;
+        }
+        .badge-entity { background: #dbeafe; color: #1e40af; }
+        .badge-rel { background: #fae8ff; color: #86198f; }
+        .badge-attr { background: #d1fae5; color: #065f46; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: static; border-bottom: 1px solid var(--border-color); }
+            .main-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h1>DBMS: ER & Mapping</h1>
+        <a href="#er-basics" class="nav-link">ER Fundamentals</a>
+        <a href="#attributes" class="nav-link">Attributes & Types</a>
+        <a href="#relationships" class="nav-link">Relationships & Cardinality</a>
+        <a href="#participation" class="nav-link">Participation Constraints</a>
+        <a href="#foreign-keys" class="nav-link">Foreign Keys & Integrity</a>
+        <a href="#mapping" class="nav-link active">ER to Relational Mapping</a>
+        <a href="#normalization" class="nav-link">Transactions & Normalization</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <header>
+            <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">The ER Model & Relational Mapping</h1>
+            <p style="font-size: 1.1rem;">A comprehensive guide to Entity-Relationship modeling, Foreign Key constraints, and the algorithm for converting ER diagrams into Relational Tables (RDBMS).</p>
+        </header>
+
+        <!-- SECTION 1: ER BASICS -->
+        <section id="er-basics">
+            <h2>1. ER Model Fundamentals</h2>
+            <div class="concept-box">
+                <p><strong>ER Model (Entity-Relationship Model):</strong> A high-level conceptual data model used to define data elements and their relationships for a specified system.</p>
+                <ul>
+                    <li><span class="badge badge-entity">Entity</span> An object in the real world that is distinguishable from other objects (e.g., a specific person).</li>
+                    <li><span class="badge badge-entity">Entity Set</span> A collection of entities of the same type (e.g., all students). Represented by a <strong>Rectangle</strong>.</li>
+                    <li><span class="badge badge-entity">Weak Entity Set</span> An entity set that does not have a primary key of its own. It depends on a Strong Entity (Owner). Represented by a <strong>Double Rectangle</strong>.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 2: ATTRIBUTES -->
+        <section id="attributes">
+            <h2>2. Attributes</h2>
+            <p>Properties used to describe an entity. Represented by <strong>Ovals</strong>.</p>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+                    mindmap
+                      root((Attributes))
+                        Simple
+                            ::Atomic values e.g. Roll No
+                        Composite
+                            ::Dividable e.g. Address > City, Pin
+                        SingleValued
+                            ::One value per entity e.g. Gender
+                        MultiValued
+                            ::Multiple values e.g. Phone Number
+                            ::Double Oval
+                        Stored
+                            ::Fixed value e.g. DOB
+                        Derived
+                            ::Calculated e.g. Age from DOB
+                            ::Dashed Oval
+                        Key
+                            ::Unique Identifier
+                            ::Underlined Text
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Complex Attribute:</strong> A combination of Multivalued and Composite attributes (e.g., Multiple addresses where each address consists of Street, City, Zip).
+            </div>
+        </section>
+
+        <!-- SECTION 3: RELATIONSHIPS -->
+        <section id="relationships">
+            <h2>3. Relationships & Cardinality</h2>
+            <p><span class="badge badge-rel">Relationship</span> is an association among several entities. A <strong>Relationship Set</strong> is a set of relationships of the same type, represented by a <strong>Diamond</strong>.</p>
+
+            <h3>Degree of Relationship</h3>
+            <ul>
+                <li><strong>Unary:</strong> Relationship within the same entity set (Recursive).</li>
+                <li><strong>Binary:</strong> Between two entity sets.</li>
+                <li><strong>Ternary:</strong> Between three entity sets.</li>
+                <li><strong>N-ary:</strong> Between N entity sets.</li>
+            </ul>
+
+            <h3>Mapping Cardinalities</h3>
+            <p>Expresses the number of entities to which another entity can be associated.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Notation</th>
+                        <th>Description</th>
+                        <th>Visual Representation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>One to One</strong></td>
+                        <td>1:1</td>
+                        <td>An entity in A is associated with at most one entity in B, and vice-versa.</td>
+                        <td>\( E_1 \xrightarrow{1} R \xleftarrow{1} E_2 \)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>One to Many</strong></td>
+                        <td>1:M</td>
+                        <td>An entity in A is associated with any number of entities in B.</td>
+                        <td>\( E_1 \xrightarrow{1} R \xleftarrow{M} E_2 \)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Many to One</strong></td>
+                        <td>M:1</td>
+                        <td>An entity in A is associated with at most one entity in B.</td>
+                        <td>\( E_1 \xrightarrow{M} R \xleftarrow{1} E_2 \)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Many to Many</strong></td>
+                        <td>M:N</td>
+                        <td>Entities in A and B are associated with any number of entities from each other.</td>
+                        <td>\( E_1 \xrightarrow{M} R \xleftarrow{N} E_2 \)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION 4: PARTICIPATION -->
+        <section id="participation">
+            <h2>4. Participation Constraints</h2>
+            <div class="concept-box">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4>Partial Participation</h4>
+                        <p>Not every entity in the entity set participates in the relationship.</p>
+                        <p><strong>Symbol:</strong> Single Line (—)</p>
+                    </div>
+                    <div>
+                        <h4>Total (Full) Participation</h4>
+                        <p>Every entity in the entity set <strong>must</strong> participate in the relationship.</p>
+                        <p><strong>Symbol:</strong> Double Line (==)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mermaid">
+                erDiagram
+                    EMPLOYEE ||--o{ WORKS_IN : "Partial Participation"
+                    DEPARTMENT ||--|{ WORKS_IN : "Total Participation (Double Line)"
+            </div>
+        </section>
+
+        <!-- SECTION 5: FOREIGN KEYS -->
+        <section id="foreign-keys">
+            <h2>5. Foreign Keys & Integrity</h2>
+            <p>A <strong>Foreign Key (FK)</strong> is a set of attributes in a table that refers to the <strong>Primary Key (PK)</strong> or Alternate Key of the same or another table.</p>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph LR
+                        A[Referencing Relation<br/>(Child Table)] -- "FK points to" --> B[Referenced Relation<br/>(Parent Table)]
+                        A -- "Contains FK" --> A
+                        B -- "Contains PK" --> B
+                </div>
+            </div>
+
+            <h3>Referential Integrity Operations</h3>
+            <p>What happens to the Child (Referencing) table when we Delete/Update the Parent (Referenced) table?</p>
+            
+            <details>
+                <summary>1. On Delete/Update No Action</summary>
+                <p>If the deletion/update violates integrity, the database rejects the operation. The parent row cannot be deleted if a child references it.</p>
+            </details>
+
+            <details>
+                <summary>2. On Delete/Update Cascade</summary>
+                <p>If a parent row is deleted, all corresponding rows in the child table are <strong>also deleted</strong>. (Use with caution).</p>
+            </details>
+
+            <details>
+                <summary>3. On Delete/Update Set Null</summary>
+                <p>If a parent row is deleted, the FK value in the child table is set to <strong>NULL</strong>. (Only valid if the FK column allows NULLs).</p>
+            </details>
+
+            <div class="warning-box">
+                <strong>Note:</strong> Constraints are checked on the <em>Referenced</em> relation during Deletion/Update, and on the <em>Referencing</em> relation during Insertion.
+            </div>
+        </section>
+
+        <!-- SECTION 6: ER TO RDBMS MAPPING -->
+        <section id="mapping">
+            <h2>6. ER to RDBMS Mapping Rules</h2>
+            <p>This is the core algorithm for converting diagrams to tables. The goal is to minimize the number of tables while preserving data integrity.</p>
+
+            <h3>Basic Entity Mapping</h3>
+            <ul>
+                <li><strong>Strong Entity Set:</strong> Create a table. Columns = Attributes. PK = Entity Key.</li>
+                <li><strong>Composite Attribute:</strong> Flatten into individual simple attributes (e.g., Name $\to$ FirstName, LastName).</li>
+                <li><strong>Multivalued Attribute:</strong> Requires a <strong>separate table</strong> containing the Attribute + Foreign Key to the entity.</li>
+            </ul>
+
+            <h3>Relationship Mapping Logic</h3>
+            <p>The number of tables required depends on cardinality and participation.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Relationship Type</th>
+                        <th>Mapping Strategy</th>
+                        <th>Min Tables (Binary)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1 : M (One to Many)</strong></td>
+                        <td>Merge Relationship into the <strong>Many</strong> side table.</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>M : 1 (Many to One)</strong></td>
+                        <td>Merge Relationship into the <strong>Many</strong> side table.</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>M : N (Many to Many)</strong></td>
+                        <td><strong>New Table</strong> required for Relationship (contains PKs of both entities).</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 : 1 (One to One)</strong></td>
+                        <td>Merge Relationship into <strong>either</strong> side (prefer Total Participation side).</td>
+                        <td>2 (can be 1 if Total Part.)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Summary of Minimization</h3>
+            <div class="highlight-box">
+                <ul>
+                    <li>If <strong>Total Participation</strong> exists on both sides (1:1, 1:M, M:1, M:N), theoretically <strong>1 Table</strong> can suffice (though NULLs might be an issue in M:N or 1:M context, usually applies strictly to 1:1 or specific 1:M constructs). <em>Standard Rule: 1:1 with Total Participation on both sides = 1 Table.</em></li>
+                    <li>If <strong>Total Participation</strong> exists on ONE side (1:1), merge into that side = <strong>1 Table</strong>.</li>
+                    <li><strong>Weak Entity Set:</strong> Always merge with the identifying relationship. Weak Entity Table includes its Partial Key + FK (Owner's PK).</li>
+                </ul>
+            </div>
+
+            <h3>Code Example: 1:M Mapping</h3>
+            <p>Scenario: One Department has Many Employees. (Dept 1 --- M Emp)</p>
+            <pre>
+/* Table 1: One Side */
+CREATE TABLE Department (
+    DeptID int PRIMARY KEY,
+    DName varchar(255)
+);
+
+/* Table 2: Many Side (Merges Relationship) */
+CREATE TABLE Employee (
+    EmpID int PRIMARY KEY,
+    EName varchar(255),
+    DeptID_FK int,  /* Foreign Key moved here */
+    FOREIGN KEY (DeptID_FK) REFERENCES Department(DeptID)
+);
+            </pre>
+        </section>
+
+        <!-- SECTION 7: Advanced / Normalization -->
+        <section id="normalization">
+            <h2>7. Transaction & Normalization Snapshots</h2>
+            <p>Key concepts derived from the supplementary notes.</p>
+
+            <details>
+                <summary>Weak Entity Design</summary>
+                <p>A Weak Entity (e.g., Dependents of an Employee) must always be identified by the combination of its own <strong>Partial Key</strong> and the <strong>Primary Key</strong> of the Owner entity. It requires Total Participation.</p>
+                <p><strong>Table Design:</strong> <code>Dependent( Name, Age, Employee_SSN_FK )</code>. PK is <code>(Name, Employee_SSN_FK)</code>.</p>
+            </details>
+
+            <details>
+                <summary>Self-Referential Relationships</summary>
+                <p>An entity related to itself (e.g., Employee Supervised By Employee).
+                <br><strong>1:M (Supervisor-Subordinate):</strong> FK inside the same table.
+                <br><strong>M:N (Parts-Subparts):</strong> Separate table required.</p>
+            </details>
+
+            <details>
+                <summary>Transaction & ACID</summary>
+                <ul>
+                    <li><strong>Atomicity:</strong> All or nothing.</li>
+                    <li><strong>Consistency:</strong> Database remains valid before and after.</li>
+                    <li><strong>Isolation:</strong> Transactions don't interfere.</li>
+                    <li><strong>Durability:</strong> Committed changes persist (survive crashes).</li>
+                </ul>
+            </details>
+
+            <details>
+                <summary>Recoverability Types</summary>
+                <ul>
+                    <li><strong>Recoverable Schedule:</strong> If $T_j$ reads from $T_i$, $T_i$ must commit before $T_j$ commits.</li>
+                    <li><strong>Cascadeless:</strong> $T_j$ only reads committed data.</li>
+                    <li><strong>Strict:</strong> $T_j$ neither reads nor writes data written by $T_i$ until $T_i$ commits/aborts.</li>
+                </ul>
+            </details>
+        </section>
+
+    </main>
+
+</body>
+</html>

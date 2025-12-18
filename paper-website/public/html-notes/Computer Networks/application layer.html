@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CN: Application Layer Protocols Cheat Sheet</title>
+    
+    <!-- Mermaid JS for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-purple: #c084fc;
+            --accent-orange: #fb923c;
+            --accent-red: #f87171;
+            --border: #334155;
+            --font-main: 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'Consolas', 'Monaco', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        nav h1 {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul { list-style: none; }
+        
+        nav li { margin-bottom: 0.5rem; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent-blue);
+            transform: translateX(5px);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem 4rem;
+            scroll-behavior: smooth;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-purple);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p { margin-bottom: 1rem; color: #cbd5e1; }
+
+        /* Cards & Containers */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover { transform: translateY(-3px); border-color: var(--accent-blue); }
+
+        .card h4 { color: var(--accent-green); margin-bottom: 0.5rem; }
+
+        /* Tables */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-secondary);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th { background: rgba(0,0,0,0.2); color: var(--accent-blue); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background: rgba(255,255,255,0.02); }
+
+        /* Code & Tech Specs */
+        code {
+            font-family: var(--font-mono);
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--accent-orange);
+            font-size: 0.9em;
+        }
+
+        .port-badge {
+            display: inline-block;
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            font-family: var(--font-mono);
+        }
+
+        .protocol-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .tag-tcp { background: rgba(74, 222, 128, 0.2); color: var(--accent-green); }
+        .tag-udp { background: rgba(251, 146, 60, 0.2); color: var(--accent-orange); }
+
+        /* Deep Dives */
+        details {
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+        
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--accent-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; }
+            nav { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+            main { padding: 1.5rem; }
+        }
+
+        /* Specific Visual Elements */
+        .bit-viz {
+            display: flex;
+            gap: 10px;
+            font-family: var(--font-mono);
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .bit-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 6px;
+            min-width: 60px;
+        }
+        .bit-val { color: var(--accent-green); font-size: 0.8rem; }
+        .char-val { font-size: 1.2rem; font-weight: bold; color: var(--accent-orange); margin-top: 5px; }
+
+        .gate-alert {
+            border-left: 4px solid var(--accent-red);
+            background: rgba(248, 113, 113, 0.1);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .gate-alert strong { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1>CS & IT Engineering<br><span style="font-size:0.8em; color:var(--text-muted)">App Layer Protocols</span></h1>
+        <ul>
+            <li><a href="#intro">Overview</a></li>
+            <li><a href="#email">Email (SMTP, POP, IMAP)</a></li>
+            <li><a href="#base64">Base64 Encoding</a></li>
+            <li><a href="#dns">DNS (Domain Name System)</a></li>
+            <li><a href="#ftp">FTP (File Transfer)</a></li>
+            <li><a href="#http">HTTP (Web)</a></li>
+            <li><a href="#master-table">Master Comparison Table</a></li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <!-- INTRO SECTION -->
+        <section id="intro">
+            <h2>Application Layer Overview</h2>
+            <p>The Application Layer interacts directly with the software application (Browser, Email Client). It relies on the Transport Layer (TCP/UDP) to move data.</p>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Client-Server Model</h4>
+                    <p>Most protocols follow this architecture: <strong>Client</strong> requests service, <strong>Server</strong> provides it. (e.g., HTTP, FTP, SMTP).</p>
+                </div>
+                <div class="card">
+                    <h4>In-Band vs Out-of-Band</h4>
+                    <p><strong>In-Band:</strong> Control info & data share the same connection (HTTP, SMTP).<br><strong>Out-of-Band:</strong> Separate connections for control & data (FTP).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EMAIL SECTION -->
+        <section id="email">
+            <h2>Electronic Mail Protocols</h2>
+            <p>Email delivery requires a chain of User Agents (UA) and Message Transfer Agents (MTA). It uses a mix of Push and Pull protocols.</p>
+
+            <div class="mermaid">
+            graph LR
+                UA1[Sender User Agent] --"Push (SMTP)"--> MTA1[Sender Mail Server]
+                MTA1 --"Push (SMTP)"--> Internet((Internet))
+                Internet --"Push (SMTP)"--> MTA2[Receiver Mail Server]
+                MTA2 --"Pull (POP3 / IMAP)"--> UA2[Receiver User Agent]
+                
+                style UA1 stroke:#4ade80,stroke-width:2px
+                style UA2 stroke:#fb923c,stroke-width:2px
+                style MTA1 stroke:#38bdf8
+                style MTA2 stroke:#38bdf8
+            </div>
+
+            <h3>1. SMTP (Simple Mail Transfer Protocol)</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Core Specs</h4>
+                    <ul>
+                        <li><strong>Port:</strong> <span class="port-badge">25</span></li>
+                        <li><strong>Transport:</strong> TCP</li>
+                        <li><strong>Type:</strong> Push Protocol</li>
+                        <li><strong>Nature:</strong> Stateless</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Functionality</h4>
+                    <ul>
+                        <li>Used <strong>twice</strong>: Sender to Server, and Server to Server.</li>
+                        <li><strong>Text-based:</strong> Only handles 7-bit ASCII.</li>
+                        <li><strong>MIME:</strong> Required for non-text (images/video) to convert to ASCII.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="gate-alert">
+                <strong>GATE Note:</strong> SMTP is purely for <em>sending/pushing</em> mail. It cannot be used by the receiver to download mail from the server.
+            </div>
+
+            <h3>2. Mail Access Protocols (Pull)</h3>
+            <p>Since SMTP pushes to the server, the receiver needs a protocol to "pull" the email to their device.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>POP3 (Post Office Protocol v3)</th>
+                            <th>IMAP4 (Internet Message Access Protocol)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Port</strong></td>
+                            <td><span class="port-badge">110</span> (TCP)</td>
+                            <td><span class="port-badge">143</span> (TCP)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Action</strong></td>
+                            <td>Download & Delete (default) or Keep</td>
+                            <td>Sync / Manage on Server</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multiple Devices</strong></td>
+                            <td>Poor support (Inbox fragmentation)</td>
+                            <td>Excellent support (Fully synced)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Organization</strong></td>
+                            <td>Cannot organize on server</td>
+                            <td>Create/Rename folders on server</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Partial Download</strong></td>
+                            <td>No (Must download full message)</td>
+                            <td>Yes (Header first, content search)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>State</strong></td>
+                            <td>Stateful (Update phase)</td>
+                            <td>Stateful</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- BASE64 SECTION -->
+        <section id="base64">
+            <h2>Base64 Encoding</h2>
+            <p>SMTP was designed for text (7-bit ASCII). To send binary data (images, audio) via SMTP, we use <strong>MIME</strong> (Multipurpose Internet Mail Extension), which often uses <strong>Base64</strong> encoding.</p>
+
+            <div class="card">
+                <h4>The Algorithm</h4>
+                <p>$$ 3 \text{ bytes of Input} \times 8 \text{ bits} = 24 \text{ bits} $$</p>
+                <p>$$ 24 \text{ bits} \div 6 \text{ bits} = 4 \text{ Base64 Characters} $$</p>
+                <p><em>Result: 33% overhead increase.</em></p>
+            </div>
+
+            <h3>Example: Encoding "And"</h3>
+            <div class="bit-viz">
+                <div class="bit-group">
+                    <span>'A'</span>
+                    <span class="bit-val">010000</span>
+                    <span class="char-val">Q</span>
+                </div>
+                <div class="bit-group">
+                    <span>'n'</span>
+                    <span class="bit-val">010110</span>
+                    <span class="char-val">W</span>
+                </div>
+                <div class="bit-group">
+                    <span>'d'</span>
+                    <span class="bit-val">111001</span>
+                    <span class="char-val">5</span>
+                </div>
+                <div class="bit-group">
+                    <span>(pad)</span>
+                    <span class="bit-val">100100</span>
+                    <span class="char-val">K</span>
+                </div>
+            </div>
+            <p>Result: <code>And</code> &rarr; <code>QW5K</code></p>
+            
+            <details>
+                <summary>Base64 Index Table</summary>
+                <ul style="display: grid; grid-template-columns: repeat(4, 1fr); list-style: none; gap: 10px; margin-top: 10px;">
+                    <li>0-25: A-Z</li>
+                    <li>26-51: a-z</li>
+                    <li>52-61: 0-9</li>
+                    <li>62: +</li>
+                    <li>63: /</li>
+                </ul>
+            </details>
+        </section>
+
+        <!-- DNS SECTION -->
+        <section id="dns">
+            <h2>DNS (Domain Name System)</h2>
+            <p>Maps human-readable Domain Names (e.g., <code>www.google.com</code>) to IP Addresses (e.g., <code>74.125.239.35</code>).</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Transport Protocol</h4>
+                    <p><strong>Standard:</strong> <span class="tag-udp">UDP</span> Port <span class="port-badge">53</span></p>
+                    <p><strong>Exception:</strong> Uses <span class="tag-tcp">TCP</span> Port <span class="port-badge">53</span> if response size > 512 bytes (Zone Transfers).</p>
+                </div>
+                <div class="card">
+                    <h4>Hierarchy</h4>
+                    <p>Root (.) &rarr; TLD (.com, .edu) &rarr; Authoritative (example.com).</p>
+                    <p>There are 13 logical Root Name Servers worldwide.</p>
+                </div>
+            </div>
+
+            <h3>Query Resolution Methods</h3>
+            
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <h4>Iterative Query</h4>
+                    <p>The "I'll give you a referral" approach. The Local DNS server does the work.</p>
+                    <div class="mermaid">
+                    sequenceDiagram
+                        participant H as Host
+                        participant L as Local DNS
+                        participant R as Root
+                        participant T as TLD
+                        participant A as Auth
+
+                        H->>L: 1. Where is iisc.edu?
+                        L->>R: 2. Where is iisc.edu?
+                        R-->>L: 3. I don't know, ask .edu (IP)
+                        L->>T: 4. Where is iisc.edu?
+                        T-->>L: 5. I don't know, ask iisc (IP)
+                        L->>A: 6. Where is iisc.edu?
+                        A-->>L: 7. Here is the IP
+                        L-->>H: 8. IP Address
+                    </div>
+                </div>
+
+                <div style="flex: 1; min-width: 300px;">
+                    <h4>Recursive Query</h4>
+                    <p>The "Pass the buck" approach. Burden is on the Root/TLD servers.</p>
+                    <div class="mermaid">
+                    sequenceDiagram
+                        participant H as Host
+                        participant L as Local DNS
+                        participant R as Root
+                        participant T as TLD
+                        participant A as Auth
+
+                        H->>L: 1. Find iisc.edu
+                        L->>R: 2. Find iisc.edu
+                        R->>T: 3. Find iisc.edu
+                        T->>A: 4. Find iisc.edu
+                        A-->>T: 5. IP Address
+                        T-->>R: 6. IP Address
+                        R-->>L: 7. IP Address
+                        L-->>H: 8. IP Address
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FTP SECTION -->
+        <section id="ftp">
+            <h2>FTP (File Transfer Protocol)</h2>
+            <p>Standard protocol for transferring files between computers. <strong>Stateful</strong> and <strong>Out-of-Band</strong>.</p>
+
+            <div class="gate-alert">
+                <strong>Crucial:</strong> FTP uses <strong>TWO</strong> parallel TCP connections.
+            </div>
+
+            <div class="card-grid">
+                <div class="card" style="border-left: 4px solid var(--accent-orange);">
+                    <h4>Control Connection</h4>
+                    <ul>
+                        <li><strong>Port:</strong> <span class="port-badge">21</span></li>
+                        <li><strong>Type:</strong> Persistent</li>
+                        <li>Stays open during the entire session.</li>
+                        <li>Used for commands (USER, PASS, CWD).</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--accent-green);">
+                    <h4>Data Connection</h4>
+                    <ul>
+                        <li><strong>Port:</strong> <span class="port-badge">20</span></li>
+                        <li><strong>Type:</strong> Non-Persistent</li>
+                        <li>Opened and closed for <em>each</em> file transfer.</li>
+                        <li>Used for actual file data.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Transmission Modes</h3>
+            <ul>
+                <li><strong>Stream Mode:</strong> Default. Continuous stream of bytes.</li>
+                <li><strong>Block Mode:</strong> Data divided into blocks with 3-byte headers.</li>
+                <li><strong>Compressed Mode:</strong> Data compressed (RLE) for bandwidth efficiency.</li>
+            </ul>
+        </section>
+
+        <!-- HTTP SECTION -->
+        <section id="http">
+            <h2>HTTP (HyperText Transfer Protocol)</h2>
+            <p>The foundation of the World Wide Web. Client-Server, <strong>Stateless</strong>, <strong>In-Band</strong>.</p>
+            <ul>
+                <li><strong>Port:</strong> <span class="port-badge">80</span></li>
+                <li><strong>Transport:</strong> <span class="tag-tcp">TCP</span></li>
+            </ul>
+
+            <h3>Connection Types</h3>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>HTTP 1.0: Non-Persistent</h4>
+                    <p>One TCP connection per object.</p>
+                    <div class="code-block">
+                        1. Open TCP<br>
+                        2. Send Request<br>
+                        3. Receive Response<br>
+                        4. Close TCP
+                    </div>
+                    <p style="margin-top:10px; color: var(--accent-red)">High overhead.</p>
+                    <p><strong>Formula:</strong> For a page with 1 text + N images:<br> $$ \text{Total Connections} = N + 1 $$</p>
+                </div>
+                <div class="card">
+                    <h4>HTTP 1.1: Persistent</h4>
+                    <p>Multiple objects over a single TCP connection.</p>
+                    <div class="code-block">
+                        1. Open TCP<br>
+                        2. Request Obj 1, 2, 3...<br>
+                        3. Receive Obj 1, 2, 3...<br>
+                        4. Close TCP (on timeout)
+                    </div>
+                    <p style="margin-top:10px; color: var(--accent-green)">Efficient.</p>
+                </div>
+            </div>
+            
+            <details>
+                <summary>Common HTTP Methods</summary>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li><code>GET</code>: Request a document.</li>
+                    <li><code>HEAD</code>: Request headers only (debug/check).</li>
+                    <li><code>POST</code>: Send data to server (forms).</li>
+                    <li><code>PUT</code>: Upload/Replace resource.</li>
+                    <li><code>DELETE</code>: Remove resource.</li>
+                </ul>
+            </details>
+        </section>
+
+        <!-- MASTER TABLE -->
+        <section id="master-table">
+            <h2>Master Comparison Table</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Protocol</th>
+                            <th>Port</th>
+                            <th>Transport</th>
+                            <th>State</th>
+                            <th>Type</th>
+                            <th>In/Out Band</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>DNS</strong></td>
+                            <td>53</td>
+                            <td>UDP (mostly)</td>
+                            <td>Stateless</td>
+                            <td>Query</td>
+                            <td>In-Band</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HTTP</strong></td>
+                            <td>80</td>
+                            <td>TCP</td>
+                            <td>Stateless</td>
+                            <td>Pull</td>
+                            <td>In-Band</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FTP</strong></td>
+                            <td>20 (Data), 21 (Control)</td>
+                            <td>TCP</td>
+                            <td>Stateful</td>
+                            <td>Transfer</td>
+                            <td><strong>Out-of-Band</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>SMTP</strong></td>
+                            <td>25</td>
+                            <td>TCP</td>
+                            <td>Stateless</td>
+                            <td>Push</td>
+                            <td>In-Band</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POP3</strong></td>
+                            <td>110</td>
+                            <td>TCP</td>
+                            <td>Stateful (Update)</td>
+                            <td>Pull</td>
+                            <td>In-Band</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IMAP4</strong></td>
+                            <td>143</td>
+                            <td>TCP</td>
+                            <td>Stateful</td>
+                            <td>Pull</td>
+                            <td>In-Band</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telnet</strong></td>
+                            <td>23</td>
+                            <td>TCP</td>
+                            <td>Stateful</td>
+                            <td>Remote</td>
+                            <td>In-Band</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="gate-alert">
+                <h4>GATE Short Tricks</h4>
+                <ul>
+                    <li><strong>Real-time/Multimedia:</strong> Uses UDP.</li>
+                    <li><strong>Email Chain:</strong> Sender &rarr; SMTP &rarr; SMTP &rarr; POP3/IMAP &rarr; Receiver.</li>
+                    <li><strong>Stateless Protocols:</strong> HTTP, SMTP, DNS.</li>
+                    <li><strong>Stateful Protocols:</strong> FTP, POP3, IMAP, Telnet.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS & IT: Computer Networks - IPv4 & Fragmentation Cheat Sheet</title>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #475569;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #1e293b;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        nav h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        nav a:hover, nav a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 { font-size: 2.5rem; color: var(--text); margin-bottom: 0.5rem; }
+        h2 { font-size: 1.8rem; margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); color: var(--primary-dark); }
+        h3 { font-size: 1.4rem; margin-top: 2rem; margin-bottom: 1rem; color: var(--secondary); }
+        p { margin-bottom: 1rem; }
+
+        /* Cards & Containers */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-box {
+            background-color: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* IPv4 Header Visualization */
+        .header-viz {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid var(--text);
+            font-family: var(--font-mono);
+            margin: 2rem 0;
+            max-width: 800px;
+            background: #fff;
+        }
+        .bit-ruler {
+            display: flex;
+            background: #333;
+            color: #fff;
+            padding: 5px;
+            font-size: 0.8rem;
+            justify-content: space-between;
+        }
+        .header-row { display: flex; border-bottom: 1px solid var(--text); height: 50px; }
+        .header-row:last-child { border-bottom: none; }
+        .field {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--text);
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+            flex-direction: column;
+            position: relative;
+        }
+        .field span { font-size: 0.7rem; font-weight: normal; color: var(--secondary); }
+        .field:last-child { border-right: none; }
+        
+        /* Specific Widths for Header Fields (approximate for flex) */
+        .w-4 { flex: 4; background: #e0f2fe; }
+        .w-8 { flex: 8; background: #dbeafe; }
+        .w-16 { flex: 16; background: #bfdbfe; }
+        .w-3 { flex: 3; background: #fef3c7; }
+        .w-13 { flex: 13; background: #fff7ed; }
+        .w-32 { flex: 32; background: #f3f4f6; }
+        .w-var { flex: 32; background: #f1f5f9; border-style: dashed; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background-color: #f8fafc; font-weight: 600; color: var(--secondary); text-transform: uppercase; font-size: 0.85rem; }
+        tr:hover { background-color: #f1f5f9; }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .tag.blue { background: #dbeafe; color: #1e40af; }
+        .tag.red { background: #fee2e2; color: #991b1b; }
+        .tag.green { background: #dcfce7; color: #166534; }
+
+        /* Code & Formulas */
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); color: #d946ef; }
+        .formula-block {
+            background: var(--text);
+            color: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: relative; border-bottom: 1px solid var(--border); }
+            main { padding: 1.5rem; }
+            .header-viz { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Sidebar -->
+    <nav>
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#intro">Overview & Packet Flow</a></li>
+            <li><a href="#ipv4-header">IPv4 Header Structure</a></li>
+            <li><a href="#header-fields">Field Deep Dive</a></li>
+            <li><a href="#fragmentation">Fragmentation Mechanics</a></li>
+            <li><a href="#math-logic">Formulas & Logic</a></li>
+            <li><a href="#examples">Solved Problems</a></li>
+            <li><a href="#flow-control">Bonus: Flow Control (ARQ)</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main>
+        <header id="intro">
+            <h1>IPv4 Header & Fragmentation</h1>
+            <p class="subtitle">Comprehensive Cheat Sheet for Computer Networks • Based on Lecture Notes 1-7</p>
+            
+            <div class="card">
+                <h3>At a Glance</h3>
+                <p>The <strong>Network Layer (L3)</strong> is responsible for logical addressing and routing. The fundamental unit is the <strong>Datagram</strong> (Packet). IP is a connectionless, unreliable protocol.</p>
+                <ul>
+                    <li><strong>Protocol:</strong> IPv4 (32-bit addressing)</li>
+                    <li><strong>Scope:</strong> Host-to-Host delivery</li>
+                    <li><strong>Key Mechanism:</strong> Fragmentation allows large packets to traverse networks with smaller MTUs.</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box">
+                <strong>Encapsulation Hierarchy:</strong><br>
+                App Layer (Message) &rarr; Transport Layer (Segment) &rarr; <span style="color:var(--primary)">Network Layer (Datagram)</span> &rarr; Data Link Layer (Frame)
+            </div>
+        </header>
+
+        <!-- IPv4 Header Section -->
+        <section id="ipv4-header">
+            <h2>The IPv4 Header Format</h2>
+            <p>The IPv4 header is 20 to 60 bytes long. It provides the necessary control information for routing and delivery.</p>
+
+            <!-- Visual Representation of the Header -->
+            <div class="header-viz">
+                <div class="bit-ruler">
+                    <span>0</span><span>4</span><span>8</span><span>16</span><span>19</span><span>24</span><span>31</span>
+                </div>
+                <!-- Row 1 -->
+                <div class="header-row">
+                    <div class="field w-4">VER<span>4 bits</span></div>
+                    <div class="field w-4">HLEN<span>4 bits</span></div>
+                    <div class="field w-8">Service (TOS)<span>8 bits</span></div>
+                    <div class="field w-16">Total Length<span>16 bits</span></div>
+                </div>
+                <!-- Row 2 -->
+                <div class="header-row">
+                    <div class="field w-16">Identification<span>16 bits</span></div>
+                    <div class="field w-3">Flags<span>3 bits</span></div>
+                    <div class="field w-13">Fragment Offset<span>13 bits</span></div>
+                </div>
+                <!-- Row 3 -->
+                <div class="header-row">
+                    <div class="field w-8">TTL<span>8 bits</span></div>
+                    <div class="field w-8">Protocol<span>8 bits</span></div>
+                    <div class="field w-16">Header Checksum<span>16 bits</span></div>
+                </div>
+                <!-- Row 4 -->
+                <div class="header-row">
+                    <div class="field w-32">Source IP Address<span>32 bits</span></div>
+                </div>
+                <!-- Row 5 -->
+                <div class="header-row">
+                    <div class="field w-32">Destination IP Address<span>32 bits</span></div>
+                </div>
+                <!-- Row 6 -->
+                <div class="header-row">
+                    <div class="field w-var">Options & Padding<span>0 - 40 Bytes</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="header-fields">
+            <h2>Detailed Field Analysis</h2>
+            
+            <div class="card">
+                <h3>1. Control & Sizing</h3>
+                <table>
+                    <tr>
+                        <th width="20%">Field</th>
+                        <th>Description</th>
+                        <th>Math/Values</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Version (VER)</strong></td>
+                        <td>Identifies the IP version.</td>
+                        <td>Always <code>0100</code> (4) for IPv4. <code>0110</code> for IPv6.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Header Length (HLEN)</strong></td>
+                        <td>Length of header in 4-byte words.</td>
+                        <td>
+                            Value: 5 to 15.<br>
+                            $$HeaderSize = HLEN \times 4 \text{ Bytes}$$<br>
+                            Min: $5 \times 4 = 20B$, Max: $15 \times 4 = 60B$.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Length</strong></td>
+                        <td>Total size of the datagram (Header + Data).</td>
+                        <td>
+                            Range: $0$ to $2^{16}-1$ (65,535 Bytes).<br>
+                            $$DataSize = TotalLength - HeaderSize$$
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>2. Service & Reliability</h3>
+                <p><strong>Type of Service (8 bits):</strong> Originally defined as Priority (3 bits) + TOS (4 bits) + Unused (1 bit). Now commonly used for DiffServ.</p>
+                <div style="display: flex; gap: 10px; margin: 10px 0;">
+                    <span class="tag blue">D: Delay</span>
+                    <span class="tag blue">T: Throughput</span>
+                    <span class="tag blue">R: Reliability</span>
+                    <span class="tag blue">C: Cost</span>
+                </div>
+                <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border);">
+                
+                <p><strong>Time To Live (TTL):</strong> Prevents infinite looping. Decremented by 1 at each router (hop).</p>
+                <ul>
+                    <li>If TTL = 0, packet is discarded and ICMP Time Exceeded is sent to source.</li>
+                    <li>Limits the lifespan of data in the network.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>3. Protocol & Identification</h3>
+                <p><strong>Protocol (8 bits):</strong> Indicates which upper-layer protocol handles the data.</p>
+                <table>
+                    <tr><th>Val</th><th>Protocol</th><th>Val</th><th>Protocol</th></tr>
+                    <tr><td>1</td><td>ICMP</td><td>17</td><td>UDP</td></tr>
+                    <tr><td>2</td><td>IGMP</td><td>6</td><td>TCP</td></tr>
+                    <tr><td>89</td><td>OSPF</td><td>-</td><td>-</td></tr>
+                </table>
+                <p style="margin-top: 10px;"><strong>Checksum:</strong> Covers <strong>only the header</strong>. Recalculated at every router because TTL changes.</p>
+            </div>
+        </section>
+
+        <section id="fragmentation">
+            <h2>Fragmentation Mechanics</h2>
+            <div class="highlight-box">
+                <p><strong>Why fragment?</strong> Hardware limits. Every network has a <strong>Maximum Transmission Unit (MTU)</strong> (e.g., Ethernet = 1500 Bytes). If Packet > MTU, it must be split.</p>
+                <p><strong>Where?</strong> At <strong>Routers</strong> (intermediary devices). Reassembly happens ONLY at the <strong>Destination</strong>.</p>
+            </div>
+
+            <h3>Fragmentation Fields</h3>
+            <div class="card">
+                <h4>1. Identification (16 bits)</h4>
+                <p>All fragments of the original datagram share the <strong>same ID</strong>. This allows the destination to group them together.</p>
+
+                <h4>2. Flags (3 bits)</h4>
+                <ul>
+                    <li><strong>Bit 1:</strong> Reserved (Unused).</li>
+                    <li><strong>Bit 2 (DF - Don't Fragment):</strong> 
+                        <br><code>DF=1</code>: Do not fragment. If Packet > MTU, discard and send ICMP error.
+                        <br><code>DF=0</code>: Fragmentation allowed.
+                    </li>
+                    <li><strong>Bit 3 (MF - More Fragments):</strong>
+                        <br><code>MF=1</code>: Not the last fragment. More are coming.
+                        <br><code>MF=0</code>: This is the last fragment (or the only fragment).
+                    </li>
+                </ul>
+
+                <h4>3. Fragment Offset (13 bits)</h4>
+                <p>Indicates the position of this fragment's data in the original stream. The unit is <strong>8-byte blocks</strong>.</p>
+                <div class="formula-block">
+                    $$ \text{Offset Value} = \frac{\text{Number of bytes ahead}}{8} $$
+                </div>
+                <p class="tag red">Critical Rule</p> The data payload size of every fragment (except the last one) <strong>must be divisible by 8</strong>.
+            </div>
+
+            <!-- Mermaid Diagram: Fragmentation Logic -->
+            <h3>Router Fragmentation Logic</h3>
+            <div class="mermaid">
+                flowchart TD
+                    Start[Packet Arrives] --> CheckSize{Packet Size > MTU?}
+                    CheckSize -- No --> Forward[Forward Packet]
+                    CheckSize -- Yes --> CheckDF{DF Bit Set?}
+                    CheckDF -- Yes --> Discard[Discard Packet] --> SendICMP[Send ICMP Error]
+                    CheckDF -- No --> Calc[Calculate Max Payload <br> (MTU - Header)]
+                    Calc --> Align[Align Payload to 8-byte multiple]
+                    Align --> CreateFrags[Create Fragments]
+                    CreateFrags --> CopyHead[Copy Header to Fragments]
+                    CopyHead --> SetMF[Set MF=1 for all but last]
+                    SetMF --> SetOffset[Calculate Offsets / 8]
+                    SetOffset --> ForwardFrags[Forward Fragments]
+            </div>
+        </section>
+
+        <section id="math-logic">
+            <h2>Formulas & Overhead Calculation</h2>
+
+            <div class="card">
+                <h3>1. Calculating Data in a Fragment</h3>
+                <p>When MTU is given, the max data we can send in one fragment is:</p>
+                $$ \text{MaxData} = \text{MTU} - \text{HeaderLength} $$
+                <p><strong>Constraint:</strong> If this is not the last fragment, $\text{MaxData}$ must be rounded down to the nearest multiple of 8.</p>
+            </div>
+
+            <div class="card">
+                <h3>2. Number of Fragments</h3>
+                $$ N = \lceil \frac{\text{Total Data Size}}{\text{Effective Data Per Fragment}} \rceil $$
+            </div>
+
+            <div class="card">
+                <h3>3. Overhead & Efficiency</h3>
+                <p>Every fragment gets its own IP header (usually 20B).</p>
+                <ul>
+                    <li><strong>Total Overhead:</strong> $(N_{fragments} \times 20) \text{ Bytes}$</li>
+                    <li><strong>Efficiency:</strong> $$\eta = \frac{\text{Useful Data}}{\text{Total Data + Total Headers}} \times 100\%$$</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="examples">
+            <h2>Solved Problem Logic (Case Studies)</h2>
+            
+            <details class="card">
+                <summary style="cursor: pointer; font-weight: bold; font-size: 1.1rem;">Case 1: Identifying Fragment Position</summary>
+                <div style="margin-top: 1rem;">
+                    <p>How do we know if a fragment is First, Middle, or Last?</p>
+                    <ul>
+                        <li><strong>First Fragment:</strong> <code>Offset = 0</code> AND <code>MF = 1</code></li>
+                        <li><strong>Middle Fragment:</strong> <code>Offset > 0</code> AND <code>MF = 1</code></li>
+                        <li><strong>Last Fragment:</strong> <code>Offset > 0</code> AND <code>MF = 0</code></li>
+                        <li><strong>Only Fragment (Unfragmented):</strong> <code>Offset = 0</code> AND <code>MF = 0</code></li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="card">
+                <summary style="cursor: pointer; font-weight: bold; font-size: 1.1rem;">Case 2: Fragmentation Calculation</summary>
+                <div style="margin-top: 1rem;">
+                    <p><strong>Given:</strong> IP Datagram = 4404 Bytes. Header = 20 Bytes. MTU = 1500 Bytes.</p>
+                    <p><strong>Step 1: Get Payload.</strong> $4404 - 20 = 4384$ Bytes of data.</p>
+                    <p><strong>Step 2: Max Payload per Fragment.</strong> $1500 - 20 = 1480$ Bytes. (Check: Is 1480 div by 8? Yes. $1480/8 = 185$).</p>
+                    <p><strong>Step 3: Split Data.</strong></p>
+                    <ul>
+                        <li>Frag 1: 1480 Bytes Data. Offset = 0. MF = 1.</li>
+                        <li>Frag 2: 1480 Bytes Data. Offset = $1480/8 = 185$. MF = 1.</li>
+                        <li>Remaining Data: $4384 - 1480 - 1480 = 1424$ Bytes.</li>
+                        <li>Frag 3: 1424 Bytes Data. Offset = $(1480+1480)/8 = 370$. MF = 0.</li>
+                    </ul>
+                    <p><strong>Total Length of Frag 3:</strong> $1424 (\text{Data}) + 20 (\text{Header}) = 1444$ Bytes.</p>
+                </div>
+            </details>
+
+            <details class="card">
+                <summary style="cursor: pointer; font-weight: bold; font-size: 1.1rem;">Case 3: Reassembly & Reconstruction</summary>
+                <div style="margin-top: 1rem;">
+                    <p><strong>Scenario:</strong> Receiver gets a fragment with Offset=100, HLEN=5, Total Length=200.</p>
+                    <ul>
+                        <li><strong>Header Size:</strong> $5 \times 4 = 20$ Bytes.</li>
+                        <li><strong>Data in this fragment:</strong> $200 - 20 = 180$ Bytes.</li>
+                        <li><strong>Bytes ahead:</strong> $Offset \times 8 = 100 \times 8 = 800$ Bytes.</li>
+                        <li><strong>Sequence range for this fragment:</strong> Byte 800 to Byte $800 + 180 - 1 = 979$.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section id="flow-control">
+            <h2>Bonus: Data Link Layer Flow Control (ARQ)</h2>
+            <p class="subtitle">Relevant Formulas from Intro Slides</p>
+            
+            <div class="card">
+                <h3>Terms</h3>
+                <ul>
+                    <li>$T_t$ or $T_d$: Transmission Delay (Packet / Bandwidth)</li>
+                    <li>$T_p$: Propagation Delay (Distance / Speed)</li>
+                    <li>$a$: Ratio $T_p / T_t$</li>
+                    <li>$RTT$: Round Trip Time ($2 \times T_p + T_t$)</li>
+                </ul>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div class="card">
+                    <h4>Stop & Wait ARQ</h4>
+                    <p>Efficiency ($\eta$):</p>
+                    $$ \eta = \frac{1}{1 + 2a} $$
+                </div>
+                <div class="card">
+                    <h4>Sliding Window (GBN & SR)</h4>
+                    <p>Efficiency:</p>
+                    $$ \eta = \frac{N}{1 + 2a} $$
+                    <p>Where $N$ is window size.</p>
+                </div>
+                <div class="card">
+                    <h4>Optimal Window Size</h4>
+                    <p>For 100% Utilization:</p>
+                    $$ N = 1 + 2a $$
+                    <p>In Bits: $Window(bits) = Bandwidth \times RTT$</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Sequence Number Bits ($k$)</h4>
+                <ul>
+                    <li><strong>Stop & Wait:</strong> $N=1+1=2 \rightarrow k=1$ bit.</li>
+                    <li><strong>Go Back N:</strong> $W_s + W_r \le 2^k$ (where $W_r=1$). So $W_s \le 2^k - 1$.</li>
+                    <li><strong>Selective Repeat:</strong> $W_s + W_r \le 2^k$ (where $W_s=W_r$). So $W_s \le 2^{k-1}$.</li>
+                </ul>
+            </div>
+        </section>
+        
+        <footer>
+            <p style="text-align:center; color: var(--secondary); margin-top: 3rem;">
+                Generated for Computer Science Engineering Students • Based on Lectures by Ankit Doyla Sir
+            </p>
+        </footer>
+    </main>
+
+</body>
+</html>

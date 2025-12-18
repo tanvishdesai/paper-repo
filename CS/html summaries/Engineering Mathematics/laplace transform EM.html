@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laplace Transform Ultimate Cheat Sheet | Engineering Mathematics</title>
+    <!-- MathJax for beautiful equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #5e35b1;
+            --primary-light: #d1c4e9;
+            --secondary: #00897b;
+            --accent: #fbc02d;
+            --bg: #f8f9fa;
+            --text: #2c3e50;
+            --code-bg: #2d2d2d;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Inter, system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: #fff;
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        /* Cards and Sections */
+        .section-title {
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            background: var(--secondary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        /* Formula Boxes */
+        .formula-box {
+            background: #f8faff;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1rem;
+            overflow-x: auto;
+        }
+
+        .formula-highlight {
+            background: #fff8e1;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Collapsible Examples */
+        details {
+            margin: 10px 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        summary {
+            background: #fafafa;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        summary::after {
+            content: '+';
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        details[open] summary::after {
+            content: '-';
+        }
+
+        .details-content {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            .main-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h2>Contents</h2>
+        <a href="#intro" class="nav-link">Introduction</a>
+        <a href="#standard" class="nav-link">Standard Transforms</a>
+        <a href="#properties" class="nav-link">Core Properties</a>
+        <a href="#unitstep" class="nav-link">Unit Step & Periodic</a>
+        <a href="#inverse" class="nav-link">Inverse Transform</a>
+        <a href="#odes" class="nav-link">Solving ODEs</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header>
+            <h1>Laplace Transform</h1>
+            <p>Comprehensive Engineering Mathematics Cheat Sheet for GATE/University Exams. Covers Definitions, Properties, Inverse Transforms, and Differential Equations.</p>
+        </header>
+
+        <!-- Introduction -->
+        <section id="intro">
+            <h2 class="section-title">1. Introduction & Definition</h2>
+            <div class="card">
+                <p>The Laplace Transform converts a function from the <strong>Time Domain</strong> (\(t\), real) to the <strong>Frequency Domain</strong> (\(s\), complex).</p>
+                <div class="formula-highlight">
+                    $$L[f(t)] = f(s) = \int_{0}^{\infty} e^{-st} f(t) dt$$
+                </div>
+                <ul>
+                    <li><strong>Domain:</strong> \(t \ge 0\) (Unilateral Laplace Transform)</li>
+                    <li><strong>Parameter:</strong> \(s = \sigma + j\omega\) (Complex number)</li>
+                    <li><strong>Condition:</strong> Integral must converge (function must be of exponential order).</li>
+                </ul>
+                <div class="mermaid">
+                    graph LR
+                        A[Time Domain f(t)] -->|Laplace Transform| B[Frequency Domain f(s)]
+                        B -->|Inverse Laplace| A
+                        A -->|Differentiation/Integration| C[Calculus Operations]
+                        B -->|Algebraic Operations| D[Simple Algebra]
+                        C -.-> D
+                </div>
+            </div>
+        </section>
+
+        <!-- Standard Transforms -->
+        <section id="standard">
+            <h2 class="section-title">2. Standard Transforms Table <span class="badge">Memorize</span></h2>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Function \(f(t)\)</th>
+                            <th>Transform \(L[f(t)] = f(s)\)</th>
+                            <th>Region of Convergence (ROC)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>\(1\) (Unit Step)</td>
+                            <td>\(\frac{1}{s}\)</td>
+                            <td>\(s > 0\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(t^n\) (n is integer > 0)</td>
+                            <td>\(\frac{n!}{s^{n+1}}\)</td>
+                            <td>\(s > 0\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(t^n\) (n is real > -1)</td>
+                            <td>\(\frac{\Gamma(n+1)}{s^{n+1}}\)</td>
+                            <td>\(s > 0\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(e^{at}\)</td>
+                            <td>\(\frac{1}{s-a}\)</td>
+                            <td>\(s > a\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(e^{-at}\)</td>
+                            <td>\(\frac{1}{s+a}\)</td>
+                            <td>\(s > -a\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(\sin(at)\)</td>
+                            <td>\(\frac{a}{s^2 + a^2}\)</td>
+                            <td>\(s > 0\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(\cos(at)\)</td>
+                            <td>\(\frac{s}{s^2 + a^2}\)</td>
+                            <td>\(s > 0\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(\sinh(at)\)</td>
+                            <td>\(\frac{a}{s^2 - a^2}\)</td>
+                            <td>\(s > |a|\)</td>
+                        </tr>
+                        <tr>
+                            <td>\(\cosh(at)\)</td>
+                            <td>\(\frac{s}{s^2 - a^2}\)</td>
+                            <td>\(s > |a|\)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section id="properties">
+            <h2 class="section-title">3. Core Properties</h2>
+            
+            <div class="grid-container">
+                <!-- Linearity -->
+                <div class="card">
+                    <h3>Linearity Property</h3>
+                    <p>Laplace transform is a linear operator.</p>
+                    <div class="formula-box">
+                        \(L[af(t) + bg(t)] = aF(s) + bG(s)\)
+                    </div>
+                </div>
+
+                <!-- First Shifting -->
+                <div class="card">
+                    <h3>First Shifting Property</h3>
+                    <p>Multiplication by exponential \(e^{at}\) shifts the domain by \(a\).</p>
+                    <div class="formula-box">
+                        If \(L[f(t)] = F(s)\), then:<br>
+                        \(L[e^{at}f(t)] = F(s-a)\)
+                    </div>
+                    <details>
+                        <summary>Example: \(L[e^{-3t}\cos(4t)]\)</summary>
+                        <div class="details-content">
+                            1. Find \(L[\cos(4t)] = \frac{s}{s^2 + 16}\)<br>
+                            2. Shift \(s \to s - (-3) = s+3\)<br>
+                            3. Result: \(\frac{s+3}{(s+3)^2 + 16}\)
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Scaling -->
+                <div class="card">
+                    <h3>Scaling Property</h3>
+                    <div class="formula-box">
+                        \(L[f(at)] = \frac{1}{a}F\left(\frac{s}{a}\right)\)
+                    </div>
+                </div>
+
+                <!-- Multiplication by t -->
+                <div class="card">
+                    <h3>Multiplication by \(t^n\)</h3>
+                    <p>Corresponds to differentiation in \(s\)-domain.</p>
+                    <div class="formula-box">
+                        \(L[t^n f(t)] = (-1)^n \frac{d^n}{ds^n} F(s)\)
+                    </div>
+                    <details>
+                        <summary>Example: \(L[t \sin(t)]\)</summary>
+                        <div class="details-content">
+                            1. \(F(s) = L[\sin t] = \frac{1}{s^2+1}\)<br>
+                            2. \(n=1\), so compute \(-\frac{d}{ds}\left(\frac{1}{s^2+1}\right)\)<br>
+                            3. Result: \(\frac{2s}{(s^2+1)^2}\)
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Division by t -->
+                <div class="card">
+                    <h3>Division by \(t\)</h3>
+                    <p>Corresponds to integration in \(s\)-domain.</p>
+                    <div class="formula-box">
+                        \(L\left[\frac{f(t)}{t}\right] = \int_{s}^{\infty} F(u) du\)
+                    </div>
+                    <p><small>Condition: \(\lim_{t \to 0} \frac{f(t)}{t}\) must exist.</small></p>
+                    <details>
+                        <summary>Example: \(L\left[\frac{\sin t}{t}\right]\)</summary>
+                        <div class="details-content">
+                            1. \(L[\sin t] = \frac{1}{s^2+1}\)<br>
+                            2. Integrate: \(\int_s^\infty \frac{1}{u^2+1} du\)<br>
+                            3. \([\tan^{-1} u]_s^\infty = \frac{\pi}{2} - \tan^{-1} s = \cot^{-1} s\)
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unit Step and Periodic -->
+        <section id="unitstep">
+            <h2 class="section-title">4. Unit Step & Discontinuous Functions</h2>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <h3>Unit Step Function (Heaviside)</h3>
+                    <p>Defined as \(u(t-a)\) or \(H(t-a)\):</p>
+                    <div class="formula-box">
+                        \(u(t-a) = \begin{cases} 0 & t < a \\ 1 & t \ge a \end{cases}\)
+                    </div>
+                    <h4>Transform:</h4>
+                    <div class="formula-box">
+                        \(L[u(t-a)] = \frac{e^{-as}}{s}\)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Second Shifting Property</h3>
+                    <p>Used for shifted functions multiplied by unit steps.</p>
+                    <div class="formula-box">
+                        \(L[f(t-a)u(t-a)] = e^{-as}F(s)\)
+                    </div>
+                    <p><strong>Alternative Form:</strong></p>
+                    <div class="formula-box">
+                        \(L[g(t)u(t-a)] = e^{-as}L[g(t+a)]\)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Periodic Functions</h3>
+                    <p>If \(f(t) = f(t+T)\), then:</p>
+                    <div class="formula-box">
+                        \(L[f(t)] = \frac{1}{1-e^{-sT}} \int_{0}^{T} e^{-st}f(t) dt\)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inverse Transform -->
+        <section id="inverse">
+            <h2 class="section-title">5. Inverse Laplace Transform</h2>
+            <div class="card">
+                <p>The goal is to find \(f(t)\) given \(F(s)\). Notation: \(L^{-1}[F(s)] = f(t)\).</p>
+                
+                <h3>Primary Methods</h3>
+                <div class="mermaid">
+                    graph TD
+                        Start[Given F(s)] --> Check{Form Type}
+                        Check -->|Standard Form| Direct[Use Table directly]
+                        Check -->|Rational Function| PFD[Partial Fraction Decomposition]
+                        Check -->|Product of Functions| Convolution[Convolution Theorem]
+                        Check -->|Exponential e^-as| Shift[Second Shifting Property]
+                        Check -->|Logarithmic/Inverse Trig| Derivative[Derivative Property: L^-1[-F'(s)] = t f(t)]
+                </div>
+
+                <div class="formula-highlight">
+                    <strong>Convolution Theorem:</strong><br>
+                    \(L^{-1}[F(s)G(s)] = \int_{0}^{t} f(u)g(t-u) du = f(t) * g(t)\)
+                </div>
+
+                <details>
+                    <summary>Example: Partial Fraction \(L^{-1}\left[\frac{1}{(s+1)(s+2)}\right]\)</summary>
+                    <div class="details-content">
+                        1. Decompose: \(\frac{1}{(s+1)(s+2)} = \frac{A}{s+1} + \frac{B}{s+2}\)<br>
+                        2. Solve A, B: \(A=1, B=-1\)<br>
+                        3. New Form: \(\frac{1}{s+1} - \frac{1}{s+2}\)<br>
+                        4. Inverse: \(e^{-t} - e^{-2t}\)
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- Solving ODEs -->
+        <section id="odes">
+            <h2 class="section-title">6. Solving Differential Equations <span class="badge">High Importance</span></h2>
+            
+            <div class="card">
+                <h3>Transforms of Derivatives</h3>
+                <p>These are crucial for converting differential equations into algebraic equations.</p>
+                <div class="grid-container">
+                    <div class="formula-box">
+                        \(L[f'(t)] = sF(s) - f(0)\)
+                    </div>
+                    <div class="formula-box">
+                        \(L[f''(t)] = s^2F(s) - sf(0) - f'(0)\)
+                    </div>
+                    <div class="formula-box">
+                        \(L[f'''(t)] = s^3F(s) - s^2f(0) - sf'(0) - f''(0)\)
+                    </div>
+                </div>
+
+                <h3>Methodology Workflow</h3>
+                <div class="mermaid">
+                    graph TD
+                        A[Differential Equation in t] -->|1. Take Laplace of both sides| B[Algebraic Equation in s]
+                        B -->|2. Substitute Initial Values| C[Simplify Equation]
+                        C -->|3. Solve for Y(s)| D[Y(s) = Some Function of s]
+                        D -->|4. Take Inverse Laplace| E[Solution y(t)]
+                </div>
+
+                <details>
+                    <summary>Example: Solve \(y'' + 2y' - 3y = 0\), \(y(0)=1, y'(0)=2\)</summary>
+                    <div class="details-content">
+                        <strong>Step 1: Transform</strong><br>
+                        \([s^2Y(s) - sy(0) - y'(0)] + 2[sY(s) - y(0)] - 3Y(s) = 0\)
+                        
+                        <br><br><strong>Step 2: Substitute Values</strong><br>
+                        \((s^2Y - s(1) - 2) + 2(sY - 1) - 3Y = 0\)
+                        
+                        <br><br><strong>Step 3: Isolate Y(s)</strong><br>
+                        \(Y(s)(s^2 + 2s - 3) - s - 2 - 2 = 0\)<br>
+                        \(Y(s)(s^2 + 2s - 3) = s + 4\)<br>
+                        \(Y(s) = \frac{s+4}{(s+3)(s-1)}\)
+
+                        <br><br><strong>Step 4: Partial Fractions & Inverse</strong><br>
+                        \(\frac{s+4}{(s+3)(s-1)} = \frac{A}{s+3} + \frac{B}{s-1}\)<br>
+                        Using cover-up method: \(A = -1/4, B = 5/4\)<br>
+                        \(y(t) = -\frac{1}{4}e^{-3t} + \frac{5}{4}e^{t}\)
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <footer style="margin-top: 50px; text-align: center; color: #666; font-size: 0.9rem;">
+            <p>Generated based on Lecture Notes 01, 02, 03. Physics Wallah / Engineering Mathematics.</p>
+        </footer>
+    </main>
+
+</body>
+</html>

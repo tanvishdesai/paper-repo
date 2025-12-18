@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fourier Series Cheat Sheet | Engineering Mathematics</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --accent: #f59e0b; /* Amber/Yellow from slides */
+            --accent-hover: #d97706;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --code-bg: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar Nav */
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 0;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .header-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #0f172a 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header-section h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: var(--text-main);
+        }
+
+        .header-section .subtitle {
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: var(--code-bg);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        .tag-yellow { background: rgba(245, 158, 11, 0.2); color: var(--accent); }
+        .tag-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+
+        /* Comparison Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            color: var(--accent);
+        }
+
+        /* Details/Summary */
+        details {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        /* Mermaid centering */
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <h3>Contents</h3>
+        <a href="#intro" class="nav-link">Introduction</a>
+        <a href="#formulas" class="nav-link">Core Formulas</a>
+        <a href="#symmetry" class="nav-link">Symmetry (Even/Odd)</a>
+        <a href="#problem1" class="nav-link">Ex 1: Linear f(x)=x</a>
+        <a href="#problem2" class="nav-link">Ex 2: Step Function</a>
+        <a href="#homework" class="nav-link">Homework</a>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Header -->
+        <div class="header-section">
+            <h1>Fourier Series</h1>
+            <div class="subtitle">Engineering Mathematics • One Shot Summary</div>
+            <p style="color: var(--text-muted); margin-top: 10px;">Based on Lecture by Rahul Sir (2024)</p>
+        </div>
+
+        <!-- Introduction -->
+        <section id="intro" class="card">
+            <h2><span class="tag tag-yellow">Theory</span>Why Fourier Series?</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h3 style="color: var(--text-muted);">Taylor Series</h3>
+                    <p>Applies only to <strong>differentiable</strong> functions.</p>
+                    <p>Fails at corners or discontinuities.</p>
+                </div>
+                <div>
+                    <h3 style="color: #60a5fa;">Fourier Series</h3>
+                    <p>Applies to <strong>periodic</strong> functions.</p>
+                    <p>Handles discontinuities, corners, and non-differentiable points (e.g., Square wave, Sawtooth).</p>
+                </div>
+            </div>
+            
+            <div class="mermaid">
+            graph LR
+                A[Function f x] --> B{Is it Periodic?}
+                B -- Yes --> C[Use Fourier Series]
+                B -- No --> D{Is it Differentiable?}
+                D -- Yes --> E[Use Taylor/Maclaurin]
+                D -- No --> F[Advanced Techniques]
+            </div>
+        </section>
+
+        <!-- Core Formulas -->
+        <section id="formulas" class="card">
+            <h2><span class="tag tag-blue">Math</span>The Master Formula</h2>
+            <p>For a periodic function $f(x)$ with period $T = 2\pi$ defined in interval $(0, 2\pi)$ or $(-\pi, \pi)$:</p>
+            
+            <div class="formula-box">
+                $$f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos(nx) + \sum_{n=1}^{\infty} b_n \sin(nx)$$
+            </div>
+
+            <h3>Euler's Formulas for Coefficients</h3>
+            <p>Choose the limits based on your problem statement.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Coefficient</th>
+                        <th>Interval $[0, 2\pi]$</th>
+                        <th>Interval $[-\pi, \pi]$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$a_0$ (DC Term)</td>
+                        <td>$$\frac{1}{\pi} \int_{0}^{2\pi} f(x) dx$$</td>
+                        <td>$$\frac{1}{\pi} \int_{-\pi}^{\pi} f(x) dx$$</td>
+                    </tr>
+                    <tr>
+                        <td>$a_n$ (Cosine)</td>
+                        <td>$$\frac{1}{\pi} \int_{0}^{2\pi} f(x) \cos(nx) dx$$</td>
+                        <td>$$\frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos(nx) dx$$</td>
+                    </tr>
+                    <tr>
+                        <td>$b_n$ (Sine)</td>
+                        <td>$$\frac{1}{\pi} \int_{0}^{2\pi} f(x) \sin(nx) dx$$</td>
+                        <td>$$\frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin(nx) dx$$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Symmetry -->
+        <section id="symmetry" class="card">
+            <h2><span class="tag tag-yellow">Shortcut</span>Symmetry (Even vs Odd)</h2>
+            <p><strong>Crucial for Interval $(-\pi, \pi)$</strong>. Checking symmetry can save you 50% of the integration work.</p>
+            
+            <div class="mermaid">
+            flowchart TD
+                Start[Check f -x]
+                Start --> Even{Is f -x = f x ?}
+                Start --> Odd{Is f -x = -f x ?}
+                
+                Even -- Yes --> Res1[Even Function]
+                Res1 --> C1[b_n = 0]
+                Res1 --> C2[Find a_0 and a_n]
+                
+                Odd -- Yes --> Res2[Odd Function]
+                Res2 --> C3[a_0 = 0]
+                Res2 --> C4[a_n = 0]
+                Res2 --> C5[Find ONLY b_n]
+            </div>
+
+            <ul>
+                <li><strong>Even Function (Cos-like):</strong> Symmetric about Y-axis (e.g., $x^2, \cos x$). Result contains only Cosine terms.</li>
+                <li><strong>Odd Function (Sin-like):</strong> Symmetric about Origin (e.g., $x, x^3, \sin x$). Result contains only Sine terms.</li>
+            </ul>
+        </section>
+
+        <!-- Problem 1 -->
+        <section id="problem1" class="card">
+            <h2>Example 1: Sawtooth Wave</h2>
+            <p><strong>Problem:</strong> Find Fourier series for $f(x) = x$ in interval $0 < x < 2\pi$.</p>
+            
+            <details open>
+                <summary>Step 1: Calculate $a_0$</summary>
+                <div class="formula-box">
+                    $$a_0 = \frac{1}{\pi} \int_{0}^{2\pi} x dx = \frac{1}{\pi} \left[ \frac{x^2}{2} \right]_0^{2\pi} = \frac{1}{\pi} \frac{4\pi^2}{2} = 2\pi$$
+                </div>
+            </details>
+
+            <details>
+                <summary>Step 2: Calculate $a_n$</summary>
+                <p>Using integration by parts (Bernoulli's rule):</p>
+                <div class="formula-box">
+                    $$a_n = \frac{1}{\pi} \int_{0}^{2\pi} x \cos(nx) dx$$
+                    $$= \frac{1}{\pi} \left[ x \frac{\sin(nx)}{n} - (1)\frac{-\cos(nx)}{n^2} \right]_0^{2\pi}$$
+                </div>
+                <p>Since $\sin(2n\pi)=0$ and $\cos(2n\pi)=1$: The terms cancel out.</p>
+                <p><strong>Result:</strong> $a_n = 0$</p>
+            </details>
+
+            <details>
+                <summary>Step 3: Calculate $b_n$</summary>
+                <div class="formula-box">
+                    $$b_n = \frac{1}{\pi} \int_{0}^{2\pi} x \sin(nx) dx$$
+                    $$= \frac{1}{\pi} \left[ x \frac{-\cos(nx)}{n} - (1)\frac{-\sin(nx)}{n^2} \right]_0^{2\pi}$$
+                </div>
+                <p>Applying limits:</p>
+                <ul>
+                    <li>Upper Limit ($2\pi$): $-\frac{2\pi}{n}$</li>
+                    <li>Lower Limit ($0$): $0$</li>
+                </ul>
+                <p><strong>Result:</strong> $b_n = -\frac{2}{n}$</p>
+            </details>
+
+            <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 10px;">
+                <h3 style="color: var(--accent);">Final Solution</h3>
+                <div class="formula-box">
+                    $$f(x) = \pi - 2 \sum_{n=1}^{\infty} \frac{\sin(nx)}{n}$$
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem 2 -->
+        <section id="problem2" class="card">
+            <h2>Example 2: Discontinuous Step Function</h2>
+            <p><strong>Problem:</strong> Find Fourier series for:</p>
+            <div class="formula-box">
+                $$f(x) = \begin{cases} -1 & -\pi < x < -\pi/2 \\ 0 & -\pi/2 < x < \pi/2 \\ 1 & \pi/2 < x < \pi \end{cases}$$
+            </div>
+            
+            <h3>Logic Check</h3>
+            <p>Check symmetry: $f(-x) = -f(x)$. This is an <strong>ODD Function</strong>.</p>
+            <p>Therefore: $a_0 = 0$ and $a_n = 0$. We only calculate $b_n$.</p>
+
+            <details>
+                <summary>Calculate $b_n$</summary>
+                <p>We integrate over the specific regions where $f(x) \neq 0$.</p>
+                <div class="formula-box">
+                    $$b_n = \frac{1}{\pi} \left[ \int_{-\pi}^{-\pi/2} (-1)\sin(nx)dx + \int_{\pi/2}^{\pi} (1)\sin(nx)dx \right]$$
+                </div>
+                <p>After integrating and applying limits, we get terms involving $\cos(n\pi)$ and $\cos(n\pi/2)$.</p>
+                <p><strong>Simplified Coefficient:</strong></p>
+                $$b_n = \frac{2}{n\pi} \left[ \cos\left(\frac{n\pi}{2}\right) - \cos(n\pi) \right]$$
+            </details>
+
+            <div style="margin-top: 20px;">
+                <h3 style="color: var(--accent);">Expanded Series</h3>
+                <p>Substituting $n=1, 2, 3$:</p>
+                <ul>
+                    <li>$n=1: b_1 = \frac{2}{\pi}$</li>
+                    <li>$n=2: b_2 = -\frac{2}{\pi}$</li>
+                    <li>$n=3: b_3 = \frac{2}{3\pi}$</li>
+                </ul>
+                <div class="formula-box">
+                    $$f(x) = \frac{2}{\pi} \sin x - \frac{2}{\pi} \sin 2x + \frac{2}{3\pi} \sin 3x + \dots$$
+                </div>
+            </div>
+        </section>
+
+        <!-- Homework -->
+        <section id="homework" class="card" style="border-left: 5px solid var(--text-muted);">
+            <h2>📝 Practice Problem</h2>
+            <p><strong>Obtain Fourier expression for:</strong></p>
+            $$f(x) = x^3 \quad \text{for} \quad -\pi < x < \pi$$
+            
+            <p><strong>Hint:</strong></p>
+            <ol>
+                <li>Check Symmetry. Is $x^3$ odd or even? (It's Odd).</li>
+                <li>Set $a_0 = 0$ and $a_n = 0$.</li>
+                <li>Calculate $b_n = \frac{2}{\pi} \int_{0}^{\pi} x^3 \sin(nx) dx$.</li>
+            </ol>
+        </section>
+
+        <footer style="text-align: center; color: var(--text-muted); margin-top: 50px; padding-bottom: 20px;">
+            <p>Generated from Lecture Notes • Engineering Mathematics 2024</p>
+        </footer>
+    </main>
+</div>
+
+</body>
+</html>

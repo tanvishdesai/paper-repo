@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List Master Cheat Sheet | CS & IT Engineering</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid.js for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'neutral',
+            fontFamily: 'Inter',
+            flowchart: { curve: 'basis' }
+        });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: #0f172a;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 260px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        .nav-link i { width: 24px; }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 3rem;
+            max-width: 1200px;
+            overflow-x: hidden;
+        }
+
+        .header-section {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        /* Cards */
+        .concept-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Comparison Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: #f1f5f9;
+            color: var(--secondary);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            border: 1px solid #334155;
+        }
+
+        .code-annotation {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .keyword { color: #c678dd; }
+        .type { color: #e5c07b; }
+        .func { color: #61afef; }
+        .var { color: #e06c75; }
+
+        /* Diagrams */
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* Tips & Warnings */
+        .callout {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .callout.warning {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        .callout.tip {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag-easy { background: #dcfce7; color: #166534; }
+        .tag-med { background: #fef9c3; color: #854d0e; }
+        .tag-hard { background: #fee2e2; color: #991b1b; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+            main { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h1><i class="fa-solid fa-network-wired"></i> Linked Lists</h1>
+        <a href="#intro" class="nav-link"><i class="fa-solid fa-book"></i> Fundamentals</a>
+        <a href="#operations" class="nav-link"><i class="fa-solid fa-gears"></i> Basic Operations</a>
+        <a href="#manipulation" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> Insertion & Deletion</a>
+        <a href="#pointers" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Two Pointer Tricks</a>
+        <a href="#advanced" class="nav-link"><i class="fa-solid fa-brain"></i> Advanced Problems</a>
+        <a href="#complexity" class="nav-link"><i class="fa-solid fa-chart-line"></i> Complexity</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="header-section">
+            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Data Structures: Linked Lists</h1>
+            <p style="color: var(--secondary);">Comprehensive notes based on CS & IT Engineering lectures by <strong>Pankaj Sharma Sir</strong>.</p>
+        </div>
+
+        <!-- Section 1: Fundamentals -->
+        <section id="intro">
+            <h2>1. Fundamentals of Linked List</h2>
+            
+            <div class="concept-card">
+                <h3>Definition</h3>
+                <p>A linear data structure where elements are not stored in contiguous memory locations. Elements are linked using pointers.</p>
+                <div class="mermaid">
+                    graph LR
+                    A[Head: 1000] -->|Points to| B(Node 1)
+                    subgraph Node 1 [Address: 1000]
+                    D1[Data: 10] --- N1[Next: 2000]
+                    end
+                    N1 -->|Points to| C(Node 2)
+                    subgraph Node 2 [Address: 2000]
+                    D2[Data: 20] --- N2[Next: NULL]
+                    end
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3>Structure & Memory</h3>
+                <p>A <strong>Self-Referential Structure</strong> is used to define a node.</p>
+                <pre><code class="language-c">struct Node {
+    int data;              // 4 bytes
+    struct Node *next;     // 4 or 8 bytes (pointer)
+};</code></pre>
+                
+                <div class="callout tip">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <div>
+                        <strong>Memory Allocation:</strong> Nodes are allocated in the <strong>Heap</strong> memory using <code>malloc</code> during runtime (Dynamic Memory Allocation).
+                        <br>
+                        <code>struct Node *temp = (struct Node*)malloc(sizeof(struct Node));</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3>Array vs Linked List</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Array</th>
+                            <th>Linked List</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Memory</strong></td>
+                            <td>Contiguous (Stack/Data segment)</td>
+                            <td>Non-contiguous (Heap)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Size</strong></td>
+                            <td>Fixed (Static)</td>
+                            <td>Dynamic (grows/shrinks)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Access</strong></td>
+                            <td>Random Access \(O(1)\)</td>
+                            <td>Sequential Access \(O(n)\)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Insertion/Deletion</strong></td>
+                            <td>Costly \(O(n)\) (Shifting required)</td>
+                            <td>Efficient \(O(1)\) (if pointer known)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 2: Basic Operations -->
+        <section id="operations">
+            <h2>2. Basic Operations</h2>
+            
+            <div class="concept-card">
+                <h3>Traversal</h3>
+                <p>Iterating through the list until the <code>next</code> pointer is <code>NULL</code>.</p>
+                <pre>
+<span class="type">void</span> <span class="func">traverse</span>(<span class="keyword">struct</span> Node *head) {
+    <span class="keyword">struct</span> Node *ptr = head;
+    <span class="keyword">while</span> (ptr != NULL) {
+        printf(<span class="var">"%d "</span>, ptr->data);
+        ptr = ptr->next; <span class="code-annotation">// Move to next node</span>
+    }
+}</pre>
+            </div>
+
+            <div class="concept-card">
+                <h3>Counting Nodes</h3>
+                <p>Initialize a counter and increment while traversing.</p>
+                <pre>
+<span class="type">int</span> <span class="func">countNodes</span>(<span class="keyword">struct</span> Node *head) {
+    <span class="type">int</span> count = 0;
+    <span class="keyword">struct</span> Node *ptr = head;
+    <span class="keyword">while</span> (ptr != NULL) {
+        count++;
+        ptr = ptr->next;
+    }
+    <span class="keyword">return</span> count;
+}</pre>
+            </div>
+        </section>
+
+        <!-- Section 3: Manipulation -->
+        <section id="manipulation">
+            <h2>3. Insertion & Deletion</h2>
+
+            <div class="concept-card">
+                <h3>Insertion</h3>
+                <div class="mermaid">
+                    graph LR
+                    New[New Node] 
+                    Head[Head] --> A[Node A]
+                    A --> B[Node B]
+                    style New fill:#dcfce7,stroke:#166534
+                    
+                    subgraph "Insert at Beginning"
+                    New -.->|1. next = head| A
+                    Head -.->|2. head = new| New
+                    end
+                </div>
+                
+                <details>
+                    <summary style="cursor: pointer; color: var(--primary); font-weight: 600;">Show Implementation Code</summary>
+                    <pre>
+<span class="type">struct</span> Node* <span class="func">insertAtBegin</span>(<span class="keyword">struct</span> Node *head, <span class="type">int</span> data) {
+    <span class="keyword">struct</span> Node *temp = malloc(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> Node));
+    temp->data = data;
+    temp->next = head;  <span class="code-annotation">// Point new node to current head</span>
+    head = temp;        <span class="code-annotation">// Update head to new node</span>
+    <span class="keyword">return</span> head;
+}</pre>
+                </details>
+            </div>
+
+            <div class="concept-card">
+                <h3>Deletion</h3>
+                <div class="callout warning">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <div>
+                        <strong>Always check for Underflow:</strong> Before deleting, check <code>if (head == NULL)</code>. If true, the list is empty.
+                    </div>
+                </div>
+                
+                <h4>Deleting a specific node (logic):</h4>
+                <ol>
+                    <li>Traverse to find the node <strong>before</strong> the target (<code>prev</code>).</li>
+                    <li>Link <code>prev->next</code> to <code>curr->next</code>.</li>
+                    <li>Free the memory of <code>curr</code>.</li>
+                </ol>
+                <div class="mermaid">
+                    graph LR
+                    A[Prev Node] --> B[Target Node]
+                    B --> C[Next Node]
+                    A -.->|bypass| C
+                    style B fill:#fee2e2,stroke:#991b1b,stroke-dasharray: 5 5
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Two Pointers -->
+        <section id="pointers">
+            <h2>4. The "Two Pointer" Magic <span class="tag tag-med">Crucial</span></h2>
+            <p>Many efficiency problems are solved using <code>slow</code> and <code>fast</code> pointers.</p>
+
+            <div class="concept-card">
+                <h3>1. Finding the Middle Element</h3>
+                <p><strong>Logic:</strong> Move <code>slow</code> by 1 step, <code>fast</code> by 2 steps. When <code>fast</code> reaches the end, <code>slow</code> is at the middle.</p>
+                <pre>
+Slow = Slow->next;
+Fast = Fast->next->next;</pre>
+                
+                <p><strong>Stop Condition:</strong></p>
+                <ul>
+                    <li>Odd nodes: <code>fast->next == NULL</code></li>
+                    <li>Even nodes: <code>fast == NULL</code></li>
+                </ul>
+            </div>
+
+            <div class="concept-card">
+                <h3>2. Cycle Detection (Floyd's Algorithm)</h3>
+                <p>If <code>slow</code> and <code>fast</code> pointers ever meet, there is a loop.</p>
+                <div class="mermaid">
+                    graph LR
+                    A --> B --> C --> D --> E --> C
+                    style C fill:#fef9c3
+                    style E fill:#fef9c3
+                    linkStyle 4 stroke:red,stroke-width:2px;
+                </div>
+                <pre>
+<span class="keyword">while</span> (fast != NULL && fast->next != NULL) {
+    slow = slow->next;
+    fast = fast->next->next;
+    <span class="keyword">if</span> (slow == fast) <span class="keyword">return</span> true; <span class="code-annotation">// Cycle detected</span>
+}</pre>
+            </div>
+
+            <div class="concept-card">
+                <h3>3. Reversing a Linked List <span class="tag tag-hard">Interview Fav</span></h3>
+                <p>Requires 3 pointers: <code>prev</code>, <code>curr</code>, <code>next</code>.</p>
+                <div class="mermaid">
+                    stateDiagram-v2
+                    direction LR
+                    state "1. Save Next" as s1
+                    state "2. Reverse Link" as s2
+                    state "3. Move Prev" as s3
+                    state "4. Move Curr" as s4
+                    
+                    s1 --> s2 : next = curr->next
+                    s2 --> s3 : curr->next = prev
+                    s3 --> s4 : prev = curr
+                    s4 --> s1 : curr = next
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Advanced -->
+        <section id="advanced">
+            <h2>5. Advanced Problems</h2>
+
+            <div class="concept-card">
+                <h3>Intersection Point of 2 Linked Lists</h3>
+                <p><strong>Method:</strong></p>
+                <ol>
+                    <li>Count nodes in List A (\(C_1\)) and List B (\(C_2\)).</li>
+                    <li>Calculate difference \(d = |C_1 - C_2|\).</li>
+                    <li>Move the pointer of the longer list \(d\) steps forward.</li>
+                    <li>Move both pointers together until they collide.</li>
+                </ol>
+            </div>
+
+            <div class="concept-card">
+                <h3>Merge Two Sorted Lists</h3>
+                <p>Create a dummy node or use recursion to weave the lists together.</p>
+                <pre>
+<span class="keyword">if</span> (a->data < b->data) {
+    head = tail = a;
+    a = a->next;
+} <span class="keyword">else</span> {
+    head = tail = b;
+    b = b->next;
+}</pre>
+            </div>
+        </section>
+
+        <!-- Section 6: Complexity -->
+        <section id="complexity">
+            <h2>6. Complexity Analysis</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Time Complexity (Worst)</th>
+                        <th>Space Complexity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Access Element</td>
+                        <td>\(O(n)\)</td>
+                        <td>\(O(1)\)</td>
+                    </tr>
+                    <tr>
+                        <td>Insert at Beginning</td>
+                        <td>\(O(1)\)</td>
+                        <td>\(O(1)\)</td>
+                    </tr>
+                    <tr>
+                        <td>Insert at End (with Tail pointer)</td>
+                        <td>\(O(1)\)</td>
+                        <td>\(O(1)\)</td>
+                    </tr>
+                    <tr>
+                        <td>Insert at End (without Tail pointer)</td>
+                        <td>\(O(n)\)</td>
+                        <td>\(O(1)\)</td>
+                    </tr>
+                    <tr>
+                        <td>Reverse List</td>
+                        <td>\(O(n)\)</td>
+                        <td>\(O(1)\)</td>
+                    </tr>
+                    <tr>
+                        <td>Sort (Merge Sort)</td>
+                        <td>\(O(n \log n)\)</td>
+                        <td>\(O(\log n)\) (Recursion Stack)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Footer -->
+        <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--secondary); font-size: 0.9rem;">
+            <p>Synthesized for CS & IT Engineering Students</p>
+            <p><em>Based on Lecture Content by Pankaj Sharma Sir</em></p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

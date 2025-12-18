@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turing Machines & Decidability | CS Cheat Sheet</title>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --sidebar-bg: #16191f;
+            --card-bg: #1e2229;
+            --text-primary: #e6e6e6;
+            --text-secondary: #a0a0a0;
+            --accent-purple: #bb86fc;
+            --accent-blue: #03dac6;
+            --accent-red: #cf6679;
+            --accent-green: #00e676;
+            --border-color: #2f3640;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            top: 0;
+            left: 0;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-purple);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-link {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(187, 134, 252, 0.1);
+            color: var(--accent-purple);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem 4rem;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+        h2 { font-size: 1.8rem; margin: 2.5rem 0 1rem; color: var(--accent-blue); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.3rem; margin: 1.5rem 0 0.8rem; color: var(--accent-purple); }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th { background-color: rgba(255,255,255,0.05); color: var(--accent-blue); }
+        tr:last-child td { border-bottom: none; }
+        
+        .check { color: var(--accent-green); font-weight: bold; }
+        .cross { color: var(--accent-red); font-weight: bold; }
+
+        /* Tags and Highlights */
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .tag.rec { background-color: rgba(3, 218, 198, 0.2); color: var(--accent-blue); }
+        .tag.rel { background-color: rgba(187, 134, 252, 0.2); color: var(--accent-purple); }
+        .tag.und { background-color: rgba(207, 102, 121, 0.2); color: var(--accent-red); }
+
+        /* Collapsible details */
+        details {
+            background-color: rgba(255,255,255,0.03);
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+        }
+        summary { cursor: pointer; font-weight: 600; color: var(--text-primary); }
+        details[open] summary { margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+
+        /* Mermaid container alignment */
+        .mermaid { text-align: center; margin: 2rem 0; }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 1rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="logo">CS & IT Engineering<br><span style="font-size:0.8rem; color:var(--text-secondary)">Turing Machines & REL</span></div>
+        <a href="#intro" class="nav-link">Introduction</a>
+        <a href="#definition" class="nav-link">Formal Definition</a>
+        <a href="#construction" class="nav-link">Construction & Logic</a>
+        <a href="#hierarchy" class="nav-link">Chomsky Hierarchy</a>
+        <a href="#decidability" class="nav-link">Decidability & Logic</a>
+        <a href="#closure" class="nav-link">Closure Properties</a>
+        <a href="#summary" class="nav-link">Summary Table</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        <header>
+            <span class="tag rel">Lecture 01-03</span>
+            <h1>Theory of Computation: Turing Machines</h1>
+            <p>From Finite Automata to Recursively Enumerable Languages (REL). A guide to decidability, halting, and closure properties.</p>
+        </header>
+
+        <!-- Section 1: Intro -->
+        <section id="intro">
+            <h2>1. Machine Comparison</h2>
+            <p>Evolution of computational power based on memory capabilities.</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Finite Automata (FA)</h3>
+                    <p><strong>Memory:</strong> None (Finite Control)</p>
+                    <p><strong>Tape:</strong> Read-only, Move Right only.</p>
+                    <p><strong>Power:</strong> Least powerful.</p>
+                    <p><strong>Languages:</strong> Regular.</p>
+                </div>
+                <div class="card">
+                    <h3>Push Down Automata (PDA)</h3>
+                    <p><strong>Memory:</strong> Finite Control + 1 Stack.</p>
+                    <p><strong>Tape:</strong> Read-only.</p>
+                    <p><strong>Power:</strong> Context Free.</p>
+                    <p><strong>Key:</strong> $PDA \cong FA + 1 \text{ Stack}$.</p>
+                </div>
+                <div class="card" style="border-color: var(--accent-purple);">
+                    <h3>Turing Machine (TM)</h3>
+                    <p><strong>Memory:</strong> Finite Control + Infinite Tape.</p>
+                    <p><strong>Tape:</strong> Read/Write, Bidirectional (Left/Right).</p>
+                    <p><strong>Power:</strong> Most powerful (Computer).</p>
+                    <p><strong>Key:</strong> $TM \cong FA + \text{R/W Tape} + \infty \text{ Memory}$.</p>
+                </div>
+            </div>
+
+            <div class="mermaid">
+                flowchart LR
+                    subgraph FA [Finite Automata]
+                        direction TB
+                        A[Finite Control] --Read--> B[Input Tape]
+                        B -.-> |Right Only| B
+                    end
+                    subgraph TM [Turing Machine]
+                        direction TB
+                        C[Finite Control] <-->|Read/Write| D[Infinite Tape]
+                        D <--> |Left & Right| D
+                    end
+            </div>
+        </section>
+
+        <!-- Section 2: Formal Definition -->
+        <section id="definition">
+            <h2>2. Formal Definition</h2>
+            <div class="card">
+                <p>A Turing Machine is a 7-tuple: $$TM = (Q, \Sigma, \Gamma, \delta, q_0, B, F)$$</p>
+                <ul>
+                    <li>\(Q\): Finite set of states.</li>
+                    <li>\(\Sigma\): Input alphabet (subset of \(\Gamma\)).</li>
+                    <li>\(\Gamma\): Tape alphabet (contains input symbols + Blank \(B\) + auxiliaries).</li>
+                    <li>\(\delta\): Transition function.</li>
+                    <li>\(q_0\): Start state.</li>
+                    <li>\(B\): Blank symbol (initially fills infinite tape).</li>
+                    <li>\(F\): Set of Final/Accepting states.</li>
+                </ul>
+            </div>
+
+            <h3>Transition Function Logic</h3>
+            <p>The core logic of a TM is defined as: \(\delta: Q \times \Gamma \rightarrow Q \times \Gamma \times \{L, R\}\)</p>
+            <p><em>Meaning:</em> Given current state \(q\) and reading symbol \(X\), go to state \(p\), overwrite \(X\) with \(Y\), and move Head Left or Right.</p>
+            
+            <div class="mermaid">
+                stateDiagram-v2
+                    [*] --> q
+                    q --> p : Read 'a' / Write 'X' / Move Right
+                    note right of q
+                        δ(q, a) = (p, X, R)
+                    end note
+            </div>
+        </section>
+
+        <!-- Section 3: Construction -->
+        <section id="construction">
+            <h2>3. Construction & Variations</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Deterministic TM (Standard)</h3>
+                    <p>For every state and input symbol, there is exactly one transition.</p>
+                    <p>Used for <strong>Recursively Enumerable Languages (REL)</strong>.</p>
+                </div>
+                <div class="card">
+                    <h3>Halting TM (HTM)</h3>
+                    <p>A TM that <strong>always halts</strong>, regardless of input (never enters an infinite loop).</p>
+                    <p>Used for <strong>Recursive Languages (Decidable)</strong>.</p>
+                </div>
+            </div>
+
+            <h3>Example: Logic for \(L = \{a^n b^n \mid n \geq 1\}\)</h3>
+            <p>Strategy: Zig-zag approach. Mark 'a' with 'X', move right to find corresponding 'b', mark with 'Y', return left.</p>
+            <div class="mermaid">
+                graph LR
+                    q0((q0)) -- Read a / Write X, R --> q1((q1))
+                    q1 -- Read a, Y / R --> q1
+                    q1 -- Read b / Write Y, L --> q2((q2))
+                    q2 -- Read a, Y / L --> q2
+                    q2 -- Read X / R --> q0
+                    q0 -- Read Y / R --> q3((q3))
+                    q3 -- Read Y / R --> q3
+                    q3 -- Read B / L --> qf(((Final)))
+            </div>
+        </section>
+
+        <!-- Section 4: Hierarchy -->
+        <section id="hierarchy">
+            <h2>4. Language Hierarchy</h2>
+            <p>The containment relationship of formal languages.</p>
+
+            <div class="mermaid">
+                block-beta
+                    columns 1
+                    block:RELs
+                        REL["Recursively Enumerable (REL)"]
+                        block:Recursive
+                            Rec["Recursive (Decidable)"]
+                            block:CSL
+                                CSL["Context Sensitive (CSL) / LBA"]
+                                block:CFL
+                                    CFL["Context Free (CFL)"]
+                                    block:Regular
+                                        Reg["Regular (FA)"]
+                                    end
+                                end
+                            end
+                        end
+                    end
+            </div>
+
+            <div class="card">
+                <h3>Key Distinctions</h3>
+                <ul>
+                    <li><strong>Regular:</strong> Can be done without memory (e.g., parity check).</li>
+                    <li><strong>DCFL/CFL:</strong> Needs 1 stack (e.g., \(a^n b^n\), Palindromes).</li>
+                    <li><strong>CSL (LBA):</strong> Needs Bounded Tape (e.g., \(a^n b^n c^n\), \(ww\)).</li>
+                    <li><strong>Recursive:</strong> Logic exists for Valid AND Invalid strings (Total Turing Machine).</li>
+                    <li><strong>REL:</strong> Logic exists for Valid strings only (Partial Turing Machine).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: Decidability -->
+        <section id="decidability">
+            <h2>5. Decidability & Computability</h2>
+            <p>Understanding the limits of computation. "Decidable" roughly translates to "Solvable by an algorithm that always finishes".</p>
+
+            <table style="font-size: 0.95rem;">
+                <thead>
+                    <tr>
+                        <th>Language Class</th>
+                        <th>Alternative Name</th>
+                        <th>Machine Type</th>
+                        <th>Behavior on Input \(w\)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Recursive</strong></td>
+                        <td>Decidable</td>
+                        <td>Halting TM (HTM)</td>
+                        <td>
+                            \(w \in L\): Halt & Accept<br>
+                            \(w \notin L\): Halt & Reject
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>REL</strong></td>
+                        <td>Semi-Decidable / Recognizable</td>
+                        <td>Standard TM</td>
+                        <td>
+                            \(w \in L\): Halt & Accept<br>
+                            \(w \notin L\): Halt & Reject <strong>OR Loop Forever</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Not REL</strong></td>
+                        <td>Not Recognizable</td>
+                        <td>None</td>
+                        <td>No machine exists.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>The Decidability Landscape</h3>
+            <div class="mermaid">
+                graph TD
+                    L[Language L]
+                    L -->|TM Exists?| Yes
+                    L -->|TM Exists?| No[Not REL]
+                    Yes -->|Always Halts?| HTM[HTM Exists]
+                    Yes -->|May Loop?| TM[Only TM Exists]
+                    HTM --> Rec[Recursive / Decidable]
+                    TM --> SD[REL / Semi-Decidable]
+                    
+                    subgraph Undecidable
+                    SD
+                    No
+                    end
+            </div>
+
+            <div class="card">
+                <h3>Logic of Complements</h3>
+                <p><strong>Theorem 1:</strong> If \(L\) is Recursive, then \(\bar{L}\) is Recursive. (We can flip Accept/Reject states).</p>
+                <p><strong>Theorem 2:</strong> If \(L\) is REL and \(\bar{L}\) is REL, then \(L\) is Recursive.</p>
+                <p><strong>Theorem 3:</strong> If \(L\) is REL but NOT Recursive, then \(\bar{L}\) is NOT REL.</p>
+            </div>
+        </section>
+
+        <!-- Section 6: Closure Properties -->
+        <section id="closure">
+            <h2>6. Closure Properties</h2>
+            <p>Which operations keep a language within its class?</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Recursive (Decidable)</th>
+                        <th>REL (Semi-Decidable)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Union (\(\cup\))</td>
+                        <td class="check">Yes</td>
+                        <td class="check">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Intersection (\(\cap\))</td>
+                        <td class="check">Yes</td>
+                        <td class="check">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Concatenation (\(\cdot\))</td>
+                        <td class="check">Yes</td>
+                        <td class="check">Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Kleene Star (\(*\))</td>
+                        <td class="check">Yes</td>
+                        <td class="check">Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complement</strong> (\(\bar{L}\))</td>
+                        <td class="check">Yes</td>
+                        <td class="cross">NO</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Difference</strong> (\(-\))</td>
+                        <td class="check">Yes</td>
+                        <td class="cross">NO</td>
+                    </tr>
+                    <tr>
+                        <td>Subset (\(\subseteq\))</td>
+                        <td class="cross">NO</td>
+                        <td class="cross">NO</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grid-2">
+                <details>
+                    <summary>Why is Recursive closed under Complement?</summary>
+                    <p>Because Recursive languages have an HTM. An HTM always halts. If we swap the "Accept" and "Reject" states, we get a machine that accepts exactly when the original rejected. Thus, \(\bar{L}\) is also Recursive.</p>
+                </details>
+                <details>
+                    <summary>Why is REL NOT closed under Complement?</summary>
+                    <p>For an REL, the TM might loop on invalid strings. We cannot simply "swap" states because we never reach a "Reject" state in an infinite loop. We don't know if it's still thinking or if it will never finish.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Section 7: Summary -->
+        <section id="summary">
+            <h2>7. Quick Summary Definitions</h2>
+            <div class="grid-2">
+                <div class="card" style="border-left: 4px solid var(--accent-blue);">
+                    <h3>Recursive Language</h3>
+                    <ul>
+                        <li>Is Turing Decidable.</li>
+                        <li>Has an Algorithm.</li>
+                        <li>Has a Halting Program.</li>
+                        <li>Logic exists for Valid AND Invalid.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--accent-purple);">
+                    <h3>REL (Recursively Enumerable)</h3>
+                    <ul>
+                        <li>Is Turing Recognizable.</li>
+                        <li>Is Semi-Decidable.</li>
+                        <li>Logic exists for Valid strings.</li>
+                        <li>Logic <strong>may or may not</strong> exist for Invalid strings.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--accent-red);">
+                    <h3>Undecidable</h3>
+                    <ul>
+                        <li>Can be <strong>REL but not Recursive</strong> (Halting Problem).</li>
+                        <li>Can be <strong>Not REL</strong>.</li>
+                        <li>No algorithm exists to solve these for all inputs.</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--text-primary);">
+                    <h3>LBA (Linear Bounded Automata)</h3>
+                    <ul>
+                        <li>Tape is finite (bounded by input length).</li>
+                        <li>Accepts Context Sensitive Languages (CSL).</li>
+                        <li>More powerful than PDA, less than TM.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-secondary);">
+            <p>Generated based on Lecture Notes 01, 02, 03.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { HelpCircle, CheckCircle } from "lucide-react";
+import { HelpCircle, CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { Doc } from "@/convex/_generated/dataModel";
+import { cn } from "@/lib/utils";
 
 interface QuestionCardProps {
   question: Doc<"questions">;
@@ -13,6 +15,7 @@ interface QuestionCardProps {
 export function QuestionCard({ question, answers, onGetHelp }: QuestionCardProps) {
   // Sort answers by sortOrder
   const sortedAnswers = [...answers].sort((a, b) => a.sortOrder - b.sortOrder);
+  const [isExplanationOpen, setIsExplanationOpen] = useState(false);
   
 
   return (
@@ -117,14 +120,40 @@ export function QuestionCard({ question, answers, onGetHelp }: QuestionCardProps
 
         {/* Explanation */}
         {question.explanation && (
-          <div className="mb-6 p-4 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-800/30">
-            <div className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
-              Explanation
+          <div className="mb-6">
+             <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsExplanationOpen(!isExplanationOpen)}
+              className="mb-2"
+            >
+              {isExplanationOpen ? (
+                <>
+                  <ChevronUp className="h-4 w-4 mr-2" />
+                  Hide Explanation
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="h-4 w-4 mr-2" />
+                  Show Explanation
+                </>
+              )}
+            </Button>
+            
+            <div className={cn(
+              "overflow-hidden transition-all duration-300 ease-in-out",
+              isExplanationOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+            )}>
+              <div className="p-4 bg-blue-50/50 dark:bg-blue-950/20 rounded-lg border border-blue-200/50 dark:border-blue-800/30">
+                <div className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                  Explanation
+                </div>
+                <div 
+                  className="text-sm text-blue-800 dark:text-blue-200 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: question.explanation }}
+                />
+              </div>
             </div>
-            <div 
-              className="text-sm text-blue-800 dark:text-blue-200 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: question.explanation }}
-            />
           </div>
         )}
 

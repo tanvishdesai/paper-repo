@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Logic: Number Systems Cheat Sheet</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --text: #334155;
+            --card-bg: #ffffff;
+            --code-bg: #1e293b;
+            --border-radius: 8px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-list { list-style: none; }
+        .nav-list li { margin-bottom: 0.5rem; }
+        .nav-list a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.25rem 0;
+        }
+        .nav-list a:hover { color: var(--primary); font-weight: 600; }
+
+        /* Main Content */
+        main { display: flex; flex-direction: column; gap: 2rem; }
+
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+        
+        h1 { font-size: 2.5rem; color: var(--secondary); margin-bottom: 0.5rem; }
+        .subtitle { font-size: 1.1rem; color: #64748b; }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        h3 { font-size: 1.2rem; color: var(--primary); margin: 1.5rem 0 1rem; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th { background-color: #f1f5f9; color: var(--secondary); font-weight: 600; }
+        tr:hover { background-color: #f8fafc; }
+
+        /* Code & Formulas */
+        code {
+            font-family: 'Fira Code', monospace;
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #d946ef;
+        }
+        .formula-box {
+            background: var(--secondary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        /* Interactive Elements */
+        details {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+        }
+        summary { font-weight: 600; color: var(--primary); outline: none; }
+        details[open] summary { margin-bottom: 1rem; }
+
+        /* Utility */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-green { background: #dcfce7; color: #15803d; }
+        .badge-red { background: #fee2e2; color: #b91c1c; }
+        
+        .flex-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .flex-col { flex: 1; min-width: 300px; }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { display: none; } /* Hide sidebar on mobile, assume sticky header logic elsewhere */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="nav-title">Navigation</div>
+            <ul class="nav-list">
+                <li><a href="#basics">1. Number System Basics</a></li>
+                <li><a href="#conversions">2. Base Conversions</a></li>
+                <li><a href="#codes">3. Binary Codes</a></li>
+                <li><a href="#representation">4. Data Representation</a></li>
+                <li><a href="#complements">5. Complements & Arithmetic</a></li>
+                <li><a href="#ranges">6. Range Summary</a></li>
+                <li><a href="#problems">7. Problem Solving</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <header>
+                <h1>Digital Logic: Number Systems</h1>
+                <div class="subtitle">Complete cheat sheet for CS & IT Engineering covering Bases, Conversions, Signed Arithmetic, and Complements.</div>
+            </header>
+
+            <!-- Section 1: Basics -->
+            <section id="basics" class="card">
+                <h2>1. Number System Fundamentals</h2>
+                <div class="flex-row">
+                    <div class="flex-col">
+                        <h3>Base (Radix) \(r\)</h3>
+                        <p>Total number of unique digits used in the system.</p>
+                        <ul>
+                            <li><strong>Binary:</strong> Base 2 \(\{0, 1\}\)</li>
+                            <li><strong>Octal:</strong> Base 8 \(\{0, \dots, 7\}\)</li>
+                            <li><strong>Decimal:</strong> Base 10 \(\{0, \dots, 9\}\)</li>
+                            <li><strong>Hexadecimal:</strong> Base 16 \(\{0, \dots, 9, A, B, C, D, E, F\}\)</li>
+                        </ul>
+                    </div>
+                    <div class="flex-col">
+                        <h3>Positional Weight</h3>
+                        <p>Value of a digit depends on its position.</p>
+                        <div class="formula-box">
+                            $$ N = \sum_{i=-m}^{n} a_i \times r^i $$
+                        </div>
+                        <p style="font-size: 0.9em; text-align: center; color: #64748b;">Example: \((101.11)_2 = 1\cdot2^2 + 0\cdot2^1 + 1\cdot2^0 + 1\cdot2^{-1} + 1\cdot2^{-2}\)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Conversions -->
+            <section id="conversions" class="card">
+                <h2>2. Base Conversions</h2>
+                
+                <div class="mermaid">
+                    graph LR
+                    A[Any Base r] --"Successive Division (Integer)<br>Successive Multiplication (Fraction)"--> B(Decimal Base 10)
+                    B --"Weighted Sum<br>(Polynomial Expansion)"--> A
+                    C[Binary Base 2] <-->|Grouping 3 bits| D[Octal Base 8]
+                    C <-->|Grouping 4 bits| E[Hex Base 16]
+                </div>
+
+                <h3>Key Conversion Rules</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Conversion</th>
+                            <th>Method</th>
+                            <th>Key Insight</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Any Base \(\to\) Decimal</strong></td>
+                            <td>Sum of Weights</td>
+                            <td>\((12C)_{13} = 1\times13^2 + 2\times13^1 + 12\times13^0\)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Decimal \(\to\) Any Base</strong></td>
+                            <td>Division (Int) / Mult (Frac)</td>
+                            <td>Divide integer part by base, keep remainders (Reverse order). Multiply fraction by base, keep integers.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Binary \(\to\) Octal</strong></td>
+                            <td>Group 3 Bits</td>
+                            <td>\(8 = 2^3\). Group from radix point outwards.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Binary \(\to\) Hex</strong></td>
+                            <td>Group 4 Bits</td>
+                            <td>\(16 = 2^4\). Group from radix point outwards.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 3: Codes -->
+            <section id="codes" class="card">
+                <h2>3. Binary Codes</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Full Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>BCD</strong></td>
+                            <td>Binary Coded Decimal</td>
+                            <td>8421 Code. Each decimal digit represented by 4 bits. Digits 1010-1111 are invalid.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Excess-3</strong></td>
+                            <td>XS-3</td>
+                            <td>Non-weighted. Obtained by adding 3 (0011) to BCD. Self-complementing code.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BCO</strong></td>
+                            <td>Binary Coded Octal</td>
+                            <td>Each octal digit represented by 3 bits.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BCH</strong></td>
+                            <td>Binary Coded Hex</td>
+                            <td>Each hex digit represented by 4 bits.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 4: Representation -->
+            <section id="representation" class="card">
+                <h2>4. Magnitude Representation</h2>
+                <p>How computers store negative numbers.</p>
+                
+                <div class="mermaid">
+                    graph TD
+                    Root[Binary Representation] --> Unsigned
+                    Root --> Signed
+                    Signed --> SM[Signed Magnitude]
+                    Signed --> Comp[Complement Form]
+                    Comp --> 1s[1's Complement]
+                    Comp --> 2s[2's Complement]
+                    
+                    style 2s fill:#dcfce7,stroke:#15803d,stroke-width:2px
+                </div>
+
+                <div class="flex-row">
+                    <div class="flex-col">
+                        <h3>Signed Magnitude</h3>
+                        <ul>
+                            <li><strong>MSB:</strong> 0 = Positive (+), 1 = Negative (-).</li>
+                            <li><strong>Remaining bits:</strong> Magnitude.</li>
+                            <li><span class="badge badge-red">Problem</span> Two zeros (+0, -0). Calculations are complex.</li>
+                        </ul>
+                    </div>
+                    <div class="flex-col">
+                        <h3>2's Complement (Standard)</h3>
+                        <ul>
+                            <li><strong>Positive:</strong> Same as Unsigned.</li>
+                            <li><strong>Negative:</strong> Invert all bits (1's Comp) and add 1.</li>
+                            <li><span class="badge badge-green">Benefit</span> Unique zero. Efficient arithmetic.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>4-Bit Comparison Table</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Decimal</th>
+                            <th>Signed Magnitude</th>
+                            <th>1's Complement</th>
+                            <th>2's Complement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>+7</td><td>0111</td><td>0111</td><td>0111</td></tr>
+                        <tr><td>+0</td><td>0000</td><td>0000</td><td>0000</td></tr>
+                        <tr><td>-0</td><td>1000</td><td>1111</td><td>-</td></tr>
+                        <tr><td>-1</td><td>1001</td><td>1110</td><td>1111</td></tr>
+                        <tr><td>-7</td><td>1111</td><td>1000</td><td>1001</td></tr>
+                        <tr><td>-8</td><td>N/A</td><td>N/A</td><td>1000</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 5: Complements -->
+            <section id="complements" class="card">
+                <h2>5. Complements & Arithmetic</h2>
+                <p>Used to perform subtraction using addition logic.</p>
+
+                <h3>Types of Complements</h3>
+                <div class="flex-row">
+                    <div class="flex-col">
+                        <h4>(r-1)'s Complement</h4>
+                        <p>Subtract each digit from \((r-1)\).</p>
+                        <ul>
+                            <li><strong>Binary (1's):</strong> Flip bits (0→1, 1→0).</li>
+                            <li><strong>Decimal (9's):</strong> Subtract digit from 9.</li>
+                        </ul>
+                    </div>
+                    <div class="flex-col">
+                        <h4>r's Complement</h4>
+                        <p>Formula: \((r-1)\text{'s Complement} + 1\)</p>
+                        <ul>
+                            <li><strong>Binary (2's):</strong> 1's Comp + 1.</li>
+                            <li><strong>Decimal (10's):</strong> 9's Comp + 1.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Subtraction using 2's Complement</h3>
+                <div class="formula-box">
+                    $$ X - Y \Rightarrow X + (2\text{'s Comp of } Y) $$
+                </div>
+                <details>
+                    <summary>Example: 10 - 26 (using 6-bit registers)</summary>
+                    <ol>
+                        <li>Represent 10: <code>001010</code></li>
+                        <li>Represent 26: <code>011010</code></li>
+                        <li>Find 2's Comp of 26:
+                            <ul>
+                                <li>1's: <code>100101</code></li>
+                                <li>Add 1: <code>100110</code> (-26)</li>
+                            </ul>
+                        </li>
+                        <li>Add (10) + (-26):
+                            <pre>  001010
++ 100110
+--------
+  110000</pre>
+                        </li>
+                        <li>Result is <code>110000</code>. Since MSB is 1, it's negative.</li>
+                        <li>Magnitude: 2's comp of <code>110000</code> is <code>010000</code> (16).</li>
+                        <li><strong>Answer: -16</strong></li>
+                    </ol>
+                </details>
+            </section>
+
+            <!-- Section 6: Ranges -->
+            <section id="ranges" class="card">
+                <h2>6. Range Summary (n-bit)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Representation</th>
+                            <th>Min Value</th>
+                            <th>Max Value</th>
+                            <th>Total Values</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Unsigned</strong></td>
+                            <td>\(0\)</td>
+                            <td>\(2^n - 1\)</td>
+                            <td>\(2^n\)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Signed Magnitude</strong></td>
+                            <td>\(-(2^{n-1} - 1)\)</td>
+                            <td>\(+(2^{n-1} - 1)\)</td>
+                            <td>\(2^n - 1\) (Double Zero)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1's Complement</strong></td>
+                            <td>\(-(2^{n-1} - 1)\)</td>
+                            <td>\(+(2^{n-1} - 1)\)</td>
+                            <td>\(2^n - 1\) (Double Zero)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2's Complement</strong></td>
+                            <td>\(-2^{n-1}\)</td>
+                            <td>\(+(2^{n-1} - 1)\)</td>
+                            <td>\(2^n\) (Unique Zero)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 7: Problem Solving -->
+            <section id="problems" class="card">
+                <h2>7. Solving Base Equations</h2>
+                <p>When finding unknown base \(r\) or digits \(x, y\).</p>
+                
+                <h3>Constraint Check</h3>
+                <p><strong>Rule:</strong> The base \(r\) must be strictly greater than any digit in the number.</p>
+                <p><em>Example:</em> In \((41)_x = 5\), digit 4 exists, so \(x > 4\).</p>
+
+                <h3>Equation Expansion</h3>
+                <p>Convert both sides to Decimal to solve for \(r\).</p>
+                <div class="formula-box">
+                    \(\sqrt{(41)_x} = 5 \implies (41)_x = 25_{10}\) <br>
+                    \(4x^1 + 1x^0 = 25 \implies 4x + 1 = 25 \implies 4x = 24 \implies x = 6\)
+                </div>
+
+                <h3>Common Tricks</h3>
+                <ul>
+                    <li>If \(A + B = C\) creates a carry, check if sum exceeds base.</li>
+                    <li>For \((123)_5 = (x8)_y\), first convert LHS to decimal, then convert decimal to base \(y\) (knowing \(y > 8\)).</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

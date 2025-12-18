@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Cheat Sheet: FDs & Normalization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #f59e0b;
+            --bg-canvas: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            scroll-behavior: smooth;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Sidebar Navigation Active State */
+        .nav-link.active {
+            border-left: 3px solid var(--primary);
+            background: #eff6ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Interactive Card Hover */
+        .concept-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .concept-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Prime Attribute Styling */
+        .prime-attr {
+            text-decoration: underline;
+            text-decoration-color: var(--primary);
+            text-decoration-thickness: 2px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <nav class="w-64 bg-white border-r border-gray-200 flex-shrink-0 overflow-y-auto hidden md:block">
+        <div class="p-6 sticky top-0 bg-white z-10">
+            <h1 class="text-xl font-bold text-gray-900 tracking-tight">DBMS Notes</h1>
+            <p class="text-sm text-gray-500 mt-1">FDs & Normalization</p>
+        </div>
+        <ul class="space-y-1 px-4 pb-6 text-sm">
+            <li><a href="#intro" class="nav-link block px-4 py-2 rounded-r hover:bg-gray-50">Functional Dependencies</a></li>
+            <li><a href="#axioms" class="nav-link block px-4 py-2 rounded-r hover:bg-gray-50">Armstrong's Axioms</a></li>
+            <li><a href="#closure" class="nav-link block px-4 py-2 rounded-r hover:bg-gray-50">Attribute Closure & Keys</a></li>
+            <li><a href="#minimal" class="nav-link block px-4 py-2 rounded-r hover:bg-gray-50">Minimal Cover</a></li>
+            <li><a href="#decomposition" class="nav-link block px-4 py-2 rounded-r hover:bg-gray-50">Decomposition Properties</a></li>
+            <li><a href="#normalforms" class="nav-link block px-4 py-2 rounded-r hover:bg-gray-50">Normal Forms (1NF-BCNF)</a></li>
+            <li><a href="#algorithms" class="nav-link block px-4 py-2 rounded-r hover:bg-gray-50">NF Decomposition</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-8 relative scroll-smooth">
+        
+        <!-- Intro Section -->
+        <section id="intro" class="mb-12 max-w-5xl mx-auto">
+            <div class="mb-6 border-b pb-4">
+                <h2 class="text-3xl font-bold text-gray-800">1. Functional Dependencies (FD)</h2>
+                <p class="text-gray-600 mt-2">The fundamental constraints that determine the relationship between attributes in a relation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Definition -->
+                <div class="concept-card bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-3 flex items-center">
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mr-2">DEF</span>
+                        Functional Dependency
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        Let \( R \) be a relation schema. An FD \( X \rightarrow Y \) holds if for every valid instance of \( R \), whenever two tuples agree on \( X \), they must also agree on \( Y \).
+                    </p>
+                    <div class="bg-gray-50 p-3 rounded text-sm code-font border-l-4 border-blue-500">
+                        If \( t_1.X = t_2.X \) then \( t_1.Y = t_2.Y \)
+                    </div>
+                </div>
+
+                <!-- Types of FD -->
+                <div class="concept-card bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-3">Types of FDs</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <span class="w-24 font-bold text-gray-800 flex-shrink-0">Trivial FD</span>
+                            <span class="text-gray-600">\( X \rightarrow Y \) is trivial if \( Y \subseteq X \). Always valid. <br><code class="text-xs bg-gray-100 px-1">Example: AB → A</code></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-24 font-bold text-gray-800 flex-shrink-0">Non-Trivial</span>
+                            <span class="text-gray-600">\( X \rightarrow Y \) where \( X \cap Y = \emptyset \). <br><code class="text-xs bg-gray-100 px-1">Example: A → B</code></span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-24 font-bold text-gray-800 flex-shrink-0">Semi-Non-Trivial</span>
+                            <span class="text-gray-600">\( X \rightarrow Y \) where \( X \cap Y \neq \emptyset \) but \( Y \not\subseteq X \). <br><code class="text-xs bg-gray-100 px-1">Example: AB → BC</code></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Armstrong's Axioms -->
+        <section id="axioms" class="mb-12 max-w-5xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">2. Armstrong's Axioms</h2>
+            
+            <div class="bg-slate-900 text-slate-50 p-6 rounded-xl shadow-lg overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="text-slate-400 border-b border-slate-700">
+                            <th class="py-2">Rule Name</th>
+                            <th class="py-2">Logic</th>
+                            <th class="py-2">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm code-font">
+                        <tr>
+                            <td class="py-3 text-blue-300">Reflexivity</td>
+                            <td>If \( Y \subseteq X \), then \( X \rightarrow Y \)</td>
+                            <td>Trivial dependency rule.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 text-blue-300">Augmentation</td>
+                            <td>If \( X \rightarrow Y \), then \( XZ \rightarrow YZ \)</td>
+                            <td>Adding attributes to both sides.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 text-blue-300">Transitivity</td>
+                            <td>If \( X \rightarrow Y \) and \( Y \rightarrow Z \), then \( X \rightarrow Z \)</td>
+                            <td>Chain rule.</td>
+                        </tr>
+                        <tr class="border-t border-slate-700">
+                            <td class="py-3 text-green-300">Union</td>
+                            <td>If \( X \rightarrow Y \) and \( X \rightarrow Z \), then \( X \rightarrow YZ \)</td>
+                            <td>Derived rule.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 text-green-300">Decomposition</td>
+                            <td>If \( X \rightarrow YZ \), then \( X \rightarrow Y \) and \( X \rightarrow Z \)</td>
+                            <td>Derived rule.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 text-green-300">Pseudo-transitivity</td>
+                            <td>If \( X \rightarrow Y \) and \( WY \rightarrow Z \), then \( WX \rightarrow Z \)</td>
+                            <td>Derived rule.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Closure & Keys -->
+        <section id="closure" class="mb-12 max-w-5xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">3. Attribute Closure & Keys</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Concept -->
+                <div class="flex-1">
+                    <div class="mb-6">
+                        <h4 class="font-bold text-gray-800 mb-2">Attribute Closure \( [X]^+ \)</h4>
+                        <p class="text-sm text-gray-600 mb-2">The set of all attributes that can be functionally determined by \( X \) using the given set of FDs.</p>
+                        <div class="bg-yellow-50 border border-yellow-200 p-3 rounded text-sm">
+                            <strong>Algorithm:</strong> Start with \( X \). If \( A \rightarrow B \) exists and \( A \) is in the set, add \( B \) to the set. Repeat until no changes.
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-2">Types of Keys</h4>
+                        <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+                            <li><strong>Super Key (SK):</strong> Closure determines ALL attributes.</li>
+                            <li><strong>Candidate Key (CK):</strong> Minimal Super Key (No proper subset is a SK).</li>
+                            <li><strong>Primary Key (PK):</strong> One selected CK.</li>
+                            <li><strong>Prime Attribute:</strong> Part of ANY Candidate Key.</li>
+                            <li><strong>Non-Prime Attribute:</strong> Not part of ANY Candidate Key.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Visualization -->
+                <div class="flex-1 bg-white p-4 rounded-xl border shadow-sm flex flex-col items-center justify-center">
+                    <h4 class="text-sm font-semibold text-gray-500 mb-2">Key Hierarchy</h4>
+                    <div class="mermaid">
+                        graph TD
+                        SK[Super Key]
+                        CK[Candidate Key]
+                        PK[Primary Key]
+                        
+                        CK -->|Is Minimal| SK
+                        PK -->|Selected From| CK
+                        
+                        style SK fill:#e2e8f0,stroke:#333,stroke-width:2px
+                        style CK fill:#bfdbfe,stroke:#2563eb,stroke-width:2px
+                        style PK fill:#10b981,color:white,stroke:#059669
+                    </div>
+                    <div class="mt-4 text-xs text-center text-gray-500 code-font">
+                        Max Super Keys = \( 2^{(n - |CK|)} \) (approx)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Minimal Cover -->
+        <section id="minimal" class="mb-12 max-w-5xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">4. Minimal Cover (Canonical Cover)</h2>
+            <p class="text-gray-600 mb-4">A simplified set of FDs equivalent to the original set, stripped of redundancies.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 bg-white rounded-lg border-l-4 border-indigo-500 shadow-sm">
+                    <div class="text-indigo-500 font-bold text-xl mb-1">Step 1</div>
+                    <div class="font-semibold">Singleton RHS</div>
+                    <div class="text-sm text-gray-600 mt-1">Split \( A \rightarrow BC \) into \( A \rightarrow B \) and \( A \rightarrow C \).</div>
+                </div>
+                <div class="p-4 bg-white rounded-lg border-l-4 border-indigo-500 shadow-sm">
+                    <div class="text-indigo-500 font-bold text-xl mb-1">Step 2</div>
+                    <div class="font-semibold">Remove Extraneous LHS</div>
+                    <div class="text-sm text-gray-600 mt-1">If \( AB \rightarrow C \) and \( A \rightarrow C \), then \( B \) is extraneous in the first FD. Check closures!</div>
+                </div>
+                <div class="p-4 bg-white rounded-lg border-l-4 border-indigo-500 shadow-sm">
+                    <div class="text-indigo-500 font-bold text-xl mb-1">Step 3</div>
+                    <div class="font-semibold">Remove Redundant FDs</div>
+                    <div class="text-sm text-gray-600 mt-1">If an FD can be derived from the others, delete it.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Decomposition Properties -->
+        <section id="decomposition" class="mb-12 max-w-5xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">5. Decomposition Properties</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Lossless Join -->
+                <div class="concept-card bg-white p-6 rounded-xl border border-green-200">
+                    <h3 class="text-lg font-bold text-green-700 mb-2">Lossless Join</h3>
+                    <p class="text-sm text-gray-600 mb-4">Ensures no spurious tuples are generated when joining decomposed tables.</p>
+                    
+                    <div class="bg-green-50 p-3 rounded text-sm mb-3">
+                        <strong>Condition for \( R_1, R_2 \):</strong><br>
+                        \( R_1 \cap R_2 \) must be a <span class="font-bold">Super Key</span> of either \( R_1 \) or \( R_2 \).
+                    </div>
+                    <div class="text-xs text-gray-500 code-font">
+                        (R1 ∩ R2) → R1  OR  (R1 ∩ R2) → R2
+                    </div>
+                </div>
+
+                <!-- Dependency Preserving -->
+                <div class="concept-card bg-white p-6 rounded-xl border border-purple-200">
+                    <h3 class="text-lg font-bold text-purple-700 mb-2">Dependency Preservation</h3>
+                    <p class="text-sm text-gray-600 mb-4">Ensures all original FDs can be checked within the individual decomposed tables without joining.</p>
+                    
+                    <div class="bg-purple-50 p-3 rounded text-sm mb-3">
+                        <strong>Condition:</strong><br>
+                        \( (F_1 \cup F_2 \cup \dots \cup F_n)^+ \equiv F^+ \)
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        It's okay if transitive dependencies are lost across tables, but constraints must hold.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Normal Forms -->
+        <section id="normalforms" class="mb-12 max-w-5xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">6. Normal Forms</h2>
+            
+            <div class="mb-8 p-4 bg-white rounded-xl shadow-md border border-gray-100 flex justify-center">
+                <div class="mermaid">
+                    graph LR
+                    1NF[1NF] -->|Remove Partial Dep| 2NF[2NF]
+                    2NF -->|Remove Transitive Dep| 3NF[3NF]
+                    3NF -->|Strict Determinants| BCNF[BCNF]
+                    
+                    style 1NF fill:#fee2e2,stroke:#ef4444
+                    style 2NF fill:#ffedd5,stroke:#f97316
+                    style 3NF fill:#fef9c3,stroke:#eab308
+                    style BCNF fill:#dcfce7,stroke:#22c55e
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left border rounded-lg bg-white shadow-sm">
+                    <thead class="bg-gray-50 text-gray-700 uppercase font-bold">
+                        <tr>
+                            <th class="px-6 py-3">Form</th>
+                            <th class="px-6 py-3">Violation to check</th>
+                            <th class="px-6 py-3">Rule Logic</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 font-bold text-red-600">1NF</td>
+                            <td class="px-6 py-4">Multivalued Attributes</td>
+                            <td class="px-6 py-4">All attributes must be atomic.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-bold text-orange-600">2NF</td>
+                            <td class="px-6 py-4">Partial Dependency</td>
+                            <td class="px-6 py-4">
+                                No \( \text{Proper Subset of CK} \rightarrow \text{Non-Prime} \).
+                                <br><span class="text-xs text-gray-500">Must be in 1NF.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-bold text-yellow-600">3NF</td>
+                            <td class="px-6 py-4">Transitive Dependency</td>
+                            <td class="px-6 py-4">
+                                For \( X \rightarrow Y \):
+                                <br>1. \( X \) is Super Key <strong>OR</strong>
+                                <br>2. \( Y \) is Prime Attribute.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-bold text-green-600">BCNF</td>
+                            <td class="px-6 py-4">Non-Super Key Determinant</td>
+                            <td class="px-6 py-4">
+                                For \( X \rightarrow Y \) (Non-trivial):
+                                <br>1. \( X \) <strong>MUST</strong> be a Super Key.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Algorithms -->
+        <section id="algorithms" class="mb-20 max-w-5xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">7. Decomposition Strategies</h2>
+
+            <div class="space-y-6">
+                <!-- 3NF Synthesis -->
+                <details class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 group" open>
+                    <summary class="font-bold text-lg cursor-pointer flex justify-between items-center text-gray-800">
+                        3NF Decomposition Algorithm (Bernstein's Synthesis)
+                        <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-700 space-y-2 pl-4 border-l-2 border-yellow-400">
+                        <p><strong>Goal:</strong> Lossless Join + Dependency Preservation.</p>
+                        <ol class="list-decimal list-inside space-y-1">
+                            <li>Find the <strong>Minimal Cover</strong> of \( F \).</li>
+                            <li>For each FD \( X \rightarrow Y \) in minimal cover, create a table \( R_i(X, Y) \).</li>
+                            <li>If attributes in a Candidate Key are not yet in any table, create a table containing the Candidate Key.</li>
+                            <li>(Optional) Merge tables where one table's relation is a subset of another.</li>
+                        </ol>
+                    </div>
+                </details>
+
+                <!-- BCNF Decomposition -->
+                <details class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 group">
+                    <summary class="font-bold text-lg cursor-pointer flex justify-between items-center text-gray-800">
+                        BCNF Decomposition Algorithm
+                        <span class="text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div class="mt-4 text-sm text-gray-700 space-y-2 pl-4 border-l-2 border-green-400">
+                        <p><strong>Goal:</strong> Lossless Join (Dependency Preservation NOT guaranteed).</p>
+                        <div class="mermaid">
+                            graph TD
+                            Start[Check if R is in BCNF]
+                            Check{Violation X -> Y?}
+                            Yes[Decompose R] --> Sub1[R1 = X U Y]
+                            Yes --> Sub2[R2 = R - Y]
+                            Sub1 --> Recurse1[Recursive Check]
+                            Sub2 --> Recurse2[Recursive Check]
+                            No[Stop]
+                            
+                            Start --> Check
+                            Check -->|Yes| Yes
+                            Check -->|No| No
+                        </div>
+                        <p class="mt-2">1. Identify a violation \( X \rightarrow Y \) where \( X \) is not a Super Key.</p>
+                        <p>2. Decompose \( R \) into \( R_1(X \cup Y) \) and \( R_2(Attributes(R) - Y) \).</p>
+                        <p>3. Repeat for resulting tables until all are BCNF.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-400 text-sm pb-8">
+            Generated from Lecture Notes • Computer Science Dept
+        </footer>
+
+    </main>
+
+    <script>
+        // Setup Sticky Navigation highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

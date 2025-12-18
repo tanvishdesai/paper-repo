@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequential Circuits: Digital Logic Master Sheet</title>
+    <!-- MathJax for Equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #4f46e5;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            height: 100vh;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            padding: 2rem 1rem;
+            overflow-y: auto;
+            display: none; /* Hidden on mobile by default */
+        }
+
+        nav ul { list-style: none; padding: 0; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        nav a:hover, nav a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 { color: #0f172a; margin-top: 2rem; }
+        h1 { border-bottom: 3px solid var(--primary); padding-bottom: 0.5rem; }
+        h2 { border-left: 4px solid var(--secondary); padding-left: 1rem; background: #eef2ff; padding: 0.5rem 1rem; border-radius: 0 4px 4px 0; }
+
+        /* Cards & Sections */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Tables */
+        .table-container { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        th { background-color: #f1f5f9; font-weight: 600; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+
+        /* Logic Gates / Truth Tables special styling */
+        .tt-input { background-color: #ecfdf5; color: #065f46; font-weight: bold; } /* Inputs Greenish */
+        .tt-output { background-color: #fffbeb; color: #92400e; font-weight: bold; } /* Outputs Yellowish */
+        .state-invalid { color: #dc2626; font-weight: bold; }
+        .state-toggle { color: #2563eb; font-weight: bold; }
+
+        /* Comparison Grid */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+
+        /* Visualizations */
+        .diagram {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* Details/Summary */
+        details {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+        }
+        summary { cursor: pointer; font-weight: 600; color: var(--secondary); }
+
+        /* Utility */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .tag-async { background: #fee2e2; color: #991b1b; }
+        .tag-sync { background: #dcfce7; color: #166534; }
+
+        @media (min-width: 1024px) { nav { display: block; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h3>Sequential Circuits</h3>
+    <ul>
+        <li><a href="#overview">Overview & Basics</a></li>
+        <li><a href="#latches">Latches</a></li>
+        <li><a href="#flipflops">The 4 Flip-Flops</a></li>
+        <li><a href="#racecondition">Race Around & Master-Slave</a></li>
+        <li><a href="#registers">Registers</a></li>
+        <li><a href="#counters-async">Asynchronous Counters</a></li>
+        <li><a href="#counters-sync">Synchronous Counters</a></li>
+        <li><a href="#special-counters">Ring & Johnson</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="overview">
+        <h1>CS & IT Engineering: Sequential Circuits</h1>
+        <p>A concise master sheet derived from Digital Logic Lecture Notes. Covers Latches, Flip-Flops, Registers, and Counters.</p>
+        
+        <div class="card">
+            <h3>Sequential vs. Combinational</h3>
+            <div class="grid-2">
+                <div>
+                    <strong>Combinational Circuit</strong><br>
+                    Output depends only on <em>present inputs</em>.<br>
+                    No Memory. No Feedback.<br>
+                    <em>Ex: Adder, Mux, Decoder.</em>
+                </div>
+                <div>
+                    <strong>Sequential Circuit</strong><br>
+                    Output depends on <em>present inputs</em> AND <em>past outputs</em>.<br>
+                    Has Memory & Feedback.<br>
+                    <em>Ex: Flip-Flop, Counter, Register.</em>
+                </div>
+            </div>
+            <div class="diagram">
+                <div class="mermaid">
+                    graph LR
+                    I[Inputs] --> C[Combinational Logic]
+                    C --> O[Outputs]
+                    O --> M[Memory Element]
+                    M -->|Feedback| C
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="latches">
+        <h2>1. Latches</h2>
+        <p>Basic memory elements. <strong>Level Triggered</strong> (Active High or Low). Output changes as long as the clock/enable is active.</p>
+        
+        <div class="grid-2">
+            <div class="card">
+                <h4>SR Latch (NOR Gate)</h4>
+                <p>Active High Inputs</p>
+                <table>
+                    <tr><th class="tt-input">S</th><th class="tt-input">R</th><th class="tt-output">\(Q_{n+1}\)</th><th>State</th></tr>
+                    <tr><td>0</td><td>0</td><td>\(Q_n\)</td><td>Hold</td></tr>
+                    <tr><td>0</td><td>1</td><td>0</td><td>Reset</td></tr>
+                    <tr><td>1</td><td>0</td><td>1</td><td>Set</td></tr>
+                    <tr><td>1</td><td>1</td><td class="state-invalid">Invalid</td><td>Forbidden</td></tr>
+                </table>
+            </div>
+            <div class="card">
+                <h4>SR Latch (NAND Gate)</h4>
+                <p>Active Low Inputs (Inverted behavior usually used)</p>
+                <p>If Inputs are \(\bar{S}\bar{R}\):</p>
+                <table>
+                    <tr><th class="tt-input">\(\bar{S}\)</th><th class="tt-input">\(\bar{R}\)</th><th class="tt-output">\(Q_{n+1}\)</th><th>State</th></tr>
+                    <tr><td>1</td><td>1</td><td>\(Q_n\)</td><td>Hold</td></tr>
+                    <tr><td>1</td><td>0</td><td>0</td><td>Reset</td></tr>
+                    <tr><td>0</td><td>1</td><td>1</td><td>Set</td></tr>
+                    <tr><td>0</td><td>0</td><td class="state-invalid">Invalid</td><td>Forbidden</td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="flipflops">
+        <h2>2. Flip-Flops (The Core 4)</h2>
+        <p><strong>Edge Triggered</strong> memory elements. Transition occurs only at the rising or falling edge of the clock.</p>
+
+        <div class="card">
+            <h3>Cheat Sheet: Flip-Flop Summary</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Symbol</th>
+                            <th>Characteristic Equation</th>
+                            <th>Excitation Table</th>
+                            <th>Key Feature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>SR</strong><br>(Set-Reset)</td>
+                            <td>Inputs: S, R<br>Output: Q, \(\bar{Q}\)</td>
+                            <td>\(Q_{n+1} = S + \bar{R}Q_n\)</td>
+                            <td>
+                                0 \(\to\) 0: S=0, R=X<br>
+                                0 \(\to\) 1: S=1, R=0<br>
+                                1 \(\to\) 0: S=0, R=1<br>
+                                1 \(\to\) 1: S=X, R=0
+                            </td>
+                            <td>Basic storage. \(S=R=1\) is <span class="state-invalid">Invalid</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>JK</strong><br>(Universal)</td>
+                            <td>Inputs: J, K<br>Output: Q, \(\bar{Q}\)</td>
+                            <td>\(Q_{n+1} = J\bar{Q}_n + \bar{K}Q_n\)</td>
+                            <td>
+                                0 \(\to\) 0: J=0, K=X<br>
+                                0 \(\to\) 1: J=1, K=X<br>
+                                1 \(\to\) 0: J=X, K=1<br>
+                                1 \(\to\) 1: J=X, K=0
+                            </td>
+                            <td>Eliminates invalid state.<br>\(J=K=1\) creates <span class="state-toggle">Toggle</span>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D</strong><br>(Delay)</td>
+                            <td>Input: D</td>
+                            <td>\(Q_{n+1} = D\)</td>
+                            <td>
+                                0 \(\to\) 0: D=0<br>
+                                0 \(\to\) 1: D=1<br>
+                                1 \(\to\) 0: D=0<br>
+                                1 \(\to\) 1: D=1
+                            </td>
+                            <td>Transparent. Used in Registers. \(S=R\) is forbidden, J=K is used.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T</strong><br>(Toggle)</td>
+                            <td>Input: T</td>
+                            <td>\(Q_{n+1} = T \oplus Q_n\)</td>
+                            <td>
+                                0 \(\to\) 0: T=0<br>
+                                0 \(\to\) 1: T=1<br>
+                                1 \(\to\) 0: T=1<br>
+                                1 \(\to\) 1: T=0
+                            </td>
+                            <td>Used in Counters. T=1 toggles output.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="racecondition">
+        <h2>3. The Race Around Condition</h2>
+        <div class="card">
+            <div class="grid-2">
+                <div>
+                    <h3>The Problem</h3>
+                    <p>Occurs in <strong>Level Triggered JK Flip-Flops</strong> when \(J=K=1\) (Toggle Mode).</p>
+                    <p>If the Clock Pulse Width (\(T_{pw}\)) is greater than the propagation delay (\(t_{pd}\)), the output toggles multiple times within a single clock pulse.</p>
+                    <p class="state-invalid">Condition causing Race: \(T_{pw} > t_{pd}\)</p>
+                </div>
+                <div>
+                    <h3>The Solution</h3>
+                    <ol>
+                        <li><strong>Edge Triggering:</strong> Reduces the sensitive time to an instant.</li>
+                        <li><strong>Master-Slave Flip-Flop:</strong>
+                            <ul>
+                                <li>Two FFs cascaded (Master = Level, Slave = Level inverted).</li>
+                                <li>Master samples input on High Clock.</li>
+                                <li>Slave updates output on Low Clock.</li>
+                                <li>Output changes only once per cycle.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="registers">
+        <h2>4. Registers</h2>
+        <p>Groups of Flip-Flops (usually D-FF) used to store \(N\) bits of data. \(N\) bits = \(N\) Flip-Flops.</p>
+        
+        <div class="grid-4">
+            <div class="card">
+                <h4>SISO</h4>
+                <small>Serial In, Serial Out</small>
+                <div class="mermaid">graph LR; I[In] --> FF1 --> FF2 --> FF3 --> O[Out];</div>
+                <p><strong>Speed:</strong> Slowest</p>
+                <p>Store: \(N\) clocks</p>
+                <p>Retrieve: \(N-1\) clocks</p>
+            </div>
+            <div class="card">
+                <h4>SIPO</h4>
+                <small>Serial In, Parallel Out</small>
+                <div class="mermaid">graph LR; I[In] --> FF1; FF1 --> FF2; FF2 --> FF3; FF1-->O1; FF2-->O2; FF3-->O3;</div>
+                <p><strong>App:</strong> Serial to Parallel Conv.</p>
+                <p>Store: \(N\) clocks</p>
+                <p>Retrieve: 0 clocks</p>
+            </div>
+            <div class="card">
+                <h4>PISO</h4>
+                <small>Parallel In, Serial Out</small>
+                <p>Uses Load/Shift control.</p>
+                <p><strong>App:</strong> Parallel to Serial Conv.</p>
+                <p>Store: 1 clock</p>
+                <p>Retrieve: \(N-1\) clocks</p>
+            </div>
+            <div class="card">
+                <h4>PIPO</h4>
+                <small>Parallel In, Parallel Out</small>
+                <p>Fastest register.</p>
+                <p><strong>App:</strong> Buffer storage.</p>
+                <p>Store: 1 clock</p>
+                <p>Retrieve: 0 clocks</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="counters-async">
+        <h2>5. Asynchronous (Ripple) Counters</h2>
+        <div class="card">
+            <span class="tag tag-async">Asynchronous</span>
+            <p>The external clock is applied <strong>only</strong> to the first Flip-Flop (LSB). The output of one FF acts as the clock for the next.</p>
+            
+            <div class="grid-2">
+                <div>
+                    <h4>Configuration</h4>
+                    <ul>
+                        <li><strong>Up Counter:</strong> Connect \(\bar{Q}\) to next CLK (for -ve edge T-FF).</li>
+                        <li><strong>Down Counter:</strong> Connect \(Q\) to next CLK (for -ve edge T-FF).</li>
+                    </ul>
+                    <h4>Timing Constraints</h4>
+                    <p>Slow due to accumulated propagation delay.</p>
+                    <p>$$T_{clk} \ge N \times t_{pd}$$</p>
+                    <p>$$f_{max} = \frac{1}{N \times t_{pd}}$$</p>
+                </div>
+                <div class="diagram">
+                    <div class="mermaid">
+                        graph LR
+                        C[Clock] --> FF0
+                        FF0[FF 0] -->|Q| FF1[FF 1]
+                        FF1 -->|Q| FF2[FF 2]
+                        style C fill:#f9f,stroke:#333
+                    </div>
+                    <small>Logic for Down Counter (Negative Edge Trig)</small>
+                </div>
+            </div>
+
+            <h4>Modulo (MOD) Counters</h4>
+            <p>To create a MOD-\(X\) counter (where \(X < 2^n\)):</p>
+            <ol>
+                <li>Find number of FFs: \(2^n \ge X\).</li>
+                <li>Design a standard ripple counter.</li>
+                <li>Use a <strong>Clear (CLR)</strong> or Reset logic. When the counter reaches state \(X\), triggers a reset to 0.</li>
+                <li>Example: MOD-10 (BCD) counts 0-9. On state 10 (1010), NAND gate triggers CLR.</li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="counters-sync">
+        <h2>6. Synchronous Counters</h2>
+        <div class="card">
+            <span class="tag tag-sync">Synchronous</span>
+            <p>All Flip-Flops receive the <strong>same clock pulse</strong> simultaneously. Faster, but more complex hardware.</p>
+            
+            <h3>Design Steps</h3>
+            <ol>
+                <li>Determine number of Flip-Flops needed.</li>
+                <li>Draw the <strong>State Diagram</strong> (e.g., \(0 \to 1 \to 2 \to 0\)).</li>
+                <li>Create the <strong>Excitation Table</strong> (Present State, Next State, Required Inputs).</li>
+                <li>Solve <strong>K-Maps</strong> for Flip-Flop inputs (e.g., \(J_A, K_A, J_B, K_B\)).</li>
+                <li>Draw the circuit diagram.</li>
+            </ol>
+
+            <div class="table-container">
+                <h4>Delay Formulas</h4>
+                <table>
+                    <tr>
+                        <th>Counter Type</th>
+                        <th>Max Frequency Formula</th>
+                    </tr>
+                    <tr>
+                        <td>Ripple (Async)</td>
+                        <td>\(f \le \frac{1}{n \times t_{pd}}\)</td>
+                    </tr>
+                    <tr>
+                        <td>Synchronous</td>
+                        <td>\(f \le \frac{1}{t_{pd(FF)} + t_{pd(Gate)}}\)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="special-counters">
+        <h2>7. Special Shift Register Counters</h2>
+        <p>Synchronous counters built using Shift Registers with feedback.</p>
+
+        <div class="grid-2">
+            <div class="card">
+                <h3>Ring Counter</h3>
+                <div class="mermaid">
+                    graph LR
+                    FF1 --> FF2 --> FF3 --> FF4
+                    FF4 -->|Feedback Q| FF1
+                </div>
+                <ul>
+                    <li><strong>Feedback:</strong> Output \(Q\) of last stage to Input of first.</li>
+                    <li><strong>MOD Number:</strong> \(N\) (where N is number of FFs).</li>
+                    <li><strong>States:</strong> Used: \(N\), Unused: \(2^N - N\).</li>
+                    <li><strong>Self-Starting?</strong> No. Needs manual preset (e.g., 1000).</li>
+                    <li><strong>Sequence:</strong> 1000 \(\to\) 0100 \(\to\) 0010 \(\to\) 0001.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Johnson Counter (Twisted Ring)</h3>
+                <div class="mermaid">
+                    graph LR
+                    FF1 --> FF2 --> FF3 --> FF4
+                    FF4 -->|Feedback Q'| FF1
+                </div>
+                <ul>
+                    <li><strong>Feedback:</strong> Output \(\bar{Q}\) of last stage to Input of first.</li>
+                    <li><strong>MOD Number:</strong> \(2N\).</li>
+                    <li><strong>States:</strong> Used: \(2N\), Unused: \(2^N - 2N\).</li>
+                    <li><strong>Self-Starting?</strong> Yes (usually recovers).</li>
+                    <li><strong>Sequence:</strong> 0000 \(\to\) 1000 \(\to\) 1100 \(\to\) 1110 \(\to\) 1111 \(\to\) 0111...</li>
+                    <li>Known as "Walking Counter" or "Moebius Counter".</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p style="text-align: center; margin-top: 3rem; color: #64748b;">
+            Synthesized from Digital Logic Lecture Notes | CS & IT Engineering
+        </p>
+    </footer>
+</main>
+
+</body>
+</html>

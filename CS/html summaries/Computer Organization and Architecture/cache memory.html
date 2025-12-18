@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Cheat Sheet: Cache Memory Organization</title>
+    
+    <!-- Mermaid JS for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #06b6d4;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --border: #e5e7eb;
+            --code-bg: #1e1e1e;
+            --warning-bg: #fffbeb;
+            --warning-text: #92400e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        nav h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        nav ul { list-style: none; }
+        
+        nav li { margin-bottom: 0.5rem; }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        header { margin-bottom: 3rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem; }
+        h1 { font-size: 2.5rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.02em; }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 0.5rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary-dark);
+        }
+
+        h3 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem; }
+
+        /* Cards & Containers */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        /* Key Concepts */
+        .concept-tag {
+            display: inline-block;
+            background: #dbeafe;
+            color: var(--primary-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Formulas */
+        .formula-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: #e5e5e5;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th { background-color: #f9fafb; font-weight: 600; }
+
+        /* Interactive Details */
+        details {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            background: #f9fafb;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        summary::after { content: "+"; font-size: 1.25rem; }
+        details[open] summary::after { content: "-"; }
+        
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { grid-template-columns: 1fr; }
+            nav { display: none; } /* Hide sidebar on mobile for simplicity */
+            main { padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        .alert {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #fcd34d;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav>
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#intro">Memory Hierarchy & Locality</a></li>
+            <li><a href="#amat">Performance (AMAT)</a></li>
+            <li><a href="#mapping">Mapping Techniques</a></li>
+            <li><a href="#direct">1. Direct Mapping</a></li>
+            <li><a href="#set-assoc">2. Set Associative</a></li>
+            <li><a href="#fully-assoc">3. Fully Associative</a></li>
+            <li><a href="#misses">Misses & Replacement</a></li>
+            <li><a href="#multilevel">Multilevel Caches</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <header>
+            <h1>Cache Memory Architecture</h1>
+            <div class="subtitle">Computer Organization & Architecture | Comprehensive Notes</div>
+        </header>
+
+        <!-- Section 1: Introduction -->
+        <section id="intro">
+            <h2>1. Memory Hierarchy & Locality</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <span class="concept-tag">The Hierarchy</span>
+                    <p>The system organizes memory into levels to minimize access time while balancing cost and capacity. The CPU always looks at the fastest memory first.</p>
+                    <div class="formula-box">
+                        Goal: Simulate the <b>speed</b> of the fastest memory with the <b>size</b> of the largest memory.
+                    </div>
+                    <div class="mermaid">
+                        graph TD
+                        A[CPU Registers] --> B[Cache Memory]
+                        B --> C[Main Memory]
+                        C --> D[Secondary Memory]
+                        style A fill:#ffcccc,stroke:#333
+                        style B fill:#ffe5cc,stroke:#333
+                        style C fill:#ffffcc,stroke:#333
+                        style D fill:#e5ffcc,stroke:#333
+                    </div>
+                </div>
+                <div class="card">
+                    <span class="concept-tag">Locality of Reference</span>
+                    <p>Cache works because programs do not access memory randomly. They exhibit predictable patterns.</p>
+                    <br>
+                    <ul>
+                        <li><b>Temporal Locality:</b> If a word is referenced, it (or its neighbors) will likely be referenced again <i>soon</i> (e.g., Loops, Variables).</li>
+                        <li><b>Spatial Locality:</b> If a word is referenced, <i>adjacent</i> words will likely be referenced soon (e.g., Arrays, Sequential Code).</li>
+                    </ul>
+                    <div class="alert">
+                        <strong>Note:</strong> When a Cache Miss occurs, we bring an entire <b>BLOCK</b> (not just one word) from Main Memory to satisfy Spatial Locality.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: AMAT -->
+        <section id="amat">
+            <h2>2. Average Memory Access Time (AMAT)</h2>
+            <div class="card">
+                <p>Performance is inversely proportional to Execution Time. We measure memory performance via AMAT ($T_{avg}$).</p>
+                
+                <h3>Simultaneous Access</h3>
+                <p>CPU sends requests to L1 and Lower Levels in parallel.</p>
+                <div class="formula-box">
+                    $$ T_{avg} = H \cdot T_c + (1-H) \cdot T_m $$
+                </div>
+                
+                <h3>Hierarchical Access</h3>
+                <p>CPU checks L1 first. If miss, goes to L2/MM, then brings data to L1, then to CPU.</p>
+                <div class="formula-box">
+                    $$ T_{avg} = T_c + (1-H) \cdot T_m $$
+                    <small>Where \(T_c\) is Cache Access Time and \(T_m\) is Miss Penalty.</small>
+                </div>
+
+                <table style="margin-top: 1rem;">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>H (Hit Ratio)</td><td># Hits / Total Accesses</td></tr>
+                        <tr><td>1-H (Miss Ratio)</td><td># Misses / Total Accesses</td></tr>
+                        <tr><td>Miss Penalty</td><td>Time to fetch block from lower level + load to cache</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 3: Mapping Basics -->
+        <section id="mapping">
+            <h2>3. Mapping Concepts & Address Splitting</h2>
+            <p>How do we translate a Main Memory (MM) address to a Cache location? The Physical Address is split into fields.</p>
+            
+            <div class="card">
+                <h3>General Address Structure</h3>
+                <p>Physical Address bits = \(\log_2(\text{Main Memory Size})\)</p>
+                <div class="formula-box" style="text-align: center;">
+                    [ TAG | SET/LINE INDEX | BLOCK/WORD OFFSET ]
+                </div>
+                <div class="mermaid">
+                    graph LR
+                    PA[Physical Address] --> T[Tag: Unique ID for Block]
+                    PA --> I[Index: Which Cache Line?]
+                    PA --> O[Offset: Which Word in Block?]
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Direct Mapping -->
+        <section id="direct">
+            <h2>4. Direct Mapping</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <span class="concept-tag">The Logic</span>
+                    <p>Each block of Main Memory maps to exactly <b>one</b> specific line in the Cache.</p>
+                    <div class="formula-box">
+                        $$ i = k \pmod N $$
+                    </div>
+                    <ul>
+                        <li>\(i\): Cache Line Number</li>
+                        <li>\(k\): Main Memory Block Number</li>
+                        <li>\(N\): Total Number of Cache Lines</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span class="concept-tag">Address Interpretation</span>
+                    <p><b>Example:</b> Cache 512KB, Block 64KB, MM 512MB</p>
+                    <ul>
+                        <li><b>Offset:</b> \(\log_2(64\text{KB}) = 16\) bits</li>
+                        <li><b># Lines:</b> \(512\text{KB} / 64\text{KB} = 8\) lines</li>
+                        <li><b>Line Index:</b> \(\log_2(8) = 3\) bits</li>
+                        <li><b>Tag:</b> Remaining bits.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Visualization: K mod N</h3>
+                <div class="mermaid">
+                    graph LR
+                    MM[Main Memory Blocks]
+                    C[Cache Lines]
+                    
+                    subgraph Mapping
+                    B0[Block 0] --> L0[Line 0]
+                    B1[Block 1] --> L1[Line 1]
+                    B2[Block 2] --> L2[Line 2]
+                    B3[Block 3] --> L3[Line 3]
+                    B4[Block 4] --> L0
+                    B5[Block 5] --> L1
+                    end
+                    
+                    style B0 fill:#e1f5fe
+                    style B4 fill:#e1f5fe
+                    style L0 fill:#ffe0b2
+                </div>
+                <p class="alert"><b>Contention:</b> Block 0 and Block 4 fight for Line 0. This causes <b>Conflict Misses</b>.</p>
+            </div>
+        </section>
+
+        <!-- Section 5: Set Associative -->
+        <section id="set-assoc">
+            <h2>5. Set Associative Mapping</h2>
+            <p>A compromise between Direct and Fully Associative. Group cache lines into "Sets".</p>
+            
+            <div class="card">
+                <div class="grid-2">
+                    <div>
+                        <h3>K-Way Set Associative</h3>
+                        <p>Each MM block maps to a specific <b>Set</b>, but can go into <b>any Line</b> within that Set.</p>
+                        <div class="formula-box">
+                            $$ \text{Set } i = k \pmod S $$
+                            $$ S = \frac{\text{Total Cache Lines}}{K} $$
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Physical Address</h3>
+                        <div class="formula-box" style="text-align: center;">
+                            [ TAG | SET INDEX | OFFSET ]
+                        </div>
+                        <p><b>Set Index bits:</b> \(\log_2(\text{Number of Sets})\)</p>
+                    </div>
+                </div>
+            </div>
+
+            <details>
+                <summary>Example Calculation: 2-Way Set Associative</summary>
+                <div class="details-content">
+                    <p><b>Given:</b> Cache 16 Lines, 2-Way.</p>
+                    <ol>
+                        <li><b># Sets:</b> \(16 / 2 = 8\) Sets.</li>
+                        <li><b>Mapping:</b> Block \(k\) maps to Set \(k \pmod 8\).</li>
+                        <li>Inside that set, the block can occupy either of the 2 ways (slots).</li>
+                    </ol>
+                    <p><i>Note: Requires Replacement Algorithm (like LRU) when the set is full.</i></p>
+                </div>
+            </details>
+        </section>
+
+        <!-- Section 6: Fully Associative -->
+        <section id="fully-assoc">
+            <h2>6. Fully Associative Mapping</h2>
+            <div class="card">
+                <div class="grid-2">
+                    <div>
+                        <span class="concept-tag">The Logic</span>
+                        <p>No strict mapping function. Any MM block can go into <b>ANY</b> Cache Line.</p>
+                        <p>Physical Address only has: <b>[ TAG | OFFSET ]</b>.</p>
+                    </div>
+                    <div>
+                        <span class="concept-tag">Hardware Cost</span>
+                        <p>Requires a comparator for <b>every</b> cache line to check Tags in parallel.</p>
+                        <p><b>Expensive but 0 Conflict Misses.</b></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Misses & Replacement -->
+        <section id="misses">
+            <h2>7. Misses & Replacement Policies</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>The 3 C's (Types of Misses)</h3>
+                    <ul>
+                        <li><b>Compulsory (Cold):</b> First access to a block. Cannot be avoided (unless pre-fetching). Reduced by larger Block Size.</li>
+                        <li><b>Capacity:</b> Cache is full. Reduced by increasing Cache Size.</li>
+                        <li><b>Conflict:</b> Mapping limitation (e.g., in Direct Mapping). Reduced by increasing Associativity.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Replacement Algorithms</h3>
+                    <p>Used in Set/Fully Associative when a Set/Cache is full.</p>
+                    <ul>
+                        <li><b>FIFO:</b> Replace the oldest block brought in.</li>
+                        <li><b>LRU (Least Recently Used):</b> Replace the block unused for the longest time. (Exploits temporal locality).</li>
+                        <li><b>Random:</b> Random selection.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Multilevel Caches -->
+        <section id="multilevel">
+            <h2>8. Multilevel Caches (L1, L2, L3)</h2>
+            <p>Modern CPUs use multiple levels to balance speed and size.</p>
+            
+            <div class="card">
+                <div class="formula-box">
+                    $$ T_{avg} = T_{L1} + M_{L1} \times T_{L2} + M_{L1} \times M_{L2} \times T_{MM} $$
+                </div>
+                <p>Where \(M_{Lx}\) is the Miss Rate of that level.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Inclusion Property</h3>
+                    <p>\(L1 \subset L2\). All data in L1 must also be in L2.</p>
+                    <p><b>Pros:</b> Easier cache coherence.</p>
+                </div>
+                <div class="card">
+                    <h3>Exclusion Property</h3>
+                    <p>\(L1 \cap L2 = \emptyset\). Data is in L1 OR L2, never both.</p>
+                    <p><b>Pros:</b> Maximizes total usable capacity.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Optional: MathJax configuration if needed customization
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compiler Design: Intermediate Code & Optimization Cheat Sheet</title>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #334155;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; display: flex; }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            display: none;
+        }
+        @media (min-width: 1024px) { nav { display: block; } }
+
+        nav h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 1rem; }
+        nav ul { list-style: none; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a { text-decoration: none; color: var(--text); font-size: 0.95rem; display: block; padding: 0.5rem; border-radius: 6px; transition: all 0.2s; }
+        nav a:hover { background: #eff6ff; color: var(--primary); }
+
+        /* Main Content */
+        main { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; }
+        
+        header { margin-bottom: 3rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem; }
+        header h1 { font-size: 2.5rem; color: var(--secondary); font-weight: 800; margin-bottom: 0.5rem; }
+        header p { color: var(--text); font-size: 1.1rem; opacity: 0.8; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+        h2 { font-size: 1.8rem; color: var(--secondary); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        h2::before { content: '#'; color: var(--primary); opacity: 0.5; }
+        h3 { font-size: 1.4rem; color: var(--primary-dark); margin: 1.5rem 0 1rem; }
+        h4 { font-size: 1.1rem; font-weight: 700; margin-top: 1rem; }
+
+        /* Cards & Visuals */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        .card.highlight { border-left: 5px solid var(--accent); }
+        
+        /* Tables */
+        .table-container { overflow-x: auto; margin: 1rem 0; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; color: var(--secondary); font-weight: 600; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Code & Pre */
+        pre { background: var(--code-bg); color: var(--code-text); padding: 1.5rem; border-radius: 8px; overflow-x: auto; font-family: 'Fira Code', monospace; margin: 1rem 0; }
+        code { font-family: 'Fira Code', monospace; background: #e2e8f0; color: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+        pre code { background: transparent; color: inherit; padding: 0; }
+
+        /* Diagrams */
+        .diagram { background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border); margin: 1rem 0; display: flex; justify-content: center; }
+
+        /* Collapsibles */
+        details { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 1rem; margin-bottom: 1rem; }
+        summary { cursor: pointer; font-weight: 600; padding: 0.5rem 0; color: var(--primary); }
+        details[open] summary { border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+
+        /* Utility classes */
+        .tag { display: inline-block; background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-right: 0.5rem; }
+        .alert { background: #fef3c7; border: 1px solid #fcd34d; color: #92400e; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .math-block { background: var(--surface); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary); margin: 1rem 0; }
+
+        /* Comparison columns */
+        .comparison { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .col { flex: 1; min-width: 300px; }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h3>Compiler Design</h3>
+        <ul>
+            <li><a href="#intro">Overview & Pipeline</a></li>
+            <li><a href="#icg">Intermediate Code (ICG)</a></li>
+            <li><a href="#implementation">3AC Implementation</a></li>
+            <li><a href="#cfg">Control Flow Graphs</a></li>
+            <li><a href="#dataflow">Data Flow Analysis</a></li>
+            <li><a href="#optimization">Code Optimization</a></li>
+            <li><a href="#runtime">Runtime Environment</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <span class="tag">CS & IT Engineering</span>
+            <h1>Intermediate Code & Optimization</h1>
+            <p>Comprehensive guide to Three Address Code, Data Flow Analysis, and Code Optimization techniques.</p>
+        </header>
+
+        <!-- SECTION 1: OVERVIEW -->
+        <section id="intro">
+            <h2>1. Compiler Pipeline & Overview</h2>
+            <div class="card">
+                <p>Intermediate Code Generation (ICG) is the bridge between the high-level front end (Analysis) and the low-level back end (Synthesis). It breaks the compiler into a <strong>Two-Pass</strong> structure.</p>
+                <div class="diagram">
+                    <pre class="mermaid">
+                    graph LR
+                        A[Source Code] --> B(Analysis Phase<br/>Lexical/Syntax/Semantic)
+                        B --> C[Intermediate Code Generator]
+                        C -->|Platform Independent| D[Code Optimizer]
+                        D --> E[Target Code Generator]
+                        E --> F[Assembly/Machine Code]
+                        style C fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+                        style D fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+                    </pre>
+                </div>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Benefits of IR</h4>
+                        <ul>
+                            <li><strong>Retargeting:</strong> Easy to support new backends (M machines).</li>
+                            <li><strong>Optimization:</strong> Machine-independent optimizations are easier on IR.</li>
+                            <li><strong>Simplicity:</strong> Breaks the complex translation process.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: INTERMEDIATE CODE -->
+        <section id="icg">
+            <h2>2. Intermediate Representations (IR)</h2>
+            <p>IR can be classified into Linear forms (sequential instructions) and Non-Linear forms (graph-based).</p>
+
+            <h3>Linear Form: Three Address Code (3AC)</h3>
+            <p>Instructions have at most 3 operands: <code>result = operand1 op operand2</code>.</p>
+            
+            <div class="comparison">
+                <div class="col">
+                    <div class="card">
+                        <h4>Standard 3AC</h4>
+                        <p>General form with temporary variables.</p>
+                        <pre>
+x = a + b * c
+
+t1 = b * c
+x = a + t1
+                        </pre>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card highlight">
+                        <h4>Static Single Assignment (SSA)</h4>
+                        <p>Every variable is assigned exactly once. Essential for optimization.</p>
+                        <pre>
+p = a + b
+p = p * c  // Reassignment
+
+// SSA Form:
+p1 = a + b
+p2 = p1 * c
+                        </pre>
+                        <small>Uses <strong>Φ (Phi) functions</strong> for control flow merges.</small>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Non-Linear Form: DAG vs. Syntax Tree</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Syntax Tree</h4>
+                    <p>Faithful representation of the grammar. Redundant sub-expressions exist.</p>
+                </div>
+                <div class="card">
+                    <h4>Directed Acyclic Graph (DAG)</h4>
+                    <p><strong>Eliminates common sub-expressions</strong>. Nodes with same values are reused.</p>
+                    <ul>
+                        <li>Minimizes number of nodes/variables.</li>
+                        <li>Used for basic block optimization.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="diagram">
+                <p><strong>Example:</strong> <code>x = (a+b) * (a+b)</code></p>
+                <pre class="mermaid">
+                graph TD
+                    subgraph AST
+                    op1[*] --> plus1[+]
+                    op1 --> plus2[+]
+                    plus1 --> a1[a]
+                    plus1 --> b1[b]
+                    plus2 --> a2[a]
+                    plus2 --> b2[b]
+                    end
+                    subgraph DAG
+                    opD[*] --> plusD[+]
+                    plusD --> plusD
+                    plusD --> aD[a]
+                    plusD --> bD[b]
+                    end
+                </pre>
+            </div>
+        </section>
+
+        <!-- SECTION 3: IMPLEMENTATION -->
+        <section id="implementation">
+            <h2>3. 3AC Implementation</h2>
+            <p>Data structures used to store Three Address Code in memory.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Notation</th>
+                            <th>Structure</th>
+                            <th>Description</th>
+                            <th>Pros/Cons</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Quadruples</strong></td>
+                            <td><code>(Op, Arg1, Arg2, Result)</code></td>
+                            <td>Explicitly stores the result variable name.</td>
+                            <td>(+) Easy to rearrange instructions.<br>(-) Uses more space (symbol table size).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Triples</strong></td>
+                            <td><code>(Op, Arg1, Arg2)</code></td>
+                            <td>Result is referred to by the <strong>index</strong> of the statement.</td>
+                            <td>(+) Saves space (no temp vars).<br>(-) Difficult to reorder code (indices change).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Indirect Triples</strong></td>
+                            <td><code>(Op, Arg1, Arg2)</code> + Pointer List</td>
+                            <td>Uses a separate list of pointers to triples.</td>
+                            <td>(+) Easy to reorder (swap pointers).<br>(-) Two memory accesses.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <details>
+                <summary>Click to see Implementation Example (x = a + b * c)</summary>
+                <div class="comparison">
+                    <div class="col">
+                        <strong>Quadruples</strong>
+                        <pre>
+0: (*, b, c, t1)
+1: (+, a, t1, x)
+                        </pre>
+                    </div>
+                    <div class="col">
+                        <strong>Triples</strong>
+                        <pre>
+0: (*, b, c)
+1: (+, a, (0)) 
+// (0) refers to result of line 0
+                        </pre>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- SECTION 4: CFG -->
+        <section id="cfg">
+            <h2>4. Control Flow Graph (CFG)</h2>
+            <p>A representation of all paths that might be traversed through a program during execution.</p>
+
+            <h3>Basic Blocks (BB)</h3>
+            <p>A sequence of instructions with <strong>single entry</strong> (first line) and <strong>single exit</strong> (last line). No jumps in or out of the middle.</p>
+            
+            <div class="alert">
+                <strong>Algorithm: Finding Leaders (Start of a BB)</strong>
+                <ol>
+                    <li>The <strong>first statement</strong> is a leader.</li>
+                    <li>The target of any conditional/unconditional <strong>goto</strong> is a leader.</li>
+                    <li>The statement <strong>immediately following</strong> a goto/conditional goto is a leader.</li>
+                </ol>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Example Code</h4>
+                    <pre>
+1. i = 1
+2. j = 1
+3. t1 = 10 * i
+4. t2 = t1 + j
+5. if j <= 10 goto 3
+6. i = i + 1
+7. if i <= 10 goto 2
+                    </pre>
+                </div>
+                <div class="card">
+                    <h4>Identified Basic Blocks</h4>
+                    <ul>
+                        <li><strong>BB1 (1-2):</strong> Starts at 1 (First stmt).</li>
+                        <li><strong>BB2 (3-5):</strong> Starts at 3 (Target of goto in 5). Ends at 5 (Jump).</li>
+                        <li><strong>BB3 (6-7):</strong> Starts at 6 (Follows goto). Ends at 7.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: DATA FLOW ANALYSIS -->
+        <section id="dataflow">
+            <h2>5. Data Flow Analysis</h2>
+            <p>Technique to gather information about the flow of data (values) across the CFG. Used for global optimization.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Analysis Type</th>
+                            <th>Direction</th>
+                            <th>Goal</th>
+                            <th>Equations (Sets)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Live Variable</strong></td>
+                            <td>Backward</td>
+                            <td>Find variables holding values that may be used later.</td>
+                            <td>\( IN[B] = GEN[B] \cup (OUT[B] - KILL[B]) \)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reaching Definitions</strong></td>
+                            <td>Forward</td>
+                            <td>Determine which definitions of a variable may reach a point.</td>
+                            <td>\( OUT[B] = GEN[B] \cup (IN[B] - KILL[B]) \)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Live Variable Analysis (Liveness)</h3>
+            <p>A variable <code>x</code> is <strong>LIVE</strong> at statement <code>S</code> if:</p>
+            <ol>
+                <li>There exists a statement <code>S'</code> that uses <code>x</code>.</li>
+                <li>There is a path from <code>S</code> to <code>S'</code>.</li>
+                <li>There is no assignment to <code>x</code> along the path before <code>S'</code>.</li>
+            </ol>
+
+            <div class="math-block">
+                <h4>Calculation Steps (Backward):</h4>
+                <ol>
+                    <li><strong>GEN (Use):</strong> Variables used in the block before being defined.</li>
+                    <li><strong>KILL (Def):</strong> Variables defined (overwritten) in the block.</li>
+                    <li><strong>OUT[B]:</strong> Union of IN sets of all successor blocks. <br> \( OUT[B] = \bigcup_{S \in succ(B)} IN[S] \)</li>
+                    <li><strong>IN[B]:</strong> Apply transfer function. <br> \( IN[B] = GEN[B] \cup (OUT[B] - KILL[B]) \)</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- SECTION 6: OPTIMIZATION -->
+        <section id="optimization">
+            <h2>6. Code Optimization Techniques</h2>
+            <p>Improving code efficiency (Time and Space) while preserving meaning.</p>
+
+            <h3>Local Optimization (Basic Block Level)</h3>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Constant Folding</h4>
+                    <pre>x = 2 * 3 + a</pre>
+                    ⬇
+                    <pre>x = 6 + a</pre>
+                </div>
+                <div class="card">
+                    <h4>Constant Propagation</h4>
+                    <pre>x = 10; y = x + 5</pre>
+                    ⬇
+                    <pre>x = 10; y = 10 + 5</pre>
+                </div>
+                <div class="card">
+                    <h4>Strength Reduction</h4>
+                    <p>Replacing expensive ops with cheaper ones.</p>
+                    <pre>x = a * 2</pre>
+                    ⬇
+                    <pre>x = a + a (or a << 1)</pre>
+                </div>
+                <div class="card">
+                    <h4>Dead Code Elimination</h4>
+                    <p>Removing code that is never executed or result never used.</p>
+                    <pre>if (0) { ... } // Removed</pre>
+                </div>
+            </div>
+
+            <h3>Loop Optimization</h3>
+            <ul>
+                <li><strong>Code Motion:</strong> Moving loop-invariant code (expressions that don't change inside loop) outside.</li>
+                <li><strong>Induction Variable Elimination:</strong> Removing variables that change in lock-step (e.g., <code>i</code> and <code>t = 4*i</code>).</li>
+                <li><strong>Loop Unrolling:</strong> Reducing loop control overhead by replicating the body.</li>
+                <li><strong>Loop Fusion:</strong> Combining two adjacent loops with same range into one.</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 7: RUNTIME -->
+        <section id="runtime">
+            <h2>7. Runtime Environment</h2>
+            <p>How the compiler manages memory during program execution.</p>
+            
+            <div class="comparison">
+                <div class="col">
+                    <div class="card">
+                        <h4>Static Allocation</h4>
+                        <ul>
+                            <li>Memory size known at compile time.</li>
+                            <li>Cannot support recursion.</li>
+                            <li>Example: Fortran 77, Global variables.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card highlight">
+                        <h4>Stack Allocation</h4>
+                        <ul>
+                            <li>Memory allocated on function call (push) and deallocated on return (pop).</li>
+                            <li><strong>Supports Recursion.</strong></li>
+                            <li>Uses <strong>Activation Records</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <h4>Heap Allocation</h4>
+                        <ul>
+                            <li>Dynamic allocation (malloc/new).</li>
+                            <li>Variables outlive the function that created them.</li>
+                            <li>Supports dynamic data structures (Linked Lists).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h4>Activation Record (Stack Frame) Structure</h4>
+                <div style="display: flex; border: 2px solid var(--primary); border-radius: 8px; overflow: hidden; text-align: center; font-size: 0.9rem;">
+                    <div style="padding: 10px; background: #e0f2fe; flex: 1; border-right: 1px solid white;">Return Value</div>
+                    <div style="padding: 10px; background: #bae6fd; flex: 1; border-right: 1px solid white;">Actual Params</div>
+                    <div style="padding: 10px; background: #7dd3fc; flex: 1; border-right: 1px solid white;">Control Link (Old SP)</div>
+                    <div style="padding: 10px; background: #38bdf8; flex: 1; border-right: 1px solid white;">Access Link</div>
+                    <div style="padding: 10px; background: #0ea5e9; flex: 1; color: white;">Local Data</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>

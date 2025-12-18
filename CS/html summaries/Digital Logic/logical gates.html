@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Logic: Logic Gates Cheat Sheet</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            top: 0;
+            left: 0;
+        }
+
+        .sidebar h2 { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--primary); }
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .nav-link:hover, .nav-link.active { background: #eff6ff; color: var(--primary); font-weight: 600; }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem 4rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; letter-spacing: -0.05rem; }
+        .subtitle { color: var(--secondary); margin-bottom: 3rem; font-size: 1.1rem; }
+        
+        h2 { 
+            font-size: 1.8rem; 
+            margin-top: 3rem; 
+            margin-bottom: 1.5rem; 
+            border-bottom: 2px solid var(--border); 
+            padding-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        h3 { font-size: 1.3rem; margin-top: 2rem; color: var(--primary-dark); }
+
+        /* Cards & Grid */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); }
+
+        /* Truth Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+        th, td { border: 1px solid var(--border); padding: 0.5rem; text-align: center; }
+        th { background: #f1f5f9; color: var(--secondary); font-weight: 600; }
+        .row-highlight { background-color: #f0fdf4; }
+
+        /* Logic Gate SVGs */
+        .gate-svg { width: 80px; height: 50px; stroke: var(--text); stroke-width: 2; fill: none; }
+        .gate-container { display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+
+        /* Formulas & Math */
+        .formula-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Interactive Details */
+        details {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        summary {
+            padding: 1rem;
+            cursor: pointer;
+            background: #f8fafc;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        summary:hover { background: #f1f5f9; }
+        .details-content { padding: 1.5rem; border-top: 1px solid var(--border); }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag.ttl { background: #dbeafe; color: var(--primary); }
+        .tag.ecl { background: #ffedd5; color: var(--warning); }
+        .tag.univ { background: #dcfce7; color: var(--success); }
+
+        /* Code Block */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 1rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="sidebar">
+        <h2>Logic Gates</h2>
+        <a href="#fundamentals" class="nav-link">Fundamentals</a>
+        <a href="#basic-gates" class="nav-link">Basic Gates (AND/OR)</a>
+        <a href="#inverter-ring" class="nav-link">Ring Oscillator</a>
+        <a href="#universal-gates" class="nav-link">Universal (NAND/NOR)</a>
+        <a href="#realization" class="nav-link">Gate Minimization</a>
+        <a href="#arithmetic-gates" class="nav-link">XOR / XNOR</a>
+        <a href="#logic-families" class="nav-link">Logic Families (TTL/ECL)</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Digital Logic: Logic Gates</h1>
+        <p class="subtitle">Comprehensive analysis of digital logic gates, propagation delays, realization techniques, and transistor-level implementations.</p>
+
+        <!-- Section 1: Fundamentals -->
+        <section id="fundamentals">
+            <h2>1. Fundamentals & The Inverter</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>NOT Gate (Inverter)</h3>
+                    <div class="gate-container">
+                        <svg class="gate-svg" viewBox="0 0 80 40">
+                            <path d="M 10 20 L 30 20 M 30 5 L 30 35 L 60 20 Z" />
+                            <circle cx="64" cy="20" r="4" />
+                            <path d="M 68 20 L 78 20" />
+                            <text x="0" y="25" font-size="12">A</text>
+                            <text x="70" y="25" font-size="12">Y</text>
+                        </svg>
+                    </div>
+                    <p><strong>Operation:</strong> Inverts the input signal. $Y = \bar{A}$</p>
+                    <p><strong>Properties:</strong>
+                        <ul>
+                            <li>$A \cdot \bar{A} = 0$</li>
+                            <li>$A + \bar{A} = 1$</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>Buffer</h3>
+                    <div class="gate-container">
+                        <svg class="gate-svg" viewBox="0 0 80 40">
+                            <path d="M 10 20 L 30 20 M 30 5 L 30 35 L 60 20 Z" />
+                            <path d="M 60 20 L 78 20" />
+                        </svg>
+                    </div>
+                    <p><strong>Operation:</strong> Passes signal unchanged. Used for delay or amplification. $Y = A$</p>
+                    <p><strong>Chain Rule:</strong>
+                        <ul>
+                            <li>Even Inverters = Buffer</li>
+                            <li>Odd Inverters = Inverter</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ring Oscillator -->
+        <section id="inverter-ring">
+            <h3>Propagation Delay & Ring Oscillators</h3>
+            <div class="formula-box">
+                <p><strong>Propagation Delay ($\tau_{pd}$):</strong> Time taken for the output to respond to input change.</p>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Case A: Odd Number of NOT Gates</h4>
+                    <span class="tag univ">Astable Multivibrator</span>
+                    <p>Feedback with odd inverters creates oscillation.</p>
+                    <div class="mermaid">
+                        graph LR
+                        A[NOT] --> B[NOT]
+                        B --> C[NOT]
+                        C --> A
+                    </div>
+                    <p><strong>Output:</strong> Square Wave (Clock Generator)</p>
+                    <p><strong>Formulas:</strong></p>
+                    $$ T = 2 \times N \times \tau_{pd} $$
+                    $$ f_{osc} = \frac{1}{2 \times N \times \tau_{pd}} $$
+                    <small>Where $N$ is the (odd) number of gates.</small>
+                </div>
+
+                <div class="card">
+                    <h4>Case B: Even Number of NOT Gates</h4>
+                    <span class="tag warning">Bistable Multivibrator</span>
+                    <p>Feedback with even inverters holds state.</p>
+                    <div class="mermaid">
+                        graph LR
+                        A[NOT] --> B[NOT]
+                        B --> A
+                    </div>
+                    <p><strong>Output:</strong> Stable State (Basic Memory Element)</p>
+                    <p><strong>Frequency:</strong> $f = 0$ Hz (DC Generator)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Basic Gates -->
+        <section id="basic-gates">
+            <h2>2. Basic Gates (AND / OR)</h2>
+            <div class="grid-2">
+                <!-- AND GATE -->
+                <div class="card">
+                    <h3>AND Gate (Intersection)</h3>
+                    <div class="gate-container">
+                        <svg class="gate-svg" viewBox="0 0 80 40">
+                            <path d="M 10 10 L 30 10 M 10 30 L 30 30" />
+                            <path d="M 30 5 L 45 5 C 60 5 60 35 45 35 L 30 35 Z" />
+                            <path d="M 58 20 L 78 20" />
+                        </svg>
+                    </div>
+                    <p><strong>Expression:</strong> $Y = A \cdot B$</p>
+                    <p><strong>Logic:</strong> High only if ALL inputs are High.</p>
+                    
+                    <details>
+                        <summary>Properties & Control</summary>
+                        <div class="details-content">
+                            <ul>
+                                <li><strong>Enable/Disable:</strong>
+                                    <ul>
+                                        <li>Control `0`: Output fixed at `0` (Disable)</li>
+                                        <li>Control `1`: Output follows Input (Enable)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Unused Inputs:</strong> Float High (TTL) or Pulled Up.</li>
+                                <li><strong>Commutative:</strong> $A \cdot B = B \cdot A$ ✅</li>
+                                <li><strong>Associative:</strong> $(A \cdot B) \cdot C = A \cdot (B \cdot C)$ ✅</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- OR GATE -->
+                <div class="card">
+                    <h3>OR Gate (Union)</h3>
+                    <div class="gate-container">
+                        <svg class="gate-svg" viewBox="0 0 80 40">
+                            <path d="M 10 10 L 30 10 M 10 30 L 30 30" />
+                            <path d="M 25 5 Q 35 20 25 35 Q 50 35 60 20 Q 50 5 25 5 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M 60 20 L 78 20" />
+                        </svg>
+                    </div>
+                    <p><strong>Expression:</strong> $Y = A + B$</p>
+                    <p><strong>Logic:</strong> High if ANY input is High.</p>
+
+                    <details>
+                        <summary>Properties & Control</summary>
+                        <div class="details-content">
+                            <ul>
+                                <li><strong>Enable/Disable:</strong>
+                                    <ul>
+                                        <li>Control `1`: Output fixed at `1` (Disable)</li>
+                                        <li>Control `0`: Output follows Input (Enable)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Unused Inputs:</strong> Float Low (ECL) or Pulled Down.</li>
+                                <li><strong>Commutative:</strong> $A + B = B + A$ ✅</li>
+                                <li><strong>Associative:</strong> $(A + B) + C = A + (B + C)$ ✅</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Universal Gates -->
+        <section id="universal-gates">
+            <h2>3. Universal Gates (NAND / NOR)</h2>
+            <p>Called "Universal" because any boolean function can be realized using only NAND or only NOR gates.</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>NAND Gate</h3>
+                    <p><strong>Logic:</strong> AND followed by NOT. $Y = \overline{A \cdot B}$</p>
+                    <p><strong>Bubbled OR:</strong> $\overline{A \cdot B} = \bar{A} + \bar{B}$</p>
+                    <p><strong>Associative:</strong> ❌ No</p>
+                    <p><strong>Commutative:</strong> ✅ Yes</p>
+                    <hr>
+                    <p><strong>Control:</strong> Input `0` forces output `1` (Disable).</p>
+                </div>
+                <div class="card">
+                    <h3>NOR Gate</h3>
+                    <p><strong>Logic:</strong> OR followed by NOT. $Y = \overline{A + B}$</p>
+                    <p><strong>Bubbled AND:</strong> $\overline{A + B} = \bar{A} \cdot \bar{B}$</p>
+                    <p><strong>Associative:</strong> ❌ No</p>
+                    <p><strong>Commutative:</strong> ✅ Yes</p>
+                    <hr>
+                    <p><strong>Control:</strong> Input `1` forces output `0` (Disable).</p>
+                </div>
+            </div>
+
+            <br>
+            <div class="card">
+                <h3>Shortcuts: Gate Realization Minimization</h3>
+                <p>Formula to calculate minimum Universal Gates required for N-variable expression.</p>
+                
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Target Function</th>
+                            <th>Using NAND</th>
+                            <th>Using NOR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Case 1:</strong> $A \cdot B \cdot C \dots$ (Product)</td>
+                            <td>$(2n - 2) + k$</td>
+                            <td>$(3n - 3) - k$</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case 2:</strong> $A + B + C \dots$ (Sum)</td>
+                            <td>$(3n - 3) - k$</td>
+                            <td>$(2n - 2) + k$</td>
+                        </tr>
+                        <tr class="row-highlight">
+                            <td><strong>Note</strong></td>
+                            <td colspan="2">$n$ = Total variables, $k$ = Complemented variables</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><em>Example:</em> For $f = \bar{A}BC$ using NAND ($n=3, k=1$): $(2(3)-2)+1 = 5$ Gates.</p>
+            </div>
+        </section>
+
+        <!-- Section 4: Arithmetic Gates -->
+        <section id="arithmetic-gates">
+            <h2>4. Arithmetic & Special Gates (XOR / XNOR)</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>XOR Gate (Inequality Detector)</h3>
+                    <p><strong>Symbol:</strong> $\oplus$</p>
+                    <p><strong>Expression:</strong> $Y = A \oplus B = \bar{A}B + A\bar{B}$</p>
+                    <p><strong>Logic:</strong> High if inputs are different.</p>
+                    <p><strong>Function:</strong> Odd Parity Detector.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Control Input Mode:</strong><br>
+                        $A \oplus 0 = A$ (Buffer)<br>
+                        $A \oplus 1 = \bar{A}$ (Inverter)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>XNOR Gate (Equality Detector)</h3>
+                    <p><strong>Symbol:</strong> $\odot$</p>
+                    <p><strong>Expression:</strong> $Y = A \odot B = AB + \bar{A}\bar{B}$</p>
+                    <p><strong>Logic:</strong> High if inputs are same.</p>
+                    <p><strong>Function:</strong> Even Parity Detector / Coincidence Logic.</p>
+                    
+                    <div class="formula-box">
+                        <strong>Control Input Mode:</strong><br>
+                        $A \odot 0 = \bar{A}$ (Inverter)<br>
+                        $A \odot 1 = A$ (Buffer)
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <h3>Multi-Variable Properties</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>XOR Chain (Odd number of 1s detector)</h4>
+                    <p>Output is High if the number of 1s in input is <strong>ODD</strong>.</p>
+                </div>
+                <div class="card">
+                    <h4>XNOR Chain</h4>
+                    <p><strong>Odd Variables:</strong> Same as XOR chain ($A \odot B \odot C = A \oplus B \oplus C$)</p>
+                    <p><strong>Even Variables:</strong> Inverse of XOR chain.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Logic Families -->
+        <section id="logic-families">
+            <h2>5. Logic Families & Implementation Details</h2>
+            
+            <table class="card">
+                <thead>
+                    <tr>
+                        <th>Family</th>
+                        <th>Name</th>
+                        <th>Floating Input Behavior</th>
+                        <th>Key Feature</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag ttl">TTL</span></td>
+                        <td>Transistor-Transistor Logic</td>
+                        <td>Acts as Logic <strong>1</strong> (High)</td>
+                        <td>Standard legacy logic.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag ecl">ECL</span></td>
+                        <td>Emitter Coupled Logic</td>
+                        <td>Acts as Logic <strong>0</strong> (Low)</td>
+                        <td>Fastest logic family, high power.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag univ">CMOS</span></td>
+                        <td>Complementary MOS</td>
+                        <td>Unpredictable (Must assume neither)</td>
+                        <td>Low power, high density.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <details>
+                <summary>Transistor / Diode Implementation Circuits</summary>
+                <div class="details-content">
+                    <div class="grid-2">
+                        <div>
+                            <h4>Diode Logic (DL)</h4>
+                            <ul>
+                                <li><strong>AND:</strong> Diodes facing OUT towards inputs. Input Low pulls node Low.</li>
+                                <li><strong>OR:</strong> Diodes facing IN from inputs. Input High pushes node High.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Transistor Logic (Inverter)</h4>
+                            <ul>
+                                <li><strong>Input High (1):</strong> Transistor ON $\rightarrow$ Short to Ground $\rightarrow$ Output Low (0).</li>
+                                <li><strong>Input Low (0):</strong> Transistor OFF $\rightarrow$ Open Circuit $\rightarrow$ Output Pulled High (1).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- Section 6: Summary Table -->
+        <section id="summary">
+            <h2>6. Minimum Universal Gates Table</h2>
+            <p>Minimum number of NAND/NOR gates required to realize other gates:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>To Realize $\rightarrow$</th>
+                        <th>NOT</th>
+                        <th>AND</th>
+                        <th>OR</th>
+                        <th>XOR</th>
+                        <th>XNOR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Using NAND</strong></td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Using NOR</strong></td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>4</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</body>
+</html>

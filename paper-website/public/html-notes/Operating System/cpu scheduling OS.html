@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS: CPU Scheduling Cheat Sheet</title>
+    <!-- MathJax for Formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid for Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Cards & Sections */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        /* Formulas & Terms */
+        .term-box {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .term-title {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .formula {
+            font-family: 'Fira Code', monospace;
+            background: #fff;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            margin-top: 0.5rem;
+            display: block;
+            text-align: center;
+        }
+
+        /* Gantt Representation */
+        .gantt-container {
+            display: flex;
+            border: 2px solid var(--text);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+            height: 50px;
+        }
+
+        .gantt-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #fff;
+            color: white;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .gantt-block span.time {
+            position: absolute;
+            bottom: -25px;
+            right: -5px;
+            color: var(--text);
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+
+        .gantt-block:last-child { border-right: none; }
+
+        /* Algorithm Badge */
+        .algo-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .preemptive { background: #fee2e2; color: #991b1b; }
+        .non-preemptive { background: #dcfce7; color: #166534; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+        }
+
+        /* Interactive Elements */
+        details {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 0.5rem;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+        
+        details[open] summary::after {
+            content: '-';
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: relative; padding: 1rem; }
+            .main-content { padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h3>Contents</h3>
+        <a href="#intro" class="nav-link">1. Fundamentals</a>
+        <a href="#criteria" class="nav-link">2. Scheduling Criteria</a>
+        <a href="#fcfs" class="nav-link">3. FCFS</a>
+        <a href="#sjf" class="nav-link">4. SJF & SRTF</a>
+        <a href="#priority" class="nav-link">5. Priority & HRRN</a>
+        <a href="#rr" class="nav-link">6. Round Robin</a>
+        <a href="#predict" class="nav-link">7. Burst Prediction</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header>
+            <h1>CPU Scheduling Cheat Sheet</h1>
+            <p class="subtitle">Based on CS & IT Engineering Notes • Dr. Khaleel Khan Sir</p>
+        </header>
+
+        <!-- Section 1: Fundamentals -->
+        <section id="intro">
+            <h2>1. Scheduling Fundamentals</h2>
+            
+            <div class="card">
+                <h3>Process Lifecycle</h3>
+                <p>A process execution consists of a cycle of <strong>CPU Execution</strong> and <strong>I/O Wait</strong>.</p>
+                <div class="mermaid">
+                    graph LR
+                    A[Load Store] --> B(CPU Burst)
+                    B --> C{Wait for I/O}
+                    C --> D(I/O Burst)
+                    D --> E[Store Increment]
+                    E --> F(CPU Burst)
+                </div>
+                <div class="grid-2" style="margin-top: 1rem;">
+                    <div class="term-box">
+                        <span class="term-title">CPU Bound Process</span>
+                        Performs lots of computations. Very long CPU bursts.
+                    </div>
+                    <div class="term-box">
+                        <span class="term-title">I/O Bound Process</span>
+                        Performs lots of I/O. Short CPU bursts followed by I/O waits.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Key Timers & Formulas</h3>
+            <div class="grid-3">
+                <div class="term-box">
+                    <span class="term-title">Arrival Time (AT)</span>
+                    Time at which the process enters the Ready Queue.
+                </div>
+                <div class="term-box">
+                    <span class="term-title">Burst Time (BT)</span>
+                    Time required by the process for CPU execution.
+                </div>
+                <div class="term-box">
+                    <span class="term-title">Completion Time (CT)</span>
+                    Time at which the process completes execution.
+                </div>
+            </div>
+            
+            <div class="grid-2" style="margin-top: 1rem;">
+                <div class="card">
+                    <h4>Turn Around Time (TAT)</h4>
+                    <p>Total time spent in the system.</p>
+                    <div class="formula">$$TAT = CT - AT$$</div>
+                    <div class="formula">$$TAT = \text{Burst Time} + \text{Waiting Time}$$</div>
+                </div>
+                <div class="card">
+                    <h4>Waiting Time (WT)</h4>
+                    <p>Total time spent waiting in the Ready Queue.</p>
+                    <div class="formula">$$WT = TAT - (BT + I/O BT)$$</div>
+                    <small>If no I/O Burst, WT = TAT - BT</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Criteria -->
+        <section id="criteria">
+            <h2>2. Scheduling Criteria</h2>
+            <p>The goal of the scheduler is to balance these often conflicting metrics.</p>
+            
+            <table class="card">
+                <thead>
+                    <tr>
+                        <th>Criteria</th>
+                        <th>Goal</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>CPU Utilization</strong></td>
+                        <td>Maximize</td>
+                        <td>Keep the CPU as busy as possible (0% to 100%).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Throughput</strong></td>
+                        <td>Maximize</td>
+                        <td>Number of processes completed per unit time ($ \eta = \frac{n}{L} $).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Turnaround Time</strong></td>
+                        <td>Minimize</td>
+                        <td>Time from submission to completion.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Waiting Time</strong></td>
+                        <td>Minimize</td>
+                        <td>Sum of periods spent waiting in the ready queue.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Response Time</strong></td>
+                        <td>Minimize</td>
+                        <td>Time from submission until the <em>first</em> response is produced.</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="card">
+                <h3>Schedule Length (L)</h3>
+                <p>Total time taken to complete all $n$ processes as per schedule.</p>
+                <div class="formula">$$L = \max(CT) - \min(AT)$$</div>
+                <p><strong>% CPU Idleness:</strong> $ \frac{\text{Total Idle Time}}{L} \times 100 $</p>
+            </div>
+        </section>
+
+        <!-- Section 3: FCFS -->
+        <section id="fcfs">
+            <h2>3. First Come First Serve (FCFS)</h2>
+            <span class="algo-badge non-preemptive">Non-Preemptive</span>
+            
+            <div class="card">
+                <div class="grid-2">
+                    <div>
+                        <h4>Mechanism</h4>
+                        <p>Processes are executed in the order of their Arrival Time (AT). The simplest algorithm.</p>
+                        <ul>
+                            <li><strong>Selection Criteria:</strong> Arrival Time</li>
+                            <li><strong>Tie Breaker:</strong> Lower Process ID</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Pros & Cons</h4>
+                        <ul>
+                            <li>✅ Simple to implement (FIFO Queue).</li>
+                            <li>❌ <strong>Convoy Effect:</strong> Short processes wait behind a long CPU-bound process.</li>
+                            <li>❌ Not suitable for time-sharing systems.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <details>
+                <summary>Example: FCFS Calculation</summary>
+                <div style="padding: 1rem;">
+                    <p><strong>Input:</strong> P1 (AT:0, BT:2), P2 (AT:1, BT:2), P3 (AT:5, BT:3)</p>
+                    <div class="gantt-container">
+                        <div class="gantt-block" style="width: 28%; background: #3b82f6;">P1 <span class="time">2</span></div>
+                        <div class="gantt-block" style="width: 28%; background: #10b981;">P2 <span class="time">4</span></div>
+                        <div class="gantt-block" style="width: 14%; background: #94a3b8; color: transparent;">IDLE <span class="time">5</span></div>
+                        <div class="gantt-block" style="width: 30%; background: #f59e0b;">P3 <span class="time">8</span></div>
+                    </div>
+                    <small>Note: CPU is idle between time 4 and 5 because P3 arrives at 5.</small>
+                </div>
+            </details>
+        </section>
+
+        <!-- Section 4: SJF & SRTF -->
+        <section id="sjf">
+            <h2>4. Shortest Job First (SJF) & SRTF</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>SJF (Non-Preemptive)</h3>
+                    <span class="algo-badge non-preemptive">Non-Preemptive</span>
+                    <p>Among processes in the Ready Queue, select the one with the <strong>Least Burst Time</strong>.</p>
+                    <ul>
+                        <li><strong>Criteria:</strong> Burst Time</li>
+                        <li><strong>Optimal:</strong> Gives minimum average Waiting Time.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>SRTF (Preemptive SJF)</h3>
+                    <span class="algo-badge preemptive">Preemptive</span>
+                    <p>Shortest <strong>Remaining</strong> Time First. If a new process arrives with a shorter burst than the current remaining time, preempt.</p>
+                    <ul>
+                        <li>Also known as "Shortest Process Next" (SPN).</li>
+                        <li>Checks RQ at every arrival.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Problems with SJF/SRTF</h3>
+                <div class="grid-2">
+                    <div class="term-box">
+                        <span class="term-title">Starvation</span>
+                        Longer processes may wait indefinitely if short processes keep arriving.
+                    </div>
+                    <div class="term-box">
+                        <span class="term-title">Implementation</span>
+                        It is practically impossible to know the Burst Time of a process before execution. Used mainly as a benchmark.
+                    </div>
+                </div>
+            </div>
+
+            <details>
+                <summary>Comparison: SJF vs SRTF Example</summary>
+                <div style="padding: 1rem;">
+                    <p><strong>Input:</strong> P1 (AT:0, BT:5), P2 (AT:1, BT:2)</p>
+                    
+                    <h4>SJF (Non-Preemptive)</h4>
+                    <p>P1 starts at 0. Since it's non-preemptive, it runs fully to 5. Then P2 runs.</p>
+                    <div class="gantt-container">
+                        <div class="gantt-block" style="width: 71%; background: #3b82f6;">P1 <span class="time">5</span></div>
+                        <div class="gantt-block" style="width: 29%; background: #10b981;">P2 <span class="time">7</span></div>
+                    </div>
+
+                    <h4>SRTF (Preemptive)</h4>
+                    <p>P1 runs from 0 to 1. At t=1, P2 arrives (BT=2). P1 remaining=4. Since $2 < 4$, P2 preempts P1.</p>
+                    <div class="gantt-container">
+                        <div class="gantt-block" style="width: 14%; background: #3b82f6;">P1 <span class="time">1</span></div>
+                        <div class="gantt-block" style="width: 29%; background: #10b981;">P2 <span class="time">3</span></div>
+                        <div class="gantt-block" style="width: 57%; background: #3b82f6;">P1 <span class="time">7</span></div>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- Section 5: Priority & HRRN -->
+        <section id="priority">
+            <h2>5. Priority & HRRN</h2>
+            
+            <div class="card">
+                <h3>Priority Scheduling</h3>
+                <p>Processes are assigned a priority number (Integer). The CPU is allocated to the process with the highest priority.</p>
+                <ul>
+                    <li><strong>Modes:</strong> Can be Preemptive or Non-preemptive.</li>
+                    <li><strong>Static Priority:</strong> Assigned at creation. leads to starvation.</li>
+                    <li><strong>Dynamic Priority:</strong> Changes at runtime to achieve system goals (e.g., "Aging").</li>
+                </ul>
+                <div class="term-box" style="margin-top: 10px;">
+                    <strong>Aging Algorithm:</strong> Increase the priority of processes waiting in the Ready Queue at regular intervals to prevent starvation.
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>HRRN (Highest Response Ratio Next)</h3>
+                <span class="algo-badge non-preemptive">Non-Preemptive</span>
+                <p>Designed to favor shorter jobs but limit the waiting time of longer jobs to prevent starvation.</p>
+                <p><strong>Criteria:</strong> Response Ratio</p>
+                
+                <div class="formula">
+                    $$ \text{Response Ratio} = \frac{W + S}{S} $$
+                </div>
+                <p style="text-align: center; font-size: 0.9rem;">Where $W = \text{Waiting Time}$, $S = \text{Service/Burst Time}$.</p>
+                <p><em>As $W$ increases, the Ratio increases, eventually giving the long process a high enough priority.</em></p>
+            </div>
+            
+            <div class="card">
+                <h3>LRTF (Longest Remaining Time First)</h3>
+                <span class="algo-badge preemptive">Preemptive</span>
+                <p>Opposite of SRTF. Favors CPU-bound processes. Leads to high average TAT and WT.</p>
+                <ul>
+                     <li><strong>Tie Breaking:</strong> If processes have equal BT, prefer lowest Process ID.</li>
+                     <li>Often results in context switching between processes until all finish simultaneously.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 6: Round Robin -->
+        <section id="rr">
+            <h2>6. Round Robin (RR)</h2>
+            <span class="algo-badge preemptive">Preemptive</span>
+            
+            <div class="card">
+                <p>Designed for Time-Sharing Systems. A <strong>Time Quantum (TQ)</strong> is defined. The Ready Queue is treated as a circular queue.</p>
+                <ul>
+                    <li><strong>Criteria:</strong> Arrival Time + Time Quantum.</li>
+                    <li><strong>Goal:</strong> Improve interactiveness/response time.</li>
+                </ul>
+
+                <div class="mermaid">
+                    graph LR
+                    RQ[Ready Queue] -- Dispatch --> CPU[CPU Execution]
+                    CPU -- Completed --> Term[Terminated]
+                    CPU -- Time Expired --> RQ
+                    CPU -- I/O Request --> Wait[I/O Wait]
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Impact of Time Quantum ($TQ$)</h4>
+                    <ul>
+                        <li><strong>If $TQ$ is very large:</strong> Becomes FCFS.</li>
+                        <li><strong>If $TQ$ is very small:</strong> Context Switching Overhead becomes too high, reducing effective CPU utilization.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Context Switch Overhead ($\delta$)</h4>
+                    <p>Time taken to save the state of the old process and load the state of the new process.</p>
+                    <div class="formula">$$ \text{Useful CPU Time} = \text{Total Time} - (N \times \delta) $$</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Prediction -->
+        <section id="predict">
+            <h2>7. Predicting Burst Times</h2>
+            <p>Since SJF requires knowing Burst Time in advance (which is impossible), we estimate it using past history.</p>
+
+            <div class="card">
+                <h3>Exponential Averaging (Aging)</h3>
+                <p>Predicts the next burst time ($\tau_{n+1}$) based on the actual previous burst ($t_n$) and the previous prediction ($\tau_n$).</p>
+                
+                <div class="formula">
+                    $$ \tau_{n+1} = \alpha t_n + (1 - \alpha)\tau_n $$
+                </div>
+                
+                <ul style="margin-top: 1rem;">
+                    <li>$\tau_{n+1}$: Predicted value for next burst.</li>
+                    <li>$t_n$: Actual length of $n^{th}$ CPU burst.</li>
+                    <li>$\alpha$: Weighting factor ($0 \le \alpha \le 1$). Usually $\alpha=0.5$.</li>
+                </ul>
+
+                <details>
+                    <summary>Math Deep Dive: Recurrence Expansion</summary>
+                    <p>If we expand the formula, we see it considers the entire history, but recent history has more weight:</p>
+                    <div class="formula">
+                        $$ \tau_{n+1} = \alpha t_n + \alpha(1-\alpha)t_{n-1} + \alpha(1-\alpha)^2 t_{n-2} + ... $$
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <footer style="margin-top: 4rem; text-align: center; color: var(--secondary); font-size: 0.9rem; padding-bottom: 2rem;">
+            Generated from Lecture Notes • Operating Systems
+        </footer>
+
+    </main>
+</body>
+</html>

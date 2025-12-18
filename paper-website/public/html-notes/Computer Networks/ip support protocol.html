@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Engineering: IP Support Protocols Cheat Sheet</title>
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Mermaid.js -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --sidebar-width: 280px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: var(--sidebar-width);
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+            display: none; /* Hidden on mobile by default */
+        }
+
+        aside h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        aside h3:first-child { margin-top: 0; }
+
+        aside ul { list-style: none; }
+        aside li { margin-bottom: 0.5rem; }
+        
+        aside a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        aside a:hover, aside a.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1024px) {
+            aside { display: block; }
+            main { margin-left: var(--sidebar-width); }
+        }
+
+        /* Headers */
+        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; color: var(--text-main); }
+        h2 { font-size: 1.75rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--primary-dark); }
+        h3 { font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--text-main); font-weight: 700; }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem; }
+
+        /* Cards & Sections */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+
+        /* Terminology Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .tag.proto { background: #dbeafe; color: var(--primary); }
+        .tag.layer { background: #f3f4f6; color: var(--text-muted); border: 1px solid var(--border); }
+        .tag.gate { background: #fffbeb; color: var(--secondary); border: 1px solid var(--secondary); }
+
+        /* Comparison Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+        th, td { padding: 0.75rem; border: 1px solid var(--border); text-align: left; }
+        th { background-color: #f8fafc; font-weight: 600; }
+        
+        /* Code & Pre */
+        code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 4px; font-family: 'Fira Code', monospace; font-size: 0.9em; color: var(--danger); }
+        .note { background: #fff7ed; border-left: 4px solid var(--secondary); padding: 1rem; margin: 1rem 0; font-size: 0.95rem; color: #9a3412; }
+        
+        /* Mermaid Positioning */
+        .diagram-container {
+            background: #ffffff;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        /* Collapsible */
+        details { margin-bottom: 1rem; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        summary { padding: 1rem; background: #f8fafc; cursor: pointer; font-weight: 600; }
+        details > div { padding: 1rem; background: white; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+<aside>
+    <h3>Navigation</h3>
+    <ul>
+        <li><a href="#intro">Overview</a></li>
+        <li><a href="#broadcasting">Broadcasting Basics</a></li>
+        <li><a href="#arp">ARP (Address Resolution)</a></li>
+        <li><a href="#icmp-intro">ICMP Basics</a></li>
+        <li><a href="#icmp-error">ICMP Error Reporting</a></li>
+        <li><a href="#icmp-query">ICMP Query Messages</a></li>
+        <li><a href="#applications">Apps: Ping & Traceroute</a></li>
+        <li><a href="#gate">GATE Corner</a></li>
+    </ul>
+    
+    <h3>Protocols</h3>
+    <ul>
+        <li><span class="tag proto">ARP</span> Network Layer (Functional)</li>
+        <li><span class="tag proto">ICMP</span> Network Layer (Support)</li>
+        <li><span class="tag proto">DHCP</span> Application Layer</li>
+    </ul>
+</aside>
+
+<main>
+    <div id="intro">
+        <h1>IP Support Protocols</h1>
+        <p class="subtitle">Comprehensive notes on ARP, RARP, and ICMP from Computer Networks Engineering.</p>
+        
+        <div class="card">
+            <h3>Why do we need them?</h3>
+            <p>The core IP protocol is a <strong>best-effort delivery</strong> service. It is unreliable and lacks built-in error reporting or management mechanisms. Support protocols are required to:</p>
+            <ul>
+                <li>Map logical addresses (IP) to physical addresses (MAC) &rarr; <strong>ARP</strong></li>
+                <li>Report errors (e.g., Destination Unreachable, TTL Exceeded) &rarr; <strong>ICMP</strong></li>
+                <li>Debug network connectivity (Ping, Traceroute) &rarr; <strong>ICMP Applications</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <section id="broadcasting">
+        <h2>1. Broadcasting Implementation</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>(i) Limited Broadcast Address</h3>
+                <p>Used to send a packet to <strong>everyone on the current network</strong>. It is never forwarded by routers.</p>
+                <ul>
+                    <li><strong>IP Address:</strong> <code>255.255.255.255</code></li>
+                    <li><strong>MAC Address:</strong> <code>FF:FF:FF:FF:FF:FF</code> (48-bit)</li>
+                    <li><strong>Scope:</strong> Local LAN only. Router blocks it.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>(ii) Direct Broadcast Address (DBA)</h3>
+                <p>Used to send a packet to <strong>everyone on a specific remote network</strong>.</p>
+                <ul>
+                    <li><strong>Formula:</strong> Network ID + All Host bits set to <code>1</code>.</li>
+                    <li><strong>Example:</strong> For Network <code>10.0.0.0/8</code><br>DBA = <code>10.255.255.255</code></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="arp">
+        <h2>2. ARP (Address Resolution Protocol)</h2>
+        <p>ARP is used to find the <strong>MAC Address</strong> of a device when its <strong>IP Address</strong> is known.</p>
+        
+        <div class="diagram-container">
+            <div class="mermaid">
+            sequenceDiagram
+                participant Source as Sender (Host A)
+                participant Net as Network
+                participant Dest as Target (Host B)
+                
+                Note over Source: Knows IP_B, needs MAC_B
+                Source->>Net: ARP Request (Who is IP_B?)
+                Note right of Source: Broadcast (FF:FF:FF:FF:FF:FF)
+                Net-->>Dest: Delivers to All
+                Dest->>Source: ARP Reply (I am IP_B, my MAC is MAC_B)
+                Note left of Dest: Unicast (MAC_A)
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Key Characteristics</h3>
+            <ul>
+                <li><strong>ARP Request:</strong> Broadcast (MAC Destination: <code>FF:FF:FF:FF:FF:FF</code>).</li>
+                <li><strong>ARP Reply:</strong> Unicast (Source MAC to Destination MAC).</li>
+                <li><strong>Encapsulation:</strong> Encapsulated directly in a DLL (Data Link Layer) Frame.</li>
+            </ul>
+        </div>
+
+        <details>
+            <summary>The 4 Communication Cases for ARP</summary>
+            <div>
+                <ol>
+                    <li><strong>Host to Host (Same Network):</strong> Sender uses ARP to find Receiver's MAC.</li>
+                    <li><strong>Host to Host (Different Network):</strong> Sender looks at Routing Table &rarr; Finds Next Hop (Router) IP &rarr; Uses ARP to find <strong>Router's MAC</strong>.</li>
+                    <li><strong>Router to Router:</strong> Router uses ARP to find the next Router's MAC.</li>
+                    <li><strong>Router to Host:</strong> Last Router uses ARP to find the Destination Host's MAC on the local LAN.</li>
+                </ol>
+            </div>
+        </details>
+
+        <div class="note">
+            <strong>Important Terms:</strong><br>
+            <strong>ARP Cache:</strong> A table storing resolved IP-MAC pairs to avoid repeated ARP requests.<br>
+            <strong>Cache Timeout:</strong> Time entries stay valid in the table (usually 20 mins).
+        </div>
+
+        <h3>Protocol Comparison</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Protocol</th>
+                    <th>Mapping Direction</th>
+                    <th>Usage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ARP</strong></td>
+                    <td>IP Address &rarr; MAC Address</td>
+                    <td>Standard Communication</td>
+                </tr>
+                <tr>
+                    <td><strong>RARP</strong></td>
+                    <td>MAC Address &rarr; IP Address</td>
+                    <td>Diskless Workstations (Obsolete, see DHCP)</td>
+                </tr>
+                <tr>
+                    <td><strong>DNS</strong></td>
+                    <td>Domain Name &rarr; IP Address</td>
+                    <td>Web Browsing</td>
+                </tr>
+                <tr>
+                    <td><strong>DHCP</strong></td>
+                    <td>Dynamic IP Allocation</td>
+                    <td>Modern "Plug & Play" networking</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="icmp-intro">
+        <h2>3. ICMP (Internet Control Message Protocol)</h2>
+        <p>ICMP is a network layer protocol used by routers and hosts to send error messages and operational information.</p>
+        
+        <div class="card">
+            <h3>Encapsulation</h3>
+            <p>ICMP messages are encapsulated inside <strong>IP Datagrams</strong>.</p>
+            <div class="mermaid">
+                block-beta
+                columns 4
+                block:IP["IP Header"]:2
+                block:ICMP["ICMP Message"]:2
+                end
+                space
+                block:Details["ICMP Header + Data"]:2
+            </div>
+        </div>
+
+        <h3>Types of ICMP Messages</h3>
+        <div class="grid-2">
+            <div class="card" style="border-left: 4px solid var(--danger);">
+                <h4>1. Error Reporting</h4>
+                <p>Generated when a router or host encounters a problem processing an IP packet.</p>
+            </div>
+            <div class="card" style="border-left: 4px solid var(--success);">
+                <h4>2. Query Messages</h4>
+                <p>Request/Reply pairs used to get specific information from a host (e.g., timestamps, status).</p>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>When is ICMP NOT generated?</strong>
+            <ul>
+                <li>In response to an ICMP Error Message (prevents infinite loops).</li>
+                <li>For fragmented datagrams (except the first fragment).</li>
+                <li>For Multicast addresses.</li>
+                <li>For Special addresses (e.g., Loopback 127.0.0.0).</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="icmp-error">
+        <h2>4. ICMP Error Reporting Messages</h2>
+        <p>The direction of these messages is always <strong>Router/Receiver &rarr; Original Sender</strong>.</p>
+
+        <div class="card">
+            <h3>1. Destination Unreachable</h3>
+            <p>Sent when a packet cannot be delivered.</p>
+            <ul>
+                <li><strong>Destination Host Unreachable:</strong> Link down, ARP failed, or hardware failure.</li>
+                <li><strong>Destination Port Unreachable:</strong> Packet arrived at host, but no process is listening on that port (Key for Traceroute).</li>
+                <li><strong>Fragmentation Required:</strong> Packet > MTU, but the <code>Don't Fragment (DF)</code> flag is set to 1. Used in <em>Path MTU Discovery</em>.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>2. Time Exceeded (TTL Exceeded)</h3>
+            <p>Generated when the <strong>Time To Live (TTL)</strong> field in the IP header reaches 0.</p>
+            <ul>
+                <li>Used to prevent infinite looping of packets.</li>
+                <li><strong>Application:</strong> This is the core mechanism behind <strong>Traceroute</strong>.</li>
+            </ul>
+            <div class="mermaid">
+                graph LR
+                S((Source)) --"TTL=1"--> R1((Router 1))
+                R1 --"TTL=0"--> X[Drop]
+                R1 --"ICMP Time Exceeded"--> S
+                style X fill:#fee2e2,stroke:#ef4444
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>3. Source Quench</h3>
+            <p>A rudimentary form of <strong>Congestion Control</strong>.</p>
+            <ul>
+                <li>If a router/host is receiving packets too fast (buffer overflow), it sends a Source Quench message to the Sender.</li>
+                <li>Tells the Sender to <strong>slow down</strong> the transmission rate.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>4. Parameter Problem</h3>
+            <p>Sent if there is a header error or ambiguity (e.g., calculated Checksum does not match received Checksum).</p>
+        </div>
+
+        <div class="card">
+            <h3>5. Redirection</h3>
+            <p>Sent by a router to the sender if the sender is using a sub-optimal path.</p>
+            <ul>
+                <li>"I am forwarding this, but next time use Router Y directly."</li>
+                <li>Updates the routing table on the host.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="icmp-query">
+        <h2>5. ICMP Query Messages</h2>
+        
+        <table style="width:100%">
+            <tr>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><strong>Echo Request & Reply</strong></td>
+                <td>Used by <code>ping</code> to check host liveness.</td>
+            </tr>
+            <tr>
+                <td><strong>Timestamp Request & Reply</strong></td>
+                <td>Used to determine Round Trip Time (RTT) and clock synchronization between two machines.</td>
+            </tr>
+            <tr>
+                <td><strong>Address Mask Request & Reply</strong></td>
+                <td>A host sends this to a router to find out the Subnet Mask of the network (e.g., if it knows IP but not mask /24).</td>
+            </tr>
+            <tr>
+                <td><strong>Router Solicitation & Adv.</strong></td>
+                <td>Host asks "Are there any routers?" (Solicitation). Routers reply "I am here" (Advertisement).</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="applications">
+        <h2>6. Applications of ICMP</h2>
+
+        <h3>A. Traceroute (Trace Route)</h3>
+        <p>Identify the path (hops) a packet takes to reach a destination.</p>
+        <p><strong>Mechanism:</strong></p>
+        <ol>
+            <li>Sender sends UDP (or ICMP) packet with <strong>TTL = 1</strong>.</li>
+            <li>Router 1 drops it (TTL becomes 0) and sends <strong>ICMP Time Exceeded</strong> back. Sender records R1 IP.</li>
+            <li>Sender sends packet with <strong>TTL = 2</strong>. Router 2 drops it and replies.</li>
+            <li>Repeat until Destination is reached.</li>
+            <li>Destination sends <strong>ICMP Destination Port Unreachable</strong> (because Traceroute intentionally uses an unlikely port) to signal completion.</li>
+        </ol>
+
+        <div class="diagram-container">
+            <div class="mermaid">
+            sequenceDiagram
+                autonumber
+                participant S as Source
+                participant R1 as Router 1
+                participant R2 as Router 2
+                participant D as Destination
+
+                S->>R1: Packet (TTL=1)
+                Note right of R1: TTL=0 -> Drop
+                R1-->>S: ICMP Time Exceeded
+                
+                S->>R2: Packet (TTL=2)
+                R2->>R2: Pass R1
+                Note right of R2: TTL=0 -> Drop
+                R2-->>S: ICMP Time Exceeded
+
+                S->>D: Packet (TTL=3)
+                D-->>S: ICMP Dest Port Unreachable
+                Note over S: Path Complete: {R1, R2, D}
+            </div>
+        </div>
+
+        <h3>B. Path MTU Discovery (PMTUD)</h3>
+        <p>Determines the smallest MTU (Maximum Transmission Unit) along the path to avoid fragmentation.</p>
+        <ul>
+            <li>Sender sets <strong>DF (Don't Fragment) = 1</strong>.</li>
+            <li>If a router's MTU is smaller than packet size, it drops packet and sends <strong>ICMP Destination Unreachable (Fragmentation Needed)</strong>.</li>
+            <li>Sender reduces packet size and tries again.</li>
+        </ul>
+    </section>
+
+    <section id="gate">
+        <h2>GATE Corner (Key Takeaways)</h2>
+        <div class="card" style="border-top: 4px solid var(--secondary);">
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 1rem;">
+                    <span class="tag gate">GATE 2019</span> 
+                    <strong>ARP Request vs Reply:</strong>
+                    <br>Request is <strong>Broadcast</strong> MAC.
+                    <br>Reply is <strong>Unicast</strong> MAC.
+                </li>
+                <li style="margin-bottom: 1rem;">
+                    <span class="tag gate">GATE 2016</span>
+                    <strong>Protocol Mappings:</strong>
+                    <br>DNS: Domain Name &rarr; IP
+                    <br>ARP: IP &rarr; MAC
+                    <br>DHCP: Assigns IP Config
+                    <br>RARP: MAC &rarr; IP
+                </li>
+                <li>
+                    <span class="tag gate">GATE 2021</span>
+                    <strong>Statement Analysis:</strong>
+                    <br>S1: Destination MAC of ARP reply is Broadcast (False).
+                    <br>S2: Destination MAC of ARP request is Broadcast (True).
+                </li>
+            </ul>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS & IT: Routing Protocols Cheat Sheet</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid Diagrams -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #0f172a;
+            --accent: #f59e0b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-sidebar: #1e293b;
+            --text-main: #334155;
+            --text-head: #0f172a;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background-color: var(--bg-sidebar);
+            color: white;
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 100;
+        }
+
+        nav h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+        
+        nav h2 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+
+        nav ul { list-style: none; }
+        
+        nav li { margin-bottom: 0.5rem; }
+        
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Main Content */
+        main {
+            margin-left: 260px;
+            padding: 3rem 4rem;
+            flex: 1;
+            max-width: 1200px;
+        }
+
+        h1.page-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 3rem;
+        }
+
+        section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        h2.section-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            border-left: 5px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Content Elements */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        .card-highlight {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .card-warning {
+            background: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        ul.feature-list {
+            list-style-type: none;
+        }
+        
+        ul.feature-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        ul.feature-list li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* Code & Math */
+        .code-block {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        .formula {
+            text-align: center;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+        }
+
+        /* Collapsible details */
+        details {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        details[open] { background: white; border-color: var(--primary); }
+        summary { font-weight: 600; color: var(--primary); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            main { margin-left: 0; padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div>
+            <h1>CN: Routing</h1>
+            <div style="font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">Based on notes by Ankit Doyla Sir</div>
+        </div>
+        
+        <div>
+            <h2>Core Concepts</h2>
+            <ul>
+                <li><a href="#intro">Routing Algorithms</a></li>
+                <li><a href="#flooding">Flooding</a></li>
+                <li><a href="#dvr">Distance Vector Routing</a></li>
+            </ul>
+
+            <h2>Issues & Solutions</h2>
+            <ul>
+                <li><a href="#infinity">Count-to-Infinity</a></li>
+                <li><a href="#split-horizon">Split Horizon</a></li>
+                <li><a href="#instability">Node Instability</a></li>
+            </ul>
+
+            <h2>Practice</h2>
+            <ul>
+                <li><a href="#gate">Gateway Problems</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <h1 class="page-title">Routing Protocols</h1>
+        <p class="subtitle">Comprehensive Cheat Sheet for CS & IT Engineering</p>
+
+        <!-- Section 1: Classification -->
+        <section id="intro">
+            <h2 class="section-title">1. Routing Algorithms Classification</h2>
+            
+            <div class="mermaid">
+                graph TD
+                RA[Routing Algorithm] --> Static
+                RA --> Dynamic
+                Static --> Fixed[Non-Adaptive]
+                Dynamic --> Adaptive[Adaptive]
+                Adaptive --> DVR[Distance Vector Routing<br/>(1980s, Bellman-Ford)]
+                Adaptive --> LSR[Link State Routing<br/>(1990s, Dijkstra)]
+                
+                style RA fill:#f1f5f9,stroke:#333,stroke-width:2px
+                style DVR fill:#dbeafe,stroke:#2563eb,stroke-width:2px
+                style LSR fill:#fffbeb,stroke:#f59e0b,stroke-width:2px
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <h3>Static Routing</h3>
+                    <ul class="feature-list">
+                        <li>Routes are manually configured by the administrator.</li>
+                        <li><strong>Pros:</strong> No bandwidth usage for updates, secure.</li>
+                        <li><strong>Cons:</strong> No fault tolerance, difficult to scale.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Dynamic Routing</h3>
+                    <ul class="feature-list">
+                        <li>Routes are calculated automatically based on topology.</li>
+                        <li><strong>Pros:</strong> Scalable, handles failure automatically.</li>
+                        <li><strong>Cons:</strong> Uses bandwidth/CPU for updates.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Flooding -->
+        <section id="flooding">
+            <h2 class="section-title">2. Flooding</h2>
+            <p>Flooding is a simple static routing algorithm where every incoming packet is sent through <strong>every outgoing link except the one it arrived on</strong>.</p>
+
+            <div class="grid-2">
+                <div>
+                    <h3>Visual Logic</h3>
+                    <div class="mermaid">
+                        graph LR
+                        A((A)) -->|Packet| B((B))
+                        B -->|Copy 1| C((C))
+                        B -->|Copy 2| D((D))
+                        B -->|Copy 3| E((E))
+                        style A fill:#bfdbfe
+                        style B fill:#fde68a
+                    </div>
+                </div>
+                <div>
+                    <h3>Analysis</h3>
+                    <table>
+                        <tr>
+                            <th>Advantages</th>
+                            <th>Disadvantages</th>
+                        </tr>
+                        <tr>
+                            <td><strong>No Routing Table:</strong> Simple implementation.</td>
+                            <td><strong>High Traffic:</strong> Creates congestion.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reliable:</strong> If a path exists, packet finds it.</td>
+                            <td><strong>Duplicate Packets:</strong> Receiver gets multiple copies.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shortest Path:</strong> Guaranteed to find the fastest route (along with others).</td>
+                            <td><strong>Loops:</strong> Infinite looping if no TTL is used.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Distance Vector Routing -->
+        <section id="dvr">
+            <h2 class="section-title">3. Distance Vector Routing (DVR)</h2>
+            <p>Also known as the <strong>Bellman-Ford Algorithm</strong>. Routers exchange knowledge about the network with their immediate neighbors.</p>
+            
+            <div class="card-highlight">
+                <strong>Key Principle:</strong> "Tell your neighbors about the world."
+            </div>
+
+            <div class="formula">
+                $$ D_x(y) = \min_v \{ c(x,v) + D_v(y) \} $$
+                <div style="font-size: 0.85rem; color: #64748b; margin-top: 0.5rem;">
+                    Where \(D_x(y)\) is cost from x to y, \(c(x,v)\) is cost to neighbor v, and \(D_v(y)\) is neighbor's distance to y.
+                </div>
+            </div>
+
+            <h3>The Process</h3>
+            <ol style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                <li><strong>Initialization:</strong> Each router creates a table with distance to itself (0) and immediate neighbors (link cost). Distance to unknown nodes is \(\infty\).</li>
+                <li><strong>Exchange:</strong> Routers send their distance vectors to immediate neighbors.</li>
+                <li><strong>Update:</strong> Upon receiving a vector, a router recalculates routes using the Bellman-Ford equation.</li>
+            </ol>
+
+            <details>
+                <summary>Step-by-Step Calculation Example (Detailed)</summary>
+                <p>Consider 3 nodes: A --(2)-- B --(3)-- C.</p>
+                <p><strong>Step 1 (Local):</strong><br>
+                A knows: A=0, B=2, C=\(\infty\)<br>
+                B knows: A=2, B=0, C=3<br>
+                C knows: A=\(\infty\), B=3, C=0</p>
+                
+                <p><strong>Step 2 (Exchange - B sends to A):</strong><br>
+                A computes distance to C via B: \( Cost(A,B) + Dist(B,C) = 2 + 3 = 5 \).<br>
+                Since \(5 < \infty\), A updates routing table for C to 5.</p>
+            </details>
+        </section>
+
+        <!-- Section 4: Problems with DVR -->
+        <section id="infinity">
+            <h2 class="section-title">4. Problems in DVR</h2>
+            
+            <h3>The Count-to-Infinity Problem</h3>
+            <p>DVR converges slowly to "bad news" (link failures).</p>
+
+            <div class="grid-2">
+                <div class="card-highlight">
+                    <h4>Good News Spreads Fast</h4>
+                    <p>When a link cost decreases or a node is added, the information propagates quickly because nodes immediately find a lower cost.</p>
+                </div>
+                <div class="card-warning">
+                    <h4>Bad News Spreads Slow</h4>
+                    <p>When a link fails or cost increases, nodes may cycle updates amongst themselves, slowly incrementing the cost towards \(\infty\).</p>
+                </div>
+            </div>
+
+            <h3>Scenario: A --- B --- C</h3>
+            <p>Suppose links have cost 1. C goes down (Cost to C becomes \(\infty\)).</p>
+            <div class="mermaid">
+                sequenceDiagram
+                    participant B
+                    participant A
+                    Note over B: Link to C breaks
+                    Note over B: B still thinks A has a path to C (cost 2)
+                    B->>B: Updates route to C via A: 1 + 2 = 3
+                    B->>A: "I can reach C with cost 3"
+                    A->>A: Updates route to C via B: 1 + 3 = 4
+                    A->>B: "I can reach C with cost 4"
+                    Note right of A: This loops until infinity
+            </div>
+            <p style="margin-top:1rem;">This creates <strong>Infinite Looping</strong> and excessive traffic.</p>
+        </section>
+
+        <!-- Section 5: Solutions -->
+        <section id="split-horizon">
+            <h2 class="section-title">5. Solutions: Split Horizon</h2>
+            
+            <p><strong>Rule:</strong> Do not send routing information about a destination back to the neighbor from whom you learned it.</p>
+            
+            <div class="formula">
+                "If B routes to C via A, B should not tell A that it has a path to C."
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <h3>Mechanism</h3>
+                    <ul class="feature-list">
+                        <li>Prevents 2-node loops immediately.</li>
+                        <li>Solves the Count-to-Infinity problem for linear/small loops.</li>
+                        <li><strong>Note:</strong> Split Horizon <em>reduces</em> chance of loops but does not solve the <strong>Convergence Problem</strong> entirely (especially in 3+ node loops).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Limitations</h3>
+                    <p>For complex network instability or larger loops, DVR still struggles. The ultimate solution for fast convergence is migrating to <strong>Link State Routing</strong> (OSPF).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Practice Problems -->
+        <section id="gate">
+            <h2 class="section-title">6. Common Problem Patterns (GATE/Exam)</h2>
+
+            <div class="card-warning">
+                <strong>Key Insight:</strong> In DVR, routers initially only know their direct neighbors. Tables "stabilize" after \(N-1\) rounds (where N is longest path).
+            </div>
+
+            <details open>
+                <summary>Problem 1: Route Stabilization</summary>
+                <div style="margin-top: 1rem;">
+                    <strong>Scenario:</strong> A network with links having weights. After tables stabilize, how many links are <strong>unused</strong>?<br><br>
+                    <em>Strategy:</em> 
+                    <ol>
+                        <li>Draw the topology.</li>
+                        <li>Find the Shortest Path Tree (SPT) from every node to every other node (mentally or using Dijkstra logic, as stabilized DVR finds shortest paths).</li>
+                        <li>Identify edges that are never part of any shortest path.</li>
+                    </ol>
+                    <div class="mermaid">
+                        graph LR
+                        A((A)) ---|7| B((B))
+                        B ---|1| C((C))
+                        C ---|2| D((D))
+                        D ---|2| E((E))
+                        E ---|1| A
+                        B ---|8| E
+                        style B stroke:#f59e0b,stroke-width:2px
+                        style E stroke:#f59e0b,stroke-width:2px
+                        linkStyle 5 stroke:#ef4444,stroke-width:4px
+                    </div>
+                    <p><strong>Analysis:</strong> In the diagram above (from lecture notes), the link B-E (cost 8) is very expensive compared to B-A-E (cost 7+1=8) or B-C-D-E (cost 1+2+2=5). B-E is likely unused.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Problem 2: Updating Vectors (The "F" Router)</summary>
+                <div style="margin-top: 1rem;">
+                    <strong>Given:</strong> 
+                    Router F has neighbors A, E, D, G with link delays 8, 10, 12, 6.
+                    F receives vectors from neighbors.
+                    <br><br>
+                    <strong>Logic:</strong>
+                    New \(D_F(X) = \min [ \text{Delay}(F,Neighbor) + \text{Vector}_{Neighbor}(X) ]\)
+                    <br><br>
+                    <strong>Calculation:</strong>
+                    Check every destination (A, B, C...) via every neighbor (A, E, D, G) and pick the minimum sum.
+                </div>
+            </details>
+        </section>
+
+    </main>
+</body>
+</html>

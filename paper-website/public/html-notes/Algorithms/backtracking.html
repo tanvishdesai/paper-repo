@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Algorithm Cheat Sheet: Backtracking & Branch and Bound</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Mermaid -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f59e0b;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        nav h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li { margin-bottom: 0.5rem; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            flex-grow: 1;
+            padding: 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 { color: var(--text); }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-left: 5px solid var(--secondary);
+            padding-left: 1rem;
+        }
+
+        /* Concepts */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .highlight {
+            background-color: #fef3c7;
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Code & Math */
+        .formula-box {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid var(--border);
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--primary-dark);
+            font-size: 0.9em;
+        }
+
+        /* Interactive Details */
+        details {
+            margin-top: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        details summary {
+            background: #f8fafc;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        details summary::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+
+        details[open] summary::after {
+            content: '-';
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .details-content {
+            padding: 1.5rem;
+            background: var(--surface);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+        }
+
+        /* N-Queens Visual */
+        .chess-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 50px);
+            grid-template-rows: repeat(4, 50px);
+            border: 2px solid #333;
+            width: fit-content;
+            margin: 1rem auto;
+        }
+
+        .chess-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .chess-cell:nth-child(odd) { background: #fff; }
+        .chess-cell:nth-child(even) { background: #ddd; }
+        /* Fix coloring for alternating rows */
+        .chess-cell:nth-child(8n+2), .chess-cell:nth-child(8n+4), .chess-cell:nth-child(8n+6), .chess-cell:nth-child(8n+8) { background: #fff !important; }
+        .chess-cell:nth-child(8n+1), .chess-cell:nth-child(8n+3), .chess-cell:nth-child(8n+5), .chess-cell:nth-child(8n+7) { background: #ddd !important; }
+        
+        .queen { color: var(--primary); }
+        .cross { color: var(--danger); font-size: 1rem; }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-bt { background: #dbeafe; color: #1e40af; }
+        .badge-bb { background: #fef3c7; color: #b45309; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            nav { width: 100%; height: auto; position: relative; }
+            main { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav>
+        <h3>Contents</h3>
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#backtracking">Backtracking Theory</a></li>
+            <li><a href="#state-space">State Space Trees</a></li>
+            <li><a href="#n-queens">N-Queens Problem</a></li>
+            <li><a href="#sum-subsets">Sum of Subsets</a></li>
+            <li><a href="#graph-coloring">Graph Coloring</a></li>
+            <li><a href="#bnb">Branch & Bound</a></li>
+            <li><a href="#comparison">Comparison</a></li>
+        </ul>
+        <div style="margin-top: 2rem; padding: 1rem; background: #e0f2fe; border-radius: 8px;">
+            <small style="color: #0369a1; font-weight: bold;">Quick Fact</small>
+            <p style="font-size: 0.8rem; margin: 0.5rem 0 0; color: #0c4a6e;">
+                Backtracking uses <b>DFS</b> (Stack).<br>
+                Branch & Bound uses <b>BFS</b> (Queue).
+            </p>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <header>
+            <h1>Backtracking & Branch and Bound</h1>
+            <p class="subtitle">Comprehensive Cheat Sheet based on CS & IT Engineering Notes by Dr. Khaleel Khan</p>
+        </header>
+
+        <!-- Introduction -->
+        <section id="intro" class="card">
+            <h2>Overview</h2>
+            <p>These are general techniques for solving problems that require searching for a set of solutions or an optimal solution satisfying specific constraints. </p>
+            <div class="concept-grid">
+                <div>
+                    <h3><span class="badge badge-bt">Backtracking</span></h3>
+                    <p>Builds candidates for the solution incrementally and abandons a candidate ("backtracks") as soon as it determines that the candidate cannot possibly be completed to a valid solution.</p>
+                </div>
+                <div>
+                    <h3><span class="badge badge-bb">Branch & Bound</span></h3>
+                    <p>Similar to backtracking but usually used for optimization problems. It uses a bounding function to prune branches of the state-space tree that cannot yield a better solution than the one already found.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Backtracking Deep Dive -->
+        <section id="backtracking" class="card">
+            <h2>1. Backtracking Framework</h2>
+            <p>First coined by <b>D.H. Lehmer</b> (1950s). The solution is typically expressed as an n-tuple \( \langle x_1, x_2, ..., x_n \rangle \) chosen from a finite set \( S_i \).</p>
+            
+            <div class="formula-box">
+                Backtracking = DFS + Bounding Functions
+            </div>
+
+            <p>The goal is often to find a vector that maximizes, minimizes, or satisfies a criterion function \( P(x_1, ... x_n) \).</p>
+
+            <div class="mermaid">
+            flowchart LR
+                A[Start Node] --> B{Feasible?}
+                B -- Yes --> C[Add to Solution Path]
+                C --> D{Is Complete?}
+                D -- No --> A
+                D -- Yes --> E[Success]
+                B -- No --> F[Kill Node / Backtrack]
+                F --> G[Return to Parent]
+            </div>
+        </section>
+
+        <!-- State Space Trees -->
+        <section id="state-space" class="card">
+            <h2>2. State-Space Trees</h2>
+            <p>The tree organization of the solution space. Nodes are numbered as in <b>Depth First Search (DFS)</b>.</p>
+            
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                <div style="flex: 1;">
+                    <h3>Fixed Tuple Size</h3>
+                    <p>Example: <b>N-Queens</b>. Every solution has exactly \( n \) components.</p>
+                    <small>Tree Depth = \( n \)</small>
+                </div>
+                <div style="flex: 1;">
+                    <h3>Variable Tuple Size</h3>
+                    <p>Example: <b>Sum of Subsets</b>. Solutions can have varying lengths.</p>
+                    <small>Tree Depth varies based on selection.</small>
+                </div>
+            </div>
+
+            <details>
+                <summary>Visualizing the Pruning Process</summary>
+                <div class="details-content">
+                    <p>When a node is reached, the <b>Bounding Function</b> checks if it can lead to a valid solution. If not, the node is "killed" (bounded), and we backtrack to the parent.</p>
+                    <div class="mermaid">
+                    graph TD
+                        Root((Start))
+                        Root --> N1((1))
+                        Root --> N2((2))
+                        N1 --> N3((3))
+                        N1 --> N4((4))
+                        N2 --> N5((5))
+                        N2 --> N6((Pruned))
+                        style N6 fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+                        N5 --> N7((Valid))
+                        style N7 fill:#ccffcc,stroke:#00cc00
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- N-Queens -->
+        <section id="n-queens" class="card">
+            <h2>3. The N-Queens Problem</h2>
+            <p>Place \( n \) queens on an \( n \times n \) chessboard so that no two queens attack each other (no shared row, column, or diagonal).</p>
+            
+            <div style="display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;">
+                <div style="flex: 1;">
+                    <h3>Formulation</h3>
+                    <ul>
+                        <li><b>Input:</b> \( n = 4 \) (Example)</li>
+                        <li><b>Vector:</b> \( x[1...n] = \langle x_1, x_2, x_3, x_4 \rangle \)</li>
+                        <li><b>Meaning:</b> \( x_i \) is the column position of the queen in row \( i \).</li>
+                        <li><b>Constraint:</b> \( 1 \le x_i \le n \)</li>
+                    </ul>
+                    <div class="formula-box">
+                        Example Solution Vector: \( \langle 2, 4, 1, 3 \rangle \)
+                    </div>
+                </div>
+                
+                <div style="flex: 0 0 250px;">
+                    <h3 style="text-align: center;">4x4 Solution</h3>
+                    <div class="chess-grid">
+                        <!-- Row 1 -->
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell queen">♛</div>
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell"></div>
+                        <!-- Row 2 -->
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell queen">♛</div>
+                        <!-- Row 3 -->
+                        <div class="chess-cell queen">♛</div>
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell"></div>
+                        <!-- Row 4 -->
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell"></div>
+                        <div class="chess-cell queen">♛</div>
+                        <div class="chess-cell"></div>
+                    </div>
+                    <p style="text-align: center; font-size: 0.8rem; color: #666;">Vector: 2, 4, 1, 3</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sum of Subsets -->
+        <section id="sum-subsets" class="card">
+            <h2>4. Sum of Subsets</h2>
+            <p>Given \( n \) distinct positive numbers (weights) and a target sum \( M \), find all subsets that sum exactly to \( M \).</p>
+            
+            <h3>Example</h3>
+            <p>\( n=5, \quad M=50 \)</p>
+            <p>\( A = \langle 10, 20, 30, 40, 50 \rangle \)</p>
+            
+            <div style="background: var(--bg); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--success);">
+                <b>Solutions:</b><br>
+                1. \( \{20, 30\} \) &rarr; \( 20+30=50 \)<br>
+                2. \( \{10, 40\} \) &rarr; \( 10+40=50 \)<br>
+                3. \( \{50\} \) &rarr; \( 50=50 \)
+            </div>
+
+            <h3>Tree Formulation</h3>
+            <p>Binary Tree approach: Each node represents the decision to <b>include (1)</b> or <b>exclude (0)</b> an item.</p>
+            <p>Total Nodes in worst case: \( 2^{n+1} - 1 \)</p>
+        </section>
+
+        <!-- Graph Coloring -->
+        <section id="graph-coloring" class="card">
+            <h2>5. Graph Coloring</h2>
+            <p>Paint the graph such that <b>no two adjacent vertices</b> share the same color.</p>
+            <ul>
+                <li><b>m:</b> Number of available colors.</li>
+                <li><b>Chromatic Number:</b> The smallest \( m \) needed to color the graph.</li>
+                <li><b>Output:</b> Vector \( \langle x_1, x_2, \dots, x_n \rangle \) where \( x_i \) is the color of vertex \( i \).</li>
+            </ul>
+        </section>
+
+        <!-- Branch & Bound -->
+        <section id="bnb" class="card">
+            <h2>6. Branch & Bound (B&B)</h2>
+            <p>Unlike Backtracking which explores depth-first, Branch & Bound typically explores breadth-first or based on a cost function.</p>
+
+            <div class="formula-box">
+                Branch & Bound = BFS + Bounding Functions
+            </div>
+
+            <h3>Queue Strategies</h3>
+            <ul>
+                <li><b>FIFO B&B:</b> Uses a standard Queue (First In, First Out).</li>
+                <li><b>LIFO B&B:</b> Uses a Stack (behaves like Backtracking).</li>
+                <li><b>LC (Least Cost) B&B:</b> Uses a Priority Queue to expand the most promising node first.</li>
+            </ul>
+
+            <div class="mermaid">
+                graph TD
+                A[Root] --> B[Child 1]
+                A --> C[Child 2]
+                A --> D[Child 3]
+                subgraph Queue
+                B
+                C
+                D
+                end
+                style Queue fill:#fff,stroke:#333,stroke-dasharray: 5 5
+            </div>
+            <p style="text-align: center; font-size: 0.9rem;">Nodes are generated level-by-level (BFS).</p>
+        </section>
+
+        <!-- Summary Table -->
+        <section id="comparison" class="card">
+            <h2>7. Summary & Comparison</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th width="20%">Feature</th>
+                        <th width="40%">Backtracking</th>
+                        <th width="40%">Branch & Bound</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Traversal</b></td>
+                        <td>DFS (Depth First Search)</td>
+                        <td>BFS (Breadth First Search) or Best First</td>
+                    </tr>
+                    <tr>
+                        <td><b>Data Structure</b></td>
+                        <td>Stack (Recursive or Explicit)</td>
+                        <td>Queue or Priority Queue</td>
+                    </tr>
+                    <tr>
+                        <td><b>Goal</b></td>
+                        <td>Find all solutions or one feasible solution</td>
+                        <td>Typically Optimization (Min/Max)</td>
+                    </tr>
+                    <tr>
+                        <td><b>Popular Problems</b></td>
+                        <td>
+                            • N-Queens<br>
+                            • Sum of Subsets<br>
+                            • Graph Coloring<br>
+                            • Hamiltonian Cycle
+                        </td>
+                        <td>
+                            • 0/1 Knapsack<br>
+                            • Traveling Salesperson (TSP)<br>
+                            • Job Sequencing (JSD)<br>
+                            • 15-Puzzle
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <footer style="margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            <p>Generated for Computer Science Engineering Students • Based on Lecture Notes</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

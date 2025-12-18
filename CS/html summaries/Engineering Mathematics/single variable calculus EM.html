@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE Single Variable Calculus Cheat Sheet</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Mermaid JS -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --accent: #0f172a;
+            --code-bg: #1e1e1e;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 250px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: #eff6ff;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        /* Cards and Sections */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Formula Boxes */
+        .formula-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .tag-calc { background: #dbeafe; color: #1e40af; }
+        .tag-impt { background: #fee2e2; color: #991b1b; }
+
+        /* Diagrams */
+        .diagram-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Collapsibles */
+        details {
+            margin: 1rem 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        details summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        details summary::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+
+        details[open] summary::after {
+            content: '-';
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .details-content {
+            padding: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <h2>GATE Calculus</h2>
+        <a href="#limits" class="nav-link">1. Limits</a>
+        <a href="#continuity" class="nav-link">2. Continuity</a>
+        <a href="#derivatives" class="nav-link">3. Applications of Derivatives</a>
+        <a href="#integrals" class="nav-link">4. Integral Calculus</a>
+        <a href="#series" class="nav-link">5. Series Expansions</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1>Single Variable Calculus</h1>
+        <p class="subtitle">Comprehensive high-density notes for GATE Engineering Mathematics. Covering Limits, Continuity, Differentiability, Integrals, and Series.</p>
+
+        <!-- Section 1: Limits -->
+        <section id="limits">
+            <h2>1. Limits</h2>
+            <div class="card">
+                <h3>Existence of a Limit</h3>
+                <p>For a limit to exist at \(x \to a\), the approach from the left must equal the approach from the right.</p>
+                <div class="formula-box">
+                    $$ \text{LHL} = \lim_{h \to 0} f(a-h) \quad = \quad \text{RHL} = \lim_{h \to 0} f(a+h) = \text{Finite Value} $$
+                </div>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Limit x->a] --> B{Check LHL & RHL}
+                        B -->|LHL == RHL| C[Limit Exists]
+                        B -->|LHL != RHL| D[Limit Does Not Exist]
+                        B -->|Values Infinite| D
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Indeterminate Forms & Methods</h3>
+                <p>Direct substitution often yields undefined results. Identify the form to choose the method.</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Form</th>
+                            <th>Method</th>
+                            <th>Key Formula/Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>\( \frac{0}{0}, \frac{\infty}{\infty} \)</td>
+                            <td>L-Hospital's Rule</td>
+                            <td>Differentiate Num & Denom separately: \( \lim \frac{f'(x)}{g'(x)} \)</td>
+                        </tr>
+                        <tr>
+                            <td>\( 0 \times \infty \)</td>
+                            <td>Rearrange</td>
+                            <td>Convert to \( \frac{0}{1/\infty} \) or \( \frac{\infty}{1/0} \)</td>
+                        </tr>
+                        <tr>
+                            <td>\( \infty - \infty \)</td>
+                            <td>Simplify</td>
+                            <td>Take LCM, Rationalize</td>
+                        </tr>
+                        <tr>
+                            <td>\( 1^\infty, \infty^0, 0^0 \)</td>
+                            <td>Logarithm / Exp Formula</td>
+                            <td>For \( 1^\infty \): \( e^{\lim_{x \to a} g(x)[f(x)-1]} \)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <details>
+                    <summary>Standard Limits Cheat Sheet</summary>
+                    <div class="details-content grid-2">
+                        <div class="formula-box">$$ \lim_{x \to 0} \frac{\sin x}{x} = 1 $$</div>
+                        <div class="formula-box">$$ \lim_{x \to 0} \frac{\tan x}{x} = 1 $$</div>
+                        <div class="formula-box">$$ \lim_{x \to 0} \frac{e^x - 1}{x} = 1 $$</div>
+                        <div class="formula-box">$$ \lim_{x \to 0} \frac{\ln(1+x)}{x} = 1 $$</div>
+                        <div class="formula-box">$$ \lim_{x \to a} \frac{x^n - a^n}{x-a} = n a^{n-1} $$</div>
+                        <div class="formula-box">$$ \lim_{x \to 0} \frac{a^x - 1}{x} = \ln a $$</div>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- Section 2: Continuity -->
+        <section id="continuity">
+            <h2>2. Continuity & Differentiability</h2>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Continuity Definition</h3>
+                    <p>A function \(f(x)\) is continuous at \(x=a\) if:</p>
+                    <div class="formula-box">
+                        $$ \text{LHL} = \text{RHL} = f(a) $$
+                    </div>
+                    <p>Graphically: No breaks, jumps, or holes.</p>
+                </div>
+                <div class="card">
+                    <h3>Differentiability</h3>
+                    <p>A function is differentiable at \(x=a\) if the derivative exists (smooth curve, no sharp corners).</p>
+                    <div class="formula-box">
+                        $$ \text{LHD} = \text{RHD} = \text{Finite} $$
+                    </div>
+                    <p class="tag tag-calc">Note</p> Differentiability \(\implies\) Continuity.
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Types of Discontinuity</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Discontinuity] --> B[Removable]
+                        A --> C[Irremovable]
+                        B --> B1[Limit exists but != f(a)]
+                        C --> C1[Jump: LHL != RHL]
+                        C --> C2[Infinite: LHL/RHL -> Inf]
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Applications of Derivatives -->
+        <section id="derivatives">
+            <h2>3. Applications of Derivatives</h2>
+            
+            <div class="card">
+                <h3>Maxima and Minima Strategy</h3>
+                <p>For a function \(y = f(x)\):</p>
+                <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Find \(f'(x)\) and solve \(f'(x) = 0\) to find <strong>Stationary Points</strong> (\(x_0\)).</li>
+                    <li>Compute \(f''(x)\) at \(x_0\).</li>
+                </ol>
+                
+                <table style="margin-top: 1rem;">
+                    <tr>
+                        <th>Condition</th>
+                        <th>Conclusion</th>
+                        <th>Visual</th>
+                    </tr>
+                    <tr>
+                        <td>\( f''(x_0) < 0 \)</td>
+                        <td>Local Maxima</td>
+                        <td>Concave Down (Hill)</td>
+                    </tr>
+                    <tr>
+                        <td>\( f''(x_0) > 0 \)</td>
+                        <td>Local Minima</td>
+                        <td>Concave Up (Valley)</td>
+                    </tr>
+                    <tr>
+                        <td>\( f''(x_0) = 0 \)</td>
+                        <td>Point of Inflection (Test higher derivatives)</td>
+                        <td>Curvature Change</td>
+                    </tr>
+                </table>
+
+                <div class="formula-box">
+                    <strong>Global Max/Min in \([a,b]\):</strong> Evaluate \(f(x)\) at all stationary points AND endpoints \(a, b\). The largest value is Global Max.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Integral Calculus -->
+        <section id="integrals">
+            <h2>4. Integral Calculus</h2>
+
+            <div class="card">
+                <h3>Definite Integral Properties</h3>
+                <p>Essential for simplifying complex integrals efficiently.</p>
+                <div class="grid-2">
+                    <div class="formula-box">
+                        <strong>King's Property:</strong><br>
+                        \(\int_a^b f(x) dx = \int_a^b f(a+b-x) dx\)
+                    </div>
+                    <div class="formula-box">
+                        <strong>Even/Odd ([-a, a]):</strong><br>
+                        Odd: 0 <br>
+                        Even: \(2 \int_0^a f(x) dx\)
+                    </div>
+                    <div class="formula-box">
+                        <strong>Wallis Formula:</strong><br>
+                        \(\int_0^{\pi/2} \sin^n x dx\) reduces based on n (odd/even).
+                    </div>
+                    <div class="formula-box">
+                        <strong>Newton-Leibniz:</strong><br>
+                        \(\frac{d}{dx} \int_{\phi(x)}^{\psi(x)} f(t) dt = f(\psi(x))\psi'(x) - f(\phi(x))\phi'(x)\)
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Improper Integrals</h3>
+                <p>Integrals with infinite limits or discontinuous integrands.</p>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph LR
+                        A[Improper Integral] --> B{Check Limit}
+                        B -->|Finite Value| C[Convergent]
+                        B -->|Infinite/Undefined| D[Divergent]
+                    </div>
+                </div>
+                <details>
+                    <summary>Example: Convergence of \( \int_1^\infty \frac{1}{x^p} dx \)</summary>
+                    <div class="details-content">
+                        <ul>
+                            <li>If \( p > 1 \): Convergent</li>
+                            <li>If \( p \le 1 \): Divergent</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h3>Area Under Curve</h3>
+                <div class="grid-2">
+                    <div>
+                        <strong>Vertical Strip:</strong>
+                        $$ A = \int_{x=a}^{x=b} (y_{upper} - y_{lower}) dx $$
+                    </div>
+                    <div>
+                        <strong>Horizontal Strip:</strong>
+                        $$ A = \int_{y=c}^{y=d} (x_{right} - x_{left}) dy $$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Series -->
+        <section id="series">
+            <h2>5. Series Expansions</h2>
+            <div class="card">
+                <h3>Taylor & Maclaurin Series</h3>
+                <p>Any differentiable function can be approximated as a polynomial sum.</p>
+                
+                <div class="formula-box">
+                    <strong>Taylor Series (about \(x=a\)):</strong><br>
+                    $$ f(x) = f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \dots $$
+                </div>
+                
+                <div class="formula-box">
+                    <strong>Maclaurin Series (about \(x=0\)):</strong><br>
+                    $$ f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \dots $$
+                </div>
+
+                <h3>Key Expansions</h3>
+                <div class="grid-2">
+                    <div>$$ e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots $$</div>
+                    <div>$$ \sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots $$</div>
+                    <div>$$ \cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots $$</div>
+                    <div>$$ \ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \dots $$</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
