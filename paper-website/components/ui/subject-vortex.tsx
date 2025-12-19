@@ -1,21 +1,14 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Text, Float, Stars, Sparkles, OrbitControls, Billboard } from "@react-three/drei";
+import { Text, Float, OrbitControls, Billboard } from "@react-three/drei";
 import { useMemo, useRef, useState, Suspense } from "react";
 import * as THREE from "three";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import AnoAI from "@/components/ui/animated-shader-background";
 
 // Helper to sanitize subject names for URLs
-function sanitizeKey(key: string): string {
-  return key
-    .replace(/‐/g, '-')
-    .replace(/–/g, '-')
-    .replace(/—/g, '-')
-    .replace(/[\x00-\x1F\x7F-\x9F]/g, '')
-    .replace(/[^\x20-\x7E]/g, '_');
-}
+
 
 // Individual Subject Card
 function SubjectItem({ 
@@ -152,12 +145,23 @@ export default function SubjectVortex({ subjects }: { subjects: string[] }) {
   }
 
   return (
-    <div className="w-full h-[600px] relative bg-black/90 rounded-xl overflow-hidden shadow-2xl border border-white/10">
-       {/* Overlay instruction */}
-       <div className="absolute top-4 left-0 w-full text-center z-10 pointer-events-none">
-        <p className="text-white/50 text-sm uppercase tracking-widest font-light">
-          Drag to Rotate • Click to Select
-        </p>
+    <div className="w-full h-[600px] relative z-10 rounded-xl overflow-hidden shadow-2xl border border-white/10 ring-1 ring-white/10">
+      <AnoAI />
+      
+      {/* Top Blend Gradient */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
+      {/* Bottom Blend Gradient */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+
+       {/* Left Scroll Slab */}
+       <div className="absolute top-0 left-0 w-16 h-full z-30 bg-gradient-to-r from-black/20 to-transparent cursor-auto touch-auto" />
+       
+       {/* Right Scroll Slab */}
+       <div className="absolute top-0 right-0 w-16 h-full z-30 bg-gradient-to-l from-black/20 to-transparent cursor-auto touch-auto" />
+
+       {/* Visual Helper Text (Centered) */}
+       <div className="absolute top-4 left-0 w-full text-center z-10 pointer-events-none opacity-50">
+        
       </div>
 
       <Canvas camera={{ position: [0, 0, 18], fov: 50 }} dpr={[1, 2]}>
@@ -167,10 +171,6 @@ export default function SubjectVortex({ subjects }: { subjects: string[] }) {
           
           <HelixScene subjects={subjects} onSelect={handleSelect} />
           
-          {/* Environment Effects */}
-          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-          <Sparkles count={200} scale={12} size={2} speed={0.4} opacity={0.5} color="#4f46e5" />
-          
           <OrbitControls 
             enableZoom={true} 
             enablePan={false} 
@@ -179,7 +179,6 @@ export default function SubjectVortex({ subjects }: { subjects: string[] }) {
             minDistance={5}
           />
           
-          <fog attach="fog" args={['#050505', 10, 40]} />
         </Suspense>
       </Canvas>
     </div>

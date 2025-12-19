@@ -12,6 +12,7 @@ import {
   EmptyState,
   PracticeMode,
 } from "@/components/questions";
+import { Filter } from "lucide-react";
 import { 
   usePaginatedQuestions, 
   useChaptersBySubject, 
@@ -125,53 +126,66 @@ export default function QuestionsPage() {
         onStartPractice={handleStartPractice}
       />
 
-      <div className="container mx-auto px-4 py-6">
-        <QuestionsFilters
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          yearFilter={yearFilter}
-          onYearFilterChange={setYearFilter}
-          chapterFilter={chapterFilter}
-          onChapterFilterChange={setChapterFilter}
-          sortBy={sortBy}
-          onSortByChange={setSortBy}
-          years={years}
-          chapters={chapters}
-          hasActiveFilters={hasActiveFilters}
-          onClearFilters={clearFilters}
-        />
-
-        {/* Questions List */}
-        {allQuestions.length === 0 ? (
-          <EmptyState
-            hasFilters={hasActiveFilters}
-            searchQuery={searchQuery}
-          />
-        ) : (
-          <div className="space-y-6 max-w-3xl mx-auto">
-            {allQuestions.map((question) => (
-              <QuestionCard
-                key={question._id}
-                question={question}
-                answers={question.answers || []}
-                onGetHelp={handleOpenChat}
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+          {/* Sidebar Filters */}
+          <aside className="lg:col-span-1 space-y-6 lg:sticky lg:top-24">
+            <div className="bg-card p-6 rounded-2xl border border-border/50 shadow-sm">
+              <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
+                <Filter className="h-5 w-5 text-primary" />
+                Filters
+              </h2>
+              <QuestionsFilters
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                yearFilter={yearFilter}
+                onYearFilterChange={setYearFilter}
+                chapterFilter={chapterFilter}
+                onChapterFilterChange={setChapterFilter}
+                sortBy={sortBy}
+                onSortByChange={setSortBy}
+                years={years}
+                chapters={chapters}
+                hasActiveFilters={hasActiveFilters}
+                onClearFilters={clearFilters}
               />
-            ))}
-            
-            {/* Load More Button */}
-            {status === "CanLoadMore" && (
-              <div className="flex justify-center pt-6">
-                <button
-                  onClick={() => loadMore(20)}
-                  disabled={isLoadingMore}
-                  className="px-6 py-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 disabled:opacity-50 transition-colors"
-                >
-                  {isLoadingMore ? "Loading..." : "Load More Questions"}
-                </button>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <main className="lg:col-span-3 space-y-6">
+            {allQuestions.length === 0 ? (
+              <EmptyState
+                hasFilters={hasActiveFilters}
+                searchQuery={searchQuery}
+              />
+            ) : (
+              <div className="space-y-6">
+                {allQuestions.map((question) => (
+                  <QuestionCard
+                    key={question._id}
+                    question={question}
+                    answers={question.answers || []}
+                    onGetHelp={handleOpenChat}
+                  />
+                ))}
+                
+                {/* Load More Button */}
+                {status === "CanLoadMore" && (
+                  <div className="flex justify-center pt-6">
+                    <button
+                      onClick={() => loadMore(20)}
+                      disabled={isLoadingMore}
+                      className="px-6 py-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 disabled:opacity-50 transition-colors"
+                    >
+                      {isLoadingMore ? "Loading..." : "Load More Questions"}
+                    </button>
+                  </div>
+                )}
               </div>
             )}
-          </div>
-        )}
+          </main>
+        </div>
 
         {/* Chat Dialog */}
         <ChatDialog

@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
 
 @layer base {
   :root {
@@ -73,9 +75,11 @@
   * {
     @apply border-border;
   }
+
   html {
     scroll-behavior: smooth;
   }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
@@ -86,6 +90,7 @@
 }
 
 @layer utilities {
+
   /* Custom animation utilities */
   .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
@@ -105,7 +110,7 @@
 
   /* Grid pattern background */
   .bg-grid-pattern {
-    background-image: 
+    background-image:
       linear-gradient(to right, hsl(var(--foreground) / 0.1) 1px, transparent 1px),
       linear-gradient(to bottom, hsl(var(--foreground) / 0.1) 1px, transparent 1px);
     background-size: 40px 40px;
@@ -143,6 +148,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -153,6 +159,7 @@
     transform: translateY(30px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
@@ -164,6 +171,7 @@
     transform: scale(0.9);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -171,21 +179,24 @@
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px) scale(1);
+
+  0%,
+  100% {
+    transform: translateY(0px);
   }
-  33% {
-    transform: translateY(-15px) scale(1.02);
-  }
-  66% {
-    transform: translateY(5px) scale(0.98);
+
+  50% {
+    transform: translateY(-10px);
   }
 }
 
 @keyframes gradient-shift {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -193,9 +204,12 @@
 
 /* Animation for the pulsing effect */
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -203,7 +217,9 @@
 
 /* Animation for the ping effect */
 @keyframes ping {
-  75%, 100% {
+
+  75%,
+  100% {
     transform: scale(2);
     opacity: 0;
   }
@@ -341,6 +357,7 @@
   min-height: 200px;
   display: flex;
   flex-direction: column;
+  z-index: 10;
 }
 
 .bento-item::before {
@@ -350,11 +367,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-    rgba(220, 38, 38, 0.08),
-    transparent 40%
-  );
+  background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+      rgba(220, 38, 38, 0.08),
+      transparent 40%);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -405,24 +420,4 @@
     padding: 1rem;
     min-height: 180px;
   }
-}
-
-@keyframes snow-fall {
-  0% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-.snowflake {
-  position: absolute;
-  top: -10px;
-  background: white;
-  border-radius: 50%;
-  pointer-events: none;
-  animation-name: snow-fall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
 }

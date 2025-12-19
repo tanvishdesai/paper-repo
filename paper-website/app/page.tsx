@@ -9,10 +9,9 @@ import { Button } from "@/components/ui/button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import SubjectVortex from "@/components/ui/subject-vortex";
-import NavigationDock from "@/components/navigation-dock";
 import DisplayCards from "@/components/ui/display-cards";
 import { CyberneticBentoGrid } from "@/components/ui/cybernetic-bento-grid";
-import { BookOpen, Target,  Zap, Brain, Trophy, CheckCircle2, Users, Star, ArrowRight, BarChart3, Filter,  Cpu, Database, Network, Settings, Calculator, Layers,  Sparkles, ChevronDown } from "lucide-react";
+import { BookOpen, Target,  Zap, Brain, Trophy, CheckCircle2, Users, Star, ArrowRight, BarChart3, Filter, Sparkles, ChevronDown } from "lucide-react";
 
 
 
@@ -124,7 +123,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="container mx-auto px-4 py-24">
+      <section id="features" className="container mx-auto px-4 py-24 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20 space-y-5">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary mb-4">
@@ -226,7 +225,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="container mx-auto px-4 py-24">
+      <section className="container mx-auto px-4 py-24 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           <Card className="border-border bg-card">
             <CardHeader className="space-y-6 py-12">
@@ -292,8 +291,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Navigation Dock */}
-      <NavigationDock />
     </div>
   );
 }

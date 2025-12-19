@@ -39,9 +39,7 @@ export default function NotesLayout({
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
-        <div className="container mx-auto p-6 max-w-5xl">
-          {children}
-        </div>
+        {children}
       </main>
     </div>
   );

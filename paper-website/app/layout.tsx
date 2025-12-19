@@ -21,7 +21,8 @@ export const metadata: Metadata = {
   description: "Comprehensive question bank with 1000+ previous year GATE questions across all Computer Science subjects. Practice smart, excel in your exams.",
 };
 
-import SnowOverlay from "@/components/SnowOverlay";
+import SnowfallWrapper from "@/components/SnowfallWrapper";
+import NavigationDock from "@/components/navigation-dock";
 
 export default function RootLayout({
   children,
@@ -34,7 +35,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased font-sans`}
         style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
       >
-        <SnowOverlay />
+        <SnowfallWrapper />
         <ConvexClientProvider>
           <ThemeProvider
             attribute="class"
@@ -43,6 +44,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <NavigationDock />
           </ThemeProvider>
         </ConvexClientProvider>
       </body>

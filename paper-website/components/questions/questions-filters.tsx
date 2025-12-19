@@ -53,14 +53,14 @@ export function QuestionsFilters({
       </div>
 
       {/* Filter Controls */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="space-y-4">
         <div className="space-y-2">
           <label className="text-sm font-medium flex items-center gap-2 text-foreground/80">
             <Filter className="h-4 w-4" />
             Year
           </label>
           <Select value={yearFilter} onValueChange={onYearFilterChange}>
-            <SelectTrigger className="h-10">
+            <SelectTrigger className="w-full h-10">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -80,7 +80,7 @@ export function QuestionsFilters({
             Chapter
           </label>
           <Select value={chapterFilter} onValueChange={onChapterFilterChange}>
-            <SelectTrigger className="h-10">
+            <SelectTrigger className="w-full h-10">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -100,7 +100,7 @@ export function QuestionsFilters({
             Sort By
           </label>
           <Select value={sortBy} onValueChange={onSortByChange}>
-            <SelectTrigger className="h-10">
+            <SelectTrigger className="w-full h-10">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

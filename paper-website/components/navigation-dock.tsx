@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useUser, SignInButton, UserButton } from "@clerk/nextjs";
 import {
@@ -7,16 +9,24 @@ import {
   BarChart3,
   Code,
   Key,
-  SunMoon,
+  Sun,
+  Moon,
   GraduationCap,
   FileText,
 } from 'lucide-react';
 
 import { Dock, DockIcon, DockItem, DockLabel } from '@/components/ui/dock';
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const NavigationDock = () => {
+  const { resolvedTheme, setTheme } = useTheme();
   const { isSignedIn } = useUser();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === "dark";
 
   const navigationItems = [
     {
@@ -64,10 +74,14 @@ const NavigationDock = () => {
     {
       title: 'Theme',
       icon: (
-        <SunMoon className='h-full w-full text-neutral-600 dark:text-neutral-300' />
+        isDark ? (
+          <Moon className='h-full w-full text-neutral-300' />
+        ) : (
+          <Sun className='h-full w-full text-neutral-600' />
+        )
       ),
       href: '#',
-      component: <ThemeToggle />,
+      onClick: () => setTheme(isDark ? "light" : "dark"),
     },
     ...(isSignedIn ? [{
       title: 'Account',
@@ -107,6 +121,7 @@ const NavigationDock = () => {
           <DockItem
             key={idx}
             className='aspect-square rounded-full bg-gray-200 dark:bg-neutral-800'
+            onClick={item.onClick}
           >
             <DockLabel>{item.title}</DockLabel>
             <DockIcon>

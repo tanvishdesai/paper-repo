@@ -28,20 +28,21 @@ export default async function ChapterPage({ params }: PageProps) {
   const noteUrl = `/html-notes/${subjectName}/${decodeURIComponent(chapterSlug)}.html`;
 
   return (
-    <div className="flex flex-col h-[calc(100vh-2rem)]">
-      <div className="flex items-center gap-4 mb-4 shrink-0">
+    <div className="fixed inset-0 md:left-64 top-0 z-30 bg-background flex flex-col">
+      <div className="flex items-center gap-4 p-4 border-b shrink-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Button variant="ghost" size="sm" asChild>
-          <Link href={`/notes/${subjectSlug}`} className="flex items-center gap-2">
+          <Link href={`/notes/${subjectSlug}`} className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
             Back to {subjectName}
           </Link>
         </Button>
+        <span className="font-semibold text-lg truncate ml-2">{decodeURIComponent(chapterSlug)}</span>
       </div>
 
-      <div className="flex-1 w-full bg-white rounded-lg border overflow-hidden">
+      <div className="flex-1 w-full bg-background relative">
         <iframe 
           src={noteUrl} 
-          className="w-full h-full border-none"
+          className="w-full h-full border-none absolute inset-0"
           title="Note Content"
         />
       </div>

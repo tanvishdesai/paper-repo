@@ -100,7 +100,7 @@ export function ChatDialog({ isOpen, onClose, question }: ChatDialogProps) {
         if (structuredData.explanation && structuredData.steps) {
              isJson = true;
         }
-      } catch (e) {
+      } catch {
         // Not JSON, continue as text
       }
 
