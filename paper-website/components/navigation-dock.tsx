@@ -58,20 +58,6 @@ const NavigationDock = () => {
       href: '/notes',
     },
     {
-      title: 'API Docs',
-      icon: (
-        <Code className='h-full w-full text-neutral-600 dark:text-neutral-300' />
-      ),
-      href: '/api-docs',
-    },
-    ...(isSignedIn ? [{
-      title: 'API Keys',
-      icon: (
-        <Key className='h-full w-full text-neutral-600 dark:text-neutral-300' />
-      ),
-      href: '/api-keys',
-    }] : []),
-    {
       title: 'Theme',
       icon: (
         isDark ? (
