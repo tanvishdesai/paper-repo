@@ -1,0 +1,79 @@
+You are an expert GATE CS examiner, question paper setter, and exam strategist.
+
+I am providing you with a consolidated JSON dataset.
+Each entry represents LOW-EFFORT / HIGH-RETURN questions extracted year-wise
+from GATE CS previous year papers (1997 onwards).
+
+Each question already satisfies:
+- Low preparation effort
+- Formula-based or definition-based
+- Conservative filtering (no deep theory)
+
+YOUR TASK (SECOND PASS):
+
+1. Merge and analyze ALL entries across years.
+2. Identify REPEATED PATTERNS across different years.
+3. Group questions by:
+   Subject → Chapter → Topic
+4. For each group, compute:
+   - Number of distinct years the pattern appeared
+   - Typical marks (1 or 2)
+   - Stability of pattern (High / Medium / Low)
+
+DEFINE STABILITY AS:
+- High: Appears in ≥5 different years
+- Medium: Appears in 3–4 years
+- Low: Appears in 1–2 years
+
+5. Rank topics by HIGH RETURN using this priority:
+   (Stability × Marks) ÷ Preparation Effort
+
+6. Produce ONLY the following outputs.
+
+---------------------------------
+OUTPUT 1 — FINAL STRATEGY JSON
+---------------------------------
+
+Return STRICT JSON in the following format:
+
+{
+  "high_roi_topics": [
+    {
+      "subject": "",
+      "chapter": "",
+      "topic": "",
+      "years_appeared": [1999, 2004, 2012],
+      "frequency": 3,
+      "marks_per_question": 1,
+      "stability": "Medium",
+      "why_it_works": "",
+      "what_to_prepare": "",
+      "estimated_total_marks": 3
+    }
+  ],
+  "summary": {
+    "total_topics": 0,
+    "estimated_marks_range": "X–Y",
+    "strategy_note": ""
+  }
+}
+
+---------------------------------
+OUTPUT 2 — FAST TRACK NOTES
+---------------------------------
+
+After the JSON, also generate:
+
+A. A ONE-PAGE FORMULA / FACT LIST
+   - Bullet points only
+   - No explanations
+
+B. A 5–7 DAY CRASH PLAN
+   - Max 1.5 hours per day
+   - Day-wise topic grouping
+
+RULES:
+- Be conservative; exclude weak or unstable patterns
+- Do NOT invent new topics
+- Do NOT repeat similar topics separately
+- Prefer fewer, stronger topics over many weak ones

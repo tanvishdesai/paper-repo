@@ -1,4 +1,4 @@
-'use client';
+  'use client';
 
 import React, { useState, useEffect } from 'react';
 import Snowfall from 'react-snowfall';
@@ -20,7 +20,7 @@ export default function SnowfallWrapper() {
     <>
       {enabled && (
         <div className="fixed inset-0 pointer-events-none z-0" style={{ width: '100vw', height: '100vh' }}>
-          <Snowfall />
+          <Snowfall snowflakeCount={30}/>
         </div>
       )}
       <Button

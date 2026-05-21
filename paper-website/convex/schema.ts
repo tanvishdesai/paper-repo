@@ -53,6 +53,15 @@ export default defineSchema(
     })
       .index("by_user", ["userId", "questionId"])
       .index("by_user_attempted", ["userId", "attempted"]),
+
+    // NEW: Cached stats for performance
+    stats: defineTable({
+      type: v.string(), // "global"
+      totalQuestions: v.number(),
+      subjects: v.array(v.string()),
+      subjectCounts: v.any(), // Record<string, number>
+      updatedAt: v.number(),
+    }).index("by_type", ["type"]),
   },
   { schemaValidation: true }
 );

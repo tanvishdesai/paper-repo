@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,11 +18,13 @@ import { BookOpen, Target,  Zap, Brain, Trophy, CheckCircle2, Users, Star, Arrow
 export default function Home() {
   const router = useRouter();
   
-  // Fetch subjects
-  const subjects = useQuery(api.questions.getSubjects);
-  // Calculate total question count
-  const totalQuestions = useQuery(api.questions.getQuestionCount, {});
-  // Fetch detailed stats for per-subject counts
+  const generateStats = useMutation(api.stats.generateStats);
+  
+  // Fetch cached stats
+  const stats = useQuery(api.stats.getStats);
+  
+  const subjects = stats?.subjects || [];
+  const totalQuestions = stats?.totalQuestions || 0;
 
  
 
@@ -37,7 +39,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-20 md:py-32">
           <div className="max-w-6xl mx-auto text-center space-y-10">
             {/* Badge */}
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center gap-2">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm font-medium text-primary">
                 <Star className="h-4 w-4 fill-current" />
                 <span>Trusted by 10,000+ students</span>
